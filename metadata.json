@@ -1,0 +1,6 @@
+{
+  "name": "Klusbaas - Websites voor Vakmensen",
+  "description": "Jouw vak. Jouw website. Binnen een kwartier. Professionele websites voor timmermannen, hoveniers, schilders, loodgieters, elektriciens en stukadoors met interactieve prijscalculator en postcodechecker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

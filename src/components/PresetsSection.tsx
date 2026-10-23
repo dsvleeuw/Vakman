@@ -1,0 +1,321 @@
+import React from 'react';
+import type { SectorId, StyleDef } from '../types';
+import {
+  ORDER,
+  SECTORS,
+  STYLES,
+  getUnsplashUrl,
+  computePalette,
+  getPhotoSet,
+} from '../data/tradesData';
+import { ImageWithFallback } from './ImageWithFallback';
+
+interface PresetsSectionProps {
+  selectedSector: SectorId;
+  onSelectSector: (sectorId: SectorId) => void;
+  onOpenSite: (sectorId: SectorId, styleIndex: number) => void;
+  onChooseStyle: (sectorId: SectorId, styleIndex: number) => void;
+}
+
+export const PresetsSection: React.FC<PresetsSectionProps> = ({
+  selectedSector,
+  onSelectSector,
+  onOpenSite,
+  onChooseStyle,
+}) => {
+  const currentSector = SECTORS[selectedSector];
+
+  return (
+    <section
+      id="presets"
+      className="py-12 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12 max-w-7xl mx-auto w-full flex flex-col gap-10 scroll-mt-24"
+    >
+      {/* Header and Trade Selector */}
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 flex-wrap">
+        <div className="flex flex-col gap-2.5">
+          <span className="font-mono text-xs font-semibold tracking-wider text-stone-500 uppercase">
+            STAP 1 · KIES JE VAK
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-stone-900 leading-none">
+            Vijf stijlen voor {currentSector.name.toLowerCase()}s.
+          </h2>
+        </div>
+
+        {/* Sector Tabs */}
+        <div
+          id="vakken"
+          className="flex gap-1.5 p-1.5 bg-white rounded-full border border-stone-200 shadow-sm flex-wrap overflow-x-auto max-w-full"
+        >
+          {ORDER.map((secId) => {
+            const sec = SECTORS[secId];
+            const isSelected = secId === selectedSector;
+            const thumb = getUnsplashUrl(sec.pool[0], 120);
+
+            return (
+              <button
+                key={secId}
+                onClick={() => onSelectSector(secId)}
+                className={`h-11 pl-1.5 pr-4 rounded-full border-0 cursor-pointer flex items-center gap-2 text-sm font-bold transition-all duration-200 whitespace-nowrap ${
+                  isSelected
+                    ? 'bg-stone-900 text-white shadow-sm'
+                    : 'bg-transparent text-stone-700 hover:bg-stone-100'
+                }`}
+              >
+                <span className="w-8 h-8 rounded-full overflow-hidden shrink-0">
+                  <ImageWithFallback
+                    src={thumb}
+                    alt={sec.name}
+                    className="w-full h-full object-cover"
+                  />
+                </span>
+                {sec.name}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 5 Style Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {STYLES.map((style: StyleDef, idx: number) => {
+          const pal = computePalette(currentSector, style);
+          const photos = getPhotoSet(currentSector, idx);
+
+          return (
+            <div
+              key={style.id}
+              className="flex flex-col gap-4 group"
+            >
+              {/* Miniature Layout Preview Card */}
+              <button
+                onClick={() => onOpenSite(selectedSector, idx)}
+                className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative cursor-pointer border-0 p-0 shadow-md transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-xl text-left"
+                style={{
+                  background: pal.bg,
+                  color: pal.fg,
+                }}
+                aria-label={`Bekijk ${style.name} stijl voor ${currentSector.name}`}
+              >
+                {/* 1. Split Layout Thumbnail */}
+                {style.layout === 'split' && (
+                  <div className="absolute inset-0 grid grid-cols-12 gap-3 p-4 items-center">
+                    <div className="col-span-7 flex flex-col gap-2.5">
+                      <span
+                        className="text-lg sm:text-xl font-bold leading-tight"
+                        style={{
+                          fontFamily: style.display,
+                          fontWeight: style.dw,
+                          letterSpacing: style.ls,
+                        }}
+                      >
+                        {currentSector.headline}
+                      </span>
+                      <span
+                        className="self-start h-6 px-2.5 text-[11px] font-bold flex items-center"
+                        style={{
+                          borderRadius: pal.radius,
+                          background: pal.accent,
+                          color: pal.onAccent,
+                        }}
+                      >
+                        Offerte
+                      </span>
+                    </div>
+                    <div
+                      className="col-span-5 h-full overflow-hidden shadow-inner"
+                      style={{ borderRadius: pal.radiusLg }}
+                    >
+                      <ImageWithFallback
+                        src={photos.hero}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. Bleed Layout Thumbnail */}
+                {style.layout === 'bleed' && (
+                  <div className="absolute inset-0">
+                    <ImageWithFallback
+                      src={photos.hero}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+                    <div className="absolute left-4 right-4 bottom-4 flex flex-col gap-2 text-white">
+                      <span
+                        className="text-xl sm:text-2xl font-bold leading-tight"
+                        style={{
+                          fontFamily: style.display,
+                          fontWeight: style.dw,
+                          letterSpacing: style.ls,
+                        }}
+                      >
+                        {currentSector.headline}
+                      </span>
+                      <span
+                        className="self-start h-6 px-2.5 text-[11px] font-bold flex items-center"
+                        style={{
+                          borderRadius: pal.radius,
+                          background: pal.accent,
+                          color: pal.onAccent,
+                        }}
+                      >
+                        Offerte in 1 minuut
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* 3. Bold Layout Thumbnail */}
+                {style.layout === 'bold' && (
+                  <div
+                    className="absolute inset-0 p-4 flex flex-col justify-between"
+                    style={{
+                      background: pal.accent,
+                      color: pal.onAccent,
+                    }}
+                  >
+                    <span
+                      className="text-2xl sm:text-3xl font-black leading-tight max-w-[12ch]"
+                      style={{
+                        fontFamily: style.display,
+                        fontWeight: style.dw,
+                        letterSpacing: style.ls,
+                      }}
+                    >
+                      {currentSector.headline}
+                    </span>
+                    <div className="h-[40%] -mx-4 -mb-4 overflow-hidden [clip-path:polygon(0_20%,100%_0,100%_100%,0_100%)]">
+                      <ImageWithFallback
+                        src={photos.hero}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 4. Editorial Layout Thumbnail */}
+                {style.layout === 'editorial' && (
+                  <div className="absolute inset-0 p-4 flex flex-col gap-2">
+                    <span
+                      className="text-2xl sm:text-3xl font-normal leading-none"
+                      style={{
+                        fontFamily: style.display,
+                        fontWeight: style.dw,
+                        letterSpacing: style.ls,
+                      }}
+                    >
+                      {currentSector.headline}
+                    </span>
+                    <div className="flex-1 -mx-4 -mb-4 mt-2 overflow-hidden">
+                      <ImageWithFallback
+                        src={photos.hero}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 5. Mosaic Layout Thumbnail */}
+                {style.layout === 'mosaic' && (
+                  <div className="absolute inset-0 p-4 flex flex-col gap-2 text-center items-center">
+                    <span
+                      className="text-base sm:text-lg font-semibold leading-tight line-clamp-1"
+                      style={{
+                        fontFamily: style.display,
+                        fontWeight: style.dw,
+                        letterSpacing: style.ls,
+                      }}
+                    >
+                      {currentSector.headline}
+                    </span>
+                    <div className="flex-1 w-full grid grid-cols-3 grid-rows-2 gap-1.5 mt-1">
+                      <div
+                        className="col-span-2 row-span-2 overflow-hidden"
+                        style={{ borderRadius: pal.radiusLg }}
+                      >
+                        <ImageWithFallback
+                          src={photos.hero}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div
+                        className="overflow-hidden"
+                        style={{ borderRadius: pal.radiusLg }}
+                      >
+                        <ImageWithFallback
+                          src={photos.e}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div
+                        className="overflow-hidden"
+                        style={{ borderRadius: pal.radiusLg }}
+                      >
+                        <ImageWithFallback
+                          src={photos.d}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </button>
+
+              {/* Card Meta & Details */}
+              <div className="flex justify-between items-start gap-3">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-mono text-xs font-semibold text-stone-400">
+                      0{idx + 1}
+                    </span>
+                    <h3 className="text-xl font-extrabold text-stone-900 tracking-tight m-0">
+                      {style.name}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-stone-600 leading-relaxed m-0 line-clamp-2">
+                    {style.desc}
+                  </p>
+                </div>
+                {/* Swatches */}
+                <div className="flex gap-1.5 shrink-0 pt-1" title="Kleuraccent en achtergrond">
+                  <span
+                    className="w-4 h-4 rounded-full border border-black/10 shadow-sm"
+                    style={{ background: pal.accent }}
+                  />
+                  <span
+                    className="w-4 h-4 rounded-full border border-black/15 shadow-sm"
+                    style={{ background: pal.bg }}
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2.5 pt-1">
+                <button
+                  onClick={() => onOpenSite(selectedSector, idx)}
+                  className="flex-1 h-11 rounded-full border-2 border-stone-900 bg-transparent hover:bg-white text-stone-900 text-sm font-bold cursor-pointer transition-colors duration-200"
+                >
+                  Bekijk site
+                </button>
+                <button
+                  onClick={() => onChooseStyle(selectedSector, idx)}
+                  className="flex-1 h-11 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold cursor-pointer transition-all duration-200 hover:-translate-y-0.5"
+                >
+                  Kies deze
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};

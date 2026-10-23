@@ -1,0 +1,143 @@
+export type SectorId = 'timmerman' | 'hovenier' | 'schilder' | 'loodgieter' | 'elektricien' | 'stukadoor';
+
+export type StyleId = 'klassiek' | 'modern' | 'krachtig' | 'donker' | 'minimaal';
+
+export type LayoutType = 'split' | 'bleed' | 'bold' | 'editorial' | 'mosaic';
+
+export interface StyleDef {
+  id: StyleId;
+  name: string;
+  layout: LayoutType;
+  desc: string;
+  display: string;
+  dw: number;
+  ls: string;
+}
+
+export interface ServiceItem {
+  n: string;
+  d: string;
+  p: string;
+  nr?: string;
+}
+
+export interface WorkProject {
+  t: string;
+  c: string;
+  y: string;
+  img?: string;
+}
+
+export interface ReviewItem {
+  q: string;
+  who: string;
+}
+
+export interface QuizOption {
+  l: string;
+  h: string;
+  b?: number;
+  a?: number;
+}
+
+export interface QuizQuestion {
+  q: string;
+  o: QuizOption[];
+}
+
+export interface SectorData {
+  id: SectorId;
+  name: string;
+  biz: string;
+  owner: string;
+  city: string;
+  phone: string;
+  near: string[];
+  pcExample: string;
+  hD: number;
+  hB: number;
+  cf: number;
+  vivid?: string;
+  vividLight?: boolean;
+  since: string;
+  rating: string;
+  reviewCount: number;
+  pool: string[];
+  kicker: string;
+  headline: string;
+  intro: string;
+  cta1: string;
+  cta2: string;
+  about: string;
+  servicesTitle: string;
+  services: ServiceItem[];
+  marks: string[];
+  workNote: string;
+  work: WorkProject[];
+  flow: QuizQuestion[];
+  estNote: string;
+  reviews: ReviewItem[];
+}
+
+export interface Palette {
+  bg: string;
+  card: string;
+  fg: string;
+  muted: string;
+  line: string;
+  soft: string;
+  accent: string;
+  onAccent: string;
+  accentText: string;
+  invBg: string;
+  invFg: string;
+  invMuted: string;
+  invLine: string;
+  hi: string;
+  onHi: string;
+  dot?: string;
+  radius: string;
+  radiusSm: string;
+  radiusLg: string;
+  hdrA: string;
+}
+
+export interface ActiveSiteData extends SectorData, Palette {
+  display: string;
+  dw: number;
+  ls: string;
+  styleName: string;
+  styleId: StyleId;
+  layout: LayoutType;
+  img: {
+    hero: string;
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+    e: string;
+  };
+  nameLower: string;
+  domain: string;
+  bizLetter: string;
+  callLabel: string;
+  ownerFirstUpper: string;
+  hdrBg: string;
+  hiText: string;
+}
+
+export interface WizardFormData {
+  biz: string;
+  owner: string;
+  phone: string;
+  city: string;
+}
+
+export interface PublishedSiteRecord {
+  sector: SectorId;
+  styleIndex: number;
+  form: WizardFormData;
+  channel: 'WhatsApp' | 'E-mail' | 'Allebei';
+  disabledServices: Record<number, boolean>;
+  timestamp: number;
+}
