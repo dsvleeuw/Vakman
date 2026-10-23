@@ -1,29 +1,34 @@
-# Klusbaas - Websites voor Vakmensen (Enhanced Platform, Booking & Workspace Sync)
+# Klusbaas - Websites voor Vakmensen (Platform, Seller Sales Engine & Workspace Sync)
 
-Klusbaas is a specialized web platform and instant website generator tailored for tradespeople (craftsmen) in the Netherlands—including Carpenters, Gardeners, Painters, Plumbers, Electricians, and Plasterers. It enables craftsmen to generate and launch a high-converting website in 15 minutes with 30 curated design style presets, a live price calculator, postal code service area validator, customer appointment booking synced with Google Calendar, and PDF quote exports saved to Google Drive.
+Klusbaas is a specialized web platform and instant website generator designed for tradespeople (timmermannen, hoveniers, schilders, loodgieters, elektriciens, stukadoors, dakdekkers) and web sellers/agencies. It features 30 trade-style presets, real-time interactive website building, trade-specific smart tools, transparent pricing tiers (€595 / €995 / €1.795 excl. btw), WhatsApp + E-mail sales lead capture, and Google Calendar & Drive synchronization.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The plan is updated to incorporate an interactive customer appointment booking calendar with Google Calendar sync, PDF quote export to Google Drive, and a hero landing page with live style comparison, ROI metrics, before/after showcases, and FAQ accordion.
-
-- **Confirmed Decision 1 (Customer Appointment Booking & Calendar Sync)**: Customers can pick a service, select an available date and time slot, enter their contact info, and book a consultation directly on the craftsman's site. Appointments sync seamlessly to Google Calendar (`calendar.events`).
-- **Confirmed Decision 2 (Google Drive Quote Sync & PDF Export)**: When a price estimate or appointment booking is completed, a formatted PDF summary is generated and saved directly to Google Drive (`drive.file`).
-- **Confirmed Decision 3 (Enhanced Landing Page Experience)**:
-  - High-impact hero with live trade stats banner (1.200+ vakmensen, 4.9★, 15 min. setup)
-  - Interactive Style Comparison Carousel for all 30 trade-style presets
-  - Before & After Project Comparison slider
-  - Craftsman FAQ accordion answering questions regarding KvK, custom .nl domain, and WhatsApp notifications
+> The user confirmed the sales/seller strategy based on Dutch market benchmarks:
+> - **Primary Sales Channels**: WhatsApp as the primary high-conversion button + short E-mail contact form (NO phone call options for sales).
+> - **Transparent Pricing Tiers**: €595 (Start / One-pager), €995 (Compleet / Meest gekozen), €1.795 (Maatwerk & Marketing) + €25/mnd all-in onderhoud (all prices excl. btw).
+> - **Key Differentiators**:
+>   1. **100% Eigenaar van je code & domein** (No lock-in).
+>   2. **Eerst zien, dan beslissen**: Live demo test-drive before paying a single euro.
+>   3. **Slimme vakspecifieke onderdelen**:
+>      - Spoedknop & lekkage-alarm (Loodgieter)
+>      - m²-calculator & kleurenkiezer (Schilder / Stukadoor)
+>      - Storingsmelding & 3-fase check (Elektricien)
+>      - Dakcheck-aanvraagformulier (Dakdekker)
+>      - Houtsoort & trapberekening (Timmerman)
+>      - Tuinonderhoudsabonnement (Hovenier)
+> - **Best Practice Placement**: Prominent seller CTA below the hero + dedicated "Klusbaas voor Verkopers & Bureau's" pricing & comparison section before the footer.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**: Klusbaas offers a complete ecosystem:
-  1. **Enhanced Landing Page**: High-converting showcase with live stats, style comparison slider, before/after project sliders, and FAQ.
-  2. **Craftsman Website (30 Style Combinations)**: Live craftsman sites featuring 5 design personalities (Vakwerk, Helder, Signaal, Avond, Puur) with integrated appointment booking, price calculator, and postcode area checker.
-  3. **15-Minute Builder Wizard**: Interactive 5-step website creator with real-time side-by-side preview and one-click publishing.
-- **Target Audience**: Dutch tradespeople (timmermannen, hoveniers, schilders, loodgieters, elektriciens, stukadoors) and homeowners.
+- **What It Does**:
+  1. **Klusbaas Platform & Sales Engine**: Pitch page for tradespeople with transparent package pricing (€595 / €995 / €1.795), market comparison, 100% ownership guarantee, and WhatsApp / E-mail lead capture.
+  2. **30 Presets & Trade-Specific Smart Tools**: Interactive calculators, emergency buttons, roof checks, and color pickers for 6 trade sectors.
+  3. **Customer Appointment Booking & Workspace Sync**: Clients can book appointments that sync directly with the craftsman's Google Calendar (`calendar.events`) and export PDF quote summaries to Google Drive (`drive.file`).
+  4. **15-Minute Builder Wizard**: Interactive 5-step website customization wizard with live side-by-side preview.
 
 ---
 
@@ -32,28 +37,31 @@ Klusbaas is a specialized web platform and instant website generator tailored fo
 - **Visual Identity & Theme**:
   - *Color Palette*: Warm, tactile neutrals (`oklch(0.965 0.008 80)`) with sector-specific brand accents (Amber for Carpenters, Forest Emerald for Gardeners, Ultramarine for Painters, Deep Navy for Plumbers, Electric Gold for Electricians, Soft Limestone for Plasterers).
   - *Typography*: `DM Serif Display` (Vakwerk), `Space Grotesk` (Helder), `Archivo 900` (Signaal), `Instrument Serif` (Avond), `Bricolage Grotesque` (Puur), and `JetBrains Mono` for data/pricing.
-- **Landing Page Enhancements**:
-  - **Live Stats Banner**: Highlights "1.280+ actieve vakmensen", "4,9/5 gemiddelde reviewscore", "15 minuten van start tot live".
-  - **30 Style Preset Tester**: Interactive switcher to preview all 6 trades across all 5 design layouts in real time.
-  - **Before & After Project Slider**: Interactive slider comparing raw renovation sites with finished craftsman results.
-  - **FAQ Accordion**: Expandable answers addressing domain ownership, pricing, and WhatsApp quote notifications.
 
-- **Interactive Customer Booking Module (`BookingCalendar`)**:
-  - Calendar picker for dates + morning / afternoon / evening time slots.
-  - Client detail form (Name, Phone, Address, Project Notes).
-  - Syncs to Google Calendar via `calendar.events` API.
-  - Generates downloadable PDF quote & booking summary with option to save to Google Drive.
+- **Seller Sales & Pricing Section (`src/components/SellerSalesSection.tsx`)**:
+  - **Differentiator Badges**: "100% Eigenaar van je code", "Eerst zien, dan beslissen", "Live binnen 10-14 dagen".
+  - **3 Package Cards**:
+    - **Pakket 1: Start (One-pager)** - €595 excl. btw (+ €25/mnd)
+    - **Pakket 2: Compleet (Meest Gekozen)** - €995 excl. btw (+ €25/mnd)
+    - **Pakket 3: Pro & Marketing** - €1.795 excl. btw (+ €25/mnd)
+  - **WhatsApp & E-mail Sales Modal**: Allows craftsmen to send their preferred trade & style choice directly to Klusbaas sales via WhatsApp or E-mail.
+
+- **Trade-Specific Smart Tools Integration**:
+  - **Loodgieter**: 24/7 Spoedknop + Lekkagedetectie formulier.
+  - **Schilder / Stukadoor**: m²-oppervlakte calculator + Kleurenkiezer.
+  - **Elektricien**: 3-fase & groepenkast check + Storingsmelding.
+  - **Timmerman / Hovenier**: Inmeetverzoek & Tuinonderhoudsabonnement.
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: Direct Google Calendar Integration via Client OAuth Bearer Tokens**
-  - *Approach*: Authenticate using `firebase/auth` popup (`signInWithPopup`), obtain OAuth access token in memory, and post directly to `https://www.googleapis.com/calendar/v3/calendars/primary/events`.
-  - *Why*: Provides instant real-time booking confirmation into the craftsman's primary Google Calendar with zero server-side redirect bottlenecks.
-- **Decision 2: Client-Side PDF Generation & Google Drive Export**
-  - *Approach*: Format the quote summary and booking confirmation into a printable canvas/document, generating a Blob URL for download and uploading to `https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart`.
-  - *Why*: Ensures instant downloads even without network connectivity, while archiving quotes in Google Drive when authenticated.
+- **Decision 1: WhatsApp Primary + E-mail Form (No Sales Phone Calls)**
+  - *Approach*: Provide a prominent WhatsApp button (`https://wa.me/316...`) pre-filled with the craftsman's selected trade and package, alongside a clean E-mail contact modal. Exclude phone call links for sales.
+  - *Why*: Directly aligns with user feedback—Dutch tradespeople communicate constantly via WhatsApp throughout the workday.
+- **Decision 2: Transparent Pricing Comparison Grid**
+  - *Approach*: Explicitly display €595 / €995 / €1.795 prices marked "excl. btw" with "Jij bent 100% eigenaar van je code & domein" guarantees.
+  - *Why*: Positions Klusbaas competitively against traditional agencies while building trust with independent tradespeople.
 
 ---
 
@@ -64,8 +72,8 @@ Klusbaas is a specialized web platform and instant website generator tailored fo
 │                        Klusbaas Web Platform                           │
 ├────────────────────────────────────────────────────────────────────────┤
 │  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────────┐  │
-│  │ Enhanced Landing │  │  Craftsman Site  │  │   Builder Wizard     │  │
-│  │ (Stats, FAQ, B&A)│  │(5 Style Layouts) │  │  (Live Side-Preview) │  │
+│  │ Enhanced Landing │  │  Craftsman Site  │  │  Seller Sales Engine │  │
+│  │ (30 Style Grid)  │  │(5 Style Layouts) │  │(Packages €595/€995)  │  │
 │  └────────┬─────────┘  └────────┬─────────┘  └──────────┬───────────┘  │
 │           │                     │                       │              │
 │           └─────────────────────┼───────────────────────┘              │
@@ -77,16 +85,15 @@ Klusbaas is a specialized web platform and instant website generator tailored fo
 │          │                      │                        │             │
 │          ▼                      ▼                        ▼             │
 │  ┌──────────────┐      ┌────────────────┐      ┌──────────────────┐    │
-│  │   Price      │      │   Customer     │      │ Google Workspace │    │
-│  │ Calculator   │      │ Booking Calendar│     │ Calendar & Drive │    │
+│  │ Smart Tools  │      │ WhatsApp &     │      │ Google Workspace │    │
+│  │ (m², Spoed)  │      │ E-mail Sales   │      │ Calendar & Drive │    │
 │  └──────────────┘      └────────────────┘      └──────────────────┘    │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 - **Data Models**:
-  - `SectorData`: Sector metadata, Unsplash photos, pricing quiz questions, services, reviews, FAQ.
-  - `ActiveSiteData`: Computed site configuration, oklch colors, fonts, customized business details.
-  - `BookingSlot`: Date string, time slot (`'ochtend'` | `'middag'` | `'avond'`), customer contact info, booking status.
+  - `SalesPackage`: Name, price, monthlyFee, target, features, highlights.
+  - `TradeSmartTool`: Tool type (`'spoed'` | `'m2'` | `'3fase'` | `'inmeten'`), label, action.
 - **Google Workspace API Calls**:
   - `POST https://www.googleapis.com/calendar/v3/calendars/primary/events` (creates synced calendar event).
   - `POST https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart` (uploads quote PDF).

@@ -4,6 +4,9 @@ import { ORDER, SECTORS, STYLES, getUnsplashUrl } from '../data/tradesData';
 import { ImageWithFallback } from './ImageWithFallback';
 import { PriceCalculator } from './PriceCalculator';
 import { AreaChecker } from './AreaChecker';
+import { BookingCalendar } from './BookingCalendar';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
+import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
 
 interface SiteViewProps {
@@ -603,7 +606,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     color: site.accentText,
                   }}
                 >
-                  ✓
+                  <CheckIcon className="w-3.5 h-3.5" />
                 </span>
                 {mark}
               </span>
@@ -684,7 +687,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           id="werk"
           className="pb-16 sm:pb-24 px-4 sm:px-8 md:px-12 scroll-mt-20"
         >
-          <div className="max-w-7xl mx-auto flex flex-col gap-8">
+          <div className="max-w-7xl mx-auto flex flex-col gap-10">
             <div className="flex justify-between items-baseline gap-4 flex-wrap">
               <h2
                 className="text-3xl sm:text-5xl font-black leading-tight tracking-tight m-0"
@@ -700,6 +703,13 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 {site.workNote}
               </span>
             </div>
+
+            {/* Before & After Comparison (if present) */}
+            {site.beforeAfter && site.beforeAfter.length > 0 && (
+              <div className="pb-4">
+                <BeforeAfterSlider project={site.beforeAfter[0]} />
+              </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {site.work.map((w, idx) => (
@@ -793,14 +803,14 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 </div>
                 <div>
                   <span
-                    className="text-3xl sm:text-5xl font-black leading-none block"
+                    className="text-3xl sm:text-5xl font-black leading-none flex items-center gap-2"
                     style={{
                       fontFamily: site.display,
                       fontWeight: site.dw,
                       color: site.accentText,
                     }}
                   >
-                    {site.rating} ★
+                    {site.rating} <StarIcon className="w-8 h-8 fill-current" />
                   </span>
                   <span className="text-xs sm:text-sm font-medium mt-1 block" style={{ color: site.muted }}>
                     uit {site.reviewCount} geverifieerde reviews
@@ -816,6 +826,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* Service Area Checker */}
         <AreaChecker site={site} />
+
+        {/* Customer Appointment Booking Calendar */}
+        <BookingCalendar site={site} />
 
         {/* Customer Reviews */}
         <section className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60">
@@ -842,12 +855,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     borderColor: site.line,
                   }}
                 >
-                  <span
-                    className="text-lg font-bold tracking-widest"
-                    style={{ color: site.accentText }}
-                  >
-                    ★★★★★
-                  </span>
+                  <StarRating count={5} />
                   <p
                     className="text-base sm:text-lg leading-relaxed m-0 italic flex-1"
                     style={{
@@ -868,6 +876,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
             </div>
           </div>
         </section>
+
+        {/* FAQ Accordion */}
+        <FaqSection faqs={site.faqs} />
 
         {/* Site Footer */}
         <footer
@@ -903,7 +914,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   {site.callLabel}
                 </a>
                 <a
-                  href={`https://wa.me/31${site.phone.replace(/[\s-0]/, '')}`}
+                  href={`https://wa.me/31${site.phone.replace(/\D/g, '').replace(/^0/, '')}`}
                   target="_blank"
                   rel="noreferrer"
                   className="h-14 px-7 flex items-center font-black text-base border-2"

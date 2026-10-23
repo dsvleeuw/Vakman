@@ -33,6 +33,19 @@ export interface ReviewItem {
   who: string;
 }
 
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+export interface BeforeAfterProject {
+  title: string;
+  location: string;
+  beforeImg: string;
+  afterImg: string;
+  description: string;
+}
+
 export interface QuizOption {
   l: string;
   h: string;
@@ -74,9 +87,27 @@ export interface SectorData {
   marks: string[];
   workNote: string;
   work: WorkProject[];
+  beforeAfter?: BeforeAfterProject[];
+  faqs?: FaqItem[];
   flow: QuizQuestion[];
   estNote: string;
   reviews: ReviewItem[];
+}
+
+export interface AppointmentBooking {
+  id: string;
+  sectorId: SectorId;
+  bizName: string;
+  serviceName: string;
+  dateStr: string;
+  timeSlot: 'Ochtend (08:30 - 12:00)' | 'Middag (12:30 - 16:00)' | 'Avond (16:30 - 19:30)';
+  clientName: string;
+  clientPhone: string;
+  clientAddress: string;
+  notes?: string;
+  googleCalendarEventId?: string;
+  googleDriveFileId?: string;
+  createdAt: number;
 }
 
 export interface Palette {

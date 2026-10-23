@@ -134,6 +134,15 @@ export const SECTORS: Record<SectorId, SectorData> = {
       { t: 'Open trap met eiken treden', c: 'Utrecht-Oost', y: '2025' },
       { t: 'Hardhouten vlonder aan het water', c: 'Bunnik', y: '2025' },
     ],
+    beforeAfter: [
+      {
+        title: 'Traprenovatie met eiken treden',
+        location: 'Utrecht-Oost',
+        beforeImg: getUnsplashUrl('1584622650111-993a426fbf0a', 1000),
+        afterImg: getUnsplashUrl('1595844730298-b960ff98fee0', 1000),
+        description: 'Van oude vloerbedekking naar krasvast overgezet massief eiken met zachte led-strip verlichting.',
+      },
+    ],
     flow: [
       {
         q: 'Wat wil je laten maken?',
