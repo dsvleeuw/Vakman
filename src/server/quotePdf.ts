@@ -1,4 +1,5 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
+import { BRAND_MARK, BRAND_WORDMARK } from '../data/brandMark';
 import { PLATFORM_CONTACT } from '../data/platform';
 import { QUOTE_VALID_DAYS, formatDutchDate, formatEuroCents, type QuoteRecord } from '../utils/quote';
 
@@ -13,6 +14,16 @@ const INK = rgb(0.11, 0.1, 0.09);
 const MUTED = rgb(0.45, 0.42, 0.4);
 const LINE = rgb(0.9, 0.89, 0.88);
 const ACCENT = rgb(0.85, 0.47, 0.02);
+/** Logo height in points; the brand paths live in a 64-unit-high box. */
+const LOGO_HEIGHT = 26;
+
+/** Draw the Klusbaas logo (vector paths) with its top-left corner at x, top. */
+export function drawLogo(page: PDFPage, x: number, top: number, height = LOGO_HEIGHT) {
+  const scale = height / 64;
+  page.drawSvgPath(BRAND_MARK.stem, { x, y: top, scale, color: INK });
+  page.drawSvgPath(BRAND_MARK.square, { x, y: top, scale, color: ACCENT });
+  page.drawSvgPath(BRAND_WORDMARK.path, { x, y: top, scale, color: INK });
+}
 
 /** Replace characters Helvetica/WinAnsi cannot encode. */
 export function pdfSafe(text: string): string {
@@ -40,7 +51,11 @@ function wrap(text: string, font: PDFFont, size: number, maxWidth: number): stri
   return lines.length ? lines : [''];
 }
 
-export async function renderQuotePdf(record: QuoteRecord): Promise<Uint8Array> {
+export async function renderQuotePdf(
+  record: QuoteRecord,
+  options: { siteUrl?: string } = {}
+): Promise<Uint8Array> {
+  const privacyHost = (options.siteUrl ?? 'https://klusbaas.nl').replace(/\/$/, '').replace(/^https?:\/\//, '');
   const doc = await PDFDocument.create();
   doc.setTitle(`Offerte ${record.id}`);
   doc.setAuthor('Klusbaas');
@@ -69,7 +84,7 @@ export async function renderQuotePdf(record: QuoteRecord): Promise<Uint8Array> {
 
   // Header
   page.drawRectangle({ x: 0, y: A4.height - 6, width: A4.width, height: 6, color: ACCENT });
-  text('Klusbaas', MARGIN, 24, bold);
+  drawLogo(page, MARGIN, y + 20);
   textRight('OFFERTE', 20, bold);
   y -= 16;
   text('Websites voor vakmensen in Haarlemmermeer en omstreken', MARGIN, 9, regular, MUTED);
@@ -182,6 +197,7 @@ export async function renderQuotePdf(record: QuoteRecord): Promise<Uint8Array> {
     'Eenmalige prijs voor ontwerp en bouw van je website. Je site en de code zijn van jou; hosting en service spreken we apart af.',
     'Componenten die al in je pakket zitten, staan als "inbegrepen" vermeld en betaal je niet dubbel.',
     'Akkoord? Antwoord op de offertemail of stuur ons een WhatsApp. Pas na je akkoord plannen we de bouw in.',
+    `Hoe we met je gegevens omgaan, lees je op ${privacyHost}/privacy.`,
   ];
   ensure(30);
   text('VOORWAARDEN', MARGIN, 8, bold, MUTED);

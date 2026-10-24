@@ -130,7 +130,7 @@ async function handleQuote(
     ...(request.appointment ? { appointment: request.appointment } : {}),
   });
 
-  const pdf = await renderQuotePdf(record);
+  const pdf = await renderQuotePdf(record, { siteUrl: deps.siteUrl });
   const saved = await deps.storage.saveQuote(record, pdf);
   log(`[lead] offerte ${record.id} opgeslagen: ${saved.json} + ${saved.pdf}`);
 
@@ -196,7 +196,7 @@ async function handleSiteLead(
   log(`[lead] ${lead.type} ${reference} opgeslagen: ${saved}`);
 
   const team = await deliver(
-    { from, to: notify, replyTo: lead.fields.email, ...buildSiteLeadEmail(lead, 'team', reference) },
+    { from, to: notify, replyTo: lead.fields.email, ...buildSiteLeadEmail(lead, 'team', reference, deps.siteUrl) },
     deps.env,
     deps.fetchImpl,
     log,
@@ -205,7 +205,7 @@ async function handleSiteLead(
   let customer: DeliveryResult = { to: lead.fields.email ?? lead.fields.phone ?? '', status: 'skipped' };
   if (lead.fields.email) {
     customer = await deliver(
-      { from, to: lead.fields.email, replyTo: notify, ...buildSiteLeadEmail(lead, 'customer', reference) },
+      { from, to: lead.fields.email, replyTo: notify, ...buildSiteLeadEmail(lead, 'customer', reference, deps.siteUrl) },
       deps.env,
       deps.fetchImpl,
       log,
