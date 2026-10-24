@@ -242,3 +242,14 @@ test('mergeDemoPersonalization lets the link win and keeps sector fallbacks', ()
     city: 'Hoofddorp',
   });
 });
+
+test('quote links keep the token and round-trip', () => {
+  const token = 'f'.repeat(64);
+  const route = parseRoute('/offerte/KB-2026-0001', `?token=${token}`);
+  assert.deepEqual(route, { name: 'quote', quoteId: 'KB-2026-0001', token });
+  assert.equal(buildPath(route), `/offerte/KB-2026-0001?token=${token}`);
+  assert.deepEqual(parseRoute('/offerte/KB-2026-0001'), { name: 'quote', quoteId: 'KB-2026-0001' });
+  assert.equal(parseRoute('/offerte').name, 'notFound');
+  assert.equal(parseRoute('/offerte/a/b').name, 'notFound');
+  assert.match(getRouteMeta(route).title, /KB-2026-0001/);
+});

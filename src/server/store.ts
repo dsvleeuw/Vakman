@@ -10,6 +10,9 @@ export interface JsonStore {
   get<T>(key: string): Promise<T | null>;
   /** Returns false when `onlyIfNew` is set and the key already exists. */
   set(key: string, value: unknown, options?: { onlyIfNew?: boolean }): Promise<boolean>;
+  /** Binary files next to the JSON records, e.g. the quote PDF. */
+  getBytes(key: string): Promise<Uint8Array | null>;
+  setBytes(key: string, bytes: Uint8Array): Promise<void>;
 }
 
 export type StoreName = 'leads' | 'quotes';
@@ -39,6 +42,17 @@ export function createFileStore(dir: string): JsonStore {
         throw error;
       }
     },
+    async getBytes(key) {
+      try {
+        return new Uint8Array(await readFile(join(dir, safeKey(key))));
+      } catch {
+        return null;
+      }
+    },
+    async setBytes(key, bytes) {
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, safeKey(key)), bytes);
+    },
   };
 }
 
@@ -55,6 +69,13 @@ export function createMemoryStore(): JsonStore & { data: Map<string, unknown> } 
       data.set(key, structuredClone(value));
       return true;
     },
+    async getBytes(key) {
+      const value = data.get(key);
+      return value instanceof Uint8Array ? value : null;
+    },
+    async setBytes(key, bytes) {
+      data.set(key, bytes);
+    },
   };
 }
 
@@ -69,6 +90,13 @@ export async function createBlobStore(name: StoreName): Promise<JsonStore> {
     async set(key, value, options) {
       const result = await store.setJSON(key, value, options?.onlyIfNew ? { onlyIfNew: true } : undefined);
       return result.modified;
+    },
+    async getBytes(key) {
+      const buffer = await store.get(key, { type: 'arrayBuffer' });
+      return buffer ? new Uint8Array(buffer) : null;
+    },
+    async setBytes(key, bytes) {
+      await store.set(key, new Blob([bytes as BlobPart]));
     },
   };
 }

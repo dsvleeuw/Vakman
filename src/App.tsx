@@ -33,6 +33,9 @@ const SiteView = lazy(() =>
 const WizardView = lazy(() =>
   import('./components/WizardView').then((module) => ({ default: module.WizardView }))
 );
+const QuoteView = lazy(() =>
+  import('./components/QuoteView').then((module) => ({ default: module.QuoteView }))
+);
 const ComponentGallery = lazy(() =>
   import('./components/ComponentGallery').then((module) => ({
     default: module.ComponentGallery,
@@ -436,7 +439,14 @@ export default function App() {
         </Suspense>
       )}
 
-      {/* 5. 404 */}
+      {/* 5. SAVED QUOTE (/offerte/:id?token=…) */}
+      {route.name === 'quote' && (
+        <Suspense fallback={<PageFallback label="Offerte laden…" />}>
+          <QuoteView quoteId={route.quoteId} token={route.token} onGoHome={handleGoHome} />
+        </Suspense>
+      )}
+
+      {/* 6. 404 */}
       {route.name === 'notFound' && (
         <NotFoundView path={route.path} onGoHome={handleGoHome} />
       )}

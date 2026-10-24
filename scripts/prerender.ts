@@ -147,6 +147,8 @@ async function main() {
       '# Wizard, appointment confirmation and preview-tool routes are for people,',
       '# not search results: the presets themselves are indexable.',
       'Disallow: /start/',
+      '# Personal quotes (/offerte/:id?token=) are private.',
+      'Disallow: /offerte/',
       '',
       `Sitemap: ${siteUrl}/sitemap.xml`,
       '',

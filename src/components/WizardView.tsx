@@ -140,6 +140,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [isBooking, setIsBooking] = useState(false);
   const lead = useLeadSubmit();
   const [quoteReference, setQuoteReference] = useState<string | null>(null);
+  const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
   const [bookingResult, setBookingResult] = useState<{
     booking: AppointmentBooking;
     calendarSynced: boolean;
@@ -291,6 +292,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
       return;
     }
     setQuoteReference(sent.reference || null);
+    setQuoteUrl(typeof sent.data.quoteUrl === 'string' ? sent.data.quoteUrl : null);
 
     saveAppointment(booking);
 
@@ -1075,6 +1077,25 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </span>
                 </div>
               </div>
+
+              {quoteUrl && (
+                <div className="w-full flex flex-col sm:flex-row gap-2">
+                  <a
+                    href={quoteUrl}
+                    className="flex-1 h-12 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm inline-flex items-center justify-center gap-2 no-underline"
+                  >
+                    Bekijk je offerte {quoteReference}
+                  </a>
+                  <a
+                    href={quoteUrl.replace('/offerte/', '/api/offerte/') + '&format=pdf'}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 h-12 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center gap-2 no-underline"
+                  >
+                    Download PDF
+                  </a>
+                </div>
+              )}
 
               {/* The chosen channel now actually produces a ready-to-send message */}
               <div className="w-full flex flex-col gap-2 text-left">

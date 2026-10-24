@@ -19,6 +19,9 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       QUOTE_NOTIFY_EMAIL: process.env.QUOTE_NOTIFY_EMAIL,
     },
     leads: await createBlobStore('leads'),
+    quotes: await createBlobStore('quotes'),
+    // Netlify sets URL to the site's main address; APP_URL can override it.
+    siteUrl: process.env.APP_URL?.startsWith('http') ? process.env.APP_URL : process.env.URL,
     clientKey: context.ip,
   });
   return Response.json(result.body, { status: result.status });

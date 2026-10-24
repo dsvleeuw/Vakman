@@ -30,13 +30,17 @@ const contactBody = {
 
 function deps(overrides: Partial<LeadDeps> = {}) {
   const leads = createMemoryStore();
+  const quotes = createMemoryStore();
   const logs: string[] = [];
   return {
     leads,
+    quotes,
     logs,
     deps: {
       env: {},
       leads,
+      quotes,
+      siteUrl: 'https://klusbaas.test',
       now: () => NOW,
       log: (message: string) => logs.push(message),
       rateLimiter: createRateLimiter({ limit: 100, windowMs: 1000 }),
@@ -58,8 +62,8 @@ test('handleLead saves the lead and previews mails without an API key', async ()
 });
 
 test('handleLead mails the team and the customer via Resend', async () => {
-  const calls: { to: string[]; reply_to?: string }[] = [];
-  const { deps: d } = deps({
+  const calls: { to: string[]; reply_to?: string; attachments?: { filename: string; content: string }[]; text: string }[] = [];
+  const { deps: d, quotes } = deps({
     env: { RESEND_API_KEY: 'test', QUOTE_NOTIFY_EMAIL: 'team@example.nl' },
     fetchImpl: async (_url, init) => {
       calls.push(JSON.parse(String(init.body)));
@@ -71,6 +75,26 @@ test('handleLead mails the team and the customer via Resend', async () => {
   assert.equal(result.body.customerEmailSent, true);
   assert.deepEqual(calls.map((call) => call.to[0]), ['team@example.nl', 'sanne@example.nl']);
   assert.equal(calls[0].reply_to, 'sanne@example.nl');
+
+  // Numbered, stored, attached to both mails and linked with a private token.
+  assert.equal(result.body.reference, 'KB-2027-0001');
+  assert.match(result.body.quoteUrl ?? '', /^\/offerte\/KB-2027-0001\?token=[0-9a-f]{64}$/);
+  assert.ok(quotes.data.has('KB-2027-0001'));
+  assert.ok(quotes.data.get('KB-2027-0001.pdf') instanceof Uint8Array);
+  for (const call of calls) {
+    assert.equal(call.attachments?.[0].filename, 'Offerte-KB-2027-0001.pdf');
+    assert.ok(Buffer.from(call.attachments![0].content, 'base64').subarray(0, 5).toString() === '%PDF-');
+    assert.ok(call.text.includes(`https://klusbaas.test${result.body.quoteUrl}`));
+  }
+});
+
+test('quote numbers count up per year and survive a taken number', async () => {
+  const { deps: d, quotes } = deps();
+  await quotes.set('KB-2027-0002', { taken: true });
+  const first = await handleLead(quoteBody, d);
+  const second = await handleLead(quoteBody, d);
+  assert.equal(first.body.reference, 'KB-2027-0001');
+  assert.equal(second.body.reference, 'KB-2027-0003');
 });
 
 test('a refused customer mail (Resend test mode) does not fail the lead', async () => {

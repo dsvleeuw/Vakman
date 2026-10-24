@@ -1,7 +1,7 @@
 import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
 import { SECTORS, STYLES } from '../data/tradesData';
 import { formatPrice } from './pricing';
-import type { Quote, QuoteRequest } from './quote';
+import { formatDutchDate, formatEuroCents, type QuoteDocument, type QuoteRequest } from './quote';
 
 export type QuoteEmailAudience = 'team' | 'customer';
 
@@ -50,14 +50,11 @@ function detailRows(request: QuoteRequest): Row[] {
   return rows;
 }
 
-function priceRows(quote: Quote): Row[] {
-  return [
-    { label: `Pakket ${quote.planName}`, value: formatEuro(quote.planPrice) },
-    ...quote.addons.map((line) => ({
-      label: line.label,
-      value: line.included ? 'inbegrepen' : formatEuro(line.price),
-    })),
-  ];
+function priceRows(doc: QuoteDocument): Row[] {
+  return doc.lines.map((line) => ({
+    label: line.label,
+    value: line.included ? 'inbegrepen' : formatEuroCents(line.amount),
+  }));
 }
 
 /**
@@ -66,28 +63,32 @@ function priceRows(quote: Quote): Row[] {
  * identical content so every mail client shows the full quote.
  */
 export function buildQuoteEmail(
-  quote: Quote,
+  doc: QuoteDocument,
   request: QuoteRequest,
   audience: QuoteEmailAudience,
-  reference: string
+  /** Absolute link to /offerte/:id?token=…; omitted when no origin is known. */
+  viewUrl?: string
 ): QuoteEmail {
+  const reference = doc.number;
+  const planName = doc.lines[0]?.label.replace(/^Pakket /, '') ?? '';
   const firstName = request.form.owner.split(' ')[0] || request.form.owner;
   const subject =
     audience === 'team'
-      ? `Nieuwe offerte-aanvraag: ${request.form.biz} (${quote.planName}, ${formatEuro(quote.subtotal)} excl. btw) · ${reference}`
+      ? `Nieuwe offerte-aanvraag: ${request.form.biz} (${planName}, ${formatEuroCents(doc.subtotal)} excl. btw) · ${reference}`
       : `Je offerte-aanvraag bij Klusbaas · ${reference}`;
   const intro =
     audience === 'team'
       ? `${request.form.owner} van ${request.form.biz} heeft via de wizard een offerte aangevraagd.`
-      : `Hoi ${firstName}, bedankt voor je aanvraag! Hieronder staat je samenstelling. We nemen binnen één werkdag contact met je op om alles door te nemen.`;
+      : `Hoi ${firstName}, bedankt voor je aanvraag! Je offerte zit als PDF in de bijlage en staat hieronder. We nemen binnen één werkdag contact met je op om alles door te nemen.`;
 
   const details = detailRows(request);
-  const prices = priceRows(quote);
+  const prices = priceRows(doc);
   const totals: Row[] = [
-    { label: 'Subtotaal (excl. btw)', value: formatEuro(quote.subtotal) },
-    { label: 'Btw 21%', value: formatEuro(quote.vat) },
-    { label: 'Totaal (incl. btw)', value: formatEuro(quote.total) },
+    { label: 'Subtotaal (excl. btw)', value: formatEuroCents(doc.subtotal) },
+    { label: `Btw ${Math.round(doc.vatRate * 100)}%`, value: formatEuroCents(doc.vat) },
+    { label: 'Totaal (incl. btw)', value: formatEuroCents(doc.total) },
   ];
+  const validity = `Geldig tot en met ${formatDutchDate(doc.validUntil)}.`;
   const services = request.services.length ? request.services : ['Geen diensten gekozen'];
   const outro =
     audience === 'team'
@@ -97,7 +98,9 @@ export function buildQuoteEmail(
   const text = [
     intro,
     '',
-    `Referentie: ${reference}`,
+    `Offertenummer: ${reference}`,
+    validity,
+    ...(viewUrl ? [`Online bekijken: ${viewUrl}`] : []),
     '',
     'GEGEVENS',
     ...details.map((row) => `${row.label}: ${row.value}`),
@@ -130,7 +133,8 @@ export function buildQuoteEmail(
 <div style="background:#ffffff;border-radius:16px;border:1px solid #e7e5e4;padding:28px;">
 <div style="font-weight:900;font-size:20px;margin-bottom:16px;">Klusbaas</div>
 <p style="margin:0 0 8px;font-size:15px;line-height:1.5;">${escapeHtml(intro)}</p>
-<p style="margin:0;font-size:12px;color:#78716c;">Referentie: <strong>${escapeHtml(reference)}</strong></p>
+<p style="margin:0;font-size:12px;color:#78716c;">Offertenummer: <strong>${escapeHtml(reference)}</strong> · ${escapeHtml(validity)}</p>
+${viewUrl ? `<p style="margin:16px 0 0;"><a href="${escapeHtml(viewUrl)}" style="display:inline-block;background:#1c1917;color:#ffffff;text-decoration:none;font-weight:800;font-size:14px;padding:12px 20px;border-radius:999px;">Bekijk de offerte online</a></p>` : ''}
 ${section('Gegevens', `<table role="presentation" width="100%" style="border-collapse:collapse;font-size:14px;">${tableRows(details)}</table>`)}
 ${section('Diensten op de website', `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>`)}
 ${section('Offerte', `<table role="presentation" width="100%" style="border-collapse:collapse;font-size:14px;">${tableRows(prices)}</table><hr style="border:0;border-top:1px solid #e7e5e4;margin:12px 0;"><table role="presentation" width="100%" style="border-collapse:collapse;font-size:14px;">${tableRows(totals, true)}</table>`)}
@@ -140,12 +144,4 @@ ${section('Offerte', `<table role="presentation" width="100%" style="border-coll
 </div></body></html>`;
 
   return { subject, text, html };
-}
-
-/** Short, human-friendly reference such as KB-7Q4M2X. */
-export function createQuoteReference(random: () => number = Math.random): string {
-  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 6; i++) code += alphabet[Math.floor(random() * alphabet.length)];
-  return `KB-${code}`;
 }

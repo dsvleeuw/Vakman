@@ -147,3 +147,117 @@ export function parseQuoteRequest(
     },
   };
 }
+
+/* ------------------------------------------------------------------------ */
+/* Quote documents: numbered, dated, stored and rendered as PDF.            */
+/* ------------------------------------------------------------------------ */
+
+export const QUOTE_VALIDITY_DAYS = 30;
+
+/** KB-2026-0001: year plus a per-year sequence, at least four digits. */
+export function formatQuoteNumber(year: number, sequence: number): string {
+  return `KB-${year}-${String(sequence).padStart(4, '0')}`;
+}
+
+export function isQuoteNumber(value: string | null | undefined): value is string {
+  return typeof value === 'string' && /^KB-\d{4}-\d{4,}$/.test(value);
+}
+
+/** Tokens are 32 random bytes as hex; anything else is rejected before a lookup. */
+export function isQuoteToken(value: string | null | undefined): value is string {
+  return typeof value === 'string' && /^[0-9a-f]{64}$/.test(value);
+}
+
+/** Constant-time comparison so response timing does not leak the token. */
+export function tokensMatch(expected: string, actual: string): boolean {
+  if (expected.length !== actual.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expected.length; i++) diff |= expected.charCodeAt(i) ^ actual.charCodeAt(i);
+  return diff === 0;
+}
+
+/** Relative link to the online quote; the token is what makes it private. */
+export function quoteViewPath(number: string, token: string): string {
+  return `/offerte/${encodeURIComponent(number)}?token=${token}`;
+}
+
+export function addDays(date: Date, days: number): Date {
+  const next = new Date(date.getTime());
+  next.setUTCDate(next.getUTCDate() + days);
+  return next;
+}
+
+/** € 1.250,00: always two decimals, for documents where columns must align. */
+export function formatEuroCents(amount: number): string {
+  const [whole, cents] = Math.abs(amount).toFixed(2).split('.');
+  const grouped = whole.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return `${amount < 0 ? '- ' : ''}€ ${grouped},${cents}`;
+}
+
+const DUTCH_MONTHS = [
+  'januari', 'februari', 'maart', 'april', 'mei', 'juni',
+  'juli', 'augustus', 'september', 'oktober', 'november', 'december',
+];
+
+/** 24 oktober 2026, independent of the runtime's locale data. */
+export function formatDutchDate(iso: string): string {
+  const date = new Date(iso);
+  return `${date.getUTCDate()} ${DUTCH_MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
+}
+
+export interface QuoteDocumentLine {
+  label: string;
+  /** Short explanation printed under the label. */
+  note?: string;
+  amount: number;
+  included: boolean;
+}
+
+/** Everything needed to show or print a quote, without the access token. */
+export interface QuoteDocument {
+  number: string;
+  issuedAt: string;
+  validUntil: string;
+  customer: QuoteRequest['form'];
+  sectorName: string;
+  styleName: string;
+  services: string[];
+  channel: QuoteChannel;
+  appointment?: { date: string; slot: string };
+  lines: QuoteDocumentLine[];
+  subtotal: number;
+  vat: number;
+  vatRate: number;
+  total: number;
+}
+
+/** Turn a validated request into a numbered quote, valid for 30 days. */
+export function buildQuoteDocument(request: QuoteRequest, number: string, issuedAt: Date): QuoteDocument {
+  const quote = buildQuote(request.plan, request.addons);
+  const plan = getPlan(quote.planId)!;
+  const lines: QuoteDocumentLine[] = [
+    { label: `Pakket ${quote.planName}`, note: plan.blurb, amount: quote.planPrice, included: false },
+    ...quote.addons.map((line) => ({
+      label: line.label,
+      note: line.included ? `Inbegrepen in pakket ${quote.planName}` : getAddon(line.id)?.description,
+      amount: line.price,
+      included: line.included,
+    })),
+  ];
+  return {
+    number,
+    issuedAt: issuedAt.toISOString(),
+    validUntil: addDays(issuedAt, QUOTE_VALIDITY_DAYS).toISOString(),
+    customer: request.form,
+    sectorName: SECTORS[request.sector].name,
+    styleName: STYLES[request.styleIndex].name,
+    services: request.services,
+    channel: request.channel,
+    ...(request.appointment ? { appointment: request.appointment } : {}),
+    lines,
+    subtotal: quote.subtotal,
+    vat: quote.vat,
+    vatRate: VAT_RATE,
+    total: quote.total,
+  };
+}

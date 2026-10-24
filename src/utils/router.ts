@@ -19,6 +19,7 @@ import { normalizeDutchPhone } from './contact';
  *   /start/klaar                        wizard confirmation screen
  *   /componenten                        component library
  *   /componenten/trust-bar              component library with a selection
+ *   /offerte/KB-2026-0001?token=…        a saved quote (private, token required)
  *
  * Paths are Dutch because users see and share them; identifiers stay English.
  */
@@ -122,6 +123,7 @@ export type Route =
     }
   | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
   | { name: 'components'; componentId?: string }
+  | { name: 'quote'; quoteId: string; token?: string }
   | { name: 'notFound'; path: string };
 
 export function isSectorId(value: string | null | undefined): value is SectorId {
@@ -211,6 +213,12 @@ export function parseRoute(pathname: string, search = ''): Route {
     return { name: 'site', sector: second, styleId, ...(personal ? { personal } : {}) };
   }
 
+  if (first === 'offerte') {
+    if (segments.length !== 2) return { name: 'notFound', path: pathname };
+    const token = params.get('token');
+    return { name: 'quote', quoteId: second, ...(token ? { token } : {}) };
+  }
+
   if (first === 'componenten') {
     if (segments.length > 2) return { name: 'notFound', path: pathname };
     return second ? { name: 'components', componentId: second } : { name: 'components' };
@@ -243,6 +251,8 @@ export function buildPath(route: Route): string {
       return route.componentId
         ? `/componenten/${encodeURIComponent(route.componentId)}`
         : '/componenten';
+    case 'quote':
+      return `/offerte/${encodeURIComponent(route.quoteId)}${route.token ? `?token=${encodeURIComponent(route.token)}` : ''}`;
     case 'notFound':
       return route.path || '/';
   }
@@ -322,6 +332,11 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: 'Componentenbibliotheek · Klusbaas',
         description: 'Alle 30 componenten van Klusbaas en de gegenereerde vakmanssites, met live previews.',
+      };
+    case 'quote':
+      return {
+        title: `Offerte ${route.quoteId} · Klusbaas`,
+        description: 'Je persoonlijke offerte van Klusbaas: pakket, extra componenten, btw en totaalprijs.',
       };
     case 'notFound':
       return {

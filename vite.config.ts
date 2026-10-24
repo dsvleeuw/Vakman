@@ -5,7 +5,7 @@ import {defineConfig, loadEnv, type Plugin} from 'vite';
 
 /**
  * Serve the API during `vite dev` with the same handlers the Netlify
- * Functions use. Leads and quotes are saved as JSON files under `.data/`
+ * Functions use. Leads and quotes (JSON + PDF) are saved under `.data/`
  * instead of Netlify Blobs; without RESEND_API_KEY mails go to the terminal.
  */
 function apiDevServer(env: Record<string, string>): Plugin {
@@ -32,9 +32,25 @@ function apiDevServer(env: Record<string, string>): Plugin {
         const result = await handleLead(body, {
           env,
           leads: createFileStore(path.resolve(__dirname, '.data/leads')),
+          quotes: createFileStore(path.resolve(__dirname, '.data/quotes')),
+          siteUrl: `http://${req.headers.host ?? 'localhost:3000'}`,
           clientKey: req.socket.remoteAddress,
         });
         reply(result.status, result.body);
+      });
+      server.middlewares.use('/api/offerte/', async (req, res) => {
+        const url = new URL(req.url ?? '/', 'http://localhost');
+        const { handleQuoteView } = await server.ssrLoadModule('/src/server/quotes.ts');
+        const { createFileStore } = await server.ssrLoadModule('/src/server/store.ts');
+        const result = await handleQuoteView(
+          createFileStore(path.resolve(__dirname, '.data/quotes')),
+          decodeURIComponent(url.pathname.replace(/^\//, '')),
+          url.searchParams.get('token'),
+          url.searchParams.get('format')
+        );
+        res.statusCode = result.status;
+        for (const [key, value] of Object.entries(result.headers)) res.setHeader(key, value as string);
+        res.end(result.body);
       });
     },
   };

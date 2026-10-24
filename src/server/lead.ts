@@ -1,9 +1,10 @@
 import { checkSpam, createLeadReference, leadContact, parseLeadRequest, type Lead } from '../utils/lead';
 import { buildLeadCustomerEmail, buildLeadTeamEmail } from '../utils/leadEmail';
-import { buildQuote, type Quote } from '../utils/quote';
-import { buildQuoteEmail, createQuoteReference } from '../utils/quoteEmail';
+import { quoteViewPath, type QuoteDocument } from '../utils/quote';
+import { buildQuoteEmail } from '../utils/quoteEmail';
 import { createRateLimiter, type RateLimiter } from '../utils/rateLimit';
-import { notifyAddress, sendMail, type FetchLike, type MailEnv } from './mail';
+import { notifyAddress, sendMail, type FetchLike, type MailAttachment, type MailEnv } from './mail';
+import { createQuote } from './quotes';
 import type { JsonStore } from './store';
 
 /**
@@ -19,6 +20,10 @@ export type LeadEnv = MailEnv;
 export interface LeadDeps {
   env: LeadEnv;
   leads: JsonStore;
+  /** Numbered quotes and their PDFs (Netlify Blobs store `quotes`). */
+  quotes: JsonStore;
+  /** Public origin for links in mails, e.g. https://klusbaas.netlify.app. */
+  siteUrl?: string;
   fetchImpl?: FetchLike;
   log?: (message: string) => void;
   now?: () => number;
@@ -33,7 +38,9 @@ export interface LeadResult {
     ok: boolean;
     mode?: 'sent' | 'preview';
     reference?: string;
-    quote?: Quote;
+    quote?: QuoteDocument;
+    /** Relative link to the online quote (/offerte/:id?token=…). */
+    quoteUrl?: string;
     customerEmailSent?: boolean;
     error?: string;
   };
@@ -73,7 +80,23 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
     };
   }
 
-  const reference = lead.kind === 'offerte' ? createQuoteReference() : createLeadReference();
+  let reference = createLeadReference();
+  let quote: QuoteDocument | undefined;
+  let quoteUrl: string | undefined;
+  let attachments: MailAttachment[] | undefined;
+  if (lead.kind === 'offerte') {
+    try {
+      const created = await createQuote(deps.quotes, lead.request, new Date(now));
+      reference = created.record.number;
+      quote = created.record.document;
+      quoteUrl = quoteViewPath(created.record.number, created.record.token);
+      attachments = [{ filename: created.filename, content: created.pdf }];
+    } catch (error) {
+      log(`[lead] offerte opslaan mislukt: ${error instanceof Error ? error.message : String(error)}`);
+      return { status: 500, body: { ok: false, error: 'Opslaan is niet gelukt. Probeer het opnieuw of stuur ons een WhatsApp.' } };
+    }
+  }
+
   const record: StoredLead = {
     reference,
     receivedAt: new Date(now).toISOString(),
@@ -89,20 +112,21 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
   }
 
   const contact = leadContact(lead);
-  let quote: Quote | undefined;
+  const viewUrl = quoteUrl && deps.siteUrl ? `${deps.siteUrl.replace(/\/$/, '')}${quoteUrl}` : undefined;
   let teamMail;
   let customerMail;
-  if (lead.kind === 'offerte') {
-    quote = buildQuote(lead.request.plan, lead.request.addons);
-    teamMail = buildQuoteEmail(quote, lead.request, 'team', reference);
-    customerMail = contact.email ? buildQuoteEmail(quote, lead.request, 'customer', reference) : null;
-  } else {
+  if (lead.kind === 'offerte' && quote) {
+    teamMail = buildQuoteEmail(quote, lead.request, 'team', viewUrl);
+    customerMail = contact.email ? buildQuoteEmail(quote, lead.request, 'customer', viewUrl) : null;
+  } else if (lead.kind !== 'offerte') {
     teamMail = buildLeadTeamEmail(lead, reference);
     customerMail = contact.email ? buildLeadCustomerEmail(lead, reference) : null;
+  } else {
+    throw new Error('unreachable');
   }
 
   const notify = notifyAddress(deps.env);
-  const team = await sendMail({ to: notify, replyTo: contact.email, ...teamMail }, deps.env, fetchImpl, log);
+  const team = await sendMail({ to: notify, replyTo: contact.email, attachments, ...teamMail }, deps.env, fetchImpl, log);
   record.teamEmailSent = team.ok;
   if (!team.ok) {
     await deps.leads.set(reference, record).catch(() => undefined);
@@ -114,7 +138,12 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
 
   let customerEmailSent = false;
   if (customerMail && contact.email) {
-    const customer = await sendMail({ to: contact.email, replyTo: notify, ...customerMail }, deps.env, fetchImpl, log);
+    const customer = await sendMail(
+      { to: contact.email, replyTo: notify, attachments, ...customerMail },
+      deps.env,
+      fetchImpl,
+      log
+    );
     customerEmailSent = customer.ok && !customer.preview;
   }
   record.customerEmailSent = customerEmailSent;
@@ -126,7 +155,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
       ok: true,
       mode: team.preview ? 'preview' : 'sent',
       reference,
-      ...(quote ? { quote } : {}),
+      ...(quote ? { quote, quoteUrl } : {}),
       customerEmailSent,
     },
   };
