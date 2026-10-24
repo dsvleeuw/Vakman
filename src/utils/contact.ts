@@ -155,3 +155,51 @@ export function buildSurfaceQuoteMessage(bizName: string, input: SurfaceQuoteInp
   lines.push('Kunnen jullie hiervoor een definitieve offerte maken?');
   return lines.join('\n');
 }
+
+export interface QuoteChannelInput {
+  bizName: string;
+  owner: string;
+  phone: string;
+  city: string;
+  dateStr: string;
+  timeSlot: string;
+  channel: string;
+  planName?: string;
+  appointmentId?: string;
+}
+
+/**
+ * Summary the visitor can send over the channel they picked. Used by the
+ * wizard confirmation so choosing "E-mail" or "WhatsApp" actually produces a
+ * ready-to-send message instead of a dead end.
+ */
+export function buildQuoteRequestMessage(input: QuoteChannelInput): string {
+  const lines = [
+    `Hallo Klusbaas, ik heb een afspraak aangevraagd voor ${input.bizName}.`,
+    '',
+    `Contactpersoon: ${input.owner}`,
+    `Telefoon: ${input.phone}`,
+    `Werkgebied: ${input.city}`,
+    `Voorkeur: ${input.dateStr}, ${input.timeSlot}`,
+    `Offertes via: ${input.channel}`,
+  ];
+  if (input.planName) {
+    lines.push(`Pakket: ${input.planName}`);
+  }
+  if (input.appointmentId) {
+    lines.push(`Afspraak-ID: ${input.appointmentId}`);
+  }
+  lines.push('', 'Ik hoor graag van jullie.');
+  return lines.join('\n');
+}
+
+/**
+ * Build a `mailto:` link with a subject and a prefilled body.
+ */
+export function buildMailtoUrl(email: string, subject: string, body: string): string {
+  const params = new URLSearchParams();
+  if (subject.trim()) params.set('subject', subject.trim());
+  if (body.trim()) params.set('body', body.trim());
+  const query = params.toString();
+  return `mailto:${email}${query ? `?${query}` : ''}`;
+}

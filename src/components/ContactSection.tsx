@@ -7,6 +7,7 @@ import {
   buildContactMessage,
   normalizeDutchPhone,
 } from '../utils/contact';
+import { track } from '../utils/analytics';
 
 interface ContactSectionProps {
   site: ActiveSiteData;
@@ -62,7 +63,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
 
   const inputClass = (hasError?: string) =>
     `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
-      hasError ? 'border-rose-500' : 'border-stone-200'
+      hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
   return (
@@ -115,6 +116,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
               href={directWhatsApp}
               target="_blank"
               rel="noreferrer"
+              onClick={() => track('whatsapp_click', { source: 'contact-card' })}
               className="mt-auto h-14 px-6 rounded-full bg-white text-[#128C4B] font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
             >
               <MessageCircle className="w-5 h-5" />
@@ -241,7 +243,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     rows={5}
                     placeholder="Omschrijf kort je klus, bijvoorbeeld: drie kozijnen aan de voorzijde schilderen."
                     className={`w-full flex-1 p-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
-                      errors.message ? 'border-rose-500' : 'border-stone-200'
+                      errors.message ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
                   {errors.message && (

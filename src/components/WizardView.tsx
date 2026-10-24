@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import type {
   PlanId,
+  QuoteChannel,
   SectorId,
   WizardFormData,
   WizardDraft,
@@ -17,6 +18,13 @@ import {
 } from '../data/tradesData';
 import { formatPrice, validateWizardForm } from '../utils/pricing';
 import { getPlan } from '../data/plans';
+import { PLATFORM_CONTACT } from '../data/platform';
+import {
+  buildMailtoUrl,
+  buildQuoteRequestMessage,
+  buildWhatsAppUrl,
+} from '../utils/contact';
+import { track } from '../utils/analytics';
 import {
   signInWithGoogle,
   createGoogleCalendarEvent,
@@ -86,7 +94,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [disabledServices, setDisabledServices] = useState<Record<number, boolean>>(
     initialDisabledServices ?? {}
   );
-  const [channel, setChannel] = useState<'WhatsApp' | 'E-mail' | 'Allebei'>('WhatsApp');
+  const [channel, setChannel] = useState<QuoteChannel>('WhatsApp');
+  const [addToCalendar, setAddToCalendar] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Appointment / quote request (final step)
@@ -103,6 +112,12 @@ export const WizardView: React.FC<WizardViewProps> = ({
   // Optional Google sign-in so the appointment can be pushed into the user's calendar
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    track('wizard_step_view', { step, sector, style: styleIndex });
+    // One event per step view; sector/style changes should not fire it again.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -166,6 +181,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
     if (step === 'gegevens') {
       const formErrors = validateWizardForm(formData);
       if (Object.keys(formErrors).length > 0) {
+        track('wizard_validation_error', { fields: Object.keys(formErrors).join(',') });
         setErrors(formErrors);
         const firstInvalid = FIELD_ORDER.find((field) => formErrors[field]);
         if (firstInvalid) {
@@ -176,6 +192,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
     }
 
     if (currentStepIndex < WIZARD_STEPS.length - 1) {
+      track('wizard_step_complete', { step });
       onStepChange(WIZARD_STEPS[currentStepIndex + 1]);
     }
   };
@@ -208,6 +225,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
       clientPhone,
       clientAddress: city,
       notes,
+      channel,
+      calendarSyncRequested: addToCalendar,
       createdAt: Date.now(),
     };
 
@@ -230,13 +249,17 @@ export const WizardView: React.FC<WizardViewProps> = ({
     let syncError: string | undefined;
     try {
       let token = accessToken;
-      if (!token) {
+      // Signing in is opt-in: only when the visitor ticked "in mijn agenda".
+      if (addToCalendar && !token) {
         const res = await signInWithGoogle();
         if (res) {
           token = res.accessToken;
           setAuthUser(res.user);
           setAccessToken(token);
         }
+      }
+      if (!addToCalendar) {
+        token = null;
       }
       if (token) {
         const calRes = await createGoogleCalendarEvent(token, payload);
@@ -251,6 +274,12 @@ export const WizardView: React.FC<WizardViewProps> = ({
       syncError = 'Inloggen met Google mislukt, afspraak lokaal genoteerd.';
     }
 
+    track('appointment_requested', {
+      sector,
+      channel,
+      plan: plan ?? 'geen',
+      calendar: addToCalendar,
+    });
     setBookingResult({ booking, calendarSynced, syncError });
     setIsBooking(false);
     onStepChange('klaar');
@@ -259,6 +288,18 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const liveSite = buildActiveSite(sector, styleIndex, formData, disabledServices);
   const showPreview = isDesktop || previewOpen;
   const selectedPlan = getPlan(plan);
+
+  const quoteMessage = buildQuoteRequestMessage({
+    bizName: formData.biz || baseSector.biz,
+    owner: formData.owner || baseSector.owner,
+    phone: formData.phone || baseSector.phone,
+    city: formData.city || baseSector.city,
+    dateStr: bookingResult?.booking.dateStr ?? bookingDate.formatted,
+    timeSlot: bookingResult?.booking.timeSlot ?? bookingSlot,
+    channel,
+    planName: selectedPlan?.name,
+    appointmentId: bookingResult?.booking.id,
+  });
 
   return (
     <div id="main-content" className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
@@ -489,7 +530,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     aria-invalid={!!errors.biz}
                     aria-describedby={errors.biz ? 'wizard-biz-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
-                      errors.biz ? 'border-rose-500' : 'border-stone-200'
+                      errors.biz ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
                   {errors.biz && (
@@ -514,7 +555,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     aria-invalid={!!errors.owner}
                     aria-describedby={errors.owner ? 'wizard-owner-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
-                      errors.owner ? 'border-rose-500' : 'border-stone-200'
+                      errors.owner ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
                   {errors.owner && (
@@ -540,7 +581,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     aria-invalid={!!errors.phone}
                     aria-describedby={errors.phone ? 'wizard-phone-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
-                      errors.phone ? 'border-rose-500' : 'border-stone-200'
+                      errors.phone ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
                   {errors.phone && (
@@ -565,7 +606,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     aria-invalid={!!errors.city}
                     aria-describedby={errors.city ? 'wizard-city-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
-                      errors.city ? 'border-rose-500' : 'border-stone-200'
+                      errors.city ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
                   {errors.city && (
@@ -644,21 +685,47 @@ export const WizardView: React.FC<WizardViewProps> = ({
             </div>
           )}
 
-          {/* STEP 5: Afspraak & offerte aanvragen */}
+          {/* STEP 5: Bekijk de website, plan optioneel een afspraak */}
           {step === 'afspraak' && (
             <div className="flex flex-col gap-6">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 5 VAN 5
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
-                Plan je afspraak
+                Je website staat klaar.
               </h1>
               <p className="text-stone-600 text-sm sm:text-base m-0">
-                We nemen contact met je op om je website te bespreken en een
-                vrijblijvende offerte te maken. Kies een moment dat jou schikt.
+                Bekijk hem hieronder of open de volledige voorbeeldpagina. Wil je eerst
+                iemand spreken? Dan kun je hieronder een afspraak aanvragen — dat is
+                optioneel.
               </p>
 
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => onViewPublishedSite(sector, styleIndex, formData)}
+                  className="w-full h-14 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
+                >
+                  Bekijk je website →
+                </button>
+                <span className="text-xs text-stone-500 text-center">
+                  Je kunt je gegevens later altijd aanpassen.
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3 pt-1" aria-hidden="true">
+                <span className="h-px flex-1 bg-stone-200" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
+                  Optioneel: een afspraak
+                </span>
+                <span className="h-px flex-1 bg-stone-200" />
+              </div>
+
               <div className="bg-white p-6 rounded-2xl border border-stone-200 flex flex-col gap-5">
+                <p className="text-sm text-stone-600 m-0">
+                  We nemen contact met je op om je website te bespreken en een
+                  vrijblijvende offerte te maken. Kies een moment dat jou schikt.
+                </p>
+
                 <div>
                   <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
                     1. Kies een datum (komende 2 weken)
@@ -714,9 +781,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
                 <div>
                   <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                    Offertes ontvangen via:
+                    3. Offertes ontvangen via
                   </span>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2" role="group" aria-label="Kanaal voor de offerte">
                     {(['WhatsApp', 'E-mail', 'Allebei'] as const).map((ch) => (
                       <button
                         key={ch}
@@ -732,10 +799,30 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       </button>
                     ))}
                   </div>
-                  <p className="text-[11px] text-stone-500 mt-2 m-0">
-                    Je hoort van ons via het kanaal dat je kiest. Je zit nergens aan vast.
+                  <p className="text-[11px] text-stone-500 mt-2 m-0" aria-live="polite">
+                    {channel === 'WhatsApp'
+                      ? 'We sturen de offerte naar je WhatsApp.'
+                      : channel === 'E-mail'
+                        ? 'We mailen de offerte naar je e-mailadres.'
+                        : 'Je ontvangt de offerte via WhatsApp én e-mail.'}
                   </p>
                 </div>
+
+                <label className="flex items-start gap-2.5 text-xs text-stone-600 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={addToCalendar}
+                    onChange={(event) => setAddToCalendar(event.target.checked)}
+                    className="mt-0.5 w-4 h-4 accent-stone-900"
+                  />
+                  <span>
+                    Zet de afspraak ook in mijn Google Agenda
+                    <span className="text-stone-400">
+                      {' '}
+                      (optioneel — we vragen pas dan om in te loggen)
+                    </span>
+                  </span>
+                </label>
 
                 {selectedPlan && (
                   <div className="pt-3 border-t border-stone-100 flex items-baseline justify-between gap-3 text-xs">
@@ -761,6 +848,14 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     </strong>
                   </div>
                 </div>
+
+                <button
+                  onClick={handleBookAppointment}
+                  disabled={isBooking}
+                  className="h-12 rounded-full border-2 border-stone-900 bg-white hover:bg-stone-50 text-stone-900 font-extrabold text-sm cursor-pointer transition-colors disabled:opacity-60"
+                >
+                  {isBooking ? 'Bezig met inplannen…' : 'Plan afspraak aanvragen'}
+                </button>
               </div>
             </div>
           )}
@@ -797,6 +892,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </div>
                 )}
                 <div className="flex justify-between">
+                  <span className="text-stone-500">Offertes via:</span>
+                  <span className="font-bold">{channel}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-stone-500">Google Calendar:</span>
                   <span
                     className={`font-bold ${
@@ -805,8 +904,42 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   >
                     {bookingResult?.calendarSynced
                       ? '✓ In je agenda gezet'
-                      : bookingResult?.syncError || 'Lokaal genoteerd'}
+                      : addToCalendar
+                        ? bookingResult?.syncError || 'Lokaal genoteerd'
+                        : 'Niet gekoppeld (optioneel)'}
                   </span>
+                </div>
+              </div>
+
+              {/* The chosen channel now actually produces a ready-to-send message */}
+              <div className="w-full flex flex-col gap-2 text-left">
+                <span className="text-xs font-bold text-stone-500 uppercase">
+                  Stuur je gegevens alvast mee
+                </span>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  {(channel === 'WhatsApp' || channel === 'Allebei') && (
+                    <a
+                      href={buildWhatsAppUrl(PLATFORM_CONTACT.whatsapp, quoteMessage)}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => track('whatsapp_click', { source: 'wizard-confirmation' })}
+                      className="flex-1 h-12 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-sm inline-flex items-center justify-center gap-2 no-underline"
+                    >
+                      Via WhatsApp
+                    </a>
+                  )}
+                  {(channel === 'E-mail' || channel === 'Allebei') && (
+                    <a
+                      href={buildMailtoUrl(
+                        PLATFORM_CONTACT.email,
+                        `Afspraak ${bookingResult?.booking.id ?? ''}`.trim(),
+                        quoteMessage
+                      )}
+                      className="flex-1 h-12 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center gap-2 no-underline"
+                    >
+                      Via e-mail
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -877,15 +1010,15 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 </button>
               )}
               <button
-                onClick={step === 'afspraak' ? handleBookAppointment : handleNext}
+                onClick={
+                  step === 'afspraak'
+                    ? () => onViewPublishedSite(sector, styleIndex, formData)
+                    : handleNext
+                }
                 disabled={step === 'afspraak' && isBooking}
                 className="flex-1 h-14 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all hover:-translate-y-0.5 disabled:opacity-60"
               >
-                {step === 'afspraak'
-                  ? isBooking
-                    ? 'Bezig met inplannen...'
-                    : 'Plan afspraak aanvragen'
-                  : 'Volgende stap →'}
+                {step === 'afspraak' ? 'Bekijk je website →' : 'Volgende stap →'}
               </button>
             </div>
           )}

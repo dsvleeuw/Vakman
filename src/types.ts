@@ -124,6 +124,10 @@ export interface AppointmentBooking {
   clientPhone: string;
   clientAddress: string;
   notes?: string;
+  /** Channel the visitor picked for the quote (WhatsApp / E-mail / Allebei). */
+  channel?: QuoteChannel;
+  /** Whether the visitor explicitly asked to sync the appointment. */
+  calendarSyncRequested?: boolean;
   googleCalendarEventId?: string;
   googleDriveFileId?: string;
   createdAt: number;
@@ -182,6 +186,9 @@ export interface WizardFormData {
   phone: string;
   city: string;
 }
+
+/** How a visitor wants to receive their quote. */
+export type QuoteChannel = 'WhatsApp' | 'E-mail' | 'Allebei';
 
 /** The three one-off platform packages (see `data/plans.ts`). */
 export type PlanId = 'basis' | 'pro' | 'premium';
