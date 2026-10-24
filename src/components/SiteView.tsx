@@ -37,10 +37,35 @@ export const SiteView: React.FC<SiteViewProps> = ({
   // The preview bar is three wrapped rows on a phone; collapse the sector and
   // style pickers behind one "Aanpassen" toggle so the demo site stays visible.
   const [controlsOpen, setControlsOpen] = useState(false);
+  const [previewBarHidden, setPreviewBarHidden] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
   const [showAllWork, setShowAllWork] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const lastScrollYRef = useRef(0);
+
+  useEffect(() => {
+    if (embedded) return;
+    lastScrollYRef.current = window.scrollY;
+    const handleScroll = () => {
+      const currentY = Math.max(0, window.scrollY);
+      const delta = currentY - lastScrollYRef.current;
+      if (currentY < 48 || controlsOpen) {
+        setPreviewBarHidden(false);
+        lastScrollYRef.current = currentY;
+        return;
+      }
+      if (delta > 10) {
+        setPreviewBarHidden(true);
+        lastScrollYRef.current = currentY;
+      } else if (delta < -6) {
+        setPreviewBarHidden(false);
+        lastScrollYRef.current = currentY;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [embedded, controlsOpen]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -64,11 +89,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
     };
   }, [menuOpen]);
 
+  const hidePreviewBar = previewBarHidden && !controlsOpen;
+
   return (
     <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}>
       {/* Top Preview Control Bar */}
       {!embedded && (
-      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 pt-[calc(0.375rem+env(safe-area-inset-top))] pb-1.5 flex lg:pt-[calc(0.5rem+env(safe-area-inset-top))] lg:pb-2 flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md">
+      <div
+        className={`sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 pt-[calc(0.375rem+env(safe-area-inset-top))] pb-1.5 flex lg:pt-[calc(0.5rem+env(safe-area-inset-top))] lg:pb-2 flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md transition-transform duration-200 ${
+          hidePreviewBar
+            ? '-translate-y-full lg:translate-y-0 pointer-events-none lg:pointer-events-auto'
+            : 'translate-y-0'
+        }`}
+      >
         <div className="flex items-center justify-between gap-2 lg:justify-start lg:gap-3">
           <RouteLink
             route={{ name: 'home', sector: selectedSector }}
@@ -228,7 +261,13 @@ export const SiteView: React.FC<SiteViewProps> = ({
       >
         {/* Site Header */}
         <header
-          className={`${embedded ? 'sticky top-0' : 'sticky top-[calc(3.5rem+env(safe-area-inset-top))] lg:top-[calc(3.75rem+env(safe-area-inset-top))]'} z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors`}
+          className={`${
+            embedded
+              ? 'sticky top-0'
+              : hidePreviewBar
+                ? 'sticky top-[env(safe-area-inset-top)] lg:top-[calc(3.75rem+env(safe-area-inset-top))]'
+                : 'sticky top-[calc(3.5rem+env(safe-area-inset-top))] lg:top-[calc(3.75rem+env(safe-area-inset-top))]'
+          } z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-[top,background-color,border-color] duration-200`}
           style={{
             background: site.hdrBg,
             borderColor: site.line,
