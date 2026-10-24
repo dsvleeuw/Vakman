@@ -1,5 +1,5 @@
-import React from 'react';
-import { CalendarDays } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { CalendarDays, Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   onGoHome: () => void;
@@ -8,9 +8,44 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const handleDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    desktopQuery.addEventListener('change', handleDesktop);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      desktopQuery.removeEventListener('change', handleDesktop);
+    };
+  }, [menuOpen]);
+
+  const handleGoHome = () => {
+    setMenuOpen(false);
+    onGoHome();
+  };
+
+  const handleGoStart = () => {
+    setMenuOpen(false);
+    onGoStart();
+  };
+
   return (
     <header
-      className={`sticky top-0 z-20 backdrop-blur-md transition-all duration-300 flex items-center justify-between gap-8 px-4 sm:px-8 md:px-12 border-b border-stone-200/60 ${
+      className={`sticky top-0 z-20 backdrop-blur-md transition-all duration-300 flex items-center justify-between gap-4 sm:gap-8 px-4 sm:px-8 md:px-12 border-b border-stone-200/60 ${
         scrolled
           ? 'py-3.5 bg-stone-100/90 shadow-sm'
           : 'py-5 bg-stone-100/75'
@@ -18,7 +53,7 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
     >
       {/* Zone 1: Brand Wordmark */}
       <button
-        onClick={onGoHome}
+        onClick={handleGoHome}
         className="flex items-center gap-2.5 bg-transparent border-0 p-0 cursor-pointer text-stone-900 shrink-0 text-left"
         aria-label="Klusbaas Home"
       >
@@ -31,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
       </button>
 
       {/* Zone 2: Navigation Links */}
-      <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-600">
+      <nav aria-label="Hoofdnavigatie" className="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-600">
         <a
           href="#presets"
           className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
@@ -58,16 +93,77 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
         </a>
       </nav>
 
-      {/* Zone 3: 1 Primary Action */}
-      <div className="flex items-center gap-3 shrink-0">
+      {/* Zone 3: Primary Action + Mobile Menu */}
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         <button
-          onClick={onGoStart}
-          className="h-11 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold tracking-tight cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-sm whitespace-nowrap shrink-0 flex items-center gap-2"
+          onClick={handleGoStart}
+          className="hidden sm:flex h-11 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold tracking-tight cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-sm whitespace-nowrap shrink-0 items-center gap-2"
         >
-          <CalendarDays className="w-4 h-4" />
+          <CalendarDays className="w-4 h-4" aria-hidden="true" />
           Plan een afspraak
         </button>
+        <button
+          ref={menuButtonRef}
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="md:hidden w-11 h-11 rounded-full border border-stone-300 bg-white/60 hover:bg-white text-stone-900 flex items-center justify-center cursor-pointer transition-colors"
+          aria-label={menuOpen ? 'Navigatie sluiten' : 'Navigatie openen'}
+          aria-expanded={menuOpen}
+          aria-controls="home-mobile-navigation"
+        >
+          {menuOpen ? (
+            <X className="w-5 h-5" aria-hidden="true" />
+          ) : (
+            <Menu className="w-5 h-5" aria-hidden="true" />
+          )}
+        </button>
       </div>
+
+      {menuOpen && (
+        <nav
+          id="home-mobile-navigation"
+          aria-label="Mobiele navigatie"
+          className="md:hidden animate-fade-in absolute inset-x-0 top-full z-10 border-b border-stone-200 bg-stone-100/95 backdrop-blur-md shadow-lg"
+        >
+          <div className="px-4 sm:px-8 py-4 flex flex-col gap-1 text-base font-semibold text-stone-700">
+            <a
+              href="#presets"
+              onClick={() => setMenuOpen(false)}
+              className="h-12 flex items-center border-b border-stone-200/80 hover:text-stone-900 transition-colors"
+            >
+              Alle 30 Presets
+            </a>
+            <a
+              href="#hoe-het-werkt"
+              onClick={() => setMenuOpen(false)}
+              className="h-12 flex items-center border-b border-stone-200/80 hover:text-stone-900 transition-colors"
+            >
+              Hoe het werkt
+            </a>
+            <a
+              href="#prijzen"
+              onClick={() => setMenuOpen(false)}
+              className="h-12 flex items-center border-b border-stone-200/80 hover:text-stone-900 transition-colors"
+            >
+              Prijzen
+            </a>
+            <a
+              href="#vakken"
+              onClick={() => setMenuOpen(false)}
+              className="h-12 flex items-center hover:text-stone-900 transition-colors"
+            >
+              Vakgebieden
+            </a>
+            <button
+              onClick={handleGoStart}
+              className="sm:hidden mt-3 h-12 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold cursor-pointer flex items-center justify-center gap-2 shadow-sm"
+            >
+              <CalendarDays className="w-4 h-4" aria-hidden="true" />
+              Plan een afspraak
+            </button>
+          </div>
+        </nav>
+      )}
     </header>
   );
 };

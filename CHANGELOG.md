@@ -24,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Mobiele hamburgernavigatie.** De homepage en gegenereerde vakmansites
+  hebben nu een toegankelijk hamburgermenu onder het desktop-breekpunt, met
+  de bestaande navigatielinks en primaire actie. Het menu sluit na een
+  keuze, met Escape en bij overstappen naar een desktopweergave.
 - **"Overige" vak-optie.** `SectorId` en `SECTORS` kennen nu `overige`: een
   zevende tegel in de Vak-keuze voor vakmensen die niet in de 6 standaard
   vakken vallen. Bevat generieke diensten, FAQ, prijsflow en reviews.

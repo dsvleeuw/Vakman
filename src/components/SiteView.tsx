@@ -1,5 +1,5 @@
-import React from 'react';
-import { Phone, MessageCircle, Zap } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Phone, MessageCircle, Zap, Menu, X } from 'lucide-react';
 import type { ActiveSiteData, SectorId } from '../types';
 import { ORDER, SECTORS, STYLES, getUnsplashUrl } from '../data/tradesData';
 import { ImageWithFallback } from './ImageWithFallback';
@@ -38,6 +38,31 @@ export const SiteView: React.FC<SiteViewProps> = ({
   onSelectStyle,
   onGoStart,
 }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const handleDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuOpen(false);
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    desktopQuery.addEventListener('change', handleDesktop);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      desktopQuery.removeEventListener('change', handleDesktop);
+    };
+  }, [menuOpen]);
+
   return (
     <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-20 sm:pb-0'}`}>
       {/* Top Preview Control Bar */}
@@ -125,7 +150,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           }}
         >
           {/* Brand Wordmark */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             <span
               className="w-9 h-9 flex items-center justify-center font-bold text-lg shadow-sm shrink-0"
               style={{
@@ -139,7 +164,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
               {site.bizLetter}
             </span>
             <span
-              className="text-xl sm:text-2xl font-bold tracking-tight whitespace-nowrap"
+              className="text-xl sm:text-2xl font-bold tracking-tight whitespace-nowrap truncate"
               style={{
                 fontFamily: site.display,
                 fontWeight: site.dw,
@@ -151,7 +176,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           </div>
 
           {/* Nav links */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-semibold">
+          <nav aria-label="Hoofdnavigatie" className="hidden md:flex items-center gap-7 text-sm font-semibold">
             <a href="#diensten" className="hover:opacity-75 transition-opacity whitespace-nowrap">
               Diensten
             </a>
@@ -169,11 +194,11 @@ export const SiteView: React.FC<SiteViewProps> = ({
             </a>
           </nav>
 
-          {/* Action button */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Action button + Mobile Menu */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
-              href={`tel:${site.phone.replace(/[\s-]/g, '')}`}
-              className="h-10 px-5 flex items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
+              href={buildTelUrl(site.phone)}
+              className="hidden sm:flex h-10 px-5 items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
               style={{
                 borderRadius: site.radius,
                 background: site.fg,
@@ -182,7 +207,95 @@ export const SiteView: React.FC<SiteViewProps> = ({
             >
               {site.callLabel}
             </a>
+            <button
+              ref={menuButtonRef}
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              className="md:hidden w-11 h-11 border flex items-center justify-center shrink-0 cursor-pointer transition-opacity hover:opacity-75"
+              style={{
+                borderRadius: site.radiusSm,
+                background: site.card,
+                borderColor: site.line,
+                color: site.fg,
+              }}
+              aria-label={menuOpen ? 'Navigatie sluiten' : 'Navigatie openen'}
+              aria-expanded={menuOpen}
+              aria-controls="site-mobile-navigation"
+            >
+              {menuOpen ? (
+                <X className="w-5 h-5" aria-hidden="true" />
+              ) : (
+                <Menu className="w-5 h-5" aria-hidden="true" />
+              )}
+            </button>
           </div>
+
+          {menuOpen && (
+            <nav
+              id="site-mobile-navigation"
+              aria-label="Mobiele navigatie"
+              className="md:hidden animate-fade-in absolute inset-x-0 top-full z-10 border-b shadow-lg"
+              style={{
+                background: site.card,
+                borderColor: site.line,
+                color: site.fg,
+              }}
+            >
+              <div className="px-4 sm:px-8 py-4 flex flex-col gap-1 text-base font-semibold">
+                <a
+                  href="#diensten"
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
+                  style={{ borderColor: site.line }}
+                >
+                  Diensten
+                </a>
+                <a
+                  href="#werk"
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
+                  style={{ borderColor: site.line }}
+                >
+                  Eerder werk
+                </a>
+                <a
+                  href="#prijs"
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
+                  style={{ borderColor: site.line }}
+                >
+                  Prijs berekenen
+                </a>
+                <a
+                  href="#gebied"
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
+                  style={{ borderColor: site.line }}
+                >
+                  Werkgebied
+                </a>
+                <a
+                  href="#contact"
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 flex items-center hover:opacity-75 transition-opacity"
+                >
+                  Contact
+                </a>
+                <a
+                  href={buildTelUrl(site.phone)}
+                  onClick={() => setMenuOpen(false)}
+                  className="sm:hidden mt-3 h-12 px-6 flex items-center justify-center font-bold text-sm"
+                  style={{
+                    borderRadius: site.radius,
+                    background: site.fg,
+                    color: site.bg,
+                  }}
+                >
+                  {site.callLabel}
+                </a>
+              </div>
+            </nav>
+          )}
         </header>
 
         {/* 1. Hero: Split Layout */}
