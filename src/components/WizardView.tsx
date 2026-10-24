@@ -87,6 +87,76 @@ interface WizardViewProps {
 
 const FIELD_ORDER: (keyof WizardFormData)[] = ['biz', 'owner', 'phone', 'city'];
 
+/**
+ * Fixed visual order of the intake flow: the five form steps plus the
+ * confirmation screen. The progress line maps onto exactly this order, so
+ * `/start/vak` draws 0 and `/start/klaar` draws the full line.
+ */
+const WIZARD_FLOW: readonly WizardRouteStep[] = [...WIZARD_STEPS, 'klaar'];
+
+/** Duration of the step slide. The brief allows 200–250 ms. */
+const WIZARD_SLIDE_MS = 220;
+/** The progress line trails the step change by a hair on purpose. */
+const WIZARD_PROGRESS_MS = 240;
+
+/**
+ * Motion for the intake wizard: the progress line and the step slide.
+ *
+ * Kept local to this view and pure CSS, because the wizard is server-rendered:
+ * nothing may be measured while rendering, so the step panel simply mounts with
+ * a keyframe animation and the bar only changes a transform the browser
+ * interpolates. Both animate transform/opacity exclusively, so a step change
+ * can never shift the layout. The class names follow the shared `kb-` motion
+ * utilities; declaring them here keeps the wizard animating regardless of when
+ * page-level CSS is available.
+ */
+const WIZARD_MOTION_CSS = `
+.kb-line-draw {
+  transition: transform ${WIZARD_PROGRESS_MS}ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes kb-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translate3d(1.25rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes kb-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-1.25rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.kb-slide-in-right {
+  animation: kb-slide-in-right ${WIZARD_SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.kb-slide-in-left {
+  animation: kb-slide-in-left ${WIZARD_SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kb-line-draw {
+    transition: none !important;
+  }
+
+  .kb-slide-in-right,
+  .kb-slide-in-left {
+    animation: none !important;
+  }
+}
+`;
+
 export const WizardView: React.FC<WizardViewProps> = ({
   step,
   onStepChange,
@@ -174,6 +244,32 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const currentStepIndex = WIZARD_STEPS.indexOf(step as (typeof WIZARD_STEPS)[number]);
   const isPublished = step === 'klaar';
   const visualStepIndex = isPublished ? WIZARD_STEPS.length : currentStepIndex;
+
+  // Motion preferences. `useMediaQuery` starts from `false` and corrects itself
+  // in an effect, so the first render matches the prerendered markup; the CSS
+  // above repeats the media query, so motion stays off even before hydration.
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  /** Position of the current route in the fixed wizard order: 0 … 5. */
+  const flowIndex = Math.max(0, WIZARD_FLOW.indexOf(step));
+  /** scaleX for the progress line: 0 on /start/vak, 1 on /start/klaar. */
+  const wizardProgress = flowIndex / (WIZARD_FLOW.length - 1);
+
+  // Steps slide in from the right when the visitor moves forward and from the
+  // left when they go back. The direction is derived while rendering (React's
+  // "adjust state during render" pattern), so the first paint of the new step
+  // already carries the right class instead of starting the animation late.
+  const [slideDirection, setSlideDirection] = useState<'forward' | 'back'>('forward');
+  const [lastFlowIndex, setLastFlowIndex] = useState(flowIndex);
+  if (flowIndex !== lastFlowIndex) {
+    setSlideDirection(flowIndex > lastFlowIndex ? 'forward' : 'back');
+    setLastFlowIndex(flowIndex);
+  }
+  const stepSlideClass = prefersReducedMotion
+    ? ''
+    : slideDirection === 'forward'
+      ? 'kb-slide-in-right'
+      : 'kb-slide-in-left';
 
   useEffect(() => {
     const unsubscribe = initAuthListener(
@@ -421,6 +517,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
   return (
     <div id="main-content" className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
+      {/* Step motion ships with the view that uses it: a prerendered route may
+          not depend on an effect for its first paint. */}
+      <style>{WIZARD_MOTION_CSS}</style>
+
       {/* Wizard Header with Step Progress */}
       <header className="bg-white border-b border-stone-200 px-3 sm:px-8 pt-[calc(0.75rem+env(safe-area-inset-top))] pb-3 flex items-center justify-between gap-2 sm:gap-6 flex-wrap sticky top-0 z-20 shadow-sm">
         <button
@@ -478,6 +578,22 @@ export const WizardView: React.FC<WizardViewProps> = ({
             })}
           </ol>
         </nav>
+
+        {/* Progress line: scaleX follows the position in the fixed order
+            vak → stijl → gegevens → diensten → afspraak → klaar. Decorative —
+            the step list above already announces where the visitor is — and
+            absolutely positioned, so drawing it never shifts the layout. */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-stone-200/80"
+          aria-hidden="true"
+        >
+          <div
+            className={`h-full w-full origin-left bg-stone-900 ${
+              prefersReducedMotion ? '' : 'kb-line-draw'
+            }`}
+            style={{ transform: `scaleX(${wizardProgress})` }}
+          />
+        </div>
       </header>
 
       {/* Main Split Layout: Centered max-w-xl on tablet, two-column split on desktop */}
@@ -486,7 +602,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
         <div className="lg:col-span-6 flex flex-col gap-6 w-full max-w-xl mx-auto lg:mx-0">
           {/* Context: what the visitor already picked, and how to change it */}
           {currentStepIndex >= 2 && (
-            <div className="flex flex-wrap items-center gap-2">
+            <div className={`flex flex-wrap items-center gap-2 ${stepSlideClass}`}>
               <button
                 type="button"
                 onClick={() => onStepChange('vak')}
@@ -510,9 +626,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
               )}
             </div>
           )}
-          {/* STEP 1: Vak kiezen */}
+          {/* STEP 1: Vak kiezen — keyed on the route step so the slide-in
+              animation restarts on every navigation. */}
           {step === 'vak' && (
-            <div className="flex flex-col gap-5">
+            <div key={step} className={`flex flex-col gap-5 ${stepSlideClass}`}>
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 1 VAN 5 · VAK
               </span>
@@ -566,7 +683,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
           {/* STEP 2: Stijl kiezen */}
           {step === 'stijl' && (
-            <div className="flex flex-col gap-5">
+            <div key={step} className={`flex flex-col gap-5 ${stepSlideClass}`}>
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 2 VAN 5 · STIJL
               </span>
@@ -625,7 +742,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
           {/* STEP 3: Gegevens invoeren */}
           {step === 'gegevens' && (
-            <div className="flex flex-col gap-5">
+            <div key={step} className={`flex flex-col gap-5 ${stepSlideClass}`}>
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 3 VAN 5 · GEGEVENS
               </span>
@@ -751,7 +868,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
           {/* STEP 4: Diensten selecteren */}
           {step === 'diensten' && (
-            <div className="flex flex-col gap-5">
+            <div key={step} className={`flex flex-col gap-5 ${stepSlideClass}`}>
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 4 VAN 5 · DIENSTEN
               </span>
@@ -811,7 +928,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
           {/* STEP 5: Bekijk de website, plan optioneel een afspraak */}
           {step === 'afspraak' && (
-            <div className="flex flex-col gap-6">
+            <div key={step} className={`flex flex-col gap-6 ${stepSlideClass}`}>
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 5 VAN 5 · OFFERTE
               </span>
@@ -1098,7 +1215,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
           {/* CONFIRMATION (own URL: /start/klaar) */}
           {step === 'klaar' && (
-            <div className="bg-white p-8 rounded-3xl border border-stone-200 flex flex-col items-center text-center gap-5 shadow-xl animate-fade-in">
+            <div
+              key={step}
+              className={`bg-white p-8 rounded-3xl border border-stone-200 flex flex-col items-center text-center gap-5 shadow-xl ${stepSlideClass}`}
+            >
               <div className="w-20 h-20 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-3xl shadow-lg pulse-glow">
                 ✓
               </div>
