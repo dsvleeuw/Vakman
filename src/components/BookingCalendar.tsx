@@ -308,7 +308,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 <select
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
                 >
                   {site.services.map((sv) => (
                     <option key={sv.n} value={sv.n}>
@@ -332,7 +332,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
                   placeholder="bijv. Sanne de Jong"
-                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
                     errors.name ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
                   }`}
                 />
@@ -350,7 +350,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   value={clientPhone}
                   onChange={(e) => setClientPhone(e.target.value)}
                   placeholder="06 12 34 56 78"
-                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
                     errors.phone ? 'border-rose-500' : 'border-stone-500 focus:border-stone-900'
                   }`}
                 />
@@ -368,7 +368,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   value={clientAddress}
                   onChange={(e) => setClientAddress(e.target.value)}
                   placeholder="Kerkstraat 12, Utrecht"
-                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
                     errors.address ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
                   }`}
                 />
@@ -386,7 +386,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Bijv. 3 kozijnen aan de voorzijde schilderen"
                   rows={2}
-                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
                 />
               </div>
 

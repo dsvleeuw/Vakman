@@ -62,7 +62,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   };
 
   const inputClass = (hasError?: string) =>
-    `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
+    `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
       hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
@@ -242,7 +242,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     }}
                     rows={5}
                     placeholder="Omschrijf kort je klus, bijvoorbeeld: drie kozijnen aan de voorzijde schilderen."
-                    className={`w-full flex-1 p-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
+                    className={`w-full flex-1 p-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
                       errors.message ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />

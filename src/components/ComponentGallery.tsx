@@ -398,7 +398,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Zoek op naam of functie…"
-                  className="w-full h-11 pl-10 pr-10 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:border-stone-900 focus:outline-none text-sm font-medium"
+                  className="w-full h-11 pl-10 pr-10 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:border-stone-900 focus:outline-none text-base sm:text-sm font-medium"
                 />
                 {query && (
                   <button

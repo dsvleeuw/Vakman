@@ -71,7 +71,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   };
 
   const inputClass = (hasError?: string) =>
-    `w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
+    `w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
       hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
@@ -283,7 +283,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                   onChange={(e) => update('details', e.target.value)}
                   rows={3}
                   placeholder="Bijv. de aardlek springt elke keer als de vaatwasser aangaat."
-                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
                 />
               </div>
 

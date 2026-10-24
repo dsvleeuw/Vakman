@@ -813,7 +813,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     type="checkbox"
                     checked={addToCalendar}
                     onChange={(event) => setAddToCalendar(event.target.checked)}
-                    className="mt-0.5 w-4 h-4 accent-stone-900"
+                    className="mt-0.5 w-4 h-4 text-base accent-stone-900 shrink-0"
                   />
                   <span>
                     Zet de afspraak ook in mijn Google Agenda
