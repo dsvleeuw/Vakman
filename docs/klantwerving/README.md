@@ -1,50 +1,87 @@
-# Klantwerving Haarlemmermeer
+# Klantwerving Noord-Holland
 
 Werkdocumenten voor het werven van de eerste betalende klanten onder
-vakmensen in Haarlemmermeer. Dit is een commercieel spoor naast de
-productroadmap in [ROADMAP.md](../../ROADMAP.md); de twee verwijzen naar
-elkaar waar ze overlappen.
+vakmensen in Noord-Holland; de eerste inventarisatie was Haarlemmermeer,
+de leadlijst is inmiddels provinciedekkend. Dit is een commercieel spoor
+naast de productroadmap in [ROADMAP.md](../../ROADMAP.md); de twee
+verwijzen naar elkaar waar ze overlappen.
 
 | Bestand | Inhoud |
 |---------|--------|
 | [01-roadmap.md](./01-roadmap.md) | Doelgroep, leadbronnen, kanalen, dagritme, bezwaren |
 | `02-taken.md` (repo-root) | Taken en dagelijks logboek |
 | `leads/leads-haarlemmermeer.example.csv` (repo-root) | Kolomdefinitie voor de leadlijst |
+| `leads/leads-noord-holland.csv` / `.xlsx` (repo-root, niet in git) | Volledige leadlijst met verrijking en demo-links |
 
 ## Leadlijst
 
-De eerste inventarisatie staat als Google Sheet in Drive:
-[Vakmensen Haarlemmermeer — leadlijst (concept)](https://docs.google.com/spreadsheets/d/1CN0IYNICj7rMVA707rg7q25Lb2X7GiVq9ZbQLw8u1gw/edit).
-113 bedrijven over zes vakken, met adres, telefoon, e-mail, website, KvK-nummer
-en een bron-URL per regel.
+De actuele inventarisatie staat als Google Sheet in Drive:
+[Vakmensen Noord-Holland — leadlijst (229 bedrijven, verrijkt)](https://docs.google.com/spreadsheets/d/1XpYFqEPuLfsnXuO53a6I6q83e9wF-Cw7Rd6of34Jdtk/edit).
+229 bedrijven over zes vakken, met adres, telefoon, e-mail, website,
+KvK-nummer, diensten, oprichtingsjaar, reviews, een bron-URL en een
+kant-en-klare persoonlijke demo-link per regel.
+
+Werkbestanden in de repo (niet versiebeheerd, bevatten persoonsgegevens):
+`leads/leads-noord-holland.csv` en `leads/leads-noord-holland.xlsx`.
+Het oudere bestand `leads-haarlemmermeer.csv` is de voorloper; de
+Haarlemmermeer-regels zitten ook in de nieuwe lijst.
 
 | Vak | Aantal |
 |-----|--------|
-| timmerman | 26 |
-| loodgieter | 21 |
-| schilder | 19 |
-| hovenier | 19 |
-| elektricien | 17 |
-| stukadoor | 11 |
+| schilder | 53 |
+| elektricien | 46 |
+| loodgieter | 44 |
+| hovenier | 33 |
+| timmerman | 32 |
+| stukadoor | 21 |
 
-Kernen: Hoofddorp 48, Nieuw-Vennep 25, Badhoevedorp 9, Zwanenburg 9,
-Rijsenhout 8, Vijfhuizen 2, Zwaanshoek 2, plus Lijnden, Cruquius,
-Leimuiderbrug en één bedrijf net over de grens in Hillegom.
+| Regio | Aantal |
+|-------|--------|
+| Haarlemmermeer | 112 |
+| Haarlem | 45 |
+| Alkmaar | 24 |
+| Waterland / Purmerend | 22 |
+| Overig Noord-Holland (regiobreed) | 10 |
+| Zaanstreek | 6 |
+| West-Friesland (Hoorn e.o.) | 5 |
+| Kop van Noord-Holland | 3 |
+| Kennemerland (Bloemendaal, Santpoort) | 2 |
+
+Dekking: 176 regels met e-mail, 205 met telefoon, 71 met KvK-nummer,
+119 met een omschrijving van de diensten. 35 bedrijven zijn daadwerkelijk
+op hun eigen website bezocht; die regels hebben `site_bezocht = ja` en
+zijn aangevuld met oprichtingsjaar, diensten, keurmerken, eigenaar/team,
+werkgebied en reviews.
 
 ### Wat de lijst wel en niet is
 
 - **Wel:** een startpunt van openbaar vermelde gegevens, genoeg om te bellen
-  en de persoonlijke demo-link te sturen.
-- **Niet:** uitputtend of geverifieerd. Google Maps levert per kern meer
-  bedrijven op dan hier staan; de lijst is gevuld vanuit eigen websites,
-  KvK-gidsen en telefoongidsen. 73 van de 113 regels hebben een e-mailadres,
-  40 (nog) niet.
-- De kolom `soort` markeert twijfelgevallen: `controle nodig` betekent dat het
-  adres, de vestigingsplaats of het KvK-nummer niet op de bron staat (soms is
-  het een lokale-SEO-site zonder eigen werkplaats), `buiten gemeente` betekent
-  gevestigd buiten Haarlemmermeer maar werkzaam in de polder.
-- De niet-mailingindicator is **niet** gecontroleerd; dat vereist een KvK-export
-  per bedrijf. Doe dat voor je post verstuurt of langsgaat.
+  en de persoonlijke demo-link te sturen. De demo-link is per regel
+  vooraf ingevuld (`/voorbeeld/<vak>/<stijl>?naam=&plaats=&tel=`).
+- **Niet:** uitputtend of volledig geverifieerd. Per kern en per vak zijn er
+  meer bedrijven dan hier staan; de lijst is gevuld vanuit eigen websites,
+  KvK-vermeldingen, branche- en keurmerksites en bedrijvengidsen.
+- De kolom `soort` markeert twijfelgevallen: `controle nodig` (25 regels)
+  betekent dat het adres, de vestigingsplaats of het KvK-nummer niet op de
+  bron staat, of dat meerdere bedrijven hetzelfde telefoonnummer of
+  verzameladres delen (lokale-SEO-netwerken). `buiten gemeente` (2) en
+  `landelijk` (1) zijn gevestigd buiten de kern waarin ze adverteren.
+- 53 regels hebben nog geen e-mailadres en 24 geen telefoonnummer; die zijn
+  alleen via de website of een gids te bereiken. Gidsen verbergen
+  e-mailadressen achter spamprotectie, dus dit zijn echte gaten.
+- De niet-mailingindicator is **niet** gecontroleerd; dat vereist een
+  KvK-export per bedrijf. Bellen is het primaire kanaal (zie 01-roadmap.md);
+  verstuur geen koude e-mail zonder die check.
+
+### Volgende stappen voor de lijst
+
+1. `site_bezocht = nee`-regels alsnog langsgaan op de eigen website en
+   verrijken (op dit moment 194 van de 229).
+2. De 25 `controle nodig`-regels bellen en uitvragen: zelfstandig bedrijf,
+   eigen werkplaats, KvK-nummer.
+3. Ontbrekende e-mailadressen aanvullen via de eigen site of een KvK-export.
+4. Per provincieregio de tellingen aanvullen tot een werkbare bel-lijst per
+   week (zie dagritme in 01-roadmap.md).
 
 Nog niet aangeleverd: `03-…` (demo-link / verkoopgesprek) en `05-…`
 (juridische onderbouwing rond koude acquisitie, waarnaar 01 verwijst).

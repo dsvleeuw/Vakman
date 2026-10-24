@@ -1,6 +1,6 @@
 # 02 — Taken en logboek
 
-Werkbestand voor de klantwerving in Haarlemmermeer (zie
+Werkbestand voor de klantwerving in Noord-Holland (zie
 [01-roadmap.md](./docs/klantwerving/01-roadmap.md)). Elke dag één regel in het
 logboek; taken die af zijn gaan naar *Gedaan* met de datum erbij.
 
@@ -10,8 +10,11 @@ logboek; taken die af zijn gaan naar *Gedaan* met de datum erbij.
 |---|------|-----------|--------|
 | 3 | Persoonlijke demo-link (`/voorbeeld/:vak/:stijl?naam=&plaats=&tel=`) | P0 | Klaar — zie CHANGELOG |
 | — | 113 leads verzamelen in Haarlemmermeer (6 vakken) | P0 | Klaar — Google Sheet, zie docs/klantwerving/README.md |
-| — | Ontbrekende e-mailadressen aanvullen (40 regels) | P1 | Open |
-| — | `controle nodig`-regels verifiëren via KvK (14 regels) | P1 | Open |
+| — | Leadlijst uitbreiden naar regio Noord-Holland | P0 | Klaar — 229 bedrijven, 8 regio's, Google Sheet + `.csv`/`.xlsx` |
+| — | Eigen websites van bedrijven bezoeken en verrijken | P0 | Deels klaar — 35 van 229 bezocht, rest open |
+| — | Ontbrekende e-mailadressen aanvullen (53 regels) | P1 | Open |
+| — | `controle nodig`-regels verifiëren via KvK (25 regels) | P1 | Open |
+| — | Restant websites bezoeken (`site_bezocht = nee`, 194 regels) | P1 | Open |
 | — | Beltijden 07:30–08:30 en 12:00–13:00 reserveren | P1 | Open |
 | — | 20 brieven/kaarten met QR naar persoonlijke demo (week 2) | P2 | Open |
 
@@ -20,3 +23,4 @@ logboek; taken die af zijn gaan naar *Gedaan* met de datum erbij.
 | Datum | Wat gedaan | Resultaat |
 |-------|-----------|-----------|
 | 2026-10-24 | Leadlijst Haarlemmermeer eerste opzet | 113 bedrijven, 73 e-mailadressen, 92 telefoonnummers, 47 KvK-nummers |
+| 2026-10-24 | Uitbreiding naar regio Noord-Holland + websitebezoek | 229 bedrijven over 8 regio's, 176 e-mail, 205 telefoon, 71 KvK, 35 eigen websites bezocht en verrijkt, demo-link per regel |
