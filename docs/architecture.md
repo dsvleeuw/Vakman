@@ -3,7 +3,7 @@
 ## High-level overview
 
 Klusbaas is a single-page React application that generates marketing
-websites for Dutch tradespeople. It has three views, switched by state in
+websites for Dutch tradespeople. It has four views, switched by state in
 `src/App.tsx` (there is no client-side router):
 
 | View | Component | Purpose |
@@ -11,6 +11,7 @@ websites for Dutch tradespeople. It has three views, switched by state in
 | `home` | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 30 presets and platform pricing |
 | `site` | `SiteView` | The generated craftsman website (the product demo) |
 | `start` | `WizardView` | Five-step onboarding that produces a customised site |
+| `components` | `ComponentGallery` | Searchable live catalogue of every component module and ten reusable additions |
 
 `App.tsx` holds the selected sector, style index and wizard step, plus the
 customised per-sector data. It reads URL search params on load so individual
@@ -18,7 +19,7 @@ presets can be linked directly:
 
 | Param | Values | Effect |
 |-------|--------|--------|
-| `view` | `site` \| `start` | Open a specific view |
+| `view` | `site` \| `start` \| `components` | Open a specific view |
 | `sector` | one of the `SectorId` union | Preselect a trade |
 | `style` | `0`–`4` | Preselect a style |
 | `autostart` | `1` | Shortcut that opens the site view |
@@ -44,6 +45,9 @@ All content is TypeScript data, there is no CMS or database.
   - `buildActiveSite(sectorId, styleIndex, customForm?, disabledServices?)`
     — merges content, palette, photos and the wizard's customised data into
     the `ActiveSiteData` object that `SiteView` renders.
+- `src/data/componentCatalog.ts` — component names, Dutch labels,
+  descriptions, categories, source paths and preview layouts for the
+  interactive library. Preview components are mounted one at a time.
 - `src/types.ts` — every shared type, including `TradeToolId` and the
   `tool?` field on `SectorData`.
 
@@ -58,6 +62,10 @@ All content is TypeScript data, there is no CMS or database.
    the floating/desktop actions and the mobile sticky contact bar.
 3. The wizard keeps a live `buildActiveSite` result in a browser-mockup
    panel so edits update the preview immediately.
+4. `ComponentGallery` is lazy-loaded on demand, filters `COMPONENT_ENTRIES`
+   and mounts only the selected preview. Large application views use a
+   scrollable canvas; reusable trade-site additions live in
+   `src/components/extras/`. See [component-library.md](./component-library.md).
 
 ## Styling system
 
@@ -93,9 +101,9 @@ is the only networked write path and requires Firebase OAuth.
 ## Testing
 
 - Unit tests use the built-in `node:test` runner and are executed with
-  `bun test src` (also available as `bun run test`). Only pure utilities
-  are tested: `utils/pricing.test.ts`, `utils/contact.test.ts`,
-  `utils/surface.test.ts`.
+  `bun test src` (also available as `bun run test`). They cover pure
+  utilities, component-catalog integrity and server-rendered smoke tests
+  for all ten reusable additions in `components/extras/extras.test.tsx`.
 - Type checking: `bun run lint` (`tsc --noEmit`).
 - Production build: `bun run build` (Vite).
 - For component-level verification without a browser, render components
