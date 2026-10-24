@@ -19,7 +19,8 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       QUOTE_NOTIFY_EMAIL: process.env.QUOTE_NOTIFY_EMAIL,
     },
     storage: await createBlobStorage(),
-    siteUrl: process.env.PUBLIC_SITE_URL || new URL(req.url).origin,
+    // Netlify sets URL to the production site URL; links in mails must never point at a preview or function host.
+    siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
   });
   return Response.json(result.body, { status: result.status });
 };
