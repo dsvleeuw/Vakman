@@ -17,6 +17,7 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       RESEND_API_KEY: process.env.RESEND_API_KEY,
       QUOTE_FROM_EMAIL: process.env.QUOTE_FROM_EMAIL,
       QUOTE_NOTIFY_EMAIL: process.env.QUOTE_NOTIFY_EMAIL,
+      MAIL_TEST_RECIPIENT: process.env.MAIL_TEST_RECIPIENT,
     },
     leads: await createBlobStore('leads'),
     quotes: await createBlobStore('quotes'),

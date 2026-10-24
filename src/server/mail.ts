@@ -14,6 +14,33 @@ export interface MailEnv {
   QUOTE_FROM_EMAIL?: string;
   /** Where new leads go. */
   QUOTE_NOTIFY_EMAIL?: string;
+  /**
+   * Testing without a verified domain: customer mails go to this address
+   * instead (Resend test mode only delivers to the account's own address).
+   * Leave empty in production.
+   */
+  MAIL_TEST_RECIPIENT?: string;
+}
+
+/**
+ * Send a customer mail to MAIL_TEST_RECIPIENT when set, with the intended
+ * recipient in the subject and a banner, so every mail can be reviewed in
+ * one inbox. Without the setting the mail is returned unchanged.
+ */
+export function redirectForTest(mail: OutgoingMail, env: MailEnv): OutgoingMail {
+  const testTo = env.MAIL_TEST_RECIPIENT?.trim();
+  if (!testTo || testTo === mail.to) return mail;
+  const note = `TESTMAIL: bedoeld voor ${mail.to}`;
+  return {
+    ...mail,
+    to: testTo,
+    subject: `[TEST → ${mail.to}] ${mail.subject}`,
+    text: `${note}\n\n${mail.text}`,
+    html: mail.html.replace(
+      /<body([^>]*)>/,
+      `<body$1><div style="background:#fef3c7;color:#78350f;font:700 13px Arial,sans-serif;padding:10px 16px;text-align:center;">${note.replace(/[<>&]/g, '')}</div>`
+    ),
+  };
 }
 
 export interface MailAttachment {

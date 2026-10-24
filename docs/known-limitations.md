@@ -10,7 +10,9 @@ to [ROADMAP.md](../ROADMAP.md).
   the account address (`thomascliphero@gmail.com`): lead notifications
   arrive, but confirmations to customers are refused and only logged until
   a domain is verified and `QUOTE_FROM_EMAIL` changed. The request itself
-  still succeeds and the customer sees the quote on screen.
+  still succeeds and the customer sees the quote on screen. For testing,
+  `MAIL_TEST_RECIPIENT` redirects customer mails to the account inbox,
+  marked `[TEST → …]`.
 - **No admin view.** Leads (`leads`) and quotes (`quotes`) are stored in
   Netlify Blobs but can only be read in the Netlify UI/CLI or via the
   quote link; there is no dashboard or export yet.

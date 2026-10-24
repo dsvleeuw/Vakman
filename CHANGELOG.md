@@ -30,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `quoteDelivery()` of de klant de PDF gemaild krijgt en of Klusbaas in de
   eigen mail een kant-en-klare WhatsApp-link krijgt om de offerte te sturen.
   E-mail is alleen verplicht als er gemaild wordt.
+- **`MAIL_TEST_RECIPIENT`** stuurt klantbevestigingen tijdelijk naar één
+  testinbox, met `[TEST → echt adres]` in het onderwerp en een gele balk in
+  de mail. Zo zijn alle mails te controleren zolang er geen geverifieerd
+  domein is. Leeg laten in productie.
 - Zonder `RESEND_API_KEY` draait alles in previewmodus: mails komen in de
   serverlog en de bevestiging zegt eerlijk dat er niets is gemaild.
 

@@ -169,3 +169,21 @@ test('channel E-mail: customer mail, no WhatsApp link for us', async () => {
   assert.equal(calls.length, 2);
   assert.ok(!calls[0].text.includes('wa.me'));
 });
+
+test('MAIL_TEST_RECIPIENT sends the customer mail to the test inbox, marked as test', async () => {
+  const calls: { to: string[]; subject: string; text: string; html: string }[] = [];
+  const { deps: d } = deps({
+    env: { RESEND_API_KEY: 'test', QUOTE_NOTIFY_EMAIL: 'team@example.nl', MAIL_TEST_RECIPIENT: 'team@example.nl' },
+    fetchImpl: async (_url, init) => {
+      calls.push(JSON.parse(String(init.body)));
+      return new Response('{}', { status: 200 });
+    },
+  });
+  const result = await handleLead(quoteBody, d);
+  assert.deepEqual(result.body.mail, { team: 'sent', customer: 'sent' });
+  assert.deepEqual(calls.map((call) => call.to[0]), ['team@example.nl', 'team@example.nl']);
+  assert.match(calls[1].subject, /^\[TEST → sanne@example\.nl\] /);
+  assert.match(calls[1].text, /^TESTMAIL: bedoeld voor sanne@example\.nl/);
+  assert.ok(calls[1].html.includes('TESTMAIL: bedoeld voor sanne@example.nl'));
+  assert.ok(!calls[0].subject.startsWith('[TEST'));
+});

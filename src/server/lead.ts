@@ -3,7 +3,7 @@ import { buildLeadCustomerEmail, buildLeadTeamEmail } from '../utils/leadEmail';
 import { quoteDelivery, quoteViewPath, type QuoteDelivery, type QuoteDocument } from '../utils/quote';
 import { buildQuoteEmail } from '../utils/quoteEmail';
 import { createRateLimiter, type RateLimiter } from '../utils/rateLimit';
-import { notifyAddress, sendMail, type FetchLike, type MailAttachment, type MailEnv } from './mail';
+import { notifyAddress, redirectForTest, sendMail, type FetchLike, type MailAttachment, type MailEnv } from './mail';
 import { createQuote } from './quotes';
 import type { JsonStore } from './store';
 
@@ -149,7 +149,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
   let customerStatus: MailStatus = 'skipped';
   if (customerMail && contact.email) {
     const customer = await sendMail(
-      { to: contact.email, replyTo: notify, attachments, ...customerMail },
+      redirectForTest({ to: contact.email, replyTo: notify, attachments, ...customerMail }, deps.env),
       deps.env,
       fetchImpl,
       log
