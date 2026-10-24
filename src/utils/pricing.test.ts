@@ -66,6 +66,20 @@ test('validatePostalCode validates format and checks geographic radius', () => {
 });
 
 test('validateWizardForm flags required fields and invalid phone numbers', () => {
+  const emptyForm = { biz: '', owner: '', phone: '', city: '' };
+  const emptyErrors = validateWizardForm(emptyForm);
+  assert.ok(emptyErrors.biz);
+  assert.ok(emptyErrors.owner);
+  assert.ok(emptyErrors.phone);
+  assert.ok(emptyErrors.city);
+
+  const whitespaceForm = { biz: '   ', owner: '\t ', phone: '   ', city: '  ' };
+  const whitespaceErrors = validateWizardForm(whitespaceForm);
+  assert.ok(whitespaceErrors.biz);
+  assert.ok(whitespaceErrors.owner);
+  assert.ok(whitespaceErrors.phone);
+  assert.ok(whitespaceErrors.city);
+
   const badForm = { biz: '', owner: '', phone: '123', city: '' };
   const errors = validateWizardForm(badForm);
   assert.ok(errors.biz);

@@ -210,15 +210,20 @@ export default function App() {
     styleIdx: number,
     form: WizardFormData
   ) => {
-    const updated = {
-      ...customData,
-      [sectorId]: form,
-    };
-    setCustomData(updated);
-    try {
-      localStorage.setItem('klusbaas_custom_sites', JSON.stringify(updated));
-    } catch {
-      // Ignore
+    const hasCustomInput = Boolean(
+      form.biz.trim() || form.owner.trim() || form.phone.trim() || form.city.trim()
+    );
+    if (hasCustomInput) {
+      const updated = {
+        ...customData,
+        [sectorId]: form,
+      };
+      setCustomData(updated);
+      try {
+        localStorage.setItem('klusbaas_custom_sites', JSON.stringify(updated));
+      } catch {
+        // Ignore
+      }
     }
 
     navigate({ name: 'site', sector: sectorId, styleId: styleIdFromIndex(styleIdx) });
@@ -383,7 +388,7 @@ export default function App() {
           onStepChange={handleWizardStepChange}
           initialSector={wizardSector}
           initialStyleIndex={wizardStyleIndex}
-          initialForm={draft.sector === wizardSector ? draft.form : null}
+          initialForm={draft.form}
           initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}
           plan={route.plan}
           onDraftChange={handleDraftChange}

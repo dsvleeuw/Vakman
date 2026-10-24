@@ -84,10 +84,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [formData, setFormData] = useState<WizardFormData>(
     () =>
       initialForm ?? {
-        biz: SECTORS[initialSector].biz,
-        owner: SECTORS[initialSector].owner,
-        phone: SECTORS[initialSector].phone,
-        city: SECTORS[initialSector].city,
+        biz: '',
+        owner: '',
+        phone: '',
+        city: '',
       }
   );
 
@@ -158,14 +158,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
   const handleSelectSector = (secId: SectorId) => {
     if (secId === sector) return;
-    const nextBase = SECTORS[secId];
     setSector(secId);
-    setFormData({
-      biz: nextBase.biz,
-      owner: nextBase.owner,
-      phone: nextBase.phone,
-      city: nextBase.city,
-    });
     setDisabledServices({});
     setErrors({});
   };
@@ -290,10 +283,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const selectedPlan = getPlan(plan);
 
   const quoteMessage = buildQuoteRequestMessage({
-    bizName: formData.biz || baseSector.biz,
-    owner: formData.owner || baseSector.owner,
-    phone: formData.phone || baseSector.phone,
-    city: formData.city || baseSector.city,
+    bizName: formData.biz.trim() || baseSector.biz,
+    owner: formData.owner.trim() || baseSector.owner,
+    phone: formData.phone.trim() || baseSector.phone,
+    city: formData.city.trim() || baseSector.city,
     dateStr: bookingResult?.booking.dateStr ?? bookingDate.formatted,
     timeSlot: bookingResult?.booking.timeSlot ?? bookingSlot,
     channel,
@@ -838,13 +831,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   <div>
                     <span className="text-stone-400 block">Vakman:</span>
                     <strong className="text-stone-800">
-                      {formData.owner || baseSector.owner}
+                      {formData.owner.trim() || baseSector.owner}
                     </strong>
                   </div>
                   <div>
                     <span className="text-stone-400 block">Werkgebied:</span>
                     <strong className="text-stone-800">
-                      {formData.city || baseSector.city} + 25km
+                      {formData.city.trim() || baseSector.city} + 25km
                     </strong>
                   </div>
                 </div>
@@ -870,8 +863,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 Afspraak aangevraagd!
               </h1>
               <p className="text-stone-600 text-base max-w-md m-0">
-                Bedankt <strong>{bookingResult?.booking.clientName || formData.owner}</strong>. We
-                spreken elkaar op{' '}
+                Bedankt{' '}
+                <strong>
+                  {bookingResult?.booking.clientName || formData.owner.trim() || baseSector.owner}
+                </strong>
+                . We spreken elkaar op{' '}
                 <strong>{bookingResult?.booking.dateStr || bookingDate.formatted}</strong> (
                 {bookingResult?.booking.timeSlot || bookingSlot}). Offertes gaan via {channel}.
               </p>
