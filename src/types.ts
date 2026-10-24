@@ -1,5 +1,15 @@
 export type SectorId = 'timmerman' | 'hovenier' | 'schilder' | 'loodgieter' | 'elektricien' | 'stukadoor';
 
+/**
+ * Smart, trade-specific conversion tool rendered on the demo website.
+ * Each preset gets at most one tool tuned to how that trade gets work.
+ */
+export type TradeToolId =
+  | 'emergency'
+  | 'fault-report'
+  | 'm2-calculator'
+  | 'timeline';
+
 export type StyleId = 'klassiek' | 'modern' | 'krachtig' | 'donker' | 'minimaal';
 
 export type LayoutType = 'split' | 'bleed' | 'bold' | 'editorial' | 'mosaic';
@@ -88,6 +98,8 @@ export interface SectorData {
   workNote: string;
   work: WorkProject[];
   beforeAfter?: BeforeAfterProject[];
+  /** Optional smart conversion component specific to this trade. */
+  tool?: TradeToolId;
   faqs?: FaqItem[];
   flow: QuizQuestion[];
   estNote: string;

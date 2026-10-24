@@ -6,6 +6,7 @@ import { PriceCalculator } from './PriceCalculator';
 import { AreaChecker } from './AreaChecker';
 import { BookingCalendar } from './BookingCalendar';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
+import { TradeTool } from './tools/TradeTool';
 import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
 
@@ -826,6 +827,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* Service Area Checker */}
         <AreaChecker site={site} />
+
+        {/* Smart, trade-specific conversion tool */}
+        <TradeTool site={site} />
 
         {/* Customer Appointment Booking Calendar */}
         <BookingCalendar site={site} />

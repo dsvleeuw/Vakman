@@ -143,6 +143,7 @@ export const SECTORS: Record<SectorId, SectorData> = {
         description: 'Van oude vloerbedekking naar krasvast overgezet massief eiken met zachte led-strip verlichting.',
       },
     ],
+    tool: 'timeline',
     flow: [
       {
         q: 'Wat wil je laten maken?',
@@ -254,6 +255,15 @@ export const SECTORS: Record<SectorId, SectorData> = {
       { t: 'Verhoogd zonneterras met overkapping', c: 'Bloemendaal', y: '2025' },
       { t: 'Onderhoudsvriendelijke stadstuin', c: 'Heemstede', y: '2025' },
     ],
+    beforeAfter: [
+      {
+        title: 'Van versteende voortuin naar groene entree',
+        location: 'Haarlem-Noord',
+        beforeImg: getUnsplashUrl('1617576683096-00fc8eecb3af', 1000),
+        afterImg: getUnsplashUrl('1621272156568-7306716648df', 1000),
+        description: 'De betegelde voortuin maakte plaats voor een onderhoudsvriendelijke border, sierbestrating en een houten zitje.',
+      },
+    ],
     flow: [
       {
         q: 'Wat wil je laten doen?',
@@ -363,6 +373,16 @@ export const SECTORS: Record<SectorId, SectorData> = {
       { t: 'Grachtenpand kozijnen buitenzijde', c: 'Leusden', y: '2025' },
       { t: 'Slaapkamer & trappenhuis', c: 'Soest', y: '2025' },
     ],
+    beforeAfter: [
+      {
+        title: 'Woonkamer in een frisse nieuwe kleurtint',
+        location: 'Amersfoort',
+        beforeImg: getUnsplashUrl('1511822148790-e7b58ba14c72', 1000),
+        afterImg: getUnsplashUrl('1652572036885-b5e9205dd847', 1000),
+        description: 'Van vergeelde muren naar een strak gesausde woonkamer met nieuwe kleur op de kozijnen en het trapinterieur.',
+      },
+    ],
+    tool: 'm2-calculator',
     flow: [
       {
         q: 'Wat moet er geschilderd worden?',
@@ -473,6 +493,16 @@ export const SECTORS: Record<SectorId, SectorData> = {
       { t: 'Vervanging standleiding & afvoer', c: 'Amsterdam-Oost', y: '2026' },
       { t: 'Inbouw sanitair & kranen', c: 'Diemen', y: '2025' },
     ],
+    beforeAfter: [
+      {
+        title: 'Badkamerleidingen vervangen en afgewerkt',
+        location: 'Amsterdam-Oost',
+        beforeImg: getUnsplashUrl('1676210133055-eab6ef033ce3', 1000),
+        afterImg: getUnsplashUrl('1631889993959-41b4e9c6e3c5', 1000),
+        description: 'Oude leidingen en aflopen zijn compleet vernieuwd, waarna de badkamer netjes is afgewerkt en opnieuw getegeld.',
+      },
+    ],
+    tool: 'emergency',
     flow: [
       {
         q: 'Wat is het probleem?',
@@ -585,6 +615,16 @@ export const SECTORS: Record<SectorId, SectorData> = {
       { t: 'Alfen laadpaal met load balancing', c: 'Schiedam', y: '2026' },
       { t: 'Elektrische kookgroep + perilex', c: 'Capelle a/d IJssel', y: '2025' },
     ],
+    beforeAfter: [
+      {
+        title: 'Meterkast vernieuwd tot moderne groepenkast',
+        location: 'Rotterdam-Kralingen',
+        beforeImg: getUnsplashUrl('1544724569-5f546fd6f2b5', 1000),
+        afterImg: getUnsplashUrl('1621905251189-08b45d6a269e', 1000),
+        description: 'De verouderde stoppenkast is vervangen door een 12-groeps ABB-kast met aardlekschakelaars en een 3-fase aansluiting.',
+      },
+    ],
+    tool: 'fault-report',
     flow: [
       {
         q: 'Welke installatie zoek je?',
@@ -693,6 +733,15 @@ export const SECTORS: Record<SectorId, SectorData> = {
       { t: 'Beton ciré badkamer naadloos', c: 'Eindhoven', y: '2026' },
       { t: 'Sausklaar stucwerk nieuwbouw', c: 'Veldhoven', y: '2025' },
       { t: 'Woonkamer met fijn schuurwerk', c: 'Best', y: '2025' },
+    ],
+    beforeAfter: [
+      {
+        title: 'Ruwe nieuwbouwmuur saus klaar gestuukt',
+        location: 'Eindhoven',
+        beforeImg: getUnsplashUrl('1552321554-5fefe8c9ef14', 1000),
+        afterImg: getUnsplashUrl('1768321918210-a775e4c88f08', 1000),
+        description: 'Van oneffen gipsplaten met naden naar een spiegelglad, saus klaar oppervlak met strakke hoekprofielen.',
+      },
     ],
     flow: [
       {
