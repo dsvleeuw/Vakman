@@ -15,7 +15,7 @@ Small, high-trust fixes closing gaps between the UI and real behaviour.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 1.1 | Wire the wizard's `channel` choice (WhatsApp / E-mail / Allebei) into the published site | S | The state exists in `WizardView` but is not persisted or read by `SiteView`. Today every site is WhatsApp-first regardless of the choice. |
+| 1.1 | ~~Wire the wizard's `channel` choice (WhatsApp / E-mail / Allebei)~~ Done: it decides quote delivery via `/api/lead` | S | The state exists in `WizardView` but is not persisted or read by `SiteView`. Today every site is WhatsApp-first regardless of the choice. |
 | 1.2 | Implement the e-mail channel (`mailto:` at minimum, transactional mail later) | M | There are currently no `mailto:` links anywhere; the FAQ already implies e-mail support. |
 | 1.3 | Persist appointments and quote requests | M | Booking state is in-memory only and `PublishedSiteRecord` is defined but unused. Start with `localStorage`, move to a backend in phase 3. |
 | 1.4 | Build (or remove the promise of) the Klusbaas dashboard mentioned in the FAQ | L | The FAQ claims prices, services and photos can be edited via a dashboard that does not exist yet. |

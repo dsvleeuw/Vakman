@@ -110,8 +110,17 @@ change. The Netlify deploy preview is the only external CI check.
 - When smoke-rendering with `renderToStaticMarkup`, assert against
   entity-decoded markup (`&` renders as `&amp;`). Delete any temporary
   render script before committing.
-- The wizard's WhatsApp/E-mail/Allebei channel state is currently **not
-  wired** to the published site — do not assume it works (roadmap 1.1).
+- Every form posts to `POST /api/lead` (Netlify Function `netlify/functions/lead.mts`,
+  same handler as the Vite dev middleware in `vite.config.ts`). Validation lives
+  in `utils/lead.ts`, quote maths in `utils/quote.ts` (cents, 21 % btw), mails in
+  `utils/leadEmail.ts`, PDF/storage/Resend in `src/server/`. Use `useLeadForm()`
+  plus `HoneypotField`/`LeadErrorNotice` for new forms; never post elsewhere.
+- The wizard channel (WhatsApp / E-mail / Allebei) decides quote delivery via
+  `quoteDelivery()`: e-mail sends the PDF to the customer, WhatsApp puts a
+  ready wa.me link in the team mail. Klusbaas always gets the mail + PDF.
+- Without `RESEND_API_KEY` the API runs in preview mode (mail printed to the
+  log). In dev, quotes/leads land in `.data/` (gitignored); in production in
+  Netlify Blobs (stores `quotes` and `leads`). Never commit an API key.
 - Unsplash ids in each sector's `pool` are rotated by
   `getPhotoSet(sector, styleIndex)`; reuse pool ids rather than adding
   external image hosts.

@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Eén lead-endpoint `POST /api/lead`.** Wizard-offerte, afspraak
+  (`BookingCalendar`), contactformulier, storingsmelding en m²-offerte posten
+  naar dezelfde Netlify Function (en in `vite dev` naar dezelfde handler via
+  middleware). Validatie per formulier in `utils/lead.ts`, honeypot +
+  tijdscheck, eenvoudige rate limit. Aanvragen worden opgeslagen (Netlify
+  Blobs, lokaal `.data/`) en via Resend gemaild naar `QUOTE_NOTIFY_EMAIL`.
+  Formulieren tonen echte status: versturen…, gelukt (met referentie) of een
+  fout met WhatsApp-terugval.
+- **Offertebouwer.** Stap 5 van de wizard kiest pakket en extra componenten
+  (`data/addons.ts`) met live totaal. Bij versturen ontstaat offerte
+  `KB-2026-0001` (oplopend) met regels, subtotaal, 21 % btw, totaal en 30 dagen
+  geldigheid (`utils/quote.ts`, in centen), opgeslagen met een PDF (`pdf-lib`)
+  die als bijlage naar Klusbaas en de klant gaat. Terug te zien via
+  `/offerte/:id?token=…` en `GET /api/quote` (fout token → 403).
+- **Kanaalkeuze werkt.** WhatsApp / E-mail / Allebei bepaalt nu hoe de offerte
+  gaat: e-mail stuurt de PDF naar de klant, WhatsApp zet een kant-en-klare
+  wa.me-link in de mail aan Klusbaas. Een geweigerde klantmail (Resend-
+  testmodus) laat de aanvraag niet mislukken; de API meldt per ontvanger het
+  resultaat.
+
 - **Persoonlijke demo-link.** `/voorbeeld/:vak/:stijl?naam=&plaats=&tel=`
   vult bedrijfsnaam, plaats en (geldig) telefoonnummer in, met dezelfde
   terugval op sectordefaults als de wizard. De knop "Maak dit mijn website"
