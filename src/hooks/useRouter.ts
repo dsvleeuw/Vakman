@@ -18,6 +18,33 @@ function currentPath() {
   return `${window.location.pathname}${window.location.search}`;
 }
 
+interface ScrollState {
+  scrollY?: number;
+}
+
+function readScrollState(state: unknown): number | null {
+  if (!state || typeof state !== 'object') return null;
+  const { scrollY } = state as ScrollState;
+  return typeof scrollY === 'number' && Number.isFinite(scrollY) ? scrollY : null;
+}
+
+/** Remember the offset of the entry we are about to leave. */
+function rememberScroll() {
+  const current = (window.history.state ?? {}) as Record<string, unknown>;
+  try {
+    window.history.replaceState({ ...current, scrollY: window.scrollY }, '');
+  } catch {
+    // Ignore state-size or cross-origin errors.
+  }
+}
+
+function restoreScroll(scrollY: number | null) {
+  const top = scrollY ?? 0;
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top, left: 0, behavior: 'instant' });
+  });
+}
+
 function readRoute(): Route {
   if (typeof window === 'undefined') return { name: 'home' };
   return parseRoute(window.location.pathname, window.location.search);
@@ -54,13 +81,13 @@ function ensureBrowserListeners() {
 
   lastPath = currentPath();
 
-  window.addEventListener('popstate', () => {
+  window.addEventListener('popstate', (event) => {
     const pathChanged = currentPath() !== lastPath;
     lastPath = currentPath();
     emit();
-    // Hash-only changes (in-page anchors on a generated site) keep their
-    // scroll position; a real route change starts at the top.
-    if (pathChanged) scrollToTop();
+    // A real route change restores the offset the browser entry had when the
+    // visitor left it; hash-only changes keep their current position.
+    if (pathChanged) restoreScroll(readScrollState(event.state));
   });
 }
 
@@ -72,11 +99,22 @@ function subscribe(listener: Listener) {
   };
 }
 
+/**
+ * Route used while rendering on the server (build-time prerender). Without
+ * this the prerenderer would always emit the home page.
+ */
+let ssrRoute: Route | null = null;
+
+export function setSSRRoute(route: Route | null): void {
+  ssrRoute = route;
+  snapshot = route ?? readRoute();
+}
+
 export function useRoute(): Route {
   return useSyncExternalStore(
     subscribe,
     () => snapshot,
-    () => snapshot
+    () => ssrRoute ?? snapshot
   );
 }
 
@@ -112,8 +150,14 @@ export function navigate(route: Route, options: NavigateOptions = {}) {
   }
 
   if (replace) {
-    window.history.replaceState(null, '', target);
+    const current = (window.history.state ?? {}) as Record<string, unknown>;
+    window.history.replaceState(
+      { ...current, scrollY: scroll ? 0 : current.scrollY },
+      '',
+      target
+    );
   } else {
+    rememberScroll();
     window.history.pushState(null, '', target);
   }
 

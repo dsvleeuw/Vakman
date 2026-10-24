@@ -51,10 +51,15 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
       src={src}
       alt={alt}
       loading="lazy"
+      decoding="async"
       referrerPolicy="no-referrer"
       onError={() => setError(true)}
       onLoad={() => setLoaded(true)}
-      className={`${className} ${!loaded ? 'opacity-90' : 'opacity-100'} transition-opacity duration-300`}
+      // A neutral placeholder keeps the grid from jumping and gives slow
+      // connections visible feedback instead of an empty hole.
+      className={`${className} ${
+        loaded ? 'opacity-100' : 'animate-pulse bg-stone-200/80 opacity-90'
+      } transition-opacity duration-300`}
       style={style}
       {...rest}
     />

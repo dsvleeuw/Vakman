@@ -13,6 +13,7 @@ import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
 import { RouteLink } from './RouteLink';
 import { styleIdFromIndex } from '../utils/router';
+import { track } from '../utils/analytics';
 import { buildTelUrl, buildWhatsAppUrl } from '../utils/contact';
 
 interface SiteViewProps {
@@ -33,6 +34,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
   embedded = false,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  // The preview bar is three wrapped rows on a phone; collapse the sector and
+  // style pickers behind one "Aanpassen" toggle so the demo site stays visible.
+  const [controlsOpen, setControlsOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -61,8 +65,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
     <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-20 sm:pb-0'}`}>
       {/* Top Preview Control Bar */}
       {!embedded && (
-      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 flex-wrap text-xs sm:text-sm border-b border-stone-800 shadow-md">
-        <div className="flex items-center gap-3 flex-wrap">
+      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 py-2 flex sm:py-2.5 flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md">
+        <div className="flex items-center justify-between gap-2 sm:justify-start sm:gap-3">
           <RouteLink
             route={{ name: 'home', sector: selectedSector }}
             hash="presets"
@@ -71,8 +75,23 @@ export const SiteView: React.FC<SiteViewProps> = ({
             ← Alle presets
           </RouteLink>
 
-          {/* Quick sector circles */}
-          <div className="flex items-center gap-1.5" title="Kies een ander vak">
+          <div className="flex items-center gap-2 sm:hidden">
+            <span className="text-[11px] font-semibold text-stone-300 truncate">
+              {SECTORS[selectedSector].name} · {STYLES[selectedStyleIndex].name}
+            </span>
+            <button
+              type="button"
+              onClick={() => setControlsOpen((open) => !open)}
+              aria-expanded={controlsOpen}
+              aria-controls="site-preview-controls"
+              className="h-8 px-3 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-bold whitespace-nowrap cursor-pointer"
+            >
+              {controlsOpen ? 'Sluiten' : 'Aanpassen'}
+            </button>
+          </div>
+
+          {/* Quick sector circles (desktop) */}
+          <div className="hidden sm:flex items-center gap-1.5" title="Kies een ander vak">
             {ORDER.map((secId) => {
               const sec = SECTORS[secId];
               const isCurrent = secId === selectedSector;
@@ -100,8 +119,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
           </div>
         </div>
 
-        {/* Quick Style Chips */}
-        <div className="flex items-center gap-1 bg-stone-800/80 p-1 rounded-full overflow-x-auto max-w-full">
+        {/* Quick Style Chips (desktop) */}
+        <div className="hidden sm:flex items-center gap-1 bg-stone-800/80 p-1 rounded-full overflow-x-auto max-w-full">
           {STYLES.map((st, idx) => {
             const isCurrent = idx === selectedStyleIndex;
             return (
@@ -121,7 +140,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           })}
         </div>
 
-        {/* Builder CTA */}
+        {/* Builder CTA (desktop) */}
         <RouteLink
           route={{
             name: 'wizard',
@@ -129,10 +148,66 @@ export const SiteView: React.FC<SiteViewProps> = ({
             sector: selectedSector,
             styleId: styleIdFromIndex(selectedStyleIndex),
           }}
-          className="h-8 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 inline-flex items-center no-underline"
+          className="hidden sm:inline-flex h-8 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline"
         >
           {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
         </RouteLink>
+
+        {/* Expanded controls on phones */}
+        {controlsOpen && (
+          <div
+            id="site-preview-controls"
+            className="sm:hidden flex flex-col gap-2 pb-1 animate-fade-in"
+          >
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5" aria-label="Kies een ander vak">
+              {ORDER.map((secId) => {
+                const sec = SECTORS[secId];
+                const isCurrent = secId === selectedSector;
+                return (
+                  <RouteLink
+                    key={secId}
+                    route={{ name: 'site', sector: secId, styleId: styleIdFromIndex(selectedStyleIndex) }}
+                    aria-label={`Bekijk het ${sec.name}-voorbeeld`}
+                    aria-current={isCurrent ? 'true' : undefined}
+                    className={`h-7 px-2.5 rounded-full text-[11px] font-bold whitespace-nowrap inline-flex items-center no-underline ${
+                      isCurrent ? 'bg-white text-stone-900' : 'bg-stone-800 text-stone-300'
+                    }`}
+                  >
+                    {sec.name}
+                  </RouteLink>
+                );
+              })}
+            </div>
+            <div className="flex items-center gap-1 overflow-x-auto pb-0.5" aria-label="Kies een andere stijl">
+              {STYLES.map((st, idx) => {
+                const isCurrent = idx === selectedStyleIndex;
+                return (
+                  <RouteLink
+                    key={st.id}
+                    route={{ name: 'site', sector: selectedSector, styleId: st.id }}
+                    aria-current={isCurrent ? 'true' : undefined}
+                    className={`h-7 px-3 rounded-full text-[11px] font-bold whitespace-nowrap inline-flex items-center no-underline ${
+                      isCurrent ? 'bg-white text-stone-900' : 'bg-stone-800 text-stone-300'
+                    }`}
+                  >
+                    {st.name}
+                  </RouteLink>
+                );
+              })}
+            </div>
+            <RouteLink
+              route={{
+                name: 'wizard',
+                step: 'gegevens',
+                sector: selectedSector,
+                styleId: styleIdFromIndex(selectedStyleIndex),
+              }}
+              className="h-9 px-4 rounded-full bg-amber-400 text-stone-900 font-extrabold text-xs inline-flex items-center justify-center no-underline"
+            >
+              {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
+            </RouteLink>
+          </div>
+        )}
       </div>
       )}
 
@@ -146,7 +221,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
       >
         {/* Site Header */}
         <header
-          className="sticky top-11 z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors"
+          className="sticky top-12 sm:top-11 z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors"
           style={{
             background: site.hdrBg,
             borderColor: site.line,
@@ -378,7 +453,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 >
                   <ImageWithFallback
                     src={site.img.hero}
-                    alt={site.name}
+                    alt="" aria-hidden="true"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -414,7 +489,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           <section className="relative min-h-[580px] sm:min-h-[700px] flex items-end overflow-hidden text-white bg-black">
             <ImageWithFallback
               src={site.img.hero}
-              alt={site.name}
+              alt="" aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
@@ -518,7 +593,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 <div className="lg:col-span-5 h-[360px] sm:h-[480px] relative [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)] overflow-hidden shadow-2xl">
                   <ImageWithFallback
                     src={site.img.hero}
-                    alt={site.name}
+                    alt="" aria-hidden="true"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
@@ -614,7 +689,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
               >
                 <ImageWithFallback
                   src={site.img.hero}
-                  alt={site.name}
+                  alt="" aria-hidden="true"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -1105,6 +1180,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           )}
           target="_blank"
           rel="noreferrer"
+          onClick={() => track('whatsapp_click', { source: 'floating', sector: selectedSector })}
           className="h-12 px-5 rounded-full flex items-center gap-2 font-extrabold text-sm shadow-2xl bg-[#25D366] text-white transition-transform hover:scale-105"
         >
           <MessageCircle className="w-4 h-4" />
@@ -1130,6 +1206,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
       >
         <a
           href={buildTelUrl(site.phone)}
+          onClick={() => track('phone_click', { source: 'sticky-bar', sector: selectedSector })}
           className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm"
           style={{ background: site.fg, color: site.bg }}
         >
@@ -1143,6 +1220,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           )}
           target="_blank"
           rel="noreferrer"
+          onClick={() => track('whatsapp_click', { source: 'sticky-bar', sector: selectedSector })}
           className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm bg-[#25D366] text-white"
         >
           <MessageCircle className="w-4 h-4" />
