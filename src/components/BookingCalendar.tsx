@@ -259,7 +259,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                         className={`p-2.5 rounded-xl border-2 text-center cursor-pointer flex flex-col items-center justify-center transition-all ${
                           isSelected
                             ? 'border-stone-900 bg-stone-900 text-white font-bold shadow-sm'
-                            : 'border-stone-200 bg-white text-stone-800 hover:border-stone-400'
+                            : 'border-stone-500 bg-white text-stone-800 hover:border-stone-700'
                         }`}
                       >
                         <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
@@ -291,7 +291,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                         className={`p-3.5 rounded-xl border-2 font-bold text-sm text-left cursor-pointer transition-all ${
                           isSelected
                             ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
-                            : 'border-stone-200 bg-white text-stone-800 hover:border-stone-300'
+                            : 'border-stone-500 bg-white text-stone-800 hover:border-stone-700'
                         }`}
                       >
                         {slot}
@@ -308,7 +308,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 <select
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-200 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
                 >
                   {site.services.map((sv) => (
                     <option key={sv.n} value={sv.n}>
@@ -351,7 +351,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   onChange={(e) => setClientPhone(e.target.value)}
                   placeholder="06 12 34 56 78"
                   className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
-                    errors.phone ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
+                    errors.phone ? 'border-rose-500' : 'border-stone-500 focus:border-stone-900'
                   }`}
                 />
                 {errors.phone && (
@@ -386,7 +386,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Bijv. 3 kozijnen aan de voorzijde schilderen"
                   rows={2}
-                  className="w-full p-3 rounded-xl border-2 border-stone-200 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
                 />
               </div>
 

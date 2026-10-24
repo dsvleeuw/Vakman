@@ -72,7 +72,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
 
   const inputClass = (hasError?: string) =>
     `w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
-      hasError ? 'border-rose-500' : 'border-stone-200'
+      hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
   return (
@@ -264,7 +264,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                         className={`h-10 px-4 rounded-full border-2 text-xs sm:text-sm font-bold cursor-pointer transition-all ${
                           isSelected
                             ? 'bg-stone-900 text-white border-stone-900'
-                            : 'bg-white text-stone-700 border-stone-200 hover:border-stone-400'
+                            : 'bg-white text-stone-700 border-stone-500 hover:border-stone-700'
                         }`}
                       >
                         {u}
@@ -283,7 +283,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                   onChange={(e) => update('details', e.target.value)}
                   rows={3}
                   placeholder="Bijv. de aardlek springt elke keer als de vaatwasser aangaat."
-                  className="w-full p-3 rounded-xl border-2 border-stone-200 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
                 />
               </div>
 

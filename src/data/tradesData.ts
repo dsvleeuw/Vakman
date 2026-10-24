@@ -8,6 +8,7 @@ import type {
   WizardFormData,
 } from '../types';
 import { getOklchColor, generateDomainSlug, formatPhoneNumber } from '../utils/pricing';
+import { AA_TEXT, bestOnColor, ensureContrast, ensureSurfaceContrast } from '../utils/color';
 
 export const ORDER: SectorId[] = [
   'timmerman',
@@ -928,7 +929,42 @@ export function getPhotoSet(sector: SectorData, styleIndex: number) {
   };
 }
 
+/**
+ * Accessibility contract for every generated palette: body text, muted text
+ * and accent text are checked against the surfaces they actually sit on, and
+ * filled surfaces get a readable foreground. Without this, a vivid trade
+ * accent could produce white-on-yellow or grey-on-tinted-card text.
+ */
+export function withAccessibleContrast(palette: Palette): Palette {
+  const muted = ensureContrast(ensureContrast(palette.muted, palette.bg, AA_TEXT), palette.card, AA_TEXT);
+  const fg = ensureContrast(ensureContrast(palette.fg, palette.bg, AA_TEXT), palette.card, AA_TEXT);
+
+  // Filled surfaces keep their hue but may need a small lightness shift when
+  // neither white nor near-black text reaches AA on the original colour.
+  const onAccent = bestOnColor(palette.accent, palette.onAccent, AA_TEXT);
+  const accent = ensureSurfaceContrast(palette.accent, onAccent, AA_TEXT);
+  const onHi = bestOnColor(palette.hi, palette.onHi, AA_TEXT);
+  const hi = ensureSurfaceContrast(palette.hi, onHi, AA_TEXT);
+
+  return {
+    ...palette,
+    fg,
+    muted,
+    accent,
+    onAccent,
+    hi,
+    onHi,
+    accentText: ensureContrast(palette.accentText, palette.bg, AA_TEXT),
+    invFg: ensureContrast(palette.invFg, palette.invBg, AA_TEXT),
+    invMuted: ensureContrast(palette.invMuted, palette.invBg, AA_TEXT),
+  };
+}
+
 export function computePalette(sector: SectorData, style: StyleDef): Palette {
+  return withAccessibleContrast(buildPalette(sector, style));
+}
+
+function buildPalette(sector: SectorData, style: StyleDef): Palette {
   const h = sector.hD;
   const b = sector.hB;
   const k = sector.cf;

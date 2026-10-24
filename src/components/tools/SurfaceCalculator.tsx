@@ -82,7 +82,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
   );
 
   const inputClass =
-    'w-full h-12 px-4 rounded-xl border-2 border-stone-200 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900';
+    'w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900';
 
   return (
     <section
@@ -162,7 +162,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
                   onClick={() => removeWall(idx)}
                   disabled={walls.length === 1}
                   aria-label={`Verwijder wand ${idx + 1}`}
-                  className="w-12 h-12 rounded-xl border-2 border-stone-200 bg-white text-stone-500 hover:text-rose-600 hover:border-rose-300 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0"
+                  className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-stone-500 hover:text-rose-600 hover:border-rose-300 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -186,7 +186,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
               <button
                 type="button"
                 onClick={() => setOpenings((v) => Math.max(0, v - 1))}
-                className="w-12 h-12 rounded-xl border-2 border-stone-200 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-500"
+                className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-500"
                 aria-label="Minder openingen"
               >
                 −
@@ -197,7 +197,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
               <button
                 type="button"
                 onClick={() => setOpenings((v) => v + 1)}
-                className="w-12 h-12 rounded-xl border-2 border-stone-200 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-500"
+                className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-500"
                 aria-label="Meer openingen"
               >
                 +
@@ -263,7 +263,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Je naam (optioneel)"
-            className="w-full h-12 px-4 rounded-xl border-2 border-stone-200 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+            className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
           />
 
           <a
