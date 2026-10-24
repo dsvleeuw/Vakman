@@ -15,6 +15,7 @@ import { normalizeDutchPhone } from './contact';
  *   /start/vak                          wizard, step 1 (also /start)
  *   /start/gegevens?vak=schilder&stijl=modern
  *   /start/gegevens?vak=schilder&naam=…&plaats=…&tel=…   prefilled details
+ *   /start/extras?pakket=pro            wizard, package + add-ons
  *   /start/klaar                        wizard confirmation screen
  *   /componenten                        component library
  *   /componenten/trust-bar              component library with a selection
@@ -22,8 +23,8 @@ import { normalizeDutchPhone } from './contact';
  * Paths are Dutch because users see and share them; identifiers stay English.
  */
 
-/** The five visible wizard steps, in order. */
-export const WIZARD_STEPS = ['vak', 'stijl', 'gegevens', 'diensten', 'afspraak'] as const;
+/** The six visible wizard steps, in order. */
+export const WIZARD_STEPS = ['vak', 'stijl', 'gegevens', 'diensten', 'extras', 'afspraak'] as const;
 export type WizardStep = (typeof WIZARD_STEPS)[number];
 
 /** The confirmation screen after booking an appointment is a step of its own. */
@@ -34,7 +35,8 @@ export const WIZARD_STEP_LABELS: Record<WizardRouteStep, string> = {
   stijl: 'Stijl',
   gegevens: 'Gegevens',
   diensten: 'Diensten',
-  afspraak: 'Afspraak',
+  extras: "Extra's",
+  afspraak: 'Versturen',
   klaar: 'Klaar',
 };
 
@@ -298,13 +300,13 @@ export function getRouteMeta(route: Route): RouteMeta {
     case 'wizard': {
       if (route.step === 'klaar') {
         return {
-          title: 'Afspraak aangevraagd · Klusbaas',
-          description: 'Je afspraak is aangevraagd. Bekijk je gegenereerde vakmanssite of plan een nieuw moment.',
+          title: 'Offerte aangevraagd · Klusbaas',
+          description: 'Je offerte-aanvraag is verstuurd. Bekijk je gegenereerde vakmanssite.',
         };
       }
       const stepNumber = WIZARD_STEPS.indexOf(route.step) + 1;
       return {
-        title: `Stap ${stepNumber} van 5: ${WIZARD_STEP_LABELS[route.step]} · Klusbaas`,
+        title: `Stap ${stepNumber} van ${WIZARD_STEPS.length}: ${WIZARD_STEP_LABELS[route.step]} · Klusbaas`,
         description: BASE_DESCRIPTION,
       };
     }

@@ -191,6 +191,8 @@ export interface WizardFormData {
   owner: string;
   phone: string;
   city: string;
+  /** Where the quote is mailed. Optional so older saved drafts still load. */
+  email?: string;
 }
 
 /** How a visitor wants to receive their quote. */
@@ -211,6 +213,8 @@ export interface WizardDraft {
   disabledServices: Record<number, boolean>;
   /** True once the visitor explicitly chose a trade (or arrived with ?vak=). */
   sectorChosen?: boolean;
+  /** Add-on component ids from `data/addons.ts`. */
+  addons?: string[];
 }
 
 export interface PublishedSiteRecord {
