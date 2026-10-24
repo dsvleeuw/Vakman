@@ -15,6 +15,9 @@ async function boot() {
     try {
       if (container.dataset.route === 'site') await import('./components/SiteView');
       if (container.dataset.route === 'components') await import('./components/ComponentGallery');
+      if (['privacy', 'newsletter', 'unsubscribe'].includes(container.dataset.route ?? '')) {
+        await import('./components/InfoPages');
+      }
     } catch {
       // A failed preload is not fatal: hydration can still suspend.
     }

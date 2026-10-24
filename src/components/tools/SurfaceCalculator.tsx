@@ -15,6 +15,7 @@ import { describeDelivery } from '../../utils/leadClient';
 import { useLeadForm } from '../../hooks/useLeadForm';
 import { HoneypotField, LeadErrorNotice } from '../LeadStatus';
 import { formatPrice } from '../../utils/pricing';
+import { PrivacyNote } from '../PrivacyNote';
 
 interface SurfaceCalculatorProps {
   site: ActiveSiteData;
@@ -377,6 +378,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
                 <Send className="w-5 h-5" />
                 {lead.status === 'sending' ? 'Versturen…' : 'Vraag deze prijs aan'}
               </button>
+                <PrivacyNote className="text-stone-500 text-center" />
             </form>
           )}
 
