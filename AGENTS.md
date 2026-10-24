@@ -36,7 +36,7 @@ bun install
 bun run dev      # dev server on port 3000, bound to 0.0.0.0
 bun run lint     # tsc --noEmit — must stay clean
 bun test         # node:test unit tests under src/**/*.test.ts
-bun run build    # vite build + prerender 36 routes + sitemap/robots
+bun run build    # vite build + prerender 39 routes + sitemap/robots
 bun run build:spa  # vite build only (no prerender), for debugging
 ```
 

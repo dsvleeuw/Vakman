@@ -57,6 +57,8 @@ import { WIZARD_STEPS, WIZARD_STEP_LABELS, type WizardRouteStep, type DemoPerson
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { ImageWithFallback } from './ImageWithFallback';
 import { SiteView } from './SiteView';
+import { Logo } from './Logo';
+import { PrivacyNote } from './PrivacyNote';
 
 interface WizardViewProps {
   /** Controlled by the URL: /start/vak … /start/afspraak, /start/klaar */
@@ -401,10 +403,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
           className="flex items-center gap-2 sm:gap-2.5 min-h-11 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
           aria-label="Terug naar de Klusbaas homepage"
         >
-          <span className="w-8 h-8 rounded-xl bg-stone-900 text-white flex items-center justify-center font-black text-base">
-            K
-          </span>
-          <span className="text-lg sm:text-xl font-extrabold tracking-tight">Klusbaas</span>
+          <Logo label={null} markOnly className="h-8 sm:hidden" />
+          <Logo label={null} className="hidden sm:block h-7" />
         </button>
 
         {/* Step Bullets — clickable so people can jump back without losing data */}
@@ -709,9 +709,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
                 <p className="flex items-start gap-2 text-xs text-stone-500 m-0">
                   <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
-                  We gebruiken deze gegevens alleen voor jouw demo-website. Je kunt ze
+                  We gebruiken deze gegevens alleen voor jouw demo-website en je offerte. Je kunt ze
                   later altijd aanpassen.
                 </p>
+                <PrivacyNote className="text-stone-500 pl-6" />
               </div>
             </div>
           )}
@@ -1026,6 +1027,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       : 'Bij versturen krijgt Klusbaas de offerte; jij krijgt hem via WhatsApp.'
                   }
                 />
+                <PrivacyNote className="text-stone-500" />
 
                 <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-2 text-xs">
                   <div>

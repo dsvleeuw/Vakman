@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import type { SectorId } from '../types';
+import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 
 interface HeaderProps {
@@ -66,10 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
         className="flex items-center gap-2.5 min-h-11 text-stone-900 shrink-0 text-left no-underline"
         aria-label="Klusbaas Home"
       >
-        <span className="w-9 h-9 rounded-xl bg-stone-900 text-stone-100 flex items-center justify-center font-black text-lg shadow-sm">
-          K
-        </span>
-        <span className="text-xl sm:text-2xl font-extrabold tracking-tight">Klusbaas</span>
+        <Logo label={null} className="h-7 sm:h-8" />
       </RouteLink>
 
       {/* Zone 2: Navigation Links */}

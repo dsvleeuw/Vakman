@@ -10,6 +10,7 @@ import {
 import { track } from '../utils/analytics';
 import { describeDelivery } from '../utils/leadClient';
 import { useLeadForm } from '../hooks/useLeadForm';
+import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
 
 interface ContactSectionProps {
@@ -303,6 +304,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   Je bericht gaat direct naar {site.biz}. Je krijgt meteen te zien
                   of het is aangekomen.
                 </p>
+                <PrivacyNote className="text-stone-500 text-center" />
               </form>
             )}
           </div>

@@ -53,6 +53,27 @@ calculator, portfolio, reviews, booking and contact flows.
   have their own address. Browser back/forward, reloads, bookmarks and
   shared links all work, with per-page titles and a branded 404.
 
+## Huisstijl
+
+- Logo-bestanden staan in `public/brand/`: `klusbaas-logo.svg` (lichte
+  achtergrond), `klusbaas-logo-light.svg` (donkere achtergrond),
+  `klusbaas-mark.svg` (alleen beeldmerk) en `klusbaas-logo-email.png`.
+- Kleuren: stone-900 `#1c1917` met amber-600 `#d97706` (op licht) of
+  amber-400 `#fbbf24` (op donker). Lettertype Archivo 900.
+- In React: `<Logo />` (`tone="light"` op donkere vlakken, `markOnly` voor
+  krappe plekken). In de offerte-PDF: `drawLogo()` in `server/quotePdf.ts`.
+- Aanpassen: wijzig de geometrie in `scripts/generate-brand.mjs` en draai
+  het script (zie de kop van het bestand); PNG-icons en `og-image.png` zijn
+  daarna met headless Chrome uit de SVG's gerenderd.
+
+## Nieuwsbrief
+
+Dubbele opt-in: aanmelden (footer of `/nieuwsbrief`) → bevestigingsmail →
+`/api/newsletter/confirm?token=…` → `/nieuwsbrief?status=bevestigd`. Elke
+mail heeft een privacy- en afmeldlink (`/afmelden?token=…`). Zet
+`RESEND_AUDIENCE_ID` om bevestigde adressen in een Resend Audience te zetten
+voor Broadcasts. Lokaal staan aanmeldingen in `.data/newsletter/`.
+
 ## Tech stack
 
 React 19, TypeScript, Vite, Tailwind CSS v4, `lucide-react` icons,

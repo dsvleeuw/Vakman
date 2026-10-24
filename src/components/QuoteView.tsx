@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Download, FileText } from 'lucide-react';
+import { Logo } from './Logo';
 import { formatDutchDate, formatEuroCents, type PublicQuote } from '../utils/quote';
 
 interface QuoteViewProps {
@@ -50,9 +51,9 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
           type="button"
           onClick={onGoHome}
           className="self-start flex items-center gap-2 min-h-11 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
+          aria-label="Klusbaas homepage"
         >
-          <span className="w-8 h-8 rounded-xl bg-stone-900 text-white flex items-center justify-center font-black">K</span>
-          <span className="font-black text-lg tracking-tight">Klusbaas</span>
+          <Logo label={null} className="h-7" />
         </button>
 
         {state.status === 'loading' && (

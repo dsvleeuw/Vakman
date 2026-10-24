@@ -136,3 +136,15 @@ test('quote e-mail shows lines, totals and the WhatsApp action for the team', ()
   assert.match(customer.text, /^Hoi Sanne/);
   assert.ok(!customer.text.includes('wa.me'));
 });
+
+test('every lead mail carries the logo, the privacy link and why it was sent', () => {
+  const parsed = parseLead({ ...contactBody, fields: { ...contactBody.fields, email: 'piet@example.nl' } }, NOW);
+  assert.equal(parsed.kind, 'site');
+  if (parsed.kind !== 'site') return;
+  const mail = buildSiteLeadEmail(parsed.lead, 'customer', 'L-TEST02', 'https://klusbaas.netlify.app/');
+  assert.ok(mail.html.includes('https://klusbaas.netlify.app/brand/klusbaas-logo-email.png'));
+  assert.ok(mail.html.includes('https://klusbaas.netlify.app/privacy'));
+  assert.match(mail.text, /Privacyverklaring: https:\/\/klusbaas\.netlify\.app\/privacy/);
+  assert.match(mail.text, /niet op een nieuwsbrief/);
+  assert.ok(!mail.html.includes('Afmelden'));
+});
