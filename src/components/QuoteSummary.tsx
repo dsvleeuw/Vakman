@@ -160,8 +160,8 @@ export const QuoteSummary: React.FC<QuoteSummaryProps> = ({
         </dl>
         <p className="text-xs text-stone-500 m-0 mt-2 flex items-start gap-1.5 leading-snug">
           <Mail className="w-3.5 h-3.5 mt-0.5 shrink-0" aria-hidden="true" />
-          Bij versturen mailen we dit overzicht naar jou én naar Klusbaas. Eenmalig, je
-          site en code zijn van jou.
+          Bij versturen krijg je dit als genummerde offerte (PDF), per mail en/of
+          WhatsApp. Eenmalig, je site en code zijn van jou.
         </p>
       </div>
     </section>

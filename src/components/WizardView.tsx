@@ -141,6 +141,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [quoteReference, setQuoteReference] = useState<string | null>(null);
   const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
   const [customerEmailSent, setCustomerEmailSent] = useState(false);
+  const [mailPreview, setMailPreview] = useState(false);
   const [bookingResult, setBookingResult] = useState<{
     booking: AppointmentBooking;
     calendarSynced: boolean;
@@ -294,6 +295,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
     setQuoteReference(sent.reference || null);
     setQuoteUrl(typeof sent.data.quoteUrl === 'string' ? sent.data.quoteUrl : null);
     setCustomerEmailSent(sent.customerEmailSent);
+    setMailPreview(sent.preview);
 
     saveAppointment(booking);
 
@@ -1051,6 +1053,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     {customerEmailSent ? (
                       <>
                         <strong>Gemaild</strong> naar {formData.email}, met de offerte als PDF.
+                      </>
+                    ) : mailPreview ? (
+                      <>
+                        <strong>Testmodus:</strong> er is niets echt gemaild (geen RESEND_API_KEY). Je
+                        offerte staat hieronder klaar.
                       </>
                     ) : (
                       <>
