@@ -75,6 +75,8 @@ change. The Netlify deploy preview is the only external CI check.
 - Check current gaps before planning: [docs/known-limitations.md](./docs/known-limitations.md)
 - Read the UX/navigation review and open recommendations:
   [docs/ux-review.md](./docs/ux-review.md)
+- Example agent brief with "done when" criteria (mobile/iOS work, shipped
+  in PR #6): [docs/mobile-ux-plan.md](./docs/mobile-ux-plan.md)
 - Longer-term priorities: [ROADMAP.md](./ROADMAP.md)
 
 ## Gotchas
