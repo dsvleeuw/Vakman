@@ -29,7 +29,7 @@ export const AreaChecker: React.FC<AreaCheckerProps> = ({ site }) => {
   return (
     <section
       id="gebied"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-20 border-t border-stone-200/60"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-20 border-t border-stone-200/60"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
         {/* Left Column: Form & Explanations */}

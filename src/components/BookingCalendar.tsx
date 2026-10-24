@@ -45,6 +45,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   const [clientPhone, setClientPhone] = useState('');
   const [clientAddress, setClientAddress] = useState('');
   const [notes, setNotes] = useState('');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -218,9 +219,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   };
 
   return (
-    <section id="afspraak" className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-20">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+    <section id="afspraak" className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-20">
+      <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-4">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-xs font-semibold tracking-wider text-stone-500 uppercase">
               AFSPRAAK INPLANNEN
@@ -241,8 +242,24 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
           </span>
         </div>
 
+        {!bookingResult && !mobileOpen && (
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="sm:hidden h-13 px-6 font-extrabold text-base cursor-pointer inline-flex items-center justify-center gap-2 shadow-sm"
+            style={{
+              background: site.accent,
+              color: site.onAccent,
+              borderRadius: site.radius,
+              border: 0,
+            }}
+          >
+            Kies een datum & tijdstip →
+          </button>
+        )}
+
         {!bookingResult ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className={`${mobileOpen ? 'grid' : 'hidden sm:grid'} grid-cols-1 lg:grid-cols-12 gap-8 items-start`}>
             {/* Step 1: Date & Time Slot Picker */}
             <div className="lg:col-span-7 flex flex-col gap-6">
               <div>

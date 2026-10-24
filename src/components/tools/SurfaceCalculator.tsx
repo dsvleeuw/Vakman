@@ -44,6 +44,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
   ]);
   const [openings, setOpenings] = useState(0);
   const [name, setName] = useState('');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const selectedService =
     services.find((sv) => sv.name === serviceName) ?? services[0];
@@ -87,7 +88,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
   return (
     <section
       id="m2-calculator"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
         <div className="lg:col-span-7 flex flex-col gap-6">
@@ -111,10 +112,27 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
             richtprijs, inclusief btw.
           </p>
 
-          <div>
-            <label className="block text-sm font-bold text-stone-900 mb-2">
-              Welk werk zoek je?
-            </label>
+          {!mobileOpen && (
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              className="sm:hidden self-start min-h-12 px-6 font-extrabold text-sm cursor-pointer inline-flex items-center gap-2 shadow-sm"
+              style={{
+                background: site.accent,
+                color: site.onAccent,
+                borderRadius: site.radius,
+                border: 0,
+              }}
+            >
+              Open m²-calculator →
+            </button>
+          )}
+
+          <div className={`${mobileOpen ? 'flex' : 'hidden sm:flex'} flex-col gap-6`}>
+            <div>
+              <label className="block text-sm font-bold text-stone-900 mb-2">
+                Welk werk zoek je?
+              </label>
             <select
               value={serviceName}
               onChange={(e) => setServiceName(e.target.value)}
@@ -204,10 +222,13 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
               </button>
             </div>
           </div>
+          </div>
         </div>
 
         <div
-          className="lg:col-span-5 border p-6 sm:p-8 flex flex-col gap-5 shadow-lg lg:sticky lg:top-28"
+          className={`${
+            mobileOpen ? 'flex' : 'hidden sm:flex'
+          } lg:col-span-5 border p-6 sm:p-8 flex-col gap-5 shadow-lg lg:sticky lg:top-28`}
           style={{
             background: site.card,
             borderColor: site.line,

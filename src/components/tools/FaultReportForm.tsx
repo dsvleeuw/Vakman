@@ -46,6 +46,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [waUrl, setWaUrl] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const update = (field: keyof FaultReportInput, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -79,7 +80,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   return (
     <section
       id="storing"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
         <div className="lg:col-span-5 flex flex-col gap-5">
@@ -119,10 +120,28 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
               NEN 1010 / NEN 3140 gecertificeerde monteurs
             </span>
           </div>
+
+          {!mobileOpen && !waUrl && (
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              className="sm:hidden self-start min-h-12 px-6 font-extrabold text-sm cursor-pointer inline-flex items-center gap-2 shadow-sm"
+              style={{
+                background: site.accent,
+                color: site.onAccent,
+                borderRadius: site.radius,
+                border: 0,
+              }}
+            >
+              Open storingsmelder →
+            </button>
+          )}
         </div>
 
         <div
-          className="lg:col-span-7 border p-6 sm:p-8 shadow-lg"
+          className={`${
+            mobileOpen || waUrl ? 'block' : 'hidden sm:block'
+          } lg:col-span-7 border p-6 sm:p-8 shadow-lg`}
           style={{
             background: site.card,
             borderColor: site.line,

@@ -31,7 +31,7 @@ export const EmergencyButton: React.FC<EmergencyButtonProps> = ({ site }) => {
       className="scroll-mt-24 bg-red-600 text-white"
       aria-label="24/7 spoedservice"
     >
-      <div className="max-w-7xl mx-auto py-14 sm:py-20 px-4 sm:px-8 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div className="max-w-7xl mx-auto py-10 sm:py-20 px-4 sm:px-8 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-7 sm:gap-10 items-center">
         <div className="lg:col-span-7 flex flex-col gap-5">
           <span className="inline-flex items-center gap-2 self-start h-9 px-4 rounded-full bg-white/15 backdrop-blur-sm font-mono text-xs font-bold tracking-widest uppercase">
             <Siren className="w-4 h-4" />

@@ -78,7 +78,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({ site }) => {
   return (
     <section
       id="prijs"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-16 transition-colors duration-400"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-16 transition-colors duration-400"
       style={{
         background: site.invBg,
         color: site.invFg,

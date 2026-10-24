@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { SectorId, StyleDef } from '../types';
 import {
   ORDER,
@@ -29,6 +29,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
   onChooseStyle,
   useLinks = false,
 }) => {
+  const [showAllStyles, setShowAllStyles] = useState(false);
   const currentSector = SECTORS[selectedSector];
   const openSite = (styleIndex: number) => {
     track('preset_open', { sector: selectedSector, style: styleIndex });
@@ -103,7 +104,9 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
           return (
             <div
               key={style.id}
-              className="flex flex-col gap-4 group"
+              className={`${
+                idx >= 3 && !showAllStyles ? 'hidden sm:flex' : 'flex'
+              } flex-col gap-4 group`}
             >
               {/* Miniature Layout Preview Card */}
               <PreviewTrigger
@@ -343,6 +346,16 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
           );
         })}
       </div>
+
+      {STYLES.length > 3 && !showAllStyles && (
+        <button
+          type="button"
+          onClick={() => setShowAllStyles(true)}
+          className="sm:hidden self-center min-h-12 px-6 rounded-full border border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer inline-flex items-center gap-2 shadow-sm"
+        >
+          Toon alle {STYLES.length} stijlen →
+        </button>
+      )}
     </section>
   );
 };
