@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  buildMailtoUrl,
+  buildQuoteRequestMessage,
+  normalizeDutchPhone,
   phoneToWaDigits,
   buildWhatsAppUrl,
   buildTelUrl,
@@ -19,6 +22,19 @@ test('phoneToWaDigits converts Dutch mobile numbers to wa.me format', () => {
   assert.equal(phoneToWaDigits(''), '');
 });
 
+test('normalizeDutchPhone accepts local, +31 and 0031 formats', () => {
+  assert.equal(normalizeDutchPhone('06 12 34 56 78'), '0612345678');
+  assert.equal(normalizeDutchPhone('06-12345678'), '0612345678');
+  assert.equal(normalizeDutchPhone('+31 6 12345678'), '0612345678');
+  assert.equal(normalizeDutchPhone('0031 (0)6-12345678'), '0612345678');
+  assert.equal(normalizeDutchPhone('020 123 4567'), '0201234567');
+  // Too short, too long, letters only and empty input are rejected
+  assert.equal(normalizeDutchPhone('06 1234'), null);
+  assert.equal(normalizeDutchPhone('06 123456789'), null);
+  assert.equal(normalizeDutchPhone('bel me'), null);
+  assert.equal(normalizeDutchPhone(''), null);
+});
+
 test('buildWhatsAppUrl builds a link and URL-encodes the prefilled message', () => {
   assert.equal(
     buildWhatsAppUrl('06 12 34 56 78'),
@@ -33,6 +49,32 @@ test('buildWhatsAppUrl builds a link and URL-encodes the prefilled message', () 
     buildWhatsAppUrl('06 12 34 56 78', '   '),
     'https://wa.me/31612345678'
   );
+});
+
+test('buildMailtoUrl encodes subject and body', () => {
+  assert.equal(buildMailtoUrl('hallo@klusbaas.nl', '', ''), 'mailto:hallo@klusbaas.nl');
+  const url = buildMailtoUrl('hallo@klusbaas.nl', 'Afspraak', 'Regel één\nRegel twee');
+  assert.ok(url.startsWith('mailto:hallo@klusbaas.nl?'));
+  const params = new URLSearchParams(url.split('?')[1]);
+  assert.equal(params.get('subject'), 'Afspraak');
+  assert.equal(params.get('body'), 'Regel één\nRegel twee');
+});
+
+test('buildQuoteRequestMessage summarises the appointment', () => {
+  const message = buildQuoteRequestMessage({
+    bizName: 'Houtwerk De Vries',
+    owner: 'Jan de Vries',
+    phone: '06 12345678',
+    city: 'Utrecht',
+    dateStr: 'maandag 3 november',
+    timeSlot: 'Ochtend (08:30 - 12:00)',
+    channel: 'E-mail',
+    planName: 'Pro',
+    appointmentId: 'BK-123',
+  });
+  for (const expected of ['Houtwerk De Vries', 'Jan de Vries', 'Utrecht', 'E-mail', 'Pro', 'BK-123']) {
+    assert.ok(message.includes(expected), `missing ${expected}`);
+  }
 });
 
 test('buildTelUrl strips spaces and dashes for tel: links', () => {

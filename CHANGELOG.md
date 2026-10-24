@@ -7,43 +7,82 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+
+- **Prerendering van alle indexeerbare routes.** `npm run build` rendert nu na
+  `vite build` de homepage en alle 35 vakmanssites naar echte HTML
+  (`dist/**/index.html`) met per route `<title>`, meta description, canonical
+  en Open Graph/Twitter-tags. De client hydrateert die HTML in plaats van
+  opnieuw te renderen (`src/entry-server.tsx`, `scripts/prerender.ts`,
+  `src/main.tsx`). Daarbij horen `sitemap.xml`, `robots.txt` (met
+  `Disallow: /start/`) en een 1200×630 `og-image.png`.
+- **Funnelanalytics zonder vendor.** `utils/analytics.ts` stuurt
+  `page_view`, `wizard_step_view`, `wizard_step_complete`,
+  `wizard_validation_error`, `preset_open`, `plan_select`, `whatsapp_click`,
+  `phone_click`, `appointment_requested` en `component_view` naar
+  `window.dataLayer`/`window.gtag` zodra er een tag manager staat; zonder
+  tag manager gebeurt er niets.
+- **Toegankelijkheidscontract voor alle 35 paletten.** `utils/color.ts` rekent
+  OKLCH→sRGB en WCAG-contrast; `withAccessibleContrast()` in `tradesData.ts`
+  zorgt dat tekst op bg/card, accenttekst, inverted tekst en tekst op
+  accent/highlight minimaal AA (4,5:1) halen. `paletteContrast.test.ts`
+  controleert alle 7 vakken × 5 stijlen.
+- **Scrollpositie per pagina.** Bij terug/vooruit herstelt de router de
+  scroll-offset van dat history-item; nieuwe navigatie start bovenaan.
+- **Mobiele previewbalk op de voorbeeldpagina** klapt in tot één regel met een
+  "Aanpassen"-knop (vak-, stijlkeuze en CTA verschijnen pas op verzoek).
+- **Kanaalkeuze werkt nu echt.** Na het aanvragen van een afspraak biedt het
+  bevestigingsscherm een kant-en-klaar WhatsApp- of `mailto:`-bericht aan dat
+  past bij het gekozen kanaal (WhatsApp / E-mail / Allebei).
+- **Google Agenda is opt-in.** Inloggen gebeurt alleen als de bezoeker "zet de
+  afspraak in mijn agenda" aanvinkt; de afspraak wordt anders lokaal genoteerd
+  zonder popup.
+- **Laadfeedback voor afbeeldingen:** placeholders pulseren tot de foto
+  geladen is, zodat grids niet verspringen.
+
 ### Changed
 
-- **Hoofd-CTA is geen "gratis" meer.** De header-knop `Start gratis` is
-  vervangen door `Plan een afspraak` (met kalender-icoon). Er is niets
-  gratis; de knop start de wizard die eindigt in een afspraak-/offerte-aanvraag.
-- **Wizard-stap 5 is nu een afspraak inplannen.** De laatste stap publiceert
+- **Stap 5 draait om de oplevering, niet om het inplannen.** De primaire actie
+  is nu "Bekijk je website" (ook in de actiebalk); de afspraak is een
+  duidelijk gemarkeerd optioneel blok eronder.
+- **Formulierranden** gebruiken `border-stone-500` in plaats van
+  `border-stone-200`, zodat invoervelden 3:1 halen (WCAG 1.4.11).
+- **Decoratieve sfeerfoto's** op de gegenereerde sites zijn `alt=""` +
+  `aria-hidden` in plaats van een herhaling van de kop.
+- **Interne navigatie zijn echte links.** Header, presets, de previewbalk van
+  de gegenereerde site en de componentenbibliotheek gebruiken `RouteLink`
+  (`<a href>`), zodat middenklik, "openen in nieuw tabblad" en crawlers werken.
+- **Hoofd-CTA heet "Start je website"** en opent wizardstap 1, gelijk aan de
+  hero. De eerdere "Plan een afspraak"-knop in de header suggereerde een
+  andere actie dan hij deed; plannen gebeurt nu aan het einde van de flow.
+- **Presetkaarten:** "Bekijk demo" / "Kies deze stijl" met duidelijke
+  `aria-label`s in plaats van "Bekijk site" / "Kies deze".
+- **Mobiel menu** sluit bij een klik buiten het menu en blokkeert
+  achtergrondscrolling.
+- **Componentenbibliotheek** heeft een URL per component
+  (`/componenten/trust-bar`).
+- **Wizard-stap 5 is een afspraak inplannen.** De laatste stap publiceert
   niet langer "direct", maar laat de gebruiker een datum + dagdeel kiezen,
   het gewenste kanaal (WhatsApp / E-mail / Allebei) bevestigen en de
   afspraak aanvragen. Bij inloggen met Google wordt de afspraak in de
   Google Agenda van de gebruiker gezet (optioneel, met lokale fallback).
-- **Volledige live render in de wizard.** De rechterkolom toont nu de
-  *hele* gegenereerde website live (ingebedde `SiteView`) in een scrollbaar
-  kader, in plaats van de mini-mockup. `SiteView` kreeg een `embedded`-modus
+- **Volledige live render in de wizard.** De rechterkolom toont de *hele*
+  gegenereerde website live (ingebedde `SiteView`) in een scrollbaar kader,
+  in plaats van de mini-mockup. `SiteView` kreeg een `embedded`-modus
   (geen preview-besturing, zwevende knoppen of mobiele balk).
 
-### Added
+### Fixed
 
-- **Interactieve componentenbibliotheek.** De nieuwe `components`-weergave
-  toont alle 30 componentmodules met zoeken, categoriefilters en echte live
-  previews. Bereikbaar via de hoofdnavigatie of `?view=components`, met
-  catalogus-integriteitstests en documentatie.
-- **Tien herbruikbare conversiecomponenten.** `TrustBar`,
-  `OpeningHoursCard`, `AvailabilityCard`, `TeamMemberCard`,
-  `TestimonialCard`, `GuaranteeList`, `PromotionBanner`,
-  `ServiceAreaChips`, `ProjectStats` en `ContactCtaBanner` gebruiken de
-  bestaande palet-, lettertype- en radius-tokens en hebben render-tests.
-- **Mobiele hamburgernavigatie.** De homepage en gegenereerde vakmansites
-  hebben nu een toegankelijk hamburgermenu onder het desktop-breekpunt, met
-  de bestaande navigatielinks en primaire actie. Het menu sluit na een
-  keuze, met Escape en bij overstappen naar een desktopweergave.
-- **"Overige" vak-optie.** `SectorId` en `SECTORS` kennen nu `overige`: een
-  zevende tegel in de Vak-keuze voor vakmensen die niet in de 6 standaard
-  vakken vallen. Bevat generieke diensten, FAQ, prijsflow en reviews.
-- **`utils/appointments.ts`** met pure helpers (`slotToHours`,
-  `buildAppointmentCalendarPayload`, `generateAppointmentId`,
-  `saveAppointment`/`loadAppointments`, `buildNextDates`) plus unit-tests
-  (`utils/appointments.test.ts`).
+- `html lang` stond op `en` terwijl alle copy Nederlands is.
+- FAQ-kicker "FAQ & HEBDEN" → "Goed om te weten".
+- Contactformulierlabels waren niet gekoppeld aan hun inputs; nu wel, met
+  foutmeldingen die door schermlezers worden aangekondigd.
+- De dubbele marquee-slides werden twee keer voorgelezen; de kopie is nu
+  `aria-hidden` en niet tabbaar.
+- Ankerlinks op de gegenereerde site (`#prijs`, `#gebied`, `#contact`) werden
+  bij terug/vooruit naar boven gereset; scroll-reset gebeurt nu alleen bij een
+  echte paginawissel.
 
 ## [0.1.0] - 2026-10-24
 

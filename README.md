@@ -32,11 +32,26 @@ calculator, portfolio, reviews, booking and contact flows.
   (`BookingCalendar`, `utils/googleWorkspace.ts`).
 - **Platform pricing** — three one-off packages (€ 595 / € 995 / € 1.795,
   excl. btw) plus an optional € 25/month service, with explicit
-  "you own the site and code" messaging (`PricingSection`).
+  "you own the site and code" messaging (`PricingSection`). A package CTA
+  carries the choice into the wizard (`/start/vak?pakket=pro`).
 - **Interactive component library** — searchable live previews of all 30
   component modules, including ten new reusable trust and conversion
   components. Open **Componenten** in the main navigation or visit
-  `/?view=components` (`ComponentGallery`, `components/extras/`).
+  `/componenten` (`ComponentGallery`, `components/extras/`).
+- **Prerendered and hydrating** — the build renders the homepage and all 35
+  presets to real HTML with per-page titles, canonical and Open Graph tags,
+  then hydrates them in the browser. `sitemap.xml`, `robots.txt` and an
+  `og-image.png` are generated too.
+- **Measurable funnel** — step views, step completions, plan picks, preset
+  opens, WhatsApp/phone clicks and appointment requests are emitted through
+  a vendor-free `track()` helper (GTM `dataLayer` / GA4 `gtag`).
+- **Accessible palettes** — every generated colour scheme is checked against
+  WCAG AA (7 trades × 5 styles) by automatic contrast maths and tests.
+- **Real URLs everywhere** — the marketing page, every generated preset
+  (`/voorbeeld/loodgieter/krachtig`), every wizard step
+  (`/start/gegevens`), the confirmation screen and each library component
+  have their own address. Browser back/forward, reloads, bookmarks and
+  shared links all work, with per-page titles and a branded 404.
 
 ## Tech stack
 
@@ -49,7 +64,7 @@ Firebase Auth for the Google integrations. Package manager is
 ```bash
 bun install
 bun run dev      # start the dev server
-bun run build    # production build to dist/
+bun run build    # production build + prerender + sitemap to dist/
 bun run lint     # tsc --noEmit type check
 bun test         # unit tests (node:test runner via bun)
 ```
@@ -66,13 +81,21 @@ bun test         # unit tests (node:test runner via bun)
 - [docs/contact-strategy.md](./docs/contact-strategy.md) — WhatsApp-first contact design
 - [docs/pricing-and-positioning.md](./docs/pricing-and-positioning.md) — market research, price points and where prices live
 - [docs/known-limitations.md](./docs/known-limitations.md) — honest gap inventory
+- [docs/ux-review.md](./docs/ux-review.md) — navigation/conversion review, fixes and prioritised recommendations
 
 ## Project structure
 
 ```
 src/
-├── App.tsx                  # Home / demo site / wizard / component library router
+├── App.tsx                  # Route switch: home / demo site / wizard / library / 404
+├── utils/router.ts          # URL parsing, building, titles and legacy redirects
+├── utils/color.ts           # OKLCH↔sRGB and WCAG contrast (palette contract)
+├── utils/analytics.ts       # vendor-free funnel events
+├── entry-server.tsx         # build-time prerender entry (never shipped)
+├── scripts/prerender.ts     # renders routes, writes sitemap.xml/robots.txt
+├── hooks/                   # useRouter, useRouteMeta, useMediaQuery
 ├── data/tradesData.ts       # All sector content, styles, palettes, photos
+├── data/plans.ts            # The three one-off platform packages
 ├── data/componentCatalog.ts # Searchable component inventory and preview metadata
 ├── types.ts                 # Shared domain types
 ├── utils/

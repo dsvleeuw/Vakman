@@ -1,26 +1,99 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
-import type { SectorId, WizardFormData } from './types';
-import { SECTORS, buildActiveSite } from './data/tradesData';
+import React, { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
+import type { PlanId, SectorId, WizardDraft, WizardFormData } from './types';
+import { SECTORS, STYLES, buildActiveSite } from './data/tradesData';
+import {
+  DEFAULT_SECTOR,
+  buildPath,
+  getRouteMeta,
+  routeFromLegacyQuery,
+  styleIdFromIndex,
+  styleIndexFromId,
+  type WizardRouteStep,
+} from './utils/router';
+import { isPlanId } from './data/plans';
+import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
+import { track } from './utils/analytics';
+import { useRouteMeta } from './hooks/useRouteMeta';
 import { Header } from './components/Header';
 import { HeroStrip } from './components/HeroStrip';
 import { PresetsSection } from './components/PresetsSection';
 import { HowItWorks } from './components/HowItWorks';
 import { PricingSection } from './components/PricingSection';
 import { FaqSection } from './components/FaqSection';
-import { SiteView } from './components/SiteView';
-import { WizardView } from './components/WizardView';
+import { NotFoundView } from './components/NotFoundView';
+import { RouteLink } from './components/RouteLink';
 
+// Route-level code splitting: the marketing page stays small and the heavy
+// screens (generated site, wizard, library) load when they are opened.
+const SiteView = lazy(() =>
+  import('./components/SiteView').then((module) => ({ default: module.SiteView }))
+);
+const WizardView = lazy(() =>
+  import('./components/WizardView').then((module) => ({ default: module.WizardView }))
+);
 const ComponentGallery = lazy(() =>
   import('./components/ComponentGallery').then((module) => ({
     default: module.ComponentGallery,
   }))
 );
 
+const PageFallback: React.FC<{ label: string }> = ({ label }) => (
+  <div
+    className="min-h-screen bg-stone-100 text-stone-900 flex flex-col items-center justify-center gap-4"
+    role="status"
+    aria-live="polite"
+  >
+    <span className="w-9 h-9 rounded-full border-2 border-stone-300 border-t-stone-900 animate-spin" />
+    <span className="text-sm font-bold">{label}</span>
+  </div>
+);
+
+const DRAFT_STORAGE_KEY = 'klusbaas_wizard_draft';
+
+function loadDraft(): WizardDraft {
+  const fallback: WizardDraft = {
+    sector: DEFAULT_SECTOR,
+    styleIndex: 0,
+    form: null,
+    disabledServices: {},
+  };
+  if (typeof window === 'undefined') return fallback;
+  try {
+    const raw = window.sessionStorage.getItem(DRAFT_STORAGE_KEY);
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw) as Partial<WizardDraft>;
+    if (!parsed || typeof parsed !== 'object') return fallback;
+    const sector =
+      typeof parsed.sector === 'string' && parsed.sector in SECTORS
+        ? (parsed.sector as SectorId)
+        : fallback.sector;
+    return {
+      sector,
+      styleIndex:
+        typeof parsed.styleIndex === 'number' && parsed.styleIndex >= 0 && parsed.styleIndex < STYLES.length
+          ? parsed.styleIndex
+          : 0,
+      form: parsed.form ?? null,
+      disabledServices: parsed.disabledServices ?? {},
+    };
+  } catch {
+    return fallback;
+  }
+}
+
 export default function App() {
-  const [route, setRoute] = useState<'home' | 'site' | 'start' | 'components'>('home');
-  const [selectedSector, setSelectedSector] = useState<SectorId>('timmerman');
-  const [selectedStyleIndex, setSelectedStyleIndex] = useState<number>(0);
-  const [wizardStep, setWizardStep] = useState<number>(0);
+  const route = useRoute();
+  const routeRef = useRef(route);
+  routeRef.current = route;
+
+  useRouteMeta(route);
+
+  // One page_view per route, so the funnel has a denominator.
+  useEffect(() => {
+    track('page_view', { route: route.name, path: window.location.pathname });
+  }, [route]);
+
+  const [draft, setDraft] = useState<WizardDraft>(loadDraft);
   const [scrolled, setScrolled] = useState(false);
 
   // Store user-customized details per sector in localStorage
@@ -42,66 +115,94 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Check URL search params for quick direct navigation or ?autostart=1 (Ultra Mode testability)
+  // Translate pre-router URLs (?view=site&sector=…&style=2, ?autostart=1) to
+  // the new paths, plus normalise aliases such as /voorbeeld/timmerman.
   useEffect(() => {
+    const legacy = routeFromLegacyQuery(window.location.search);
+    if (legacy) {
+      navigate(legacy, { replace: true });
+      return;
+    }
+    const canonical = buildPath(routeRef.current);
+    const current = `${window.location.pathname}${window.location.search}`;
+    if (canonical !== current && routeRef.current.name !== 'notFound') {
+      window.history.replaceState(null, '', canonical);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleDraftChange = useCallback((next: WizardDraft) => {
+    setDraft(next);
     try {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('autostart') === '1') {
-        setRoute('site');
-      }
-      const paramSector = params.get('sector') as SectorId;
-      if (paramSector && SECTORS[paramSector]) {
-        setSelectedSector(paramSector);
-      }
-      const paramStyle = params.get('style');
-      if (paramStyle !== null) {
-        const styleNum = parseInt(paramStyle, 10);
-        if (!isNaN(styleNum) && styleNum >= 0 && styleNum <= 4) {
-          setSelectedStyleIndex(styleNum);
-        }
-      }
-      const paramView = params.get('view');
-      if (paramView === 'site' || paramView === 'start' || paramView === 'components') {
-        setRoute(paramView);
-      }
+      window.sessionStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(next));
     } catch {
-      // Ignore URL parsing errors
+      // Ignore storage errors (private mode, quota)
     }
   }, []);
 
+  /** Keep the wizard URL in sync with the trade/style picked inside it. */
+  const handleWizardSelectionChange = useCallback((sector: SectorId, styleIndex: number) => {
+    const current = routeRef.current;
+    if (current.name !== 'wizard') return;
+    const styleId = styleIdFromIndex(styleIndex);
+    if (current.sector === sector && current.styleId === styleId) return;
+    replaceUrl(
+      { name: 'wizard', step: current.step, sector, styleId, plan: current.plan },
+      { scroll: false, keepHash: true }
+    );
+  }, []);
+
   const handleSelectSector = (sectorId: SectorId) => {
-    setSelectedSector(sectorId);
+    const current = routeRef.current;
+    if (current.name === 'site') {
+      navigate({ name: 'site', sector: sectorId, styleId: current.styleId }, { scroll: false });
+      return;
+    }
+    replaceUrl({ name: 'home', sector: sectorId }, { scroll: false, keepHash: true });
   };
 
   const handleOpenSite = (sectorId: SectorId, styleIdx: number) => {
-    setSelectedSector(sectorId);
-    setSelectedStyleIndex(styleIdx);
-    setRoute('site');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate({ name: 'site', sector: sectorId, styleId: styleIdFromIndex(styleIdx) });
   };
 
   const handleChooseStyle = (sectorId: SectorId, styleIdx: number) => {
-    setSelectedSector(sectorId);
-    setSelectedStyleIndex(styleIdx);
-    setWizardStep(2); // Jump to data entry
-    setRoute('start');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const current = routeRef.current;
+    navigate({
+      name: 'wizard',
+      step: 'gegevens',
+      sector: sectorId,
+      styleId: styleIdFromIndex(styleIdx),
+      plan: current.name === 'wizard' ? current.plan : undefined,
+    });
   };
 
-  const handleGoStart = () => {
-    setWizardStep(0);
-    setRoute('start');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  /**
+   * Pricing-table CTAs start the wizard and carry the chosen package along.
+   * The guard matters because some CTAs pass this handler straight to
+   * `onClick`, which would otherwise forward the click event as a plan id.
+   */
+  const handleGoStart = (planId?: PlanId) => {
+    navigate({
+      name: 'wizard',
+      step: 'vak',
+      plan: typeof planId === 'string' && isPlanId(planId) ? planId : undefined,
+    });
   };
 
   const handleGoHome = () => {
-    setRoute('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate({ name: 'home' });
   };
 
-  const handleGoComponents = () => {
-    setRoute('components');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleWizardStepChange = (step: WizardRouteStep) => {
+    const current = routeRef.current;
+    if (current.name !== 'wizard') return;
+    navigate({
+      name: 'wizard',
+      step,
+      sector: current.sector ?? draft.sector,
+      styleId: current.styleId ?? styleIdFromIndex(draft.styleIndex),
+      plan: current.plan,
+    });
   };
 
   const handleViewPublishedSite = (
@@ -120,32 +221,42 @@ export default function App() {
       // Ignore
     }
 
-    setSelectedSector(sectorId);
-    setSelectedStyleIndex(styleIdx);
-    setRoute('site');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate({ name: 'site', sector: sectorId, styleId: styleIdFromIndex(styleIdx) });
   };
 
-  const activeSite = buildActiveSite(
-    selectedSector,
-    selectedStyleIndex,
-    customData[selectedSector]
-  );
+  const homeSector: SectorId =
+    route.name === 'home' && route.sector ? route.sector : DEFAULT_SECTOR;
+
+  const wizardSector: SectorId =
+    route.name === 'wizard' && route.sector ? route.sector : draft.sector;
+  const wizardStyleIndex =
+    route.name === 'wizard' && route.styleId
+      ? styleIndexFromId(route.styleId)
+      : draft.styleIndex;
+
+  const meta = getRouteMeta(route);
 
   return (
     <div className="min-h-screen flex flex-col font-sans selection:bg-stone-900 selection:text-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:h-12 focus:px-5 focus:rounded-full focus:bg-stone-900 focus:text-white focus:font-bold focus:text-sm focus:flex focus:items-center focus:shadow-xl"
+      >
+        Naar de inhoud
+      </a>
+
+      {/* Announces each route change to screen readers */}
+      <div className="sr-only" role="status" aria-live="polite">
+        {meta.title}
+      </div>
+
       {/* 1. HOME VIEW */}
-      {route === 'home' && (
+      {route.name === 'home' && (
         <div className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
-          <Header
-            onGoHome={handleGoHome}
-            onGoStart={handleGoStart}
-            onGoComponents={handleGoComponents}
-            scrolled={scrolled}
-          />
+          <Header scrolled={scrolled} currentSector={homeSector} />
 
           {/* Hero Section */}
-          <main className="flex-1 flex flex-col">
+          <main id="main-content" className="flex-1 flex flex-col">
             <section className="pt-12 sm:pt-20 md:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 md:px-12 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
               <div className="lg:col-span-8 flex flex-col gap-6">
                 <span className="font-mono text-xs font-bold tracking-widest text-stone-500 uppercase">
@@ -164,12 +275,12 @@ export default function App() {
                   telefoonnummer in.
                 </p>
                 <div className="flex gap-3 flex-wrap">
-                  <button
-                    onClick={handleGoStart}
-                    className="h-14 px-8 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                  <RouteLink
+                    route={{ name: 'wizard', step: 'vak' }}
+                    className="h-14 px-8 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center"
                   >
                     Start je website →
-                  </button>
+                  </RouteLink>
                   <a
                     href="#presets"
                     className="h-14 px-6 rounded-full border-2 border-stone-900 bg-transparent hover:bg-white text-stone-900 font-bold text-base flex items-center transition-colors"
@@ -191,10 +302,11 @@ export default function App() {
 
             {/* Interactive Presets Gallery */}
             <PresetsSection
-              selectedSector={selectedSector}
+              selectedSector={homeSector}
               onSelectSector={handleSelectSector}
               onOpenSite={handleOpenSite}
               onChooseStyle={handleChooseStyle}
+              useLinks
             />
 
             {/* How It Works */}
@@ -223,7 +335,7 @@ export default function App() {
       )}
 
       {/* 2. COMPONENT LIBRARY */}
-      {route === 'components' && (
+      {route.name === 'components' && (
         <Suspense
           fallback={
             <div
@@ -237,6 +349,10 @@ export default function App() {
           }
         >
           <ComponentGallery
+            initialComponentId={route.componentId}
+            onComponentChange={(componentId) =>
+              navigate({ name: 'components', componentId }, { scroll: false })
+            }
             onGoHome={handleGoHome}
             onGoStart={handleGoStart}
             onChooseStyle={handleChooseStyle}
@@ -246,29 +362,41 @@ export default function App() {
       )}
 
       {/* 3. LIVE SITE VIEW */}
-      {route === 'site' && (
-        <SiteView
-          site={activeSite}
-          selectedSector={selectedSector}
-          selectedStyleIndex={selectedStyleIndex}
-          isCustomized={!!customData[selectedSector]}
-          onGoHome={handleGoHome}
-          onSelectSector={handleSelectSector}
-          onSelectStyle={(idx) => setSelectedStyleIndex(idx)}
-          onGoStart={handleGoStart}
-        />
+      {route.name === 'site' && (
+        <div id="main-content">
+          <Suspense fallback={<PageFallback label="Voorbeeldwebsite laden…" />}>
+            <SiteView
+              site={buildActiveSite(route.sector, styleIndexFromId(route.styleId), customData[route.sector])}
+              selectedSector={route.sector}
+              selectedStyleIndex={styleIndexFromId(route.styleId)}
+              isCustomized={!!customData[route.sector]}
+            />
+          </Suspense>
+        </div>
       )}
 
       {/* 4. WIZARD ONBOARDING VIEW */}
-      {route === 'start' && (
+      {route.name === 'wizard' && (
+        <Suspense fallback={<PageFallback label="Wizard laden…" />}>
         <WizardView
-          initialSector={selectedSector}
-          initialStyleIndex={selectedStyleIndex}
-          initialStep={wizardStep}
+          step={route.step}
+          onStepChange={handleWizardStepChange}
+          initialSector={wizardSector}
+          initialStyleIndex={wizardStyleIndex}
+          initialForm={draft.sector === wizardSector ? draft.form : null}
+          initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}
+          plan={route.plan}
+          onDraftChange={handleDraftChange}
+          onSelectionChange={handleWizardSelectionChange}
           onGoHome={handleGoHome}
-          onGoStart={handleGoStart}
           onViewPublishedSite={handleViewPublishedSite}
         />
+        </Suspense>
+      )}
+
+      {/* 5. 404 */}
+      {route.name === 'notFound' && (
+        <NotFoundView path={route.path} onGoHome={handleGoHome} />
       )}
     </div>
   );

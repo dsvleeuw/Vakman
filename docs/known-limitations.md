@@ -53,7 +53,19 @@ to [ROADMAP.md](../ROADMAP.md).
 - Only pure utilities have unit tests. There are no component or
   end-to-end tests and no in-repo CI workflow; deploy checks come from
   Netlify (roadmap 5.1/5.4).
-- Views are switched by React state plus URL search params, not real
-  routes, which limits deep-linking and SEO (roadmap 4.2).
+- Routing is client-side, but the build prerenders the homepage and all 35
+  presets to real HTML (roadmap 4.2/4.3 ✔). The wizard, the component
+  library and the 404 are still client-rendered only — they are `noindex`
+  by intent, but a cold load shows a spinner until the chunk arrives.
+- Canonical URLs, Open Graph tags and the sitemap use
+  `PRERENDER_SITE_URL` (default `https://klusbaas.nl`); set it to the real
+  deployment origin or those tags point at the wrong host.
+- Analytics events are emitted but only collected once a tag manager (GTM or
+  GA4) is added to `index.html`; nothing is sent today.
+- Leads still end in WhatsApp/`mailto:` deep links: the channel choice now
+  produces a ready-to-send message, but there is no backend, no delivery
+  guarantee and no confirmation e-mail (roadmap 1.2/1.3).
+- The wizard draft lives in sessionStorage, so a prerendered deep link such
+  as `/start/afspraak` opened in a fresh tab starts with an empty form.
 - Accessibility has been handled pragmatically (labels, aria attributes,
   focus styles) but never audited (roadmap 5.2).

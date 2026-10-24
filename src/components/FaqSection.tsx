@@ -58,7 +58,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
       <div className="max-w-4xl mx-auto flex flex-col gap-8">
         <div className="flex flex-col gap-2 text-center sm:text-left">
           <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-            FAQ & HEBDEN
+            Goed om te weten
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-stone-900 m-0">
             {title}
@@ -81,15 +81,25 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                   onClick={() => toggle(idx)}
                   className="w-full p-6 text-left border-0 bg-transparent cursor-pointer flex justify-between items-center gap-4 font-bold text-lg text-stone-900"
                   aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${idx}`}
+                  id={`faq-question-${idx}`}
                 >
                   <span>{faq.q}</span>
-                  <span className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 shrink-0 font-mono text-sm">
+                  <span
+                    className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 shrink-0 font-mono text-sm"
+                    aria-hidden="true"
+                  >
                     {isOpen ? '−' : '+'}
                   </span>
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-4">
+                  <div
+                    id={`faq-answer-${idx}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${idx}`}
+                    className="px-6 pb-6 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-4"
+                  >
                     {faq.a}
                   </div>
                 )}

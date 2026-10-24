@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import type { SectorId, WizardFormData } from '../types';
+import type { WizardRouteStep } from '../utils/router';
 import { buildActiveSite } from '../data/tradesData';
 import {
   COMPONENT_ENTRIES,
@@ -38,6 +39,8 @@ import { PriceCalculator } from './PriceCalculator';
 import { PricingSection } from './PricingSection';
 import { SiteView } from './SiteView';
 import { WizardView } from './WizardView';
+import { RouteLink } from './RouteLink';
+import { track } from '../utils/analytics';
 import { EmergencyButton } from './tools/EmergencyButton';
 import { FaultReportForm } from './tools/FaultReportForm';
 import { ProjectTimeline } from './tools/ProjectTimeline';
@@ -57,6 +60,9 @@ import {
 } from './extras';
 
 interface ComponentGalleryProps {
+  /** /componenten/:id — the selected component lives in the URL. */
+  initialComponentId?: string;
+  onComponentChange?: (componentId: string) => void;
   onGoHome: () => void;
   onGoStart: () => void;
   onChooseStyle: (sectorId: SectorId, styleIndex: number) => void;
@@ -67,12 +73,37 @@ interface ComponentGalleryProps {
   ) => void;
 }
 
+/**
+ * The catalogue embeds the wizard as a live preview. The preview keeps its
+ * own step state so it never hijacks the real wizard URL.
+ */
+const WizardPreview: React.FC<{
+  sector: SectorId;
+  styleIndex: number;
+  onGoHome: () => void;
+  onViewPublishedSite: ComponentGalleryProps['onViewPublishedSite'];
+}> = ({ sector, styleIndex, onGoHome, onViewPublishedSite }) => {
+  const [step, setStep] = useState<WizardRouteStep>('vak');
+  return (
+    <WizardView
+      step={step}
+      onStepChange={setStep}
+      initialSector={sector}
+      initialStyleIndex={styleIndex}
+      onGoHome={onGoHome}
+      onViewPublishedSite={onViewPublishedSite}
+    />
+  );
+};
+
 const PLUMBER_SITE = buildActiveSite('loodgieter', 0);
 const ELECTRICIAN_SITE = buildActiveSite('elektricien', 0);
 const PAINTER_SITE = buildActiveSite('schilder', 0);
 const CARPENTER_SITE = buildActiveSite('timmerman', 0);
 
 export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
+  initialComponentId,
+  onComponentChange,
   onGoHome,
   onGoStart,
   onChooseStyle,
@@ -80,7 +111,26 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
 }) => {
   const [query, setQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState<ComponentFilter>('Alles');
-  const [selectedId, setSelectedId] = useState('trust-bar');
+  const [selectedId, setSelectedId] = useState(
+    () => (COMPONENT_ENTRIES.some((entry) => entry.id === initialComponentId) ? initialComponentId! : 'trust-bar')
+  );
+
+  // Selecting a component updates the URL so it can be shared or reopened.
+  const selectComponent = (componentId: string) => {
+    track('component_view', { component: componentId });
+    setSelectedId(componentId);
+    onComponentChange?.(componentId);
+  };
+
+  // Follow the URL when the visitor uses back/forward or opens a deep link.
+  const lastSyncedId = useRef(initialComponentId);
+  useEffect(() => {
+    if (!initialComponentId || initialComponentId === lastSyncedId.current) return;
+    lastSyncedId.current = initialComponentId;
+    if (COMPONENT_ENTRIES.some((entry) => entry.id === initialComponentId)) {
+      setSelectedId(initialComponentId);
+    }
+  }, [initialComponentId]);
   const [demoSector, setDemoSector] = useState<SectorId>('timmerman');
   const [demoStyleIndex, setDemoStyleIndex] = useState(0);
 
@@ -138,13 +188,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
       case 'contact-cta':
         return <ContactCtaBanner site={demoSite} />;
       case 'header':
-        return (
-          <Header
-            onGoHome={onGoHome}
-            onGoStart={onGoStart}
-            onGoComponents={() => setSelectedId('header')}
-          />
-        );
+        return <Header />;
       case 'hero-strip':
         return <HeroStrip onSelectSector={setDemoSector} />;
       case 'presets-section':
@@ -157,7 +201,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
               setDemoStyleIndex(styleIndex);
               setQuery('');
               setActiveFilter('Alles');
-              setSelectedId('site-view');
+              selectComponent('site-view');
             }}
             onChooseStyle={onChooseStyle}
           />
@@ -170,11 +214,10 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
         return <FaqSection />;
       case 'wizard-view':
         return (
-          <WizardView
-            initialSector={demoSector}
-            initialStyleIndex={demoStyleIndex}
+          <WizardPreview
+            sector={demoSector}
+            styleIndex={demoStyleIndex}
             onGoHome={onGoHome}
-            onGoStart={onGoStart}
             onViewPublishedSite={onViewPublishedSite}
           />
         );
@@ -195,10 +238,6 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
             selectedSector={demoSector}
             selectedStyleIndex={demoStyleIndex}
             embedded
-            onGoHome={onGoHome}
-            onSelectSector={setDemoSector}
-            onSelectStyle={setDemoStyleIndex}
-            onGoStart={onGoStart}
           />
         );
       case 'icons':
@@ -278,27 +317,27 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
           </button>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              onClick={onGoHome}
-              className="h-10 px-3 sm:px-4 rounded-full border border-stone-200 bg-white hover:bg-stone-50 text-xs sm:text-sm font-bold cursor-pointer flex items-center gap-2"
+            <RouteLink
+              route={{ name: 'home' }}
+              className="h-10 px-3 sm:px-4 rounded-full border border-stone-200 bg-white hover:bg-stone-50 text-xs sm:text-sm font-bold flex items-center gap-2 text-stone-900 no-underline"
               aria-label="Terug naar website"
             >
               <ArrowLeft className="w-4 h-4" aria-hidden="true" />
               <span className="hidden sm:inline">Terug naar website</span>
-            </button>
-            <button
-              onClick={onGoStart}
-              className="h-10 px-4 sm:px-5 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-bold cursor-pointer flex items-center gap-2"
+            </RouteLink>
+            <RouteLink
+              route={{ name: 'wizard', step: 'vak' }}
+              className="h-10 px-4 sm:px-5 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-bold flex items-center gap-2 no-underline"
             >
               <span className="hidden sm:inline">Start je website</span>
               <span className="sm:hidden">Start</span>
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </button>
+            </RouteLink>
           </div>
         </div>
       </header>
 
-      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex flex-col gap-10">
+      <main id="main-content" className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 flex flex-col gap-10">
         <section className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-8 items-end">
           <div className="flex flex-col gap-5 max-w-4xl">
             <span className="flex items-center gap-2 font-mono text-xs font-bold tracking-widest text-stone-500 uppercase">
@@ -398,7 +437,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                     return (
                       <button
                         key={entry.id}
-                        onClick={() => setSelectedId(entry.id)}
+                        onClick={() => selectComponent(entry.id)}
                         aria-pressed={isSelected}
                         className={`w-full p-3.5 rounded-2xl border text-left cursor-pointer transition-all ${
                           isSelected

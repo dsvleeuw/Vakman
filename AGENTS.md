@@ -36,7 +36,8 @@ bun install
 bun run dev      # dev server on port 3000, bound to 0.0.0.0
 bun run lint     # tsc --noEmit — must stay clean
 bun test         # node:test unit tests under src/**/*.test.ts
-bun run build    # production build to dist/
+bun run build    # vite build + prerender 36 routes + sitemap/robots
+bun run build:spa  # vite build only (no prerender), for debugging
 ```
 
 All three (`lint`, `test`, `build`) must be green before you finish a
@@ -70,14 +71,39 @@ change. The Netlify deploy preview is the only external CI check.
 - Add a smart tool: [docs/adding-a-trade-tool.md](./docs/adding-a-trade-tool.md)
 - Understand contact flows: [docs/contact-strategy.md](./docs/contact-strategy.md)
 - Change prices: [docs/pricing-and-positioning.md](./docs/pricing-and-positioning.md)
+  (platform packages live in `src/data/plans.ts`)
 - Check current gaps before planning: [docs/known-limitations.md](./docs/known-limitations.md)
+- Read the UX/navigation review and open recommendations:
+  [docs/ux-review.md](./docs/ux-review.md)
 - Longer-term priorities: [ROADMAP.md](./ROADMAP.md)
 
 ## Gotchas
 
-- Quick preset testing uses URL params:
-  `/?sector=loodgieter&style=2&view=site` (`autostart=1` also opens the
-  site view).
+- Every view has a real route: `/`, `/voorbeeld/:sector/:stijl`,
+  `/start/:stap` (`vak`, `stijl`, `gegevens`, `diensten`, `afspraak`,
+  `klaar`), `/componenten/:id`. Route rules live in `src/utils/router.ts`;
+  change them there (with tests) rather than branching on state in
+  `App.tsx`.
+- The pre-router links `?sector=loodgieter&style=2&view=site` and
+  `?autostart=1` still work: `routeFromLegacyQuery` rewrites them to the
+  new paths. Keep that mapping when you add routes so old links survive.
+- Wizard routes carry `?vak=`, `?stijl=` and `?pakket=`; use `RouteLink` for
+  internal navigation so hrefs stay real (middle-click, new tab, SEO).
+- Phone validation goes through `normalizeDutchPhone()` in
+  `utils/contact.ts` (accepts `06…`, `+31 6…`, `0031 (0)6…`); never add a new
+  `^0\d{9}$` regex in a component.
+- `SiteView`, `WizardView` and `ComponentGallery` are lazy-loaded per route;
+  keep new heavy screens behind `lazy()` so the marketing page stays small.
+- `npm run build` prerenders every route in `scripts/prerender.ts` and the
+  client hydrates it. Anything that reads `window`, `matchMedia` or
+  randomness during the first render will break hydration — start from a
+  stable fallback and correct it in an effect (`useMediaQuery` is the model).
+- Measure conversions with `track()` from `utils/analytics.ts` instead of
+  console logs or ad-hoc globals.
+- Palette colours must keep their contrast guarantees: change colours in
+  `computePalette`/`sector` data and let `withAccessibleContrast` (plus
+  `data/paletteContrast.test.ts`) validate them. Never hard-code `#fff` text
+  on an accent; use `site.onAccent`.
 - The mobile sticky contact bar overlays the bottom of `SiteView`; the
   page root carries `pb-20 sm:pb-0` — preserve that spacing when adding
   full-width sections.

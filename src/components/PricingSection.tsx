@@ -1,69 +1,18 @@
 import React from 'react';
 import { Check, ShieldCheck, ArrowRight, MessageCircle, Wrench } from 'lucide-react';
+import type { PlanId } from '../types';
+import { PLANS } from '../data/plans';
 import { formatPrice } from '../utils/pricing';
+import { track } from '../utils/analytics';
 
 interface PricingSectionProps {
-  onStart: () => void;
+  /** Called with the plan the visitor clicked so it can travel in the URL. */
+  onStart: (planId?: PlanId) => void;
 }
 
-/**
- * Platform pricing for Klusbaas itself (the tradesperson's customer-
- * facing prices live in the per-sector PriceCalculator). Positioned in
- * the middle of the market per the competitor scan, with ownership and
- * the two-week delivery promise called out explicitly. All amounts are
- * eenmalig and exclusief btw.
- */
-const PLANS = [
-  {
-    id: 'basis',
-    name: 'Basis',
-    price: 595,
-    blurb: 'Een sterke one-page website die gewoon gevonden wordt.',
-    features: [
-      'One-page ontwerp in een van de 5 premium stijlen',
-      'Mobiele bel- en WhatsApp-knop, altijd in beeld',
-      'Offerteformulier met WhatsApp-aflevering',
-      'Voor/na-projectgalerij',
-      'Keurmerken- en garantievermelding (VCA e.d.)',
-      'Koppeling met je Google Bedrijfsprofiel',
-      'Lokale SEO voor jouw plaats en vak',
-      'Oplevering binnen 2 weken',
-    ],
-    popular: false,
-  },
-  {
-    id: 'pro',
-    name: 'Pro',
-    price: 995,
-    blurb: 'Alles van Basis, met interactieve tools die offertes opleveren.',
-    features: [
-      'Alles uit Basis',
-      'Meerdere pagina’s en onbeperkte diensten',
-      'Interactieve prijscalculator',
-      'Postcodecheck voor je werkgebied',
-      'Reviewsectie met Google-badge',
-      'Eigen .nl-domein, eerste jaar inbegrepen',
-      'Eerste 3 maanden service t.w.v. € 75',
-    ],
-    popular: true,
-  },
-  {
-    id: 'premium',
-    name: 'Premium',
-    price: 1795,
-    blurb: 'Het complete systeem, inclusief de slimme tool voor jouw vak.',
-    features: [
-      'Alles uit Pro',
-      'Slimme vak-tool: spoedknop, storingsmelding, m²-calculator of projecttijdlijn',
-      'Online boekingskalender met Google Calendar-sync',
-      'Offertes automatisch opgeslagen in Google Drive',
-      'Persoonlijk kleuren-, foto- en tekstadvies',
-      'Voorrang bij support en wijzigingen',
-    ],
-    popular: false,
-  },
-];
-
+/** Platform pricing for Klusbaas itself (the tradesperson's customer-facing
+ *  prices live in the per-sector PriceCalculator). The plans themselves live
+ *  in `data/plans.ts` so the wizard can show the chosen package too. */
 const SERVICE_FEATURES = [
   'Hosting, SSL en je .nl-domein',
   'Doorontwikkeling en beveiligingsupdates',
@@ -168,7 +117,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
 
               <div className="flex flex-col gap-2.5">
                 <button
-                  onClick={onStart}
+                  onClick={() => {
+                    track('plan_select', { plan: plan.id, price: plan.price });
+                    onStart(plan.id);
+                  }}
                   className={`h-13 py-3.5 px-6 rounded-full font-extrabold text-sm cursor-pointer transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 ${
                     plan.popular
                       ? 'bg-amber-400 hover:bg-amber-300 text-stone-900'
@@ -222,7 +174,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
           </ul>
           <div className="lg:col-span-3 flex lg:justify-end">
             <button
-              onClick={onStart}
+              onClick={() => onStart()}
               className="h-12 px-6 rounded-full border-2 border-stone-900 bg-white hover:bg-stone-900 hover:text-white text-stone-900 font-bold text-sm cursor-pointer transition-colors flex items-center gap-2"
             >
               <MessageCircle className="w-4 h-4" />

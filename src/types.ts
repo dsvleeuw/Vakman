@@ -124,6 +124,10 @@ export interface AppointmentBooking {
   clientPhone: string;
   clientAddress: string;
   notes?: string;
+  /** Channel the visitor picked for the quote (WhatsApp / E-mail / Allebei). */
+  channel?: QuoteChannel;
+  /** Whether the visitor explicitly asked to sync the appointment. */
+  calendarSyncRequested?: boolean;
   googleCalendarEventId?: string;
   googleDriveFileId?: string;
   createdAt: number;
@@ -181,6 +185,24 @@ export interface WizardFormData {
   owner: string;
   phone: string;
   city: string;
+}
+
+/** How a visitor wants to receive their quote. */
+export type QuoteChannel = 'WhatsApp' | 'E-mail' | 'Allebei';
+
+/** The three one-off platform packages (see `data/plans.ts`). */
+export type PlanId = 'basis' | 'pro' | 'premium';
+
+/**
+ * Everything the wizard has collected so far. Kept in `App` (and mirrored in
+ * sessionStorage) so navigating to the site preview and back does not throw
+ * away what the user already typed.
+ */
+export interface WizardDraft {
+  sector: SectorId;
+  styleIndex: number;
+  form: WizardFormData | null;
+  disabledServices: Record<number, boolean>;
 }
 
 export interface PublishedSiteRecord {

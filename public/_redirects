@@ -1,0 +1,2 @@
+# Single-page app: every client route must serve index.html on Netlify.
+/*    /index.html   200

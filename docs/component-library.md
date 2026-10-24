@@ -7,7 +7,8 @@ components used by Klusbaas and its generated trade websites.
 
 - Choose **Componenten** in the main Klusbaas navigation (including the
   mobile hamburger menu).
-- Or open `/?view=components` directly.
+- Or open `/componenten` directly (each component has its own URL, e.g.
+  `/componenten/trust-bar`).
 
 The page contains 30 entries: the 20 component modules that existed before
 the library plus ten new reusable additions. Select an entry to render its

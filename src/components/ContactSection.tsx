@@ -5,7 +5,9 @@ import {
   buildWhatsAppUrl,
   buildTelUrl,
   buildContactMessage,
+  normalizeDutchPhone,
 } from '../utils/contact';
+import { track } from '../utils/analytics';
 
 interface ContactSectionProps {
   site: ActiveSiteData;
@@ -34,13 +36,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!name.trim()) errs.name = 'Vul je naam in';
-    if (!/^0\d{9}$/.test(phone.replace(/[\s-]/g, ''))) {
-      errs.phone = 'Geldig 10-cijferig nummer, bijv. 06 12345678';
+    if (!normalizeDutchPhone(phone)) {
+      errs.phone = 'Gebruik een geldig nummer, bijv. 06 12345678 of +31 6 12345678';
     }
     if (message.trim().length < 10) {
       errs.message = 'Omschrijf je klus in minimaal 10 tekens';
     }
     setErrors(errs);
+    const firstInvalid = ['name', 'phone', 'message'].find((field) => errs[field]);
+    if (firstInvalid) {
+      document.getElementById(`contact-${firstInvalid}`)?.focus();
+    }
     return Object.keys(errs).length === 0;
   };
 
@@ -57,7 +63,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
 
   const inputClass = (hasError?: string) =>
     `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
-      hasError ? 'border-rose-500' : 'border-stone-200'
+      hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
   return (
@@ -110,6 +116,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
               href={directWhatsApp}
               target="_blank"
               rel="noreferrer"
+              onClick={() => track('whatsapp_click', { source: 'contact-card' })}
               className="mt-auto h-14 px-6 rounded-full bg-white text-[#128C4B] font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
             >
               <MessageCircle className="w-5 h-5" />
@@ -168,11 +175,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label htmlFor="contact-name" className="block text-xs font-bold text-stone-700 mb-1">
                       Je naam *
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
+                      autoComplete="name"
+                      aria-required="true"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? 'contact-name-error' : undefined}
                       value={name}
                       onChange={(e) => {
                         setName(e.target.value);
@@ -182,17 +194,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                       className={inputClass(errors.name)}
                     />
                     {errors.name && (
-                      <span className="text-xs text-rose-600 font-bold block mt-1">
+                      <span id="contact-name-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
                         {errors.name}
                       </span>
                     )}
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label htmlFor="contact-phone" className="block text-xs font-bold text-stone-700 mb-1">
                       Telefoonnummer *
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      aria-required="true"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? 'contact-phone-error' : undefined}
                       value={phone}
                       onChange={(e) => {
                         setPhone(e.target.value);
@@ -202,17 +220,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                       className={inputClass(errors.phone)}
                     />
                     {errors.phone && (
-                      <span className="text-xs text-rose-600 font-bold block mt-1">
+                      <span id="contact-phone-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
                         {errors.phone}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label htmlFor="contact-message" className="block text-xs font-bold text-stone-700 mb-1">
                     Waar kunnen we je mee helpen? *
                   </label>
                   <textarea
+                    id="contact-message"
+                    aria-required="true"
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
                     value={message}
                     onChange={(e) => {
                       setMessage(e.target.value);
@@ -221,11 +243,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     rows={5}
                     placeholder="Omschrijf kort je klus, bijvoorbeeld: drie kozijnen aan de voorzijde schilderen."
                     className={`w-full flex-1 p-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
-                      errors.message ? 'border-rose-500' : 'border-stone-200'
+                      errors.message ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
                   {errors.message && (
-                    <span className="text-xs text-rose-600 font-bold block mt-1">
+                    <span id="contact-message-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
                       {errors.message}
                     </span>
                   )}
