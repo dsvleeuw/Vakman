@@ -34,7 +34,10 @@ export const AreaChecker: React.FC<AreaCheckerProps> = ({ site }) => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
         {/* Left Column: Form & Explanations */}
         <div className="lg:col-span-6 flex flex-col gap-5">
-          <span className="font-mono text-xs font-semibold tracking-wider text-stone-500 uppercase">
+          <span
+            className="font-mono text-xs font-semibold tracking-wider uppercase"
+            style={{ color: site.muted }}
+          >
             WERKGEBIED CHECKEN
           </span>
 
@@ -49,9 +52,12 @@ export const AreaChecker: React.FC<AreaCheckerProps> = ({ site }) => {
             Kom ik bij jou op locatie?
           </h2>
 
-          <p className="text-base sm:text-lg text-stone-600 leading-relaxed m-0">
+          <p
+            className="text-base sm:text-lg leading-relaxed m-0"
+            style={{ color: site.muted }}
+          >
             Vul hieronder je postcode in. Ik werk standaard binnen een straal van
-            ongeveer 25 km rondom <strong className="text-stone-900">{site.city}</strong>.
+            ongeveer 25 km rondom <strong style={{ color: site.fg }}>{site.city}</strong>.
           </p>
 
           <div className="flex gap-2.5 flex-wrap pt-1">

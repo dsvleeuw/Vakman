@@ -46,6 +46,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
   const [showAllWork, setShowAllWork] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const lastScrollYRef = useRef(0);
 
   useEffect(() => {
@@ -84,11 +85,21 @@ export const SiteView: React.FC<SiteViewProps> = ({
     const handleDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setMenuOpen(false);
     };
+    // Close the dropdown when the visitor taps outside the site header and
+    // stop the page behind it from scrolling (same pattern as Header.tsx).
+    const handleOutsidePointer = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
 
     document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('pointerdown', handleOutsidePointer);
     desktopQuery.addEventListener('change', handleDesktop);
     return () => {
+      document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('pointerdown', handleOutsidePointer);
       desktopQuery.removeEventListener('change', handleDesktop);
     };
   }, [menuOpen]);
@@ -283,6 +294,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
       >
         {/* Site Header */}
         <header
+          ref={headerRef}
           className={`${
             embedded
               ? 'sticky top-0'
@@ -1222,7 +1234,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
         </section>
 
         {/* FAQ Accordion */}
-        <FaqSection faqs={site.faqs} />
+        <FaqSection faqs={site.faqs} site={site} />
 
         {/* WhatsApp-first contact section with form fallback */}
         <ContactSection site={site} />
@@ -1256,7 +1268,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   )}
                   target="_blank"
                   rel="noreferrer"
-                  className="h-14 px-8 flex items-center gap-2.5 font-black text-base shadow transition-transform hover:-translate-y-0.5 bg-[#25D366] text-white"
+                  className="h-14 px-8 flex items-center gap-2.5 font-black text-base shadow transition-transform hover:-translate-y-0.5 bg-[#25D366] text-stone-950"
                   style={{ borderRadius: site.radius }}
                 >
                   <MessageCircle className="w-5 h-5" />
@@ -1296,7 +1308,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => track('whatsapp_click', { source: 'floating', sector: selectedSector })}
-          className="h-12 px-5 rounded-full flex items-center gap-2 font-extrabold text-sm shadow-2xl bg-[#25D366] text-white transition-transform hover:scale-105"
+          className="h-12 px-5 rounded-full flex items-center gap-2 font-extrabold text-sm shadow-2xl bg-[#25D366] text-stone-950 transition-transform hover:scale-105"
         >
           <MessageCircle className="w-4 h-4" />
           WhatsApp
@@ -1336,7 +1348,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           target="_blank"
           rel="noreferrer"
           onClick={() => track('whatsapp_click', { source: 'sticky-bar', sector: selectedSector })}
-          className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm bg-[#25D366] text-white"
+          className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm bg-[#25D366] text-stone-950"
         >
           <MessageCircle className="w-4 h-4" />
           WhatsApp
