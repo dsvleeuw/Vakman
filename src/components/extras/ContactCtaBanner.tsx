@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
-import { buildTelUrl } from '../../utils/contact';
+import { buildSiteTelUrl } from '../../utils/contact';
 
 export interface ContactCtaBannerProps {
   site: ActiveSiteData;
@@ -52,7 +52,7 @@ export const ContactCtaBanner: React.FC<ContactCtaBannerProps> = ({
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </a>
         <a
-          href={buildTelUrl(site.phone)}
+          href={buildSiteTelUrl(site.contactPhone)}
           className="h-13 px-6 flex items-center justify-center gap-2 text-sm font-bold border"
           style={{
             borderColor: site.invLine,

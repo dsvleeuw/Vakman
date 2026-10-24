@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, MessageCircle, Phone } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
-import { buildTelUrl, buildWhatsAppUrl } from '../../utils/contact';
+import { buildSiteTelUrl, buildSiteWhatsAppUrl } from '../../utils/contact';
 
 export interface BusinessHour {
   days: string;
@@ -23,8 +23,8 @@ export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
   site,
   hours = DEFAULT_HOURS,
 }) => {
-  const whatsAppUrl = buildWhatsAppUrl(
-    site.phone,
+  const whatsAppUrl = buildSiteWhatsAppUrl(
+    site.contactPhone,
     `Hallo ${site.biz}, ik wil graag een afspraak maken.`
   );
 
@@ -94,7 +94,7 @@ export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
 
       <div className="flex flex-col sm:flex-row gap-3">
         <a
-          href={buildTelUrl(site.phone)}
+          href={buildSiteTelUrl(site.contactPhone)}
           className="h-12 px-5 flex items-center justify-center gap-2 text-sm font-bold"
           style={{
             background: site.accent,

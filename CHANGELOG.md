@@ -74,6 +74,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Demosites bellen of appen geen echte vreemden meer.** Tel- en
+  WhatsApp-knoppen (sticky bar, header, footer, contact, spoedknop,
+  storingsformulier, openingstijden, CTA-banner, m²-calculator) gebruiken
+  `site.contactPhone`: het eigen nummer van de klant, anders het
+  Klusbaas-nummer uit `VITE_DEMO_PHONE`. Zonder dat nummer toont de knop
+  "Dit is een demo — zo komen klanten bij jou binnen" met een knop naar de
+  wizard. De verzonnen voorbeeldnummers uit `tradesData.ts` staan nergens
+  meer in een link.
 - **Formuliervelden op mobiel minimaal 16px (`text-base`)** in `ContactSection`,
   `FaultReportForm`, `BookingCalendar`, `SurfaceCalculator`, de Google
   Agenda-checkbox in `WizardView` en de zoekinput in `ComponentGallery`, zodat

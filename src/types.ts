@@ -175,6 +175,12 @@ export interface ActiveSiteData extends SectorData, Palette {
   domain: string;
   bizLetter: string;
   callLabel: string;
+  /**
+   * The number call/WhatsApp buttons may link to: the owner's own number or
+   * the Klusbaas demo number. `null` on a demo without `VITE_DEMO_PHONE`;
+   * buttons then show the demo notice instead of dialling the sample number.
+   */
+  contactPhone: string | null;
   ownerFirstUpper: string;
   hdrBg: string;
   hiText: string;

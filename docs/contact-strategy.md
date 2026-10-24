@@ -36,6 +36,24 @@ All templates live in `src/utils/contact.ts` and are unit-tested:
 | `buildWhatsAppUrl` | all of the above | converts `06 …` to `31…` and URL-encodes the message |
 | `buildTelUrl` | call buttons | strips spaces/dashes for `tel:` links |
 
+| `buildSiteTelUrl` / `buildSiteWhatsAppUrl` | every call/WhatsApp button on a site | link to `site.contactPhone`, or `#klusbaas-demo` when there is no safe number |
+
+### Which number a site dials
+
+The sector data contains made-up sample numbers (`06 12 34 56 78`, …) that
+may belong to real people, so a site never links to them.
+`buildActiveSite` sets `site.contactPhone` via `resolveContactPhone`:
+
+1. the owner's own number from the wizard or a personal demo link (`?tel=`);
+2. otherwise the Klusbaas number from `VITE_DEMO_PHONE` (also shown as the
+   visible number);
+3. otherwise `null`: buttons link to `#klusbaas-demo` and `SiteView` shows
+   "Dit is een demo — zo komen klanten bij jou binnen" with a button to
+   `/start/gegevens`.
+
+New contact buttons must use `buildSiteTelUrl(site.contactPhone)` /
+`buildSiteWhatsAppUrl(site.contactPhone, …)`, never `site.phone`.
+
 Phone conversion rule: a leading `0` is replaced by the country code `31`
 (`06 12 34 56 78` → `31612345678`). Numbers already in international form
 pass through unchanged.

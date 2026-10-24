@@ -8,6 +8,7 @@ import type {
   WizardFormData,
 } from '../types';
 import { getOklchColor, generateDomainSlug, formatPhoneNumber } from '../utils/pricing';
+import { getDemoPhone, resolveContactPhone } from '../utils/contact';
 import { AA_TEXT, bestOnColor, ensureContrast, ensureSurfaceContrast } from '../utils/color';
 
 export const ORDER: SectorId[] = [
@@ -1096,7 +1097,8 @@ export function buildActiveSite(
   sectorId: SectorId,
   styleIndex: number,
   customForm?: WizardFormData,
-  disabledServices?: Record<number, boolean>
+  disabledServices?: Record<number, boolean>,
+  demoPhone: string | null = getDemoPhone()
 ): ActiveSiteData {
   const base = SECTORS[sectorId];
   const style = STYLES[Math.max(0, Math.min(STYLES.length - 1, styleIndex))];
@@ -1105,9 +1107,11 @@ export function buildActiveSite(
 
   const biz = customForm?.biz?.trim() ? customForm.biz.trim() : base.biz;
   const owner = customForm?.owner?.trim() ? customForm.owner.trim() : base.owner;
-  const phone = customForm?.phone?.trim()
-    ? formatPhoneNumber(customForm.phone.trim())
-    : base.phone;
+  // Never link to the made-up sector number: use the owner's own number or
+  // the Klusbaas demo number, and keep the sample only as display text.
+  const linkPhone = resolveContactPhone(customForm?.phone, demoPhone);
+  const phone = linkPhone ? formatPhoneNumber(linkPhone) : base.phone;
+  const contactPhone = linkPhone ? phone : null;
   const city = customForm?.city?.trim() ? customForm.city.trim() : base.city;
 
   const domain = generateDomainSlug(biz);
@@ -1138,6 +1142,7 @@ export function buildActiveSite(
     biz,
     owner,
     phone,
+    contactPhone,
     city,
     display: style.display,
     dw: style.dw,

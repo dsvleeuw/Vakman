@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { PlugZap, MessageCircle, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
-  buildTelUrl,
-  buildWhatsAppUrl,
+  buildSiteTelUrl,
+  buildSiteWhatsAppUrl,
   buildFaultReportMessage,
   normalizeDutchPhone,
   type FaultReportInput,
@@ -68,7 +68,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
     e.preventDefault();
     if (!validate()) return;
     setWaUrl(
-      buildWhatsAppUrl(site.phone, buildFaultReportMessage(site.biz, form))
+      buildSiteWhatsAppUrl(site.contactPhone, buildFaultReportMessage(site.biz, form))
     );
   };
 
@@ -103,7 +103,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
             WhatsApp naar {site.owner.split(' ')[0]} verstuurd. Bij acuut
             onveilige situaties: bel direct{' '}
             <a
-              href={buildTelUrl(site.phone)}
+              href={buildSiteTelUrl(site.contactPhone)}
               className="inline-flex items-center min-h-11 font-bold text-stone-900 underline"
             >
               {site.phone}
