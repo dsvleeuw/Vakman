@@ -54,6 +54,16 @@ test('parseLead rejects unknown sectors, styles, phones and forms', () => {
   assert.equal(parseLead({ ...quoteBody, startedAt: undefined }, NOW).kind, 'invalid');
 });
 
+test('a second submission after reset is not flagged when the original render time is preserved', () => {
+  const initiallyRenderedAt = NOW - 1_000;
+  const resetAt = NOW - 100;
+  const secondSubmit = parseLead({ ...contactBody, startedAt: initiallyRenderedAt }, NOW);
+  assert.ok(resetAt > initiallyRenderedAt, 'reset occurred after the original render');
+  assert.equal(parseLead({ ...contactBody, startedAt: resetAt }, NOW).kind, 'spam');
+  assert.equal(secondSubmit.kind, 'site');
+  assert.equal(MIN_FILL_MS, 800);
+});
+
 test('parseLead flags honeypot and too-fast submissions as spam', () => {
   assert.deepEqual(parseLead({ ...contactBody, website: 'http://spam' }, NOW), { kind: 'spam', reason: 'honeypot' });
   assert.deepEqual(parseLead({ ...contactBody, startedAt: NOW - MIN_FILL_MS + 1 }, NOW), {

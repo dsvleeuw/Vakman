@@ -81,6 +81,11 @@ export function tokensMatch(expected: string, given: string): boolean {
 
 const publicDelivery = (result: DeliveryResult): PublicDelivery => ({ to: result.to, status: result.status });
 
+const maskEmails = (value: string): string =>
+  value.replace(/([A-Z0-9._%+-])[A-Z0-9._%+-]*@([A-Z0-9.-]+\.[A-Z]{2,})/gi, '$1***@$2');
+
+const recipientDomain = (recipient: string): string => recipient.trim().split('@').at(-1) ?? 'onbekend';
+
 async function deliver(
   mail: OutgoingMail,
   env: LeadEnv,
@@ -90,14 +95,15 @@ async function deliver(
 ): Promise<DeliveryResult> {
   if (!env.RESEND_API_KEY) {
     log(
-      `[lead] PREVIEW ${tag} -> ${mail.to}\nOnderwerp: ${mail.subject}` +
-        (mail.attachments?.length ? `\nBijlage: ${mail.attachments.map((a) => a.filename).join(', ')}` : '') +
-        `\n${mail.text}\n`
+      `[lead] PREVIEW ${tag}\nOntvanger-domein: ${recipientDomain(mail.to)}\nOnderwerp: ${maskEmails(mail.subject)}` +
+        (mail.attachments?.length ? `\nBijlagen: ${mail.attachments.map((a) => a.filename).join(', ')}` : '')
     );
     return { to: mail.to, status: 'preview' };
   }
   const result = await sendViaResend(env.RESEND_API_KEY, mail, fetchImpl);
-  if (result.status === 'failed') log(`[lead] mail ${tag} -> ${mail.to} mislukt: ${result.detail}`);
+  if (result.status === 'failed') {
+    log(`[lead] mail ${tag} naar domein ${recipientDomain(mail.to)} mislukt: ${maskEmails(result.detail ?? 'onbekende fout')}`);
+  }
   return result;
 }
 

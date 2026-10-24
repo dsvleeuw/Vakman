@@ -52,6 +52,14 @@ export const SIGNUP_MESSAGE =
 
 const defaultLimiter = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
 
+function maskEmailAddress(email: string): string {
+  return email.replace(/^([^@])[^@]*@/, '$1***@');
+}
+
+function maskEmailAddressesInText(value: string): string {
+  return value.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, (email) => maskEmailAddress(email));
+}
+
 export function createNewsletterToken(): string {
   return randomBytes(24).toString('base64url');
 }
@@ -59,11 +67,11 @@ export function createNewsletterToken(): string {
 async function sendMail(mail: OutgoingMail, deps: NewsletterDeps, log: (m: string) => void): Promise<DeliveryResult> {
   if (deps.sendMail) return deps.sendMail(mail);
   if (!deps.env.RESEND_API_KEY) {
-    log(`[nieuwsbrief] PREVIEW -> ${mail.to}\nOnderwerp: ${mail.subject}\n${mail.text}\n`);
+    log(`[nieuwsbrief] PREVIEW -> ${maskEmailAddress(mail.to)}\nOnderwerp: ${maskEmailAddressesInText(mail.subject)}`);
     return { to: mail.to, status: 'preview' };
   }
   const result = await sendViaResend(deps.env.RESEND_API_KEY, mail, deps.fetchImpl);
-  if (result.status === 'failed') log(`[nieuwsbrief] mail -> ${mail.to} mislukt: ${result.detail}`);
+  if (result.status === 'failed') log(`[nieuwsbrief] mail -> ${maskEmailAddress(mail.to)} mislukt.`);
   return result;
 }
 
@@ -87,9 +95,9 @@ async function syncResendContact(
           body: JSON.stringify({ unsubscribed: true }),
         })
       : await fetchImpl(base, { method: 'POST', headers, body: JSON.stringify({ email, unsubscribed: false }) });
-    if (!response.ok) log(`[nieuwsbrief] Resend-contact ${email}: ${response.status} ${await response.text()}`);
+    if (!response.ok) log(`[nieuwsbrief] Resend-contact ${maskEmailAddress(email)}: ${response.status} ${maskEmailAddressesInText(await response.text())}`);
   } catch (error) {
-    log(`[nieuwsbrief] Resend-contact ${email} mislukt: ${error instanceof Error ? error.message : String(error)}`);
+    log(`[nieuwsbrief] Resend-contact ${maskEmailAddress(email)} mislukt: ${maskEmailAddressesInText(error instanceof Error ? error.message : String(error))}`);
   }
 }
 
@@ -138,7 +146,7 @@ export async function handleNewsletterSignup(
     }
     return { status: 200, body: { ok: true, mode, message: SIGNUP_MESSAGE } };
   } catch (error) {
-    log(`[nieuwsbrief] fout: ${error instanceof Error ? error.stack ?? error.message : String(error)}`);
+    log(`[nieuwsbrief] fout: ${maskEmailAddressesInText(error instanceof Error ? error.stack ?? error.message : String(error))}`);
     return { status: 500, body: { ok: false, error: 'Er ging iets mis aan onze kant. Probeer het later opnieuw.' } };
   }
 }
@@ -161,7 +169,7 @@ export async function handleNewsletterConfirm(token: string | null, deps: Newsle
   const now = (deps.now ?? (() => new Date()))();
   if (isPendingExpired(record, now)) return done('verlopen');
   await deps.storage.save({ ...record, status: 'subscribed', confirmedAt: now.toISOString() });
-  log(`[nieuwsbrief] bevestigd: ${record.email}`);
+  log(`[nieuwsbrief] bevestigd: ${maskEmailAddress(record.email)}`);
   await syncResendContact(record.email, false, deps, log);
   return done('bevestigd');
 }
@@ -184,7 +192,7 @@ export async function handleNewsletterUnsubscribe(
   const wasSubscribed = record.status === 'subscribed';
   const now = (deps.now ?? (() => new Date()))();
   await deps.storage.save({ ...record, status: 'unsubscribed', unsubscribedAt: now.toISOString() });
-  log(`[nieuwsbrief] afgemeld: ${record.email}`);
+  log(`[nieuwsbrief] afgemeld: ${maskEmailAddress(record.email)}`);
   if (wasSubscribed) await syncResendContact(record.email, true, deps, log);
   return { status: 200, body: { ok: true, status: 'afgemeld' } };
 }

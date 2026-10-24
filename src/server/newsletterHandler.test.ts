@@ -126,5 +126,7 @@ test('without an API key the confirmation runs in preview mode', async () => {
   deps.log = (message) => logs.push(message);
   const result = await handleNewsletterSignup({ email: 'piet@example.nl' }, 'ip', deps);
   assert.equal(result.body.mode, 'preview');
-  assert.ok(logs.some((line) => line.includes('PREVIEW -> piet@example.nl')));
+  assert.ok(logs.some((line) => line.includes('PREVIEW -> p***@example.nl')));
+  assert.ok(logs.every((line) => !/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(line)));
+  assert.ok(logs.every((line) => !line.includes('https://klusbaas.test/api/newsletter/confirm')));
 });

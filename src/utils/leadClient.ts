@@ -25,6 +25,8 @@ export interface LeadResponse {
 
 export const LEAD_ENDPOINT = '/api/lead';
 export const NETWORK_ERROR = 'Geen verbinding met de server. Controleer je internet of stuur je aanvraag via WhatsApp.';
+export const TIMEOUT_ERROR = 'Het versturen duurt te lang. Probeer het opnieuw of stuur je aanvraag via WhatsApp.';
+export const LEAD_TIMEOUT_MS = 12_000;
 
 type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
 
@@ -37,6 +39,7 @@ export async function submitLead(
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(LEAD_TIMEOUT_MS),
     });
     let body: Partial<LeadResponse> = {};
     try {
@@ -51,8 +54,9 @@ export async function submitLead(
       status: response.status,
       ...(ok ? {} : { error: body.error || NETWORK_ERROR }),
     };
-  } catch {
-    return { ok: false, status: 0, error: NETWORK_ERROR };
+  } catch (error) {
+    const timedOut = error instanceof Error && error.name === 'TimeoutError';
+    return { ok: false, status: 0, error: timedOut ? TIMEOUT_ERROR : NETWORK_ERROR };
   }
 }
 

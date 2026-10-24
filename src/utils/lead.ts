@@ -14,7 +14,7 @@ export type LeadType = (typeof LEAD_TYPES)[number];
 export type SiteLeadType = Exclude<LeadType, 'quote'>;
 
 /** Forms filled in faster than this are treated as bots. */
-export const MIN_FILL_MS = 2500;
+export const MIN_FILL_MS = 800;
 
 export const LEAD_TYPE_LABELS: Record<LeadType, string> = {
   quote: 'Offerte-aanvraag website',

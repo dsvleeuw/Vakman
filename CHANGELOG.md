@@ -130,6 +130,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Geen stil verlies van leads meer.** Een tweede aanvraag na `reset()` werd als
+  spam gezien en kreeg een nep-succes zonder opslag; `startedAt` blijft nu staan
+  en `MIN_FILL_MS` is 800 ms. `submitLead` breekt na 12 s af met een Nederlandse
+  fout, `LeadErrorNotice` biedt 'Opnieuw proberen' en een mailto-fallback, en
+  previewlogs bevatten geen mailtekst of volledige e-mailadressen meer.
 - **Demosites bellen of appen geen echte vreemden meer.** Tel- en
   WhatsApp-knoppen (sticky bar, header, footer, contact, spoedknop,
   storingsformulier, openingstijden, CTA-banner, m²-calculator) gebruiken

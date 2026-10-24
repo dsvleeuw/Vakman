@@ -39,7 +39,6 @@ export function useLeadForm(source: string) {
   const reset = useCallback(() => {
     setStatus('idle');
     setResult(null);
-    startedAt.current = Date.now();
   }, []);
 
   return { status, result, submit, reset, honeypot, setHoneypot };
