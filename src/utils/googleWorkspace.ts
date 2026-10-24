@@ -52,12 +52,12 @@ const ENV_OVERRIDES: Record<string, keyof GoogleConfig> = {
  * resolved at build time and therefore also works in the production browser
  * bundle (`require()` does not). Runtimes without Vite — `bun test` and the
  * prerender pass in `scripts/prerender.ts` via tsx — get `null` and fall back to
- * env values or the placeholder config.
+ * the env values or the keyless fallback config.
  */
 function loadAppletConfig(): GoogleConfig | null {
   try {
     // `import.meta.glob` is compiled to a static map by Vite; in runtimes without
-    // Vite the call throws and we fall through to env values / the placeholder.
+    // Vite the call throws and we fall through to env values / the keyless fallback.
     const modules = import.meta.glob('/firebase-applet-config.json', {
       eager: true,
       import: 'default',
