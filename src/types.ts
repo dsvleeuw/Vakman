@@ -191,6 +191,8 @@ export interface WizardFormData {
   owner: string;
   phone: string;
   city: string;
+  /** Where the quote is mailed. Optional so older saved drafts still load. */
+  email?: string;
 }
 
 /** How a visitor wants to receive their quote. */
@@ -209,6 +211,10 @@ export interface WizardDraft {
   styleIndex: number;
   form: WizardFormData | null;
   disabledServices: Record<number, boolean>;
+  /** Add-on component ids from `data/addons.ts`. */
+  addons?: string[];
+  /** Channel picked for the quote (WhatsApp / E-mail / Allebei). */
+  channel?: QuoteChannel;
   /** True once the visitor explicitly chose a trade (or arrived with ?vak=). */
   sectorChosen?: boolean;
 }

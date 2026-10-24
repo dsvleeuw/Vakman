@@ -9,7 +9,10 @@ import {
   logoutGoogle,
 } from '../utils/googleWorkspace';
 import type { User } from 'firebase/auth';
-import { normalizeDutchPhone } from '../utils/contact';
+import { buildSiteWhatsAppUrl, normalizeDutchPhone } from '../utils/contact';
+import { describeDelivery } from '../utils/leadClient';
+import { useLeadForm } from '../hooks/useLeadForm';
+import { HoneypotField, LeadErrorNotice } from './LeadStatus';
 
 interface BookingCalendarProps {
   site: ActiveSiteData;
@@ -59,6 +62,20 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   } | null>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const lead = useLeadForm('booking-calendar');
+
+  const fallbackWaUrl = buildSiteWhatsAppUrl(
+    site.contactPhone,
+    [
+      `Hallo ${site.biz}, ik wil graag een afspraak voor ${selectedService}.`,
+      `Voorkeur: ${selectedDate.formatted}, ${selectedSlot}`,
+      clientName.trim() ? `Naam: ${clientName.trim()}` : '',
+      clientAddress.trim() ? `Adres: ${clientAddress.trim()}` : '',
+      notes.trim() ? `Klus: ${notes.trim()}` : '',
+    ]
+      .filter(Boolean)
+      .join('\n')
+  );
 
   useEffect(() => {
     const unsubscribe = initAuthListener(
@@ -86,8 +103,27 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   };
 
   const handleBook = async (withGoogleSync = false) => {
-    if (!validate()) return;
+    if (!validate() || isSubmitting) return;
     setIsSubmitting(true);
+
+    // The request itself goes to /api/lead first; Google sync is optional extra.
+    const response = await lead.submit({
+      type: 'appointment',
+      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      fields: {
+        name: clientName,
+        phone: clientPhone,
+        address: clientAddress,
+        service: selectedService,
+        date: selectedDate.formatted,
+        slot: selectedSlot,
+        notes,
+      },
+    });
+    if (!response.ok) {
+      setIsSubmitting(false);
+      return;
+    }
 
     let currentToken = accessToken;
     let currentUser = authUser;
@@ -109,7 +145,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
     }
 
     const booking: AppointmentBooking = {
-      id: 'BK-' + Date.now().toString(36).toUpperCase(),
+      id: response.reference ?? 'BK-' + Date.now().toString(36).toUpperCase(),
       sectorId: site.id,
       bizName: site.biz,
       serviceName: selectedService,
@@ -408,7 +444,11 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex flex-col gap-2.5 pt-2">
+              <div className="relative flex flex-col gap-2.5 pt-2">
+                <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
+                {lead.status === 'error' && (
+                  <LeadErrorNotice message={lead.result?.error} whatsappUrl={fallbackWaUrl} />
+                )}
                 <button
                   onClick={() => handleBook(true)}
                   disabled={isSubmitting}
@@ -417,7 +457,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z" />
                   </svg>
-                  {isSubmitting ? 'Bezig met inplannen...' : 'Inplannen & Sync met Google Calendar'}
+                  {isSubmitting ? 'Versturen…' : 'Inplannen & Sync met Google Calendar'}
                 </button>
 
                 <button
@@ -448,18 +488,24 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
 
             <div className="flex flex-col gap-2">
               <h3 className="text-2xl sm:text-3xl font-black text-stone-900 m-0">
-                Afspraak bevestigd!
+                Afspraak aangevraagd!
               </h3>
               <p className="text-stone-600 text-base m-0">
                 Bedankt <strong>{bookingResult.booking.clientName}</strong>. Jouw afspraak voor{' '}
                 <strong>{bookingResult.booking.serviceName}</strong> staat genoteerd op{' '}
-                <strong>{bookingResult.booking.dateStr}</strong> ({bookingResult.booking.timeSlot}).
+                <strong>{bookingResult.booking.dateStr}</strong> ({bookingResult.booking.timeSlot}).{' '}
+                {site.owner.split(' ')[0]} bevestigt het moment zo snel mogelijk.
               </p>
+              {lead.result && (
+                <p className="text-stone-500 text-sm m-0" aria-live="polite">
+                  {describeDelivery(lead.result)}
+                </p>
+              )}
             </div>
 
             <div className="w-full bg-stone-50 p-5 rounded-2xl border border-stone-200 text-left flex flex-col gap-3 text-xs sm:text-sm">
               <div className="flex justify-between border-b pb-2 border-stone-200">
-                <span className="text-stone-500">Afspraak-ID:</span>
+                <span className="text-stone-500">Referentie:</span>
                 <span className="font-mono font-bold">{bookingResult.booking.id}</span>
               </div>
               <div className="flex justify-between border-b pb-2 border-stone-200">
@@ -484,7 +530,10 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 📥 Download Offerte .TXT
               </button>
               <button
-                onClick={() => setBookingResult(null)}
+                onClick={() => {
+                  setBookingResult(null);
+                  lead.reset();
+                }}
                 className="h-12 px-6 rounded-full border-0 bg-stone-900 text-white font-bold text-sm cursor-pointer"
               >
                 Nieuwe afspraak maken

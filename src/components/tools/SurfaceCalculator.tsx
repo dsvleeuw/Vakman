@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Ruler, Plus, Trash2, MessageCircle, PaintRoller } from 'lucide-react';
+import { Ruler, Plus, Trash2, MessageCircle, PaintRoller, Send, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
   parsePricePerM2,
@@ -9,7 +9,11 @@ import {
 import {
   buildSiteWhatsAppUrl,
   buildSurfaceQuoteMessage,
+  normalizeDutchPhone,
 } from '../../utils/contact';
+import { describeDelivery } from '../../utils/leadClient';
+import { useLeadForm } from '../../hooks/useLeadForm';
+import { HoneypotField, LeadErrorNotice } from '../LeadStatus';
 import { formatPrice } from '../../utils/pricing';
 
 interface SurfaceCalculatorProps {
@@ -44,6 +48,9 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
   ]);
   const [openings, setOpenings] = useState(0);
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const lead = useLeadForm('surface-calculator');
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const selectedService =
@@ -81,6 +88,31 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
       name: name || undefined,
     })
   );
+
+  const handleRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (lead.status === 'sending') return;
+    if (!normalizeDutchPhone(phone)) {
+      setPhoneError('Vul je telefoonnummer in, bijv. 06 12345678');
+      document.getElementById('m2-phone')?.focus();
+      return;
+    }
+    if (surfaceM2 <= 0) return;
+    await lead.submit({
+      type: 'surface',
+      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      fields: {
+        name,
+        phone,
+        service: selectedService.name,
+        surfaceM2: String(Math.round(surfaceM2 * 10) / 10),
+        pricePerM2: formatPrice(selectedService.price),
+        estimate: formatPrice(totalPrice),
+        walls: String(walls.length),
+        openings: String(openings),
+      },
+    });
+  };
 
   const inputClass =
     'w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900';
@@ -279,22 +311,83 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
             {site.estNote}
           </p>
 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Je naam (optioneel)"
-            className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
-          />
+          {lead.status === 'success' ? (
+            <div className="rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4 flex flex-col gap-2 animate-fade-in" aria-live="polite">
+              <p className="m-0 font-extrabold text-stone-900 flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600" aria-hidden="true" />
+                Aanvraag verstuurd{lead.result?.reference ? ` (${lead.result.reference})` : ''}
+              </p>
+              <p className="m-0 text-sm text-stone-600">
+                {site.owner.split(' ')[0]} bekijkt je maten en stuurt een definitieve offerte.{' '}
+                {lead.result ? describeDelivery(lead.result) : ''}
+              </p>
+              <button
+                type="button"
+                onClick={lead.reset}
+                className="self-start text-xs font-bold text-stone-500 underline bg-transparent border-0 p-0 cursor-pointer"
+              >
+                Nieuwe berekening aanvragen
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleRequest} className="relative flex flex-col gap-3" noValidate>
+              <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Je naam (optioneel)"
+                aria-label="Je naam (optioneel)"
+                autoComplete="name"
+                className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
+              />
+              <div>
+                <input
+                  id="m2-phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    setPhoneError('');
+                  }}
+                  placeholder="Je telefoonnummer *"
+                  aria-label="Je telefoonnummer"
+                  aria-invalid={Boolean(phoneError)}
+                  aria-describedby={phoneError ? 'm2-phone-error' : undefined}
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
+                    phoneError ? 'border-rose-500' : 'border-stone-500'
+                  }`}
+                />
+                {phoneError && (
+                  <span id="m2-phone-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
+                    {phoneError}
+                  </span>
+                )}
+              </div>
+              {lead.status === 'error' && (
+                <LeadErrorNotice message={lead.result?.error} whatsappUrl={waUrl} />
+              )}
+              <button
+                type="submit"
+                disabled={lead.status === 'sending' || surfaceM2 <= 0}
+                className="h-14 px-6 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md cursor-pointer transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+              >
+                <Send className="w-5 h-5" />
+                {lead.status === 'sending' ? 'Versturen…' : 'Vraag deze prijs aan'}
+              </button>
+            </form>
+          )}
 
           <a
             href={waUrl}
             target="_blank"
             rel="noreferrer"
-            className="h-14 px-6 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+            className="h-12 px-6 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-sm flex items-center justify-center gap-2.5 transition-transform hover:-translate-y-0.5"
           >
             <MessageCircle className="w-5 h-5" />
-            Vraag deze prijs aan via WhatsApp
+            Of stuur je berekening via WhatsApp
           </a>
         </div>
       </div>

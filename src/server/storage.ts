@@ -1,0 +1,113 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import type { QuoteRecord } from '../utils/quote';
+
+/**
+ * Where quotes and leads are kept. Production uses Netlify Blobs (store
+ * `quotes` holds the quote JSON, the PDF and the yearly counter; store
+ * `leads` holds site-form leads). `vite dev` uses JSON files in `.data/`.
+ */
+export interface LeadStorage {
+  /** Next quote sequence number for a year: 1, 2, 3 … */
+  nextQuoteSequence(year: number): Promise<number>;
+  saveQuote(record: QuoteRecord, pdf: Uint8Array): Promise<{ json: string; pdf: string }>;
+  getQuote(id: string): Promise<QuoteRecord | null>;
+  getQuotePdf(id: string): Promise<Uint8Array | null>;
+  saveLead(reference: string, lead: unknown): Promise<string>;
+}
+
+const counterKey = (year: number) => `counter-${year}`;
+
+/** File storage for local development: `.data/quotes` and `.data/leads`. */
+export function createFileStorage(root: string): LeadStorage {
+  const quotesDir = path.join(root, 'quotes');
+  const leadsDir = path.join(root, 'leads');
+  let chain: Promise<unknown> = Promise.resolve();
+  const safe = (id: string) => id.replace(/[^A-Za-z0-9-]/g, '');
+
+  const readJson = async <T>(file: string): Promise<T | null> => {
+    try {
+      return JSON.parse(await readFile(file, 'utf8')) as T;
+    } catch {
+      return null;
+    }
+  };
+
+  return {
+    nextQuoteSequence(year) {
+      // Serialise counter updates inside this process.
+      const run = chain.then(async () => {
+        await mkdir(quotesDir, { recursive: true });
+        const file = path.join(quotesDir, `${counterKey(year)}.json`);
+        const current = (await readJson<{ value: number }>(file))?.value ?? 0;
+        const next = current + 1;
+        await writeFile(file, JSON.stringify({ value: next }));
+        return next;
+      });
+      chain = run.catch(() => undefined);
+      return run;
+    },
+    async saveQuote(record, pdf) {
+      await mkdir(quotesDir, { recursive: true });
+      const json = path.join(quotesDir, `${safe(record.id)}.json`);
+      const pdfFile = path.join(quotesDir, `${safe(record.id)}.pdf`);
+      await writeFile(json, JSON.stringify(record, null, 2));
+      await writeFile(pdfFile, pdf);
+      return { json, pdf: pdfFile };
+    },
+    async getQuote(id) {
+      return readJson<QuoteRecord>(path.join(quotesDir, `${safe(id)}.json`));
+    },
+    async getQuotePdf(id) {
+      try {
+        return new Uint8Array(await readFile(path.join(quotesDir, `${safe(id)}.pdf`)));
+      } catch {
+        return null;
+      }
+    },
+    async saveLead(reference, lead) {
+      await mkdir(leadsDir, { recursive: true });
+      const file = path.join(leadsDir, `${safe(reference)}.json`);
+      await writeFile(file, JSON.stringify(lead, null, 2));
+      return file;
+    },
+  };
+}
+
+/** Netlify Blobs storage. Imported lazily so `vite dev` never needs it. */
+export async function createBlobStorage(): Promise<LeadStorage> {
+  const { getStore } = await import('@netlify/blobs');
+  const quotes = getStore({ name: 'quotes', consistency: 'strong' });
+  const leads = getStore({ name: 'leads', consistency: 'strong' });
+
+  return {
+    async nextQuoteSequence(year) {
+      // Optimistic concurrency: write only if nobody changed the counter since we read it.
+      for (let attempt = 0; attempt < 8; attempt++) {
+        const current = await quotes.getWithMetadata(counterKey(year), { type: 'json' });
+        const value = ((current?.data as { value?: number } | undefined)?.value ?? 0) + 1;
+        const result = current?.etag
+          ? await quotes.setJSON(counterKey(year), { value }, { onlyIfMatch: current.etag })
+          : await quotes.setJSON(counterKey(year), { value }, { onlyIfNew: true });
+        if (result.modified) return value;
+      }
+      throw new Error('Offertenummer kon niet worden toegekend');
+    },
+    async saveQuote(record, pdf) {
+      await quotes.setJSON(record.id, record);
+      await quotes.set(`${record.id}.pdf`, new Blob([new Uint8Array(pdf)], { type: 'application/pdf' }));
+      return { json: `blobs:quotes/${record.id}`, pdf: `blobs:quotes/${record.id}.pdf` };
+    },
+    async getQuote(id) {
+      return ((await quotes.get(id, { type: 'json' })) as QuoteRecord | null) ?? null;
+    },
+    async getQuotePdf(id) {
+      const buffer = await quotes.get(`${id}.pdf`, { type: 'arrayBuffer' });
+      return buffer ? new Uint8Array(buffer) : null;
+    },
+    async saveLead(reference, lead) {
+      await leads.setJSON(reference, lead);
+      return `blobs:leads/${reference}`;
+    },
+  };
+}
