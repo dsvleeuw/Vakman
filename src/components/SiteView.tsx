@@ -62,10 +62,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
   }, [menuOpen]);
 
   return (
-    <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-20 sm:pb-0'}`}>
+    <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}>
       {/* Top Preview Control Bar */}
       {!embedded && (
-      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 py-2 flex sm:py-2.5 flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md">
+      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 pt-[calc(0.5rem+env(safe-area-inset-top))] pb-2 flex sm:pt-[calc(0.625rem+env(safe-area-inset-top))] sm:pb-2.5 flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md">
         <div className="flex items-center justify-between gap-2 sm:justify-start sm:gap-3">
           <RouteLink
             route={{ name: 'home', sector: selectedSector }}
@@ -221,7 +221,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
       >
         {/* Site Header */}
         <header
-          className="sticky top-12 sm:top-11 z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors"
+          className={`${embedded ? 'sticky top-0' : 'sticky top-[calc(3rem+env(safe-area-inset-top))] sm:top-[calc(2.75rem+env(safe-area-inset-top))]'} z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors`}
           style={{
             background: site.hdrBg,
             borderColor: site.line,
@@ -1201,7 +1201,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
       {/* Mobile sticky contact bar: call and WhatsApp always in reach */}
       <div
-        className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex gap-2 p-3 border-t shadow-[0_-4px_20px_rgba(0,0,0,0.12)]"
+        className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex gap-2 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] border-t shadow-[0_-4px_20px_rgba(0,0,0,0.12)]"
         style={{ background: site.card, borderColor: site.line }}
       >
         <a

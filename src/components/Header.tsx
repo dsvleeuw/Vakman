@@ -54,7 +54,9 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
     <header
       ref={headerRef}
       className={`sticky top-0 z-30 backdrop-blur-md transition-all duration-300 flex items-center justify-between gap-4 sm:gap-8 px-4 sm:px-8 md:px-12 border-b border-stone-200/60 ${
-        scrolled ? 'py-3.5 bg-stone-100/90 shadow-sm' : 'py-5 bg-stone-100/75'
+        scrolled
+          ? 'pt-[calc(0.875rem+env(safe-area-inset-top))] pb-3.5 bg-stone-100/90 shadow-sm'
+          : 'pt-[calc(1.25rem+env(safe-area-inset-top))] pb-5 bg-stone-100/75'
       }`}
     >
       {/* Zone 1: Brand Wordmark */}

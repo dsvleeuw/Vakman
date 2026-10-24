@@ -304,7 +304,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   return (
     <div id="main-content" className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
       {/* Wizard Header with Step Progress */}
-      <header className="bg-white border-b border-stone-200 px-4 sm:px-8 py-4 flex items-center justify-between gap-6 flex-wrap sticky top-0 z-20 shadow-sm">
+      <header className="bg-white border-b border-stone-200 px-4 sm:px-8 pt-[calc(1rem+env(safe-area-inset-top))] pb-4 flex items-center justify-between gap-6 flex-wrap sticky top-0 z-20 shadow-sm">
         <button
           onClick={onGoHome}
           className="flex items-center gap-2.5 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
@@ -365,7 +365,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
       </header>
 
       {/* Main Split Layout: Form on Left, Live Sticky Preview on Right */}
-      <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left Column: Form Steps */}
         <div className="lg:col-span-6 flex flex-col gap-6 max-w-xl">
           {/* Context: what the visitor already picked, and how to change it */}
@@ -996,11 +996,16 @@ export const WizardView: React.FC<WizardViewProps> = ({
           </button>
 
           {/* Spacer so the sticky mobile action bar never covers content */}
-          {!isPublished && <div className="lg:hidden h-2" aria-hidden="true" />}
+          {!isPublished && (
+            <div
+              className="lg:hidden h-[calc(0.5rem+env(safe-area-inset-bottom))]"
+              aria-hidden="true"
+            />
+          )}
 
           {/* Navigation Controls — sticky on phones so "next" is always reachable */}
           {!isPublished && (
-            <div className="sticky bottom-0 z-20 -mx-4 sm:mx-0 flex items-center gap-3 border-t border-stone-200 bg-stone-100/95 px-4 py-3 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pt-3 sm:backdrop-blur-none">
+            <div className="sticky bottom-0 z-20 -mx-4 sm:mx-0 flex items-center gap-3 border-t border-stone-200 bg-stone-100/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:px-0 sm:pt-3 sm:pb-0 sm:backdrop-blur-none">
               {currentStepIndex > 0 && (
                 <button
                   onClick={handleBack}
