@@ -14,6 +14,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildPath, getRouteMeta, type Route } from '../src/utils/router';
+import { getStyleFontHref } from '../src/utils/fonts';
 import { ORDER, STYLES } from '../src/data/tradesData';
 import { renderRoute } from '../src/entry-server';
 
@@ -46,7 +47,7 @@ function headTags(route: Route): string {
   const canonical = `${siteUrl}${path === '/' ? '/' : path.split('?')[0]}`;
   const image = `${siteUrl}/og-image.png`;
 
-  return [
+  const tags = [
     `<title>${escapeHtml(meta.title)}</title>`,
     `<meta name="description" content="${escapeHtml(meta.description)}" />`,
     `<link rel="canonical" href="${canonical}" />`,
@@ -59,7 +60,18 @@ function headTags(route: Route): string {
     `<meta name="twitter:image" content="${image}" />`,
     `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
-  ].join('\n    ');
+  ];
+
+  if (route.name === 'site') {
+    const styleFontHref = getStyleFontHref(route.styleId);
+    if (styleFontHref) {
+      tags.push(
+        `<link rel="stylesheet" href="${styleFontHref}" data-style-font="${route.styleId}" />`
+      );
+    }
+  }
+
+  return tags.join('\n    ');
 }
 
 function outputFile(path: string): string {

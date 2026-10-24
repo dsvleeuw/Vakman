@@ -13,6 +13,7 @@ import {
 import { isPlanId } from './data/plans';
 import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
 import { track } from './utils/analytics';
+import { ensureAllStyleFontsLoaded, ensureStyleFontLoaded } from './utils/fonts';
 import { useRouteMeta } from './hooks/useRouteMeta';
 import { Header } from './components/Header';
 import { HeroStrip } from './components/HeroStrip';
@@ -240,6 +241,20 @@ export default function App() {
     route.name === 'wizard' && route.styleId
       ? styleIndexFromId(route.styleId)
       : draft.styleIndex;
+
+  useEffect(() => {
+    if (route.name === 'site') {
+      ensureStyleFontLoaded(route.styleId);
+    } else if (route.name === 'wizard') {
+      if (route.step === 'stijl') {
+        ensureAllStyleFontsLoaded();
+      } else {
+        ensureStyleFontLoaded(styleIdFromIndex(wizardStyleIndex));
+      }
+    } else if (route.name === 'components') {
+      ensureAllStyleFontsLoaded();
+    }
+  }, [route, wizardStyleIndex]);
 
   const meta = getRouteMeta(route);
 
