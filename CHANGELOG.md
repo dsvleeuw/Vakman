@@ -130,6 +130,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Wizard-eindjes (D2).** `/start/vak` gaat niet verder zonder gekozen vak en
+  toont een hint; afspraakdatums slaan zaterdag en zondag over (lokale datum, niet
+  UTC); de pakketregel en -chip tonen ook het standaardpakket; 'Offerte
+  aanvragen' met lege gegevens stuurt terug naar `/start/gegevens` met focus op
+  het eerste lege veld; de Google Agenda-optie verschijnt alleen als Google echt
+  geconfigureerd is (`isGoogleConfigured()`); 'Opnieuw proberen' werkt ook in
+  `BookingCalendar` en de wizard; invoerranden halen 3:1.
 - **WCAG AA-contrast in alle vijf stijlen.** WhatsApp-knoppen hebben donkere tekst
   op `#25D366` (was wit, 1,98:1); contact-, FAQ- en werkgebiedsecties lezen hun
   tekstkleur uit de paletttokens zodat de donker-presets leesbaar zijn; de
