@@ -7,8 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-No changes yet. Candidates and prioritised future work live in
-[ROADMAP.md](./ROADMAP.md).
+### Changed
+
+- **Hoofd-CTA is geen "gratis" meer.** De header-knop `Start gratis` is
+  vervangen door `Plan een afspraak` (met kalender-icoon). Er is niets
+  gratis; de knop start de wizard die eindigt in een afspraak-/offerte-aanvraag.
+- **Wizard-stap 5 is nu een afspraak inplannen.** De laatste stap publiceert
+  niet langer "direct", maar laat de gebruiker een datum + dagdeel kiezen,
+  het gewenste kanaal (WhatsApp / E-mail / Allebei) bevestigen en de
+  afspraak aanvragen. Bij inloggen met Google wordt de afspraak in de
+  Google Agenda van de gebruiker gezet (optioneel, met lokale fallback).
+- **Volledige live render in de wizard.** De rechterkolom toont nu de
+  *hele* gegenereerde website live (ingebedde `SiteView`) in een scrollbaar
+  kader, in plaats van de mini-mockup. `SiteView` kreeg een `embedded`-modus
+  (geen preview-besturing, zwevende knoppen of mobiele balk).
+
+### Added
+
+- **"Overige" vak-optie.** `SectorId` en `SECTORS` kennen nu `overige`: een
+  zevende tegel in de Vak-keuze voor vakmensen die niet in de 6 standaard
+  vakken vallen. Bevat generieke diensten, FAQ, prijsflow en reviews.
+- **`utils/appointments.ts`** met pure helpers (`slotToHours`,
+  `buildAppointmentCalendarPayload`, `generateAppointmentId`,
+  `saveAppointment`/`loadAppointments`, `buildNextDates`) plus unit-tests
+  (`utils/appointments.test.ts`).
 
 ## [0.1.0] - 2026-10-24
 

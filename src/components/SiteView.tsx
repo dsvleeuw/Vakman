@@ -18,6 +18,9 @@ interface SiteViewProps {
   selectedSector: SectorId;
   selectedStyleIndex: number;
   isCustomized?: boolean;
+  /** When true, renders only the website body (no preview controls, floating
+   *  buttons or mobile sticky bar) so it can live inside another frame. */
+  embedded?: boolean;
   onGoHome: () => void;
   onSelectSector: (sectorId: SectorId) => void;
   onSelectStyle: (styleIndex: number) => void;
@@ -29,14 +32,16 @@ export const SiteView: React.FC<SiteViewProps> = ({
   selectedSector,
   selectedStyleIndex,
   isCustomized,
+  embedded = false,
   onGoHome,
   onSelectSector,
   onSelectStyle,
   onGoStart,
 }) => {
   return (
-    <div className="flex flex-col min-h-screen pb-20 sm:pb-0">
+    <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-20 sm:pb-0'}`}>
       {/* Top Preview Control Bar */}
+      {!embedded && (
       <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 flex-wrap text-xs sm:text-sm border-b border-stone-800 shadow-md">
         <div className="flex items-center gap-3 flex-wrap">
           <button
@@ -101,6 +106,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
         </button>
       </div>
+      )}
 
       {/* The Craftsman's Website */}
       <div
@@ -973,6 +979,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
       </div>
 
       {/* Desktop floating action stack (mobile uses the sticky bar below) */}
+      {!embedded && (
+      <>
       <div className="hidden sm:flex fixed right-5 bottom-5 z-40 flex-col items-end gap-2.5">
         <a
           href={buildWhatsAppUrl(
@@ -1025,6 +1033,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
           WhatsApp
         </a>
       </div>
+      </>
+      )}
+
     </div>
   );
 };

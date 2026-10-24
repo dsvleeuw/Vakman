@@ -231,6 +231,7 @@ export default function App() {
           initialStyleIndex={selectedStyleIndex}
           initialStep={wizardStep}
           onGoHome={handleGoHome}
+          onGoStart={handleGoStart}
           onViewPublishedSite={handleViewPublishedSite}
         />
       )}

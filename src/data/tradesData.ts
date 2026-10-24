@@ -16,6 +16,7 @@ export const ORDER: SectorId[] = [
   'loodgieter',
   'elektricien',
   'stukadoor',
+  'overige',
 ];
 
 export const STYLES: StyleDef[] = [
@@ -784,6 +785,126 @@ export const SECTORS: Record<SectorId, SectorData> = {
       {
         q: 'Zeer betrouwbaar, dacht goed mee over de droogtijd en hield zich keurig aan de planning.',
         who: 'Marloes, Best',
+      },
+    ],
+  },
+  overige: {
+    id: 'overige',
+    name: 'Overige',
+    biz: 'Jouw Vakbedrijf',
+    owner: 'Jouw Naam',
+    city: 'Nederland',
+    phone: '06 12 34 56 78',
+    near: ['10', '20', '30', '40'],
+    pcExample: '1234 AB',
+    hD: 120,
+    hB: 120,
+    cf: 1,
+    since: '2015',
+    rating: '4,9',
+    reviewCount: 76,
+    pool: [
+      '1779031242515-205111711b23',
+      '1612806527197-42af2b64884a',
+      '1562259949-e8e7689d7828',
+      '1749532125405-70950966b0e5',
+      '1621905251189-08b45d6a269e',
+      '1768321918210-a775e4c88f08',
+      '1585320806297-9794b3e4eeae',
+      '1676210134188-4c05dd172f89',
+      '1626081063434-79a2169791b1',
+      '1552321554-5fefe8c9ef14',
+      '1693985120993-e9b203ce7631',
+      '1650551182991-b07558247564',
+    ],
+    kicker: 'JOUW VAK, JOUW WEBSITE',
+    headline: 'Jouw vak. Jouw website. Binnen een kwartier klaar.',
+    intro:
+      'Een professionele, kant-en-klare website voor jouw vak. Diensten, tarieven en een offerte-aanvraag staan direct voor je klaar — jij vult alleen je gegevens in.',
+    cta1: 'Bereken je prijs',
+    cta2: 'Bekijk mijn werk',
+    about:
+      'Ik help klanten in de regio met vakkundig en betrouwbaar werk. Elke klus pak ik persoonlijk aan, van het eerste contact tot de nette oplevering.',
+    servicesTitle: 'Wat ik voor je doe',
+    services: [
+      {
+        n: 'Reparatie & onderhoud',
+        d: 'Snel en vakkundig herstel van storingen en preventief onderhoud om problemen te voorkomen.',
+        p: 'v.a. € 75',
+      },
+      {
+        n: 'Installatie & montage',
+        d: 'Nieuwe installaties, inbouw en montagewerk netjes en volgens de regels uitgevoerd.',
+        p: 'op offerte',
+      },
+      {
+        n: 'Advies & inspectie',
+        d: 'Een vrijblijvend bezoek met advies op maat en een heldere, vaste prijsopgave.',
+        p: 'v.a. € 49',
+      },
+      {
+        n: 'Maatwerk projecten',
+        d: 'Grotere projecten van A tot Z, inclusief planning en duidelijke afspraken.',
+        p: 'op offerte',
+      },
+    ],
+    marks: ['Erkend vakman', 'Garantie op werk', 'VCA gecertificeerd', 'KvK geregistreerd'],
+    workNote: 'Een greep uit recente projecten',
+    work: [
+      { t: 'Project op locatie', c: 'Regio', y: '2026' },
+      { t: 'Onderhoud & reparatie', c: 'Regio', y: '2025' },
+      { t: 'Maatwerk opdracht', c: 'Regio', y: '2025' },
+    ],
+    beforeAfter: [
+      {
+        title: 'Van ruwe ondergrond naar strak afgewerkt',
+        location: 'Regio',
+        beforeImg: getUnsplashUrl('1552321554-5fefe8c9ef14', 1000),
+        afterImg: getUnsplashUrl('1768321918210-a775e4c88f08', 1000),
+        description:
+          'Een representatief voorbeeld van hoe een klus van ruw naar netjes afgewerkt wordt opgeleverd.',
+      },
+    ],
+    flow: [
+      {
+        q: 'Wat wil je laten doen?',
+        o: [
+          { l: 'Reparatie of onderhoud', h: 'v.a. € 75', b: 75 },
+          { l: 'Installatie of montage', h: 'op offerte', b: 250 },
+          { l: 'Advies & inspectie', h: 'v.a. € 49', b: 49 },
+          { l: 'Maatwerk project', h: 'op offerte', b: 500 },
+        ],
+      },
+      {
+        q: 'Hoe groot is de klus?',
+        o: [
+          { l: 'Klein (tot 2 uur)', h: '', a: 0 },
+          { l: 'Gemiddeld (halve dag)', h: '+ € 150', a: 150 },
+          { l: 'Groot (hele dag of meer)', h: '+ € 450', a: 450 },
+        ],
+      },
+      {
+        q: 'Wanneer wil je starten?',
+        o: [
+          { l: 'Binnenkort (regulier)', h: '', a: 0 },
+          { l: 'Spoed (deze week)', h: '+ € 75', a: 75 },
+        ],
+      },
+    ],
+    estNote:
+      'Dit is een richtprijs inclusief btw. Na een vrijblijvend bezoek ontvang je altijd een bindende offerte.',
+    reviews: [
+      {
+        q: 'Snelle service en duidelijke afspraken. Precies gedaan wat we besproken hadden.',
+        who: 'Klant uit de regio',
+      },
+      {
+        q: 'Vakmanschap en netjes opgeleverd. Kom zeker terug voor de volgende klus.',
+        who: 'Tevreden klant',
+      },
+      {
+        q: 'Goed advies en een eerlijke prijs. Ik beveel deze vakman aan iedereen aan.',
+        who: 'Buurtbewoner',
       },
     ],
   },
