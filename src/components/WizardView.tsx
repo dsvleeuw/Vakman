@@ -324,7 +324,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
         {/* Step Bullets — clickable so people can jump back without losing data */}
         <nav aria-label="Wizard voortgang">
-          <ol className="flex items-center gap-0 sm:gap-4 flex-wrap list-none m-0 p-0">
+          <ol className="flex items-center gap-0 sm:gap-2 md:gap-4 flex-wrap list-none m-0 p-0">
             {WIZARD_STEPS.map((stepId, idx) => {
               const isCompleted = idx < visualStepIndex;
               const isCurrent = idx === visualStepIndex;
@@ -370,10 +370,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
         </nav>
       </header>
 
-      {/* Main Split Layout: Form on Left, Live Sticky Preview on Right */}
-      <div className="flex-1 max-w-7xl w-full mx-auto px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      {/* Main Split Layout: Centered max-w-xl on tablet, two-column split on desktop */}
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-8 md:py-10 md:px-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left Column: Form Steps */}
-        <div className="lg:col-span-6 flex flex-col gap-6 max-w-xl">
+        <div className="lg:col-span-6 flex flex-col gap-6 w-full max-w-xl mx-auto lg:mx-0">
           {/* Context: what the visitor already picked, and how to change it */}
           {currentStepIndex >= 2 && (
             <div className="flex flex-wrap items-center gap-2">
@@ -1046,8 +1046,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
         </div>
 
         {/* Right Column: Full live render of the generated website */}
-        <div className="lg:col-span-6 flex flex-col gap-3 lg:sticky lg:top-24">
-          {showPreview && (
+        {showPreview && (
+          <div className="lg:col-span-6 flex flex-col gap-3 w-full max-w-2xl mx-auto lg:max-w-none lg:mx-0 lg:sticky lg:top-24">
             <div id="wizard-preview" className="flex flex-col gap-3">
               <div className="flex justify-between items-center text-xs font-mono font-semibold text-stone-500">
                 <span>LIVE WEBSITE VOORBEELD</span>
@@ -1066,8 +1066,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 />
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
