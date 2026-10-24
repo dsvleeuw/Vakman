@@ -1,6 +1,6 @@
 import { checkSpam, createLeadReference, leadContact, parseLeadRequest, type Lead } from '../utils/lead';
 import { buildLeadCustomerEmail, buildLeadTeamEmail } from '../utils/leadEmail';
-import { quoteViewPath, type QuoteDocument } from '../utils/quote';
+import { quoteDelivery, quoteViewPath, type QuoteDelivery, type QuoteDocument } from '../utils/quote';
 import { buildQuoteEmail } from '../utils/quoteEmail';
 import { createRateLimiter, type RateLimiter } from '../utils/rateLimit';
 import { notifyAddress, sendMail, type FetchLike, type MailAttachment, type MailEnv } from './mail';
@@ -41,6 +41,8 @@ export interface LeadResult {
     quote?: QuoteDocument;
     /** Relative link to the online quote (/offerte/:id?token=…). */
     quoteUrl?: string;
+    /** How the quote reaches the customer, from the wizard channel choice. */
+    delivery?: QuoteDelivery;
     customerEmailSent?: boolean;
     error?: string;
   };
@@ -117,7 +119,10 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
   let customerMail;
   if (lead.kind === 'offerte' && quote) {
     teamMail = buildQuoteEmail(quote, lead.request, 'team', viewUrl);
-    customerMail = contact.email ? buildQuoteEmail(quote, lead.request, 'customer', viewUrl) : null;
+    customerMail =
+      contact.email && quoteDelivery(lead.request.channel).email
+        ? buildQuoteEmail(quote, lead.request, 'customer', viewUrl)
+        : null;
   } else if (lead.kind !== 'offerte') {
     teamMail = buildLeadTeamEmail(lead, reference);
     customerMail = contact.email ? buildLeadCustomerEmail(lead, reference) : null;
@@ -155,7 +160,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
       ok: true,
       mode: team.preview ? 'preview' : 'sent',
       reference,
-      ...(quote ? { quote, quoteUrl } : {}),
+      ...(quote && lead.kind === 'offerte' ? { quote, quoteUrl, delivery: quoteDelivery(lead.request.channel) } : {}),
       customerEmailSent,
     },
   };

@@ -14,6 +14,7 @@ import {
   isQuoteToken,
   isValidEmail,
   parseQuoteRequest,
+  quoteDelivery,
   quoteViewPath,
   sanitizeAddonIds,
   tokensMatch,
@@ -170,4 +171,10 @@ test('renderQuotePdf produces a PDF, even with characters Helvetica lacks', asyn
   const pdf = await renderQuotePdf(buildQuoteDocument(parsed.request, 'KB-2026-0001', new Date('2026-10-24T10:00:00Z')));
   assert.equal(Buffer.from(pdf.subarray(0, 5)).toString(), '%PDF-');
   assert.ok(pdf.length > 1500);
+});
+
+test('quoteDelivery maps the wizard channel choice', () => {
+  assert.deepEqual(quoteDelivery('WhatsApp'), { email: false, whatsapp: true });
+  assert.deepEqual(quoteDelivery('E-mail'), { email: true, whatsapp: false });
+  assert.deepEqual(quoteDelivery('Allebei'), { email: true, whatsapp: true });
 });

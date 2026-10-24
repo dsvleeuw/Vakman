@@ -1,7 +1,15 @@
 import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
 import { SECTORS, STYLES } from '../data/tradesData';
 import { formatPrice } from './pricing';
-import { formatDutchDate, formatEuroCents, type QuoteDocument, type QuoteRequest } from './quote';
+import {
+  buildQuoteWhatsAppMessage,
+  formatDutchDate,
+  formatEuroCents,
+  quoteDelivery,
+  type QuoteDocument,
+  type QuoteRequest,
+} from './quote';
+import { buildWhatsAppUrl } from './contact';
 
 export type QuoteEmailAudience = 'team' | 'customer';
 
@@ -90,9 +98,25 @@ export function buildQuoteEmail(
   ];
   const validity = `Geldig tot en met ${formatDutchDate(doc.validUntil)}.`;
   const services = request.services.length ? request.services : ['Geen diensten gekozen'];
+  const delivery = quoteDelivery(request.channel);
+  // The customer asked for WhatsApp: give us a one-tap, prefilled message.
+  const whatsappUrl =
+    audience === 'team' && delivery.whatsapp && viewUrl
+      ? buildWhatsAppUrl(request.form.phone, buildQuoteWhatsAppMessage(doc, viewUrl))
+      : undefined;
+  const todo =
+    audience === 'team'
+      ? delivery.email
+        ? delivery.whatsapp
+          ? 'De klant krijgt de offerte per mail en wil hem ook via WhatsApp: stuur hem met de knop hieronder.'
+          : 'De klant krijgt de offerte per mail (PDF in de bijlage).'
+        : 'De klant wil de offerte via WhatsApp en krijgt geen mail: stuur hem met de knop hieronder.'
+      : '';
   const outro =
     audience === 'team'
-      ? `Antwoorden op deze mail gaat rechtstreeks naar ${request.form.email}.`
+      ? request.form.email
+        ? `Antwoorden op deze mail gaat rechtstreeks naar ${request.form.email}.`
+        : `Bel of app ${request.form.owner} op ${request.form.phone}.`
       : `Vragen of iets wijzigen? Antwoord gewoon op deze mail${getPlatformWhatsApp() ? ` of app ons op ${getPlatformWhatsApp()}` : ''}. Dit is een indicatie; de definitieve offerte volgt na ons gesprek.`;
 
   const text = [
@@ -101,6 +125,8 @@ export function buildQuoteEmail(
     `Offertenummer: ${reference}`,
     validity,
     ...(viewUrl ? [`Online bekijken: ${viewUrl}`] : []),
+    ...(todo ? ['', todo] : []),
+    ...(whatsappUrl ? [`Via WhatsApp sturen: ${whatsappUrl}`] : []),
     '',
     'GEGEVENS',
     ...details.map((row) => `${row.label}: ${row.value}`),
@@ -134,6 +160,8 @@ export function buildQuoteEmail(
 <div style="font-weight:900;font-size:20px;margin-bottom:16px;">Klusbaas</div>
 <p style="margin:0 0 8px;font-size:15px;line-height:1.5;">${escapeHtml(intro)}</p>
 <p style="margin:0;font-size:12px;color:#78716c;">Offertenummer: <strong>${escapeHtml(reference)}</strong> · ${escapeHtml(validity)}</p>
+${todo ? `<p style="margin:16px 0 0;font-size:14px;line-height:1.5;font-weight:700;">${escapeHtml(todo)}</p>` : ''}
+${whatsappUrl ? `<p style="margin:12px 0 0;"><a href="${escapeHtml(whatsappUrl)}" style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;font-weight:800;font-size:14px;padding:12px 20px;border-radius:999px;">Stuur offerte via WhatsApp</a></p>` : ''}
 ${viewUrl ? `<p style="margin:16px 0 0;"><a href="${escapeHtml(viewUrl)}" style="display:inline-block;background:#1c1917;color:#ffffff;text-decoration:none;font-weight:800;font-size:14px;padding:12px 20px;border-radius:999px;">Bekijk de offerte online</a></p>` : ''}
 ${section('Gegevens', `<table role="presentation" width="100%" style="border-collapse:collapse;font-size:14px;">${tableRows(details)}</table>`)}
 ${section('Diensten op de website', `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>`)}

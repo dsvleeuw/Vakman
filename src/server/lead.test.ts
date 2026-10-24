@@ -138,3 +138,33 @@ test('invalid input is a 400 and the rate limit a 429', async () => {
   assert.equal((await handleLead(contactBody, d)).status, 200);
   assert.equal((await handleLead(contactBody, d)).status, 429);
 });
+
+test('channel WhatsApp: no customer mail, our mail carries a one-tap WhatsApp link', async () => {
+  const calls: { to: string[]; text: string }[] = [];
+  const { deps: d } = deps({
+    env: { RESEND_API_KEY: 'test', QUOTE_NOTIFY_EMAIL: 'team@example.nl' },
+    fetchImpl: async (_url, init) => {
+      calls.push(JSON.parse(String(init.body)));
+      return new Response('{}', { status: 200 });
+    },
+  });
+  const result = await handleLead({ ...quoteBody, channel: 'WhatsApp', form: { ...quoteBody.form, email: '' } }, d);
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.body.delivery, { email: false, whatsapp: true });
+  assert.deepEqual(calls.map((call) => call.to[0]), ['team@example.nl']);
+  assert.match(calls[0].text, /Via WhatsApp sturen: https:\/\/wa\.me\/31612345678\?text=/);
+});
+
+test('channel E-mail: customer mail, no WhatsApp link for us', async () => {
+  const calls: { to: string[]; text: string }[] = [];
+  const { deps: d } = deps({
+    env: { RESEND_API_KEY: 'test', QUOTE_NOTIFY_EMAIL: 'team@example.nl' },
+    fetchImpl: async (_url, init) => {
+      calls.push(JSON.parse(String(init.body)));
+      return new Response('{}', { status: 200 });
+    },
+  });
+  await handleLead(quoteBody, d);
+  assert.equal(calls.length, 2);
+  assert.ok(!calls[0].text.includes('wa.me'));
+});

@@ -8,8 +8,9 @@ workflow and gotchas so work stays consistent across sessions.
 Klusbaas generates demo marketing websites for Dutch tradespeople
 (6 trades × 5 styles = 30 presets). It is a React 19 + TypeScript +
 Vite + Tailwind v4 single-page app with **no application backend**:
-forms submit through WhatsApp/tel deep links, and the only API
-integration is optional Google Calendar/Drive sync via Firebase Auth.
+forms submit to one serverless lead endpoint (Netlify Functions + Blobs,
+mail via Resend) with WhatsApp as fallback, plus optional Google
+Calendar/Drive sync via Firebase Auth.
 Full context: [docs/architecture.md](./docs/architecture.md).
 
 ## Branch and GitHub rules
@@ -110,8 +111,16 @@ change. The Netlify deploy preview is the only external CI check.
 - When smoke-rendering with `renderToStaticMarkup`, assert against
   entity-decoded markup (`&` renders as `&amp;`). Delete any temporary
   render script before committing.
-- The wizard's WhatsApp/E-mail/Allebei channel state is currently **not
-  wired** to the published site — do not assume it works (roadmap 1.1).
+- Every form posts to `POST /api/lead` (`src/server/lead.ts`, shared by
+  `netlify/functions/lead.mts` and the Vite dev middleware). Use
+  `useLeadSubmit` + `LeadError`/`LeadHoneypot` for new forms; validation lives
+  in `utils/lead.ts`. Without `RESEND_API_KEY` mails are logged, not sent.
+- The wizard channel (WhatsApp / E-mail / Allebei) decides delivery through
+  `quoteDelivery()` in `utils/quote.ts`: e-mail sends the PDF to the customer,
+  WhatsApp puts a one-tap wa.me link in our own mail.
+- Quotes are numbered `KB-<jaar>-0001`, saved in Netlify Blobs (`quotes`,
+  `.data/quotes` in dev) and viewable at `/offerte/:id?token=…`. Prices only
+  come from `data/plans.ts` and `data/addons.ts`.
 - Unsplash ids in each sector's `pool` are rotated by
   `getPhotoSet(sector, styleIndex)`; reuse pool ids rather than adding
   external image hosts.

@@ -16,17 +16,16 @@ import {
   getUnsplashUrl,
   buildActiveSite,
 } from '../data/tradesData';
-import { formatPrice, validateWizardForm } from '../utils/pricing';
+import { validateWizardForm } from '../utils/pricing';
 import { PLANS, getPlan } from '../data/plans';
 import { ADDONS, ADDON_GROUPS, isAddonIncluded } from '../data/addons';
-import { DEFAULT_PLAN, buildQuote, sanitizeAddonIds } from '../utils/quote';
+import { DEFAULT_PLAN, buildQuote, quoteDelivery, sanitizeAddonIds } from '../utils/quote';
 import { formatEuro } from '../utils/quoteEmail';
 import { QuoteSummary } from './QuoteSummary';
 import { LeadError, LeadHoneypot } from './LeadFormStatus';
 import { useLeadSubmit } from '../hooks/useLeadSubmit';
-import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
+import { getPlatformWhatsApp } from '../data/platform';
 import {
-  buildMailtoUrl,
   buildQuoteRequestMessage,
   buildWhatsAppUrl,
   isValidEmail,
@@ -141,6 +140,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const lead = useLeadSubmit();
   const [quoteReference, setQuoteReference] = useState<string | null>(null);
   const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
+  const [customerEmailSent, setCustomerEmailSent] = useState(false);
   const [bookingResult, setBookingResult] = useState<{
     booking: AppointmentBooking;
     calendarSynced: boolean;
@@ -293,6 +293,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
     }
     setQuoteReference(sent.reference || null);
     setQuoteUrl(typeof sent.data.quoteUrl === 'string' ? sent.data.quoteUrl : null);
+    setCustomerEmailSent(sent.customerEmailSent);
 
     saveAppointment(booking);
 
@@ -1042,8 +1043,29 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 </strong>
                 . We spreken elkaar op{' '}
                 <strong>{bookingResult?.booking.dateStr || bookingDate.formatted}</strong> (
-                {bookingResult?.booking.timeSlot || bookingSlot}). Je offerte gaat via {channel}.
+                {bookingResult?.booking.timeSlot || bookingSlot}).
               </p>
+              <ul className="w-full list-none m-0 p-0 flex flex-col gap-2 text-left text-sm">
+                {quoteDelivery(channel).email && (
+                  <li className="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                    {customerEmailSent ? (
+                      <>
+                        <strong>Gemaild</strong> naar {formData.email}, met de offerte als PDF.
+                      </>
+                    ) : (
+                      <>
+                        <strong>Per e-mail:</strong> de bevestiging naar {formData.email} kon nu nog
+                        niet worden afgeleverd. Je offerte staat hieronder klaar; wij sturen hem na.
+                      </>
+                    )}
+                  </li>
+                )}
+                {quoteDelivery(channel).whatsapp && (
+                  <li className="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                    <strong>Via WhatsApp:</strong> we sturen de link naar je offerte naar {formData.phone}.
+                  </li>
+                )}
+              </ul>
 
               <div className="w-full bg-stone-50 p-5 rounded-2xl border border-stone-200 text-left flex flex-col gap-3 text-xs sm:text-sm">
                 <div className="flex justify-between border-b pb-2 border-stone-200">
@@ -1096,38 +1118,6 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </a>
                 </div>
               )}
-
-              {/* The chosen channel now actually produces a ready-to-send message */}
-              <div className="w-full flex flex-col gap-2 text-left">
-                <span className="text-xs font-bold text-stone-500 uppercase">
-                  Stuur je gegevens alvast mee
-                </span>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  {platformWhatsApp && (channel === 'WhatsApp' || channel === 'Allebei') && (
-                    <a
-                      href={buildWhatsAppUrl(platformWhatsApp, quoteMessage)}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => track('whatsapp_click', { source: 'wizard-confirmation' })}
-                      className="flex-1 h-12 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-sm inline-flex items-center justify-center gap-2 no-underline"
-                    >
-                      Via WhatsApp
-                    </a>
-                  )}
-                  {(channel === 'E-mail' || channel === 'Allebei' || !platformWhatsApp) && (
-                    <a
-                      href={buildMailtoUrl(
-                        PLATFORM_CONTACT.email,
-                        `Offerte ${quoteReference ?? bookingResult?.booking.id ?? ''}`.trim(),
-                        quoteMessage
-                      )}
-                      className="flex-1 h-12 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center gap-2 no-underline"
-                    >
-                      Via e-mail
-                    </a>
-                  )}
-                </div>
-              </div>
 
               {authUser && (
                 <div className="flex justify-between items-center text-xs text-stone-500 w-full">

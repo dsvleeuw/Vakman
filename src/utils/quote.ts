@@ -261,3 +261,26 @@ export function buildQuoteDocument(request: QuoteRequest, number: string, issued
     total: quote.total,
   };
 }
+
+export interface QuoteDelivery {
+  /** Mail the quote (with PDF) to the customer. */
+  email: boolean;
+  /** Klusbaas sends the quote link to the customer's WhatsApp (one-tap link in our mail). */
+  whatsapp: boolean;
+}
+
+/** What the wizard choice "WhatsApp / E-mail / Allebei" means for sending the quote. */
+export function quoteDelivery(channel: QuoteChannel): QuoteDelivery {
+  return { email: channel !== 'WhatsApp', whatsapp: channel !== 'E-mail' };
+}
+
+/** Message Klusbaas sends to the customer's WhatsApp when they chose it. */
+export function buildQuoteWhatsAppMessage(doc: QuoteDocument, viewUrl: string): string {
+  const firstName = doc.customer.owner.split(' ')[0] || doc.customer.owner;
+  return [
+    `Hoi ${firstName}, hier is je offerte ${doc.number} van Klusbaas voor ${doc.customer.biz}.`,
+    `Totaal ${formatEuroCents(doc.subtotal)} excl. btw, geldig tot ${formatDutchDate(doc.validUntil)}.`,
+    '',
+    `Bekijk en download hem hier: ${viewUrl}`,
+  ].join('\n');
+}
