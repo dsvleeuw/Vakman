@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Klusbaas-logo en huisstijl (C3).** Eigen beeldmerk: een K uit een steel
+  en een winkelhaak met maatstreepjes, plus het woordmerk in Archivo 900 als
+  outlines. `public/brand/` (logo, licht logo, beeldmerk, e-mail-PNG), nieuwe
+  `favicon.svg`, `icon-192/512.png`, `apple-touch-icon.png`,
+  `site.webmanifest` en `og-image.png` ("Jouw vak. Jouw website."). Het
+  `Logo`-component vervangt de K-tegels in header, wizard, 404 en
+  offertepagina; de offerte-PDF tekent het logo als vectorpaden en elke mail
+  heeft een logo-header. Alles komt uit `scripts/generate-brand.mjs`.
+- **Privacyverklaring `/privacy` (C1).** Per formulier: gegevens, doel,
+  grondslag en bewaartermijn, plus verwerkers en rechten. Link in de footer,
+  onder elk formulier, in elke mail (footer) en in de offerte-PDF.
+- **Nieuwsbrief met dubbele opt-in (C2).** Aanmeldveld in de nieuwe footer
+  en op `/nieuwsbrief`. `POST /api/newsletter` (honeypot, rate limit) slaat
+  het adres op als `pending` met een onraadbaar token en mailt een
+  bevestigingslink; `GET /api/newsletter/confirm` zet het op `subscribed`
+  (en in de Resend Audience als `RESEND_AUDIENCE_ID` gezet is);
+  `/afmelden?token=` zet het op `unsubscribed`. Pagina's tonen de status.
+
 - **Eén lead-endpoint `POST /api/lead`.** Wizard-offerte, afspraak
   (`BookingCalendar`), contactformulier, storingsmelding en m²-offerte posten
   naar dezelfde Netlify Function (en in `vite dev` naar dezelfde handler via

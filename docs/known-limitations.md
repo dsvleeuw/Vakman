@@ -25,6 +25,25 @@ to [ROADMAP.md](../ROADMAP.md).
 - `PublishedSiteRecord` is defined in `types.ts` but unused; publishing is
   not actually recorded.
 
+## Privacy and newsletter
+
+- **TODO: KvK-nummer en vestigingsadres ontbreken** in de privacyverklaring
+  (`src/components/InfoPages.tsx`). Het contactadres is tijdelijk
+  thomascliphero@gmail.com (`PRIVACY_CONTACT_EMAIL`); vervang het door een
+  klusbaas.nl-adres zodra dat bestaat. Laat de tekst eenmalig juridisch
+  checken.
+- **Bewaartermijnen worden niet automatisch afgedwongen.** Onbevestigde
+  nieuwsbriefaanmeldingen werken na 30 dagen niet meer, maar er is geen
+  geplande taak die oude leads, offertes of aanmeldingen verwijdert; dat is
+  handwerk in Netlify Blobs.
+- **Nieuwsbrief versturen is nog handwerk.** Er is alleen aanmelden,
+  bevestigen en afmelden. Versturen gebeurt via Resend Broadcasts op de
+  Audience (`RESEND_AUDIENCE_ID`); zonder Audience staat de lijst alleen in
+  Netlify Blobs. De bevestigingsmail gaat, net als de offertemails, pas naar
+  willekeurige adressen als het domein in Resend geverifieerd is.
+- **Rate limit nieuwsbrief** is 5 aanmeldingen per 10 minuten per IP, in
+  geheugen per functie-instantie.
+
 ## Customisation
 
 - Only the four wizard fields (business name, owner, phone, city) and the
