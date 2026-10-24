@@ -1,0 +1,8 @@
+{
+  "id": "vk-seo-meta-e",
+  "state": "error",
+  "error": "page.waitForResponse: Timeout 60000ms exceeded while waiting for event \"response\"",
+  "arenaId": "01a16f86-060a-7d82-a043-a4b2f2e93cb2",
+  "autoFixRound": 1,
+  "worktree": "C:\\Users\\ReMarkt\\.arena-bridge\\worktrees\\vk-seo-meta-e"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "vk-a11y-forms-d",
+  "state": "done",
+  "turn": 1,
+  "seconds": 1128,
+  "arenaId": "01a16f6a-8882-7f68-aca2-f8ac9ec20c88",
+  "url": "https://arena.ai/agent/01a16f6a-8882-7f68-aca2-f8ac9ec20c88",
+  "summary": "- **`FaultReportForm` & `SurfaceCalculator`**: elk `input`/`select`/`textarea` (inclusief dynamische wandrijen) gekoppeld aan een `<label htmlFor>` via `useId()`, losse groepskoppen omgezet naar `role=\"group\"` met `aria-labelledby`, foutmeldingen gekoppeld via `aria-invalid` + `aria-describedby` (`role=\"alert\"`), alle control-randen op minstens `border-stone-500` (≥ 3:1) gezet, en WhatsApp-knoppen voorzien van `text-stone-950` op `#25D366` (9,96:1).\n- **`DemoContactNotice`**: focustrap toegevoegd voor `Tab`/`Shift+Tab` (inclusief `focusin`-bewaking), sluiten met `Escape`, en focusherstel naar het aanroepende element bij sluiten zonder navigatie.\n- **`HeroStrip`**: marquee-kaarten omgezet van `<button>` naar `<RouteLink>` (`<a href=\"/voorbeeld/:sector/klassiek\">`), met behoud van `aria-hidden`/`tabIndex={-1}` op de gedupliceerde lusitems en compatibele props voor bestaande aanroepers.\n- **Verificatie & open punten**: geverifieerd in `/tmp/vakman` met `bun run check` (`tsc --noEmit`, 127 unit-tests, Vite-build + prerender van 39 routes) en een React/DOM-verificatiescript voor labels, `aria-*`, focustrap, links en SSR-hydratie; `/tmp/vakman` is daarna verwijderd. Alleen jouw lokale Playwright-suite staat nog open.",
+  "written": [
+    {
+      "path": "src/components/tools/FaultReportForm.tsx"
+    },
+    {
+      "path": "src/components/tools/SurfaceCalculator.tsx"
+    },
+    {
+      "path": "src/components/DemoContactNotice.tsx"
+    },
+    {
+      "path": "src/components/HeroStrip.tsx"
+    }
+  ],
+  "pr": null,
+  "acceptance": [
+    "[A1] PASS `bun run check` groen (`lint`, 127 tests in 20 bestanden, `build` + prerender van 39 routes)",
+    "[A2] PASS Elk `input`/`select`/`textarea` in `FaultReportForm` en `SurfaceCalculator` heeft een `useId()`-`id` en gekoppeld `<label htmlFor>`, plus `aria-invalid`/`aria-describedby` bij fouten",
+    "[A3] PASS `DemoContactNotice` houdt focus vast met `Tab`/`Shift+Tab` + `focusin`, sluit op `Escape`, en zet focus terug op de trigger bij sluiten",
+    "[A4] PASS `HeroStrip` rendert `<RouteLink>` (`<a href=\"/voorbeeld/<sector>/klassiek\">`) in plaats van `<button>`"
+  ],
+  "check": {
+    "id": "vk-a11y-forms-d",
+    "verdict": "pass",
+    "files": [
+      "src/components/tools/FaultReportForm.tsx +57 -16",
+      "src/components/tools/SurfaceCalculator.tsx +138 -100",
+      "src/components/DemoContactNotice.tsx +107 -5",
+      "src/components/HeroStrip.tsx +8 -6"
+    ],
+    "problems": [],
+    "warnings": [
+      "code changed but no docs touched; check whether README/AGENTS.md need an update",
+      "no test file changed; new behaviour may be untested"
+    ],
+    "commands": [
+      {
+        "cmd": "bun run lint",
+        "ok": true,
+        "seconds": 2
+      },
+      {
+        "cmd": "bun run test",
+        "ok": true,
+        "seconds": 7
+      },
+      {
+        "cmd": "bun run build",
+        "ok": true,
+        "seconds": 17
+      }
+    ]
+  },
+  "next": "review vk-a11y-forms-d (read the diff), then land vk-a11y-forms-d (copies into C:\\Users\\ReMarkt\\Desktop\\Vakman) or commit vk-a11y-forms-d, then cleanup vk-a11y-forms-d",
+  "worktree": "C:\\Users\\ReMarkt\\.arena-bridge\\worktrees\\vk-a11y-forms-d"
+}

@@ -1,0 +1,64 @@
+{
+  "voice": "nl-NL-MaartenNeural",
+  "rate": "+8%",
+  "lead": 0.5,
+  "tail": 1.0,
+  "note": "Professional Dutch male sales voice. {cue} = animation trigger at first word after marker. ~150 seconds total.",
+  "scenes": [
+    {
+      "id": "s1",
+      "min": 12,
+      "text": "{hook}Geen website? {pain}Dat betekent: elke dag klanten verliezen. {money}Tussen de vijftien en dertigduizend euro per jaar. {silence}Zolang je onzichtbaar bent."
+    },
+    {
+      "id": "s2",
+      "min": 14,
+      "text": "{fb}Alleen een Facebook-pagina? {mobile}Werkt niet op mobiel. {werkspot}Op Werkspot betaal je om tussen je concurrenten te staan. {stop}Stop met geld verbranden op dingen die niet werken."
+    },
+    {
+      "id": "s3",
+      "min": 10,
+      "text": "{reveal}Klusbaas. {tagline}Jouw vak. Jouw website. {tagline2}Een echte website. Vandaag besteld, over veertien dagen live."
+    },
+    {
+      "id": "s4",
+      "min": 18,
+      "text": "{demo}Kijk hoe het eruitziet. {prijzen}Diensten met heldere prijzen. {whatsapp}Een WhatsApp-knop die direct opent. {planner}Een afsprakenplanner die zelf invult. {calculator}Een prijscalculator die offertes maakt. {area}Een postcodecheck voor jouw werkgebied. {reviews}Google-reviews die automatisch binnenkomen. {live}En live in veertien dagen. Geen abonnement. Eén vast tarief."
+    },
+    {
+      "id": "s5",
+      "min": 16,
+      "text": "{styles}Vijf premium stijlen. {klassiek}Vakwerk — klassiek, betrouwbaar, warm. {modern}Helder — fris, open, over de hele breedte. {krachtig}Signaal — vet, opvallend, onmiskenbaar. {donker}Avond — donker, exclusief, high-end. {puur}Puur — rustig, je vakwerk centraal. {choice}Jij kiest wat bij jou past."
+    },
+    {
+      "id": "s6",
+      "min": 14,
+      "text": "{trades}Zes vakken, allemaal live. {timmerman}Timmerman — kozijnen, trappen, kasten op maat. {hovenier}Hovenier — tuinen, beplanting, onderhoud. {schilder}Schilder — binnen, buiten, lakwerk. {loodgieter}Loodgieter — spoed, sanitair, verduurzaming. {elektricien}Elektricien — installaties, slimme huizen, laadpalen. {stukadoor}Stukadoor — pleisterwerk, isolatie, afwerking. {andere}En overige vakken."
+    },
+    {
+      "id": "s7",
+      "min": 16,
+      "text": "{smart}Slimme tools per vak. {spoed}Spoedknop voor loodgieters — klant drukt, jij belt. {storing}Storingsmelding — klant ziet tijdslot, jij plant in. {calculator2}Vierkante-meter calculator voor schilders en timmermannen. {timeline}Projecttijdlijn — klant ziet fasering, jij communiceert. {booking}Boekingskalender — klant boekt, Google Calendar vult zich. {drive}Offertes en facturen automatisch in Google Drive."
+    },
+    {
+      "id": "s8",
+      "min": 14,
+      "text": "{packages}Drie pakketten. {basis}Basis — vijfhonderd vijfennegentig euro. One-page, vijf stijlen, WhatsApp, offerteformulier, voor/na, Google Profiel, lokale SEO, twee weken. {pro}Pro — negenhonderd vijfennegentig euro. Meerdere pagina's, prijscalculator, postcodecheck, reviews, eigen .nl domein, drie maanden service. {premium}Premium — zeventienhonderd vijfennegentig euro. Slimme tool, boekingskalender, Drive-sync, persoonlijk advies, voorrang."
+    },
+    {
+      "id": "s9",
+      "min": 12,
+      "text": "{proof}Vierhonderd tweeënnegentig vakbedrijven in de regio. {demo15}Al vijftien demo's deze week. {klant5}Vijf klanten live deze maand. {kvt}KVT-gcertificeerd. {vgb}VCA Vol. {avans}AVG-compliant. {geen}Geen abonnement. Nooit verrassingen."
+    },
+    {
+      "id": "s10",
+      "min": 14,
+      "text": "{process}Zo werkt het. {bel}Stap één: bellen of appen. {demo2}Stap twee: persoonlijke demo op jouw telefoon. {akkoord}Stap drie: akkoord geven, geen kleine lettertjes. {live2}Stap vier: live. Klaar. {garantie}Niet tevreden? Geld terug."
+    },
+    {
+      "id": "s11",
+      "min": 16,
+      "text": "{cta}Bel vandaag nog. {phone}Nul zes [pauze] [nummer]. {qr}Of scan de QR-code voor je gratis demo. {logo}Klusbaas — jouw vak, jouw website. {tagline3}De enige website die klanten binnenhaalt."
+    }
+  ]
+}

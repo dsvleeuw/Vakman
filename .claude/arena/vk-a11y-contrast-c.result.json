@@ -1,0 +1,10 @@
+{
+  "id": "vk-a11y-contrast-c",
+  "state": "error",
+  "error": "fetch failed",
+  "arenaId": null,
+  "filesSent": [
+    "package.json"
+  ],
+  "worktree": "C:\\Users\\ReMarkt\\.arena-bridge\\worktrees\\vk-a11y-contrast-c"
+}

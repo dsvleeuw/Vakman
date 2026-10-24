@@ -1,0 +1,229 @@
+[
+ {
+  "id": "vk-fix-leads-c",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "src/hooks/useLeadForm.ts,src/utils/lead.ts,src/utils/lead.test.ts,src/utils/leadClient.ts,src/utils/leadClient.test.ts,src/components/LeadStatus.tsx,src/server/leadHandler.ts,src/server/leadHandler.test.ts,src/server/newsletterHandler.ts,src/server/newsletterHandler.test.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: geen stil verlies van leads en geen persoonsgegevens in logs. (1) useLeadForm.ts:42 zet startedAt opnieuw bij reset(); daardoor ziet de server een snelle tweede inzending als spam (lead.ts:220, MIN_FILL_MS 2500) en geeft hij een nep-succes zonder opslag. Behoud startedAt bij reset() en verlaag MIN_FILL_MS naar 800. (2) Voeg in leadClient.ts een timeout van 12 s toe (AbortSignal.timeout) met een Nederlandse foutmelding. (3) LeadErrorNotice (LeadStatus.tsx): knop 'Opnieuw proberen' en, als er geen veilig WhatsApp-nummer is, een mailto-fallback via buildMailtoUrl uit utils/contact.ts. Maak de WhatsApp-knop daar leesbaar: donkere tekst (text-stone-950) op #25D366. (4) leadHandler.ts deliver(): log in previewmodus alleen tag, ontvanger-domein, onderwerp en bijlagenamen, niet mail.text; newsletterHandler.ts: log geen volledige e-mailadressen (maskeer als j***@domein). Tests: snelle inzending na reset wordt niet als spam gezien; timeout geeft fout; previewlog bevat geen mailtekst. Niet doen: CHANGELOG, andere componenten, rate limiter herschrijven.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "Test bewijst dat een tweede inzending na reset() geen spam-resultaat geeft",
+   "Test bewijst dat de previewlog geen mailtekst of volledig e-mailadres bevat",
+   "submitLead breekt af na 12 s met een Nederlandse fout"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-ci-e2e-d",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": ".github/**,e2e/**,playwright.config.ts,package.json,bun.lock,.gitignore",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: CI en een Playwright-klikproef (D1, roadmap 5.1/5.4). (1) .github/workflows/check.yml: op push en pull_request, oven-sh/setup-bun, bun install --frozen-lockfile, bun run check, daarna bunx playwright install --with-deps chromium en de e2e-tests. (2) @playwright/test als devDependency in package.json (zet hem er zelf in; bun.lock werk ik bij), playwright.config.ts met projecten 360x780 en 1440x900, webServer: bun run build en daarna vite preview op poort 4173 (de geprerenderde dist). (3) e2e/routes.spec.ts: bezoek /, /voorbeeld/loodgieter/krachtig, /voorbeeld/hovenier/donker, /start/vak, /privacy, /nieuwsbrief, /componenten en een onbekende route; assert geen console-errors, geen <a> met lege of #-href, geen tekst 06 12 34 56 78 of 06 45 67 89 01 op /voorbeeld, en geen input/select/textarea met font-size kleiner dan 16px. (4) e2e/wizard.spec.ts: doorloop /start/vak t/m /start/afspraak met testgegevens en controleer dat de knoppen naar de volgende stap gaan; mock POST /api/lead via page.route. (5) scripts in package.json: e2e en e2e:install. Voeg test-results/ en playwright-report/ aan .gitignore toe. Niet doen: app-code wijzigen; markeer falende app-assertions met test.fixme en een reden en meld ze in je antwoord.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "playwright.config.ts heeft projecten voor 360x780 en 1440x900 en een webServer op poort 4173",
+   "Workflow-bestand bestaat en gebruikt bun install --frozen-lockfile",
+   "Falende app-assertions zijn als test.fixme met reden gemarkeerd, niet weggelaten"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-a11y-contrast-d",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "src/index.css,src/components/ContactSection.tsx,src/components/FaqSection.tsx,src/components/AreaChecker.tsx,src/components/SiteView.tsx,src/components/tools/EmergencyButton.tsx",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: WCAG AA-contrast in alle 5 stijlen. (1) Wit op #25D366 haalt 1,98:1: gebruik op WhatsApp-knoppen text-stone-950 op #25D366 (of #128C4B met wit) in ContactSection, SiteView en EmergencyButton. (2) Op de donker-presets staat hardcoded text-stone-900/700/600 op site.card/site.bg (ContactSection.tsx:177,210,215,240,267; FaqSection.tsx:64,68; AreaChecker.tsx:37,52,54): lees kleuren uit de ActiveSiteData-tokens (site.fg, site.muted) of geef de kaart expliciet een lichte achtergrond. (3) index.css:10 :where(...):focus-visible heeft specificiteit 0 en verliest van focus:outline-none: maak de regel sterk genoeg (zonder :where) zodat de focusring overal zichtbaar is. (4) SiteView: mobiel menu sluit bij klik buiten en vergrendelt scroll, zoals Header.tsx:31-38. Behoud pb-20 sm:pb-0 op de SiteView-root. Niet doen: palette-berekening wijzigen, andere bestanden, CHANGELOG.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check), incl. paletteContrast.test.ts",
+   "Geen bg-[#25D366] text-white meer in de scope-bestanden",
+   "Geen hardcoded text-stone-* op site.card/site.bg in ContactSection, FaqSection en AreaChecker",
+   "De focus-visible-regel in index.css staat niet meer in :where()"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-a11y-forms-d",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": "src/components/tools/FaultReportForm.tsx,src/components/tools/SurfaceCalculator.tsx,src/components/DemoContactNotice.tsx,src/components/HeroStrip.tsx",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: toegankelijke formulieren en dialoog. (1) FaultReportForm en SurfaceCalculator: elk veld een <label htmlFor> met id via useId(), foutmeldingen via aria-describedby en aria-invalid, control-randen minstens 3:1 (border-stone-500), WhatsApp-knoppen donkere tekst op #25D366. (2) DemoContactNotice (role=dialog aria-modal): focustrap met Tab/Shift+Tab, Escape sluit, focus terug naar het element dat de dialoog opende. (3) HeroStrip.tsx:26: de marquee-kaarten zijn <button>; maak er RouteLink-links van naar de juiste /voorbeeld-route (zie RouteLink en utils/router.ts buildPath). Niet doen: andere bestanden, CHANGELOG, contact-logica (blijft via utils/contact.ts).",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "Elk input/select/textarea in de twee tools heeft een gekoppeld label",
+   "DemoContactNotice houdt focus vast en geeft hem terug bij sluiten",
+   "HeroStrip-kaarten zijn <a href> naar /voorbeeld/..."
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-wizard-d2-d",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "src/components/WizardView.tsx,src/components/BookingCalendar.tsx,src/utils/appointments.ts,src/utils/appointments.test.ts,src/utils/googleWorkspace.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: losse eindjes D2 in de wizard. (1) WizardView.tsx:225: 'Volgende stap' op /start/vak mag niet doorgaan zonder gekozen vak; toon een inline Nederlandse hint en focus de tegels. (2) appointments.ts buildNextDates en de datums in BookingCalendar: sla zaterdag en zondag over maar lever wel count werkdagen; tests toevoegen. (3) /start/klaar (WizardView ~:1133) toont altijd de pakketregel via getPlan(effectivePlan), ook als Pro niet expliciet gekozen is; idem de chip bij :481. (4) Bij 'Offerte aanvragen' op /start/afspraak met lege gegevens: valideer formData en navigeer naar /start/gegevens met focus op het eerste lege veld in plaats van een API-fout. (5) Exporteer isGoogleConfigured() uit googleWorkspace.ts (false bij de fake-key-for-local-config) en toon de Google Agenda-optie alleen als die true is. (6) WhatsApp-knoppen: donkere tekst op #25D366; BookingCalendar-randen border-stone-200 en WizardView #wizard-email border-stone-300 naar minstens 3:1. (7) BookingCalendar en WizardView staan niet in een <form>: geef daar onRetry door aan LeadErrorNotice (zie LeadStatus.tsx) zodat Opnieuw proberen de inzending herhaalt. Niet doen: CHANGELOG, router-regels, andere componenten.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "Test: buildNextDates levert alleen ma-vr en precies count datums",
+   "Zonder gekozen vak blijft /start/vak staan met een zichtbare hint",
+   "Google Agenda-optie is verborgen als isGoogleConfigured() false is"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-seo-meta-d",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": "scripts/prerender.ts,src/hooks/useRouteMeta.ts,src/hooks/useRouter.ts,src/App.tsx,src/components/Header.tsx,src/components/ImageWithFallback.tsx",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: correcte meta en kleine routeringsbugs. (1) prerender.ts: strip og:image en twitter:image uit index.html voordat de per-route tags worden ingevoegd (nu staan ze dubbel in elke dist-pagina). (2) robots.txt: voeg Disallow: /kaart toe. (3) useRouteMeta: werk bij client-navigatie ook <link rel=canonical> en <meta name=robots> bij (noindex op /start/*, /offerte/*, /kaart, /afmelden en 404). (4) App.tsx:165: replaceState(null, ...) wist de opgeslagen scrollY; behoud window.history.state. (5) useRouter restoreScroll: herstel pas als de lazy route-view gemount is (herhaal rAF tot het document hoog genoeg is, max ~1 s). (6) Copy: App.tsx:319 '6 VAKKEN · 30 STIJLEN' en Header.tsx:83,149 'Alle 30 presets' afleiden uit de SECTORS/STYLES-aantallen (nu 7 x 5 = 35) in plaats van hardcoden. (7) ImageWithFallback: zet loaded=true in een effect als imgRef.current?.complete (gecachete geprerenderde afbeelding). Let op hydratie: niets mag tijdens de eerste render window lezen. Niet doen: CHANGELOG, router.ts.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "dist/index.html bevat precies een og:image en een twitter:image",
+   "dist/robots.txt bevat Disallow: /kaart",
+   "Geen hardcoded '30 presets' of '30 STIJLEN' meer in App.tsx en Header.tsx"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-docs-truth-d",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "depends_on": [
+   "vk-fix-leads-c",
+   "vk-ci-e2e-c",
+   "vk-a11y-contrast-c",
+   "vk-a11y-forms-c",
+   "vk-wizard-d2-c",
+   "vk-seo-meta-c"
+  ],
+  "scope": "docs/**,ROADMAP.md,README.md,AGENTS.md",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: docs in lijn met de code na de zes fix-taken. Lees docs/08-audit-resultaten.md. Werk bij: ROADMAP.md (status Done/Partial/Open per item 1.1-5.5 plus prioriteitsvolgorde: CI en e2e eerst), docs/known-limitations.md, docs/architecture.md (lead-API, Netlify Blobs, Resend, nieuwsbrief, alle routes incl. /offerte, /privacy, /nieuwsbrief, /afmelden, /kaart; 7 sectoren x 5 stijlen = 35 presets, 39 routes), docs/adding-a-trade-tool.md en adding-a-sector.md (submit via /api/lead, routevorm /voorbeeld/:vak/:stijl), docs/contact-strategy.md en docs/ux-review.md (geen 'geen backend', '65 tests' of '36 routes' meer), docs/06-app-fixlijst.md (statusregel per item) en README.md. AGENTS.md: vermeld bun run e2e en de CI-workflow. Gebruik echte aantallen uit de code (het aantal tests geef ik je hieronder). Niet doen: code, CHANGELOG.",
+  "accept": [
+   "Geen 'no backend' of 'geen backend' meer als huidige stand in docs",
+   "Aantallen (sectoren, presets, routes, tests) kloppen met de code",
+   "ROADMAP.md heeft per item een status",
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-seo-meta-e",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": "scripts/prerender.ts,src/hooks/useRouteMeta.ts,src/hooks/useRouter.ts,src/App.tsx,src/components/Header.tsx,src/components/ImageWithFallback.tsx",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: correcte meta en kleine routeringsbugs. (1) prerender.ts: strip og:image en twitter:image uit index.html voordat de per-route tags worden ingevoegd (nu staan ze dubbel in elke dist-pagina). (2) robots.txt: voeg Disallow: /kaart toe. (3) useRouteMeta: werk bij client-navigatie ook <link rel=canonical> en <meta name=robots> bij (noindex op /start/*, /offerte/*, /kaart, /afmelden en 404). (4) App.tsx:165: replaceState(null, ...) wist de opgeslagen scrollY; behoud window.history.state. (5) useRouter restoreScroll: herstel pas als de lazy route-view gemount is (herhaal rAF tot het document hoog genoeg is, max ~1 s). (6) Copy: App.tsx:319 '6 VAKKEN · 30 STIJLEN' en Header.tsx:83,149 'Alle 30 presets' afleiden uit de SECTORS/STYLES-aantallen (nu 7 x 5 = 35) in plaats van hardcoden. (7) ImageWithFallback: zet loaded=true in een effect als imgRef.current?.complete (gecachete geprerenderde afbeelding). Let op hydratie: niets mag tijdens de eerste render window lezen. Niet doen: CHANGELOG, router.ts.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "dist/index.html bevat precies een og:image en een twitter:image",
+   "dist/robots.txt bevat Disallow: /kaart",
+   "Geen hardcoded '30 presets' of '30 STIJLEN' meer in App.tsx en Header.tsx"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-seo-meta-f",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": "scripts/prerender.ts,src/hooks/useRouteMeta.ts,src/hooks/useRouter.ts,src/App.tsx,src/components/Header.tsx,src/components/ImageWithFallback.tsx",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: correcte meta en kleine routeringsbugs. (1) prerender.ts: strip og:image en twitter:image uit index.html voordat de per-route tags worden ingevoegd (nu staan ze dubbel in elke dist-pagina). (2) robots.txt: voeg Disallow: /kaart toe. (3) useRouteMeta: werk bij client-navigatie ook <link rel=canonical> en <meta name=robots> bij (noindex op /start/*, /offerte/*, /kaart, /afmelden en 404). (4) App.tsx:165: replaceState(null, ...) wist de opgeslagen scrollY; behoud window.history.state. (5) useRouter restoreScroll: herstel pas als de lazy route-view gemount is (herhaal rAF tot het document hoog genoeg is, max ~1 s). (6) Copy: App.tsx:319 '6 VAKKEN · 30 STIJLEN' en Header.tsx:83,149 'Alle 30 presets' afleiden uit de SECTORS/STYLES-aantallen (nu 7 x 5 = 35) in plaats van hardcoden. (7) ImageWithFallback: zet loaded=true in een effect als imgRef.current?.complete (gecachete geprerenderde afbeelding). Let op hydratie: niets mag tijdens de eerste render window lezen. Niet doen: CHANGELOG, router.ts.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "dist/index.html bevat precies een og:image en een twitter:image",
+   "dist/robots.txt bevat Disallow: /kaart",
+   "Geen hardcoded '30 presets' of '30 STIJLEN' meer in App.tsx en Header.tsx"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-ci-e2e-e",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": ".github/**,e2e/**,playwright.config.ts,package.json,bun.lock,.gitignore",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: CI en een Playwright-klikproef (D1, roadmap 5.1/5.4). (1) .github/workflows/check.yml: op push en pull_request, oven-sh/setup-bun, bun install --frozen-lockfile, bun run check, daarna bunx playwright install --with-deps chromium en de e2e-tests. (2) @playwright/test als devDependency in package.json (zet hem er zelf in; bun.lock werk ik bij), playwright.config.ts met projecten 360x780 en 1440x900, webServer: bun run build en daarna vite preview op poort 4173 (de geprerenderde dist). (3) e2e/routes.spec.ts: bezoek /, /voorbeeld/loodgieter/krachtig, /voorbeeld/hovenier/donker, /start/vak, /privacy, /nieuwsbrief, /componenten en een onbekende route; assert geen console-errors, geen <a> met lege of #-href, geen tekst 06 12 34 56 78 of 06 45 67 89 01 op /voorbeeld, en geen input/select/textarea met font-size kleiner dan 16px. (4) e2e/wizard.spec.ts: doorloop /start/vak t/m /start/afspraak met testgegevens en controleer dat de knoppen naar de volgende stap gaan; mock POST /api/lead via page.route. (5) scripts in package.json: e2e en e2e:install. Voeg test-results/ en playwright-report/ aan .gitignore toe. Niet doen: app-code wijzigen; markeer falende app-assertions met test.fixme en een reden en meld ze in je antwoord.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "playwright.config.ts heeft projecten voor 360x780 en 1440x900 en een webServer op poort 4173",
+   "Workflow-bestand bestaat en gebruikt bun install --frozen-lockfile",
+   "Falende app-assertions zijn als test.fixme met reden gemarkeerd, niet weggelaten"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-docs-truth-e",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "depends_on": [
+   "vk-fix-leads-c",
+   "vk-ci-e2e-c",
+   "vk-a11y-contrast-c",
+   "vk-a11y-forms-c",
+   "vk-wizard-d2-c",
+   "vk-seo-meta-c"
+  ],
+  "scope": "docs/**,ROADMAP.md,README.md,AGENTS.md",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: docs in lijn met de code na de zes fix-taken. Lees docs/08-audit-resultaten.md. Werk bij: ROADMAP.md (status Done/Partial/Open per item 1.1-5.5 plus prioriteitsvolgorde: CI en e2e eerst), docs/known-limitations.md, docs/architecture.md (lead-API, Netlify Blobs, Resend, nieuwsbrief, alle routes incl. /offerte, /privacy, /nieuwsbrief, /afmelden, /kaart; 7 sectoren x 5 stijlen = 35 presets, 39 routes), docs/adding-a-trade-tool.md en adding-a-sector.md (submit via /api/lead, routevorm /voorbeeld/:vak/:stijl), docs/contact-strategy.md en docs/ux-review.md (geen 'geen backend', '65 tests' of '36 routes' meer), docs/06-app-fixlijst.md (statusregel per item) en README.md. AGENTS.md: vermeld bun run e2e en de CI-workflow. Gebruik echte aantallen uit de code (het aantal tests geef ik je hieronder). Niet doen: code, CHANGELOG.",
+  "accept": [
+   "Geen 'no backend' of 'geen backend' meer als huidige stand in docs",
+   "Aantallen (sectoren, presets, routes, tests) kloppen met de code",
+   "ROADMAP.md heeft per item een status",
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-ci-e2e-f",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": ".github/**,e2e/**,playwright.config.ts,package.json,bun.lock,.gitignore",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: CI en een Playwright-klikproef (D1, roadmap 5.1/5.4). (1) .github/workflows/check.yml: op push en pull_request, oven-sh/setup-bun, bun install --frozen-lockfile, bun run check, daarna bunx playwright install --with-deps chromium en de e2e-tests. (2) @playwright/test als devDependency in package.json (zet hem er zelf in; bun.lock werk ik bij), playwright.config.ts met projecten 360x780 en 1440x900, webServer: bun run build en daarna vite preview op poort 4173 (de geprerenderde dist). (3) e2e/routes.spec.ts: bezoek /, /voorbeeld/loodgieter/krachtig, /voorbeeld/hovenier/donker, /start/vak, /privacy, /nieuwsbrief, /componenten en een onbekende route; assert geen console-errors, geen <a> met lege of #-href, geen tekst 06 12 34 56 78 of 06 45 67 89 01 op /voorbeeld, en geen input/select/textarea met font-size kleiner dan 16px. (4) e2e/wizard.spec.ts: doorloop /start/vak t/m /start/afspraak met testgegevens en controleer dat de knoppen naar de volgende stap gaan; mock POST /api/lead via page.route. (5) scripts in package.json: e2e en e2e:install. Voeg test-results/ en playwright-report/ aan .gitignore toe. Niet doen: app-code wijzigen; markeer falende app-assertions met test.fixme en een reden en meld ze in je antwoord.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "playwright.config.ts heeft projecten voor 360x780 en 1440x900 en een webServer op poort 4173",
+   "Workflow-bestand bestaat en gebruikt bun install --frozen-lockfile",
+   "Falende app-assertions zijn als test.fixme met reden gemarkeerd, niet weggelaten"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-ci-e2e-g",
+  "in": "vakman",
+  "run": true,
+  "fix_rounds": 1,
+  "scope": ".github/**,e2e/**,playwright.config.ts,package.json,bun.lock,.gitignore",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (basisbranch main), dus de code staat al voor je klaar; je hoeft niets te klonen. Installeer en draai alsjeblieft niets: geen `bun install`, geen `bun run check`, geen tests en geen Playwright. Lees alleen de code, ik draai alle checks zelf lokaal na je antwoord. Lees eerst AGENTS.md en de bestanden uit de scope. Maak geen pull request en merge niets; stuur me elk bestand dat je wijzigt volledig terug.\n\nDoel: CI en een Playwright-klikproef (D1, roadmap 5.1/5.4). (1) .github/workflows/check.yml: op push en pull_request, oven-sh/setup-bun, bun install --frozen-lockfile, bun run check, daarna bunx playwright install --with-deps chromium en de e2e-tests. (2) @playwright/test als devDependency in package.json (zet hem er zelf in; bun.lock werk ik bij), playwright.config.ts met projecten 360x780 en 1440x900, webServer: bun run build en daarna vite preview op poort 4173 (de geprerenderde dist). (3) e2e/routes.spec.ts: bezoek /, /voorbeeld/loodgieter/krachtig, /voorbeeld/hovenier/donker, /start/vak, /privacy, /nieuwsbrief, /componenten en een onbekende route; assert geen console-errors, geen <a> met lege of #-href, geen tekst 06 12 34 56 78 of 06 45 67 89 01 op /voorbeeld, en geen input/select/textarea met font-size kleiner dan 16px. (4) e2e/wizard.spec.ts: doorloop /start/vak t/m /start/afspraak met testgegevens en controleer dat de knoppen naar de volgende stap gaan; mock POST /api/lead via page.route. (5) scripts in package.json: e2e en e2e:install. Voeg test-results/ en playwright-report/ aan .gitignore toe. Niet doen: app-code wijzigen; markeer falende app-assertions met test.fixme en een reden en meld ze in je antwoord.",
+  "accept": [
+   "Lint, tests en build blijven groen (controleer ik zelf met bun run check)",
+   "playwright.config.ts heeft projecten voor 360x780 en 1440x900 en een webServer op poort 4173",
+   "Workflow-bestand bestaat en gebruikt bun install --frozen-lockfile",
+   "Falende app-assertions zijn als test.fixme met reden gemarkeerd, niet weggelaten"
+  ],
+  "attach": false,
+  "context": false
+ }
+]

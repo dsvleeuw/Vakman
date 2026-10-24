@@ -1,0 +1,7 @@
+{
+  "id": "vk-ci-e2e-f",
+  "state": "error",
+  "error": "fetch failed: ECONNREFUSED (is the Arena bridge running on http://127.0.0.1:20140?)",
+  "arenaId": null,
+  "worktree": "C:\\Users\\ReMarkt\\.arena-bridge\\worktrees\\vk-ci-e2e-f"
+}

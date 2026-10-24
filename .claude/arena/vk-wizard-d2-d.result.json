@@ -1,0 +1,129 @@
+{
+  "id": "vk-wizard-d2-d",
+  "state": "done",
+  "turn": 2,
+  "seconds": 646,
+  "arenaId": "01a16f55-dd3e-7312-83aa-e8df3fb77bc4",
+  "url": "https://arena.ai/agent/01a16f55-dd3e-7312-83aa-e8df3fb77bc4",
+  "summary": "k})`);\n  });\n});\n\ntest('buildNextDates returns 14 dates by default', () => {\n  const from = new Date('2026-10-26T00:00:00');\n  const dates = buildNextDates(14, from);\n  assert.equal(dates.length, 14);\n});\n\ntest('buildNextDates skips Saturday and Sunday', () => {\n  // Start from a Friday (2026-10-30) - next day is Saturday, should skip to Monday\n  const from = new Date('2026-10-30T00:00:00');\n  const dates = buildNextDates(7, from);\n  assert.equal(dates.length, 7);\n\n  // All should be weekdays\n  dates.forEach((date) => {\n    const d = new Date(date.iso + 'T00:00:00');\n    const dayOfWeek = d.getDay();\n    assert.notEqual(dayOfWeek, 0, 'Sunday should be skipped');\n    assert.notEqual(dayOfWeek, 6, 'Saturday should be skipped');\n  });\n});\n\ntest('buildNextDates returns strictly increasing distinct dates', () => {\n  const from = new Date('2026-10-26T00:00:00');\n  const dates = buildNextDates(5, from);\n\n  // Check dates are strictly increasing\n  for (let i = 1; i < dates.length; i++) {\n    assert.ok(dates[i].iso > dates[i - 1].iso, `Date ${i} (${dates[i].iso}) is not after date ${i-1} (${dates[i-1].iso})`);\n  }\n});\n\ntest('buildNextDates has correct date properties', () => {\n  const from = new Date('2026-10-26T00:00:00');\n  const dates = buildNextDates(2, from);\n  assert.equal(dates.length, 2);\n\n  dates.forEach((date) => {\n    assert.ok(date.iso);\n    assert.ok(date.dayName);\n    assert.ok(date.dayNum > 0);\n    assert.ok(date.monthName);\n    assert.ok(date.formatted);\n  });\n});\n````",
+  "written": [
+    {
+      "path": "src/utils/appointments.test.ts"
+    }
+  ],
+  "pr": null,
+  "autoFixRound": 1,
+  "check": {
+    "id": "vk-wizard-d2-d",
+    "verdict": "needs-work",
+    "files": [
+      "src/utils/appointments.test.ts +61 -0",
+      "src/utils/googleWorkspace.ts +8 -1",
+      "src/components/BookingCalendar.tsx +37 -49",
+      "src/components/WizardView.tsx +61 -29"
+    ],
+    "problems": [
+      "`bun run lint` failed (exit 1)",
+      "`bun run test` failed (exit 1)",
+      "review blocker src/utils/googleWorkspace.ts:183: `errJson` was renamed to `errjson` (`errjson.error?.message`), which is undeclared; this breaks `tsc --noEmit` (`bun run check`, A1) and throws a `ReferenceError` at runtime whenever a Google Drive upload returns a non-OK HTTP status. -> Change `errjson` back to `errJson` on line 183.",
+      "review blocker src/components/BookingCalendar.tsx:436: `onRetry={() => handleBook(withGoogleSync)}` references `withGoogleSync`, which only exists as a parameter of `handleBook` and is undefined in component scope; this breaks `tsc --noEmit` (`bun run check`, A1) and throws a `ReferenceError` w -> Store the last attempted sync mode in state or a ref (e.g. `lastWithGoogleSync` set at the start of `handleBook`) and pass `onRetry={() => handleBook(lastWithGoogleSync)}`.",
+      "review major src/components/WizardView.tsx:1165: `{plan && selectedPlan && (` still hides the `Pakket:` row on `/start/klaar` whenever the `plan` prop is `undefined` (i.e. when Pro defaults via `effectivePlan` without `?pakket=` or an explicit click), violating requirement (3). -> Resolve the plan via `const activePlan = getPlan(effectivePlan)` and render `{activePlan && (` without gating on `plan`.",
+      "review major src/components/WizardView.tsx:1205: The WhatsApp confirmation link on `/start/klaar` (`Via WhatsApp`, original line 1173) still uses `text-white` on `bg-[#25D366]` (1.98:1 contrast, failing WCAG AA and violating requirement 6). -> Replace `text-white` with `text-stone-950` on the `bg-[#25D366]` link (matching `LeadStatus.tsx:64`).",
+      "review major src/components/BookingCalendar.tsx:372: `border-stone-400` only achieves ~2.59:1 contrast on `bg-white` and ~2.48:1 on `bg-stone-50`, failing requirement (6)'s 3:1 minimum on `BookingCalendar` inputs (`:372`, `:408`) and `WizardView` `#wizard-email` (`src/components/WizardView.ts -> Use `border-stone-500` (4.79:1 on white, 4.59:1 on `stone-50`, per `paletteContrast.test.ts:63`) on `#wizard-email`, all `BookingCalendar` form controls and option/action buttons, and restore `border-",
+      "review major src/components/BookingCalendar.tsx:452: When `isGoogleConfigured()` is `false`, `BookingCalendar` hides the primary button and leaves only a small secondary `text-xs` button still labeled `\"Inplannen zonder Google Account\"` (with no `isSubmitting` loading label), while `WizardVie -> When `!isGoogleConfigured()`, render the `handleBook(false)` button as the primary CTA with neutral Dutch copy (`isSubmitting ? 'Versturen…' : 'Afspraak inplannen'`) and guard Google Calendar summary "
+    ],
+    "warnings": [
+      "code changed but no docs touched; check whether README/AGENTS.md need an update",
+      "agent reported 0/4 acceptance criteria",
+      "review minor src/utils/appointments.test.ts:102: `'buildNextDates returns 14 dates by default'` calls `buildNextDates(14, from)` with `14` passed explicitly, so the default `count = 14` parameter is no longer tested at all; also `:108` does not assert exact ISO dates (`dates[0].iso === '2 -> Call `buildNextDates(undefined, from)` (or `buildNextDates()`) to exercise the default argument, and assert the exact Monday ISO date `'2026-11-02'` when starting from Friday `'2026-10-30T00:00:00'`.",
+      "review minor src/utils/googleWorkspace.ts:79: `isGoogleConfigured()` returns `true` if `firebaseConfig.apiKey` is empty or missing, lacks unit tests (`src/utils/googleWorkspace.test.ts`), and relies on CommonJS `require('../../firebase-applet-config.json')` which works in `bun test` bu -> Guard `Boolean(firebaseConfig.apiKey) && firebaseConfig.apiKey !== 'fake-key-for-local'`, load config via Vite-compatible ESM/env rather than `require()`, and add unit tests for `isGoogleConfigured()`"
+    ],
+    "commands": [
+      {
+        "cmd": "bun run lint",
+        "ok": false,
+        "code": 1,
+        "seconds": 2,
+        "tail": "src/components/BookingCalendar.tsx(436,47): error TS2304: Cannot find name 'withGoogleSync'.\nsrc/components/WizardView.tsx(231,65): error TS2339: Property 'focus' does not exist on type 'Element'.\nsrc/utils/appointments.test.ts(89,35): error TS2554: Expected 0-1 arguments, but got 2.\nsrc/utils/appointments.test.ts(102,36): error TS2554: Expected 0-1 arguments, but got 2.\nsrc/utils/appointments.test.ts(109,35): error TS2554: Expected 0-1 arguments, but got 2.\nsrc/utils/appointments.test.ts(123,35): error TS2554: Expected 0-1 arguments, but got 2.\nsrc/utils/appointments.test.ts(133,35): error TS2554: Expected 0-1 arguments, but got 2.\nsrc/utils/googleWorkspace.ts(183,23): error TS2552: Cannot find name 'errjson'. Did you mean 'errJson'?\n\n$ tsc --noEmit\nerror: script \"lint\" exited with code 1"
+      },
+      {
+        "cmd": "bun run test",
+        "ok": false,
+        "code": 1,
+        "seconds": 1,
+        "tail": "(pass) every wizard step has its own path [0.20ms]\n(pass) wizard URLs carry the selected trade and style [0.10ms]\n(pass) the chosen package travels through the wizard URL [0.09ms]\n(pass) component library selections are deep-linkable [0.08ms]\n(pass) parsing then rebuilding a path is stable [0.21ms]\n(pass) style ids and indexes round-trip and clamp [0.22ms]\n(pass) old query-param links redirect to real routes [0.24ms]\n(pass) every route gets a unique, descriptive document title [0.43ms]\n(pass) a personal demo link carries name, place and a valid phone [0.25ms]\n(pass) personal demo params are trimmed, capped and validated [0.18ms]\n(pass) the wizard accepts prefilled details from \"Maak dit mijn website\" [0.34ms]\n(pass) mergeDemoPersonalization lets the link win and keeps sector fallbacks [0.21ms]\n(pass) stored quotes get a token-protected route [0.25ms]\n(pass) privacy, nieuwsbrief and afmelden have real routes that round-trip [0.42ms]\n\nsrc\\utils\\surface.test.ts:\n(pass) parsePricePerM2 extracts euro values from per-m² service labels [0.24ms]\n(pass) calculateSurfaceArea sums wall dimensions and deducts openings [0.19ms]\n(pass) calculateM2Estimate multiplies surface by price and rounds to whole euros [0.08ms]\n\nsrc\\components\\extras\\extras.test.tsx:\n(pass) TrustBar renders a useful palette-aware preview [1.86ms]\n(pass) OpeningHoursCard renders a useful palette-aware preview [2.24ms]\n(pass) AvailabilityCard renders a useful palette-aware preview [1.98ms]\n(pass) TeamMemberCard renders a useful palette-aware preview [1.68ms]\n(pass) TestimonialCard renders a useful palette-aware preview [1.75ms]\n(pass) GuaranteeList renders a useful palette-aware preview [1.55ms]\n(pass) PromotionBanner renders a useful palette-aware preview [2.68ms]\n(pass) ServiceAreaChips renders a useful palette-aware preview [1.16ms]\n(pass) ProjectStats renders a useful palette-aware preview [0.57ms]\n(pass) ContactCtaBanner renders a useful palette-aware preview [0.71ms]\n\n2 tests failed:\n(fail) buildNextDates returns exactly count weekdays skipping weekends [22.15ms]\n(fail) buildNextDates skips Saturday and Sunday [2.54ms]\n\n 130 pass\n 2 fail\nRan 132 tests across 20 files. [1307.00ms]\nerror: script \"test\" exited with code 1"
+      },
+      {
+        "cmd": "bun run build",
+        "ok": true,
+        "seconds": 8
+      }
+    ],
+    "arenaReview": {
+      "id": "vk-wizard-d2-d.review",
+      "state": "done",
+      "verdict": "REQUEST_CHANGES",
+      "issues": [
+        {
+          "ref": "R1",
+          "severity": "blocker",
+          "where": "src/utils/googleWorkspace.ts:183",
+          "problem": "`errJson` was renamed to `errjson` (`errjson.error?.message`), which is undeclared; this breaks `tsc --noEmit` (`bun run check`, A1) and throws a `ReferenceError` at runtime whenever a Google Drive upload returns a non-OK HTTP status.",
+          "fix": "Change `errjson` back to `errJson` on line 183."
+        },
+        {
+          "ref": "R2",
+          "severity": "blocker",
+          "where": "src/components/BookingCalendar.tsx:436",
+          "problem": "`onRetry={() => handleBook(withGoogleSync)}` references `withGoogleSync`, which only exists as a parameter of `handleBook` and is undefined in component scope; this breaks `tsc --noEmit` (`bun run check`, A1) and throws a `ReferenceError` w",
+          "fix": "Store the last attempted sync mode in state or a ref (e.g. `lastWithGoogleSync` set at the start of `handleBook`) and pass `onRetry={() => handleBook(lastWithGoogleSync)}`."
+        },
+        {
+          "ref": "R3",
+          "severity": "major",
+          "where": "src/components/WizardView.tsx:1165",
+          "problem": "`{plan && selectedPlan && (` still hides the `Pakket:` row on `/start/klaar` whenever the `plan` prop is `undefined` (i.e. when Pro defaults via `effectivePlan` without `?pakket=` or an explicit click), violating requirement (3).",
+          "fix": "Resolve the plan via `const activePlan = getPlan(effectivePlan)` and render `{activePlan && (` without gating on `plan`."
+        },
+        {
+          "ref": "R4",
+          "severity": "major",
+          "where": "src/components/WizardView.tsx:1205",
+          "problem": "The WhatsApp confirmation link on `/start/klaar` (`Via WhatsApp`, original line 1173) still uses `text-white` on `bg-[#25D366]` (1.98:1 contrast, failing WCAG AA and violating requirement 6).",
+          "fix": "Replace `text-white` with `text-stone-950` on the `bg-[#25D366]` link (matching `LeadStatus.tsx:64`)."
+        },
+        {
+          "ref": "R5",
+          "severity": "major",
+          "where": "src/components/BookingCalendar.tsx:372",
+          "problem": "`border-stone-400` only achieves ~2.59:1 contrast on `bg-white` and ~2.48:1 on `bg-stone-50`, failing requirement (6)'s 3:1 minimum on `BookingCalendar` inputs (`:372`, `:408`) and `WizardView` `#wizard-email` (`src/components/WizardView.ts",
+          "fix": "Use `border-stone-500` (4.79:1 on white, 4.59:1 on `stone-50`, per `paletteContrast.test.ts:63`) on `#wizard-email`, all `BookingCalendar` form controls and option/action buttons, and restore `border-"
+        },
+        {
+          "ref": "R6",
+          "severity": "major",
+          "where": "src/components/BookingCalendar.tsx:452",
+          "problem": "When `isGoogleConfigured()` is `false`, `BookingCalendar` hides the primary button and leaves only a small secondary `text-xs` button still labeled `\"Inplannen zonder Google Account\"` (with no `isSubmitting` loading label), while `WizardVie",
+          "fix": "When `!isGoogleConfigured()`, render the `handleBook(false)` button as the primary CTA with neutral Dutch copy (`isSubmitting ? 'Versturen…' : 'Afspraak inplannen'`) and guard Google Calendar summary "
+        },
+        {
+          "ref": "R7",
+          "severity": "minor",
+          "where": "src/utils/appointments.test.ts:102",
+          "problem": "`'buildNextDates returns 14 dates by default'` calls `buildNextDates(14, from)` with `14` passed explicitly, so the default `count = 14` parameter is no longer tested at all; also `:108` does not assert exact ISO dates (`dates[0].iso === '2",
+          "fix": "Call `buildNextDates(undefined, from)` (or `buildNextDates()`) to exercise the default argument, and assert the exact Monday ISO date `'2026-11-02'` when starting from Friday `'2026-10-30T00:00:00'`."
+        },
+        {
+          "ref": "R8",
+          "severity": "minor",
+          "where": "src/utils/googleWorkspace.ts:79",
+          "problem": "`isGoogleConfigured()` returns `true` if `firebaseConfig.apiKey` is empty or missing, lacks unit tests (`src/utils/googleWorkspace.test.ts`), and relies on CommonJS `require('../../firebase-applet-config.json')` which works in `bun test` bu",
+          "fix": "Guard `Boolean(firebaseConfig.apiKey) && firebaseConfig.apiKey !== 'fake-key-for-local'`, load config via Vite-compatible ESM/env rather than `require()`, and add unit tests for `isGoogleConfigured()`"
+        }
+      ],
+      "url": "https://arena.ai/agent/01a16f5b-50e1-78e5-8d74-ec89c879b650"
+    }
+  },
+  "next": "review vk-wizard-d2-d, then continue vk-wizard-d2-d --message \"<fix>\"",
+  "worktree": "C:\\Users\\ReMarkt\\.arena-bridge\\worktrees\\vk-wizard-d2-d"
+}
