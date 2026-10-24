@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PlugZap, MessageCircle, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
+  buildTelUrl,
   buildWhatsAppUrl,
   buildFaultReportMessage,
   normalizeDutchPhone,
@@ -45,6 +46,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [waUrl, setWaUrl] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const update = (field: keyof FaultReportInput, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -71,14 +73,14 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   };
 
   const inputClass = (hasError?: string) =>
-    `w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
+    `w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
       hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
   return (
     <section
       id="storing"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
         <div className="lg:col-span-5 flex flex-col gap-5">
@@ -101,8 +103,8 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
             WhatsApp naar {site.owner.split(' ')[0]} verstuurd. Bij acuut
             onveilige situaties: bel direct{' '}
             <a
-              href={`tel:${site.phone.replace(/[\s-]/g, '')}`}
-              className="font-bold text-stone-900 underline"
+              href={buildTelUrl(site.phone)}
+              className="inline-flex items-center min-h-11 font-bold text-stone-900 underline"
             >
               {site.phone}
             </a>
@@ -118,10 +120,28 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
               NEN 1010 / NEN 3140 gecertificeerde monteurs
             </span>
           </div>
+
+          {!mobileOpen && !waUrl && (
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              className="sm:hidden self-start min-h-12 px-6 font-extrabold text-sm cursor-pointer inline-flex items-center gap-2 shadow-sm"
+              style={{
+                background: site.accent,
+                color: site.onAccent,
+                borderRadius: site.radius,
+                border: 0,
+              }}
+            >
+              Open storingsmelder →
+            </button>
+          )}
         </div>
 
         <div
-          className="lg:col-span-7 border p-6 sm:p-8 shadow-lg"
+          className={`${
+            mobileOpen || waUrl ? 'block' : 'hidden sm:block'
+          } lg:col-span-7 border p-6 sm:p-8 shadow-lg`}
           style={{
             background: site.card,
             borderColor: site.line,
@@ -283,7 +303,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                   onChange={(e) => update('details', e.target.value)}
                   rows={3}
                   placeholder="Bijv. de aardlek springt elke keer als de vaatwasser aangaat."
-                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
                 />
               </div>
 

@@ -46,7 +46,7 @@ export const NotFoundView: React.FC<NotFoundViewProps> = ({ path, onGoHome }) =>
         waar je verder wilt.
       </p>
       {path && (
-        <code className="mt-4 px-3 py-2 rounded-lg bg-stone-200/70 text-[11px] text-stone-500 break-all">
+        <code className="mt-4 px-3 py-2 rounded-lg bg-stone-200/70 text-xs text-stone-500 break-all">
           {path}
         </code>
       )}

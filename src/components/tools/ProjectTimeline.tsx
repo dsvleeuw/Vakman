@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CalendarDays, Hammer, ClipboardCheck, Truck } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 
@@ -42,12 +42,14 @@ const TIMELINE_STEPS = [
  * concrete and shows exactly what happens after the first contact.
  */
 export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
+  const [showAll, setShowAll] = useState(false);
+
   return (
     <section
       id="tijdlijn"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-xs font-semibold tracking-wider uppercase text-stone-500">
@@ -76,7 +78,9 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
             return (
               <div
                 key={step.day}
-                className="relative border p-6 flex flex-col gap-3 shadow-sm hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300"
+                className={`${
+                  idx >= 2 && !showAll ? 'hidden sm:flex' : 'flex'
+                } relative border p-6 flex-col gap-3 shadow-sm hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300`}
                 style={{
                   background: site.card,
                   borderColor: site.line,
@@ -125,6 +129,22 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
             );
           })}
         </div>
+
+        {!showAll && (
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="sm:hidden self-start min-h-11 px-5 border font-bold text-sm cursor-pointer inline-flex items-center gap-2"
+            style={{
+              background: site.card,
+              borderColor: site.line,
+              color: site.fg,
+              borderRadius: site.radius,
+            }}
+          >
+            Toon alle {TIMELINE_STEPS.length} stappen →
+          </button>
+        )}
       </div>
     </section>
   );

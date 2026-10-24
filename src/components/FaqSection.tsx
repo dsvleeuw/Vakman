@@ -47,15 +47,16 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
   title = 'Veelgestelde vragen',
   subtitle = 'Alles wat je wilt weten over Klusbaas websites en afspraken.',
 }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const toggle = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-20">
-      <div className="max-w-4xl mx-auto flex flex-col gap-8">
+    <section id="faq" className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-20">
+      <div className="max-w-4xl mx-auto flex flex-col gap-6 sm:gap-8">
         <div className="flex flex-col gap-2 text-center sm:text-left">
           <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
             Goed om te weten
@@ -71,15 +72,18 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
         <div className="flex flex-col gap-3">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
+            const hiddenOnMobile = idx >= 3 && !showAll;
 
             return (
               <div
                 key={idx}
-                className="border border-stone-200 rounded-2xl bg-white overflow-hidden transition-all duration-200"
+                className={`${
+                  hiddenOnMobile ? 'hidden sm:block' : 'block'
+                } border border-stone-200 rounded-2xl bg-white overflow-hidden transition-all duration-200`}
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full p-6 text-left border-0 bg-transparent cursor-pointer flex justify-between items-center gap-4 font-bold text-lg text-stone-900"
+                  className="w-full p-5 sm:p-6 text-left border-0 bg-transparent cursor-pointer flex justify-between items-center gap-4 font-bold text-base sm:text-lg text-stone-900"
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${idx}`}
                   id={`faq-question-${idx}`}
@@ -98,7 +102,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
                     id={`faq-answer-${idx}`}
                     role="region"
                     aria-labelledby={`faq-question-${idx}`}
-                    className="px-6 pb-6 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-4"
+                    className="px-5 sm:px-6 pb-5 sm:pb-6 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-4"
                   >
                     {faq.a}
                   </div>
@@ -107,6 +111,16 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
             );
           })}
         </div>
+
+        {faqs.length > 3 && !showAll && (
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="sm:hidden self-center min-h-11 px-5 rounded-full border border-stone-300 bg-white hover:bg-stone-50 text-stone-800 font-bold text-sm cursor-pointer inline-flex items-center gap-2"
+          >
+            Toon alle {faqs.length} vragen →
+          </button>
+        )}
       </div>
     </section>
   );

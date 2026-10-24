@@ -13,6 +13,7 @@ import {
 import { isPlanId } from './data/plans';
 import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
 import { track } from './utils/analytics';
+import { ensureAllStyleFontsLoaded, ensureStyleFontLoaded } from './utils/fonts';
 import { useRouteMeta } from './hooks/useRouteMeta';
 import { Header } from './components/Header';
 import { HeroStrip } from './components/HeroStrip';
@@ -56,6 +57,7 @@ function loadDraft(): WizardDraft {
     styleIndex: 0,
     form: null,
     disabledServices: {},
+    sectorChosen: false,
   };
   if (typeof window === 'undefined') return fallback;
   try {
@@ -75,6 +77,7 @@ function loadDraft(): WizardDraft {
           : 0,
       form: parsed.form ?? null,
       disabledServices: parsed.disabledServices ?? {},
+      sectorChosen: typeof parsed.sectorChosen === 'boolean' ? parsed.sectorChosen : true,
     };
   } catch {
     return fallback;
@@ -210,15 +213,20 @@ export default function App() {
     styleIdx: number,
     form: WizardFormData
   ) => {
-    const updated = {
-      ...customData,
-      [sectorId]: form,
-    };
-    setCustomData(updated);
-    try {
-      localStorage.setItem('klusbaas_custom_sites', JSON.stringify(updated));
-    } catch {
-      // Ignore
+    const hasCustomInput = Boolean(
+      form.biz.trim() || form.owner.trim() || form.phone.trim() || form.city.trim()
+    );
+    if (hasCustomInput) {
+      const updated = {
+        ...customData,
+        [sectorId]: form,
+      };
+      setCustomData(updated);
+      try {
+        localStorage.setItem('klusbaas_custom_sites', JSON.stringify(updated));
+      } catch {
+        // Ignore
+      }
     }
 
     navigate({ name: 'site', sector: sectorId, styleId: styleIdFromIndex(styleIdx) });
@@ -233,6 +241,20 @@ export default function App() {
     route.name === 'wizard' && route.styleId
       ? styleIndexFromId(route.styleId)
       : draft.styleIndex;
+
+  useEffect(() => {
+    if (route.name === 'site') {
+      ensureStyleFontLoaded(route.styleId);
+    } else if (route.name === 'wizard') {
+      if (route.step === 'stijl') {
+        ensureAllStyleFontsLoaded();
+      } else {
+        ensureStyleFontLoaded(styleIdFromIndex(wizardStyleIndex));
+      }
+    } else if (route.name === 'components') {
+      ensureAllStyleFontsLoaded();
+    }
+  }, [route, wizardStyleIndex]);
 
   const meta = getRouteMeta(route);
 
@@ -382,8 +404,9 @@ export default function App() {
           step={route.step}
           onStepChange={handleWizardStepChange}
           initialSector={wizardSector}
+          hasInitialSector={Boolean(route.sector || draft.sectorChosen)}
           initialStyleIndex={wizardStyleIndex}
-          initialForm={draft.sector === wizardSector ? draft.form : null}
+          initialForm={draft.form}
           initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}
           plan={route.plan}
           onDraftChange={handleDraftChange}

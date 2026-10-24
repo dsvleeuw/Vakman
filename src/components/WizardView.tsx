@@ -49,6 +49,8 @@ interface WizardViewProps {
   step: WizardRouteStep;
   onStepChange: (step: WizardRouteStep) => void;
   initialSector: SectorId;
+  /** Whether the visitor already picked a trade (or opened a ?vak= link / saved draft). */
+  hasInitialSector?: boolean;
   initialStyleIndex: number;
   initialForm?: WizardFormData | null;
   initialDisabledServices?: Record<number, boolean>;
@@ -67,6 +69,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   step,
   onStepChange,
   initialSector,
+  hasInitialSector,
   initialStyleIndex,
   initialForm,
   initialDisabledServices,
@@ -77,6 +80,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
   onViewPublishedSite,
 }) => {
   const [sector, setSector] = useState<SectorId>(initialSector);
+  const [sectorChosen, setSectorChosen] = useState<boolean>(
+    Boolean(hasInitialSector || step !== 'vak')
+  );
   const [styleIndex, setStyleIndex] = useState<number>(initialStyleIndex);
 
   const baseSector = SECTORS[sector];
@@ -84,10 +90,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [formData, setFormData] = useState<WizardFormData>(
     () =>
       initialForm ?? {
-        biz: SECTORS[initialSector].biz,
-        owner: SECTORS[initialSector].owner,
-        phone: SECTORS[initialSector].phone,
-        city: SECTORS[initialSector].city,
+        biz: '',
+        owner: '',
+        phone: '',
+        city: '',
       }
   );
 
@@ -153,19 +159,16 @@ export const WizardView: React.FC<WizardViewProps> = ({
   }, [sector, styleIndex, onSelectionChange]);
 
   useEffect(() => {
-    onDraftChange?.({ sector, styleIndex, form: formData, disabledServices });
-  }, [sector, styleIndex, formData, disabledServices, onDraftChange]);
+    onDraftChange?.({ sector, styleIndex, form: formData, disabledServices, sectorChosen });
+  }, [sector, styleIndex, formData, disabledServices, sectorChosen, onDraftChange]);
 
   const handleSelectSector = (secId: SectorId) => {
-    if (secId === sector) return;
-    const nextBase = SECTORS[secId];
+    setSectorChosen(true);
+    if (secId === sector) {
+      onSelectionChange?.(secId, styleIndex);
+      return;
+    }
     setSector(secId);
-    setFormData({
-      biz: nextBase.biz,
-      owner: nextBase.owner,
-      phone: nextBase.phone,
-      city: nextBase.city,
-    });
     setDisabledServices({});
     setErrors({});
   };
@@ -178,6 +181,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
   };
 
   const handleNext = () => {
+    if (step === 'vak') {
+      setSectorChosen(true);
+    }
     if (step === 'gegevens') {
       const formErrors = validateWizardForm(formData);
       if (Object.keys(formErrors).length > 0) {
@@ -290,10 +296,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const selectedPlan = getPlan(plan);
 
   const quoteMessage = buildQuoteRequestMessage({
-    bizName: formData.biz || baseSector.biz,
-    owner: formData.owner || baseSector.owner,
-    phone: formData.phone || baseSector.phone,
-    city: formData.city || baseSector.city,
+    bizName: formData.biz.trim() || baseSector.biz,
+    owner: formData.owner.trim() || baseSector.owner,
+    phone: formData.phone.trim() || baseSector.phone,
+    city: formData.city.trim() || baseSector.city,
     dateStr: bookingResult?.booking.dateStr ?? bookingDate.formatted,
     timeSlot: bookingResult?.booking.timeSlot ?? bookingSlot,
     channel,
@@ -304,28 +310,28 @@ export const WizardView: React.FC<WizardViewProps> = ({
   return (
     <div id="main-content" className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
       {/* Wizard Header with Step Progress */}
-      <header className="bg-white border-b border-stone-200 px-4 sm:px-8 py-4 flex items-center justify-between gap-6 flex-wrap sticky top-0 z-20 shadow-sm">
+      <header className="bg-white border-b border-stone-200 px-3 sm:px-8 pt-[calc(0.75rem+env(safe-area-inset-top))] pb-3 flex items-center justify-between gap-2 sm:gap-6 flex-wrap sticky top-0 z-20 shadow-sm">
         <button
           onClick={onGoHome}
-          className="flex items-center gap-2.5 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
+          className="flex items-center gap-2 sm:gap-2.5 min-h-11 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
           aria-label="Terug naar de Klusbaas homepage"
         >
           <span className="w-8 h-8 rounded-xl bg-stone-900 text-white flex items-center justify-center font-black text-base">
             K
           </span>
-          <span className="text-xl font-extrabold tracking-tight">Klusbaas</span>
+          <span className="text-lg sm:text-xl font-extrabold tracking-tight">Klusbaas</span>
         </button>
 
         {/* Step Bullets — clickable so people can jump back without losing data */}
         <nav aria-label="Wizard voortgang">
-          <ol className="flex items-center gap-2 sm:gap-5 flex-wrap list-none m-0 p-0">
+          <ol className="flex items-center gap-0 sm:gap-2 md:gap-4 flex-wrap list-none m-0 p-0">
             {WIZARD_STEPS.map((stepId, idx) => {
               const isCompleted = idx < visualStepIndex;
               const isCurrent = idx === visualStepIndex;
               const canNavigate = idx < visualStepIndex && !isPublished;
 
               return (
-                <li key={stepId} className="flex items-center gap-2">
+                <li key={stepId} className="flex items-center">
                   <button
                     type="button"
                     onClick={() => canNavigate && onStepChange(stepId)}
@@ -334,7 +340,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     aria-label={`Stap ${idx + 1}: ${WIZARD_STEP_LABELS[stepId]}${
                       isCompleted ? ' (voltooid)' : ''
                     }`}
-                    className={`flex items-center gap-2 bg-transparent border-0 p-0 ${
+                    className={`min-w-10 min-h-10 px-1 flex items-center justify-center gap-2 bg-transparent border-0 ${
                       canNavigate ? 'cursor-pointer' : 'cursor-default'
                     }`}
                   >
@@ -364,17 +370,17 @@ export const WizardView: React.FC<WizardViewProps> = ({
         </nav>
       </header>
 
-      {/* Main Split Layout: Form on Left, Live Sticky Preview on Right */}
-      <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      {/* Main Split Layout: Centered max-w-xl on tablet, two-column split on desktop */}
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-8 md:py-10 md:px-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left Column: Form Steps */}
-        <div className="lg:col-span-6 flex flex-col gap-6 max-w-xl">
+        <div className="lg:col-span-6 flex flex-col gap-6 w-full max-w-xl mx-auto lg:mx-0">
           {/* Context: what the visitor already picked, and how to change it */}
           {currentStepIndex >= 2 && (
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => onStepChange('vak')}
-                className="h-8 pl-3 pr-2.5 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
+                className="min-h-11 pl-3.5 pr-3 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
               >
                 Vak: {baseSector.name}
                 <span className="text-stone-400 font-semibold">wijzig</span>
@@ -382,13 +388,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
               <button
                 type="button"
                 onClick={() => onStepChange('stijl')}
-                className="h-8 pl-3 pr-2.5 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
+                className="min-h-11 pl-3.5 pr-3 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
               >
                 Stijl: {STYLES[styleIndex].name}
                 <span className="text-stone-400 font-semibold">wijzig</span>
               </button>
               {selectedPlan && (
-                <span className="h-8 px-3 rounded-full bg-amber-300 text-amber-950 text-xs font-extrabold inline-flex items-center">
+                <span className="min-h-11 px-3.5 rounded-full bg-amber-300 text-amber-950 text-xs font-extrabold inline-flex items-center">
                   Pakket: {selectedPlan.name}
                 </span>
               )}
@@ -398,7 +404,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
           {step === 'vak' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                STAP 1 VAN 5
+                STAP 1 VAN 5 · VAK
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
                 Wat is jouw vak?
@@ -411,7 +417,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
                 {ORDER.map((secId) => {
                   const sec = SECTORS[secId];
-                  const isSelected = secId === sector;
+                  const isSelected = sectorChosen && secId === sector;
                   const thumb = getUnsplashUrl(sec.pool[0], 400);
 
                   return (
@@ -445,14 +451,14 @@ export const WizardView: React.FC<WizardViewProps> = ({
           {step === 'stijl' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                STAP 2 VAN 5
+                STAP 2 VAN 5 · STIJL
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
                 Welke stijl past bij jou?
               </h1>
               <p className="text-stone-600 text-sm sm:text-base m-0">
-                Kies uit vijf unieke ontwerpen. Rechts zie je meteen het resultaat
-                met jouw gekozen vak.
+                Kies uit vijf unieke ontwerpen. In het live voorbeeld zie je meteen
+                het resultaat met jouw gekozen vak.
               </p>
 
               <div className="flex flex-col gap-3 pt-2">
@@ -504,14 +510,14 @@ export const WizardView: React.FC<WizardViewProps> = ({
           {step === 'gegevens' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                STAP 3 VAN 5
+                STAP 3 VAN 5 · GEGEVENS
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
                 Jouw bedrijfsgegevens
               </h1>
               <p className="text-stone-600 text-sm sm:text-base m-0">
-                Vul hieronder je contactgegevens in. Zodra je typt, werkt het live
-                voorbeeld rechts meteen bij.
+                Vul hieronder je contactgegevens in. Zodra je typt, werkt je live
+                voorbeeld meteen bij.
               </p>
 
               <div className="flex flex-col gap-4 pt-2">
@@ -629,7 +635,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
           {step === 'diensten' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                STAP 4 VAN 5
+                STAP 4 VAN 5 · DIENSTEN
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
                 Welke diensten bied je aan?
@@ -689,7 +695,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
           {step === 'afspraak' && (
             <div className="flex flex-col gap-6">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                STAP 5 VAN 5
+                STAP 5 VAN 5 · AFSPRAAK
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
                 Je website staat klaar.
@@ -714,7 +720,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="flex items-center gap-3 pt-1" aria-hidden="true">
                 <span className="h-px flex-1 bg-stone-200" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-400">
                   Optioneel: een afspraak
                 </span>
                 <span className="h-px flex-1 bg-stone-200" />
@@ -745,9 +751,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
                               : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
                           }`}
                         >
-                          <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
+                          <span className="text-xs uppercase opacity-75">{d.dayName}</span>
                           <span className="text-lg font-black">{d.dayNum}</span>
-                          <span className="text-[10px] opacity-75">{d.monthName}</span>
+                          <span className="text-xs opacity-75">{d.monthName}</span>
                         </button>
                       );
                     })}
@@ -799,7 +805,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       </button>
                     ))}
                   </div>
-                  <p className="text-[11px] text-stone-500 mt-2 m-0" aria-live="polite">
+                  <p className="text-xs text-stone-500 mt-2 m-0" aria-live="polite">
                     {channel === 'WhatsApp'
                       ? 'We sturen de offerte naar je WhatsApp.'
                       : channel === 'E-mail'
@@ -808,13 +814,19 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </p>
                 </div>
 
-                <label className="flex items-start gap-2.5 text-xs text-stone-600 cursor-pointer">
+                <label className="min-h-11 flex items-center gap-3 text-xs text-stone-600 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={addToCalendar}
                     onChange={(event) => setAddToCalendar(event.target.checked)}
-                    className="mt-0.5 w-4 h-4 accent-stone-900"
+                    className="sr-only peer text-base"
                   />
+                  <span
+                    aria-hidden="true"
+                    className="w-5 h-5 rounded-md border-2 border-stone-500 bg-white flex items-center justify-center text-xs font-bold text-transparent peer-checked:bg-stone-900 peer-checked:border-stone-900 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-stone-900 peer-focus-visible:ring-offset-2 shrink-0 transition-colors"
+                  >
+                    ✓
+                  </span>
                   <span>
                     Zet de afspraak ook in mijn Google Agenda
                     <span className="text-stone-400">
@@ -838,13 +850,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   <div>
                     <span className="text-stone-400 block">Vakman:</span>
                     <strong className="text-stone-800">
-                      {formData.owner || baseSector.owner}
+                      {formData.owner.trim() || baseSector.owner}
                     </strong>
                   </div>
                   <div>
                     <span className="text-stone-400 block">Werkgebied:</span>
                     <strong className="text-stone-800">
-                      {formData.city || baseSector.city} + 25km
+                      {formData.city.trim() || baseSector.city} + 25km
                     </strong>
                   </div>
                 </div>
@@ -870,8 +882,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 Afspraak aangevraagd!
               </h1>
               <p className="text-stone-600 text-base max-w-md m-0">
-                Bedankt <strong>{bookingResult?.booking.clientName || formData.owner}</strong>. We
-                spreken elkaar op{' '}
+                Bedankt{' '}
+                <strong>
+                  {bookingResult?.booking.clientName || formData.owner.trim() || baseSector.owner}
+                </strong>
+                . We spreken elkaar op{' '}
                 <strong>{bookingResult?.booking.dateStr || bookingDate.formatted}</strong> (
                 {bookingResult?.booking.timeSlot || bookingSlot}). Offertes gaan via {channel}.
               </p>
@@ -996,11 +1011,16 @@ export const WizardView: React.FC<WizardViewProps> = ({
           </button>
 
           {/* Spacer so the sticky mobile action bar never covers content */}
-          {!isPublished && <div className="lg:hidden h-2" aria-hidden="true" />}
+          {!isPublished && (
+            <div
+              className="lg:hidden h-[calc(0.5rem+env(safe-area-inset-bottom))]"
+              aria-hidden="true"
+            />
+          )}
 
           {/* Navigation Controls — sticky on phones so "next" is always reachable */}
           {!isPublished && (
-            <div className="sticky bottom-0 z-20 -mx-4 sm:mx-0 flex items-center gap-3 border-t border-stone-200 bg-stone-100/95 px-4 py-3 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pt-3 sm:backdrop-blur-none">
+            <div className="sticky bottom-0 z-20 -mx-4 sm:mx-0 flex items-center gap-3 border-t border-stone-200 bg-stone-100/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:px-0 sm:pt-3 sm:pb-0 sm:backdrop-blur-none">
               {currentStepIndex > 0 && (
                 <button
                   onClick={handleBack}
@@ -1026,8 +1046,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
         </div>
 
         {/* Right Column: Full live render of the generated website */}
-        <div className="lg:col-span-6 flex flex-col gap-3 lg:sticky lg:top-24">
-          {showPreview && (
+        {showPreview && (
+          <div className="lg:col-span-6 flex flex-col gap-3 w-full max-w-2xl mx-auto lg:max-w-none lg:mx-0 lg:sticky lg:top-24">
             <div id="wizard-preview" className="flex flex-col gap-3">
               <div className="flex justify-between items-center text-xs font-mono font-semibold text-stone-500">
                 <span>LIVE WEBSITE VOORBEELD</span>
@@ -1046,8 +1066,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 />
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

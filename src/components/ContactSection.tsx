@@ -26,6 +26,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [waUrl, setWaUrl] = useState<string | null>(null);
+  const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   const ownerFirst = site.owner.split(' ')[0];
   const directWhatsApp = buildWhatsAppUrl(
@@ -62,16 +63,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   };
 
   const inputClass = (hasError?: string) =>
-    `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
+    `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
       hasError ? 'border-rose-500' : 'border-stone-500'
     }`;
 
   return (
     <section
       id="contact"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
+      className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-24"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-7 sm:gap-10">
         <div className="flex flex-col gap-2">
           <span className="font-mono text-xs font-semibold tracking-wider uppercase text-stone-500">
             Contact
@@ -131,9 +132,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
             </a>
           </div>
 
+          {!mobileFormOpen && !waUrl && (
+            <button
+              type="button"
+              onClick={() => setMobileFormOpen(true)}
+              className="sm:hidden min-h-12 px-5 border font-bold text-sm cursor-pointer inline-flex items-center justify-center gap-2"
+              style={{
+                background: site.card,
+                borderColor: site.line,
+                color: site.fg,
+                borderRadius: site.radius,
+              }}
+            >
+              Liever het contactformulier invullen? →
+            </button>
+          )}
+
           {/* Alternative channel: short contact form */}
           <div
-            className="lg:col-span-7 border p-7 sm:p-9 shadow-sm flex flex-col"
+            className={`${
+              mobileFormOpen || waUrl ? 'flex' : 'hidden sm:flex'
+            } lg:col-span-7 border p-6 sm:p-9 shadow-sm flex-col`}
             style={{
               background: site.card,
               borderColor: site.line,
@@ -242,7 +261,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     }}
                     rows={5}
                     placeholder="Omschrijf kort je klus, bijvoorbeeld: drie kozijnen aan de voorzijde schilderen."
-                    className={`w-full flex-1 p-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900 ${
+                    className={`w-full flex-1 p-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
                       errors.message ? 'border-rose-500' : 'border-stone-500'
                     }`}
                   />
@@ -259,7 +278,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   <Send className="w-5 h-5" />
                   Verstuur naar {ownerFirst}
                 </button>
-                <p className="text-[11px] text-stone-400 leading-relaxed m-0 text-center">
+                <p className="text-xs text-stone-400 leading-relaxed m-0 text-center">
                   Dit formulier opent WhatsApp met je bericht klaarstaan — je
                   hoeft alleen op versturen te drukken.
                 </p>

@@ -45,6 +45,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   const [clientPhone, setClientPhone] = useState('');
   const [clientAddress, setClientAddress] = useState('');
   const [notes, setNotes] = useState('');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -218,9 +219,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   };
 
   return (
-    <section id="afspraak" className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-20">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+    <section id="afspraak" className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60 scroll-mt-20">
+      <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-4">
           <div className="flex flex-col gap-2">
             <span className="font-mono text-xs font-semibold tracking-wider text-stone-500 uppercase">
               AFSPRAAK INPLANNEN
@@ -241,8 +242,24 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
           </span>
         </div>
 
+        {!bookingResult && !mobileOpen && (
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="sm:hidden h-13 px-6 font-extrabold text-base cursor-pointer inline-flex items-center justify-center gap-2 shadow-sm"
+            style={{
+              background: site.accent,
+              color: site.onAccent,
+              borderRadius: site.radius,
+              border: 0,
+            }}
+          >
+            Kies een datum & tijdstip →
+          </button>
+        )}
+
         {!bookingResult ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className={`${mobileOpen ? 'grid' : 'hidden sm:grid'} grid-cols-1 lg:grid-cols-12 gap-8 items-start`}>
             {/* Step 1: Date & Time Slot Picker */}
             <div className="lg:col-span-7 flex flex-col gap-6">
               <div>
@@ -262,9 +279,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                             : 'border-stone-500 bg-white text-stone-800 hover:border-stone-700'
                         }`}
                       >
-                        <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
+                        <span className="text-xs uppercase opacity-75">{d.dayName}</span>
                         <span className="text-lg font-black">{d.dayNum}</span>
-                        <span className="text-[10px] opacity-75">{d.monthName}</span>
+                        <span className="text-xs opacity-75">{d.monthName}</span>
                       </button>
                     );
                   })}
@@ -308,7 +325,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 <select
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
                 >
                   {site.services.map((sv) => (
                     <option key={sv.n} value={sv.n}>
@@ -332,7 +349,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
                   placeholder="bijv. Sanne de Jong"
-                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
                     errors.name ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
                   }`}
                 />
@@ -350,7 +367,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   value={clientPhone}
                   onChange={(e) => setClientPhone(e.target.value)}
                   placeholder="06 12 34 56 78"
-                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
                     errors.phone ? 'border-rose-500' : 'border-stone-500 focus:border-stone-900'
                   }`}
                 />
@@ -368,7 +385,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   value={clientAddress}
                   onChange={(e) => setClientAddress(e.target.value)}
                   placeholder="Kerkstraat 12, Utrecht"
-                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none ${
+                  className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
                     errors.address ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
                   }`}
                 />
@@ -386,7 +403,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Bijv. 3 kozijnen aan de voorzijde schilderen"
                   rows={2}
-                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-sm focus:outline-none focus:border-stone-900"
+                  className="w-full p-3 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
                 />
               </div>
 

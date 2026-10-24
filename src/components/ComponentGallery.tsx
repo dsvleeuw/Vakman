@@ -310,7 +310,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
             </span>
             <span className="hidden sm:flex flex-col items-start">
               <strong className="text-lg leading-none">Klusbaas</strong>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 mt-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-stone-500 mt-1">
                 Ontwerpbibliotheek
               </span>
             </span>
@@ -398,7 +398,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Zoek op naam of functie…"
-                  className="w-full h-11 pl-10 pr-10 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:border-stone-900 focus:outline-none text-sm font-medium"
+                  className="w-full h-11 pl-10 pr-10 rounded-xl border border-stone-200 bg-stone-50 focus:bg-white focus:border-stone-900 focus:outline-none text-base sm:text-sm font-medium"
                 />
                 {query && (
                   <button
@@ -449,7 +449,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                           <span className="flex flex-col gap-1 min-w-0">
                             <span className="text-sm font-bold leading-snug">{entry.label}</span>
                             <span
-                              className={`font-mono text-[10px] truncate ${
+                              className={`font-mono text-xs truncate ${
                                 isSelected ? 'text-stone-400' : 'text-stone-400'
                               }`}
                             >
@@ -458,7 +458,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                           </span>
                           {entry.isNew && (
                             <span
-                              className={`h-5 px-2 rounded-full flex items-center text-[9px] font-extrabold uppercase tracking-wider shrink-0 ${
+                              className={`h-5 px-2 rounded-full flex items-center text-xs font-extrabold uppercase tracking-wider shrink-0 ${
                                 isSelected ? 'bg-amber-300 text-amber-950' : 'bg-amber-100 text-amber-800'
                               }`}
                             >
@@ -497,11 +497,11 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                 <div className="px-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                   <div className="flex flex-col gap-2 min-w-0">
                     <div className="flex items-center flex-wrap gap-2">
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-500">
+                      <span className="font-mono text-xs font-bold uppercase tracking-wider text-stone-500">
                         {selectedEntry.category}
                       </span>
                       {selectedEntry.isNew && (
-                        <span className="h-5 px-2 rounded-full bg-amber-300 text-amber-950 flex items-center text-[9px] font-extrabold uppercase tracking-wider">
+                        <span className="h-5 px-2 rounded-full bg-amber-300 text-amber-950 flex items-center text-xs font-extrabold uppercase tracking-wider">
                           Nieuwe toevoeging
                         </span>
                       )}
@@ -513,7 +513,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                       {selectedEntry.description}
                     </p>
                   </div>
-                  <code className="self-start sm:self-auto px-3 py-2 rounded-lg bg-stone-200/70 text-[10px] text-stone-500 whitespace-nowrap">
+                  <code className="self-start sm:self-auto px-3 py-2 rounded-lg bg-stone-200/70 text-xs text-stone-500 whitespace-nowrap">
                     src/{selectedEntry.file}
                   </code>
                 </div>
@@ -525,7 +525,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
                       <span className="w-2.5 h-2.5 rounded-full bg-stone-300" />
                       <span className="w-2.5 h-2.5 rounded-full bg-stone-300" />
                     </div>
-                    <span className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-wider text-stone-400">
+                    <span className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       Interactieve preview
                     </span>

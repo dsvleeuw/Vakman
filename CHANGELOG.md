@@ -74,6 +74,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Formuliervelden op mobiel minimaal 16px (`text-base`)** in `ContactSection`,
+  `FaultReportForm`, `BookingCalendar`, `SurfaceCalculator`, de Google
+  Agenda-checkbox in `WizardView` en de zoekinput in `ComponentGallery`, zodat
+  iOS Safari niet automatisch inzoomt bij focus.
+- **iOS safe-area-insets en `viewport-fit=cover`:** toegevoegd aan `index.html`,
+  de vaste/sticky mobiele onderbalken (inclusief onderpadding van de pagina) en
+  de sticky bovenbalken in `Header`, `SiteView` en `WizardView`.
+- **Wizard vult stap 3 (`/start/gegevens`) niet langer vooraf met nepgegevens:**
+  velden starten leeg (placeholders blijven zichtbaar), het live voorbeeld valt
+  terug op sectordefaults, lege invoer wordt afgekeurd en getypte gegevens
+  blijven behouden bij wisselen van vakgebied.
+- **Wizard op mobiel/tablet:** richtingneutrale copy (geen verwijzing meer naar
+  "rechts"), stapnaam direct in de kicker (`STAP 3 VAN 5 · GEGEVENS`), geen
+  voorgeselecteerd vak op een verse `/start/vak` en alle interactieve knoppen/
+  stappills op minimaal 40×40–44×44 px.
+- **Tikvlakken in `SiteView` en `Header`:** `"← Alle presets"`, `"Aanpassen"`,
+  navigatielinks en het telefoonnummer in de storingsmelder verhoogd naar
+  minimaal 44 px hoogte.
+- **Mobiele paginalengte gehalveerd (`< 8.000 px` op 360 px) met behoud van SSR-HTML:**
+  lange lijsten en formulieren op de homepage en demosites (`#diensten`, `#werk`,
+  beoordelingen, FAQ, afsprakenkalender, contactformulier, presets, pakketten en
+  vaktools) klappen op `< sm` in achter `"Toon meer"`/`"Bekijk alle"`-knoppen.
+- **Meeschuivende previewbalk en compactere mobiele hero's:** de previewbalk in
+  `SiteView` schuift op mobiel weg bij omlaag scrollen en keert terug bij omhoog
+  scrollen; dubbele mobiele bel-CTA's zijn verwijderd en alle vijf hero-stijlen
+  tonen hun CTA's boven de vouw op 360×780.
+- **Tablet-layout, leesbare kleine tekst en slimmer fontladen:** het
+  wizard-formulier is gecentreerd op tablet (`768–1023 px`), alle tekst onder
+  `12px` is verhoogd naar minimaal `text-xs`, en `index.html` laadt alleen
+  `Archivo` + `JetBrains Mono` terwijl stijl-specifieke displayfonts pas op
+  aanvraag (en per prerenderde demosite) worden geladen (`src/utils/fonts.ts`).
 - `html lang` stond op `en` terwijl alle copy Nederlands is.
 - FAQ-kicker "FAQ & HEBDEN" → "Goed om te weten".
 - Contactformulierlabels waren niet gekoppeld aan hun inputs; nu wel, met

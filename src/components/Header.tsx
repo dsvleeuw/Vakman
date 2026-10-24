@@ -54,14 +54,16 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
     <header
       ref={headerRef}
       className={`sticky top-0 z-30 backdrop-blur-md transition-all duration-300 flex items-center justify-between gap-4 sm:gap-8 px-4 sm:px-8 md:px-12 border-b border-stone-200/60 ${
-        scrolled ? 'py-3.5 bg-stone-100/90 shadow-sm' : 'py-5 bg-stone-100/75'
+        scrolled
+          ? 'pt-[calc(0.875rem+env(safe-area-inset-top))] pb-3.5 bg-stone-100/90 shadow-sm'
+          : 'pt-[calc(1.25rem+env(safe-area-inset-top))] pb-5 bg-stone-100/75'
       }`}
     >
       {/* Zone 1: Brand Wordmark */}
       <RouteLink
         route={{ name: 'home' }}
         onClick={closeMenu}
-        className="flex items-center gap-2.5 text-stone-900 shrink-0 text-left no-underline"
+        className="flex items-center gap-2.5 min-h-11 text-stone-900 shrink-0 text-left no-underline"
         aria-label="Klusbaas Home"
       >
         <span className="w-9 h-9 rounded-xl bg-stone-900 text-stone-100 flex items-center justify-center font-black text-lg shadow-sm">
@@ -78,32 +80,32 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
         <RouteLink
           route={presetsRoute}
           hash="presets"
-          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0 no-underline"
+          className="min-h-11 inline-flex items-center hover:text-stone-900 transition-colors whitespace-nowrap shrink-0 no-underline"
         >
           Alle 30 presets
         </RouteLink>
         <a
           href="#hoe-het-werkt"
-          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
+          className="min-h-11 inline-flex items-center hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
         >
           Hoe het werkt
         </a>
         <a
           href="#prijzen"
-          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
+          className="min-h-11 inline-flex items-center hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
         >
           Prijzen
         </a>
         <a
           href="#vakken"
-          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
+          className="min-h-11 inline-flex items-center hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
         >
           Vakgebieden
         </a>
         <RouteLink
           route={{ name: 'components' }}
           onClick={closeMenu}
-          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0 no-underline"
+          className="min-h-11 inline-flex items-center hover:text-stone-900 transition-colors whitespace-nowrap shrink-0 no-underline"
         >
           Componenten
         </RouteLink>

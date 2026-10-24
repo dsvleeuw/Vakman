@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Check, ShieldCheck, ArrowRight, MessageCircle, Wrench } from 'lucide-react';
 import type { PlanId } from '../types';
 import { PLANS } from '../data/plans';
@@ -21,12 +21,14 @@ const SERVICE_FEATURES = [
 ];
 
 export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
+  const [expandedPlans, setExpandedPlans] = useState(false);
+
   return (
     <section
       id="prijzen"
-      className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-white border-y border-stone-200 scroll-mt-24"
+      className="py-12 sm:py-24 px-4 sm:px-8 md:px-12 bg-white border-y border-stone-200 scroll-mt-24"
     >
-      <div className="max-w-7xl mx-auto flex flex-col gap-12">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8 sm:gap-12">
         <div className="flex flex-col gap-3 max-w-2xl">
           <span className="font-mono text-xs font-bold tracking-widest text-stone-500 uppercase">
             Heldere prijzen, geen verrassingen
@@ -98,9 +100,14 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
                 Exclusief btw
               </span>
 
-              <ul className="flex flex-col gap-2.5 mt-6 mb-8 p-0 list-none flex-1">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2.5 text-sm font-medium">
+              <ul className="flex flex-col gap-2.5 mt-5 mb-5 sm:mt-6 sm:mb-8 p-0 list-none flex-1">
+                {plan.features.map((feature, fIdx) => (
+                  <li
+                    key={feature}
+                    className={`${
+                      fIdx >= 4 && !expandedPlans ? 'hidden sm:flex' : 'flex'
+                    } items-start gap-2.5 text-sm font-medium`}
+                  >
                     <span
                       className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
                         plan.popular ? 'bg-amber-400 text-stone-900' : 'bg-emerald-100 text-emerald-700'
@@ -114,6 +121,17 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
                   </li>
                 ))}
               </ul>
+              {plan.features.length > 4 && !expandedPlans && (
+                <button
+                  type="button"
+                  onClick={() => setExpandedPlans(true)}
+                  className={`sm:hidden self-start min-h-11 px-3 mb-3 rounded-lg border-0 bg-transparent text-xs font-bold underline cursor-pointer inline-flex items-center ${
+                    plan.popular ? 'text-amber-300' : 'text-stone-600'
+                  }`}
+                >
+                  Toon alle {plan.features.length} onderdelen
+                </button>
+              )}
 
               <div className="flex flex-col gap-2.5">
                 <button
