@@ -44,6 +44,12 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
           Hoe het werkt
         </a>
         <a
+          href="#prijzen"
+          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
+        >
+          Prijzen
+        </a>
+        <a
           href="#vakken"
           className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
         >

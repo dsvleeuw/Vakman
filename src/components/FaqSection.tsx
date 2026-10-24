@@ -10,11 +10,19 @@ interface FaqSectionProps {
 const DEFAULT_FAQS: FaqItem[] = [
   {
     q: 'Hoe snel staat mijn website online?',
-    a: 'Binnen 15 minuten. Je kiest je vak, vult je bedrijfsnaam, telefoonnummer en werkgebied in en je site is direct bereikbaar met een eigen .nl domeinnaam.',
+    a: 'Je concept staat binnen 15 minuten online: je kiest je vak, vult je bedrijfsnaam, telefoonnummer en werkgebied in en je site is direct bereikbaar met een eigen .nl-domeinnaam. De complete oplevering, inclusief controle van teksten, foto’s en vindbaarheid, volgt binnen 2 werkweken.',
+  },
+  {
+    q: 'Wat kost een website bij Klusbaas?',
+    a: 'Er zijn drie eenmalige pakketten van € 595, € 995 en € 1.795, allemaal exclusief btw. Daarna is er een optionele service voor hosting, updates en support van € 25 per maand (excl. btw), die maandelijks opzegbaar is.',
+  },
+  {
+    q: 'Ben ik eigenaar van mijn website?',
+    a: 'Ja, volledig. Jij blijft eigenaar van de website, de code, je domeinnaam en je foto’s. Er is geen vendor lock-in: stop je met de service, dan leveren we de complete site op zodat je hem kunt meenemen naar een andere partij.',
   },
   {
     q: 'Hoe komen offerteaanvragen en afspraken binnen?',
-    a: 'Aanvragen komen rechtstreeks op je mobiel binnen via WhatsApp of e-mail. Je kunt afspraken bovendien direct laten synchroniseren met je Google Calendar.',
+    a: 'WhatsApp is het belangrijkste kanaal: aanvragen komen met een vooringevuld bericht rechtstreeks op je mobiel binnen, en er is altijd een kort contactformulier als alternatief. Afspraken kun je bovendien direct laten synchroniseren met je Google Calendar.',
   },
   {
     q: 'Kan ik de prijzen en diensten later aanpassen?',
@@ -27,6 +35,10 @@ const DEFAULT_FAQS: FaqItem[] = [
   {
     q: 'Kan ik offertes automatisch opslaan in Google Drive?',
     a: 'Ja! Als je inlogt met je Google-account worden alle berekende offerteoverzichten automatisch als tekst/PDF opgeslagen in jouw Google Drive.',
+  },
+  {
+    q: 'Kan ik de maandelijkse service opzeggen?',
+    a: 'Ja, de service van € 25 per maand is maandelijks opzegbaar. Je website blijft daarna van jou; we leveren desnoods de complete code en je domeinnaam op, zonder opzegboete.',
   },
 ];
 
