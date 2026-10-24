@@ -56,6 +56,7 @@ function loadDraft(): WizardDraft {
     styleIndex: 0,
     form: null,
     disabledServices: {},
+    sectorChosen: false,
   };
   if (typeof window === 'undefined') return fallback;
   try {
@@ -75,6 +76,7 @@ function loadDraft(): WizardDraft {
           : 0,
       form: parsed.form ?? null,
       disabledServices: parsed.disabledServices ?? {},
+      sectorChosen: typeof parsed.sectorChosen === 'boolean' ? parsed.sectorChosen : true,
     };
   } catch {
     return fallback;
@@ -387,6 +389,7 @@ export default function App() {
           step={route.step}
           onStepChange={handleWizardStepChange}
           initialSector={wizardSector}
+          hasInitialSector={Boolean(route.sector || draft.sectorChosen)}
           initialStyleIndex={wizardStyleIndex}
           initialForm={draft.form}
           initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}

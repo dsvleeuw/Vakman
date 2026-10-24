@@ -203,6 +203,8 @@ export interface WizardDraft {
   styleIndex: number;
   form: WizardFormData | null;
   disabledServices: Record<number, boolean>;
+  /** True once the visitor explicitly chose a trade (or arrived with ?vak=). */
+  sectorChosen?: boolean;
 }
 
 export interface PublishedSiteRecord {
