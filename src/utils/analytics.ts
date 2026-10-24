@@ -27,7 +27,9 @@ export type AnalyticsEventName =
   | 'component_view'
   | 'lead_submit'
   | 'lead_success'
-  | 'lead_error';
+  | 'lead_error'
+  | 'newsletter_signup'
+  | 'newsletter_error';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
