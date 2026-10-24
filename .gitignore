@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Leadlijsten bevatten persoonsgegevens: alleen het sjabloon is versiebeheerd.
+leads/*.csv
+!leads/leads-haarlemmermeer.example.csv
