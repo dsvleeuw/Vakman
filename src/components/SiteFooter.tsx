@@ -22,7 +22,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ showSignup = true }) => 
   <footer className="bg-stone-900 text-stone-300 px-4 sm:px-8 md:px-12 pt-12 pb-[calc(2rem+env(safe-area-inset-bottom))]">
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
       <div className="lg:col-span-5 flex flex-col gap-4">
-        <Logo tone="light" className="h-8" />
+        <Logo tone="light" className="h-8 self-start" />
         <p className="m-0 text-sm leading-relaxed max-w-sm text-pretty">
           Websites voor timmermannen, hoveniers, schilders, loodgieters, elektriciens en stukadoors in de
           Haarlemmermeer en omstreken.
