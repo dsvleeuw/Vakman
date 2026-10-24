@@ -44,6 +44,52 @@ target when one is given.
 `public/_redirects` makes Netlify serve `index.html` for every path so deep
 links work in production too; the Vite dev server does this by default.
 
+## Build, prerendering and hydration
+
+`npm run build` = `vite build` + `node --import tsx scripts/prerender.ts`.
+
+1. Vite emits the client bundle and an `index.html` shell.
+2. `scripts/prerender.ts` imports `src/entry-server.tsx`, which renders the
+   real app for every indexable route (home + 35 presets) with
+   `renderToPipeableStream` and waits for `onAllReady()` so the lazy route
+   chunks are included.
+3. Each route gets its own `dist/**/index.html` with the rendered markup in
+   `#root` plus per-route `<title>`, description, canonical and Open
+   Graph/Twitter tags (`getRouteMeta`), and the route name in
+   `data-route` for the client.
+4. It also writes `sitemap.xml` and `robots.txt` (wizard routes disallowed).
+   `PRERENDER_SITE_URL` sets the canonical origin (default
+   `https://klusbaas.nl`).
+
+On the client, `src/main.tsx` checks whether `#root` already has markup: if
+so it preloads the matching lazy chunk and calls `hydrateRoot`, otherwise it
+`createRoot`s as usual. `useMediaQuery` starts from its fallback value so the
+first client render matches the server markup.
+
+`npm run build:spa` skips the prerender step (useful when debugging the plain
+SPA fallback).
+
+## Analytics
+
+`utils/analytics.ts` exposes `track(event, props)`. It pushes to
+`window.dataLayer` (GTM) and calls `window.gtag` (GA4) when either exists and
+is a silent no-op otherwise — no vendor, no cookies, nothing to configure for
+the prototype. Events: `page_view`, `wizard_step_view`,
+`wizard_step_complete`, `wizard_validation_error`, `preset_open`,
+`plan_select`, `whatsapp_click`, `phone_click`, `appointment_requested`,
+`component_view`. To collect them, add a tag manager snippet to `index.html`;
+the payloads are already GA4-shaped.
+
+## Accessibility contract
+
+`utils/color.ts` converts OKLCH ⇄ sRGB, computes WCAG contrast and can nudge a
+colour's lightness until it passes. `withAccessibleContrast()` in
+`data/tradesData.ts` wraps every `computePalette` result so `fg`, `muted`,
+`accentText`, `invFg`, `invMuted` reach 4.5:1 on their surfaces and `onAccent`
+/ `onHi` stay readable on filled surfaces. `data/paletteContrast.test.ts`
+checks all 7 trades × 5 styles, so a new hue or accent cannot silently break
+readability.
+
 ## Data model
 
 All content is TypeScript data, there is no CMS or database.
@@ -112,7 +158,8 @@ is the only networked write path and requires Firebase OAuth.
 
 | Data | Where | Lifetime |
 |------|-------|----------|
-| Selected sector/style, current view, wizard step | React state in `App` / `WizardView` | Session |
+| Current route (view, sector, style, wizard step, component, package) | The URL (`history.state` keeps the scroll offset) | Bookmarkable |
+| Wizard draft (form, services, sector, style) | React state in `App` + `sessionStorage` (`klusbaas_wizard_draft`) | Session |
 | Custom business data per sector | `localStorage` key `klusbaas_custom_sites` | Persistent |
 | Booking, contact, fault-report and calculator submissions | React state only | Lost on refresh |
 | Google OAuth token | Module-level cache in `googleWorkspace.ts` | Session |
@@ -124,7 +171,7 @@ is the only networked write path and requires Firebase OAuth.
   utilities, component-catalog integrity and server-rendered smoke tests
   for all ten reusable additions in `components/extras/extras.test.tsx`.
 - Type checking: `bun run lint` (`tsc --noEmit`).
-- Production build: `bun run build` (Vite).
+- Production build: `bun run build` (Vite + prerender + sitemap).
 - For component-level verification without a browser, render components
   with `react-dom/server`'s `renderToStaticMarkup` in a temporary script
   and assert on the markup. HTML-encode expectations (`&` becomes

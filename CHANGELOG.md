@@ -9,66 +9,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Echte URL's voor elke pagina en elke wizardstap.** De app heeft nu een
-  eigen, getypeerde client-router (`src/utils/router.ts`, `hooks/useRouter.ts`,
-  `RouteLink`) op de History API. Routes: `/` (`?vak=`),
-  `/voorbeeld/:sector/:stijl`, `/start/vak|stijl|gegevens|diensten|afspraak|klaar`,
-  `/componenten/:id` en een gebrande 404. Terug/vooruit, herladen, bookmarken
-  en delen werken; elke route heeft een eigen `<title>`, meta description en
-  `aria-live`-aankondiging. Oude links (`?view=site&sector=…&style=2`,
-  `?autostart=1`, `?view=components`) worden omgeleid. `public/_redirects`
-  zorgt dat deep links ook op Netlify werken.
-- **Wizardstap in de URL en in de geschiedenis.** Elke stap is een eigen
-  history-entry; de stapindicator is nu een klikbare `<nav>` met
-  `aria-current="step"` waarmee je terug kunt springen.
-- **Concept opslaan.** Wizard-invoer wordt in `App` + sessionStorage bewaard,
-  zodat de preview bekijken en teruggaan niets meer weggooit.
-- **Mobiel live voorbeeld in de wizard.** Het volledige voorbeeld wordt onder
-  `lg` pas geladen als je "Bekijk je website live" opent.
-- **404-pagina** met verwijzingen naar home, presets, componenten en start.
-- **Pakketkeuze reist mee door de wizard.** `Start met Basis/Pro/Premium`
-  opent `/start/vak?pakket=pro`; stap 5 en het bevestigingsscherm tonen het
-  gekozen pakket met prijs (excl. btw). De pakketdefinities staan nu in
-  `src/data/plans.ts`, zodat prijstabel en wizard niet uit elkaar lopen.
-- **Contextchips in de wizard.** Vanaf stap 3 zie je "Vak: …  wijzig" en
-  "Stijl: …  wijzig" (plus het pakket), zodat de sprong naar stap 3 vanaf een
-  preset niet als een fout aanvoelt.
-- **Sticky actiebalk op mobiel** in de wizard: "← Terug" en "Volgende stap"
-  blijven onderaan in beeld; het live-voorbeeldknopje staat er direct boven.
-- **Route-level code splitting.** `SiteView`, `WizardView` en
-  `ComponentGallery` worden lazy geladen; de eerste JS-bundel gaat van
-  ± 498 kB (147 kB gzip) naar ± 299 kB (95 kB gzip).
-- **Internationale telefoonnummers.** `+31 6 12345678`, `0031 (0)6-…` en
-  `06 12 34 56 78` worden nu overal geaccepteerd via
-  `normalizeDutchPhone` (wizard, contactformulier, afspraakkalender en
-  storingsmelding).
-- **Toegankelijkheid:** skip-link, zichtbare `:focus-visible`-ring,
-  `prefers-reduced-motion`-ondersteuning, labels/`aria-invalid`/`role="alert"`
-  op de wizard- en contactformulieren, `aria-controls` op de FAQ-accordeon.
-- **Favicon en `lang="nl"`.**
-- **Interactieve componentenbibliotheek.** De nieuwe `components`-weergave
-  toont alle 30 componentmodules met zoeken, categoriefilters en echte live
-  previews. Bereikbaar via de hoofdnavigatie of `/componenten`, met
-  catalogus-integriteitstests en documentatie.
-- **Tien herbruikbare conversiecomponenten.** `TrustBar`,
-  `OpeningHoursCard`, `AvailabilityCard`, `TeamMemberCard`,
-  `TestimonialCard`, `GuaranteeList`, `PromotionBanner`,
-  `ServiceAreaChips`, `ProjectStats` en `ContactCtaBanner` gebruiken de
-  bestaande palet-, lettertype- en radius-tokens en hebben render-tests.
-- **Mobiele hamburgernavigatie.** De homepage en gegenereerde vakmansites
-  hebben nu een toegankelijk hamburgermenu onder het desktop-breekpunt, met
-  de bestaande navigatielinks en primaire actie. Het menu sluit na een
-  keuze, met Escape en bij overstappen naar een desktopweergave.
-- **"Overige" vak-optie.** `SectorId` en `SECTORS` kennen nu `overige`: een
-  zevende tegel in de Vak-keuze voor vakmensen die niet in de 6 standaard
-  vakken vallen. Bevat generieke diensten, FAQ, prijsflow en reviews.
-- **`utils/appointments.ts`** met pure helpers (`slotToHours`,
-  `buildAppointmentCalendarPayload`, `generateAppointmentId`,
-  `saveAppointment`/`loadAppointments`, `buildNextDates`) plus unit-tests
-  (`utils/appointments.test.ts`).
+
+- **Prerendering van alle indexeerbare routes.** `npm run build` rendert nu na
+  `vite build` de homepage en alle 35 vakmanssites naar echte HTML
+  (`dist/**/index.html`) met per route `<title>`, meta description, canonical
+  en Open Graph/Twitter-tags. De client hydrateert die HTML in plaats van
+  opnieuw te renderen (`src/entry-server.tsx`, `scripts/prerender.ts`,
+  `src/main.tsx`). Daarbij horen `sitemap.xml`, `robots.txt` (met
+  `Disallow: /start/`) en een 1200×630 `og-image.png`.
+- **Funnelanalytics zonder vendor.** `utils/analytics.ts` stuurt
+  `page_view`, `wizard_step_view`, `wizard_step_complete`,
+  `wizard_validation_error`, `preset_open`, `plan_select`, `whatsapp_click`,
+  `phone_click`, `appointment_requested` en `component_view` naar
+  `window.dataLayer`/`window.gtag` zodra er een tag manager staat; zonder
+  tag manager gebeurt er niets.
+- **Toegankelijkheidscontract voor alle 35 paletten.** `utils/color.ts` rekent
+  OKLCH→sRGB en WCAG-contrast; `withAccessibleContrast()` in `tradesData.ts`
+  zorgt dat tekst op bg/card, accenttekst, inverted tekst en tekst op
+  accent/highlight minimaal AA (4,5:1) halen. `paletteContrast.test.ts`
+  controleert alle 7 vakken × 5 stijlen.
+- **Scrollpositie per pagina.** Bij terug/vooruit herstelt de router de
+  scroll-offset van dat history-item; nieuwe navigatie start bovenaan.
+- **Mobiele previewbalk op de voorbeeldpagina** klapt in tot één regel met een
+  "Aanpassen"-knop (vak-, stijlkeuze en CTA verschijnen pas op verzoek).
+- **Kanaalkeuze werkt nu echt.** Na het aanvragen van een afspraak biedt het
+  bevestigingsscherm een kant-en-klaar WhatsApp- of `mailto:`-bericht aan dat
+  past bij het gekozen kanaal (WhatsApp / E-mail / Allebei).
+- **Google Agenda is opt-in.** Inloggen gebeurt alleen als de bezoeker "zet de
+  afspraak in mijn agenda" aanvinkt; de afspraak wordt anders lokaal genoteerd
+  zonder popup.
+- **Laadfeedback voor afbeeldingen:** placeholders pulseren tot de foto
+  geladen is, zodat grids niet verspringen.
 
 ### Changed
 
+- **Stap 5 draait om de oplevering, niet om het inplannen.** De primaire actie
+  is nu "Bekijk je website" (ook in de actiebalk); de afspraak is een
+  duidelijk gemarkeerd optioneel blok eronder.
+- **Formulierranden** gebruiken `border-stone-500` in plaats van
+  `border-stone-200`, zodat invoervelden 3:1 halen (WCAG 1.4.11).
+- **Decoratieve sfeerfoto's** op de gegenereerde sites zijn `alt=""` +
+  `aria-hidden` in plaats van een herhaling van de kop.
 - **Interne navigatie zijn echte links.** Header, presets, de previewbalk van
   de gegenereerde site en de componentenbibliotheek gebruiken `RouteLink`
   (`<a href>`), zodat middenklik, "openen in nieuw tabblad" en crawlers werken.

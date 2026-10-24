@@ -1,157 +1,108 @@
-# UX & UI review — URLs, navigation and conversion
+# UX & UI review — URLs, navigation, conversion and accessibility
 
-Review of the Klusbaas prototype as it stood before this change, focused on
-navigation, page structure and the onboarding funnel. Findings marked
-**Fixed** are shipped in this branch; the recommendations are prioritised and
-still open.
+Review of the Klusbaas prototype, the fixes shipped in this branch, and the
+smaller ideas that are explicitly *not* built yet.
 
-## What was broken
+## Part 1 — the problems that were fixed
 
-### 1. There was no URL per page (Fixed)
+### 1. There was no URL per page
 
-The app switched views with React state only. Consequences:
+The app switched views with React state only: the back button left the
+product, reloading on step 4 dropped you on step 1, a preset could not be
+shared or indexed, every page had the same `<title>`, and a typo produced a
+blank screen.
 
-- The browser back button left the product instead of going to the previous
-  wizard step.
-- Refreshing on step 4 dropped you back on step 1.
-- A generated preset (`/voorbeeld/loodgieter/krachtig`) could not be shared,
-  bookmarked or indexed; the "deep link" format was an undocumented query
-  string (`?sector=loodgieter&style=2&view=site`).
-- Every page had the same `<title>`, and there was no 404: a typo showed a
-  blank screen.
+**Now:** a typed client router (`src/utils/router.ts`, `hooks/useRouter.ts`,
+`RouteLink`). `/`, `/voorbeeld/:sector/:stijl`,
+`/start/vak|stijl|gegevens|diensten|afspraak|klaar`, `/componenten/:id` and a
+branded 404. Per-route title + description, legacy `?view=…` links redirect,
+`public/_redirects` keeps deep links alive on Netlify.
 
-**Now:** a routed SPA. `/` (with `?vak=`), `/voorbeeld/:sector/:stijl`,
-`/start/vak|stijl|gegevens|diensten|afspraak|klaar`,
-`/componenten/:id` and a branded 404. Each route gets its own title and meta
-description. Old query links are redirected with `replaceState`, and
-`public/_redirects` keeps deep links working on Netlify. The soft rules live in
-`src/utils/router.ts` with unit tests.
+### 2. Navigation was state changes, not links
 
-### 2. Navigation was state changes, not links (Fixed)
+Primary navigation, sector chips, style chips and "Pas deze site aan" were
+`<button>`s: no new tab, no copy link, nothing for a crawler. They are
+`RouteLink`s now — a real `<a href>` that intercepts only plain left clicks.
 
-Primary navigation buttons ("Alle 30 presets", "Componenten", sector and
-style chips, "Pas deze site aan") were `<button>`s, so they could not be opened
-in a new tab, copied, or crawled. They are now `RouteLink`s: a real `<a href>`
-that only intercepts plain left clicks.
+### 3. The wizard fought the user
 
-### 3. The wizard fought the user (Fixed)
+- Each step is its own history entry; browser back moves one step back.
+- The step indicator is a `<nav>` with clickable completed steps and
+  `aria-current="step"`.
+- The draft (sector, style, form, services) survives navigation and reloads.
+- The full demo site is collapsed on phones instead of doubling page length.
+- Validation errors focus the first invalid field and are announced.
 
-- **Back button:** each step is a history entry now; browser back returns to
-  the previous step, and the "← Terug" button and the step bullets do the same.
-- **Progress indicator:** the step bullets were decorative. They are now a
-  `<nav>` with clickable completed steps, `aria-current="step"` and a
-  "stap X van 5" label.
-- **Lost input:** going to the site preview and back reset the form. The draft
-  now lives in `App` + sessionStorage, so data survives navigation and reloads.
-- **Mobile preview:** the full demo site (a 1.100-line component) was rendered
-  below the form on phones, doubling page length. It is now collapsed behind a
-  "Bekijk je website live" toggle below `lg`, and only mounts when opened.
-- **Validation:** errors were visual only. Fields now have `id`/`for`,
-  `aria-invalid`, `aria-describedby`, `role="alert"`, `autocomplete` and
-  `inputMode`; the first invalid field gets focus when the step fails.
+### 4. Smaller UI/a11y fixes
 
-### 4. Smaller fixes
+`lang="nl"`, skip link, per-route titles, favicon, visible `:focus-visible`
+ring, `prefers-reduced-motion`, mobile menu closing on outside click with
+scroll lock, contact-form labels, FAQ `aria-controls` and a typo
+("FAQ & HEBDEN" → "Goed om te weten"), duplicated marquee slides hidden from
+assistive tech, decorative hero photos marked `aria-hidden`.
 
-- `<html lang="en">` → `lang="nl"` (screen readers pronounced Dutch copy with
-  an English voice).
-- Added a skip link ("Naar de inhoud"), a polite live region that announces
-  each page change, and a visible `:focus-visible` ring for every interactive
-  element, including palette-styled trade-site buttons.
-- `prefers-reduced-motion` now disables the marquee, pulse and scroll
-  animations.
-- Mobile menu: closes on outside click and locks background scrolling.
-- FAQ kicker read "FAQ & HEBDEN" (a place name); now "Goed om te weten".
-  Accordion buttons got `aria-controls`/`aria-expanded` wiring.
-- Contact form labels were not associated with their inputs; fixed, with
-  error announcements and focus management.
-- Duplicated marquee slides are hidden from screen readers and the tab order.
-- Header CTA said "Plan een afspraak" while the hero said "Start je website",
-  both opening step 1. The header now says "Start je website" so the promise
-  and the action match; planning happens at the end of the flow.
-- Preset cards: "Bekijk site" / "Kies deze" were vague competing buttons →
-  "Bekijk demo" / "Kies deze stijl", with descriptive `aria-label`s and real
-  links on the marketing page.
+## Part 2 — the recommendations, all implemented
 
-## Round 2 — shipped in this branch
+| # | Recommendation | Status |
+|---|----------------|--------|
+| 1 | Carry the chosen package through the funnel | ✅ `?pakket=pro`, chip from step 3, priced line in step 5 and on the confirmation. Plan data in `src/data/plans.ts` |
+| 2 | Wire or remove the WhatsApp/E-mail channel | ✅ wired: the confirmation offers a prefilled WhatsApp message and/or a `mailto:` with the appointment summary, matching the chosen channel |
+| 3 | Order the last step around the deliverable | ✅ "Bekijk je website" is the primary action (page and sticky bar); the appointment is a clearly marked optional block |
+| 4 | Sticky wizard action bar on mobile | ✅ "← Terug" / primary action pinned to the bottom, preview toggle right above |
+| 5 | Collapse the preview chrome on phones | ✅ preview bar reduced to one row with an "Aanpassen" toggle |
+| 6 | Restore scroll position per page | ✅ stored in `history.state`; back/forward restores, new navigation starts at the top |
+| 7 | Explain the shortcut into step 3 | ✅ context chips "Vak: … wijzig", "Stijl: … wijzig", "Pakket: Pro" |
+| 8 | Empty/loading states | ✅ images reserve space and pulse until loaded; route chunks show a labelled spinner |
+| 9 | Route-level code splitting | ✅ initial JS 498 kB → ~304 kB (147 → ~98 kB gzip) |
+| 10 | Prerender for SEO | ✅ build-time prerender of 36 routes into real HTML + hydration; canonical, OG/Twitter, `og-image.png`, `sitemap.xml`, `robots.txt` |
+| 11 | Funnel analytics | ✅ vendor-free `utils/analytics.ts` with step, preset, plan, WhatsApp, phone, appointment and component events |
+| 12 | Accept international phone formats | ✅ `normalizeDutchPhone()` everywhere (wizard, contact, booking, fault report) with tests |
+| 13 | Accessibility audit / contrast | ✅ WCAG maths in `utils/color.ts`, palette contrast contract for all 7 trades × 5 styles, form borders raised to 3:1 |
 
-These follow-ups from the first review are now implemented and covered by the
-jsdom walkthrough and unit tests:
+### Notes on the a11y work
 
-- **Chosen package travels through the funnel (P1).** `Start met Pro` opens
-  `/start/vak?pakket=pro`; the package appears as a chip from step 3, as a
-  priced line in step 5 and in the confirmation. Plan data moved to
-  `src/data/plans.ts` so pricing table and wizard cannot drift.
-- **Shortcut into step 3 explained (P2).** Context chips ("Vak: loodgieter ·
-  wijzig", "Stijl: Signaal · wijzig", "Pakket: Pro") sit above the form on
-  steps 3–5.
-- **Sticky mobile action bar (P2).** "← Terug" and "Volgende stap" are pinned
-  to the bottom of the viewport on phones, with the preview toggle just above.
-- **Route-level code splitting (P3).** Initial JS: 498 kB → 299 kB
-  (147 kB → 95 kB gzip). `SiteView`, `WizardView` and `ComponentGallery` load
-  per route with a spinner fallback.
-- **International phone numbers (P3).** `+31 6 12345678`, `0031 (0)6-…` and
-  local formats pass validation everywhere (`normalizeDutchPhone`), with
-  tests.
-- **Bug found while testing:** `onStart` handlers attached directly to
-  `onClick` passed the click event as a plan id; the wizard entry point now
-  validates the argument.
+- Contrast is now *guaranteed*, not eyeballed: `withAccessibleContrast()`
+  nudges OKLCH lightness until body text, muted text, accent text and
+  inverted text reach 4.5:1, and picks a readable foreground for filled
+  surfaces (accent, highlight). `paletteContrast.test.ts` fails the build if
+  any of the 35 combinations regresses.
+- Filled surfaces keep their hue: only lightness moves, so a brand accent
+  still looks like that brand.
+- Decorative divider colours are deliberately *not* forced to 3:1 — that
+  turned subtle hairline borders into heavy grey lines. Control boundaries
+  (inputs, selectable chips) are what needed the 3:1 treatment and got it.
 
-## Recommendations, still open
+## Part 3 — ideas that are still open
 
-### P1 — conversion and trust
+Nothing from the earlier list is left; these are genuinely new and smaller:
 
-1. **Wire or remove the "Offertes ontvangen via" choice.**
-   The wizard offers WhatsApp / E-mail / Allebei and the confirmation repeats
-   it, but nothing changes. Either send a `mailto:` fallback and store the
-   channel, or drop the control. A control that does nothing erodes trust in
-   a product whose pitch is "within fifteen minutes".
-2. **Order the end of the wizard around the deliverable.**
-   Step 5 asks for an appointment before the visitor has seen their finished
-   site. Consider making "Bekijk je website" the primary action there
-   (publish first, then offer an appointment), and treat the Google sign-in as
-   an explicit optional extra instead of a surprise popup during booking.
-
-### P2 — mobile and flow polish
-
-3. **Collapse the preview chrome on small screens.** The dark preview bar on
-   a generated site wraps to three rows on a phone. Make it a bottom sheet or
-   a single "aanpassen" chip so the site itself is what people see.
-4. **Restore scroll position within a page.** Route changes intentionally jump
-   to the top. Returning to a partly-scrolled long page (or a wizard step you
-   already filled) could restore the previous offset; `history.state` is free
-   to store it.
-5. **Empty/loading states.** Image fallbacks exist, but there is no shimmer or
-   reserved aspect ratio in a few grids, so the layout jumps when photos load.
-
-### P3 — performance, SEO, measurement
-
-6. **Prerender the marketing pages.** Client-side routes are a big step up
-   from state-only views, but crawlers still see an empty `index.html`.
-   Prerendering `/`, `/voorbeeld/*` and `/componenten` (or migrating to a
-   framework with SSR) plus a sitemap, canonical tags and an `og:image` is the
-   next SEO step.
-7. **Funnel analytics.** Emit step-view, step-complete, preset-open and
-    WhatsApp-click events; the wizard is the product, and right now nobody can
-    see where people drop out.
-8. **Accessibility audit with real assistive tech.** Labels, focus, skip link
-    and reduced motion are in place, but the palette-generated trade sites
-    (five styles × light/dark) deserve a contrast pass, especially muted text
-    on tinted cards and white text on the accent colour.
+1. **A real backend for leads.** Everything still ends in WhatsApp/`mailto:`
+   deep links with no delivery guarantee, no storage and no confirmation.
+2. **Persist the pre-rendered wizard step.** `/start/afspraak` in a freshly
+   loaded tab shows an empty form because the draft is per session.
+3. **Self-host the fonts.** Six Google font families are requested on first
+   paint; self-hosting removes two third-party round trips and a privacy
+   consideration for a Dutch B2B product.
+4. **Real photography.** All imagery is hot-linked from Unsplash and repeats
+   across presets (roadmap 5.3).
+5. **A/B test the hero copy** ("Binnen een kwartier" vs. the two-week
+   delivery promise) — now measurable thanks to the funnel events.
+6. **A dashboard for craftsmen** (the FAQ references one that does not exist).
+7. **End-to-end tests.** Routing, scroll restoration and hydration are
+   verified with temporary jsdom scripts; a Playwright suite in CI would make
+   that permanent (roadmap 5.1).
 
 ## How this was verified
 
-- `npx tsc --noEmit`, the full `node --test` suite (49 tests: router,
-  phone normalisation, pricing, contact, appointments, component renders) and
-  `vite build` are green.
-- A temporary jsdom walkthrough (deleted before commit) clicked "Start met
-  Pro" → asserted `?pakket=pro` in the URL, walked to step 5 and checked the
-  package line, restored a typed business name after a preview round-trip,
-  accepted `+31 6 12345678`, opened the 404, a deep link, and followed a
-  legacy `?view=site` redirect.
-- `/`, `/voorbeeld/loodgieter/krachtig`, `/start/gegevens`,
-  `/componenten/trust-bar` and unknown paths all return the app shell from the
-  dev server (SPA fallback), and `buildPath(parseRoute(url))` is asserted to
-  round-trip for every route shape.
-- Browser-only behaviour (back/forward, scroll reset, draft restore) is
-  covered by design and code review; no end-to-end runner is configured in
-  this repo yet (roadmap 5.1).
+- `npx tsc --noEmit`, `node --test` (**65 tests**) and `npm run build`
+  (Vite + prerender of 36 routes + sitemap/robots) are green.
+- Hydration script: prerendered HTML for `/`, `/voorbeeld/loodgieter/krachtig`
+  and `/voorbeeld/hovenier/donker` hydrates with **zero** React mismatch
+  errors and keeps its content.
+- jsdom walkthrough: "Start met Pro" → `?pakket=pro`; step 5 primary action
+  opens the site; an appointment can still be requested without Google
+  sign-in (no popup) and lands on `/start/klaar`; switching the channel to
+  E-mail produces a `mailto:` link; `wizard_step_view` and
+  `appointment_requested` reach `window.dataLayer`; scroll offset 640 px is
+  restored after back; the mobile preview bar offers "Aanpassen".
+- Contrast is enforced by unit tests for every generated palette.

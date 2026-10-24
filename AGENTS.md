@@ -36,7 +36,8 @@ bun install
 bun run dev      # dev server on port 3000, bound to 0.0.0.0
 bun run lint     # tsc --noEmit — must stay clean
 bun test         # node:test unit tests under src/**/*.test.ts
-bun run build    # production build to dist/
+bun run build    # vite build + prerender 36 routes + sitemap/robots
+bun run build:spa  # vite build only (no prerender), for debugging
 ```
 
 All three (`lint`, `test`, `build`) must be green before you finish a
@@ -93,6 +94,16 @@ change. The Netlify deploy preview is the only external CI check.
   `^0\d{9}$` regex in a component.
 - `SiteView`, `WizardView` and `ComponentGallery` are lazy-loaded per route;
   keep new heavy screens behind `lazy()` so the marketing page stays small.
+- `npm run build` prerenders every route in `scripts/prerender.ts` and the
+  client hydrates it. Anything that reads `window`, `matchMedia` or
+  randomness during the first render will break hydration — start from a
+  stable fallback and correct it in an effect (`useMediaQuery` is the model).
+- Measure conversions with `track()` from `utils/analytics.ts` instead of
+  console logs or ad-hoc globals.
+- Palette colours must keep their contrast guarantees: change colours in
+  `computePalette`/`sector` data and let `withAccessibleContrast` (plus
+  `data/paletteContrast.test.ts`) validate them. Never hard-code `#fff` text
+  on an accent; use `site.onAccent`.
 - The mobile sticky contact bar overlays the bottom of `SiteView`; the
   page root carries `pb-20 sm:pb-0` — preserve that spacing when adding
   full-width sections.

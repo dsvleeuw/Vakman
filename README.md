@@ -38,6 +38,15 @@ calculator, portfolio, reviews, booking and contact flows.
   component modules, including ten new reusable trust and conversion
   components. Open **Componenten** in the main navigation or visit
   `/componenten` (`ComponentGallery`, `components/extras/`).
+- **Prerendered and hydrating** — the build renders the homepage and all 35
+  presets to real HTML with per-page titles, canonical and Open Graph tags,
+  then hydrates them in the browser. `sitemap.xml`, `robots.txt` and an
+  `og-image.png` are generated too.
+- **Measurable funnel** — step views, step completions, plan picks, preset
+  opens, WhatsApp/phone clicks and appointment requests are emitted through
+  a vendor-free `track()` helper (GTM `dataLayer` / GA4 `gtag`).
+- **Accessible palettes** — every generated colour scheme is checked against
+  WCAG AA (7 trades × 5 styles) by automatic contrast maths and tests.
 - **Real URLs everywhere** — the marketing page, every generated preset
   (`/voorbeeld/loodgieter/krachtig`), every wizard step
   (`/start/gegevens`), the confirmation screen and each library component
@@ -55,7 +64,7 @@ Firebase Auth for the Google integrations. Package manager is
 ```bash
 bun install
 bun run dev      # start the dev server
-bun run build    # production build to dist/
+bun run build    # production build + prerender + sitemap to dist/
 bun run lint     # tsc --noEmit type check
 bun test         # unit tests (node:test runner via bun)
 ```
@@ -80,6 +89,10 @@ bun test         # unit tests (node:test runner via bun)
 src/
 ├── App.tsx                  # Route switch: home / demo site / wizard / library / 404
 ├── utils/router.ts          # URL parsing, building, titles and legacy redirects
+├── utils/color.ts           # OKLCH↔sRGB and WCAG contrast (palette contract)
+├── utils/analytics.ts       # vendor-free funnel events
+├── entry-server.tsx         # build-time prerender entry (never shipped)
+├── scripts/prerender.ts     # renders routes, writes sitemap.xml/robots.txt
 ├── hooks/                   # useRouter, useRouteMeta, useMediaQuery
 ├── data/tradesData.ts       # All sector content, styles, palettes, photos
 ├── data/plans.ts            # The three one-off platform packages
