@@ -74,6 +74,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Formuliervelden op mobiel minimaal 16px (`text-base`)** in `ContactSection`,
+  `FaultReportForm`, `BookingCalendar`, `SurfaceCalculator`, de Google
+  Agenda-checkbox in `WizardView` en de zoekinput in `ComponentGallery`, zodat
+  iOS Safari niet automatisch inzoomt bij focus.
+- **iOS safe-area-insets en `viewport-fit=cover`:** toegevoegd aan `index.html`,
+  de vaste/sticky mobiele onderbalken (inclusief onderpadding van de pagina) en
+  de sticky bovenbalken in `Header`, `SiteView` en `WizardView`.
+- **Wizard vult stap 3 (`/start/gegevens`) niet langer vooraf met nepgegevens:**
+  velden starten leeg (placeholders blijven zichtbaar), het live voorbeeld valt
+  terug op sectordefaults, lege invoer wordt afgekeurd en getypte gegevens
+  blijven behouden bij wisselen van vakgebied.
+- **Wizard op mobiel/tablet:** richtingneutrale copy (geen verwijzing meer naar
+  "rechts"), stapnaam direct in de kicker (`STAP 3 VAN 5 · GEGEVENS`), geen
+  voorgeselecteerd vak op een verse `/start/vak` en alle interactieve knoppen/
+  stappills op minimaal 40×40–44×44 px.
+- **Tikvlakken in `SiteView` en `Header`:** `"← Alle presets"`, `"Aanpassen"`,
+  navigatielinks en het telefoonnummer in de storingsmelder verhoogd naar
+  minimaal 44 px hoogte.
 - `html lang` stond op `en` terwijl alle copy Nederlands is.
 - FAQ-kicker "FAQ & HEBDEN" → "Goed om te weten".
 - Contactformulierlabels waren niet gekoppeld aan hun inputs; nu wel, met

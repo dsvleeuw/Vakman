@@ -106,3 +106,54 @@ Nothing from the earlier list is left; these are genuinely new and smaller:
   `appointment_requested` reach `window.dataLayer`; scroll offset 640 px is
   restored after back; the mobile preview bar offers "Aanpassen".
 - Contrast is enforced by unit tests for every generated palette.
+
+## Part 4 — mobiel & iOS (Batch 1)
+
+Uitgevoerde quick-wins voor mobiele schermen en iOS Safari:
+
+1. **Geen iOS auto-zoom op formulieren (`font-size >= 16px`):** alle invoervelden
+   (`input`, `select`, `textarea`) in `ContactSection`, `FaultReportForm`,
+   `BookingCalendar`, `SurfaceCalculator`, `WizardView` en `ComponentGallery`
+   staan nu op minimaal `16px` (`text-base`).
+2. **Safe-area ondersteuning (`viewport-fit=cover` + `env(safe-area-inset-*)`):**
+   toegevoegd in `index.html`, op de vaste/sticky onderbalken in `SiteView` en
+   `WizardView` (`pb-[calc(0.75rem+env(safe-area-inset-bottom))]`), op de
+   bijbehorende pagina-onderpadding en op de sticky bovenbalken die tegen de
+   bovenrand rusten (`Header`, previewbalk in `SiteView`, wizard-header).
+3. **Geen vooringevulde nepgegevens meer in de wizard (`/start/gegevens`):**
+   `formData` start met lege strings terwijl placeholders (`bijv. …`) blijven
+   staan, de live preview valt terug op sectordefaults (`buildActiveSite`),
+   lege velden blokkeren `"Volgende stap"` met foutmeldingen en getypte invoer
+   blijft bewaard wanneer de gebruiker op stap 1 van vak wisselt.
+4. **Mobiele wizard-copy, stapnamen en tikvlakken:** verwijzingen naar *"rechts"*
+   zijn richtingneutraal gemaakt, elke stap toont `STAP X VAN 5 · <NAAM>`, een
+   verse `/start/vak` toont geen voorgeselecteerd vak zolang de bezoeker nog
+   niets koos, en knoppen zoals `"← Alle presets"` en `"Aanpassen"` hebben
+   minimaal 40×40–44×44 px tikvlak.
+
+### Gemeten voor/na-waarden (headless Chromium op 360×780, 390×844 en 768×1024)
+
+| Pagina (360×780) | `docW === vw` (voor → na) | `inputsUnder16` (voor → na) | `smallTargets` (voor → na) | `height` (voor → na) |
+|---|---|---|---|---|
+| `/` | `360 === 360` → `360 === 360` | `0` → `0` | `1` (`K Klusbaas 131×36`) → **`0`** | `9.743` → `9.743` |
+| `/start/vak` | `360 === 360` → `360 === 360` | `0` → `0` | `6` (logo + 5 pills `28×28`) → **`0`** | `1.168` → `1.172` |
+| `/start/gegevens` | `360 === 360` → `360 === 360` | `0` → `0` | `8` (logo, pills, chips `32px`) → **`0`** | `980` → `1.048` |
+| `/start/afspraak` | `360 === 360` → `360 === 360` | `1` (`checkbox`) → **`0`** | `9` → **`0`** | `1.814` → `1.882` |
+| `/voorbeeld/loodgieter/krachtig` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` (`← Alle presets 107×32`, `Aanpassen 91×32`) → **`0`** | `14.189` → `14.225` |
+| `/voorbeeld/elektricien/modern` | `360 === 360` → `360 === 360` | `14` → **`0`** | `3` → **`0`** | `14.003` → `14.069` |
+| `/voorbeeld/schilder/klassiek` | `360 === 360` → `360 === 360` | `12` → **`0`** | `2` → **`0`** | `14.383` → `14.419` |
+| `/voorbeeld/hovenier/donker` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` → **`0`** | `13.096` → `13.132` |
+| `/voorbeeld/timmerman/minimaal` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` → **`0`** | `14.727` → `14.763` |
+
+Op **390×844** en **768×1024** geven alle 9 pagina's eveneens `docW === vw`,
+`inputsUnder16: []` en `smallTargets: []` (op 768×1024 daalde `smallTargets` op
+de demosites van `19` naar `0`).
+
+### Nog niet getest / vervolgstappen
+
+- **Niet getest op fysieke toestellen:** echte iPhone/Safari (`safe-area-inset-*`
+  rond notch/home-indicator en daadwerkelijk wegblijven van iOS auto-zoom) en
+  echte Android-Chrome; headless Chromium-emulatie dekt dat niet.
+- **Open voor vervolgbatches:** Batch 2 (paginalengte `< 8.000px` op 360px,
+  wegschuivende previewbalk, hero-hiërarchie) en Batch 3 (tablet 2-koloms
+  wizard, tekst `< 12px`, uitgesteld/zelfgehost laden van stijlfonts).
