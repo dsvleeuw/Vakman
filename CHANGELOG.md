@@ -34,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   testinbox, met `[TEST → echt adres]` in het onderwerp en een gele balk in
   de mail. Zo zijn alle mails te controleren zolang er geen geverifieerd
   domein is. Leeg laten in productie.
+- De offerte-PDF gaat als `application/pdf` mee met de mail aan beide
+  kanten. De link "Bekijk de offerte online" wijst naar `PUBLIC_SITE_URL`,
+  standaard de Netlify-site (`https://vakmanschap.netlify.app`).
 - Zonder `RESEND_API_KEY` draait alles in previewmodus: mails komen in de
   serverlog en de bevestiging zegt eerlijk dat er niets is gemaild.
 

@@ -21,8 +21,9 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
     },
     leads: await createBlobStore('leads'),
     quotes: await createBlobStore('quotes'),
-    // Netlify sets URL to the site's main address; APP_URL can override it.
-    siteUrl: process.env.APP_URL?.startsWith('http') ? process.env.APP_URL : process.env.URL,
+    // Quote links in mails: PUBLIC_SITE_URL, else the site's main address
+    // (Netlify's URL, also on deploy previews, where quotes live in the same store).
+    siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || 'https://vakmanschap.netlify.app',
     clientKey: context.ip,
   });
   return Response.json(result.body, { status: result.status });

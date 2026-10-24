@@ -83,6 +83,7 @@ test('handleLead mails the team and the customer via Resend', async () => {
   assert.ok(quotes.data.get('KB-2027-0001.pdf') instanceof Uint8Array);
   for (const call of calls) {
     assert.equal(call.attachments?.[0].filename, 'Offerte-KB-2027-0001.pdf');
+    assert.equal((call.attachments?.[0] as { content_type?: string }).content_type, 'application/pdf');
     assert.ok(Buffer.from(call.attachments![0].content, 'base64').subarray(0, 5).toString() === '%PDF-');
     assert.ok(call.text.includes(`https://klusbaas.test${result.body.quoteUrl}`));
   }

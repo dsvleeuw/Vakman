@@ -96,7 +96,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
       reference = created.record.number;
       quote = created.record.document;
       quoteUrl = quoteViewPath(created.record.number, created.record.token);
-      attachments = [{ filename: created.filename, content: created.pdf }];
+      attachments = [{ filename: created.filename, content: created.pdf, contentType: 'application/pdf' }];
     } catch (error) {
       log(`[lead] offerte opslaan mislukt: ${error instanceof Error ? error.message : String(error)}`);
       return { status: 500, body: { ok: false, error: 'Opslaan is niet gelukt. Probeer het opnieuw of stuur ons een WhatsApp.' } };

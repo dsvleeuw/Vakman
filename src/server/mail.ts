@@ -47,6 +47,8 @@ export interface MailAttachment {
   filename: string;
   /** Raw bytes; base64-encoded for Resend. */
   content: Uint8Array;
+  /** MIME type, so mail clients show e.g. a PDF preview. */
+  contentType?: string;
 }
 
 export interface OutgoingMail {
@@ -100,6 +102,7 @@ export async function sendMail(
               attachments: mail.attachments.map((file) => ({
                 filename: file.filename,
                 content: toBase64(file.content),
+                ...(file.contentType ? { content_type: file.contentType } : {}),
               })),
             }
           : {}),

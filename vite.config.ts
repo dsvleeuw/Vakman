@@ -33,7 +33,7 @@ function apiDevServer(env: Record<string, string>): Plugin {
           env,
           leads: createFileStore(path.resolve(__dirname, '.data/leads')),
           quotes: createFileStore(path.resolve(__dirname, '.data/quotes')),
-          siteUrl: `http://${req.headers.host ?? 'localhost:3000'}`,
+          siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
           clientKey: req.socket.remoteAddress,
         });
         reply(result.status, result.body);
