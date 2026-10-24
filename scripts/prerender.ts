@@ -110,7 +110,11 @@ async function main() {
     .replace(/\s*<meta property="og:type"[^>]*>/, '')
     .replace(/\s*<meta name="twitter:card"[^>]*>/, '')
     .replace(/\s*<meta name="twitter:title"[^>]*>/, '')
-    .replace(/\s*<meta name="twitter:description"[^>]*>/, '');
+    .replace(/\s*<meta name="twitter:description"[^>]*>/, '')
+    // The image tags are regenerated per route below, so the static ones from
+    // the Vite shell must go too — otherwise every page ships them twice.
+    .replace(/\s*<meta property="og:image"[^>]*>/, '')
+    .replace(/\s*<meta name="twitter:image"[^>]*>/, '');
 
   const routes = routesToPrerender();
   let written = 0;
@@ -159,6 +163,7 @@ async function main() {
       '# not search results: the presets themselves are indexable.',
       'Disallow: /start/',
       'Disallow: /offerte/',
+      'Disallow: /kaart',
       '',
       `Sitemap: ${siteUrl}/sitemap.xml`,
       '',

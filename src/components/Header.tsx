@@ -3,12 +3,16 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 import type { SectorId } from '../types';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
+import { SECTORS, STYLES } from '../data/tradesData';
 
 interface HeaderProps {
   scrolled?: boolean;
   /** Keeps the preset deep link on the same trade the visitor is viewing. */
   currentSector?: SectorId;
 }
+
+/** Number of generated presets: every trade in every style. */
+const PRESET_COUNT = Object.keys(SECTORS).length * STYLES.length;
 
 export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -80,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
           hash="presets"
           className="min-h-11 inline-flex items-center hover:text-stone-900 transition-colors whitespace-nowrap shrink-0 no-underline"
         >
-          Alle 30 presets
+          Alle {PRESET_COUNT} presets
         </RouteLink>
         <a
           href="#hoe-het-werkt"
@@ -146,7 +150,7 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, currentSector }) => {
                 onClick={closeMenu}
                 className="h-12 flex items-center border-b border-stone-200/80 hover:text-stone-900 transition-colors no-underline text-stone-700"
               >
-                Alle 30 presets
+                Alle {PRESET_COUNT} presets
               </RouteLink>
               <a
                 href="#hoe-het-werkt"
