@@ -51,6 +51,10 @@ may belong to real people, so a site never links to them.
    "Dit is een demo — zo komen klanten bij jou binnen" with a button to
    `/start/gegevens`.
 
+The wizard's confirmation screen sends the quote to Klusbaas over the same
+number (`getPlatformWhatsApp()` in `data/platform.ts`); without
+`VITE_DEMO_PHONE` it only offers e-mail.
+
 New contact buttons must use `buildSiteTelUrl(site.contactPhone)` /
 `buildSiteWhatsAppUrl(site.contactPhone, …)`, never `site.phone`.
 

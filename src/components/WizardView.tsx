@@ -18,7 +18,7 @@ import {
 } from '../data/tradesData';
 import { formatPrice, validateWizardForm } from '../utils/pricing';
 import { getPlan } from '../data/plans';
-import { PLATFORM_CONTACT } from '../data/platform';
+import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
 import {
   buildMailtoUrl,
   buildQuoteRequestMessage,
@@ -312,6 +312,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const showPreview = isDesktop || previewOpen;
   const selectedPlan = getPlan(plan);
 
+  // No VITE_DEMO_PHONE means no safe WhatsApp number: fall back to e-mail.
+  const platformWhatsApp = getPlatformWhatsApp();
   const quoteMessage = buildQuoteRequestMessage({
     bizName: formData.biz.trim() || baseSector.biz,
     owner: formData.owner.trim() || baseSector.owner,
@@ -949,9 +951,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   Stuur je gegevens alvast mee
                 </span>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  {(channel === 'WhatsApp' || channel === 'Allebei') && (
+                  {platformWhatsApp && (channel === 'WhatsApp' || channel === 'Allebei') && (
                     <a
-                      href={buildWhatsAppUrl(PLATFORM_CONTACT.whatsapp, quoteMessage)}
+                      href={buildWhatsAppUrl(platformWhatsApp, quoteMessage)}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => track('whatsapp_click', { source: 'wizard-confirmation' })}
@@ -960,7 +962,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       Via WhatsApp
                     </a>
                   )}
-                  {(channel === 'E-mail' || channel === 'Allebei') && (
+                  {(channel === 'E-mail' || channel === 'Allebei' || !platformWhatsApp) && (
                     <a
                       href={buildMailtoUrl(
                         PLATFORM_CONTACT.email,

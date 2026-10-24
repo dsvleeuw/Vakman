@@ -89,6 +89,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   "Dit is een demo — zo komen klanten bij jou binnen" met een knop naar de
   wizard. De verzonnen voorbeeldnummers uit `tradesData.ts` staan nergens
   meer in een link.
+- **Ook de wizard stuurt offertes niet meer naar een verzonnen nummer.**
+  `PLATFORM_CONTACT.whatsapp` (`+31 6 12345678`) is vervangen door
+  `getPlatformWhatsApp()`, dat hetzelfde `VITE_DEMO_PHONE` gebruikt. Zonder
+  dat nummer toont het bevestigingsscherm alleen de e-mailknop.
 - **Formuliervelden op mobiel minimaal 16px (`text-base`)** in `ContactSection`,
   `FaultReportForm`, `BookingCalendar`, `SurfaceCalculator`, de Google
   Agenda-checkbox in `WizardView` en de zoekinput in `ComponentGallery`, zodat
