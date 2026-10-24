@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { PlugZap, MessageCircle, CheckCircle2, Send } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
@@ -39,6 +39,7 @@ interface FaultReportFormProps {
  * WhatsApp message so the electrician receives every detail in one tap.
  */
 export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
+  const id = useId();
   const [form, setForm] = useState<FaultReportInput>({
     name: '',
     phone: '',
@@ -66,6 +67,10 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
     }
     if (!form.address.trim()) errs.address = 'Vul het adres van de storing in';
     setErrors(errs);
+    const firstInvalid = (['name', 'phone', 'address'] as const).find((field) => errs[field]);
+    if (firstInvalid) {
+      document.getElementById(`${id}-${firstInvalid}`)?.focus();
+    }
     return Object.keys(errs).length === 0;
   };
 
@@ -176,12 +181,13 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                 href={waUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="h-14 px-8 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+                className="h-14 px-8 rounded-full bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-base flex items-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
               >
-                <MessageCircle className="w-5 h-5" />
+                <MessageCircle className="w-5 h-5" aria-hidden="true" />
                 Ook via WhatsApp sturen
               </a>
               <button
+                type="button"
                 onClick={() => {
                   setWaUrl(null);
                   lead.reset();
@@ -196,35 +202,54 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
               <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label htmlFor={`${id}-name`} className="block text-xs font-bold text-stone-700 mb-1">
                     Je naam *
                   </label>
                   <input
+                    id={`${id}-name`}
                     type="text"
+                    autoComplete="name"
+                    aria-required="true"
+                    aria-invalid={Boolean(errors.name)}
+                    aria-describedby={errors.name ? `${id}-name-error` : undefined}
                     value={form.name}
                     onChange={(e) => update('name', e.target.value)}
                     placeholder="bijv. Erik Jansen"
                     className={inputClass(errors.name)}
                   />
                   {errors.name && (
-                    <span className="text-xs text-rose-600 font-bold block mt-1">
+                    <span
+                      id={`${id}-name-error`}
+                      role="alert"
+                      className="text-xs text-rose-600 font-bold block mt-1"
+                    >
                       {errors.name}
                     </span>
                   )}
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label htmlFor={`${id}-phone`} className="block text-xs font-bold text-stone-700 mb-1">
                     Telefoonnummer *
                   </label>
                   <input
+                    id={`${id}-phone`}
                     type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    aria-required="true"
+                    aria-invalid={Boolean(errors.phone)}
+                    aria-describedby={errors.phone ? `${id}-phone-error` : undefined}
                     value={form.phone}
                     onChange={(e) => update('phone', e.target.value)}
                     placeholder="06 12 34 56 78"
                     className={inputClass(errors.phone)}
                   />
                   {errors.phone && (
-                    <span className="text-xs text-rose-600 font-bold block mt-1">
+                    <span
+                      id={`${id}-phone-error`}
+                      role="alert"
+                      className="text-xs text-rose-600 font-bold block mt-1"
+                    >
                       {errors.phone}
                     </span>
                   )}
@@ -232,18 +257,27 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">
+                <label htmlFor={`${id}-address`} className="block text-xs font-bold text-stone-700 mb-1">
                   Adres van de storing *
                 </label>
                 <input
+                  id={`${id}-address`}
                   type="text"
+                  autoComplete="street-address"
+                  aria-required="true"
+                  aria-invalid={Boolean(errors.address)}
+                  aria-describedby={errors.address ? `${id}-address-error` : undefined}
                   value={form.address}
                   onChange={(e) => update('address', e.target.value)}
                   placeholder="Straat, huisnummer en plaats"
                   className={inputClass(errors.address)}
                 />
                 {errors.address && (
-                  <span className="text-xs text-rose-600 font-bold block mt-1">
+                  <span
+                    id={`${id}-address-error`}
+                    role="alert"
+                    className="text-xs text-rose-600 font-bold block mt-1"
+                  >
                     {errors.address}
                   </span>
                 )}
@@ -251,10 +285,14 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label
+                    htmlFor={`${id}-fault-type`}
+                    className="block text-xs font-bold text-stone-700 mb-1"
+                  >
                     Wat is er aan de hand?
                   </label>
                   <select
+                    id={`${id}-fault-type`}
                     value={form.faultType}
                     onChange={(e) => update('faultType', e.target.value)}
                     className={inputClass()}
@@ -267,10 +305,11 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label htmlFor={`${id}-since`} className="block text-xs font-bold text-stone-700 mb-1">
                     Sinds wanneer?
                   </label>
                   <select
+                    id={`${id}-since`}
                     value={form.since}
                     onChange={(e) => update('since', e.target.value)}
                     className={inputClass()}
@@ -285,16 +324,17 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">
+                <span id={`${id}-urgency`} className="block text-xs font-bold text-stone-700 mb-1">
                   Urgentie
-                </label>
-                <div className="flex flex-wrap gap-2">
+                </span>
+                <div role="group" aria-labelledby={`${id}-urgency`} className="flex flex-wrap gap-2">
                   {URGENCY_OPTIONS.map((u) => {
                     const isSelected = form.urgency === u;
                     return (
                       <button
                         type="button"
                         key={u}
+                        aria-pressed={isSelected}
                         onClick={() => update('urgency', u)}
                         className={`h-10 px-4 rounded-full border-2 text-xs sm:text-sm font-bold cursor-pointer transition-all ${
                           isSelected
@@ -310,10 +350,11 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">
+                <label htmlFor={`${id}-details`} className="block text-xs font-bold text-stone-700 mb-1">
                   Extra informatie (optioneel)
                 </label>
                 <textarea
+                  id={`${id}-details`}
                   value={form.details}
                   onChange={(e) => update('details', e.target.value)}
                   rows={3}
@@ -333,7 +374,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                 <Send className="w-5 h-5" />
                 {lead.status === 'sending' ? 'Versturen…' : 'Verstuur storingsmelding'}
               </button>
-                <PrivacyNote className="text-stone-500 text-center" />
+              <PrivacyNote className="text-stone-500 text-center" />
             </form>
           )}
         </div>

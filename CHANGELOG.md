@@ -130,6 +130,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Toegankelijke formulieren en demo-dialoog.** Storingsformulier en
+  m²-calculator: elk veld een gekoppeld label, foutmeldingen via
+  `aria-describedby`/`aria-invalid`, randen 3:1 en leesbare WhatsApp-knoppen.
+  De demo-contactdialoog houdt de focus vast, sluit met Escape en geeft de focus
+  terug aan de knop die hem opende. De kaarten in de beeldstrip op de homepage
+  zijn echte links naar `/voorbeeld/:vak/:stijl`.
 - **Wizard-eindjes (D2).** `/start/vak` gaat niet verder zonder gekozen vak en
   toont een hint; afspraakdatums slaan zaterdag en zondag over (lokale datum, niet
   UTC); de pakketregel en -chip tonen ook het standaardpakket; 'Offerte

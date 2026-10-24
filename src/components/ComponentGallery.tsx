@@ -190,7 +190,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
       case 'header':
         return <Header />;
       case 'hero-strip':
-        return <HeroStrip onSelectSector={setDemoSector} />;
+        return <HeroStrip />;
       case 'presets-section':
         return (
           <PresetsSection
