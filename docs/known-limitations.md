@@ -78,9 +78,10 @@ to [ROADMAP.md](../ROADMAP.md).
 
 - `npm install` fails with an `ERESOLVE` conflict (Vite 8 vs. pinned
   esbuild); use Bun, which is the committed package manager.
-- Only pure utilities have unit tests. There are no component or
-  end-to-end tests and no in-repo CI workflow; deploy checks come from
-  Netlify (roadmap 5.1/5.4).
+- Only pure utilities have unit tests. There are Playwright e2e tests
+  (`e2e/`) and a GitHub Actions CI workflow (`.github/workflows/check.yml`)
+  that runs lint, typecheck, unit tests, build and the Playwright suite
+  against the prerendered `dist` on two viewports.
 - Routing is client-side, but the build prerenders the homepage and all 35
   presets to real HTML (roadmap 4.2/4.3 ✔). The wizard, the component
   library and the 404 are still client-rendered only — they are `noindex`

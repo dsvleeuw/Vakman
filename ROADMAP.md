@@ -61,10 +61,10 @@ Required before paid customers can rely on the product.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 5.1 | Component tests and end-to-end tests (Playwright) | M | Only pure utils are tested today; the SSR smoke approach is documented in [AGENTS.md](./AGENTS.md). |
+| 5.1 | Component tests and end-to-end tests (Playwright) | M | Only pure utils are tested today; the SSR smoke approach is documented in [AGENTS.md](./AGENTS.md). Playwright e2e tests exist in `e2e/` and run in GitHub Actions CI. |
 | 5.2 | Accessibility audit (focus states, contrast, screen-reader labels) | M | Forms have basic labels and ARIA attributes but have not been audited. |
 | 5.3 | Replace Unsplash placeholders with licensed trade photography | M | Stock photos repeat across presets and weaken the "premium design" claim. |
-| 5.4 | CI workflow (lint, test, build) in the repository | S | Checks currently come from the external Netlify integration only. |
+| 5.4 | ~~CI workflow (lint, test, build) in the repository~~ Done: `.github/workflows/check.yml` runs on push/PR | S | Checks previously came from the external Netlify integration only. |
 | 5.5 | Internationalisation setup if Belgium/Flanders is a target market | L | All copy is hard-coded Dutch; the competitor scan included a Belgian provider. |
 
 ## Decision log

@@ -15,10 +15,12 @@ let firebaseConfig: Record<string, string> = {
   projectId: 'gen-lang-client-0169081330',
 };
 
+// Load config via Vite-compatible ESM import
 try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const config = require('../../firebase-applet-config.json');
-  if (config) firebaseConfig = config;
+  const config = await import('../../firebase-applet-config.json', { with: { type: 'json' } });
+  if (config && config.default) {
+    firebaseConfig = config.default;
+  }
 } catch {
   // Use default fallback
 }
@@ -77,7 +79,7 @@ export const logoutGoogle = async () => {
  * Check if Google integration is properly configured (not using the fake local key).
  */
 export function isGoogleConfigured(): boolean {
-  return firebaseConfig.apiKey !== 'fake-key-for-local';
+  return Boolean(firebaseConfig.apiKey) && firebaseConfig.apiKey !== 'fake-key-for-local';
 }
 
 export interface CalendarEventPayload {

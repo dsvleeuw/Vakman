@@ -64,13 +64,13 @@ baseline rather than a unique claim.
 
 | Concern | Location |
 |---------|----------|
-| Platform package prices and service fee | `PricingSection.tsx` constants |
+| Platform package prices and service fee | `src/data/plans.ts` (`PLANS` array) |
 | Platform pricing FAQ answers | `FaqSection.tsx` (`DEFAULT_FAQS`) |
 | Customer-facing service prices (e.g. "€ 18 per m²") | `SECTORS[*].services` in `src/data/tradesData.ts` |
 | Quiz-based estimate logic | `src/utils/pricing.ts` (`calculateEstimate`) |
 | m² estimate logic | `src/utils/surface.ts` |
 
-When changing a platform price, update the component **and** the FAQ
+When changing a platform price, update `src/data/plans.ts` **and** the FAQ
 answer in the same commit, and add a `Changed` entry to `CHANGELOG.md`.
 
 ## Open commercial questions

@@ -8,7 +8,7 @@ calculator, portfolio, reviews, booking and contact flows.
 
 ## Features
 
-- **30 presets** — 6 trades × 5 design styles, each with its own palette,
+- **35 presets** — 7 trades × 5 design styles, each with its own palette,
   typography, layout and photo set (`src/data/tradesData.ts`).
 - **Interactive price calculator** — a per-trade step quiz that produces a
   live euro estimate (`PriceCalculator`, `utils/pricing.ts`).

@@ -2,11 +2,14 @@ import React from 'react';
 import { ArrowRight, Compass, Home } from 'lucide-react';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
+import { ORDER, STYLES } from '../data/tradesData';
 
 interface NotFoundViewProps {
   path: string;
   onGoHome: () => void;
 }
+
+const PRESET_COUNT = ORDER.length * STYLES.length;
 
 /**
  * Real 404 page instead of a blank screen. Every link here is a normal URL,
@@ -68,7 +71,7 @@ export const NotFoundView: React.FC<NotFoundViewProps> = ({ path, onGoHome }) =>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold text-stone-600">
         <RouteLink route={{ name: 'home' }} hash="presets" className="hover:text-stone-900 underline underline-offset-4">
-          Alle 30 presets
+          Alle {PRESET_COUNT} presets
         </RouteLink>
         <RouteLink route={{ name: 'components' }} className="hover:text-stone-900 underline underline-offset-4">
           Componenten

@@ -98,9 +98,10 @@ test('buildNextDates returns exactly count weekdays skipping weekends', () => {
 });
 
 test('buildNextDates returns 14 dates by default', () => {
-  const from = new Date('2026-10-26T00:00:00');
-  const dates = buildNextDates(14, from);
+  const from = new Date('2026-10-30T00:00:00');
+  const dates = buildNextDates(undefined, from);
   assert.equal(dates.length, 14);
+  assert.equal(dates[0].iso, '2026-11-02');
 });
 
 test('buildNextDates skips Saturday and Sunday', () => {

@@ -19,3 +19,7 @@ leads/*.xlsx
 public/kaart/leads.json
 # Local quotes and leads written by the dev API (vite dev)
 .data/
+
+# Playwright artifacts
+test-results/
+playwright-report/
