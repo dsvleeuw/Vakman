@@ -4,6 +4,14 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Keyboard users always get a visible focus indicator, also on elements
+     that only have inline palette styles. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 3px solid oklch(0.62 0.16 65);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
   body {
     margin: 0;
     background: oklch(0.965 0.008 80);
@@ -58,4 +66,29 @@
 
 .animate-fade-in {
   animation: fadeIn 0.35s ease-out both;
+}
+
+
+/* Respect the OS-level motion preference: no marquee, no pulsing badge and
+   no scroll animation for people who get motion sick. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee,
+  .animate-marquee-slow,
+  .pulse-glow,
+  .animate-fade-in {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -41,6 +41,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
       errs.message = 'Omschrijf je klus in minimaal 10 tekens';
     }
     setErrors(errs);
+    const firstInvalid = ['name', 'phone', 'message'].find((field) => errs[field]);
+    if (firstInvalid) {
+      document.getElementById(`contact-${firstInvalid}`)?.focus();
+    }
     return Object.keys(errs).length === 0;
   };
 
@@ -168,11 +172,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label htmlFor="contact-name" className="block text-xs font-bold text-stone-700 mb-1">
                       Je naam *
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
+                      autoComplete="name"
+                      aria-required="true"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? 'contact-name-error' : undefined}
                       value={name}
                       onChange={(e) => {
                         setName(e.target.value);
@@ -182,17 +191,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                       className={inputClass(errors.name)}
                     />
                     {errors.name && (
-                      <span className="text-xs text-rose-600 font-bold block mt-1">
+                      <span id="contact-name-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
                         {errors.name}
                       </span>
                     )}
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
+                    <label htmlFor="contact-phone" className="block text-xs font-bold text-stone-700 mb-1">
                       Telefoonnummer *
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
+                      inputMode="tel"
+                      autoComplete="tel"
+                      aria-required="true"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? 'contact-phone-error' : undefined}
                       value={phone}
                       onChange={(e) => {
                         setPhone(e.target.value);
@@ -202,17 +217,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                       className={inputClass(errors.phone)}
                     />
                     {errors.phone && (
-                      <span className="text-xs text-rose-600 font-bold block mt-1">
+                      <span id="contact-phone-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
                         {errors.phone}
                       </span>
                     )}
                   </div>
                 </div>
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                  <label htmlFor="contact-message" className="block text-xs font-bold text-stone-700 mb-1">
                     Waar kunnen we je mee helpen? *
                   </label>
                   <textarea
+                    id="contact-message"
+                    aria-required="true"
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
                     value={message}
                     onChange={(e) => {
                       setMessage(e.target.value);
@@ -225,7 +244,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     }`}
                   />
                   {errors.message && (
-                    <span className="text-xs text-rose-600 font-bold block mt-1">
+                    <span id="contact-message-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
                       {errors.message}
                     </span>
                   )}

@@ -183,6 +183,18 @@ export interface WizardFormData {
   city: string;
 }
 
+/**
+ * Everything the wizard has collected so far. Kept in `App` (and mirrored in
+ * sessionStorage) so navigating to the site preview and back does not throw
+ * away what the user already typed.
+ */
+export interface WizardDraft {
+  sector: SectorId;
+  styleIndex: number;
+  form: WizardFormData | null;
+  disabledServices: Record<number, boolean>;
+}
+
 export interface PublishedSiteRecord {
   sector: SectorId;
   styleIndex: number;

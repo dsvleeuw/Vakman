@@ -16,6 +16,9 @@ export const HeroStrip: React.FC<HeroStripProps> = ({ onSelectSector }) => {
       <div className="animate-marquee-slow flex gap-4 w-max">
         {items.map((sectorId, idx) => {
           const sec = SECTORS[sectorId];
+          // The marquee is duplicated for a seamless loop; hide the copy from
+          // screen readers and the tab order so it is not announced twice.
+          const isDuplicate = idx >= ORDER.length;
           const pal = computePalette(sec, STYLES[0]);
           const photo = getUnsplashUrl(sec.pool[0], 600);
 
@@ -23,6 +26,8 @@ export const HeroStrip: React.FC<HeroStripProps> = ({ onSelectSector }) => {
             <button
               key={`${sectorId}-${idx}`}
               onClick={() => onSelectSector(sectorId)}
+              aria-hidden={isDuplicate || undefined}
+              tabIndex={isDuplicate ? -1 : undefined}
               className="group relative w-[240px] sm:w-[280px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shrink-0 bg-stone-200 border-0 p-0 cursor-pointer shadow-sm text-left transition-transform duration-300 hover:scale-[1.02]"
               aria-label={`Bekijk stijlen voor ${sec.name}`}
             >

@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import type { SectorId, WizardFormData, AppointmentBooking } from '../types';
+import React, { useState, useEffect, useRef } from 'react';
+import { Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import type {
+  SectorId,
+  WizardFormData,
+  WizardDraft,
+  AppointmentBooking,
+} from '../types';
 import type { User } from 'firebase/auth';
 import {
   ORDER,
@@ -23,43 +29,60 @@ import {
   TIME_SLOTS,
   type TimeSlot,
 } from '../utils/appointments';
+import { WIZARD_STEPS, WIZARD_STEP_LABELS, type WizardRouteStep } from '../utils/router';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import { ImageWithFallback } from './ImageWithFallback';
 import { SiteView } from './SiteView';
 
 interface WizardViewProps {
+  /** Controlled by the URL: /start/vak … /start/afspraak, /start/klaar */
+  step: WizardRouteStep;
+  onStepChange: (step: WizardRouteStep) => void;
   initialSector: SectorId;
   initialStyleIndex: number;
-  initialStep?: number;
+  initialForm?: WizardFormData | null;
+  initialDisabledServices?: Record<number, boolean>;
+  /** Mirrors the wizard state into the URL and session storage. */
+  onDraftChange?: (draft: WizardDraft) => void;
+  onSelectionChange?: (sector: SectorId, styleIndex: number) => void;
   onGoHome: () => void;
-  onGoStart: () => void;
   onViewPublishedSite: (sectorId: SectorId, styleIndex: number, form: WizardFormData) => void;
 }
 
+const FIELD_ORDER: (keyof WizardFormData)[] = ['biz', 'owner', 'phone', 'city'];
+
 export const WizardView: React.FC<WizardViewProps> = ({
+  step,
+  onStepChange,
   initialSector,
   initialStyleIndex,
-  initialStep = 0,
+  initialForm,
+  initialDisabledServices,
+  onDraftChange,
+  onSelectionChange,
   onGoHome,
-  onGoStart,
   onViewPublishedSite,
 }) => {
   const [sector, setSector] = useState<SectorId>(initialSector);
   const [styleIndex, setStyleIndex] = useState<number>(initialStyleIndex);
-  const [currentStep, setCurrentStep] = useState<number>(initialStep);
 
   const baseSector = SECTORS[sector];
 
-  const [formData, setFormData] = useState<WizardFormData>({
-    biz: baseSector.biz,
-    owner: baseSector.owner,
-    phone: baseSector.phone,
-    city: baseSector.city,
-  });
+  const [formData, setFormData] = useState<WizardFormData>(
+    () =>
+      initialForm ?? {
+        biz: SECTORS[initialSector].biz,
+        owner: SECTORS[initialSector].owner,
+        phone: SECTORS[initialSector].phone,
+        city: SECTORS[initialSector].city,
+      }
+  );
 
-  const [disabledServices, setDisabledServices] = useState<Record<number, boolean>>({});
+  const [disabledServices, setDisabledServices] = useState<Record<number, boolean>>(
+    initialDisabledServices ?? {}
+  );
   const [channel, setChannel] = useState<'WhatsApp' | 'E-mail' | 'Allebei'>('WhatsApp');
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isPublished, setIsPublished] = useState(false);
 
   // Appointment / quote request (final step)
   const [dates] = useState(() => buildNextDates());
@@ -76,6 +99,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  const currentStepIndex = WIZARD_STEPS.indexOf(step as (typeof WIZARD_STEPS)[number]);
+  const isPublished = step === 'klaar';
+  const visualStepIndex = isPublished ? WIZARD_STEPS.length : currentStepIndex;
+
   useEffect(() => {
     const unsubscribe = initAuthListener(
       (user, token) => {
@@ -90,15 +120,31 @@ export const WizardView: React.FC<WizardViewProps> = ({
     return () => unsubscribe();
   }, []);
 
-  // Sync default form values if sector changes and user hasn't heavily modified it
+  // Keep the URL and the saved draft in sync with what the visitor picked.
+  // Skip the first run so opening /start/vak does not immediately rewrite the
+  // URL with query params the visitor never chose.
+  const hasNotifiedSelection = useRef(false);
+  useEffect(() => {
+    if (!hasNotifiedSelection.current) {
+      hasNotifiedSelection.current = true;
+      return;
+    }
+    onSelectionChange?.(sector, styleIndex);
+  }, [sector, styleIndex, onSelectionChange]);
+
+  useEffect(() => {
+    onDraftChange?.({ sector, styleIndex, form: formData, disabledServices });
+  }, [sector, styleIndex, formData, disabledServices, onDraftChange]);
+
   const handleSelectSector = (secId: SectorId) => {
+    if (secId === sector) return;
+    const nextBase = SECTORS[secId];
     setSector(secId);
-    const newBase = SECTORS[secId];
     setFormData({
-      biz: newBase.biz,
-      owner: newBase.owner,
-      phone: newBase.phone,
-      city: newBase.city,
+      biz: nextBase.biz,
+      owner: nextBase.owner,
+      phone: nextBase.phone,
+      city: nextBase.city,
     });
     setDisabledServices({});
     setErrors({});
@@ -112,21 +158,26 @@ export const WizardView: React.FC<WizardViewProps> = ({
   };
 
   const handleNext = () => {
-    if (currentStep === 2) {
+    if (step === 'gegevens') {
       const formErrors = validateWizardForm(formData);
       if (Object.keys(formErrors).length > 0) {
         setErrors(formErrors);
+        const firstInvalid = FIELD_ORDER.find((field) => formErrors[field]);
+        if (firstInvalid) {
+          document.getElementById(`wizard-${firstInvalid}`)?.focus();
+        }
         return;
       }
     }
 
-    setCurrentStep((prev) => prev + 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (currentStepIndex < WIZARD_STEPS.length - 1) {
+      onStepChange(WIZARD_STEPS[currentStepIndex + 1]);
+    }
   };
 
   const handleBack = () => {
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+    if (currentStepIndex > 0) {
+      onStepChange(WIZARD_STEPS[currentStepIndex - 1]);
     }
   };
 
@@ -196,22 +247,21 @@ export const WizardView: React.FC<WizardViewProps> = ({
     }
 
     setBookingResult({ booking, calendarSynced, syncError });
-    setIsPublished(true);
     setIsBooking(false);
+    onStepChange('klaar');
   };
 
   const liveSite = buildActiveSite(sector, styleIndex, formData, disabledServices);
-
-  const stepsMeta = ['Vak', 'Stijl', 'Gegevens', 'Diensten', 'Afspraak'];
+  const showPreview = isDesktop || previewOpen;
 
   return (
-    <div className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
+    <div id="main-content" className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
       {/* Wizard Header with Step Progress */}
       <header className="bg-white border-b border-stone-200 px-4 sm:px-8 py-4 flex items-center justify-between gap-6 flex-wrap sticky top-0 z-20 shadow-sm">
         <button
           onClick={onGoHome}
           className="flex items-center gap-2.5 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
-          aria-label="Terug naar start"
+          aria-label="Terug naar de Klusbaas homepage"
         >
           <span className="w-8 h-8 rounded-xl bg-stone-900 text-white flex items-center justify-center font-black text-base">
             K
@@ -219,36 +269,52 @@ export const WizardView: React.FC<WizardViewProps> = ({
           <span className="text-xl font-extrabold tracking-tight">Klusbaas</span>
         </button>
 
-        {/* Step Bullets */}
-        <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
-          {stepsMeta.map((title, idx) => {
-            const isCompleted = idx < currentStep || isPublished;
-            const isCurrent = idx === currentStep && !isPublished;
+        {/* Step Bullets — clickable so people can jump back without losing data */}
+        <nav aria-label="Wizard voortgang">
+          <ol className="flex items-center gap-2 sm:gap-5 flex-wrap list-none m-0 p-0">
+            {WIZARD_STEPS.map((stepId, idx) => {
+              const isCompleted = idx < visualStepIndex;
+              const isCurrent = idx === visualStepIndex;
+              const canNavigate = idx < visualStepIndex && !isPublished;
 
-            return (
-              <div key={title} className="flex items-center gap-2">
-                <span
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                    isCurrent
-                      ? 'bg-stone-900 text-white ring-2 ring-stone-900 ring-offset-2'
-                      : isCompleted
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-stone-200 text-stone-600'
-                  }`}
-                >
-                  {isCompleted ? '✓' : idx + 1}
-                </span>
-                <span
-                  className={`text-xs sm:text-sm font-semibold hidden sm:inline ${
-                    isCurrent ? 'text-stone-900' : 'text-stone-500'
-                  }`}
-                >
-                  {title}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <li key={stepId} className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => canNavigate && onStepChange(stepId)}
+                    disabled={!canNavigate}
+                    aria-current={isCurrent ? 'step' : undefined}
+                    aria-label={`Stap ${idx + 1}: ${WIZARD_STEP_LABELS[stepId]}${
+                      isCompleted ? ' (voltooid)' : ''
+                    }`}
+                    className={`flex items-center gap-2 bg-transparent border-0 p-0 ${
+                      canNavigate ? 'cursor-pointer' : 'cursor-default'
+                    }`}
+                  >
+                    <span
+                      className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+                        isCurrent
+                          ? 'bg-stone-900 text-white ring-2 ring-stone-900 ring-offset-2'
+                          : isCompleted
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-stone-200 text-stone-600'
+                      }`}
+                    >
+                      {isCompleted ? '✓' : idx + 1}
+                    </span>
+                    <span
+                      className={`text-xs sm:text-sm font-semibold hidden sm:inline ${
+                        isCurrent ? 'text-stone-900' : 'text-stone-500'
+                      } ${canNavigate ? 'hover:text-stone-900' : ''}`}
+                    >
+                      {WIZARD_STEP_LABELS[stepId]}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
       </header>
 
       {/* Main Split Layout: Form on Left, Live Sticky Preview on Right */}
@@ -256,7 +322,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
         {/* Left Column: Form Steps */}
         <div className="lg:col-span-6 flex flex-col gap-6 max-w-xl">
           {/* STEP 1: Vak kiezen */}
-          {currentStep === 0 && (
+          {step === 'vak' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 1 VAN 5
@@ -279,6 +345,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     <button
                       key={secId}
                       onClick={() => handleSelectSector(secId)}
+                      aria-pressed={isSelected}
                       className={`relative aspect-square rounded-2xl overflow-hidden border-2 cursor-pointer p-0 shadow-sm transition-all hover:scale-[1.03] ${
                         isSelected
                           ? 'border-stone-900 ring-2 ring-stone-900 ring-offset-2 scale-[1.02]'
@@ -287,7 +354,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     >
                       <ImageWithFallback
                         src={thumb}
-                        alt={sec.name}
+                        alt=""
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
@@ -302,7 +369,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
           )}
 
           {/* STEP 2: Stijl kiezen */}
-          {currentStep === 1 && (
+          {step === 'stijl' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 2 VAN 5
@@ -322,6 +389,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     <button
                       key={st.id}
                       onClick={() => setStyleIndex(idx)}
+                      aria-pressed={isSelected}
                       className={`p-4 rounded-2xl border-2 bg-white text-left cursor-pointer flex items-center justify-between gap-4 transition-all ${
                         isSelected
                           ? 'border-stone-900 ring-2 ring-stone-900 ring-offset-1 shadow-sm'
@@ -332,15 +400,15 @@ export const WizardView: React.FC<WizardViewProps> = ({
                         <span className="font-mono text-xs font-bold text-stone-400">
                           0{idx + 1}
                         </span>
-                        <h3
-                          className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 m-0"
+                        <span
+                          className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 block"
                           style={{ fontFamily: st.display }}
                         >
                           {st.name}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-stone-500 m-0 line-clamp-1">
+                        </span>
+                        <span className="text-xs sm:text-sm text-stone-500 line-clamp-1">
                           {st.desc}
-                        </p>
+                        </span>
                       </div>
                       <span
                         className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shrink-0 ${
@@ -348,6 +416,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                             ? 'bg-stone-900 text-white'
                             : 'bg-stone-100 text-transparent'
                         }`}
+                        aria-hidden="true"
                       >
                         ✓
                       </span>
@@ -359,7 +428,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
           )}
 
           {/* STEP 3: Gegevens invoeren */}
-          {currentStep === 2 && (
+          {step === 'gegevens' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 3 VAN 5
@@ -374,90 +443,117 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="flex flex-col gap-4 pt-2">
                 <div>
-                  <label className="block text-sm font-bold text-stone-900 mb-1.5">
+                  <label htmlFor="wizard-biz" className="block text-sm font-bold text-stone-900 mb-1.5">
                     Bedrijfsnaam
                   </label>
                   <input
+                    id="wizard-biz"
                     type="text"
                     value={formData.biz}
                     onChange={(e) => handleFieldChange('biz', e.target.value)}
                     placeholder="bijv. Houtwerk De Vries"
+                    autoComplete="organization"
+                    aria-required="true"
+                    aria-invalid={!!errors.biz}
+                    aria-describedby={errors.biz ? 'wizard-biz-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
                       errors.biz ? 'border-rose-500' : 'border-stone-200'
                     }`}
                   />
                   {errors.biz && (
-                    <span className="text-xs font-bold text-rose-600 mt-1 block">
+                    <span id="wizard-biz-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
                       {errors.biz}
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-stone-900 mb-1.5">
+                  <label htmlFor="wizard-owner" className="block text-sm font-bold text-stone-900 mb-1.5">
                     Jouw voor- en achternaam
                   </label>
                   <input
+                    id="wizard-owner"
                     type="text"
                     value={formData.owner}
                     onChange={(e) => handleFieldChange('owner', e.target.value)}
                     placeholder="bijv. Jan de Vries"
+                    autoComplete="name"
+                    aria-required="true"
+                    aria-invalid={!!errors.owner}
+                    aria-describedby={errors.owner ? 'wizard-owner-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
                       errors.owner ? 'border-rose-500' : 'border-stone-200'
                     }`}
                   />
                   {errors.owner && (
-                    <span className="text-xs font-bold text-rose-600 mt-1 block">
+                    <span id="wizard-owner-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
                       {errors.owner}
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-stone-900 mb-1.5">
+                  <label htmlFor="wizard-phone" className="block text-sm font-bold text-stone-900 mb-1.5">
                     Telefoonnummer (voor offertes)
                   </label>
                   <input
+                    id="wizard-phone"
                     type="tel"
+                    inputMode="tel"
                     value={formData.phone}
                     onChange={(e) => handleFieldChange('phone', e.target.value)}
                     placeholder="06 12 34 56 78"
+                    autoComplete="tel"
+                    aria-required="true"
+                    aria-invalid={!!errors.phone}
+                    aria-describedby={errors.phone ? 'wizard-phone-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
                       errors.phone ? 'border-rose-500' : 'border-stone-200'
                     }`}
                   />
                   {errors.phone && (
-                    <span className="text-xs font-bold text-rose-600 mt-1 block">
+                    <span id="wizard-phone-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
                       {errors.phone}
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-stone-900 mb-1.5">
+                  <label htmlFor="wizard-city" className="block text-sm font-bold text-stone-900 mb-1.5">
                     Plaats / Standplaats
                   </label>
                   <input
+                    id="wizard-city"
                     type="text"
                     value={formData.city}
                     onChange={(e) => handleFieldChange('city', e.target.value)}
                     placeholder="bijv. Utrecht"
+                    autoComplete="address-level2"
+                    aria-required="true"
+                    aria-invalid={!!errors.city}
+                    aria-describedby={errors.city ? 'wizard-city-error' : undefined}
                     className={`w-full h-14 px-4 rounded-xl border-2 bg-white text-stone-900 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 ${
                       errors.city ? 'border-rose-500' : 'border-stone-200'
                     }`}
                   />
                   {errors.city && (
-                    <span className="text-xs font-bold text-rose-600 mt-1 block">
+                    <span id="wizard-city-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
                       {errors.city}
                     </span>
                   )}
                 </div>
+
+                <p className="flex items-start gap-2 text-xs text-stone-500 m-0">
+                  <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+                  We gebruiken deze gegevens alleen voor jouw demo-website. Je kunt ze
+                  later altijd aanpassen.
+                </p>
               </div>
             </div>
           )}
 
           {/* STEP 4: Diensten selecteren */}
-          {currentStep === 3 && (
+          {step === 'diensten' && (
             <div className="flex flex-col gap-5">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
                 STAP 4 VAN 5
@@ -483,6 +579,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                           [idx]: !prev[idx],
                         }));
                       }}
+                      aria-pressed={isEnabled}
                       className={`p-4 rounded-xl border-2 bg-white text-left cursor-pointer flex items-center justify-between gap-4 transition-all ${
                         isEnabled
                           ? 'border-stone-900 shadow-sm'
@@ -494,13 +591,14 @@ export const WizardView: React.FC<WizardViewProps> = ({
                           className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs ${
                             isEnabled ? 'bg-stone-900 text-white' : 'bg-stone-200'
                           }`}
+                          aria-hidden="true"
                         >
                           {isEnabled ? '✓' : ''}
                         </span>
                         <div>
-                          <h3 className="text-base font-bold text-stone-900 m-0">
+                          <span className="text-base font-bold text-stone-900 block">
                             {sv.n}
-                          </h3>
+                          </span>
                           <span className="text-xs text-stone-500">{sv.p}</span>
                         </div>
                       </div>
@@ -515,187 +613,188 @@ export const WizardView: React.FC<WizardViewProps> = ({
           )}
 
           {/* STEP 5: Afspraak & offerte aanvragen */}
-          {currentStep === 4 && (
+          {step === 'afspraak' && (
             <div className="flex flex-col gap-6">
-              {!isPublished ? (
-                <>
-                  <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                    STAP 5 VAN 5
+              <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
+                STAP 5 VAN 5
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
+                Plan je afspraak
+              </h1>
+              <p className="text-stone-600 text-sm sm:text-base m-0">
+                We nemen contact met je op om je website te bespreken en een
+                vrijblijvende offerte te maken. Kies een moment dat jou schikt.
+              </p>
+
+              <div className="bg-white p-6 rounded-2xl border border-stone-200 flex flex-col gap-5">
+                <div>
+                  <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
+                    1. Kies een datum (komende 2 weken)
                   </span>
-                  <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
-                    Plan je afspraak
-                  </h1>
-                  <p className="text-stone-600 text-sm sm:text-base m-0">
-                    We nemen contact met je op om je website te bespreken en een
-                    vrijblijvende offerte te maken. Kies een moment dat jou schikt.
-                  </p>
-
-                  <div className="bg-white p-6 rounded-2xl border border-stone-200 flex flex-col gap-5">
-                    <div>
-                      <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                        1. Kies een datum (komende 2 weken)
-                      </span>
-                      <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
-                        {dates.map((d) => {
-                          const isSel = bookingDate.iso === d.iso;
-                          return (
-                            <button
-                              key={d.iso}
-                              onClick={() => setBookingDate(d)}
-                              className={`p-2.5 rounded-xl border-2 text-center cursor-pointer flex flex-col items-center justify-center transition-all ${
-                                isSel
-                                  ? 'border-stone-900 bg-stone-900 text-white font-bold shadow-sm'
-                                  : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
-                              }`}
-                            >
-                              <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
-                              <span className="text-lg font-black">{d.dayNum}</span>
-                              <span className="text-[10px] opacity-75">{d.monthName}</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                        2. Kies een dagdeel
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                        {TIME_SLOTS.map((slot) => {
-                          const isSel = bookingSlot === slot;
-                          return (
-                            <button
-                              key={slot}
-                              onClick={() => setBookingSlot(slot)}
-                              className={`p-3.5 rounded-xl border-2 font-bold text-sm text-left cursor-pointer transition-all ${
-                                isSel
-                                  ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
-                                  : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-300'
-                              }`}
-                            >
-                              {slot}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                        Offertes ontvangen via:
-                      </span>
-                      <div className="flex gap-2">
-                        {(['WhatsApp', 'E-mail', 'Allebei'] as const).map((ch) => (
-                          <button
-                            key={ch}
-                            onClick={() => setChannel(ch)}
-                            className={`h-11 px-4 rounded-xl border-2 text-sm font-bold cursor-pointer transition-all ${
-                              channel === ch
-                                ? 'bg-stone-900 text-white border-stone-900'
-                                : 'bg-transparent text-stone-700 border-stone-200 hover:border-stone-300'
-                            }`}
-                          >
-                            {ch}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <span className="text-stone-400 block">Vakman:</span>
-                        <strong className="text-stone-800">
-                          {formData.owner || baseSector.owner}
-                        </strong>
-                      </div>
-                      <div>
-                        <span className="text-stone-400 block">Werkgebied:</span>
-                        <strong className="text-stone-800">
-                          {formData.city || baseSector.city} + 25km
-                        </strong>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* Confirmation screen */
-                <div className="bg-white p-8 rounded-3xl border border-stone-200 flex flex-col items-center text-center gap-5 shadow-xl animate-fade-in">
-                  <div className="w-20 h-20 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-3xl shadow-lg pulse-glow">
-                    ✓
-                  </div>
-                  <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-stone-900 m-0">
-                    Afspraak aangevraagd!
-                  </h1>
-                  <p className="text-stone-600 text-base max-w-md m-0">
-                    Bedankt <strong>{bookingResult?.booking.clientName}</strong>. We
-                    spreken elkaar op{' '}
-                    <strong>{bookingResult?.booking.dateStr}</strong> (
-                    {bookingResult?.booking.timeSlot}). Offertes gaan via {channel}.
-                  </p>
-
-                  <div className="w-full bg-stone-50 p-5 rounded-2xl border border-stone-200 text-left flex flex-col gap-3 text-xs sm:text-sm">
-                    <div className="flex justify-between border-b pb-2 border-stone-200">
-                      <span className="text-stone-500">Afspraak-ID:</span>
-                      <span className="font-mono font-bold">
-                        {bookingResult?.booking.id}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-stone-500">Google Calendar:</span>
-                      <span
-                        className={`font-bold ${
-                          bookingResult?.calendarSynced
-                            ? 'text-emerald-600'
-                            : 'text-stone-500'
-                        }`}
-                      >
-                        {bookingResult?.calendarSynced
-                          ? '✓ In je agenda gezet'
-                          : (bookingResult?.syncError || 'Lokaal genoteerd')}
-                      </span>
-                    </div>
-                  </div>
-
-                  {authUser && (
-                    <div className="flex justify-between items-center text-xs text-stone-500 w-full">
-                      <span>
-                        Ingelogd als: <strong>{authUser.email}</strong>
-                      </span>
-                      <button
-                        onClick={logoutGoogle}
-                        className="text-rose-600 underline cursor-pointer bg-none border-0 p-0"
-                      >
-                        Uitloggen
-                      </button>
-                    </div>
-                  )}
-
-                  <div className="pt-3 w-full flex flex-col sm:flex-row gap-3 justify-center">
-                    <button
-                      onClick={() =>
-                        onViewPublishedSite(sector, styleIndex, formData)
-                      }
-                      className="h-14 px-8 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-transform hover:-translate-y-0.5"
-                    >
-                      Bekijk je website →
-                    </button>
-                    <button
-                      onClick={onGoHome}
-                      className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer"
-                    >
-                      Terug naar Klusbaas
-                    </button>
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                    {dates.map((d) => {
+                      const isSel = bookingDate.iso === d.iso;
+                      return (
+                        <button
+                          key={d.iso}
+                          onClick={() => setBookingDate(d)}
+                          aria-pressed={isSel}
+                          aria-label={`${d.dayName} ${d.dayNum} ${d.monthName}`}
+                          className={`p-2.5 rounded-xl border-2 text-center cursor-pointer flex flex-col items-center justify-center transition-all ${
+                            isSel
+                              ? 'border-stone-900 bg-stone-900 text-white font-bold shadow-sm'
+                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
+                          }`}
+                        >
+                          <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
+                          <span className="text-lg font-black">{d.dayNum}</span>
+                          <span className="text-[10px] opacity-75">{d.monthName}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
+
+                <div>
+                  <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
+                    2. Kies een dagdeel
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    {TIME_SLOTS.map((slot) => {
+                      const isSel = bookingSlot === slot;
+                      return (
+                        <button
+                          key={slot}
+                          onClick={() => setBookingSlot(slot)}
+                          aria-pressed={isSel}
+                          className={`p-3.5 rounded-xl border-2 font-bold text-sm text-left cursor-pointer transition-all ${
+                            isSel
+                              ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
+                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-300'
+                          }`}
+                        >
+                          {slot}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
+                    Offertes ontvangen via:
+                  </span>
+                  <div className="flex gap-2">
+                    {(['WhatsApp', 'E-mail', 'Allebei'] as const).map((ch) => (
+                      <button
+                        key={ch}
+                        onClick={() => setChannel(ch)}
+                        aria-pressed={channel === ch}
+                        className={`h-11 px-4 rounded-xl border-2 text-sm font-bold cursor-pointer transition-all ${
+                          channel === ch
+                            ? 'bg-stone-900 text-white border-stone-900'
+                            : 'bg-transparent text-stone-700 border-stone-200 hover:border-stone-300'
+                        }`}
+                      >
+                        {ch}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[11px] text-stone-500 mt-2 m-0">
+                    Je hoort van ons via het kanaal dat je kiest. Je zit nergens aan vast.
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span className="text-stone-400 block">Vakman:</span>
+                    <strong className="text-stone-800">
+                      {formData.owner || baseSector.owner}
+                    </strong>
+                  </div>
+                  <div>
+                    <span className="text-stone-400 block">Werkgebied:</span>
+                    <strong className="text-stone-800">
+                      {formData.city || baseSector.city} + 25km
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* CONFIRMATION (own URL: /start/klaar) */}
+          {step === 'klaar' && (
+            <div className="bg-white p-8 rounded-3xl border border-stone-200 flex flex-col items-center text-center gap-5 shadow-xl animate-fade-in">
+              <div className="w-20 h-20 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-3xl shadow-lg pulse-glow">
+                ✓
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-stone-900 m-0">
+                Afspraak aangevraagd!
+              </h1>
+              <p className="text-stone-600 text-base max-w-md m-0">
+                Bedankt <strong>{bookingResult?.booking.clientName || formData.owner}</strong>. We
+                spreken elkaar op{' '}
+                <strong>{bookingResult?.booking.dateStr || bookingDate.formatted}</strong> (
+                {bookingResult?.booking.timeSlot || bookingSlot}). Offertes gaan via {channel}.
+              </p>
+
+              <div className="w-full bg-stone-50 p-5 rounded-2xl border border-stone-200 text-left flex flex-col gap-3 text-xs sm:text-sm">
+                <div className="flex justify-between border-b pb-2 border-stone-200">
+                  <span className="text-stone-500">Afspraak-ID:</span>
+                  <span className="font-mono font-bold">
+                    {bookingResult?.booking.id ?? '—'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-stone-500">Google Calendar:</span>
+                  <span
+                    className={`font-bold ${
+                      bookingResult?.calendarSynced ? 'text-emerald-600' : 'text-stone-500'
+                    }`}
+                  >
+                    {bookingResult?.calendarSynced
+                      ? '✓ In je agenda gezet'
+                      : bookingResult?.syncError || 'Lokaal genoteerd'}
+                  </span>
+                </div>
+              </div>
+
+              {authUser && (
+                <div className="flex justify-between items-center text-xs text-stone-500 w-full">
+                  <span>
+                    Ingelogd als: <strong>{authUser.email}</strong>
+                  </span>
+                  <button
+                    onClick={logoutGoogle}
+                    className="text-rose-600 underline cursor-pointer bg-none border-0 p-0"
+                  >
+                    Uitloggen
+                  </button>
+                </div>
               )}
+
+              <div className="pt-3 w-full flex flex-col sm:flex-row gap-3 justify-center">
+                <button
+                  onClick={() => onViewPublishedSite(sector, styleIndex, formData)}
+                  className="h-14 px-8 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-transform hover:-translate-y-0.5"
+                >
+                  Bekijk je website →
+                </button>
+                <button
+                  onClick={onGoHome}
+                  className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer"
+                >
+                  Terug naar Klusbaas
+                </button>
+              </div>
             </div>
           )}
 
           {/* Navigation Controls */}
           {!isPublished && (
             <div className="flex items-center gap-3 pt-3">
-              {currentStep > 0 && (
+              {currentStepIndex > 0 && (
                 <button
                   onClick={handleBack}
                   className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-base cursor-pointer transition-colors"
@@ -704,11 +803,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 </button>
               )}
               <button
-                onClick={currentStep === 4 ? handleBookAppointment : handleNext}
-                disabled={currentStep === 4 && isBooking}
+                onClick={step === 'afspraak' ? handleBookAppointment : handleNext}
+                disabled={step === 'afspraak' && isBooking}
                 className="flex-1 h-14 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all hover:-translate-y-0.5 disabled:opacity-60"
               >
-                {currentStep === 4
+                {step === 'afspraak'
                   ? isBooking
                     ? 'Bezig met inplannen...'
                     : 'Plan afspraak aanvragen'
@@ -716,30 +815,51 @@ export const WizardView: React.FC<WizardViewProps> = ({
               </button>
             </div>
           )}
+
+          {/* Preview toggle for small screens */}
+          <button
+            type="button"
+            onClick={() => setPreviewOpen((open) => !open)}
+            aria-expanded={previewOpen}
+            aria-controls="wizard-preview"
+            className="lg:hidden h-12 rounded-full border-2 border-stone-900 bg-white text-stone-900 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {previewOpen ? (
+              <>
+                <EyeOff className="w-4 h-4" aria-hidden="true" />
+                Live voorbeeld sluiten
+              </>
+            ) : (
+              <>
+                <Eye className="w-4 h-4" aria-hidden="true" />
+                Bekijk je website live
+              </>
+            )}
+          </button>
         </div>
 
         {/* Right Column: Full live render of the generated website */}
-        <div className="lg:col-span-6 sticky top-24 flex flex-col gap-3">
-          <div className="flex justify-between items-center text-xs font-mono font-semibold text-stone-500">
-            <span>LIVE WEBSITE VOORBEELD</span>
-            <span>
-              {STYLES[styleIndex].name} · {liveSite.name}
-            </span>
-          </div>
+        <div className="lg:col-span-6 flex flex-col gap-3 lg:sticky lg:top-24">
+          {showPreview && (
+            <div id="wizard-preview" className="flex flex-col gap-3">
+              <div className="flex justify-between items-center text-xs font-mono font-semibold text-stone-500">
+                <span>LIVE WEBSITE VOORBEELD</span>
+                <span>
+                  {STYLES[styleIndex].name} · {liveSite.name}
+                </span>
+              </div>
 
-          <div className="rounded-2xl overflow-hidden border border-stone-300/80 shadow-2xl max-h-[calc(100vh-7rem)] overflow-y-auto bg-white">
-            <SiteView
-              site={liveSite}
-              selectedSector={sector}
-              selectedStyleIndex={styleIndex}
-              isCustomized={false}
-              embedded
-              onGoHome={onGoHome}
-              onSelectSector={() => {}}
-              onSelectStyle={() => {}}
-              onGoStart={onGoStart}
-            />
-          </div>
+              <div className="rounded-2xl overflow-hidden border border-stone-300/80 shadow-2xl max-h-[calc(100vh-7rem)] overflow-y-auto bg-white">
+                <SiteView
+                  site={liveSite}
+                  selectedSector={sector}
+                  selectedStyleIndex={styleIndex}
+                  isCustomized={false}
+                  embedded
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

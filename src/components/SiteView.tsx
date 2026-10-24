@@ -11,6 +11,8 @@ import { TradeTool } from './tools/TradeTool';
 import { ContactSection } from './ContactSection';
 import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
+import { RouteLink } from './RouteLink';
+import { styleIdFromIndex } from '../utils/router';
 import { buildTelUrl, buildWhatsAppUrl } from '../utils/contact';
 
 interface SiteViewProps {
@@ -21,10 +23,6 @@ interface SiteViewProps {
   /** When true, renders only the website body (no preview controls, floating
    *  buttons or mobile sticky bar) so it can live inside another frame. */
   embedded?: boolean;
-  onGoHome: () => void;
-  onSelectSector: (sectorId: SectorId) => void;
-  onSelectStyle: (styleIndex: number) => void;
-  onGoStart: () => void;
 }
 
 export const SiteView: React.FC<SiteViewProps> = ({
@@ -33,10 +31,6 @@ export const SiteView: React.FC<SiteViewProps> = ({
   selectedStyleIndex,
   isCustomized,
   embedded = false,
-  onGoHome,
-  onSelectSector,
-  onSelectStyle,
-  onGoStart,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -69,12 +63,13 @@ export const SiteView: React.FC<SiteViewProps> = ({
       {!embedded && (
       <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 flex-wrap text-xs sm:text-sm border-b border-stone-800 shadow-md">
         <div className="flex items-center gap-3 flex-wrap">
-          <button
-            onClick={onGoHome}
-            className="h-8 px-3 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-semibold cursor-pointer whitespace-nowrap transition-colors"
+          <RouteLink
+            route={{ name: 'home', sector: selectedSector }}
+            hash="presets"
+            className="h-8 px-3 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-semibold whitespace-nowrap transition-colors inline-flex items-center no-underline"
           >
             ← Alle presets
-          </button>
+          </RouteLink>
 
           {/* Quick sector circles */}
           <div className="flex items-center gap-1.5" title="Kies een ander vak">
@@ -84,20 +79,22 @@ export const SiteView: React.FC<SiteViewProps> = ({
               const thumb = getUnsplashUrl(sec.pool[0], 100);
 
               return (
-                <button
+                <RouteLink
                   key={secId}
-                  onClick={() => onSelectSector(secId)}
+                  route={{ name: 'site', sector: secId, styleId: styleIdFromIndex(selectedStyleIndex) }}
                   title={sec.name}
-                  className={`w-7 h-7 rounded-full p-0 overflow-hidden cursor-pointer bg-transparent transition-transform hover:scale-110 ${
+                  aria-label={`Bekijk het ${sec.name}-voorbeeld`}
+                  aria-current={isCurrent ? 'true' : undefined}
+                  className={`w-7 h-7 rounded-full p-0 overflow-hidden bg-transparent transition-transform hover:scale-110 block ${
                     isCurrent ? 'ring-2 ring-white scale-105' : 'opacity-65 hover:opacity-100'
                   }`}
                 >
                   <ImageWithFallback
                     src={thumb}
-                    alt={sec.name}
+                    alt=""
                     className="w-full h-full object-cover"
                   />
-                </button>
+                </RouteLink>
               );
             })}
           </div>
@@ -108,28 +105,34 @@ export const SiteView: React.FC<SiteViewProps> = ({
           {STYLES.map((st, idx) => {
             const isCurrent = idx === selectedStyleIndex;
             return (
-              <button
+              <RouteLink
                 key={st.id}
-                onClick={() => onSelectStyle(idx)}
-                className={`h-7 px-3 rounded-full border-0 text-xs font-bold cursor-pointer transition-colors whitespace-nowrap ${
+                route={{ name: 'site', sector: selectedSector, styleId: st.id }}
+                aria-current={isCurrent ? 'true' : undefined}
+                className={`h-7 px-3 rounded-full text-xs font-bold transition-colors whitespace-nowrap inline-flex items-center no-underline ${
                   isCurrent
                     ? 'bg-white text-stone-900 shadow-sm'
                     : 'bg-transparent text-stone-300 hover:text-white'
                 }`}
               >
                 {st.name}
-              </button>
+              </RouteLink>
             );
           })}
         </div>
 
         {/* Builder CTA */}
-        <button
-          onClick={onGoStart}
-          className="h-8 px-4 rounded-full border-0 bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs cursor-pointer whitespace-nowrap transition-transform hover:-translate-y-0.5"
+        <RouteLink
+          route={{
+            name: 'wizard',
+            step: 'gegevens',
+            sector: selectedSector,
+            styleId: styleIdFromIndex(selectedStyleIndex),
+          }}
+          className="h-8 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 inline-flex items-center no-underline"
         >
           {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
-        </button>
+        </RouteLink>
       </div>
       )}
 

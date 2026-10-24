@@ -9,12 +9,16 @@ import {
   getPhotoSet,
 } from '../data/tradesData';
 import { ImageWithFallback } from './ImageWithFallback';
+import { RouteLink } from './RouteLink';
+import { styleIdFromIndex, type Route } from '../utils/router';
 
 interface PresetsSectionProps {
   selectedSector: SectorId;
   onSelectSector: (sectorId: SectorId) => void;
   onOpenSite: (sectorId: SectorId, styleIndex: number) => void;
   onChooseStyle: (sectorId: SectorId, styleIndex: number) => void;
+  /** Render real links (home page) instead of preview-only buttons (gallery). */
+  useLinks?: boolean;
 }
 
 export const PresetsSection: React.FC<PresetsSectionProps> = ({
@@ -22,8 +26,18 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
   onSelectSector,
   onOpenSite,
   onChooseStyle,
+  useLinks = false,
 }) => {
   const currentSector = SECTORS[selectedSector];
+  const siteRoute = (styleIndex: number) =>
+    ({ name: 'site', sector: selectedSector, styleId: styleIdFromIndex(styleIndex) }) as const;
+  const wizardRoute = (styleIndex: number) =>
+    ({
+      name: 'wizard',
+      step: 'gegevens',
+      sector: selectedSector,
+      styleId: styleIdFromIndex(styleIndex),
+    }) as const;
 
   return (
     <section
@@ -87,14 +101,16 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
               className="flex flex-col gap-4 group"
             >
               {/* Miniature Layout Preview Card */}
-              <button
+              <PreviewTrigger
+                useLinks={useLinks}
+                route={siteRoute(idx)}
                 onClick={() => onOpenSite(selectedSector, idx)}
-                className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative cursor-pointer border-0 p-0 shadow-md transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-xl text-left"
+                className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative cursor-pointer border-0 p-0 shadow-md transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-xl text-left block"
                 style={{
                   background: pal.bg,
                   color: pal.fg,
                 }}
-                aria-label={`Bekijk ${style.name} stijl voor ${currentSector.name}`}
+                ariaLabel={`Bekijk ${style.name} stijl voor ${currentSector.name}`}
               >
                 {/* 1. Split Layout Thumbnail */}
                 {style.layout === 'split' && (
@@ -267,7 +283,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
                     </div>
                   </div>
                 )}
-              </button>
+              </PreviewTrigger>
 
               {/* Card Meta & Details */}
               <div className="flex justify-between items-start gap-3">
@@ -299,23 +315,72 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
 
               {/* Action Buttons */}
               <div className="flex gap-2.5 pt-1">
-                <button
+                <PreviewTrigger
+                  useLinks={useLinks}
+                  route={siteRoute(idx)}
                   onClick={() => onOpenSite(selectedSector, idx)}
-                  className="flex-1 h-11 rounded-full border-2 border-stone-900 bg-transparent hover:bg-white text-stone-900 text-sm font-bold cursor-pointer transition-colors duration-200"
+                  className="flex-1 h-11 rounded-full border-2 border-stone-900 bg-transparent hover:bg-white text-stone-900 text-sm font-bold transition-colors duration-200 inline-flex items-center justify-center no-underline"
+                  ariaLabel={`Bekijk de demo van ${style.name} voor ${currentSector.name}`}
                 >
-                  Bekijk site
-                </button>
-                <button
+                  Bekijk demo
+                </PreviewTrigger>
+                <PreviewTrigger
+                  useLinks={useLinks}
+                  route={wizardRoute(idx)}
                   onClick={() => onChooseStyle(selectedSector, idx)}
-                  className="flex-1 h-11 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold cursor-pointer transition-all duration-200 hover:-translate-y-0.5"
+                  className="flex-1 h-11 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center justify-center no-underline"
+                  ariaLabel={`Kies de ${style.name}-stijl en vul je gegevens in`}
                 >
-                  Kies deze
-                </button>
+                  Kies deze stijl
+                </PreviewTrigger>
               </div>
             </div>
           );
         })}
       </div>
     </section>
+  );
+};
+
+interface PreviewTriggerProps {
+  useLinks: boolean;
+  route: Route;
+  onClick: () => void;
+  className?: string;
+  style?: React.CSSProperties;
+  ariaLabel: string;
+  children: React.ReactNode;
+}
+
+/**
+ * Uses an <a href> on the marketing page (shareable, open-in-new-tab) and a
+ * plain button inside the component library, where the click updates the
+ * preview instead of the page.
+ */
+const PreviewTrigger: React.FC<PreviewTriggerProps> = ({
+  useLinks,
+  route,
+  onClick,
+  className,
+  style,
+  ariaLabel,
+  children,
+}) => {
+  if (useLinks) {
+    return (
+      <RouteLink
+        route={route}
+        className={className}
+        style={style}
+        aria-label={ariaLabel}
+      >
+        {children}
+      </RouteLink>
+    );
+  }
+  return (
+    <button onClick={onClick} className={className} style={style} aria-label={ariaLabel} type="button">
+      {children}
+    </button>
   );
 };
