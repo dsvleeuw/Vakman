@@ -1,0 +1,53 @@
+{
+  "bijgewerkt": "2026-10-24",
+  "bron": "voorbeeldbestand: alle bedrijven hieronder zijn verzonnen",
+  "bedrijven": [
+    {
+      "id": "voorbeeld-1",
+      "naam": "Voorbeeld Loodgieters",
+      "vak": "loodgieter",
+      "plaats": "Haarlem",
+      "regio": "Haarlem",
+      "adres": "Voorbeeldstraat 1",
+      "postcode": "2000 AA",
+      "lat": 52.3874,
+      "lng": 4.6462,
+      "locatiePrecisie": "plaats",
+      "telefoon": "000-0000000",
+      "email": "info@voorbeeld.nl",
+      "website": "https://voorbeeld.nl/",
+      "diensten": ["loodgieterswerk", "cv-installaties"],
+      "notitie": "Verzonnen bedrijf. Dit bestand laat zien welk formaat de kaart verwacht.",
+      "lighthouse": { "performance": 55, "seo": 70, "toegankelijkheid": 80, "best_practices": 90 }
+    },
+    {
+      "id": "voorbeeld-2",
+      "naam": "Voorbeeld Schilders",
+      "vak": "schilder",
+      "plaats": "Alkmaar",
+      "regio": "Alkmaar",
+      "lat": 52.6324,
+      "lng": 4.7534,
+      "locatiePrecisie": "plaats",
+      "telefoon": "000-0000001",
+      "website": "https://voorbeeld-schilders.nl/",
+      "diensten": ["binnenschilderwerk", "buitenschilderwerk"],
+      "notitie": "Verzonnen bedrijf.",
+      "lighthouse": { "performance": 92, "seo": 88, "toegankelijkheid": 75, "best_practices": 96 }
+    },
+    {
+      "id": "voorbeeld-3",
+      "naam": "Voorbeeld Hoveniers",
+      "vak": "hovenier",
+      "plaats": "Hoofddorp",
+      "regio": "Haarlemmermeer",
+      "lat": 52.3025,
+      "lng": 4.6889,
+      "locatiePrecisie": "plaats",
+      "website": "https://voorbeeld-hoveniers.nl/",
+      "diensten": ["tuinaanleg", "tuinonderhoud"],
+      "notitie": "Verzonnen bedrijf.",
+      "lighthouse": { "performance": 34, "seo": null, "toegankelijkheid": null, "best_practices": null }
+    }
+  ]
+}

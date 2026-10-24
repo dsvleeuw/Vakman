@@ -92,3 +92,31 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Werkkaart (/kaart): Leaflet-pinnen in de huisstijl                   */
+/* ------------------------------------------------------------------ */
+.klusbaas-pin-wrapper {
+  background: none;
+  border: 0;
+}
+.klusbaas-pin {
+  display: block;
+  line-height: 0;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.28));
+  transition: transform 150ms ease;
+}
+.klusbaas-pin:hover {
+  transform: scale(1.08);
+}
+.klusbaas-pin--actief {
+  transform: scale(1.18);
+}
+.leaflet-container {
+  font-family: inherit;
+  background: #f5f5f4;
+}
+.leaflet-container a {
+  color: inherit;
+}

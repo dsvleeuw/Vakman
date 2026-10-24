@@ -7,5 +7,15 @@ coverage/
 .env*
 !.env.example
 
+# Leadlijsten bevatten persoonsgegevens: alleen het sjabloon is versiebeheerd.
+leads/*.csv
+!leads/leads-haarlemmermeer.example.csv
+
+# Excel-export van de leadlijst (zelfde persoonsgegevens).
+leads/*.xlsx
+
+# Werkbestand van de kaart (/kaart) bevat contactgegevens: alleen het
+# voorbeeldbestand is versiebeheerd.
+public/kaart/leads.json
 # Local quotes and leads written by the dev API (vite dev)
 .data/
