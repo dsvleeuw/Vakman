@@ -40,6 +40,7 @@ import { PricingSection } from './PricingSection';
 import { SiteView } from './SiteView';
 import { WizardView } from './WizardView';
 import { RouteLink } from './RouteLink';
+import { track } from '../utils/analytics';
 import { EmergencyButton } from './tools/EmergencyButton';
 import { FaultReportForm } from './tools/FaultReportForm';
 import { ProjectTimeline } from './tools/ProjectTimeline';
@@ -116,6 +117,7 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
 
   // Selecting a component updates the URL so it can be shared or reopened.
   const selectComponent = (componentId: string) => {
+    track('component_view', { component: componentId });
     setSelectedId(componentId);
     onComponentChange?.(componentId);
   };

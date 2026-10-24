@@ -3,6 +3,7 @@ import { Check, ShieldCheck, ArrowRight, MessageCircle, Wrench } from 'lucide-re
 import type { PlanId } from '../types';
 import { PLANS } from '../data/plans';
 import { formatPrice } from '../utils/pricing';
+import { track } from '../utils/analytics';
 
 interface PricingSectionProps {
   /** Called with the plan the visitor clicked so it can travel in the URL. */
@@ -116,7 +117,10 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
 
               <div className="flex flex-col gap-2.5">
                 <button
-                  onClick={() => onStart(plan.id)}
+                  onClick={() => {
+                    track('plan_select', { plan: plan.id, price: plan.price });
+                    onStart(plan.id);
+                  }}
                   className={`h-13 py-3.5 px-6 rounded-full font-extrabold text-sm cursor-pointer transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 ${
                     plan.popular
                       ? 'bg-amber-400 hover:bg-amber-300 text-stone-900'

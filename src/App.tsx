@@ -12,6 +12,7 @@ import {
 } from './utils/router';
 import { isPlanId } from './data/plans';
 import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
+import { track } from './utils/analytics';
 import { useRouteMeta } from './hooks/useRouteMeta';
 import { Header } from './components/Header';
 import { HeroStrip } from './components/HeroStrip';
@@ -86,6 +87,11 @@ export default function App() {
   routeRef.current = route;
 
   useRouteMeta(route);
+
+  // One page_view per route, so the funnel has a denominator.
+  useEffect(() => {
+    track('page_view', { route: route.name, path: window.location.pathname });
+  }, [route]);
 
   const [draft, setDraft] = useState<WizardDraft>(loadDraft);
   const [scrolled, setScrolled] = useState(false);

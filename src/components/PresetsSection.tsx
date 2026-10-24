@@ -10,6 +10,7 @@ import {
 } from '../data/tradesData';
 import { ImageWithFallback } from './ImageWithFallback';
 import { RouteLink } from './RouteLink';
+import { track } from '../utils/analytics';
 import { styleIdFromIndex, type Route } from '../utils/router';
 
 interface PresetsSectionProps {
@@ -29,6 +30,10 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
   useLinks = false,
 }) => {
   const currentSector = SECTORS[selectedSector];
+  const openSite = (styleIndex: number) => {
+    track('preset_open', { sector: selectedSector, style: styleIndex });
+    onOpenSite(selectedSector, styleIndex);
+  };
   const siteRoute = (styleIndex: number) =>
     ({ name: 'site', sector: selectedSector, styleId: styleIdFromIndex(styleIndex) }) as const;
   const wizardRoute = (styleIndex: number) =>
@@ -104,7 +109,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
               <PreviewTrigger
                 useLinks={useLinks}
                 route={siteRoute(idx)}
-                onClick={() => onOpenSite(selectedSector, idx)}
+                onClick={() => openSite(idx)}
                 className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative cursor-pointer border-0 p-0 shadow-md transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-xl text-left block"
                 style={{
                   background: pal.bg,
@@ -318,7 +323,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
                 <PreviewTrigger
                   useLinks={useLinks}
                   route={siteRoute(idx)}
-                  onClick={() => onOpenSite(selectedSector, idx)}
+                  onClick={() => openSite(idx)}
                   className="flex-1 h-11 rounded-full border-2 border-stone-900 bg-transparent hover:bg-white text-stone-900 text-sm font-bold transition-colors duration-200 inline-flex items-center justify-center no-underline"
                   ariaLabel={`Bekijk de demo van ${style.name} voor ${currentSector.name}`}
                 >
