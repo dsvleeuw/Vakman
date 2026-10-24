@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local quotes and leads written by the dev API (vite dev)
+.data/
