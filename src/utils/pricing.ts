@@ -1,4 +1,5 @@
 import type { WizardFormData } from '../types';
+import { normalizeDutchPhone } from './contact';
 
 /**
  * Pure helper to generate oklch color string
@@ -122,9 +123,8 @@ export function validateWizardForm(form: WizardFormData): Record<string, string>
   if (!form.owner || !form.owner.trim()) {
     errors.owner = 'Vul je naam in';
   }
-  const cleanPhone = (form.phone || '').replace(/[\s-]/g, '');
-  if (!/^0\d{9}$/.test(cleanPhone)) {
-    errors.phone = 'Gebruik 10 cijfers, bijvoorbeeld 06 12345678';
+  if (!normalizeDutchPhone(form.phone || '')) {
+    errors.phone = 'Gebruik een geldig nummer, bijvoorbeeld 06 12345678 of +31 6 12345678';
   }
   if (!form.city || !form.city.trim()) {
     errors.city = 'Vul je plaats in';

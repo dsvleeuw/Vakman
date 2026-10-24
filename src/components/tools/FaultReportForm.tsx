@@ -4,6 +4,7 @@ import type { ActiveSiteData } from '../../types';
 import {
   buildWhatsAppUrl,
   buildFaultReportMessage,
+  normalizeDutchPhone,
   type FaultReportInput,
 } from '../../utils/contact';
 
@@ -53,8 +54,8 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!form.name.trim()) errs.name = 'Vul je naam in';
-    if (!/^0\d{9}$/.test(form.phone.replace(/[\s-]/g, ''))) {
-      errs.phone = 'Geldig 10-cijferig nummer, bijv. 06 12345678';
+    if (!normalizeDutchPhone(form.phone)) {
+      errs.phone = 'Gebruik een geldig nummer, bijv. 06 12345678 of +31 6 12345678';
     }
     if (!form.address.trim()) errs.address = 'Vul het adres van de storing in';
     setErrors(errs);

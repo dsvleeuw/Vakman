@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  normalizeDutchPhone,
   phoneToWaDigits,
   buildWhatsAppUrl,
   buildTelUrl,
@@ -17,6 +18,19 @@ test('phoneToWaDigits converts Dutch mobile numbers to wa.me format', () => {
   // Already international stays untouched
   assert.equal(phoneToWaDigits('31612345678'), '31612345678');
   assert.equal(phoneToWaDigits(''), '');
+});
+
+test('normalizeDutchPhone accepts local, +31 and 0031 formats', () => {
+  assert.equal(normalizeDutchPhone('06 12 34 56 78'), '0612345678');
+  assert.equal(normalizeDutchPhone('06-12345678'), '0612345678');
+  assert.equal(normalizeDutchPhone('+31 6 12345678'), '0612345678');
+  assert.equal(normalizeDutchPhone('0031 (0)6-12345678'), '0612345678');
+  assert.equal(normalizeDutchPhone('020 123 4567'), '0201234567');
+  // Too short, too long, letters only and empty input are rejected
+  assert.equal(normalizeDutchPhone('06 1234'), null);
+  assert.equal(normalizeDutchPhone('06 123456789'), null);
+  assert.equal(normalizeDutchPhone('bel me'), null);
+  assert.equal(normalizeDutchPhone(''), null);
 });
 
 test('buildWhatsAppUrl builds a link and URL-encodes the prefilled message', () => {

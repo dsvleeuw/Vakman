@@ -9,6 +9,7 @@ import {
   logoutGoogle,
 } from '../utils/googleWorkspace';
 import type { User } from 'firebase/auth';
+import { normalizeDutchPhone } from '../utils/contact';
 
 interface BookingCalendarProps {
   site: ActiveSiteData;
@@ -75,8 +76,8 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!clientName.trim()) errs.name = 'Vul je naam in';
-    if (!/^0\d{9}$/.test(clientPhone.replace(/[\s-]/g, ''))) {
-      errs.phone = 'Gebruik een geldig 10-cijferig nummer (bijv. 06 12345678)';
+    if (!normalizeDutchPhone(clientPhone)) {
+      errs.phone = 'Gebruik een geldig nummer (bijv. 06 12345678 of +31 6 12345678)';
     }
     if (!clientAddress.trim()) errs.address = 'Vul je adres in';
     setErrors(errs);

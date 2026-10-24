@@ -44,6 +44,31 @@ export function phoneToWaDigits(phone: string): string {
 }
 
 /**
+ * Normalise a Dutch phone number to its local 10-digit shape so forms accept
+ * the ways people actually write numbers: "06 12 34 56 78", "+31 6 12345678",
+ * "0031 (0)6-12345678". Returns `null` when it cannot be a Dutch number.
+ */
+export function normalizeDutchPhone(phone: string): string | null {
+  // Drop a written trunk note such as "+31 (0)6 …" before stripping digits.
+  const digits = phone.replace(/\(\s*0\s*\)/g, '').replace(/\D/g, '');
+  if (!digits) return null;
+
+  let local = digits;
+  if (local.startsWith('0031')) {
+    local = `0${local.slice(4)}`;
+  } else if (local.startsWith('31') && local.length >= 11) {
+    local = `0${local.slice(2)}`;
+  }
+
+  // Tolerate a doubled trunk zero, e.g. "0031 06 …".
+  if (local.length === 11 && local.startsWith('00')) {
+    local = local.slice(1);
+  }
+
+  return /^0\d{9}$/.test(local) ? local : null;
+}
+
+/**
  * Build a click-to-chat WhatsApp URL, optionally with a prefilled message.
  */
 export function buildWhatsAppUrl(phone: string, message?: string): string {

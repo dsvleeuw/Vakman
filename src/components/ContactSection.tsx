@@ -5,6 +5,7 @@ import {
   buildWhatsAppUrl,
   buildTelUrl,
   buildContactMessage,
+  normalizeDutchPhone,
 } from '../utils/contact';
 
 interface ContactSectionProps {
@@ -34,8 +35,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const validate = () => {
     const errs: Record<string, string> = {};
     if (!name.trim()) errs.name = 'Vul je naam in';
-    if (!/^0\d{9}$/.test(phone.replace(/[\s-]/g, ''))) {
-      errs.phone = 'Geldig 10-cijferig nummer, bijv. 06 12345678';
+    if (!normalizeDutchPhone(phone)) {
+      errs.phone = 'Gebruik een geldig nummer, bijv. 06 12345678 of +31 6 12345678';
     }
     if (message.trim().length < 10) {
       errs.message = 'Omschrijf je klus in minimaal 10 tekens';
