@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import type {
+  PlanId,
   SectorId,
   WizardFormData,
   WizardDraft,
@@ -14,7 +15,8 @@ import {
   getUnsplashUrl,
   buildActiveSite,
 } from '../data/tradesData';
-import { validateWizardForm } from '../utils/pricing';
+import { formatPrice, validateWizardForm } from '../utils/pricing';
+import { getPlan } from '../data/plans';
 import {
   signInWithGoogle,
   createGoogleCalendarEvent,
@@ -42,6 +44,8 @@ interface WizardViewProps {
   initialStyleIndex: number;
   initialForm?: WizardFormData | null;
   initialDisabledServices?: Record<number, boolean>;
+  /** Package chosen in the pricing table, carried in the URL as ?pakket=pro */
+  plan?: PlanId;
   /** Mirrors the wizard state into the URL and session storage. */
   onDraftChange?: (draft: WizardDraft) => void;
   onSelectionChange?: (sector: SectorId, styleIndex: number) => void;
@@ -58,6 +62,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   initialStyleIndex,
   initialForm,
   initialDisabledServices,
+  plan,
   onDraftChange,
   onSelectionChange,
   onGoHome,
@@ -253,6 +258,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
   const liveSite = buildActiveSite(sector, styleIndex, formData, disabledServices);
   const showPreview = isDesktop || previewOpen;
+  const selectedPlan = getPlan(plan);
 
   return (
     <div id="main-content" className="flex flex-col min-h-screen bg-stone-100/90 text-stone-900">
@@ -321,6 +327,32 @@ export const WizardView: React.FC<WizardViewProps> = ({
       <div className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left Column: Form Steps */}
         <div className="lg:col-span-6 flex flex-col gap-6 max-w-xl">
+          {/* Context: what the visitor already picked, and how to change it */}
+          {currentStepIndex >= 2 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => onStepChange('vak')}
+                className="h-8 pl-3 pr-2.5 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
+              >
+                Vak: {baseSector.name}
+                <span className="text-stone-400 font-semibold">wijzig</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onStepChange('stijl')}
+                className="h-8 pl-3 pr-2.5 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
+              >
+                Stijl: {STYLES[styleIndex].name}
+                <span className="text-stone-400 font-semibold">wijzig</span>
+              </button>
+              {selectedPlan && (
+                <span className="h-8 px-3 rounded-full bg-amber-300 text-amber-950 text-xs font-extrabold inline-flex items-center">
+                  Pakket: {selectedPlan.name}
+                </span>
+              )}
+            </div>
+          )}
           {/* STEP 1: Vak kiezen */}
           {step === 'vak' && (
             <div className="flex flex-col gap-5">
@@ -705,6 +737,16 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </p>
                 </div>
 
+                {selectedPlan && (
+                  <div className="pt-3 border-t border-stone-100 flex items-baseline justify-between gap-3 text-xs">
+                    <span className="text-stone-400">Gekozen pakket:</span>
+                    <strong className="text-stone-800">
+                      {selectedPlan.name} · {formatPrice(selectedPlan.price)} eenmalig
+                      <span className="text-stone-400 font-semibold"> excl. btw</span>
+                    </strong>
+                  </div>
+                )}
+
                 <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-2 text-xs">
                   <div>
                     <span className="text-stone-400 block">Vakman:</span>
@@ -746,6 +788,14 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     {bookingResult?.booking.id ?? '—'}
                   </span>
                 </div>
+                {selectedPlan && (
+                  <div className="flex justify-between border-b pb-2 border-stone-200">
+                    <span className="text-stone-500">Pakket:</span>
+                    <span className="font-bold">
+                      {selectedPlan.name} · {formatPrice(selectedPlan.price)} (excl. btw)
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-stone-500">Google Calendar:</span>
                   <span
@@ -791,9 +841,33 @@ export const WizardView: React.FC<WizardViewProps> = ({
             </div>
           )}
 
-          {/* Navigation Controls */}
+          {/* Preview toggle for small screens */}
+          <button
+            type="button"
+            onClick={() => setPreviewOpen((open) => !open)}
+            aria-expanded={previewOpen}
+            aria-controls="wizard-preview"
+            className="lg:hidden h-12 rounded-full border-2 border-stone-900 bg-white text-stone-900 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {previewOpen ? (
+              <>
+                <EyeOff className="w-4 h-4" aria-hidden="true" />
+                Live voorbeeld sluiten
+              </>
+            ) : (
+              <>
+                <Eye className="w-4 h-4" aria-hidden="true" />
+                Bekijk je website live
+              </>
+            )}
+          </button>
+
+          {/* Spacer so the sticky mobile action bar never covers content */}
+          {!isPublished && <div className="lg:hidden h-2" aria-hidden="true" />}
+
+          {/* Navigation Controls — sticky on phones so "next" is always reachable */}
           {!isPublished && (
-            <div className="flex items-center gap-3 pt-3">
+            <div className="sticky bottom-0 z-20 -mx-4 sm:mx-0 flex items-center gap-3 border-t border-stone-200 bg-stone-100/95 px-4 py-3 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pt-3 sm:backdrop-blur-none">
               {currentStepIndex > 0 && (
                 <button
                   onClick={handleBack}
@@ -816,26 +890,6 @@ export const WizardView: React.FC<WizardViewProps> = ({
             </div>
           )}
 
-          {/* Preview toggle for small screens */}
-          <button
-            type="button"
-            onClick={() => setPreviewOpen((open) => !open)}
-            aria-expanded={previewOpen}
-            aria-controls="wizard-preview"
-            className="lg:hidden h-12 rounded-full border-2 border-stone-900 bg-white text-stone-900 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
-          >
-            {previewOpen ? (
-              <>
-                <EyeOff className="w-4 h-4" aria-hidden="true" />
-                Live voorbeeld sluiten
-              </>
-            ) : (
-              <>
-                <Eye className="w-4 h-4" aria-hidden="true" />
-                Bekijk je website live
-              </>
-            )}
-          </button>
         </div>
 
         {/* Right Column: Full live render of the generated website */}

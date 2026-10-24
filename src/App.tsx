@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
-import type { SectorId, WizardDraft, WizardFormData } from './types';
+import React, { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
+import type { PlanId, SectorId, WizardDraft, WizardFormData } from './types';
 import { SECTORS, STYLES, buildActiveSite } from './data/tradesData';
 import {
   DEFAULT_SECTOR,
@@ -10,6 +10,7 @@ import {
   styleIndexFromId,
   type WizardRouteStep,
 } from './utils/router';
+import { isPlanId } from './data/plans';
 import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
 import { useRouteMeta } from './hooks/useRouteMeta';
 import { Header } from './components/Header';
@@ -18,15 +19,32 @@ import { PresetsSection } from './components/PresetsSection';
 import { HowItWorks } from './components/HowItWorks';
 import { PricingSection } from './components/PricingSection';
 import { FaqSection } from './components/FaqSection';
-import { SiteView } from './components/SiteView';
-import { WizardView } from './components/WizardView';
 import { NotFoundView } from './components/NotFoundView';
 import { RouteLink } from './components/RouteLink';
 
+// Route-level code splitting: the marketing page stays small and the heavy
+// screens (generated site, wizard, library) load when they are opened.
+const SiteView = lazy(() =>
+  import('./components/SiteView').then((module) => ({ default: module.SiteView }))
+);
+const WizardView = lazy(() =>
+  import('./components/WizardView').then((module) => ({ default: module.WizardView }))
+);
 const ComponentGallery = lazy(() =>
   import('./components/ComponentGallery').then((module) => ({
     default: module.ComponentGallery,
   }))
+);
+
+const PageFallback: React.FC<{ label: string }> = ({ label }) => (
+  <div
+    className="min-h-screen bg-stone-100 text-stone-900 flex flex-col items-center justify-center gap-4"
+    role="status"
+    aria-live="polite"
+  >
+    <span className="w-9 h-9 rounded-full border-2 border-stone-300 border-t-stone-900 animate-spin" />
+    <span className="text-sm font-bold">{label}</span>
+  </div>
 );
 
 const DRAFT_STORAGE_KEY = 'klusbaas_wizard_draft';
@@ -123,7 +141,7 @@ export default function App() {
     const styleId = styleIdFromIndex(styleIndex);
     if (current.sector === sector && current.styleId === styleId) return;
     replaceUrl(
-      { name: 'wizard', step: current.step, sector, styleId },
+      { name: 'wizard', step: current.step, sector, styleId, plan: current.plan },
       { scroll: false, keepHash: true }
     );
   }, []);
@@ -142,16 +160,27 @@ export default function App() {
   };
 
   const handleChooseStyle = (sectorId: SectorId, styleIdx: number) => {
+    const current = routeRef.current;
     navigate({
       name: 'wizard',
       step: 'gegevens',
       sector: sectorId,
       styleId: styleIdFromIndex(styleIdx),
+      plan: current.name === 'wizard' ? current.plan : undefined,
     });
   };
 
-  const handleGoStart = () => {
-    navigate({ name: 'wizard', step: 'vak' });
+  /**
+   * Pricing-table CTAs start the wizard and carry the chosen package along.
+   * The guard matters because some CTAs pass this handler straight to
+   * `onClick`, which would otherwise forward the click event as a plan id.
+   */
+  const handleGoStart = (planId?: PlanId) => {
+    navigate({
+      name: 'wizard',
+      step: 'vak',
+      plan: typeof planId === 'string' && isPlanId(planId) ? planId : undefined,
+    });
   };
 
   const handleGoHome = () => {
@@ -166,6 +195,7 @@ export default function App() {
       step,
       sector: current.sector ?? draft.sector,
       styleId: current.styleId ?? styleIdFromIndex(draft.styleIndex),
+      plan: current.plan,
     });
   };
 
@@ -328,17 +358,20 @@ export default function App() {
       {/* 3. LIVE SITE VIEW */}
       {route.name === 'site' && (
         <div id="main-content">
-          <SiteView
-            site={buildActiveSite(route.sector, styleIndexFromId(route.styleId), customData[route.sector])}
-            selectedSector={route.sector}
-            selectedStyleIndex={styleIndexFromId(route.styleId)}
-            isCustomized={!!customData[route.sector]}
-          />
+          <Suspense fallback={<PageFallback label="Voorbeeldwebsite laden…" />}>
+            <SiteView
+              site={buildActiveSite(route.sector, styleIndexFromId(route.styleId), customData[route.sector])}
+              selectedSector={route.sector}
+              selectedStyleIndex={styleIndexFromId(route.styleId)}
+              isCustomized={!!customData[route.sector]}
+            />
+          </Suspense>
         </div>
       )}
 
       {/* 4. WIZARD ONBOARDING VIEW */}
       {route.name === 'wizard' && (
+        <Suspense fallback={<PageFallback label="Wizard laden…" />}>
         <WizardView
           step={route.step}
           onStepChange={handleWizardStepChange}
@@ -346,11 +379,13 @@ export default function App() {
           initialStyleIndex={wizardStyleIndex}
           initialForm={draft.sector === wizardSector ? draft.form : null}
           initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}
+          plan={route.plan}
           onDraftChange={handleDraftChange}
           onSelectionChange={handleWizardSelectionChange}
           onGoHome={handleGoHome}
           onViewPublishedSite={handleViewPublishedSite}
         />
+        </Suspense>
       )}
 
       {/* 5. 404 */}

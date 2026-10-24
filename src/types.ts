@@ -183,6 +183,9 @@ export interface WizardFormData {
   city: string;
 }
 
+/** The three one-off platform packages (see `data/plans.ts`). */
+export type PlanId = 'basis' | 'pro' | 'premium';
+
 /**
  * Everything the wizard has collected so far. Kept in `App` (and mirrored in
  * sessionStorage) so navigating to the site preview and back does not throw

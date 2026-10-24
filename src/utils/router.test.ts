@@ -74,6 +74,20 @@ test('wizard URLs carry the selected trade and style', () => {
   );
 });
 
+test('the chosen package travels through the wizard URL', () => {
+  assert.deepEqual(parseRoute('/start/vak', '?pakket=pro'), {
+    name: 'wizard',
+    step: 'vak',
+    plan: 'pro',
+  });
+  assert.equal(
+    buildPath({ name: 'wizard', step: 'afspraak', plan: 'premium', sector: 'schilder' }),
+    '/start/afspraak?vak=schilder&pakket=premium'
+  );
+  // An unknown package is ignored instead of breaking the wizard.
+  assert.deepEqual(parseRoute('/start/vak', '?pakket=goud'), { name: 'wizard', step: 'vak' });
+});
+
 test('component library selections are deep-linkable', () => {
   assert.deepEqual(parseRoute('/componenten'), { name: 'components' });
   assert.deepEqual(parseRoute('/componenten/trust-bar'), {
@@ -93,6 +107,7 @@ test('parsing then rebuilding a path is stable', () => {
     '/voorbeeld/loodgieter/krachtig',
     '/start/vak',
     '/start/gegevens?vak=schilder&stijl=donker',
+    '/start/vak?pakket=pro',
     '/start/klaar',
     '/componenten',
     '/componenten/price-calculator',

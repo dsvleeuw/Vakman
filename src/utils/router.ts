@@ -1,5 +1,6 @@
-import type { SectorId, StyleId } from '../types';
+import type { PlanId, SectorId, StyleId } from '../types';
 import { SECTORS, STYLES } from '../data/tradesData';
+import { isPlanId } from '../data/plans';
 
 /**
  * Every view of the app gets a real, shareable URL. This module is pure so
@@ -38,7 +39,14 @@ export const DEFAULT_STYLE_ID: StyleId = STYLES[0].id;
 
 export type Route =
   | { name: 'home'; sector?: SectorId }
-  | { name: 'wizard'; step: WizardRouteStep; sector?: SectorId; styleId?: StyleId }
+  | {
+      name: 'wizard';
+      step: WizardRouteStep;
+      sector?: SectorId;
+      styleId?: StyleId;
+      /** Chosen package from the pricing table, e.g. /start/vak?pakket=pro */
+      plan?: PlanId;
+    }
   | { name: 'site'; sector: SectorId; styleId: StyleId }
   | { name: 'components'; componentId?: string }
   | { name: 'notFound'; path: string };
@@ -109,11 +117,13 @@ export function parseRoute(pathname: string, search = ''): Route {
       return { name: 'notFound', path: pathname };
     }
     const styleParam = params.get('stijl');
+    const planParam = params.get('pakket');
     return {
       name: 'wizard',
       step,
       ...(sector ? { sector } : {}),
       ...(isStyleId(styleParam) ? { styleId: styleParam } : {}),
+      ...(isPlanId(planParam) ? { plan: planParam } : {}),
     };
   }
 
@@ -142,6 +152,7 @@ export function buildPath(route: Route): string {
       const params = new URLSearchParams();
       if (route.sector) params.set('vak', route.sector);
       if (route.styleId) params.set('stijl', route.styleId);
+      if (route.plan) params.set('pakket', route.plan);
       const query = params.toString();
       return `/start/${route.step}${query ? `?${query}` : ''}`;
     }
