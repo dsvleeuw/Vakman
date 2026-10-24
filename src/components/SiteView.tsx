@@ -405,18 +405,6 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 >
                   Contact
                 </a>
-                <a
-                  href={buildTelUrl(site.phone)}
-                  onClick={() => setMenuOpen(false)}
-                  className="sm:hidden mt-3 h-12 px-6 flex items-center justify-center font-bold text-sm"
-                  style={{
-                    borderRadius: site.radius,
-                    background: site.fg,
-                    color: site.bg,
-                  }}
-                >
-                  {site.callLabel}
-                </a>
               </div>
             </nav>
           )}
@@ -424,9 +412,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* 1. Hero: Split Layout */}
         {site.layout === 'split' && (
-          <section className="py-12 sm:py-20 md:py-24 px-4 sm:px-8 md:px-12">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-              <div className="lg:col-span-7 flex flex-col gap-6">
+          <section className="py-7 sm:py-20 md:py-24 px-4 sm:px-8 md:px-12">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14 items-center">
+              <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-6">
                 <span
                   className="font-mono text-xs font-semibold tracking-wider uppercase"
                   style={{ color: site.muted }}
@@ -434,7 +422,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   {site.kicker}
                 </span>
                 <h1
-                  className="text-4xl sm:text-6xl md:text-7xl font-bold leading-[0.98] tracking-tight m-0 text-balance"
+                  className="text-[1.95rem] sm:text-6xl md:text-7xl font-bold leading-[1.04] sm:leading-[0.98] tracking-tight m-0 text-balance"
                   style={{
                     fontFamily: site.display,
                     fontWeight: site.dw,
@@ -444,16 +432,16 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   {site.headline}
                 </h1>
                 <p
-                  className="text-lg sm:text-xl leading-relaxed m-0 max-w-xl"
+                  className="text-base sm:text-xl leading-relaxed m-0 max-w-xl"
                   style={{ color: site.muted }}
                 >
                   {site.intro}
                 </p>
 
-                <div className="flex gap-3 flex-wrap pt-2">
+                <div className="flex gap-2.5 sm:gap-3 flex-wrap pt-1 sm:pt-2">
                   <a
                     href="#prijs"
-                    className="h-14 px-7 flex items-center font-bold text-base transition-transform hover:-translate-y-0.5 shadow-sm"
+                    className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-sm"
                     style={{
                       borderRadius: site.radius,
                       background: site.accent,
@@ -464,7 +452,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   </a>
                   <a
                     href="#werk"
-                    className="h-14 px-7 flex items-center font-bold text-base border-2 transition-colors hover:bg-black/5"
+                    className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base border-2 transition-colors hover:bg-black/5"
                     style={{
                       borderRadius: site.radius,
                       borderColor: site.fg,
@@ -477,7 +465,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
                 {/* Rating */}
                 <div
-                  className="flex items-center gap-3 text-sm pt-2"
+                  className="flex items-center gap-3 text-sm pt-1 sm:pt-2"
                   style={{ color: site.muted }}
                 >
                   <StarRating count={5} />
@@ -491,7 +479,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
               {/* Split Image with Floating Badge */}
               <div className="lg:col-span-5 relative">
                 <div
-                  className="aspect-[4/5] w-full overflow-hidden shadow-lg"
+                  className="aspect-[16/10] sm:aspect-[4/5] w-full overflow-hidden shadow-lg"
                   style={{
                     borderRadius: site.radiusLg,
                     background: site.soft,
@@ -532,19 +520,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* 2. Hero: Bleed Layout */}
         {site.layout === 'bleed' && (
-          <section className="relative min-h-[580px] sm:min-h-[700px] flex items-end overflow-hidden text-white bg-black">
+          <section className="relative min-h-[430px] sm:min-h-[700px] flex items-end overflow-hidden text-white bg-black">
             <ImageWithFallback
               src={site.img.hero}
               alt="" aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
-            <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-12 py-12 sm:py-20 flex flex-col gap-6">
+            <div className="relative max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-12 py-7 sm:py-20 flex flex-col gap-4 sm:gap-6">
               <span className="self-start h-8 px-4 rounded-full bg-white/20 backdrop-blur-md flex items-center font-mono text-xs tracking-wider uppercase font-semibold">
                 {site.kicker}
               </span>
               <h1
-                className="text-4xl sm:text-6xl md:text-8xl font-black leading-none tracking-tight m-0 max-w-3xl text-balance"
+                className="text-[1.95rem] sm:text-6xl md:text-8xl font-black leading-[1.04] sm:leading-none tracking-tight m-0 max-w-3xl text-balance"
                 style={{
                   fontFamily: site.display,
                   fontWeight: site.dw,
@@ -553,14 +541,14 @@ export const SiteView: React.FC<SiteViewProps> = ({
               >
                 {site.headline}
               </h1>
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6">
                 <p className="text-base sm:text-xl opacity-90 max-w-xl leading-relaxed m-0">
                   {site.intro}
                 </p>
-                <div className="flex gap-3 flex-wrap">
+                <div className="flex gap-2.5 sm:gap-3 flex-wrap">
                   <a
                     href="#prijs"
-                    className="h-14 px-8 flex items-center font-bold text-base transition-transform hover:-translate-y-0.5 shadow-md"
+                    className="h-12 sm:h-14 px-5 sm:px-8 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-md"
                     style={{
                       borderRadius: site.radius,
                       background: site.accent,
@@ -571,7 +559,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   </a>
                   <a
                     href="#werk"
-                    className="h-14 px-7 flex items-center font-bold text-base bg-white/15 backdrop-blur-md border border-white/30 text-white transition-colors hover:bg-white/25"
+                    className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base bg-white/15 backdrop-blur-md border border-white/30 text-white transition-colors hover:bg-white/25"
                     style={{ borderRadius: site.radius }}
                   >
                     {site.cta2}
@@ -586,19 +574,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
         {site.layout === 'bold' && (
           <>
             <section
-              className="pt-12 sm:pt-20 px-4 sm:px-8 md:px-12 overflow-hidden"
+              className="pt-7 sm:pt-20 px-4 sm:px-8 md:px-12 overflow-hidden"
               style={{
                 background: site.accent,
                 color: site.onAccent,
               }}
             >
-              <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-                <div className="lg:col-span-7 flex flex-col gap-6 pb-12 sm:pb-20">
+              <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-end">
+                <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-6 pb-4 sm:pb-20">
                   <span className="font-mono text-xs font-bold tracking-widest uppercase opacity-90">
                     {site.kicker}
                   </span>
                   <h1
-                    className="text-5xl sm:text-7xl md:text-8xl font-black leading-[0.88] tracking-tight m-0"
+                    className="text-[2rem] sm:text-7xl md:text-8xl font-black leading-[0.95] sm:leading-[0.88] tracking-tight m-0 text-balance"
                     style={{
                       fontFamily: site.display,
                       fontWeight: site.dw,
@@ -607,13 +595,13 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   >
                     {site.headline}
                   </h1>
-                  <p className="text-lg sm:text-xl font-medium leading-relaxed m-0 max-w-xl opacity-95">
+                  <p className="text-base sm:text-xl font-medium leading-relaxed m-0 max-w-xl opacity-95">
                     {site.intro}
                   </p>
-                  <div className="flex gap-3 flex-wrap pt-2">
+                  <div className="flex gap-3 flex-wrap pt-1 sm:pt-2">
                     <a
                       href="#prijs"
-                      className="h-14 px-8 flex items-center font-black text-base transition-transform hover:-translate-y-0.5 shadow"
+                      className="w-full sm:w-auto justify-center h-13 sm:h-14 px-6 sm:px-8 flex items-center font-black text-base transition-transform hover:-translate-y-0.5 shadow"
                       style={{
                         borderRadius: site.radius,
                         background: site.fg,
@@ -623,8 +611,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
                       {site.cta1} →
                     </a>
                     <a
-                      href={`tel:${site.phone.replace(/[\s-]/g, '')}`}
-                      className="h-14 px-7 flex items-center font-black text-base border-2"
+                      href={buildTelUrl(site.phone)}
+                      className="hidden sm:flex h-14 px-7 items-center font-black text-base border-2"
                       style={{
                         borderRadius: site.radius,
                         borderColor: site.onAccent,
@@ -636,7 +624,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 h-[360px] sm:h-[480px] relative [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)] overflow-hidden shadow-2xl">
+                <div className="lg:col-span-5 h-[220px] sm:h-[480px] relative [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)] overflow-hidden shadow-2xl">
                   <ImageWithFallback
                     src={site.img.hero}
                     alt="" aria-hidden="true"
@@ -671,10 +659,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* 4. Hero: Editorial Layout */}
         {site.layout === 'editorial' && (
-          <section className="pt-12 sm:pt-20 px-4 sm:px-8 md:px-12">
-            <div className="max-w-7xl mx-auto flex flex-col gap-8">
+          <section className="pt-7 sm:pt-20 px-4 sm:px-8 md:px-12">
+            <div className="max-w-7xl mx-auto flex flex-col gap-5 sm:gap-8">
               <div
-                className="flex justify-between items-baseline gap-4 font-mono text-xs tracking-widest pb-4 border-b uppercase"
+                className="flex justify-between items-baseline gap-4 font-mono text-xs tracking-widest pb-3 sm:pb-4 border-b uppercase"
                 style={{
                   borderColor: site.line,
                   color: site.muted,
@@ -685,7 +673,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
               </div>
 
               <h1
-                className="text-6xl sm:text-8xl md:text-9xl font-normal leading-[0.88] tracking-tight m-0 text-balance"
+                className="text-[2.25rem] sm:text-8xl md:text-9xl font-normal leading-[0.95] sm:leading-[0.88] tracking-tight m-0 text-balance"
                 style={{
                   fontFamily: site.display,
                   fontWeight: site.dw,
@@ -695,17 +683,17 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 {site.headline}
               </h1>
 
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 pt-2">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 sm:gap-6 pt-1 sm:pt-2">
                 <p
-                  className="text-lg sm:text-2xl leading-relaxed m-0 max-w-xl font-light"
+                  className="text-base sm:text-2xl leading-relaxed m-0 max-w-xl font-light"
                   style={{ color: site.muted }}
                 >
                   {site.intro}
                 </p>
-                <div className="flex gap-3 flex-wrap">
+                <div className="flex gap-2.5 sm:gap-3 flex-wrap">
                   <a
                     href="#prijs"
-                    className="h-14 px-8 flex items-center font-bold text-base transition-transform hover:-translate-y-0.5 shadow-sm"
+                    className="h-12 sm:h-14 px-5 sm:px-8 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-sm"
                     style={{
                       borderRadius: site.radius,
                       background: site.accent,
@@ -716,7 +704,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   </a>
                   <a
                     href="#werk"
-                    className="h-14 px-7 flex items-center font-bold text-base border"
+                    className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base border"
                     style={{
                       borderRadius: site.radius,
                       borderColor: site.fg,
@@ -730,7 +718,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
               {/* Panoramic Backdrop */}
               <div
-                className="aspect-[21/9] min-h-[300px] overflow-hidden shadow-lg mt-4"
+                className="aspect-[21/9] min-h-[200px] sm:min-h-[300px] overflow-hidden shadow-lg mt-2 sm:mt-4"
                 style={{ borderRadius: site.radiusLg }}
               >
                 <ImageWithFallback
@@ -745,8 +733,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* 5. Hero: Mosaic Layout */}
         {site.layout === 'mosaic' && (
-          <section className="py-14 sm:py-24 px-4 sm:px-8 md:px-12">
-            <div className="max-w-7xl mx-auto flex flex-col gap-10 items-center text-center">
+          <section className="py-8 sm:py-24 px-4 sm:px-8 md:px-12">
+            <div className="max-w-7xl mx-auto flex flex-col gap-5 sm:gap-10 items-center text-center">
               <span
                 className="font-mono text-xs font-semibold tracking-wider uppercase flex items-center gap-2"
                 style={{ color: site.muted }}
@@ -759,7 +747,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
               </span>
 
               <h1
-                className="text-4xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight m-0 max-w-3xl text-balance"
+                className="text-[1.95rem] sm:text-6xl md:text-7xl font-bold leading-[1.06] sm:leading-tight tracking-tight m-0 max-w-3xl text-balance"
                 style={{
                   fontFamily: site.display,
                   fontWeight: site.dw,
@@ -776,10 +764,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 {site.intro}
               </p>
 
-              <div className="flex gap-3 flex-wrap justify-center">
+              <div className="flex gap-2.5 sm:gap-3 flex-wrap justify-center">
                 <a
                   href="#prijs"
-                  className="h-14 px-8 flex items-center font-bold text-base transition-transform hover:-translate-y-0.5 shadow-sm"
+                  className="h-12 sm:h-14 px-5 sm:px-8 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-sm"
                   style={{
                     borderRadius: site.radius,
                     background: site.accent,
@@ -790,7 +778,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 </a>
                 <a
                   href="#werk"
-                  className="h-14 px-7 flex items-center font-bold text-base border"
+                  className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base border"
                   style={{
                     borderRadius: site.radius,
                     borderColor: site.line,
@@ -803,7 +791,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
               </div>
 
               {/* Mosaic Grid */}
-              <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2 sm:pt-4">
                 <div
                   className="sm:col-span-2 aspect-[16/10] overflow-hidden shadow-sm"
                   style={{ borderRadius: site.radiusLg }}
@@ -814,7 +802,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="flex flex-col gap-3.5">
+                <div className="grid grid-cols-2 sm:flex sm:flex-col gap-3.5">
                   <div
                     className="flex-1 aspect-[4/3] sm:aspect-auto overflow-hidden shadow-sm"
                     style={{ borderRadius: site.radiusLg }}
