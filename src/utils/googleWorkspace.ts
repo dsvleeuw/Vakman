@@ -13,12 +13,7 @@ import {
  * Public Firebase web config. The real values live in
  * `firebase-applet-config.json` at the repo root (public by design, see
  * AGENTS.md) and can be overridden with `VITE_FIREBASE_*` env vars.
- *
- * `PLACEHOLDER_API_KEY` marks "no project configured": it never counts as
- * configured, so the Google Agenda option stays hidden instead of failing.
  */
-export const PLACEHOLDER_API_KEY = 'fake-key-for-local';
-
 export interface GoogleConfig {
   apiKey?: string;
   authDomain?: string;
@@ -31,8 +26,13 @@ export interface GoogleConfig {
 
 type EnvRecord = Record<string, string | undefined>;
 
+/**
+ * Used when neither `firebase-applet-config.json` (prerender/tsx, see
+ * `loadAppletConfig`) nor the env vars provide values. It deliberately has no
+ * `apiKey`: `isGoogleConfigured()` then reports `false` and the Google option
+ * stays hidden instead of failing at sign-in.
+ */
 const FALLBACK_CONFIG: GoogleConfig = {
-  apiKey: PLACEHOLDER_API_KEY,
   authDomain: 'localhost',
   projectId: 'gen-lang-client-0169081330',
 };
@@ -77,8 +77,8 @@ function readEnv(): EnvRecord {
 /**
  * Pure merge of the fallback config, `firebase-applet-config.json` and the
  * `VITE_FIREBASE_*` env vars (non-empty env values win). A missing or empty
- * `apiKey` stays empty on purpose: `isGoogleConfigured()` must report `false`
- * rather than silently using the placeholder key.
+ * `apiKey` stays missing on purpose: `isGoogleConfigured()` must report `false`
+ * instead of pretending the integration works.
  */
 export function resolveGoogleConfig(
   appletConfig: GoogleConfig | null = loadAppletConfig(),
@@ -165,13 +165,16 @@ export const logoutGoogle = async () => {
 };
 
 /**
- * Check if Google integration is properly configured: a real apiKey is present and
- * it is not the placeholder used for local runs / fresh clones.
+ * Check if Google integration is properly configured: a usable apiKey is present.
+ *
+ * Google API keys always start with "AIza"; requiring that prefix rejects empty
+ * values, whitespace and the non-credential placeholders older local builds used,
+ * so the Google Agenda option stays hidden instead of failing at sign-in.
  */
 export function isGoogleConfigured(config: GoogleConfig = firebaseConfig): boolean {
   const apiKey = config.apiKey?.trim();
   if (!apiKey) return false;
-  return apiKey !== PLACEHOLDER_API_KEY;
+  return apiKey.startsWith('AIza');
 }
 
 export interface CalendarEventPayload {
