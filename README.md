@@ -50,6 +50,18 @@ bun run lint     # tsc --noEmit type check
 bun test         # unit tests (node:test runner via bun)
 ```
 
+## Documentation
+
+- [AGENTS.md](./AGENTS.md) — rules and workflow for agents/contributors
+- [CHANGELOG.md](./CHANGELOG.md) — release history
+- [ROADMAP.md](./ROADMAP.md) — prioritised future work and decisions
+- [docs/architecture.md](./docs/architecture.md) — views, data model, styling, persistence, testing
+- [docs/adding-a-sector.md](./docs/adding-a-sector.md) — how to add a trade
+- [docs/adding-a-trade-tool.md](./docs/adding-a-trade-tool.md) — how to add a smart tool
+- [docs/contact-strategy.md](./docs/contact-strategy.md) — WhatsApp-first contact design
+- [docs/pricing-and-positioning.md](./docs/pricing-and-positioning.md) — market research, price points and where prices live
+- [docs/known-limitations.md](./docs/known-limitations.md) — honest gap inventory
+
 ## Project structure
 
 ```
