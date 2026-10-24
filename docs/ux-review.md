@@ -130,30 +130,44 @@ Uitgevoerde quick-wins voor mobiele schermen en iOS Safari:
    verse `/start/vak` toont geen voorgeselecteerd vak zolang de bezoeker nog
    niets koos, en knoppen zoals `"← Alle presets"` en `"Aanpassen"` hebben
    minimaal 40×40–44×44 px tikvlak.
+5. **Paginalengte onder 8.000 px en hero boven de vouw (Batch 2):** lange
+   secties op `< sm` gebruiken SSR-/SEO-veilige `hidden sm:*`-progressive
+   disclosure met `"Toon meer"`/`"Bekijk alle"`-knoppen (`#diensten`, `#werk`,
+   reviews, FAQ, `BookingCalendar`, `ContactSection`, `PresetsSection`,
+   `PricingSection` en vaktools zoals `FaultReportForm` en `SurfaceCalculator`).
+   De previewbalk schuift op mobiel weg bij omlaag scrollen en komt terug bij
+   omhoog scrollen, dubbele mobiele bel-CTA's zijn verwijderd en alle 5
+   hero-layouts houden hun CTA's ruim boven de vouw (`y ≈ 447–491 px` op 360×780).
+6. **Tablet-uitlijning, leesbaarheid ≥ 12 px en stijlfonts op aanvraag (Batch 3):**
+   het wizard-formulier centreert symmetrisch op tablet (`max-w-xl mx-auto` zonder
+   loze tweede gridkolom), alle resterende `< 12px`-tekstklassen zijn verhoogd
+   naar `text-xs`, en `index.html` laadt alleen nog `Archivo` + `JetBrains Mono`
+   terwijl de vier extra display-fonts via `src/utils/fonts.ts` en
+   `scripts/prerender.ts` pas per stijl geladen worden.
 
 ### Gemeten voor/na-waarden (headless Chromium op 360×780, 390×844 en 768×1024)
 
 | Pagina (360×780) | `docW === vw` (voor → na) | `inputsUnder16` (voor → na) | `smallTargets` (voor → na) | `height` (voor → na) |
 |---|---|---|---|---|
-| `/` | `360 === 360` → `360 === 360` | `0` → `0` | `1` (`K Klusbaas 131×36`) → **`0`** | `9.743` → `9.743` |
-| `/start/vak` | `360 === 360` → `360 === 360` | `0` → `0` | `6` (logo + 5 pills `28×28`) → **`0`** | `1.168` → `1.172` |
-| `/start/gegevens` | `360 === 360` → `360 === 360` | `0` → `0` | `8` (logo, pills, chips `32px`) → **`0`** | `980` → `1.048` |
-| `/start/afspraak` | `360 === 360` → `360 === 360` | `1` (`checkbox`) → **`0`** | `9` → **`0`** | `1.814` → `1.882` |
-| `/voorbeeld/loodgieter/krachtig` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` (`← Alle presets 107×32`, `Aanpassen 91×32`) → **`0`** | `14.189` → `14.225` |
-| `/voorbeeld/elektricien/modern` | `360 === 360` → `360 === 360` | `14` → **`0`** | `3` → **`0`** | `14.003` → `14.069` |
-| `/voorbeeld/schilder/klassiek` | `360 === 360` → `360 === 360` | `12` → **`0`** | `2` → **`0`** | `14.383` → `14.419` |
-| `/voorbeeld/hovenier/donker` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` → **`0`** | `13.096` → `13.132` |
-| `/voorbeeld/timmerman/minimaal` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` → **`0`** | `14.727` → `14.763` |
+| `/` | `360 === 360` → `360 === 360` | `0` → `0` | `1` (`K Klusbaas 131×36`) → **`0`** | `9.743` → **`7.655`** |
+| `/start/vak` | `360 === 360` → `360 === 360` | `0` → `0` | `6` (logo + 5 pills `28×28`) → **`0`** | `1.168` → `1.140` |
+| `/start/gegevens` | `360 === 360` → `360 === 360` | `0` → `0` | `8` (logo, pills, chips `32px`) → **`0`** | `980` → `1.016` |
+| `/start/afspraak` | `360 === 360` → `360 === 360` | `1` (`checkbox`) → **`0`** | `9` → **`0`** | `1.814` → `1.851` |
+| `/voorbeeld/loodgieter/krachtig` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` (`← Alle presets 107×32`, `Aanpassen 91×32`) → **`0`** | `14.189` → **`7.905`** |
+| `/voorbeeld/elektricien/modern` | `360 === 360` → `360 === 360` | `14` → **`0`** | `3` → **`0`** | `14.003` → **`7.233`** |
+| `/voorbeeld/schilder/klassiek` | `360 === 360` → `360 === 360` | `12` → **`0`** | `2` → **`0`** | `14.383` → **`7.459`** |
+| `/voorbeeld/hovenier/donker` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` → **`0`** | `13.096` → **`6.938`** |
+| `/voorbeeld/timmerman/minimaal` | `360 === 360` → `360 === 360` | `8` → **`0`** | `2` → **`0`** | `14.727` → **`7.818`** |
 
 Op **390×844** en **768×1024** geven alle 9 pagina's eveneens `docW === vw`,
-`inputsUnder16: []` en `smallTargets: []` (op 768×1024 daalde `smallTargets` op
-de demosites van `19` naar `0`).
+`inputsUnder16: []`, `smallTargets: []` en `0` zichtbare tekstelementen onder
+`12px` (ook na uitklappen van mobiele formulieren en secties). Op `/` wordt nog
+maar 1 Google Fonts-stylesheet (`Archivo` + `JetBrains Mono`) geladen in plaats
+van 6 families tegelijk.
 
-### Nog niet getest / vervolgstappen
+### Nog niet getest op fysieke toestellen
 
-- **Niet getest op fysieke toestellen:** echte iPhone/Safari (`safe-area-inset-*`
-  rond notch/home-indicator en daadwerkelijk wegblijven van iOS auto-zoom) en
-  echte Android-Chrome; headless Chromium-emulatie dekt dat niet.
-- **Open voor vervolgbatches:** Batch 2 (paginalengte `< 8.000px` op 360px,
-  wegschuivende previewbalk, hero-hiërarchie) en Batch 3 (tablet 2-koloms
-  wizard, tekst `< 12px`, uitgesteld/zelfgehost laden van stijlfonts).
+- **Niet getest op fysieke hardware:** echte iPhone/Safari (`safe-area-inset-*`
+  rond notch/home-indicator, daadwerkelijk wegblijven van iOS auto-zoom en
+  soepel meebewegen van de adresbalk bij scrollen) en echte Android-Chrome;
+  headless Chromium-emulatie dekt dat niet.

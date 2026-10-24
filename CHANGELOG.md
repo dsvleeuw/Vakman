@@ -92,6 +92,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Tikvlakken in `SiteView` en `Header`:** `"← Alle presets"`, `"Aanpassen"`,
   navigatielinks en het telefoonnummer in de storingsmelder verhoogd naar
   minimaal 44 px hoogte.
+- **Mobiele paginalengte gehalveerd (`< 8.000 px` op 360 px) met behoud van SSR-HTML:**
+  lange lijsten en formulieren op de homepage en demosites (`#diensten`, `#werk`,
+  beoordelingen, FAQ, afsprakenkalender, contactformulier, presets, pakketten en
+  vaktools) klappen op `< sm` in achter `"Toon meer"`/`"Bekijk alle"`-knoppen.
+- **Meeschuivende previewbalk en compactere mobiele hero's:** de previewbalk in
+  `SiteView` schuift op mobiel weg bij omlaag scrollen en keert terug bij omhoog
+  scrollen; dubbele mobiele bel-CTA's zijn verwijderd en alle vijf hero-stijlen
+  tonen hun CTA's boven de vouw op 360×780.
+- **Tablet-layout, leesbare kleine tekst en slimmer fontladen:** het
+  wizard-formulier is gecentreerd op tablet (`768–1023 px`), alle tekst onder
+  `12px` is verhoogd naar minimaal `text-xs`, en `index.html` laadt alleen
+  `Archivo` + `JetBrains Mono` terwijl stijl-specifieke displayfonts pas op
+  aanvraag (en per prerenderde demosite) worden geladen (`src/utils/fonts.ts`).
 - `html lang` stond op `en` terwijl alle copy Nederlands is.
 - FAQ-kicker "FAQ & HEBDEN" → "Goed om te weten".
 - Contactformulierlabels waren niet gekoppeld aan hun inputs; nu wel, met
