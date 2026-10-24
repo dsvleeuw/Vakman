@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Check, ShieldCheck, ArrowRight, MessageCircle, Wrench } from 'lucide-react';
 import type { PlanId } from '../types';
-import { PLANS } from '../data/plans';
+import { PLANS, type PlatformPlan } from '../data/plans';
 import { formatPrice } from '../utils/pricing';
 import { track } from '../utils/analytics';
 
@@ -19,6 +19,129 @@ const SERVICE_FEATURES = [
   'Eén aanpassing per maand inbegrepen',
   'Whatsapp-support binnen één werkdag',
 ];
+
+/** How long a price takes to count from € 0 up to its plan value. */
+const COUNT_UP_MS = 1100;
+
+/** React warns when `useLayoutEffect` runs while prerendering; on the server
+ *  the `useEffect` branch is a no-op, so the markup stays identical. */
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+/** Read at call time (never during render), so prerendering stays safe. */
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/**
+ * Turns true once, the first time `ref` scrolls into view. Starts at `false`
+ * (the prerendered markup never depends on the viewport) and disconnects the
+ * observer after the first hit. Without IntersectionObserver it falls back to
+ * the final state, so nothing stays hidden.
+ */
+function useInView(
+  ref: React.RefObject<Element | null>,
+  rootMargin = '0px 0px -10% 0px'
+): boolean {
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        setInView(true);
+        observer.disconnect();
+      },
+      { rootMargin, threshold: 0.2 }
+    );
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [ref, rootMargin]);
+
+  return inView;
+}
+
+/**
+ * Counts from 0 to `target` once `start` turns true.
+ *
+ * The first render — including the prerendered HTML — always shows the real
+ * plan price, so search engines and visitors without JavaScript never see
+ * "€ 0". With motion enabled the value is rewound to 0 in a layout effect
+ * (before the first paint); visitors who prefer reduced motion keep the final
+ * price and skip the animation entirely.
+ */
+function useCountUp(target: number, start: boolean, duration = COUNT_UP_MS): number {
+  const [value, setValue] = useState(target);
+  const [armed, setArmed] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    if (prefersReducedMotion()) return;
+    setValue(0);
+    setArmed(true);
+  }, []);
+
+  useEffect(() => {
+    if (!armed || !start) return;
+
+    if (typeof window === 'undefined' || typeof window.requestAnimationFrame !== 'function') {
+      setValue(target);
+      return;
+    }
+
+    let frame = 0;
+    const startedAt = window.performance?.now() ?? Date.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min(1, Math.max(0, (now - startedAt) / duration));
+      if (progress >= 1) {
+        setValue(target);
+        return;
+      }
+      // ease-out cubic, then round so every frame is a whole euro amount
+      setValue(Math.round(target * (1 - Math.pow(1 - progress, 3))));
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [armed, start, target, duration]);
+
+  return value;
+}
+
+interface PlanPriceProps {
+  plan: PlatformPlan;
+  className: string;
+}
+
+/**
+ * The plan price, counted up the first time it is visible. The invisible copy
+ * of the final price reserves the exact width, so the changing digits never
+ * reflow the row (no CLS).
+ */
+const PlanPrice: React.FC<PlanPriceProps> = ({ plan, className }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref);
+  const value = useCountUp(plan.price, inView);
+
+  return (
+    <span ref={ref} className={`inline-grid ${className}`}>
+      <span aria-hidden="true" className="invisible col-start-1 row-start-1">
+        {formatPrice(plan.price)}
+      </span>
+      <span className="col-start-1 row-start-1">{formatPrice(value)}</span>
+    </span>
+  );
+};
 
 export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
   const [expandedPlans, setExpandedPlans] = useState(false);
@@ -54,7 +177,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 h-7 px-4 rounded-full bg-amber-400 text-stone-900 flex items-center text-xs font-extrabold uppercase tracking-wider shadow-md whitespace-nowrap">
+                /* `kb-badge-pulse` is the shared badge pulse; `animate-pulse`
+                   keeps the badge breathing on its own (opacity only, no
+                   layout) and the reduced-motion guard in index.css switches
+                   both off. */
+                <span className="kb-badge-pulse animate-pulse absolute -top-3.5 left-1/2 -translate-x-1/2 h-7 px-4 rounded-full bg-amber-400 text-stone-900 flex items-center text-xs font-extrabold uppercase tracking-wider shadow-md whitespace-nowrap">
                   Meest gekozen
                 </span>
               )}
@@ -77,13 +204,12 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
               </div>
 
               <div className="flex items-baseline gap-1.5 mt-5">
-                <span
+                <PlanPrice
+                  plan={plan}
                   className={`text-4xl sm:text-5xl font-black tracking-tight tabular-nums ${
                     plan.popular ? 'text-white' : 'text-stone-900'
                   }`}
-                >
-                  {formatPrice(plan.price)}
-                </span>
+                />
                 <span
                   className={`text-sm font-semibold ${
                     plan.popular ? 'text-stone-400' : 'text-stone-500'
