@@ -33,6 +33,10 @@ calculator, portfolio, reviews, booking and contact flows.
 - **Platform pricing** — three one-off packages (€ 595 / € 995 / € 1.795,
   excl. btw) plus an optional € 25/month service, with explicit
   "you own the site and code" messaging (`PricingSection`).
+- **Interactive component library** — searchable live previews of all 30
+  component modules, including ten new reusable trust and conversion
+  components. Open **Componenten** in the main navigation or visit
+  `/?view=components` (`ComponentGallery`, `components/extras/`).
 
 ## Tech stack
 
@@ -56,6 +60,7 @@ bun test         # unit tests (node:test runner via bun)
 - [CHANGELOG.md](./CHANGELOG.md) — release history
 - [ROADMAP.md](./ROADMAP.md) — prioritised future work and decisions
 - [docs/architecture.md](./docs/architecture.md) — views, data model, styling, persistence, testing
+- [docs/component-library.md](./docs/component-library.md) — gallery access, component inventory and extension guide
 - [docs/adding-a-sector.md](./docs/adding-a-sector.md) — how to add a trade
 - [docs/adding-a-trade-tool.md](./docs/adding-a-trade-tool.md) — how to add a smart tool
 - [docs/contact-strategy.md](./docs/contact-strategy.md) — WhatsApp-first contact design
@@ -66,8 +71,9 @@ bun test         # unit tests (node:test runner via bun)
 
 ```
 src/
-├── App.tsx                  # Home / demo site / wizard router
+├── App.tsx                  # Home / demo site / wizard / component library router
 ├── data/tradesData.ts       # All sector content, styles, palettes, photos
+├── data/componentCatalog.ts # Searchable component inventory and preview metadata
 ├── types.ts                 # Shared domain types
 ├── utils/
 │   ├── pricing.ts           # Estimates, phone/domain/postcode helpers
@@ -77,6 +83,8 @@ src/
 └── components/
     ├── SiteView.tsx         # The generated craftsman website
     ├── WizardView.tsx       # Onboarding flow (trade → style → publish)
+    ├── ComponentGallery.tsx # Searchable live component library
+    ├── extras/              # Ten reusable trust and conversion components
     ├── PricingSection.tsx   # Klusbaas platform pricing (home page)
     ├── ContactSection.tsx   # WhatsApp + form contact block
     ├── tools/               # Per-trade smart components + TradeTool switch

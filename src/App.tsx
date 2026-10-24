@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import type { SectorId, WizardFormData } from './types';
 import { SECTORS, buildActiveSite } from './data/tradesData';
 import { Header } from './components/Header';
@@ -10,8 +10,14 @@ import { FaqSection } from './components/FaqSection';
 import { SiteView } from './components/SiteView';
 import { WizardView } from './components/WizardView';
 
+const ComponentGallery = lazy(() =>
+  import('./components/ComponentGallery').then((module) => ({
+    default: module.ComponentGallery,
+  }))
+);
+
 export default function App() {
-  const [route, setRoute] = useState<'home' | 'site' | 'start'>('home');
+  const [route, setRoute] = useState<'home' | 'site' | 'start' | 'components'>('home');
   const [selectedSector, setSelectedSector] = useState<SectorId>('timmerman');
   const [selectedStyleIndex, setSelectedStyleIndex] = useState<number>(0);
   const [wizardStep, setWizardStep] = useState<number>(0);
@@ -55,7 +61,7 @@ export default function App() {
         }
       }
       const paramView = params.get('view');
-      if (paramView === 'site' || paramView === 'start') {
+      if (paramView === 'site' || paramView === 'start' || paramView === 'components') {
         setRoute(paramView);
       }
     } catch {
@@ -90,6 +96,11 @@ export default function App() {
 
   const handleGoHome = () => {
     setRoute('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleGoComponents = () => {
+    setRoute('components');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -129,6 +140,7 @@ export default function App() {
           <Header
             onGoHome={handleGoHome}
             onGoStart={handleGoStart}
+            onGoComponents={handleGoComponents}
             scrolled={scrolled}
           />
 
@@ -210,7 +222,30 @@ export default function App() {
         </div>
       )}
 
-      {/* 2. LIVE SITE VIEW */}
+      {/* 2. COMPONENT LIBRARY */}
+      {route === 'components' && (
+        <Suspense
+          fallback={
+            <div
+              className="min-h-screen bg-stone-100 text-stone-900 flex flex-col items-center justify-center gap-4"
+              role="status"
+              aria-live="polite"
+            >
+              <span className="w-9 h-9 rounded-full border-2 border-stone-300 border-t-stone-900 animate-spin" />
+              <span className="text-sm font-bold">Componentenbibliotheek laden…</span>
+            </div>
+          }
+        >
+          <ComponentGallery
+            onGoHome={handleGoHome}
+            onGoStart={handleGoStart}
+            onChooseStyle={handleChooseStyle}
+            onViewPublishedSite={handleViewPublishedSite}
+          />
+        </Suspense>
+      )}
+
+      {/* 3. LIVE SITE VIEW */}
       {route === 'site' && (
         <SiteView
           site={activeSite}
@@ -224,7 +259,7 @@ export default function App() {
         />
       )}
 
-      {/* 3. WIZARD ONBOARDING VIEW */}
+      {/* 4. WIZARD ONBOARDING VIEW */}
       {route === 'start' && (
         <WizardView
           initialSector={selectedSector}

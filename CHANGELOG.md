@@ -24,6 +24,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Interactieve componentenbibliotheek.** De nieuwe `components`-weergave
+  toont alle 30 componentmodules met zoeken, categoriefilters en echte live
+  previews. Bereikbaar via de hoofdnavigatie of `?view=components`, met
+  catalogus-integriteitstests en documentatie.
+- **Tien herbruikbare conversiecomponenten.** `TrustBar`,
+  `OpeningHoursCard`, `AvailabilityCard`, `TeamMemberCard`,
+  `TestimonialCard`, `GuaranteeList`, `PromotionBanner`,
+  `ServiceAreaChips`, `ProjectStats` en `ContactCtaBanner` gebruiken de
+  bestaande palet-, lettertype- en radius-tokens en hebben render-tests.
 - **Mobiele hamburgernavigatie.** De homepage en gegenereerde vakmansites
   hebben nu een toegankelijk hamburgermenu onder het desktop-breekpunt, met
   de bestaande navigatielinks en primaire actie. Het menu sluit na een

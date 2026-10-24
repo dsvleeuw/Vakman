@@ -4,10 +4,16 @@ import { CalendarDays, Menu, X } from 'lucide-react';
 interface HeaderProps {
   onGoHome: () => void;
   onGoStart: () => void;
+  onGoComponents: () => void;
   scrolled?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onGoHome,
+  onGoStart,
+  onGoComponents,
+  scrolled,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -20,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
         menuButtonRef.current?.focus();
       }
     };
-    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const desktopQuery = window.matchMedia('(min-width: 1024px)');
     const handleDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setMenuOpen(false);
     };
@@ -41,6 +47,11 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
   const handleGoStart = () => {
     setMenuOpen(false);
     onGoStart();
+  };
+
+  const handleGoComponents = () => {
+    setMenuOpen(false);
+    onGoComponents();
   };
 
   return (
@@ -66,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
       </button>
 
       {/* Zone 2: Navigation Links */}
-      <nav aria-label="Hoofdnavigatie" className="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-600">
+      <nav aria-label="Hoofdnavigatie" className="hidden lg:flex items-center gap-5 xl:gap-8 text-sm font-semibold text-stone-600">
         <a
           href="#presets"
           className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0"
@@ -91,6 +102,12 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
         >
           Vakgebieden
         </a>
+        <button
+          onClick={handleGoComponents}
+          className="hover:text-stone-900 transition-colors whitespace-nowrap shrink-0 bg-transparent border-0 p-0 cursor-pointer font-semibold"
+        >
+          Componenten
+        </button>
       </nav>
 
       {/* Zone 3: Primary Action + Mobile Menu */}
@@ -106,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
           ref={menuButtonRef}
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="md:hidden w-11 h-11 rounded-full border border-stone-300 bg-white/60 hover:bg-white text-stone-900 flex items-center justify-center cursor-pointer transition-colors"
+          className="lg:hidden w-11 h-11 rounded-full border border-stone-300 bg-white/60 hover:bg-white text-stone-900 flex items-center justify-center cursor-pointer transition-colors"
           aria-label={menuOpen ? 'Navigatie sluiten' : 'Navigatie openen'}
           aria-expanded={menuOpen}
           aria-controls="home-mobile-navigation"
@@ -123,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
         <nav
           id="home-mobile-navigation"
           aria-label="Mobiele navigatie"
-          className="md:hidden animate-fade-in absolute inset-x-0 top-full z-10 border-b border-stone-200 bg-stone-100/95 backdrop-blur-md shadow-lg"
+          className="lg:hidden animate-fade-in absolute inset-x-0 top-full z-10 border-b border-stone-200 bg-stone-100/95 backdrop-blur-md shadow-lg"
         >
           <div className="px-4 sm:px-8 py-4 flex flex-col gap-1 text-base font-semibold text-stone-700">
             <a
@@ -150,10 +167,16 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
             <a
               href="#vakken"
               onClick={() => setMenuOpen(false)}
-              className="h-12 flex items-center hover:text-stone-900 transition-colors"
+              className="h-12 flex items-center border-b border-stone-200/80 hover:text-stone-900 transition-colors"
             >
               Vakgebieden
             </a>
+            <button
+              onClick={handleGoComponents}
+              className="h-12 flex items-center bg-transparent border-0 p-0 text-base font-semibold text-stone-700 hover:text-stone-900 cursor-pointer"
+            >
+              Componenten
+            </button>
             <button
               onClick={handleGoStart}
               className="sm:hidden mt-3 h-12 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold cursor-pointer flex items-center justify-center gap-2 shadow-sm"
