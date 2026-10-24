@@ -5,16 +5,44 @@ to [ROADMAP.md](../ROADMAP.md).
 
 ## Lead handling
 
-- **No backend.** Every form (contact, fault report, m² quote) only opens
-  WhatsApp with a prefilled message. Nothing is stored server-side and
-  there is no delivery guarantee if the visitor abandons WhatsApp.
-- **No e-mail channel.** The wizard offers "E-mail" and "Allebei" as
-  channel choices, but the selection is ignored and there are no `mailto:`
-  links anywhere (roadmap 1.1/1.2).
-- **No persistence of submissions.** Bookings, fault reports and contact
-  messages live in React state and disappear on refresh (roadmap 1.3/3.1).
+- **Lead API exists, but mail is in test mode.** All forms post to
+  `POST /api/lead`; leads and quotes are stored (Netlify Blobs, `.data/` in
+  dev) and mailed via Resend. Until a domain is verified in Resend, the
+  sender `onboarding@resend.dev` only delivers to the account address
+  (thomascliphero@gmail.com): the Klusbaas notification arrives, customer
+  confirmations are refused and reported per recipient (`delivery.customer`
+  = `failed`) without failing the request. Without `RESEND_API_KEY` nothing
+  is sent at all (preview mode, mail in the server log).
+- **WhatsApp delivery is manual.** Choosing WhatsApp in the wizard gives the
+  team a ready wa.me link with the quote URL in the notification mail; there
+  is no WhatsApp Business API that sends it automatically.
+- **Rate limiting is per function instance** (20 requests per 10 minutes per
+  IP, in memory). It stops a single script, not a distributed attack.
+- **No admin screen.** Stored quotes and leads are only visible in the mails,
+  in Netlify Blobs (dashboard/CLI) or in `.data/` locally.
+- Site leads on demo sites go to Klusbaas, not to the tradesperson: there
+  is no per-customer recipient yet.
 - `PublishedSiteRecord` is defined in `types.ts` but unused; publishing is
   not actually recorded.
+
+## Privacy and newsletter
+
+- **TODO: KvK-nummer en vestigingsadres ontbreken** in de privacyverklaring
+  (`src/components/InfoPages.tsx`). Het contactadres is tijdelijk
+  thomascliphero@gmail.com (`PRIVACY_CONTACT_EMAIL`); vervang het door een
+  klusbaas.nl-adres zodra dat bestaat. Laat de tekst eenmalig juridisch
+  checken.
+- **Bewaartermijnen worden niet automatisch afgedwongen.** Onbevestigde
+  nieuwsbriefaanmeldingen werken na 30 dagen niet meer, maar er is geen
+  geplande taak die oude leads, offertes of aanmeldingen verwijdert; dat is
+  handwerk in Netlify Blobs.
+- **Nieuwsbrief versturen is nog handwerk.** Er is alleen aanmelden,
+  bevestigen en afmelden. Versturen gebeurt via Resend Broadcasts op de
+  Audience (`RESEND_AUDIENCE_ID`); zonder Audience staat de lijst alleen in
+  Netlify Blobs. De bevestigingsmail gaat, net als de offertemails, pas naar
+  willekeurige adressen als het domein in Resend geverifieerd is.
+- **Rate limit nieuwsbrief** is 5 aanmeldingen per 10 minuten per IP, in
+  geheugen per functie-instantie.
 
 ## Customisation
 
@@ -62,9 +90,9 @@ to [ROADMAP.md](../ROADMAP.md).
   deployment origin or those tags point at the wrong host.
 - Analytics events are emitted but only collected once a tag manager (GTM or
   GA4) is added to `index.html`; nothing is sent today.
-- Leads still end in WhatsApp/`mailto:` deep links: the channel choice now
-  produces a ready-to-send message, but there is no backend, no delivery
-  guarantee and no confirmation e-mail (roadmap 1.2/1.3).
+- Quote numbers (`KB-2026-0001`) come from a counter in the `quotes` blob
+  store with optimistic concurrency; the dev counter in `.data/quotes` is
+  per process only.
 - The wizard draft lives in sessionStorage, so a prerendered deep link such
   as `/start/afspraak` opened in a fresh tab starts with an empty form.
 - Accessibility has been handled pragmatically (labels, aria attributes,

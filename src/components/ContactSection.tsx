@@ -8,6 +8,10 @@ import {
   normalizeDutchPhone,
 } from '../utils/contact';
 import { track } from '../utils/analytics';
+import { describeDelivery } from '../utils/leadClient';
+import { useLeadForm } from '../hooks/useLeadForm';
+import { PrivacyNote } from './PrivacyNote';
+import { HoneypotField, LeadErrorNotice } from './LeadStatus';
 
 interface ContactSectionProps {
   site: ActiveSiteData;
@@ -17,8 +21,8 @@ interface ContactSectionProps {
  * Contact strategy D from the market research: WhatsApp is the primary,
  * low-threshold channel (tradespeople live on it all day); a short form
  * is the alternative for visitors who prefer not to open WhatsApp
- * themselves. The form prefills a WhatsApp message so no backend is
- * needed and every lead still lands in one inbox.
+ * themselves. The form posts to `/api/lead` (stored + mailed to Klusbaas);
+ * the prefilled WhatsApp message stays available as a fallback.
  */
 export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const [name, setName] = useState('');
@@ -26,6 +30,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [waUrl, setWaUrl] = useState<string | null>(null);
+  const lead = useLeadForm('contact-form');
   const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   const ownerFirst = site.owner.split(' ')[0];
@@ -51,15 +56,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const fallbackWaUrl = buildSiteWhatsAppUrl(
+    site.contactPhone,
+    buildContactMessage(site.biz, { name, phone, message })
+  );
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    setWaUrl(
-      buildSiteWhatsAppUrl(
-        site.contactPhone,
-        buildContactMessage(site.biz, { name, phone, message })
-      )
-    );
+    if (!validate() || lead.status === 'sending') return;
+    const response = await lead.submit({
+      type: 'contact',
+      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      fields: { name, phone, message },
+    });
+    if (response.ok) setWaUrl(fallbackWaUrl);
   };
 
   const inputClass = (hasError?: string) =>
@@ -165,11 +175,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-black text-stone-900 m-0">
-                  Je bericht staat klaar.
+                  Je bericht is verstuurd.
                 </h3>
-                <p className="text-stone-600 text-sm max-w-md m-0">
-                  Open WhatsApp om je bericht aan {site.biz} te versturen.
-                  Daarna heb je het gesprek gewoon in je eigen WhatsApp staan.
+                <p className="text-stone-600 text-sm max-w-md m-0" aria-live="polite">
+                  {site.biz} heeft je bericht ontvangen
+                  {lead.result?.reference ? ` (referentie ${lead.result.reference})` : ''} en
+                  neemt snel contact met je op. {lead.result ? describeDelivery(lead.result) : ''}
+                </p>
+                <p className="text-stone-500 text-xs max-w-md m-0">
+                  Liever meteen chatten? Zet het gesprek voort in WhatsApp.
                 </p>
                 <a
                   href={waUrl}
@@ -181,14 +195,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   Verstuur via WhatsApp
                 </a>
                 <button
-                  onClick={() => setWaUrl(null)}
+                  onClick={() => {
+                    setWaUrl(null);
+                    lead.reset();
+                  }}
                   className="text-xs font-bold text-stone-500 underline bg-transparent border-0 cursor-pointer"
                 >
-                  Wijzig je bericht
+                  Nog een bericht sturen
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1">
+              <form onSubmit={handleSubmit} className="relative flex flex-col gap-4 flex-1" noValidate>
+                <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
                 <h3 className="text-xl font-bold text-stone-900 m-0">
                   Liever een formulier?
                 </h3>
@@ -271,17 +289,22 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     </span>
                   )}
                 </div>
+                {lead.status === 'error' && (
+                  <LeadErrorNotice message={lead.result?.error} whatsappUrl={fallbackWaUrl} />
+                )}
                 <button
                   type="submit"
-                  className="h-14 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+                  disabled={lead.status === 'sending'}
+                  className="disabled:opacity-60 h-14 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
                 >
                   <Send className="w-5 h-5" />
-                  Verstuur naar {ownerFirst}
+                  {lead.status === 'sending' ? 'Versturen…' : `Verstuur naar ${ownerFirst}`}
                 </button>
                 <p className="text-xs text-stone-400 leading-relaxed m-0 text-center">
-                  Dit formulier opent WhatsApp met je bericht klaarstaan — je
-                  hoeft alleen op versturen te drukken.
+                  Je bericht gaat direct naar {site.biz}. Je krijgt meteen te zien
+                  of het is aangekomen.
                 </p>
+                <PrivacyNote className="text-stone-500 text-center" />
               </form>
             )}
           </div>

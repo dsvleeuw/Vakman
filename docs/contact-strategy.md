@@ -13,15 +13,40 @@ all leads in a single inbox and nothing can fail server-side.
 
 | Surface | Component | Channels offered |
 |---------|-----------|------------------|
-| Demo site, dedicated section | `ContactSection` | WhatsApp card (primary) + short form that opens WhatsApp |
+| Wizard step 5 | `WizardView` | quote request → `POST /api/lead` (type `quote`): stored, PDF, mail to Klusbaas and (channel E-mail/Allebei) to the customer |
+| Demo site, dedicated section | `ContactSection` | WhatsApp card (primary) + short form → `/api/lead` (type `contact`), WhatsApp as fallback |
 | Mobile, always visible | sticky bar in `SiteView` | `tel:` call + WhatsApp |
 | Desktop, always visible | floating stack in `SiteView` | WhatsApp + quote CTA (`#prijs`) |
 | Demo site header | `SiteView` header | `tel:` call |
 | Demo site footer | `SiteView` footer | WhatsApp (primary) + call |
 | Plumber emergency | `EmergencyButton` | call + emergency WhatsApp with problem prefilled |
-| Electrician fault report | `FaultReportForm` | validated form → WhatsApp notification; emergency phone link |
-| Painter m² calculator | `SurfaceCalculator` | quote summary → WhatsApp |
-| Booking calendar | `BookingCalendar` | Google Calendar/Drive sync when logged in, otherwise local confirmation |
+| Electrician fault report | `FaultReportForm` | validated form → `/api/lead` (type `fault`); WhatsApp fallback; emergency phone link |
+| Painter m² calculator | `SurfaceCalculator` | phone + estimate → `/api/lead` (type `surface`), or send via WhatsApp |
+| Booking calendar | `BookingCalendar` | `/api/lead` (type `appointment`) first, then optional Google Calendar/Drive sync |
+
+## Lead API (`POST /api/lead`)
+
+- One endpoint for every form; handler `src/server/leadHandler.ts`, used by
+  the Netlify Function and the Vite dev middleware alike.
+- Spam: hidden honeypot field `website` and `startedAt` (forms submitted
+  within 2.5 s are ignored with a fake success); simple per-IP rate limit.
+- Validation per form type in `utils/lead.ts` (tested); phone via
+  `normalizeDutchPhone`, e-mail via `isValidEmail`.
+- Every lead is stored first, then mailed to `QUOTE_NOTIFY_EMAIL`. A failed
+  team mail returns 502 (the form shows an error with WhatsApp fallback); a
+  refused customer mail never fails the request. The response lists the
+  result per recipient (`delivery.team`, `delivery.customer`).
+- Quotes get a number `KB-YYYY-NNNN`, a 24-byte random token and a PDF;
+  they are viewable at `/offerte/:id?token=…` (`GET /api/quote`, wrong token
+  → 403, unknown → 404) and the PDF at `&format=pdf`.
+
+### Wizard channel choice
+
+| Channel | Customer receives | Klusbaas receives |
+|---------|-------------------|-------------------|
+| WhatsApp | quote on screen; team sends it via the wa.me link | mail + PDF + wa.me link to the customer |
+| E-mail (e-mail required) | mail with PDF | mail + PDF |
+| Allebei (e-mail required) | mail with PDF, plus WhatsApp from the team | mail + PDF + wa.me link |
 
 ## Message templates
 
@@ -73,12 +98,10 @@ pass through unchanged.
 
 ## Known gaps (see [known-limitations.md](./known-limitations.md))
 
-- The wizard's channel choice (WhatsApp / E-mail / Allebei) is not yet
-  wired into published sites; every demo currently follows strategy D
-  regardless of the selection.
-- No e-mail channel exists yet (no `mailto:` or transactional mail).
-- Submissions are not stored: opening WhatsApp is the only delivery
-  mechanism. A lead API is phase 3 on the [roadmap](../ROADMAP.md).
+- Resend runs in test mode until a domain is verified: only the account
+  address receives mail, so customer confirmations are refused for now.
+- WhatsApp quotes are sent by hand from the team mail (no Business API).
+- Demo-site leads go to Klusbaas, not yet to the tradesperson.
 
 ## Changing the strategy
 

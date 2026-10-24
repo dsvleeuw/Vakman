@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Compass, Home } from 'lucide-react';
+import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 
 interface NotFoundViewProps {
@@ -19,10 +20,7 @@ export const NotFoundView: React.FC<NotFoundViewProps> = ({ path, onGoHome }) =>
         className="flex items-center gap-2.5 bg-transparent border-0 p-0 cursor-pointer text-stone-900"
         aria-label="Klusbaas Home"
       >
-        <span className="w-9 h-9 rounded-xl bg-stone-900 text-stone-100 flex items-center justify-center font-black text-lg shadow-sm">
-          K
-        </span>
-        <span className="text-xl sm:text-2xl font-extrabold tracking-tight">Klusbaas</span>
+        <Logo label={null} className="h-7 sm:h-8" />
       </button>
       <span className="font-mono text-xs font-bold tracking-widest uppercase text-stone-500">
         404 · niet gevonden

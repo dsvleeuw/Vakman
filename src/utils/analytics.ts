@@ -24,7 +24,12 @@ export type AnalyticsEventName =
   | 'whatsapp_click'
   | 'phone_click'
   | 'appointment_requested'
-  | 'component_view';
+  | 'component_view'
+  | 'lead_submit'
+  | 'lead_success'
+  | 'lead_error'
+  | 'newsletter_signup'
+  | 'newsletter_error';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 

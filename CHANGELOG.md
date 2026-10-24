@@ -9,6 +9,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`bun run check`** draait lint, tests en build tegelijk
+  (`scripts/check.mjs`, ~20 s in plaats van ~70 s na elkaar).
+- **Agents mogen zelf mergen** zodra `bun run check` groen is en de PR
+  schoon tegen `main` staat; gestapelde PR's eerst rebasen (`AGENTS.md`).
+- **Arena-auditplan** (`docs/07-arena-audit-plan.md`) en de app-fixlijst
+  (`docs/06-app-fixlijst.md`).
+- **`MAIL_TEST_RECIPIENT`** stuurt klantbevestigingen tijdelijk naar één
+  testinbox, met `[TEST → echt adres]` in het onderwerp en een gele balk in de
+  mail, zolang Resend zonder geverifieerd domein alleen aan het accountadres
+  levert. Leeg laten in productie. De offerte-PDF gaat nu mee als
+  `application/pdf`.
+- **Klusbaas-logo en huisstijl (C3).** Eigen beeldmerk: een K uit een steel
+  en een winkelhaak met maatstreepjes, plus het woordmerk in Archivo 900 als
+  outlines. `public/brand/` (logo, licht logo, beeldmerk, e-mail-PNG), nieuwe
+  `favicon.svg`, `icon-192/512.png`, `apple-touch-icon.png`,
+  `site.webmanifest` en `og-image.png` ("Jouw vak. Jouw website."). Het
+  `Logo`-component vervangt de K-tegels in header, wizard, 404 en
+  offertepagina; de offerte-PDF tekent het logo als vectorpaden en elke mail
+  heeft een logo-header. Alles komt uit `scripts/generate-brand.mjs`.
+- **Privacyverklaring `/privacy` (C1).** Per formulier: gegevens, doel,
+  grondslag en bewaartermijn, plus verwerkers en rechten. Link in de footer,
+  onder elk formulier, in elke mail (footer) en in de offerte-PDF.
+- **Nieuwsbrief met dubbele opt-in (C2).** Aanmeldveld in de nieuwe footer
+  en op `/nieuwsbrief`. `POST /api/newsletter` (honeypot, rate limit) slaat
+  het adres op als `pending` met een onraadbaar token en mailt een
+  bevestigingslink; `GET /api/newsletter/confirm` zet het op `subscribed`
+  (en in de Resend Audience als `RESEND_AUDIENCE_ID` gezet is);
+  `/afmelden?token=` zet het op `unsubscribed`. Pagina's tonen de status.
+
+- **Eén lead-endpoint `POST /api/lead`.** Wizard-offerte, afspraak
+  (`BookingCalendar`), contactformulier, storingsmelding en m²-offerte posten
+  naar dezelfde Netlify Function (en in `vite dev` naar dezelfde handler via
+  middleware). Validatie per formulier in `utils/lead.ts`, honeypot +
+  tijdscheck, eenvoudige rate limit. Aanvragen worden opgeslagen (Netlify
+  Blobs, lokaal `.data/`) en via Resend gemaild naar `QUOTE_NOTIFY_EMAIL`.
+  Formulieren tonen echte status: versturen…, gelukt (met referentie) of een
+  fout met WhatsApp-terugval.
+- **Offertebouwer.** Stap 5 van de wizard kiest pakket en extra componenten
+  (`data/addons.ts`) met live totaal. Bij versturen ontstaat offerte
+  `KB-2026-0001` (oplopend) met regels, subtotaal, 21 % btw, totaal en 30 dagen
+  geldigheid (`utils/quote.ts`, in centen), opgeslagen met een PDF (`pdf-lib`)
+  die als bijlage naar Klusbaas en de klant gaat. Terug te zien via
+  `/offerte/:id?token=…` en `GET /api/quote` (fout token → 403).
+- **Kanaalkeuze werkt.** WhatsApp / E-mail / Allebei bepaalt nu hoe de offerte
+  gaat: e-mail stuurt de PDF naar de klant, WhatsApp zet een kant-en-klare
+  wa.me-link in de mail aan Klusbaas. Een geweigerde klantmail (Resend-
+  testmodus) laat de aanvraag niet mislukken; de API meldt per ontvanger het
+  resultaat.
+
 - **Persoonlijke demo-link.** `/voorbeeld/:vak/:stijl?naam=&plaats=&tel=`
   vult bedrijfsnaam, plaats en (geldig) telefoonnummer in, met dezelfde
   terugval op sectordefaults als de wizard. De knop "Maak dit mijn website"

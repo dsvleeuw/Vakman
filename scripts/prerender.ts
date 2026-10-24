@@ -33,7 +33,12 @@ const siteUrl = (process.env.PRERENDER_SITE_URL ?? 'https://klusbaas.nl').replac
 
 /** Routes worth rendering for search engines and link previews. */
 function routesToPrerender(): Route[] {
-  const routes: Route[] = [{ name: 'home' }];
+  const routes: Route[] = [
+    { name: 'home' },
+    { name: 'privacy' },
+    { name: 'newsletter' },
+    { name: 'unsubscribe' },
+  ];
   for (const sector of ORDER) {
     for (const style of STYLES) {
       routes.push({ name: 'site', sector, styleId: style.id });
@@ -70,6 +75,11 @@ function headTags(route: Route): string {
     `<meta name="twitter:title" content="${escapeHtml(meta.title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(meta.description)}" />`,
   ];
+
+  if (route.name === 'unsubscribe') {
+    // Personal links land here; keep the page out of search results.
+    tags.push('<meta name="robots" content="noindex" />');
+  }
 
   if (route.name === 'site') {
     const styleFontHref = getStyleFontHref(route.styleId);
@@ -125,6 +135,7 @@ async function main() {
   }
 
   const urls = routes
+    .filter((route) => route.name !== 'unsubscribe')
     .map((route) => {
       const path = buildPath(route).split('?')[0];
       const priority = route.name === 'home' ? '1.0' : '0.8';
@@ -147,6 +158,7 @@ async function main() {
       '# Wizard, appointment confirmation and preview-tool routes are for people,',
       '# not search results: the presets themselves are indexable.',
       'Disallow: /start/',
+      'Disallow: /offerte/',
       '',
       `Sitemap: ${siteUrl}/sitemap.xml`,
       '',
@@ -154,7 +166,7 @@ async function main() {
     'utf8'
   );
 
-  process.stdout.write(`✓ prerendered ${written} routes, sitemap with ${routes.length} URLs\n`);
+  process.stdout.write(`✓ prerendered ${written} routes, sitemap with ${urls.split('<url>').length - 1} URLs\n`);
 }
 
 main().catch((error) => {

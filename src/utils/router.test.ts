@@ -241,3 +241,45 @@ test('mergeDemoPersonalization lets the link win and keeps sector fallbacks', ()
     city: 'Hoofddorp',
   });
 });
+
+test('stored quotes get a token-protected route', () => {
+  assert.deepEqual(parseRoute('/offerte/KB-2026-0001', '?token=abc'), {
+    name: 'quote',
+    id: 'KB-2026-0001',
+    token: 'abc',
+  });
+  assert.deepEqual(parseRoute('/offerte/KB-2026-0001'), { name: 'quote', id: 'KB-2026-0001', token: '' });
+  assert.equal(parseRoute('/offerte/geen-nummer').name, 'notFound');
+  assert.equal(parseRoute('/offerte').name, 'notFound');
+  assert.equal(parseRoute('/offerte/KB-2026-0001/extra').name, 'notFound');
+  assert.equal(
+    buildPath({ name: 'quote', id: 'KB-2026-0001', token: 'a+b' }),
+    '/offerte/KB-2026-0001?token=a%2Bb'
+  );
+  assert.match(getRouteMeta({ name: 'quote', id: 'KB-2026-0001', token: '' }).title, /Offerte KB-2026-0001/);
+});
+
+test('privacy, nieuwsbrief and afmelden have real routes that round-trip', () => {
+  const token = 'Ab_-'.repeat(8);
+  assert.deepEqual(parseRoute('/privacy'), { name: 'privacy' });
+  assert.deepEqual(parseRoute('/privacy/'), { name: 'privacy' });
+  assert.deepEqual(parseRoute('/nieuwsbrief'), { name: 'newsletter' });
+  assert.deepEqual(parseRoute('/nieuwsbrief', '?status=bevestigd'), { name: 'newsletter', status: 'bevestigd' });
+  assert.deepEqual(parseRoute('/nieuwsbrief', '?status=<script>'), { name: 'newsletter' });
+  assert.deepEqual(parseRoute('/afmelden', `?token=${token}`), { name: 'unsubscribe', token });
+  assert.deepEqual(parseRoute('/afmelden', '?token=kort'), { name: 'unsubscribe' });
+  assert.equal(parseRoute('/privacy/extra').name, 'notFound');
+  for (const route of [
+    { name: 'privacy' },
+    { name: 'newsletter' },
+    { name: 'newsletter', status: 'verlopen' },
+    { name: 'unsubscribe' },
+    { name: 'unsubscribe', token },
+  ] as const) {
+    const path = buildPath(route);
+    const [pathname, search = ''] = path.split('?');
+    assert.deepEqual(parseRoute(pathname, search ? `?${search}` : ''), route);
+  }
+  assert.match(getRouteMeta({ name: 'privacy' }).title, /^Privacyverklaring/);
+  assert.match(getRouteMeta({ name: 'unsubscribe' }).title, /^Afmelden/);
+});
