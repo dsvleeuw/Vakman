@@ -72,21 +72,40 @@ that only intercepts plain left clicks.
   "Bekijk demo" / "Kies deze stijl", with descriptive `aria-label`s and real
   links on the marketing page.
 
-## Recommendations, in priority order
+## Round 2 — shipped in this branch
+
+These follow-ups from the first review are now implemented and covered by the
+jsdom walkthrough and unit tests:
+
+- **Chosen package travels through the funnel (P1).** `Start met Pro` opens
+  `/start/vak?pakket=pro`; the package appears as a chip from step 3, as a
+  priced line in step 5 and in the confirmation. Plan data moved to
+  `src/data/plans.ts` so pricing table and wizard cannot drift.
+- **Shortcut into step 3 explained (P2).** Context chips ("Vak: loodgieter ·
+  wijzig", "Stijl: Signaal · wijzig", "Pakket: Pro") sit above the form on
+  steps 3–5.
+- **Sticky mobile action bar (P2).** "← Terug" and "Volgende stap" are pinned
+  to the bottom of the viewport on phones, with the preview toggle just above.
+- **Route-level code splitting (P3).** Initial JS: 498 kB → 299 kB
+  (147 kB → 95 kB gzip). `SiteView`, `WizardView` and `ComponentGallery` load
+  per route with a spinner fallback.
+- **International phone numbers (P3).** `+31 6 12345678`, `0031 (0)6-…` and
+  local formats pass validation everywhere (`normalizeDutchPhone`), with
+  tests.
+- **Bug found while testing:** `onStart` handlers attached directly to
+  `onClick` passed the click event as a plan id; the wizard entry point now
+  validates the argument.
+
+## Recommendations, still open
 
 ### P1 — conversion and trust
 
-1. **Carry the chosen package into the wizard.**
-   `Start met Pro` currently lands on step 1 and forgets the choice. Add
-   `?pakket=pro` to the wizard URL, show the selection in step 5 and in the
-   confirmation ("Pro · € 995 eenmalig, excl. btw"). Today the pricing table
-   ends in a dead click; this is the cheapest funnel fix available.
-2. **Wire or remove the "Offertes ontvangen via" choice.**
+1. **Wire or remove the "Offertes ontvangen via" choice.**
    The wizard offers WhatsApp / E-mail / Allebei and the confirmation repeats
    it, but nothing changes. Either send a `mailto:` fallback and store the
    channel, or drop the control. A control that does nothing erodes trust in
    a product whose pitch is "within fifteen minutes".
-3. **Order the end of the wizard around the deliverable.**
+2. **Order the end of the wizard around the deliverable.**
    Step 5 asks for an appointment before the visitor has seen their finished
    site. Consider making "Bekijk je website" the primary action there
    (publish first, then offer an appointment), and treat the Google sign-in as
@@ -94,51 +113,41 @@ that only intercepts plain left clicks.
 
 ### P2 — mobile and flow polish
 
-4. **Sticky wizard action bar on mobile.** "Volgende stap" sits below a long
-   form; on a phone it is off-screen after the last field. A sticky bottom bar
-   with "← Terug" and the primary action (with safe-area padding) would cut
-   mis-taps.
-5. **Collapse the preview chrome on small screens.** The dark preview bar on
+3. **Collapse the preview chrome on small screens.** The dark preview bar on
    a generated site wraps to three rows on a phone. Make it a bottom sheet or
    a single "aanpassen" chip so the site itself is what people see.
-6. **Restore scroll position within a page.** Route changes intentionally jump
+4. **Restore scroll position within a page.** Route changes intentionally jump
    to the top. Returning to a partly-scrolled long page (or a wizard step you
    already filled) could restore the previous offset; `history.state` is free
    to store it.
-7. **Explain the shortcut into step 3.** "Kies deze stijl" on a preset jumps
-   straight to `/start/gegevens`, so the first thing a visitor sees is
-   "STAP 3 VAN 5". Show a small summary ("Vak: loodgieter · Stijl: Signaal ·
-   wijzig") above the form so the jump feels intentional rather than broken.
-8. **Empty/loading states.** Image fallbacks exist, but there is no shimmer or
+5. **Empty/loading states.** Image fallbacks exist, but there is no shimmer or
    reserved aspect ratio in a few grids, so the layout jumps when photos load.
 
 ### P3 — performance, SEO, measurement
 
-9. **Route-level code splitting.** `index-*.js` is ~498 kB (147 kB gzip);
-   `WizardView` and `SiteView` could be lazy-loaded per route like the
-   component library already is. This matters on the mobile 4G connections the
-   target audience often uses.
-10. **Prerender the marketing pages.** Client-side routes are a big step up
+6. **Prerender the marketing pages.** Client-side routes are a big step up
    from state-only views, but crawlers still see an empty `index.html`.
    Prerendering `/`, `/voorbeeld/*` and `/componenten` (or migrating to a
    framework with SSR) plus a sitemap, canonical tags and an `og:image` is the
    next SEO step.
-11. **Funnel analytics.** Emit step-view, step-complete, preset-open and
+7. **Funnel analytics.** Emit step-view, step-complete, preset-open and
     WhatsApp-click events; the wizard is the product, and right now nobody can
     see where people drop out.
-12. **Accept international phone formats.** `+31 6 1234 5678` and `0031…` are
-    rejected by the wizard/contact/booking validators even though
-    `phoneToWaDigits` handles them. Normalise before validating and keep the
-    friendly error message.
-13. **Accessibility audit with real assistive tech.** Labels, focus, skip link
+8. **Accessibility audit with real assistive tech.** Labels, focus, skip link
     and reduced motion are in place, but the palette-generated trade sites
     (five styles × light/dark) deserve a contrast pass, especially muted text
     on tinted cards and white text on the accent colour.
 
 ## How this was verified
 
-- `npx tsc --noEmit`, the full `node --test` suite (47 tests, 11 new router
-  tests) and `vite build` are green.
+- `npx tsc --noEmit`, the full `node --test` suite (49 tests: router,
+  phone normalisation, pricing, contact, appointments, component renders) and
+  `vite build` are green.
+- A temporary jsdom walkthrough (deleted before commit) clicked "Start met
+  Pro" → asserted `?pakket=pro` in the URL, walked to step 5 and checked the
+  package line, restored a typed business name after a preview round-trip,
+  accepted `+31 6 12345678`, opened the 404, a deep link, and followed a
+  legacy `?view=site` redirect.
 - `/`, `/voorbeeld/loodgieter/krachtig`, `/start/gegevens`,
   `/componenten/trust-bar` and unknown paths all return the app shell from the
   dev server (SPA fallback), and `buildPath(parseRoute(url))` is asserted to

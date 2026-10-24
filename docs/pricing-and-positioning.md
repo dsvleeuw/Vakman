@@ -28,8 +28,10 @@ differentiators:
 ## Chosen positioning
 
 Klusbaas sits in the **middle of the market** and competes on quality and
-proactive sales rather than price. The platform prices are implemented in
-`src/components/PricingSection.tsx`:
+proactive sales rather than price. The package definitions (name, price,
+blurb, feature list, "most popular" flag) live in **`src/data/plans.ts`**;
+`PricingSection` renders them and the wizard shows the chosen package on
+`/start/vak?pakket=pro`. Change a price there, not in a component:
 
 | Package | One-off price (excl. btw) | Position |
 |---------|---------------------------|----------|

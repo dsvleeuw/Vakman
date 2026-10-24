@@ -32,7 +32,8 @@ calculator, portfolio, reviews, booking and contact flows.
   (`BookingCalendar`, `utils/googleWorkspace.ts`).
 - **Platform pricing** — three one-off packages (€ 595 / € 995 / € 1.795,
   excl. btw) plus an optional € 25/month service, with explicit
-  "you own the site and code" messaging (`PricingSection`).
+  "you own the site and code" messaging (`PricingSection`). A package CTA
+  carries the choice into the wizard (`/start/vak?pakket=pro`).
 - **Interactive component library** — searchable live previews of all 30
   component modules, including ten new reusable trust and conversion
   components. Open **Componenten** in the main navigation or visit
@@ -81,6 +82,7 @@ src/
 ├── utils/router.ts          # URL parsing, building, titles and legacy redirects
 ├── hooks/                   # useRouter, useRouteMeta, useMediaQuery
 ├── data/tradesData.ts       # All sector content, styles, palettes, photos
+├── data/plans.ts            # The three one-off platform packages
 ├── data/componentCatalog.ts # Searchable component inventory and preview metadata
 ├── types.ts                 # Shared domain types
 ├── utils/

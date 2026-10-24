@@ -70,6 +70,7 @@ change. The Netlify deploy preview is the only external CI check.
 - Add a smart tool: [docs/adding-a-trade-tool.md](./docs/adding-a-trade-tool.md)
 - Understand contact flows: [docs/contact-strategy.md](./docs/contact-strategy.md)
 - Change prices: [docs/pricing-and-positioning.md](./docs/pricing-and-positioning.md)
+  (platform packages live in `src/data/plans.ts`)
 - Check current gaps before planning: [docs/known-limitations.md](./docs/known-limitations.md)
 - Read the UX/navigation review and open recommendations:
   [docs/ux-review.md](./docs/ux-review.md)
@@ -85,8 +86,13 @@ change. The Netlify deploy preview is the only external CI check.
 - The pre-router links `?sector=loodgieter&style=2&view=site` and
   `?autostart=1` still work: `routeFromLegacyQuery` rewrites them to the
   new paths. Keep that mapping when you add routes so old links survive.
-- Wizard routes carry `?vak=` and `?stijl=`; use `RouteLink` for internal
-  navigation so hrefs stay real (middle-click, new tab, SEO).
+- Wizard routes carry `?vak=`, `?stijl=` and `?pakket=`; use `RouteLink` for
+  internal navigation so hrefs stay real (middle-click, new tab, SEO).
+- Phone validation goes through `normalizeDutchPhone()` in
+  `utils/contact.ts` (accepts `06…`, `+31 6…`, `0031 (0)6…`); never add a new
+  `^0\d{9}$` regex in a component.
+- `SiteView`, `WizardView` and `ComponentGallery` are lazy-loaded per route;
+  keep new heavy screens behind `lazy()` so the marketing page stays small.
 - The mobile sticky contact bar overlays the bottom of `SiteView`; the
   page root carries `pb-20 sm:pb-0` — preserve that spacing when adding
   full-width sections.

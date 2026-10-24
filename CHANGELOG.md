@@ -26,6 +26,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Mobiel live voorbeeld in de wizard.** Het volledige voorbeeld wordt onder
   `lg` pas geladen als je "Bekijk je website live" opent.
 - **404-pagina** met verwijzingen naar home, presets, componenten en start.
+- **Pakketkeuze reist mee door de wizard.** `Start met Basis/Pro/Premium`
+  opent `/start/vak?pakket=pro`; stap 5 en het bevestigingsscherm tonen het
+  gekozen pakket met prijs (excl. btw). De pakketdefinities staan nu in
+  `src/data/plans.ts`, zodat prijstabel en wizard niet uit elkaar lopen.
+- **Contextchips in de wizard.** Vanaf stap 3 zie je "Vak: …  wijzig" en
+  "Stijl: …  wijzig" (plus het pakket), zodat de sprong naar stap 3 vanaf een
+  preset niet als een fout aanvoelt.
+- **Sticky actiebalk op mobiel** in de wizard: "← Terug" en "Volgende stap"
+  blijven onderaan in beeld; het live-voorbeeldknopje staat er direct boven.
+- **Route-level code splitting.** `SiteView`, `WizardView` en
+  `ComponentGallery` worden lazy geladen; de eerste JS-bundel gaat van
+  ± 498 kB (147 kB gzip) naar ± 299 kB (95 kB gzip).
+- **Internationale telefoonnummers.** `+31 6 12345678`, `0031 (0)6-…` en
+  `06 12 34 56 78` worden nu overal geaccepteerd via
+  `normalizeDutchPhone` (wizard, contactformulier, afspraakkalender en
+  storingsmelding).
 - **Toegankelijkheid:** skip-link, zichtbare `:focus-visible`-ring,
   `prefers-reduced-motion`-ondersteuning, labels/`aria-invalid`/`role="alert"`
   op de wizard- en contactformulieren, `aria-controls` op de FAQ-accordeon.
