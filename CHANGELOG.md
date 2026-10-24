@@ -74,6 +74,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Stijlfonts op de homepage terug.** Sinds `index.html` alleen Archivo en
+  JetBrains Mono laadt, vielen de stijlkaarten in `PresetsSection` terug op
+  Georgia/systeemfonts. De sectie laadt de stijlfonts nu via een
+  `IntersectionObserver` kort voordat ze in beeld komt, zodat de eerste paint
+  licht blijft.
 - **Formuliervelden op mobiel minimaal 16px (`text-base`)** in `ContactSection`,
   `FaultReportForm`, `BookingCalendar`, `SurfaceCalculator`, de Google
   Agenda-checkbox in `WizardView` en de zoekinput in `ComponentGallery`, zodat
