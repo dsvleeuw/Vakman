@@ -16,13 +16,27 @@ import {
   getUnsplashUrl,
   buildActiveSite,
 } from '../data/tradesData';
-import { formatPrice, validateWizardForm } from '../utils/pricing';
-import { getPlan } from '../data/plans';
+import { validateWizardForm } from '../utils/pricing';
+import { PLANS, getPlan } from '../data/plans';
+import { ADDONS, ADDON_GROUPS, isAddonIncluded } from '../data/addons';
+import {
+  calculateQuote,
+  formatDutchDate,
+  formatEuroCents,
+  quoteDelivery,
+  quotePdfHref,
+  sanitizeAddonIds,
+} from '../utils/quote';
+import { describeDelivery, type LeadResponse } from '../utils/leadClient';
+import { useLeadForm } from '../hooks/useLeadForm';
+import { HoneypotField, LeadErrorNotice } from './LeadStatus';
+import { QuoteSummary } from './QuoteSummary';
 import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
 import {
   buildMailtoUrl,
   buildQuoteRequestMessage,
   buildWhatsAppUrl,
+  isValidEmail,
 } from '../utils/contact';
 import { track } from '../utils/analytics';
 import {
@@ -56,11 +70,14 @@ interface WizardViewProps {
   /** Details from a personal demo link; applied once after hydration. */
   prefill?: DemoPersonalization;
   initialDisabledServices?: Record<number, boolean>;
+  /** Add-on ids restored from the saved draft. */
+  initialAddons?: string[];
+  initialChannel?: QuoteChannel;
   /** Package chosen in the pricing table, carried in the URL as ?pakket=pro */
   plan?: PlanId;
   /** Mirrors the wizard state into the URL and session storage. */
   onDraftChange?: (draft: WizardDraft) => void;
-  onSelectionChange?: (sector: SectorId, styleIndex: number) => void;
+  onSelectionChange?: (sector: SectorId, styleIndex: number, plan?: PlanId) => void;
   onGoHome: () => void;
   onViewPublishedSite: (sectorId: SectorId, styleIndex: number, form: WizardFormData) => void;
 }
@@ -76,6 +93,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
   initialForm,
   prefill,
   initialDisabledServices,
+  initialAddons,
+  initialChannel,
   plan,
   onDraftChange,
   onSelectionChange,
@@ -117,7 +136,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [disabledServices, setDisabledServices] = useState<Record<number, boolean>>(
     initialDisabledServices ?? {}
   );
-  const [channel, setChannel] = useState<QuoteChannel>('WhatsApp');
+  const [channel, setChannel] = useState<QuoteChannel>(initialChannel ?? 'WhatsApp');
+  const [addons, setAddons] = useState<string[]>(() => sanitizeAddonIds(initialAddons ?? []));
+  const [emailError, setEmailError] = useState('');
+  const [quoteResult, setQuoteResult] = useState<LeadResponse | null>(null);
+  const lead = useLeadForm('wizard-quote');
   const [addToCalendar, setAddToCalendar] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -176,8 +199,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
   }, [sector, styleIndex, onSelectionChange]);
 
   useEffect(() => {
-    onDraftChange?.({ sector, styleIndex, form: formData, disabledServices, sectorChosen });
-  }, [sector, styleIndex, formData, disabledServices, sectorChosen, onDraftChange]);
+    onDraftChange?.({ sector, styleIndex, form: formData, disabledServices, sectorChosen, addons, channel });
+  }, [sector, styleIndex, formData, disabledServices, sectorChosen, addons, channel, onDraftChange]);
 
   const handleSelectSector = (secId: SectorId) => {
     setSectorChosen(true);
@@ -226,19 +249,58 @@ export const WizardView: React.FC<WizardViewProps> = ({
     }
   };
 
+  const toggleAddon = (id: string) =>
+    setAddons((current) =>
+      sanitizeAddonIds(current.includes(id) ? current.filter((x) => x !== id) : [...current, id])
+    );
+
   const handleBookAppointment = async () => {
+    if (isBooking) return;
+    const email = (formData.email ?? '').trim();
+    if (email ? !isValidEmail(email) : quoteDelivery(channel).email) {
+      setEmailError(
+        email
+          ? 'Dit e-mailadres klopt niet, bijv. naam@bedrijf.nl'
+          : 'Vul je e-mailadres in, daar sturen we de offerte heen'
+      );
+      document.getElementById('wizard-email')?.focus();
+      return;
+    }
     setIsBooking(true);
+
+    const response = await lead.submit({
+      type: 'quote',
+      sector,
+      styleIndex,
+      plan: effectivePlan,
+      addons,
+      services: liveSite.services.map((sv) => sv.n),
+      form: {
+        biz: formData.biz.trim() || baseSector.biz,
+        owner: formData.owner.trim() || baseSector.owner,
+        phone: formData.phone.trim(),
+        city: formData.city.trim() || baseSector.city,
+        email,
+      },
+      channel,
+      appointment: { date: bookingDate.formatted, slot: bookingSlot },
+    });
+    if (!response.ok) {
+      setIsBooking(false);
+      return;
+    }
+    setQuoteResult(response);
 
     const bizName = formData.biz.trim() || baseSector.biz;
     const owner = formData.owner.trim() || baseSector.owner;
     const city = formData.city.trim() || baseSector.city;
     const serviceName = liveSite.services[0]?.n || 'Algemeen gesprek';
     const clientName = owner;
-    const clientPhone = liveSite.phone;
+    const clientPhone = formData.phone.trim() || liveSite.phone;
     const notes = `Vak: ${baseSector.name}`;
 
     const booking: AppointmentBooking = {
-      id: generateAppointmentId(),
+      id: response.reference ?? generateAppointmentId(),
       sectorId: sector,
       bizName,
       serviceName,
@@ -311,6 +373,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const liveSite = buildActiveSite(sector, styleIndex, formData, disabledServices);
   const showPreview = isDesktop || previewOpen;
   const selectedPlan = getPlan(plan);
+  const effectivePlan: PlanId = selectedPlan?.id ?? 'pro';
+  const quote = calculateQuote(effectivePlan, addons);
+  const activeServices = liveSite.services.map((sv) => sv.n);
+  const delivery = quoteDelivery(channel);
 
   // No VITE_DEMO_PHONE means no safe WhatsApp number: fall back to e-mail.
   const platformWhatsApp = getPlatformWhatsApp();
@@ -714,15 +780,15 @@ export const WizardView: React.FC<WizardViewProps> = ({
           {step === 'afspraak' && (
             <div className="flex flex-col gap-6">
               <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
-                STAP 5 VAN 5 · AFSPRAAK
+                STAP 5 VAN 5 · OFFERTE
               </span>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0">
                 Je website staat klaar.
               </h1>
               <p className="text-stone-600 text-sm sm:text-base m-0">
-                Bekijk hem hieronder of open de volledige voorbeeldpagina. Wil je eerst
-                iemand spreken? Dan kun je hieronder een afspraak aanvragen — dat is
-                optioneel.
+                Bekijk hem hieronder of open de volledige voorbeeldpagina. Kies daarna je
+                pakket en extra's: je krijgt direct een offerte met vast nummer, btw en
+                totaal, via het kanaal dat jij kiest.
               </p>
 
               <div className="flex flex-col gap-2">
@@ -740,20 +806,85 @@ export const WizardView: React.FC<WizardViewProps> = ({
               <div className="flex items-center gap-3 pt-1" aria-hidden="true">
                 <span className="h-px flex-1 bg-stone-200" />
                 <span className="text-xs font-bold uppercase tracking-wider text-stone-400">
-                  Optioneel: een afspraak
+                  Vraag je offerte aan
                 </span>
                 <span className="h-px flex-1 bg-stone-200" />
               </div>
 
               <div className="bg-white p-6 rounded-2xl border border-stone-200 flex flex-col gap-5">
-                <p className="text-sm text-stone-600 m-0">
-                  We nemen contact met je op om je website te bespreken en een
-                  vrijblijvende offerte te maken. Kies een moment dat jou schikt.
-                </p>
+                <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
+                <div>
+                  <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
+                    1. Kies je pakket
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2" role="group" aria-label="Pakket">
+                    {PLANS.map((p) => {
+                      const isSel = effectivePlan === p.id;
+                      return (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => onSelectionChange?.(sector, styleIndex, p.id)}
+                          aria-pressed={isSel}
+                          className={`p-3 rounded-xl border-2 text-left cursor-pointer transition-all ${
+                            isSel
+                              ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
+                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
+                          }`}
+                        >
+                          <span className="block font-extrabold text-sm">{p.name}</span>
+                          <span className="block text-xs opacity-80">
+                            {formatEuroCents(p.price * 100)} excl. btw
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <fieldset className="border-0 p-0 m-0">
+                  <legend className="text-xs font-bold text-stone-500 uppercase block mb-2">
+                    2. Extra componenten (optioneel)
+                  </legend>
+                  <div className="flex flex-col gap-3">
+                    {ADDON_GROUPS.map((group) => (
+                      <div key={group}>
+                        <span className="text-xs font-bold text-stone-400 block mb-1">{group}</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                          {ADDONS.filter((addon) => addon.group === group).map((addon) => {
+                            const included = isAddonIncluded(addon, effectivePlan);
+                            const checked = included || addons.includes(addon.id);
+                            return (
+                              <label
+                                key={addon.id}
+                                className={`min-h-11 px-3 py-2 rounded-xl border-2 flex items-center gap-2.5 text-sm ${
+                                  checked ? 'border-stone-900 bg-stone-50' : 'border-stone-200 bg-white hover:border-stone-300'
+                                } ${included ? 'cursor-default opacity-80' : 'cursor-pointer'}`}
+                                title={addon.description}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  disabled={included}
+                                  onChange={() => toggleAddon(addon.id)}
+                                  className="w-4 h-4 accent-stone-900 shrink-0"
+                                />
+                                <span className="flex-1 min-w-0 font-semibold leading-tight">{addon.label}</span>
+                                <span className="text-xs font-bold tabular-nums shrink-0 text-stone-600">
+                                  {included ? 'inbegrepen' : `+ ${formatEuroCents(addon.price * 100)}`}
+                                </span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </fieldset>
 
                 <div>
                   <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                    1. Kies een datum (komende 2 weken)
+                    3. Voorkeur voor een kennismaking: datum
                   </span>
                   <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
                     {dates.map((d) => {
@@ -781,7 +912,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
                 <div>
                   <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                    2. Kies een dagdeel
+                    4. Dagdeel
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     {TIME_SLOTS.map((slot) => {
@@ -806,7 +937,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
                 <div>
                   <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
-                    3. Offertes ontvangen via
+                    5. Offerte ontvangen via
                   </span>
                   <div className="flex gap-2" role="group" aria-label="Kanaal voor de offerte">
                     {(['WhatsApp', 'E-mail', 'Allebei'] as const).map((ch) => (
@@ -826,11 +957,38 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </div>
                   <p className="text-xs text-stone-500 mt-2 m-0" aria-live="polite">
                     {channel === 'WhatsApp'
-                      ? 'We sturen de offerte naar je WhatsApp.'
+                      ? `We sturen de offerte via WhatsApp naar ${formData.phone.trim() || 'je nummer'}.`
                       : channel === 'E-mail'
-                        ? 'We mailen de offerte naar je e-mailadres.'
-                        : 'Je ontvangt de offerte via WhatsApp én e-mail.'}
+                        ? 'We mailen de offerte als PDF naar je e-mailadres.'
+                        : 'Je ontvangt de offerte via WhatsApp én als PDF per e-mail.'}
                   </p>
+                  <div className="mt-3">
+                    <label htmlFor="wizard-email" className="block text-sm font-bold text-stone-900 mb-1.5">
+                      E-mailadres{delivery.email ? ' *' : ' (optioneel)'}
+                    </label>
+                    <input
+                      id="wizard-email"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      value={formData.email ?? ''}
+                      onChange={(event) => {
+                        handleFieldChange('email', event.target.value);
+                        setEmailError('');
+                      }}
+                      placeholder="naam@bedrijf.nl"
+                      aria-invalid={Boolean(emailError)}
+                      aria-describedby={emailError ? 'wizard-email-error' : undefined}
+                      className={`w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
+                        emailError ? 'border-rose-500' : 'border-stone-300'
+                      }`}
+                    />
+                    {emailError && (
+                      <span id="wizard-email-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
+                        {emailError}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <label className="min-h-11 flex items-center gap-3 text-xs text-stone-600 cursor-pointer">
@@ -855,15 +1013,19 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </span>
                 </label>
 
-                {selectedPlan && (
-                  <div className="pt-3 border-t border-stone-100 flex items-baseline justify-between gap-3 text-xs">
-                    <span className="text-stone-400">Gekozen pakket:</span>
-                    <strong className="text-stone-800">
-                      {selectedPlan.name} · {formatPrice(selectedPlan.price)} eenmalig
-                      <span className="text-stone-400 font-semibold"> excl. btw</span>
-                    </strong>
-                  </div>
-                )}
+                <QuoteSummary
+                  quote={quote}
+                  sectorName={baseSector.name}
+                  styleName={STYLES[styleIndex].name}
+                  services={activeServices}
+                  onEditStep={onStepChange}
+                  onRemoveAddon={toggleAddon}
+                  note={
+                    delivery.email
+                      ? 'Bij versturen mailen we de offerte als PDF naar jou én naar Klusbaas.'
+                      : 'Bij versturen krijgt Klusbaas de offerte; jij krijgt hem via WhatsApp.'
+                  }
+                />
 
                 <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-2 text-xs">
                   <div>
@@ -880,12 +1042,18 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </div>
                 </div>
 
+                {lead.status === 'error' && (
+                  <LeadErrorNotice
+                    message={lead.result?.error}
+                    whatsappUrl={platformWhatsApp ? buildWhatsAppUrl(platformWhatsApp, quoteMessage) : null}
+                  />
+                )}
                 <button
                   onClick={handleBookAppointment}
                   disabled={isBooking}
-                  className="h-12 rounded-full border-2 border-stone-900 bg-white hover:bg-stone-50 text-stone-900 font-extrabold text-sm cursor-pointer transition-colors disabled:opacity-60"
+                  className="h-14 rounded-full border-0 bg-amber-400 hover:bg-amber-300 text-stone-950 font-extrabold text-base cursor-pointer transition-colors disabled:opacity-60"
                 >
-                  {isBooking ? 'Bezig met inplannen…' : 'Plan afspraak aanvragen'}
+                  {isBooking ? 'Versturen…' : `Offerte aanvragen · ${formatEuroCents(quote.totalCents)} incl. btw`}
                 </button>
               </div>
             </div>
@@ -898,7 +1066,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 ✓
               </div>
               <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-stone-900 m-0">
-                Afspraak aangevraagd!
+                Offerte aangevraagd!
               </h1>
               <p className="text-stone-600 text-base max-w-md m-0">
                 Bedankt{' '}
@@ -907,12 +1075,55 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 </strong>
                 . We spreken elkaar op{' '}
                 <strong>{bookingResult?.booking.dateStr || bookingDate.formatted}</strong> (
-                {bookingResult?.booking.timeSlot || bookingSlot}). Offertes gaan via {channel}.
+                {bookingResult?.booking.timeSlot || bookingSlot}).{' '}
+                {quoteResult?.reference ? (
+                  <>
+                    Je offerte heeft nummer <strong>{quoteResult.reference}</strong>.
+                  </>
+                ) : null}
               </p>
+              <p className="text-stone-500 text-sm max-w-md m-0" aria-live="polite">
+                {delivery.whatsapp && !delivery.email
+                  ? `We sturen je offerte via WhatsApp naar ${formData.phone.trim() || 'je nummer'}.`
+                  : quoteResult
+                    ? describeDelivery(quoteResult)
+                    : `Offerte via ${channel}.`}
+                {delivery.whatsapp && delivery.email ? ' Via WhatsApp krijg je hem ook.' : ''}
+              </p>
+
+              {quoteResult?.quote && (
+                <div className="w-full flex flex-col sm:flex-row gap-2">
+                  <a
+                    href={quoteResult.quote.path}
+                    className="flex-1 h-12 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm inline-flex items-center justify-center no-underline"
+                  >
+                    Bekijk je offerte
+                  </a>
+                  <a
+                    href={quotePdfHref(quoteResult.quote.path)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 h-12 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center no-underline"
+                  >
+                    Download PDF
+                  </a>
+                </div>
+              )}
+              {quoteResult?.quote && (
+                <QuoteSummary
+                  quote={quoteResult.quote}
+                  sectorName={quoteResult.quote.sectorName}
+                  styleName={quoteResult.quote.styleName}
+                  services={quoteResult.quote.services}
+                  readOnly
+                  className="w-full text-left"
+                  note={`Geldig tot ${formatDutchDate(quoteResult.quote.validUntil)}.`}
+                />
+              )}
 
               <div className="w-full bg-stone-50 p-5 rounded-2xl border border-stone-200 text-left flex flex-col gap-3 text-xs sm:text-sm">
                 <div className="flex justify-between border-b pb-2 border-stone-200">
-                  <span className="text-stone-500">Afspraak-ID:</span>
+                  <span className="text-stone-500">Offertenummer:</span>
                   <span className="font-mono font-bold">
                     {bookingResult?.booking.id ?? '—'}
                   </span>
@@ -921,12 +1132,12 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   <div className="flex justify-between border-b pb-2 border-stone-200">
                     <span className="text-stone-500">Pakket:</span>
                     <span className="font-bold">
-                      {selectedPlan.name} · {formatPrice(selectedPlan.price)} (excl. btw)
+                      {selectedPlan.name} · {formatEuroCents(selectedPlan.price * 100)} (excl. btw)
                     </span>
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-stone-500">Offertes via:</span>
+                  <span className="text-stone-500">Offerte via:</span>
                   <span className="font-bold">{channel}</span>
                 </div>
                 <div className="flex justify-between">
@@ -948,7 +1159,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
               {/* The chosen channel now actually produces a ready-to-send message */}
               <div className="w-full flex flex-col gap-2 text-left">
                 <span className="text-xs font-bold text-stone-500 uppercase">
-                  Stuur je gegevens alvast mee
+                  Vragen? Neem direct contact op
                 </span>
                 <div className="flex flex-col sm:flex-row gap-2">
                   {platformWhatsApp && (channel === 'WhatsApp' || channel === 'Allebei') && (

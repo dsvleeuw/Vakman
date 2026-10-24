@@ -2,6 +2,7 @@ import type { PlanId, SectorId, StyleId, WizardFormData } from '../types';
 import { SECTORS, STYLES } from '../data/tradesData';
 import { isPlanId } from '../data/plans';
 import { normalizeDutchPhone } from './contact';
+import { isQuoteNumber } from './quote';
 
 /**
  * Every view of the app gets a real, shareable URL. This module is pure so
@@ -18,6 +19,7 @@ import { normalizeDutchPhone } from './contact';
  *   /start/klaar                        wizard confirmation screen
  *   /componenten                        component library
  *   /componenten/trust-bar              component library with a selection
+ *   /offerte/KB-2026-0001?token=…       a stored quote (token-protected)
  *
  * Paths are Dutch because users see and share them; identifiers stay English.
  */
@@ -34,7 +36,7 @@ export const WIZARD_STEP_LABELS: Record<WizardRouteStep, string> = {
   stijl: 'Stijl',
   gegevens: 'Gegevens',
   diensten: 'Diensten',
-  afspraak: 'Afspraak',
+  afspraak: 'Offerte',
   klaar: 'Klaar',
 };
 
@@ -120,6 +122,7 @@ export type Route =
     }
   | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
   | { name: 'components'; componentId?: string }
+  | { name: 'quote'; id: string; token: string }
   | { name: 'notFound'; path: string };
 
 export function isSectorId(value: string | null | undefined): value is SectorId {
@@ -209,6 +212,11 @@ export function parseRoute(pathname: string, search = ''): Route {
     return { name: 'site', sector: second, styleId, ...(personal ? { personal } : {}) };
   }
 
+  if (first === 'offerte') {
+    if (segments.length !== 2 || !isQuoteNumber(second)) return { name: 'notFound', path: pathname };
+    return { name: 'quote', id: second, token: params.get('token') ?? '' };
+  }
+
   if (first === 'componenten') {
     if (segments.length > 2) return { name: 'notFound', path: pathname };
     return second ? { name: 'components', componentId: second } : { name: 'components' };
@@ -241,6 +249,8 @@ export function buildPath(route: Route): string {
       return route.componentId
         ? `/componenten/${encodeURIComponent(route.componentId)}`
         : '/componenten';
+    case 'quote':
+      return `/offerte/${encodeURIComponent(route.id)}${route.token ? `?token=${encodeURIComponent(route.token)}` : ''}`;
     case 'notFound':
       return route.path || '/';
   }
@@ -298,13 +308,13 @@ export function getRouteMeta(route: Route): RouteMeta {
     case 'wizard': {
       if (route.step === 'klaar') {
         return {
-          title: 'Afspraak aangevraagd · Klusbaas',
-          description: 'Je afspraak is aangevraagd. Bekijk je gegenereerde vakmanssite of plan een nieuw moment.',
+          title: 'Offerte aangevraagd · Klusbaas',
+          description: 'Je offerte-aanvraag is verstuurd. Bekijk je offerte of je gegenereerde vakmanssite.',
         };
       }
       const stepNumber = WIZARD_STEPS.indexOf(route.step) + 1;
       return {
-        title: `Stap ${stepNumber} van 5: ${WIZARD_STEP_LABELS[route.step]} · Klusbaas`,
+        title: `Stap ${stepNumber} van ${WIZARD_STEPS.length}: ${WIZARD_STEP_LABELS[route.step]} · Klusbaas`,
         description: BASE_DESCRIPTION,
       };
     }
@@ -320,6 +330,11 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: 'Componentenbibliotheek · Klusbaas',
         description: 'Alle 30 componenten van Klusbaas en de gegenereerde vakmanssites, met live previews.',
+      };
+    case 'quote':
+      return {
+        title: `Offerte ${route.id} · Klusbaas`,
+        description: 'Je offerte van Klusbaas: pakket, extra componenten, btw en totaal, 30 dagen geldig.',
       };
     case 'notFound':
       return {

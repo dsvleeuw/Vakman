@@ -241,3 +241,20 @@ test('mergeDemoPersonalization lets the link win and keeps sector fallbacks', ()
     city: 'Hoofddorp',
   });
 });
+
+test('stored quotes get a token-protected route', () => {
+  assert.deepEqual(parseRoute('/offerte/KB-2026-0001', '?token=abc'), {
+    name: 'quote',
+    id: 'KB-2026-0001',
+    token: 'abc',
+  });
+  assert.deepEqual(parseRoute('/offerte/KB-2026-0001'), { name: 'quote', id: 'KB-2026-0001', token: '' });
+  assert.equal(parseRoute('/offerte/geen-nummer').name, 'notFound');
+  assert.equal(parseRoute('/offerte').name, 'notFound');
+  assert.equal(parseRoute('/offerte/KB-2026-0001/extra').name, 'notFound');
+  assert.equal(
+    buildPath({ name: 'quote', id: 'KB-2026-0001', token: 'a+b' }),
+    '/offerte/KB-2026-0001?token=a%2Bb'
+  );
+  assert.match(getRouteMeta({ name: 'quote', id: 'KB-2026-0001', token: '' }).title, /Offerte KB-2026-0001/);
+});
