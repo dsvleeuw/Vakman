@@ -1,13 +1,11 @@
 import React from 'react';
-import type { SectorId } from '../types';
 import { ORDER, SECTORS, getUnsplashUrl, computePalette, STYLES } from '../data/tradesData';
+import { DEFAULT_STYLE_ID } from '../utils/router';
 import { ImageWithFallback } from './ImageWithFallback';
+import { RouteLink } from './RouteLink';
 
-interface HeroStripProps {
-  onSelectSector: (sectorId: SectorId) => void;
-}
-
-export const HeroStrip: React.FC<HeroStripProps> = ({ onSelectSector }) => {
+/** Marquee of trade cards; each card links to that trade's example site. */
+export const HeroStrip: React.FC = () => {
   // Duplicate for smooth seamless looping
   const items = [...ORDER, ...ORDER];
 
@@ -23,12 +21,12 @@ export const HeroStrip: React.FC<HeroStripProps> = ({ onSelectSector }) => {
           const photo = getUnsplashUrl(sec.pool[0], 600);
 
           return (
-            <button
+            <RouteLink
               key={`${sectorId}-${idx}`}
-              onClick={() => onSelectSector(sectorId)}
+              route={{ name: 'site', sector: sectorId, styleId: DEFAULT_STYLE_ID }}
               aria-hidden={isDuplicate || undefined}
               tabIndex={isDuplicate ? -1 : undefined}
-              className="group relative w-[240px] sm:w-[280px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shrink-0 bg-stone-200 border-0 p-0 cursor-pointer shadow-sm text-left transition-transform duration-300 hover:scale-[1.02]"
+              className="group relative block w-[240px] sm:w-[280px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shrink-0 bg-stone-200 border-0 p-0 cursor-pointer shadow-sm text-left no-underline transition-transform duration-300 hover:scale-[1.02]"
               aria-label={`Bekijk stijlen voor ${sec.name}`}
             >
               <ImageWithFallback
@@ -50,7 +48,7 @@ export const HeroStrip: React.FC<HeroStripProps> = ({ onSelectSector }) => {
                   5 stijlen
                 </span>
               </div>
-            </button>
+            </RouteLink>
           );
         })}
       </div>

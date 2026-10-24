@@ -348,13 +348,7 @@ export default function App() {
             </section>
 
             {/* Marquee Showcase Strip */}
-            <HeroStrip
-              onSelectSector={(secId) => {
-                handleSelectSector(secId);
-                const el = document.getElementById('presets');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            />
+            <HeroStrip />
 
             {/* Interactive Presets Gallery */}
             <PresetsSection

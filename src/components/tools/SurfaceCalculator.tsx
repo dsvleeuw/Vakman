@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useId, useMemo, useState } from 'react';
 import { Ruler, Plus, Trash2, MessageCircle, PaintRoller, Send, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
@@ -32,6 +32,8 @@ interface WallRow {
  * WhatsApp as a quote request.
  */
 export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) => {
+  const id = useId();
+
   const m2Services = useMemo(
     () =>
       site.services
@@ -95,7 +97,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
     if (lead.status === 'sending') return;
     if (!normalizeDutchPhone(phone)) {
       setPhoneError('Vul je telefoonnummer in, bijv. 06 12345678');
-      document.getElementById('m2-phone')?.focus();
+      document.getElementById(`${id}-phone`)?.focus();
       return;
     }
     if (surfaceM2 <= 0) return;
@@ -163,98 +165,116 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
 
           <div className={`${mobileOpen ? 'flex' : 'hidden sm:flex'} flex-col gap-6`}>
             <div>
-              <label className="block text-sm font-bold text-stone-900 mb-2">
+              <label
+                htmlFor={`${id}-service`}
+                className="block text-sm font-bold text-stone-900 mb-2"
+              >
                 Welk werk zoek je?
               </label>
-            <select
-              value={serviceName}
-              onChange={(e) => setServiceName(e.target.value)}
-              className={inputClass}
-            >
-              {services.map((sv) => (
-                <option key={sv.name} value={sv.name}>
-                  {sv.name} — € {sv.price} per m²
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <label className="block text-sm font-bold text-stone-900">
-              Afmetingen per wand (in meters)
-            </label>
-            {walls.map((wall, idx) => (
-              <div key={idx} className="flex items-center gap-2.5">
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    inputMode="decimal"
-                    value={wall.length}
-                    onChange={(e) => updateWall(idx, 'length', e.target.value)}
-                    placeholder="Lengte, bijv. 5"
-                    aria-label={`Lengte wand ${idx + 1}`}
-                    className={inputClass}
-                  />
-                </div>
-                <span className="text-stone-400 font-bold">×</span>
-                <div className="flex-1">
-                  <input
-                    type="text"
-                    inputMode="decimal"
-                    value={wall.height}
-                    onChange={(e) => updateWall(idx, 'height', e.target.value)}
-                    placeholder="Hoogte, bijv. 2,6"
-                    aria-label={`Hoogte wand ${idx + 1}`}
-                    className={inputClass}
-                  />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => removeWall(idx)}
-                  disabled={walls.length === 1}
-                  aria-label={`Verwijder wand ${idx + 1}`}
-                  className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-stone-500 hover:text-rose-600 hover:border-rose-300 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addWall}
-              className="self-start h-11 px-5 rounded-xl border-2 border-dashed border-stone-300 bg-transparent hover:border-stone-500 text-stone-700 font-bold text-sm flex items-center gap-2 cursor-pointer transition-colors"
-            >
-              <Plus className="w-4 h-4" />
-              Voeg een wand toe
-            </button>
-          </div>
-
-          <div>
-            <label className="block text-sm font-bold text-stone-900 mb-2">
-              Aantal deuren/ramen (±2 m² aftrek per stuk)
-            </label>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => setOpenings((v) => Math.max(0, v - 1))}
-                className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-500"
-                aria-label="Minder openingen"
+              <select
+                id={`${id}-service`}
+                value={serviceName}
+                onChange={(e) => setServiceName(e.target.value)}
+                className={inputClass}
               >
-                −
-              </button>
-              <span className="w-12 text-center text-2xl font-black tabular-nums">
-                {openings}
+                {services.map((sv) => (
+                  <option key={sv.name} value={sv.name}>
+                    {sv.name} — € {sv.price} per m²
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div role="group" aria-labelledby={`${id}-walls`} className="flex flex-col gap-3">
+              <span id={`${id}-walls`} className="block text-sm font-bold text-stone-900">
+                Afmetingen per wand (in meters)
               </span>
+              {walls.map((wall, idx) => (
+                <div key={idx} className="flex items-end gap-2.5">
+                  <div className="flex-1">
+                    <label
+                      htmlFor={`${id}-wall-${idx}-length`}
+                      className="block text-xs font-bold text-stone-700 mb-1"
+                    >
+                      Lengte wand {idx + 1}
+                    </label>
+                    <input
+                      id={`${id}-wall-${idx}-length`}
+                      type="text"
+                      inputMode="decimal"
+                      value={wall.length}
+                      onChange={(e) => updateWall(idx, 'length', e.target.value)}
+                      placeholder="Lengte, bijv. 5"
+                      className={inputClass}
+                    />
+                  </div>
+                  <span className="h-12 flex items-center text-stone-400 font-bold" aria-hidden="true">
+                    ×
+                  </span>
+                  <div className="flex-1">
+                    <label
+                      htmlFor={`${id}-wall-${idx}-height`}
+                      className="block text-xs font-bold text-stone-700 mb-1"
+                    >
+                      Hoogte wand {idx + 1}
+                    </label>
+                    <input
+                      id={`${id}-wall-${idx}-height`}
+                      type="text"
+                      inputMode="decimal"
+                      value={wall.height}
+                      onChange={(e) => updateWall(idx, 'height', e.target.value)}
+                      placeholder="Hoogte, bijv. 2,6"
+                      className={inputClass}
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeWall(idx)}
+                    disabled={walls.length === 1}
+                    aria-label={`Verwijder wand ${idx + 1}`}
+                    className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-stone-500 hover:text-rose-600 hover:border-rose-600 flex items-center justify-center cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
               <button
                 type="button"
-                onClick={() => setOpenings((v) => v + 1)}
-                className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-500"
-                aria-label="Meer openingen"
+                onClick={addWall}
+                className="self-start h-11 px-5 rounded-xl border-2 border-dashed border-stone-500 bg-transparent hover:border-stone-700 text-stone-700 font-bold text-sm flex items-center gap-2 cursor-pointer transition-colors"
               >
-                +
+                <Plus className="w-4 h-4" />
+                Voeg een wand toe
               </button>
             </div>
-          </div>
+
+            <div>
+              <span id={`${id}-openings`} className="block text-sm font-bold text-stone-900 mb-2">
+                Aantal deuren/ramen (±2 m² aftrek per stuk)
+              </span>
+              <div role="group" aria-labelledby={`${id}-openings`} className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setOpenings((v) => Math.max(0, v - 1))}
+                  className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-700"
+                  aria-label="Minder openingen"
+                >
+                  −
+                </button>
+                <span className="w-12 text-center text-2xl font-black tabular-nums" aria-live="polite">
+                  {openings}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setOpenings((v) => v + 1)}
+                  className="w-12 h-12 rounded-xl border-2 border-stone-500 bg-white text-xl font-black text-stone-700 cursor-pointer hover:border-stone-700"
+                  aria-label="Meer openingen"
+                >
+                  +
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -333,36 +353,54 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
           ) : (
             <form onSubmit={handleRequest} className="relative flex flex-col gap-3" noValidate>
               <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Je naam (optioneel)"
-                aria-label="Je naam (optioneel)"
-                autoComplete="name"
-                className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
-              />
               <div>
+                <label
+                  htmlFor={`${id}-name`}
+                  className="block text-xs font-bold text-stone-700 mb-1"
+                >
+                  Je naam (optioneel)
+                </label>
                 <input
-                  id="m2-phone"
+                  id={`${id}-name`}
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Je naam (optioneel)"
+                  autoComplete="name"
+                  className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor={`${id}-phone`}
+                  className="block text-xs font-bold text-stone-700 mb-1"
+                >
+                  Je telefoonnummer *
+                </label>
+                <input
+                  id={`${id}-phone`}
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
+                  aria-required="true"
                   value={phone}
                   onChange={(e) => {
                     setPhone(e.target.value);
                     setPhoneError('');
                   }}
                   placeholder="Je telefoonnummer *"
-                  aria-label="Je telefoonnummer"
                   aria-invalid={Boolean(phoneError)}
-                  aria-describedby={phoneError ? 'm2-phone-error' : undefined}
+                  aria-describedby={phoneError ? `${id}-phone-error` : undefined}
                   className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
                     phoneError ? 'border-rose-500' : 'border-stone-500'
                   }`}
                 />
                 {phoneError && (
-                  <span id="m2-phone-error" role="alert" className="text-xs font-bold text-rose-600 mt-1 block">
+                  <span
+                    id={`${id}-phone-error`}
+                    role="alert"
+                    className="text-xs font-bold text-rose-600 mt-1 block"
+                  >
                     {phoneError}
                   </span>
                 )}
@@ -378,7 +416,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
                 <Send className="w-5 h-5" />
                 {lead.status === 'sending' ? 'Versturen…' : 'Vraag deze prijs aan'}
               </button>
-                <PrivacyNote className="text-stone-500 text-center" />
+              <PrivacyNote className="text-stone-500 text-center" />
             </form>
           )}
 
@@ -386,9 +424,9 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
             href={waUrl}
             target="_blank"
             rel="noreferrer"
-            className="h-12 px-6 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-sm flex items-center justify-center gap-2.5 transition-transform hover:-translate-y-0.5"
+            className="h-12 px-6 rounded-full bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-sm flex items-center justify-center gap-2.5 transition-transform hover:-translate-y-0.5"
           >
-            <MessageCircle className="w-5 h-5" />
+            <MessageCircle className="w-5 h-5" aria-hidden="true" />
             Of stuur je berekening via WhatsApp
           </a>
         </div>
