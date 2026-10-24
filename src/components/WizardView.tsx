@@ -44,6 +44,7 @@ import {
   createGoogleCalendarEvent,
   initAuthListener,
   logoutGoogle,
+  isGoogleConfigured,
 } from '../utils/googleWorkspace';
 import {
   buildNextDates,
@@ -206,6 +207,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
   const handleSelectSector = (secId: SectorId) => {
     setSectorChosen(true);
+    setErrors({});
     if (secId === sector) {
       onSelectionChange?.(secId, styleIndex);
       return;
@@ -224,6 +226,12 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
   const handleNext = () => {
     if (step === 'vak') {
+      if (!sectorChosen) {
+        setErrors({ vak: 'Kies een vak om verder te gaan' });
+        // Focus the first tile
+        document.querySelector<HTMLButtonElement>('button[aria-pressed="false"]')?.focus();
+        return;
+      }
       setSectorChosen(true);
     }
     if (step === 'gegevens') {
@@ -259,6 +267,21 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const handleBookAppointment = async () => {
     if (isBooking) return;
     const email = (formData.email ?? '').trim();
+
+    // Validate required fields for quote request
+    const requiredFields: (keyof WizardFormData)[] = ['biz', 'owner', 'phone', 'city'];
+    const missingFields = requiredFields.filter((field) => !formData[field]?.trim());
+
+    if (missingFields.length > 0) {
+      // Navigate to gegevens step and focus first empty field
+      onStepChange('gegevens');
+      const firstMissing = missingFields[0];
+      setTimeout(() => {
+        document.getElementById(`wizard-${firstMissing}`)?.focus();
+      }, 100);
+      return;
+    }
+
     if (email ? !isValidEmail(email) : quoteDelivery(channel).email) {
       setEmailError(
         email
@@ -337,7 +360,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
     try {
       let token = accessToken;
       // Signing in is opt-in: only when the visitor ticked "in mijn agenda".
-      if (addToCalendar && !token) {
+      if (addToCalendar && !token && isGoogleConfigured()) {
         const res = await signInWithGoogle();
         if (res) {
           token = res.accessToken;
@@ -348,7 +371,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
       if (!addToCalendar) {
         token = null;
       }
-      if (token) {
+      if (token && isGoogleConfigured()) {
         const calRes = await createGoogleCalendarEvent(token, payload);
         if (calRes.success) {
           calendarSynced = true;
@@ -376,6 +399,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const showPreview = isDesktop || previewOpen;
   const selectedPlan = getPlan(plan);
   const effectivePlan: PlanId = selectedPlan?.id ?? 'pro';
+  // Shown in the chip and on /start/klaar even when Pro is only the default.
+  const activePlan = getPlan(effectivePlan);
   const quote = calculateQuote(effectivePlan, addons);
   const activeServices = liveSite.services.map((sv) => sv.n);
   const delivery = quoteDelivery(channel);
@@ -478,9 +503,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 Stijl: {STYLES[styleIndex].name}
                 <span className="text-stone-400 font-semibold">wijzig</span>
               </button>
-              {selectedPlan && (
+              {activePlan && (
                 <span className="min-h-11 px-3.5 rounded-full bg-amber-300 text-amber-950 text-xs font-extrabold inline-flex items-center">
-                  Pakket: {selectedPlan.name}
+                  Pakket: {activePlan.name}
                 </span>
               )}
             </div>
@@ -499,6 +524,12 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 fotografie in.
               </p>
 
+              {errors.vak && (
+                <p className="text-xs font-bold text-rose-600 mt-1" role="alert">
+                  {errors.vak}
+                </p>
+              )}
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
                 {ORDER.map((secId) => {
                   const sec = SECTORS[secId];
@@ -510,6 +541,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       key={secId}
                       onClick={() => handleSelectSector(secId)}
                       aria-pressed={isSelected}
+                      aria-label={`Kies ${sec.name}`}
                       className={`relative aspect-square rounded-2xl overflow-hidden border-2 cursor-pointer p-0 shadow-sm transition-all hover:scale-[1.03] ${
                         isSelected
                           ? 'border-stone-900 ring-2 ring-stone-900 ring-offset-2 scale-[1.02]'
@@ -830,7 +862,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                           className={`p-3 rounded-xl border-2 text-left cursor-pointer transition-all ${
                             isSel
                               ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
-                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
+                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-500'
                           }`}
                         >
                           <span className="block font-extrabold text-sm">{p.name}</span>
@@ -899,7 +931,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                           className={`p-2.5 rounded-xl border-2 text-center cursor-pointer flex flex-col items-center justify-center transition-all ${
                             isSel
                               ? 'border-stone-900 bg-stone-900 text-white font-bold shadow-sm'
-                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
+                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-500'
                           }`}
                         >
                           <span className="text-xs uppercase opacity-75">{d.dayName}</span>
@@ -981,7 +1013,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       aria-invalid={Boolean(emailError)}
                       aria-describedby={emailError ? 'wizard-email-error' : undefined}
                       className={`w-full h-12 px-4 rounded-xl border-2 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
-                        emailError ? 'border-rose-500' : 'border-stone-300'
+                        emailError ? 'border-rose-500' : 'border-stone-500'
                       }`}
                     />
                     {emailError && (
@@ -992,27 +1024,29 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </div>
                 </div>
 
-                <label className="min-h-11 flex items-center gap-3 text-xs text-stone-600 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={addToCalendar}
-                    onChange={(event) => setAddToCalendar(event.target.checked)}
-                    className="sr-only peer text-base"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="w-5 h-5 rounded-md border-2 border-stone-500 bg-white flex items-center justify-center text-xs font-bold text-transparent peer-checked:bg-stone-900 peer-checked:border-stone-900 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-stone-900 peer-focus-visible:ring-offset-2 shrink-0 transition-colors"
-                  >
-                    ✓
-                  </span>
-                  <span>
-                    Zet de afspraak ook in mijn Google Agenda
-                    <span className="text-stone-400">
-                      {' '}
-                      (optioneel — we vragen pas dan om in te loggen)
+                {isGoogleConfigured() && (
+                  <label className="min-h-11 flex items-center gap-3 text-xs text-stone-600 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={addToCalendar}
+                      onChange={(event) => setAddToCalendar(event.target.checked)}
+                      className="sr-only peer text-base"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="w-5 h-5 rounded-md border-2 border-stone-500 bg-white flex items-center justify-center text-xs font-bold text-transparent peer-checked:bg-stone-900 peer-checked:border-stone-900 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-stone-900 peer-focus-visible:ring-offset-2 shrink-0 transition-colors"
+                    >
+                      ✓
                     </span>
-                  </span>
-                </label>
+                    <span>
+                      Zet de afspraak ook in mijn Google Agenda
+                      <span className="text-stone-400">
+                        {' '}
+                        (optioneel — we vragen pas dan om in te loggen)
+                      </span>
+                    </span>
+                  </label>
+                )}
 
                 <QuoteSummary
                   quote={quote}
@@ -1048,6 +1082,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   <LeadErrorNotice
                     message={lead.result?.error}
                     whatsappUrl={platformWhatsApp ? buildWhatsAppUrl(platformWhatsApp, quoteMessage) : null}
+                    onRetry={handleBookAppointment}
                   />
                 )}
                 <button
@@ -1130,11 +1165,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     {bookingResult?.booking.id ?? '—'}
                   </span>
                 </div>
-                {selectedPlan && (
+                {activePlan && (
                   <div className="flex justify-between border-b pb-2 border-stone-200">
                     <span className="text-stone-500">Pakket:</span>
                     <span className="font-bold">
-                      {selectedPlan.name} · {formatEuroCents(selectedPlan.price * 100)} (excl. btw)
+                      {activePlan.name} · {formatEuroCents(activePlan.price * 100)} (excl. btw)
                     </span>
                   </div>
                 )}
@@ -1170,7 +1205,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => track('whatsapp_click', { source: 'wizard-confirmation' })}
-                      className="flex-1 h-12 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-sm inline-flex items-center justify-center gap-2 no-underline"
+                      className="flex-1 h-12 rounded-full bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-sm inline-flex items-center justify-center gap-2 no-underline"
                     >
                       Via WhatsApp
                     </a>

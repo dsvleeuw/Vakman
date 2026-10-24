@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { ActiveSiteData, AppointmentBooking } from '../types';
 import {
   signInWithGoogle,
@@ -7,6 +7,7 @@ import {
   buildQuoteTextSummary,
   initAuthListener,
   logoutGoogle,
+  isGoogleConfigured,
 } from '../utils/googleWorkspace';
 import type { User } from 'firebase/auth';
 import { buildSiteWhatsAppUrl, normalizeDutchPhone } from '../utils/contact';
@@ -14,33 +15,18 @@ import { describeDelivery } from '../utils/leadClient';
 import { useLeadForm } from '../hooks/useLeadForm';
 import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
+import { buildNextDates, generateAppointmentId, saveAppointment, TIME_SLOTS, type TimeSlot } from '../utils/appointments';
 
 interface BookingCalendarProps {
   site: ActiveSiteData;
 }
 
 export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
-  // Generate next 14 available dates
-  const dates = Array.from({ length: 14 }).map((_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() + i + 1);
-    return {
-      iso: d.toISOString().split('T')[0],
-      dayName: d.toLocaleDateString('nl-NL', { weekday: 'short' }),
-      dayNum: d.getDate(),
-      monthName: d.toLocaleDateString('nl-NL', { month: 'short' }),
-      formatted: d.toLocaleDateString('nl-NL', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-      }),
-    };
-  });
+  // Generate next 14 available dates, skipping weekends
+  const dates = buildNextDates(14);
 
   const [selectedDate, setSelectedDate] = useState(dates[0]);
-  const [selectedSlot, setSelectedSlot] = useState<
-    'Ochtend (08:30 - 12:00)' | 'Middag (12:30 - 16:00)' | 'Avond (16:30 - 19:30)'
-  >('Ochtend (08:30 - 12:00)');
+  const [selectedSlot, setSelectedSlot] = useState<TimeSlot>(TIME_SLOTS[0]);
   const [selectedService, setSelectedService] = useState(
     site.services[0]?.n || 'Algemeen adviesgesprek'
   );
@@ -103,7 +89,11 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
     return Object.keys(errs).length === 0;
   };
 
+  // Remembers which button started the last attempt, so 'Opnieuw proberen' repeats it.
+  const lastSyncRef = useRef(false);
+
   const handleBook = async (withGoogleSync = false) => {
+    lastSyncRef.current = withGoogleSync;
     if (!validate() || isSubmitting) return;
     setIsSubmitting(true);
 
@@ -129,7 +119,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
     let currentToken = accessToken;
     let currentUser = authUser;
 
-    if (withGoogleSync && !currentToken) {
+    if (withGoogleSync && !currentToken && isGoogleConfigured()) {
       try {
         const authRes = await signInWithGoogle();
         if (authRes) {
@@ -146,7 +136,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
     }
 
     const booking: AppointmentBooking = {
-      id: response.reference ?? 'BK-' + Date.now().toString(36).toUpperCase(),
+      id: response.reference ?? generateAppointmentId(),
       sectorId: site.id,
       bizName: site.biz,
       serviceName: selectedService,
@@ -159,11 +149,13 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
       createdAt: Date.now(),
     };
 
+    saveAppointment(booking);
+
     let calendarSynced = false;
     let driveSynced = false;
     let syncError: string | undefined = undefined;
 
-    if (currentToken) {
+    if (currentToken && withGoogleSync && isGoogleConfigured()) {
       // 1. Calendar Sync
       const startHour = selectedSlot.includes('Ochtend')
         ? '08:30:00'
@@ -330,13 +322,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   2. Kies een dagdeel
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                  {(
-                    [
-                      'Ochtend (08:30 - 12:00)',
-                      'Middag (12:30 - 16:00)',
-                      'Avond (16:30 - 19:30)',
-                    ] as const
-                  ).map((slot) => {
+                  {TIME_SLOTS.map((slot) => {
                     const isSelected = selectedSlot === slot;
                     return (
                       <button
@@ -374,7 +360,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
             </div>
 
             {/* Step 2: Contact Form & Google Sync CTA */}
-            <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-lg flex flex-col gap-4">
+            <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-stone-500 shadow-lg flex flex-col gap-4">
               <h3 className="text-xl font-bold text-stone-900 m-0">4. Jouw gegevens</h3>
 
               <div>
@@ -387,7 +373,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   onChange={(e) => setClientName(e.target.value)}
                   placeholder="bijv. Sanne de Jong"
                   className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
-                    errors.name ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
+                    errors.name ? 'border-rose-500' : 'border-stone-500 focus:border-stone-900'
                   }`}
                 />
                 {errors.name && (
@@ -423,7 +409,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   onChange={(e) => setClientAddress(e.target.value)}
                   placeholder="Kerkstraat 12, Utrecht"
                   className={`w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none ${
-                    errors.address ? 'border-rose-500' : 'border-stone-200 focus:border-stone-900'
+                    errors.address ? 'border-rose-500' : 'border-stone-500 focus:border-stone-900'
                   }`}
                 />
                 {errors.address && (
@@ -448,26 +434,42 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
               <div className="relative flex flex-col gap-2.5 pt-2">
                 <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
                 {lead.status === 'error' && (
-                  <LeadErrorNotice message={lead.result?.error} whatsappUrl={fallbackWaUrl} />
+                  <LeadErrorNotice
+                    message={lead.result?.error}
+                    whatsappUrl={fallbackWaUrl}
+                    onRetry={() => handleBook(lastSyncRef.current)}
+                  />
                 )}
-                <button
-                  onClick={() => handleBook(true)}
-                  disabled={isSubmitting}
-                  className="h-14 px-6 rounded-2xl border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm sm:text-base cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
-                >
-                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z" />
-                  </svg>
-                  {isSubmitting ? 'Versturen…' : 'Inplannen & Sync met Google Calendar'}
-                </button>
+                {isGoogleConfigured() && (
+                  <button
+                    onClick={() => handleBook(true)}
+                    disabled={isSubmitting}
+                    className="h-14 px-6 rounded-2xl border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm sm:text-base cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
+                  >
+                    <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z" />
+                    </svg>
+                    {isSubmitting ? 'Versturen…' : 'Inplannen & Sync met Google Calendar'}
+                  </button>
+                )}
 
-                <button
-                  onClick={() => handleBook(false)}
-                  disabled={isSubmitting}
-                  className="h-11 px-4 rounded-xl border border-stone-300 bg-transparent hover:bg-stone-100 text-stone-700 font-bold text-xs cursor-pointer"
-                >
-                  Inplannen zonder Google Account
-                </button>
+                {isGoogleConfigured() ? (
+                  <button
+                    onClick={() => handleBook(false)}
+                    disabled={isSubmitting}
+                    className="h-11 px-4 rounded-xl border border-stone-500 bg-transparent hover:bg-stone-100 text-stone-700 font-bold text-xs cursor-pointer"
+                  >
+                    Inplannen zonder Google Account
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleBook(false)}
+                    disabled={isSubmitting}
+                    className="h-14 px-6 rounded-2xl border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm sm:text-base cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
+                  >
+                    {isSubmitting ? 'Versturen…' : 'Afspraak inplannen'}
+                  </button>
+                )}
                 <PrivacyNote className="text-stone-500 text-center" />
               </div>
 
@@ -483,7 +485,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
           </div>
         ) : (
           /* Confirmation Screen */
-          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-stone-200 shadow-xl flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
+          <div className="bg-white p-8 sm:p-12 rounded-3xl border border-stone-500 shadow-xl flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-2xl shadow-lg pulse-glow">
               ✓
             </div>

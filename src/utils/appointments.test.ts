@@ -4,6 +4,7 @@ import {
   slotToHours,
   buildAppointmentCalendarPayload,
   TIME_SLOTS,
+  buildNextDates,
 } from './appointments';
 
 test('slotToHours maps each slot to its start and end times', () => {
@@ -79,4 +80,64 @@ test('TIME_SLOTS exposes the three expected slots', () => {
     'Middag (12:30 - 16:00)',
     'Avond (16:30 - 19:30)',
   ]);
+});
+
+// Deterministic test using a fixed start date (Monday 2026-10-26)
+test('buildNextDates returns exactly count weekdays skipping weekends', () => {
+  // Start from a known Monday (2026-10-26 is a Monday)
+  const from = new Date('2026-10-26T00:00:00');
+  const dates = buildNextDates(5, from);
+  assert.equal(dates.length, 5);
+
+  // Check that all dates are weekdays (Monday=1 to Friday=5)
+  dates.forEach((date) => {
+    const d = new Date(date.iso + 'T00:00:00');
+    const dayOfWeek = d.getDay();
+    assert.ok(dayOfWeek >= 1 && dayOfWeek <= 5, `Date ${date.iso} is a weekend day (${dayOfWeek})`);
+  });
+});
+
+test('buildNextDates returns 14 dates by default', () => {
+  const from = new Date('2026-10-26T00:00:00');
+  const dates = buildNextDates(14, from);
+  assert.equal(dates.length, 14);
+});
+
+test('buildNextDates skips Saturday and Sunday', () => {
+  // Start from a Friday (2026-10-30) - next day is Saturday, should skip to Monday
+  const from = new Date('2026-10-30T00:00:00');
+  const dates = buildNextDates(7, from);
+  assert.equal(dates.length, 7);
+
+  // All should be weekdays
+  dates.forEach((date) => {
+    const d = new Date(date.iso + 'T00:00:00');
+    const dayOfWeek = d.getDay();
+    assert.notEqual(dayOfWeek, 0, 'Sunday should be skipped');
+    assert.notEqual(dayOfWeek, 6, 'Saturday should be skipped');
+  });
+});
+
+test('buildNextDates returns strictly increasing distinct dates', () => {
+  const from = new Date('2026-10-26T00:00:00');
+  const dates = buildNextDates(5, from);
+
+  // Check dates are strictly increasing
+  for (let i = 1; i < dates.length; i++) {
+    assert.ok(dates[i].iso > dates[i - 1].iso, `Date ${i} (${dates[i].iso}) is not after date ${i-1} (${dates[i-1].iso})`);
+  }
+});
+
+test('buildNextDates has correct date properties', () => {
+  const from = new Date('2026-10-26T00:00:00');
+  const dates = buildNextDates(2, from);
+  assert.equal(dates.length, 2);
+
+  dates.forEach((date) => {
+    assert.ok(date.iso);
+    assert.ok(date.dayName);
+    assert.ok(date.dayNum > 0);
+    assert.ok(date.monthName);
+    assert.ok(date.formatted);
+  });
 });

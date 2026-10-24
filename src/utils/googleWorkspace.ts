@@ -73,6 +73,13 @@ export const logoutGoogle = async () => {
   cachedAccessToken = null;
 };
 
+/**
+ * Check if Google integration is properly configured (not using the fake local key).
+ */
+export function isGoogleConfigured(): boolean {
+  return firebaseConfig.apiKey !== 'fake-key-for-local';
+}
+
 export interface CalendarEventPayload {
   summary: string;
   location?: string;

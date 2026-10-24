@@ -72,13 +72,22 @@ export function loadAppointments(): AppointmentBooking[] {
   }
 }
 
-/** Generate the next `count` available dates starting tomorrow. */
-export function buildNextDates(count = 14) {
-  return Array.from({ length: count }).map((_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() + i + 1);
+/** Local YYYY-MM-DD; toISOString() would shift to the previous day before 02:00 in NL. */
+function localIsoDate(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+/** The next `count` working days (Mon–Fri) after `from`; Saturdays and Sundays are skipped. */
+export function buildNextDates(count = 14, from: Date = new Date()) {
+  const days: Date[] = [];
+  const d = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+  while (days.length < count) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() !== 0 && d.getDay() !== 6) days.push(new Date(d));
+  }
+  return days.map((d) => {
     return {
-      iso: d.toISOString().split('T')[0],
+      iso: localIsoDate(d),
       dayName: d.toLocaleDateString('nl-NL', { weekday: 'short' }),
       dayNum: d.getDate(),
       monthName: d.toLocaleDateString('nl-NL', { month: 'short' }),
