@@ -50,7 +50,7 @@ Haarlemmermeer-regels zitten ook in de nieuwe lijst.
 
 Dekking: 176 regels met e-mail, 205 met telefoon, 71 met KvK-nummer,
 119 met een omschrijving van de diensten. Van de 185 bedrijven met een eigen
-website is bij 130 de mobiele Lighthouse-score gemeten (performance, SEO,
+website is bij 134 de mobiele Lighthouse-score gemeten (performance, SEO,
 toegankelijkheid, best practices); de uitkomsten staan in
 [website-analyse.md](./website-analyse.md) en in de kolommen `lh_*`.
 35 bedrijven zijn daadwerkelijk op hun eigen website bezocht; die regels
