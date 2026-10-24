@@ -11,6 +11,7 @@ import {
 import { describeDelivery } from '../../utils/leadClient';
 import { useLeadForm } from '../../hooks/useLeadForm';
 import { HoneypotField, LeadErrorNotice } from '../LeadStatus';
+import { PrivacyNote } from '../PrivacyNote';
 
 const FAULT_TYPES = [
   'Geen stroom / spanning weg',
@@ -332,6 +333,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                 <Send className="w-5 h-5" />
                 {lead.status === 'sending' ? 'Versturen…' : 'Verstuur storingsmelding'}
               </button>
+                <PrivacyNote className="text-stone-500 text-center" />
             </form>
           )}
         </div>

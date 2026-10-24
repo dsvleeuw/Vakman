@@ -12,6 +12,7 @@ import type { User } from 'firebase/auth';
 import { buildSiteWhatsAppUrl, normalizeDutchPhone } from '../utils/contact';
 import { describeDelivery } from '../utils/leadClient';
 import { useLeadForm } from '../hooks/useLeadForm';
+import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
 
 interface BookingCalendarProps {
@@ -467,6 +468,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 >
                   Inplannen zonder Google Account
                 </button>
+                <PrivacyNote className="text-stone-500 text-center" />
               </div>
 
               {authUser && (

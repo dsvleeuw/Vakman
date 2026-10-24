@@ -58,6 +58,7 @@ import { useMediaQuery } from '../hooks/useMediaQuery';
 import { ImageWithFallback } from './ImageWithFallback';
 import { SiteView } from './SiteView';
 import { Logo } from './Logo';
+import { PrivacyNote } from './PrivacyNote';
 
 interface WizardViewProps {
   /** Controlled by the URL: /start/vak … /start/afspraak, /start/klaar */
@@ -708,9 +709,10 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
                 <p className="flex items-start gap-2 text-xs text-stone-500 m-0">
                   <ShieldCheck className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
-                  We gebruiken deze gegevens alleen voor jouw demo-website. Je kunt ze
+                  We gebruiken deze gegevens alleen voor jouw demo-website en je offerte. Je kunt ze
                   later altijd aanpassen.
                 </p>
+                <PrivacyNote className="text-stone-500 pl-6" />
               </div>
             </div>
           )}
@@ -1025,6 +1027,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       : 'Bij versturen krijgt Klusbaas de offerte; jij krijgt hem via WhatsApp.'
                   }
                 />
+                <PrivacyNote className="text-stone-500" />
 
                 <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-2 text-xs">
                   <div>

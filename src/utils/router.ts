@@ -3,6 +3,7 @@ import { SECTORS, STYLES } from '../data/tradesData';
 import { isPlanId } from '../data/plans';
 import { normalizeDutchPhone } from './contact';
 import { isQuoteNumber } from './quote';
+import { isNewsletterPageStatus, isNewsletterToken, type NewsletterPageStatus } from './newsletterStatus';
 
 /**
  * Every view of the app gets a real, shareable URL. This module is pure so
@@ -20,6 +21,9 @@ import { isQuoteNumber } from './quote';
  *   /componenten                        component library
  *   /componenten/trust-bar              component library with a selection
  *   /offerte/KB-2026-0001?token=…       a stored quote (token-protected)
+ *   /privacy                            privacyverklaring
+ *   /nieuwsbrief?status=bevestigd       newsletter signup / confirmation result
+ *   /afmelden?token=…                   unsubscribe from the newsletter
  *
  * Paths are Dutch because users see and share them; identifiers stay English.
  */
@@ -123,6 +127,9 @@ export type Route =
   | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
   | { name: 'components'; componentId?: string }
   | { name: 'quote'; id: string; token: string }
+  | { name: 'privacy' }
+  | { name: 'newsletter'; status?: NewsletterPageStatus }
+  | { name: 'unsubscribe'; token?: string }
   | { name: 'notFound'; path: string };
 
 export function isSectorId(value: string | null | undefined): value is SectorId {
@@ -217,6 +224,16 @@ export function parseRoute(pathname: string, search = ''): Route {
     return { name: 'quote', id: second, token: params.get('token') ?? '' };
   }
 
+  if (segments.length === 1 && first === 'privacy') return { name: 'privacy' };
+  if (segments.length === 1 && first === 'nieuwsbrief') {
+    const status = params.get('status');
+    return isNewsletterPageStatus(status) ? { name: 'newsletter', status } : { name: 'newsletter' };
+  }
+  if (segments.length === 1 && first === 'afmelden') {
+    const token = params.get('token');
+    return isNewsletterToken(token) ? { name: 'unsubscribe', token } : { name: 'unsubscribe' };
+  }
+
   if (first === 'componenten') {
     if (segments.length > 2) return { name: 'notFound', path: pathname };
     return second ? { name: 'components', componentId: second } : { name: 'components' };
@@ -251,6 +268,12 @@ export function buildPath(route: Route): string {
         : '/componenten';
     case 'quote':
       return `/offerte/${encodeURIComponent(route.id)}${route.token ? `?token=${encodeURIComponent(route.token)}` : ''}`;
+    case 'privacy':
+      return '/privacy';
+    case 'newsletter':
+      return route.status ? `/nieuwsbrief?status=${route.status}` : '/nieuwsbrief';
+    case 'unsubscribe':
+      return route.token ? `/afmelden?token=${encodeURIComponent(route.token)}` : '/afmelden';
     case 'notFound':
       return route.path || '/';
   }
@@ -335,6 +358,21 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: `Offerte ${route.id} · Klusbaas`,
         description: 'Je offerte van Klusbaas: pakket, extra componenten, btw en totaal, 30 dagen geldig.',
+      };
+    case 'privacy':
+      return {
+        title: 'Privacyverklaring · Klusbaas',
+        description: 'Welke gegevens Klusbaas verwerkt bij formulieren, offertes en de nieuwsbrief, waarom, hoe lang we ze bewaren en welke rechten je hebt.',
+      };
+    case 'newsletter':
+      return {
+        title: 'Nieuwsbrief · Klusbaas',
+        description: 'Af en toe tips voor je vakmanswebsite: nieuwe stijlen, slimme tools en wat werkt in de Haarlemmermeer. Aanmelden met dubbele bevestiging, afmelden kan altijd.',
+      };
+    case 'unsubscribe':
+      return {
+        title: 'Afmelden nieuwsbrief · Klusbaas',
+        description: 'Meld je af voor de Klusbaas-nieuwsbrief. Je krijgt daarna geen nieuwsbrief meer van ons.',
       };
     case 'notFound':
       return {
