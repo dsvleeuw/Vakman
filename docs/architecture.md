@@ -3,28 +3,46 @@
 ## High-level overview
 
 Klusbaas is a single-page React application that generates marketing
-websites for Dutch tradespeople. It has four views, switched by state in
-`src/App.tsx` (there is no client-side router):
+websites for Dutch tradespeople. Views are driven by a small, dependency-free
+client router (`src/utils/router.ts` + `src/hooks/useRouter.ts`) on top of the
+History API: **the URL is the source of truth**, so every page, preset and
+wizard step can be reloaded, bookmarked, shared and reached with the browser
+back/forward buttons.
 
-| View | Component | Purpose |
-|------|-----------|---------|
-| `home` | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 30 presets and platform pricing |
-| `site` | `SiteView` | The generated craftsman website (the product demo) |
-| `start` | `WizardView` | Five-step onboarding that produces a customised site |
-| `components` | `ComponentGallery` | Searchable live catalogue of every component module and ten reusable additions |
+| Route | Component | Purpose |
+|-------|-----------|---------|
+| `/` (+ `?vak=`) | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 30 presets and platform pricing |
+| `/voorbeeld/:sector/:stijl` | `SiteView` | The generated craftsman website (the product demo) |
+| `/start/vak` … `/start/afspraak` | `WizardView` | Five-step onboarding; every step has its own URL |
+| `/start/klaar` | `WizardView` | Confirmation screen after requesting an appointment |
+| `/componenten` (+ `/:id`) | `ComponentGallery` | Searchable live catalogue of every component module and ten reusable additions |
+| anything else | `NotFoundView` | Branded 404 with links back into the product |
 
-`App.tsx` holds the selected sector, style index and wizard step, plus the
-customised per-sector data. It reads URL search params on load so individual
-presets can be linked directly:
+Route shapes, aliases and legacy redirects live in `src/utils/router.ts`:
 
-| Param | Values | Effect |
-|-------|--------|--------|
-| `view` | `site` \| `start` \| `components` | Open a specific view |
-| `sector` | one of the `SectorId` union | Preselect a trade |
-| `style` | `0`–`4` | Preselect a style |
-| `autostart` | `1` | Shortcut that opens the site view |
+- `parseRoute(pathname, search)` → typed `Route` union; unknown paths become
+  `notFound`, never a blank screen.
+- `buildPath(route)` → the canonical URL (also used for `<a href>`).
+- `getRouteMeta(route)` → per-page `<title>` and meta description
+  (`useRouteMeta`).
+- `routeFromLegacyQuery(search)` upgrades the pre-router links
+  `?view=site&sector=…&style=2`, `?autostart=1`, `?view=components` and
+  `?sector=…` to the new paths with `history.replaceState`.
 
-Example: `/?sector=loodgieter&style=2&view=site`.
+Wizard URLs carry the selected trade and style as `?vak=loodgieter&stijl=modern`
+so a half-finished wizard can be reopened. The wizard keeps its draft in
+sessionStorage (`klusbaas_wizard_draft`) and `App` owns the per-sector saved
+sites (`klusbaas_custom_sites`, localStorage), so navigating to the preview and
+back does not throw away input.
+
+Navigation uses `RouteLink`, which renders a real `<a href>` and intercepts
+plain left clicks only — middle-click, ⌘/ctrl-click, "open in new tab" and
+copy-link keep working. `navigate()` also scrolls to the top on every route
+change (`history.scrollRestoration = 'manual'`) and scrolls to a `#hash`
+target when one is given.
+
+`public/_redirects` makes Netlify serve `index.html` for every path so deep
+links work in production too; the Vite dev server does this by default.
 
 ## Data model
 
@@ -61,7 +79,8 @@ All content is TypeScript data, there is no CMS or database.
    `BookingCalendar`, reviews, FAQ, `ContactSection`, footer, and finally
    the floating/desktop actions and the mobile sticky contact bar.
 3. The wizard keeps a live `buildActiveSite` result in a browser-mockup
-   panel so edits update the preview immediately.
+   panel (sticky on desktop, collapsible on mobile so the page does not
+   double in length) so edits update the preview immediately.
 4. `ComponentGallery` is lazy-loaded on demand, filters `COMPONENT_ENTRIES`
    and mounts only the selected preview. Large application views use a
    scrollable canvas; reusable trade-site additions live in

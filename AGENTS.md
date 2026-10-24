@@ -71,13 +71,22 @@ change. The Netlify deploy preview is the only external CI check.
 - Understand contact flows: [docs/contact-strategy.md](./docs/contact-strategy.md)
 - Change prices: [docs/pricing-and-positioning.md](./docs/pricing-and-positioning.md)
 - Check current gaps before planning: [docs/known-limitations.md](./docs/known-limitations.md)
+- Read the UX/navigation review and open recommendations:
+  [docs/ux-review.md](./docs/ux-review.md)
 - Longer-term priorities: [ROADMAP.md](./ROADMAP.md)
 
 ## Gotchas
 
-- Quick preset testing uses URL params:
-  `/?sector=loodgieter&style=2&view=site` (`autostart=1` also opens the
-  site view).
+- Every view has a real route: `/`, `/voorbeeld/:sector/:stijl`,
+  `/start/:stap` (`vak`, `stijl`, `gegevens`, `diensten`, `afspraak`,
+  `klaar`), `/componenten/:id`. Route rules live in `src/utils/router.ts`;
+  change them there (with tests) rather than branching on state in
+  `App.tsx`.
+- The pre-router links `?sector=loodgieter&style=2&view=site` and
+  `?autostart=1` still work: `routeFromLegacyQuery` rewrites them to the
+  new paths. Keep that mapping when you add routes so old links survive.
+- Wizard routes carry `?vak=` and `?stijl=`; use `RouteLink` for internal
+  navigation so hrefs stay real (middle-click, new tab, SEO).
 - The mobile sticky contact bar overlays the bottom of `SiteView`; the
   page root carries `pb-20 sm:pb-0` — preserve that spacing when adding
   full-width sections.

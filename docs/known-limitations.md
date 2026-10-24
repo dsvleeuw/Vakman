@@ -53,7 +53,13 @@ to [ROADMAP.md](../ROADMAP.md).
 - Only pure utilities have unit tests. There are no component or
   end-to-end tests and no in-repo CI workflow; deploy checks come from
   Netlify (roadmap 5.1/5.4).
-- Views are switched by React state plus URL search params, not real
-  routes, which limits deep-linking and SEO (roadmap 4.2).
+- Routing is client-side only. Every view, preset, wizard step and
+  component has a real URL (roadmap 4.2 ✔), but because it is a Vite SPA
+  the HTML is still rendered in the browser: crawlers see one `index.html`
+  unless prerendering/SSR is added (roadmap 4.3).
+- There is no route-level code splitting beyond the component library, so
+  the first load still ships the whole wizard and demo site bundle.
+- The chosen pricing plan and the "Offertes ontvangen via" channel are not
+  carried into the wizard/appointment (roadmap 1.1/4.4).
 - Accessibility has been handled pragmatically (labels, aria attributes,
   focus styles) but never audited (roadmap 5.2).

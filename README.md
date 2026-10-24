@@ -36,7 +36,12 @@ calculator, portfolio, reviews, booking and contact flows.
 - **Interactive component library** — searchable live previews of all 30
   component modules, including ten new reusable trust and conversion
   components. Open **Componenten** in the main navigation or visit
-  `/?view=components` (`ComponentGallery`, `components/extras/`).
+  `/componenten` (`ComponentGallery`, `components/extras/`).
+- **Real URLs everywhere** — the marketing page, every generated preset
+  (`/voorbeeld/loodgieter/krachtig`), every wizard step
+  (`/start/gegevens`), the confirmation screen and each library component
+  have their own address. Browser back/forward, reloads, bookmarks and
+  shared links all work, with per-page titles and a branded 404.
 
 ## Tech stack
 
@@ -66,12 +71,15 @@ bun test         # unit tests (node:test runner via bun)
 - [docs/contact-strategy.md](./docs/contact-strategy.md) — WhatsApp-first contact design
 - [docs/pricing-and-positioning.md](./docs/pricing-and-positioning.md) — market research, price points and where prices live
 - [docs/known-limitations.md](./docs/known-limitations.md) — honest gap inventory
+- [docs/ux-review.md](./docs/ux-review.md) — navigation/conversion review, fixes and prioritised recommendations
 
 ## Project structure
 
 ```
 src/
-├── App.tsx                  # Home / demo site / wizard / component library router
+├── App.tsx                  # Route switch: home / demo site / wizard / library / 404
+├── utils/router.ts          # URL parsing, building, titles and legacy redirects
+├── hooks/                   # useRouter, useRouteMeta, useMediaQuery
 ├── data/tradesData.ts       # All sector content, styles, palettes, photos
 ├── data/componentCatalog.ts # Searchable component inventory and preview metadata
 ├── types.ts                 # Shared domain types

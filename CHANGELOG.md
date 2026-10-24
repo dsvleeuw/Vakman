@@ -7,26 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-
-- **Hoofd-CTA is geen "gratis" meer.** De header-knop `Start gratis` is
-  vervangen door `Plan een afspraak` (met kalender-icoon). Er is niets
-  gratis; de knop start de wizard die eindigt in een afspraak-/offerte-aanvraag.
-- **Wizard-stap 5 is nu een afspraak inplannen.** De laatste stap publiceert
-  niet langer "direct", maar laat de gebruiker een datum + dagdeel kiezen,
-  het gewenste kanaal (WhatsApp / E-mail / Allebei) bevestigen en de
-  afspraak aanvragen. Bij inloggen met Google wordt de afspraak in de
-  Google Agenda van de gebruiker gezet (optioneel, met lokale fallback).
-- **Volledige live render in de wizard.** De rechterkolom toont nu de
-  *hele* gegenereerde website live (ingebedde `SiteView`) in een scrollbaar
-  kader, in plaats van de mini-mockup. `SiteView` kreeg een `embedded`-modus
-  (geen preview-besturing, zwevende knoppen of mobiele balk).
-
 ### Added
 
+- **Echte URL's voor elke pagina en elke wizardstap.** De app heeft nu een
+  eigen, getypeerde client-router (`src/utils/router.ts`, `hooks/useRouter.ts`,
+  `RouteLink`) op de History API. Routes: `/` (`?vak=`),
+  `/voorbeeld/:sector/:stijl`, `/start/vak|stijl|gegevens|diensten|afspraak|klaar`,
+  `/componenten/:id` en een gebrande 404. Terug/vooruit, herladen, bookmarken
+  en delen werken; elke route heeft een eigen `<title>`, meta description en
+  `aria-live`-aankondiging. Oude links (`?view=site&sector=…&style=2`,
+  `?autostart=1`, `?view=components`) worden omgeleid. `public/_redirects`
+  zorgt dat deep links ook op Netlify werken.
+- **Wizardstap in de URL en in de geschiedenis.** Elke stap is een eigen
+  history-entry; de stapindicator is nu een klikbare `<nav>` met
+  `aria-current="step"` waarmee je terug kunt springen.
+- **Concept opslaan.** Wizard-invoer wordt in `App` + sessionStorage bewaard,
+  zodat de preview bekijken en teruggaan niets meer weggooit.
+- **Mobiel live voorbeeld in de wizard.** Het volledige voorbeeld wordt onder
+  `lg` pas geladen als je "Bekijk je website live" opent.
+- **404-pagina** met verwijzingen naar home, presets, componenten en start.
+- **Toegankelijkheid:** skip-link, zichtbare `:focus-visible`-ring,
+  `prefers-reduced-motion`-ondersteuning, labels/`aria-invalid`/`role="alert"`
+  op de wizard- en contactformulieren, `aria-controls` op de FAQ-accordeon.
+- **Favicon en `lang="nl"`.**
 - **Interactieve componentenbibliotheek.** De nieuwe `components`-weergave
   toont alle 30 componentmodules met zoeken, categoriefilters en echte live
-  previews. Bereikbaar via de hoofdnavigatie of `?view=components`, met
+  previews. Bereikbaar via de hoofdnavigatie of `/componenten`, met
   catalogus-integriteitstests en documentatie.
 - **Tien herbruikbare conversiecomponenten.** `TrustBar`,
   `OpeningHoursCard`, `AvailabilityCard`, `TeamMemberCard`,
@@ -44,6 +50,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `buildAppointmentCalendarPayload`, `generateAppointmentId`,
   `saveAppointment`/`loadAppointments`, `buildNextDates`) plus unit-tests
   (`utils/appointments.test.ts`).
+
+### Changed
+
+- **Interne navigatie zijn echte links.** Header, presets, de previewbalk van
+  de gegenereerde site en de componentenbibliotheek gebruiken `RouteLink`
+  (`<a href>`), zodat middenklik, "openen in nieuw tabblad" en crawlers werken.
+- **Hoofd-CTA heet "Start je website"** en opent wizardstap 1, gelijk aan de
+  hero. De eerdere "Plan een afspraak"-knop in de header suggereerde een
+  andere actie dan hij deed; plannen gebeurt nu aan het einde van de flow.
+- **Presetkaarten:** "Bekijk demo" / "Kies deze stijl" met duidelijke
+  `aria-label`s in plaats van "Bekijk site" / "Kies deze".
+- **Mobiel menu** sluit bij een klik buiten het menu en blokkeert
+  achtergrondscrolling.
+- **Componentenbibliotheek** heeft een URL per component
+  (`/componenten/trust-bar`).
+- **Wizard-stap 5 is een afspraak inplannen.** De laatste stap publiceert
+  niet langer "direct", maar laat de gebruiker een datum + dagdeel kiezen,
+  het gewenste kanaal (WhatsApp / E-mail / Allebei) bevestigen en de
+  afspraak aanvragen. Bij inloggen met Google wordt de afspraak in de
+  Google Agenda van de gebruiker gezet (optioneel, met lokale fallback).
+- **Volledige live render in de wizard.** De rechterkolom toont de *hele*
+  gegenereerde website live (ingebedde `SiteView`) in een scrollbaar kader,
+  in plaats van de mini-mockup. `SiteView` kreeg een `embedded`-modus
+  (geen preview-besturing, zwevende knoppen of mobiele balk).
+
+### Fixed
+
+- `html lang` stond op `en` terwijl alle copy Nederlands is.
+- FAQ-kicker "FAQ & HEBDEN" → "Goed om te weten".
+- Contactformulierlabels waren niet gekoppeld aan hun inputs; nu wel, met
+  foutmeldingen die door schermlezers worden aangekondigd.
+- De dubbele marquee-slides werden twee keer voorgelezen; de kopie is nu
+  `aria-hidden` en niet tabbaar.
+- Ankerlinks op de gegenereerde site (`#prijs`, `#gebied`, `#contact`) werden
+  bij terug/vooruit naar boven gereset; scroll-reset gebeurt nu alleen bij een
+  echte paginawissel.
 
 ## [0.1.0] - 2026-10-24
 
