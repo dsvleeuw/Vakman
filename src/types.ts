@@ -1,4 +1,11 @@
-export type SectorId = 'timmerman' | 'hovenier' | 'schilder' | 'loodgieter' | 'elektricien' | 'stukadoor';
+export type SectorId =
+  | 'timmerman'
+  | 'hovenier'
+  | 'schilder'
+  | 'loodgieter'
+  | 'elektricien'
+  | 'stukadoor'
+  | 'overige';
 
 /**
  * Smart, trade-specific conversion tool rendered on the demo website.

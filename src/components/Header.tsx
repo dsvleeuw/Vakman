@@ -1,4 +1,5 @@
 import React from 'react';
+import { CalendarDays } from 'lucide-react';
 
 interface HeaderProps {
   onGoHome: () => void;
@@ -61,9 +62,10 @@ export const Header: React.FC<HeaderProps> = ({ onGoHome, onGoStart, scrolled })
       <div className="flex items-center gap-3 shrink-0">
         <button
           onClick={onGoStart}
-          className="h-11 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold tracking-tight cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-sm whitespace-nowrap shrink-0"
+          className="h-11 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white text-sm font-bold tracking-tight cursor-pointer transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 shadow-sm whitespace-nowrap shrink-0 flex items-center gap-2"
         >
-          Start gratis →
+          <CalendarDays className="w-4 h-4" />
+          Plan een afspraak
         </button>
       </div>
     </header>
