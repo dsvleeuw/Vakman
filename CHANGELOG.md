@@ -130,6 +130,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **WCAG AA-contrast in alle vijf stijlen.** WhatsApp-knoppen hebben donkere tekst
+  op `#25D366` (was wit, 1,98:1); contact-, FAQ- en werkgebiedsecties lezen hun
+  tekstkleur uit de paletttokens zodat de donker-presets leesbaar zijn; de
+  focusring staat buiten `:where()`/`@layer` en verliest niet meer van
+  `focus:outline-none`. Het mobiele menu van een voorbeeldsite sluit bij een
+  tik erbuiten en vergrendelt het scrollen.
 - **Geen stil verlies van leads meer.** Een tweede aanvraag na `reset()` werd als
   spam gezien en kreeg een nep-succes zonder opslag; `startedAt` blijft nu staan
   en `MIN_FILL_MS` is 800 ms. `submitLead` breekt na 12 s af met een Nederlandse

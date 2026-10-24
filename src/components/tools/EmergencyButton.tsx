@@ -93,7 +93,7 @@ export const EmergencyButton: React.FC<EmergencyButtonProps> = ({ site }) => {
             href={waUrl}
             target="_blank"
             rel="noreferrer"
-            className="h-15 py-4 px-6 rounded-2xl bg-[#25D366] hover:brightness-95 text-white font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+            className="h-15 py-4 px-6 rounded-2xl bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
           >
             <MessageCircle className="w-5 h-5" />
             WhatsApp: {problem}

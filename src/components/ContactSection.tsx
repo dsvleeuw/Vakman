@@ -84,7 +84,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
     >
       <div className="max-w-7xl mx-auto flex flex-col gap-7 sm:gap-10">
         <div className="flex flex-col gap-2">
-          <span className="font-mono text-xs font-semibold tracking-wider uppercase text-stone-500">
+          <span
+            className="font-mono text-xs font-semibold tracking-wider uppercase"
+            style={{ color: site.muted }}
+          >
             Contact
           </span>
           <h2
@@ -100,20 +103,21 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Primary channel: WhatsApp */}
-          <div className="lg:col-span-5 bg-[#25D366] text-white rounded-3xl p-7 sm:p-9 flex flex-col gap-5 shadow-lg">
+          {/* Primary channel: WhatsApp. Near-black text: white on #25D366
+              only reaches 1.98:1, stone-950 reaches 9.96:1. */}
+          <div className="lg:col-span-5 bg-[#25D366] text-stone-950 rounded-3xl p-7 sm:p-9 flex flex-col gap-5 shadow-lg">
             <span className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
               <MessageCircle className="w-6 h-6" />
             </span>
             <div className="flex flex-col gap-2">
               <h3 className="text-2xl font-black m-0">WhatsApp — snelste antwoord</h3>
-              <p className="text-sm sm:text-base text-white/90 leading-relaxed m-0">
+              <p className="text-sm sm:text-base text-stone-950/80 leading-relaxed m-0">
                 {ownerFirst} reageert meestal binnen een uur, ook ’s avonds.
                 Stuur een foto van de klus mee en je krijgt sneller een
                 realistische inschatting.
               </p>
             </div>
-            <ul className="flex flex-col gap-2 text-sm font-semibold text-white/95 m-0 p-0 list-none">
+            <ul className="flex flex-col gap-2 text-sm font-semibold text-stone-950/90 m-0 p-0 list-none">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 Geen wachtmuziek of keuzemenu
@@ -128,14 +132,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
               target="_blank"
               rel="noreferrer"
               onClick={() => track('whatsapp_click', { source: 'contact-card' })}
-              className="mt-auto h-14 px-6 rounded-full bg-white text-[#128C4B] font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+              className="mt-auto h-14 px-6 rounded-full bg-white text-[#0F7F44] font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
             >
               <MessageCircle className="w-5 h-5" />
               Open WhatsApp
             </a>
             <a
               href={buildSiteTelUrl(site.contactPhone)}
-              className="h-12 px-6 rounded-full border-2 border-white/70 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors hover:bg-white/10"
+              className="h-12 px-6 rounded-full border-2 border-stone-950/50 text-stone-950 font-bold text-sm flex items-center justify-center gap-2 transition-colors hover:bg-stone-950/10"
             >
               <Phone className="w-4 h-4" />
               Of bel {site.phone}
@@ -174,22 +178,22 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                 <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg pulse-glow">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-black text-stone-900 m-0">
+                <h3 className="text-2xl font-black m-0" style={{ color: site.fg }}>
                   Je bericht is verstuurd.
                 </h3>
-                <p className="text-stone-600 text-sm max-w-md m-0" aria-live="polite">
+                <p className="text-sm max-w-md m-0" style={{ color: site.muted }} aria-live="polite">
                   {site.biz} heeft je bericht ontvangen
                   {lead.result?.reference ? ` (referentie ${lead.result.reference})` : ''} en
                   neemt snel contact met je op. {lead.result ? describeDelivery(lead.result) : ''}
                 </p>
-                <p className="text-stone-500 text-xs max-w-md m-0">
+                <p className="text-xs max-w-md m-0" style={{ color: site.muted }}>
                   Liever meteen chatten? Zet het gesprek voort in WhatsApp.
                 </p>
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="h-14 px-8 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+                  className="h-14 px-8 rounded-full bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-base flex items-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
                 >
                   <MessageCircle className="w-5 h-5" />
                   Verstuur via WhatsApp
@@ -199,7 +203,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     setWaUrl(null);
                     lead.reset();
                   }}
-                  className="text-xs font-bold text-stone-500 underline bg-transparent border-0 cursor-pointer"
+                  className="text-xs font-bold underline bg-transparent border-0 cursor-pointer"
+                  style={{ color: site.muted }}
                 >
                   Nog een bericht sturen
                 </button>
@@ -207,12 +212,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
             ) : (
               <form onSubmit={handleSubmit} className="relative flex flex-col gap-4 flex-1" noValidate>
                 <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
-                <h3 className="text-xl font-bold text-stone-900 m-0">
+                <h3 className="text-xl font-bold m-0" style={{ color: site.fg }}>
                   Liever een formulier?
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="contact-name" className="block text-xs font-bold text-stone-700 mb-1">
+                    <label
+                      htmlFor="contact-name"
+                      className="block text-xs font-bold mb-1"
+                      style={{ color: site.fg }}
+                    >
                       Je naam *
                     </label>
                     <input
@@ -237,7 +246,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="contact-phone" className="block text-xs font-bold text-stone-700 mb-1">
+                    <label
+                      htmlFor="contact-phone"
+                      className="block text-xs font-bold mb-1"
+                      style={{ color: site.fg }}
+                    >
                       Telefoonnummer *
                     </label>
                     <input
@@ -264,7 +277,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   </div>
                 </div>
                 <div className="flex-1 flex flex-col">
-                  <label htmlFor="contact-message" className="block text-xs font-bold text-stone-700 mb-1">
+                  <label
+                    htmlFor="contact-message"
+                    className="block text-xs font-bold mb-1"
+                    style={{ color: site.fg }}
+                  >
                     Waar kunnen we je mee helpen? *
                   </label>
                   <textarea
@@ -300,11 +317,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   <Send className="w-5 h-5" />
                   {lead.status === 'sending' ? 'Versturen…' : `Verstuur naar ${ownerFirst}`}
                 </button>
-                <p className="text-xs text-stone-400 leading-relaxed m-0 text-center">
+                <p
+                  className="text-xs leading-relaxed m-0 text-center"
+                  style={{ color: site.muted }}
+                >
                   Je bericht gaat direct naar {site.biz}. Je krijgt meteen te zien
                   of het is aangekomen.
                 </p>
-                <PrivacyNote className="text-stone-500 text-center" />
+                <PrivacyNote className="text-center" style={{ color: site.muted }} />
               </form>
             )}
           </div>

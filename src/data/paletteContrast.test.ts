@@ -78,3 +78,17 @@ test('customised wizard data does not break the contrast contract', () => {
   assert.ok(contrastRatio(site.muted, site.card) >= AA_TEXT);
   assert.ok(contrastRatio(site.onAccent, site.accent) >= AA_TEXT);
 });
+
+test('fixed WhatsApp button colours keep AA contrast on their surfaces', () => {
+  // The WhatsApp green is a fixed brand colour, not a palette token, so its
+  // text colours are asserted directly: stone-950 on #25D366 (white only
+  // reaches 1.98:1) and #0F7F44 on the white button (#128C4B only 4.30:1).
+  assert.ok(
+    contrastRatio('#0c0a09', '#25D366') >= AA_TEXT,
+    `stone-950 on WhatsApp green = ${contrastRatio('#0c0a09', '#25D366').toFixed(2)}`
+  );
+  assert.ok(
+    contrastRatio('#0f7f44', '#ffffff') >= AA_TEXT,
+    `#0F7F44 on white = ${contrastRatio('#0f7f44', '#ffffff').toFixed(2)}`
+  );
+});

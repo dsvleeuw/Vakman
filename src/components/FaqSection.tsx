@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import type { FaqItem } from '../types';
+import type { ActiveSiteData, FaqItem } from '../types';
 
 interface FaqSectionProps {
   faqs?: FaqItem[];
   title?: string;
   subtitle?: string;
+  /** Palette of the generated site this section renders on. Without it the
+   *  heading falls back to the fixed stone theme of the marketing pages. */
+  site?: ActiveSiteData;
 }
 
 const DEFAULT_FAQS: FaqItem[] = [
@@ -46,6 +49,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
   faqs = DEFAULT_FAQS,
   title = 'Veelgestelde vragen',
   subtitle = 'Alles wat je wilt weten over Klusbaas websites en afspraken.',
+  site,
 }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
@@ -58,14 +62,25 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
     <section id="faq" className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-20">
       <div className="max-w-4xl mx-auto flex flex-col gap-6 sm:gap-8">
         <div className="flex flex-col gap-2 text-center sm:text-left">
-          <span className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase">
+          <span
+            className="font-mono text-xs font-bold tracking-wider text-stone-500 uppercase"
+            style={site ? { color: site.muted } : undefined}
+          >
             Goed om te weten
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-stone-900 m-0">
+          <h2
+            className="text-3xl sm:text-5xl font-black tracking-tight text-stone-900 m-0"
+            style={site ? { color: site.fg } : undefined}
+          >
             {title}
           </h2>
           {subtitle && (
-            <p className="text-stone-600 text-base sm:text-lg m-0">{subtitle}</p>
+            <p
+              className="text-stone-600 text-base sm:text-lg m-0"
+              style={site ? { color: site.muted } : undefined}
+            >
+              {subtitle}
+            </p>
           )}
         </div>
 

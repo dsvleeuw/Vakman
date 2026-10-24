@@ -1,17 +1,39 @@
 @import "tailwindcss";
 
+/* Keyboard users always get a visible focus indicator, also on elements
+   that only have inline palette styles. Deliberately unlayered and written
+   as a plain selector list: cascade layers outrank specificity, so a rule
+   inside `@layer base` always loses from Tailwind's `focus:outline-none`
+   utility, while an unlayered rule beats every layered declaration. Only
+   the outline properties may live here — anything else (e.g. border-radius)
+   would also outrank every Tailwind utility, including `rounded-*`. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid oklch(0.62 0.16 65);
+  outline-offset: 2px;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
-  /* Keyboard users always get a visible focus indicator, also on elements
-     that only have inline palette styles. */
-  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-    outline: 3px solid oklch(0.62 0.16 65);
-    outline-offset: 2px;
+  /* Rounded focus corners for elements without their own radius. Kept in
+     `@layer base` on purpose so Tailwind's `rounded-*` utilities keep
+     winning over it. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
     border-radius: 4px;
   }
+
   body {
     margin: 0;
     background: oklch(0.965 0.008 80);
