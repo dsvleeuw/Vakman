@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Eye, EyeOff, ShieldCheck, Check, MessageCircle } from 'lucide-react';
+import { Eye, EyeOff, ShieldCheck, Check } from 'lucide-react';
 import type {
   PlanId,
   QuoteChannel,
@@ -22,6 +22,8 @@ import { ADDONS, ADDON_GROUPS, isAddonIncluded } from '../data/addons';
 import { DEFAULT_PLAN, buildQuote, sanitizeAddonIds } from '../utils/quote';
 import { formatEuro } from '../utils/quoteEmail';
 import { QuoteSummary } from './QuoteSummary';
+import { LeadError, LeadHoneypot } from './LeadFormStatus';
+import { useLeadSubmit } from '../hooks/useLeadSubmit';
 import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
 import {
   buildMailtoUrl,
@@ -136,7 +138,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const [bookingDate, setBookingDate] = useState(dates[0]);
   const [bookingSlot, setBookingSlot] = useState<TimeSlot>(TIME_SLOTS[0]);
   const [isBooking, setIsBooking] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const lead = useLeadSubmit();
   const [quoteReference, setQuoteReference] = useState<string | null>(null);
   const [bookingResult, setBookingResult] = useState<{
     booking: AppointmentBooking;
@@ -250,7 +252,6 @@ export const WizardView: React.FC<WizardViewProps> = ({
       return;
     }
     setIsBooking(true);
-    setSubmitError(null);
 
     const bizName = formData.biz.trim() || baseSector.biz;
     const owner = formData.owner.trim() || baseSector.owner;
@@ -274,35 +275,22 @@ export const WizardView: React.FC<WizardViewProps> = ({
       createdAt: Date.now(),
     };
 
-    try {
-      const response = await fetch('/api/send-quote', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sector,
-          styleIndex,
-          plan: planId,
-          addons,
-          services: liveSite.services.map((service) => service.n),
-          form: { ...formData, email: formData.email?.trim() ?? '' },
-          channel,
-          appointment: { date: bookingDate.formatted, slot: bookingSlot },
-        }),
-      });
-      const result = (await response.json().catch(() => ({}))) as { ok?: boolean; reference?: string; error?: string };
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error || 'Versturen is niet gelukt. Probeer het opnieuw of stuur ons een WhatsApp.');
-      }
-      setQuoteReference(result.reference ?? null);
-    } catch (error) {
-      setSubmitError(
-        error instanceof Error && error.message !== 'Failed to fetch'
-          ? error.message
-          : 'Geen verbinding met de server. Probeer het opnieuw of stuur ons een WhatsApp.'
-      );
+    const sent = await lead.submit({
+      kind: 'offerte',
+      sector,
+      styleIndex,
+      plan: planId,
+      addons,
+      services: enabledServices,
+      form: { ...formData, email: formData.email?.trim() ?? '' },
+      channel,
+      appointment: { date: bookingDate.formatted, slot: bookingSlot },
+    });
+    if (!sent.ok) {
       setIsBooking(false);
       return;
     }
+    setQuoteReference(sent.reference || null);
 
     saveAppointment(booking);
 
@@ -869,7 +857,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 alles door te nemen. Vrijblijvend: je zit nergens aan vast.
               </p>
 
-              <div className="bg-white p-6 rounded-2xl border border-stone-200 flex flex-col gap-5">
+              <div className="relative bg-white p-6 rounded-2xl border border-stone-200 flex flex-col gap-5">
                 <div>
                   <span className="text-xs font-bold text-stone-500 uppercase block mb-2">
                     1. Belmoment: kies een datum (komende 2 weken)
@@ -1008,22 +996,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </strong>
                 </div>
 
-                {submitError && (
-                  <div role="alert" className="p-4 rounded-xl border-2 border-rose-200 bg-rose-50 text-sm text-rose-900 flex flex-col gap-3">
-                    <span className="font-bold">{submitError}</span>
-                    {platformWhatsApp && (
-                      <a
-                        href={buildWhatsAppUrl(platformWhatsApp, quoteMessage)}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={() => track('whatsapp_click', { source: 'wizard-error' })}
-                        className="h-11 rounded-full bg-[#25D366] text-white font-extrabold text-sm inline-flex items-center justify-center gap-2 no-underline"
-                      >
-                        <MessageCircle className="w-4 h-4" aria-hidden="true" />
-                        Stuur je aanvraag via WhatsApp
-                      </a>
-                    )}
-                  </div>
+                <LeadHoneypot inputRef={lead.honeypotRef} />
+                {lead.status === 'error' && lead.error && (
+                  <LeadError
+                    error={lead.error}
+                    whatsappUrl={platformWhatsApp ? buildWhatsAppUrl(platformWhatsApp, quoteMessage) : null}
+                    onWhatsAppClick={() => track('whatsapp_click', { source: 'wizard-error' })}
+                  />
                 )}
 
                 <button

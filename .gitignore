@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Dev fallback for Netlify Blobs (leads and quotes saved by vite dev)
+.data/

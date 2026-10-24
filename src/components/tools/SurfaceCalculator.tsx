@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Ruler, Plus, Trash2, MessageCircle, PaintRoller } from 'lucide-react';
+import { Ruler, Plus, Trash2, MessageCircle, PaintRoller, Send, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
   parsePricePerM2,
@@ -9,8 +9,12 @@ import {
 import {
   buildSiteWhatsAppUrl,
   buildSurfaceQuoteMessage,
+  normalizeDutchPhone,
 } from '../../utils/contact';
 import { formatPrice } from '../../utils/pricing';
+import { track } from '../../utils/analytics';
+import { useLeadSubmit } from '../../hooks/useLeadSubmit';
+import { LeadError, LeadHoneypot } from '../LeadFormStatus';
 
 interface SurfaceCalculatorProps {
   site: ActiveSiteData;
@@ -23,8 +27,8 @@ interface WallRow {
 
 /**
  * Schilder: m²-calculator. Visitors measure their walls, pick a per-m²
- * service and immediately get a price indication they can send via
- * WhatsApp as a quote request.
+ * service and immediately get a price indication they can send as a quote
+ * request (/api/lead), with WhatsApp as the alternative.
  */
 export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) => {
   const m2Services = useMemo(
@@ -44,7 +48,10 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
   ]);
   const [openings, setOpenings] = useState(0);
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [mobileOpen, setMobileOpen] = useState(false);
+  const lead = useLeadSubmit();
 
   const selectedService =
     services.find((sv) => sv.name === serviceName) ?? services[0];
@@ -84,6 +91,27 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
 
   const inputClass =
     'w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-white text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900';
+
+  const handleRequest = (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs: Record<string, string> = {};
+    if (!name.trim()) errs.name = 'Vul je naam in';
+    if (!normalizeDutchPhone(phone)) errs.phone = 'Gebruik een geldig nummer, bijv. 06 12345678';
+    setErrors(errs);
+    if (Object.keys(errs).length > 0 || lead.sending) return;
+    void lead.submit({
+      kind: 'oppervlak',
+      site: { biz: site.biz, sector: site.id, path: window.location.pathname },
+      name,
+      phone,
+      serviceName: selectedService.name,
+      pricePerM2: selectedService.price,
+      surfaceM2: Math.round(surfaceM2 * 10) / 10,
+      totalPrice,
+      wallCount: walls.length,
+      openings,
+    });
+  };
 
   return (
     <section
@@ -279,23 +307,106 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
             {site.estNote}
           </p>
 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Je naam (optioneel)"
-            className="w-full h-12 px-4 rounded-xl border-2 border-stone-500 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900"
-          />
-
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="h-14 px-6 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
-          >
-            <MessageCircle className="w-5 h-5" />
-            Vraag deze prijs aan via WhatsApp
-          </a>
+          {lead.status === 'success' ? (
+            <div className="flex flex-col items-center text-center gap-3 py-4 animate-fade-in" role="status">
+              <CheckCircle2 className="w-10 h-10 text-emerald-600" aria-hidden="true" />
+              <strong className="text-lg text-stone-900">Je offerte-aanvraag is verstuurd.</strong>
+              <p className="text-sm text-stone-600 m-0">
+                {site.owner.split(' ')[0]} stuurt je een definitieve offerte en belt je op {phone}.
+                {lead.result?.reference && (
+                  <>
+                    {' '}Referentie: <strong className="font-mono">{lead.result.reference}</strong>
+                  </>
+                )}
+              </p>
+              <button
+                type="button"
+                onClick={lead.reset}
+                className="text-xs font-bold text-stone-500 underline bg-transparent border-0 cursor-pointer"
+              >
+                Nieuwe berekening aanvragen
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleRequest} className="relative flex flex-col gap-3" noValidate>
+              <LeadHoneypot inputRef={lead.honeypotRef} />
+              <div>
+                <label htmlFor="m2-name" className="block text-xs font-bold text-stone-700 mb-1">
+                  Je naam *
+                </label>
+                <input
+                  id="m2-name"
+                  type="text"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setErrors((p) => ({ ...p, name: '' }));
+                  }}
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? 'm2-name-error' : undefined}
+                  placeholder="bijv. Sanne de Jong"
+                  className={`${inputClass} ${errors.name ? 'border-rose-500' : ''}`}
+                />
+                {errors.name && (
+                  <span id="m2-name-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
+                    {errors.name}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label htmlFor="m2-phone" className="block text-xs font-bold text-stone-700 mb-1">
+                  Telefoonnummer *
+                </label>
+                <input
+                  id="m2-phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    setErrors((p) => ({ ...p, phone: '' }));
+                  }}
+                  aria-invalid={!!errors.phone}
+                  aria-describedby={errors.phone ? 'm2-phone-error' : undefined}
+                  placeholder="06 12 34 56 78"
+                  className={`${inputClass} ${errors.phone ? 'border-rose-500' : ''}`}
+                />
+                {errors.phone && (
+                  <span id="m2-phone-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
+                    {errors.phone}
+                  </span>
+                )}
+              </div>
+              {lead.status === 'error' && lead.error && (
+                <LeadError
+                  error={lead.error}
+                  whatsappUrl={waUrl}
+                  onWhatsAppClick={() => track('whatsapp_click', { source: 'm2-calculator-fallback' })}
+                />
+              )}
+              <button
+                type="submit"
+                disabled={lead.sending}
+                aria-busy={lead.sending}
+                className="h-14 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-wait"
+              >
+                <Send className="w-5 h-5" />
+                {lead.sending ? 'Versturen…' : 'Vraag deze prijs aan'}
+              </button>
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => track('whatsapp_click', { source: 'm2-calculator' })}
+                className="h-12 px-6 rounded-full border-2 border-[#25D366] text-[#128C4B] font-bold text-sm flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Of stuur hem via WhatsApp
+              </a>
+            </form>
+          )}
         </div>
       </div>
     </section>

@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { ADDONS } from '../data/addons';
 import { COMPONENT_ENTRIES } from '../data/componentCatalog';
-import { handleSendQuote } from '../server/sendQuote';
 import { buildQuote, isValidEmail, parseQuoteRequest, sanitizeAddonIds } from './quote';
 import { buildQuoteEmail, createQuoteReference, formatEuro } from './quoteEmail';
 
@@ -77,6 +76,13 @@ test('parseQuoteRequest rejects bad input', () => {
   assert.equal(parseQuoteRequest({ ...validBody, form: { ...validBody.form, phone: '123' } }).ok, false);
 });
 
+test('parseQuoteRequest only requires an e-mail address when the quote is mailed', () => {
+  const noEmail = { ...validBody, form: { ...validBody.form, email: '' } };
+  assert.equal(parseQuoteRequest({ ...noEmail, channel: 'WhatsApp' }).ok, true);
+  assert.equal(parseQuoteRequest({ ...noEmail, channel: 'E-mail' }).ok, false);
+  assert.equal(parseQuoteRequest({ ...noEmail, channel: 'Allebei' }).ok, false);
+});
+
 test('quote e-mail contains the full quote and escapes HTML', () => {
   const parsed = parseQuoteRequest({
     ...validBody,
@@ -97,44 +103,4 @@ test('formatEuro and createQuoteReference', () => {
   assert.equal(formatEuro(995), '€ 995');
   assert.equal(formatEuro(187.5), '€ 187,50');
   assert.match(createQuoteReference(), /^KB-[A-Z2-9]{6}$/);
-});
-
-test('handleSendQuote previews without an API key', async () => {
-  const result = await handleSendQuote(validBody, {}, async () => {
-    throw new Error('should not fetch');
-  }, () => {});
-  assert.equal(result.status, 200);
-  assert.equal(result.body.mode, 'preview');
-});
-
-test('handleSendQuote mails the team and the customer via Resend', async () => {
-  const calls: { to: string[]; reply_to: string }[] = [];
-  const fakeFetch = async (_url: string, init: RequestInit) => {
-    calls.push(JSON.parse(String(init.body)));
-    return new Response('{}', { status: 200 });
-  };
-  const result = await handleSendQuote(
-    validBody,
-    { RESEND_API_KEY: 'test', QUOTE_NOTIFY_EMAIL: 'team@example.nl' },
-    fakeFetch,
-    () => {}
-  );
-  assert.equal(result.body.mode, 'sent');
-  assert.equal(result.body.customerEmailSent, true);
-  assert.deepEqual(calls.map((call) => call.to[0]), ['team@example.nl', 'sanne@example.nl']);
-  assert.equal(calls[0].reply_to, 'sanne@example.nl');
-});
-
-test('handleSendQuote reports a failed team mail and ignores honeypot bots', async () => {
-  const failing = async () => new Response('nope', { status: 403 });
-  const failed = await handleSendQuote(validBody, { RESEND_API_KEY: 'k' }, failing, () => {});
-  assert.equal(failed.status, 502);
-
-  let fetched = false;
-  const bot = await handleSendQuote({ ...validBody, website: 'spam' }, { RESEND_API_KEY: 'k' }, async () => {
-    fetched = true;
-    return new Response('{}');
-  }, () => {});
-  assert.equal(bot.body.ok, true);
-  assert.equal(fetched, false);
 });

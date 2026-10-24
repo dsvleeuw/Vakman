@@ -5,9 +5,12 @@ import {
   buildSiteWhatsAppUrl,
   buildSiteTelUrl,
   buildContactMessage,
+  isValidEmail,
   normalizeDutchPhone,
 } from '../utils/contact';
 import { track } from '../utils/analytics';
+import { useLeadSubmit } from '../hooks/useLeadSubmit';
+import { LeadError, LeadHoneypot } from './LeadFormStatus';
 
 interface ContactSectionProps {
   site: ActiveSiteData;
@@ -17,16 +20,19 @@ interface ContactSectionProps {
  * Contact strategy D from the market research: WhatsApp is the primary,
  * low-threshold channel (tradespeople live on it all day); a short form
  * is the alternative for visitors who prefer not to open WhatsApp
- * themselves. The form prefills a WhatsApp message so no backend is
- * needed and every lead still lands in one inbox.
+ * themselves. The form posts to /api/lead, so every lead is saved and
+ * mailed; WhatsApp stays one tap away if sending fails.
  */
 export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [waUrl, setWaUrl] = useState<string | null>(null);
   const [mobileFormOpen, setMobileFormOpen] = useState(false);
+  const lead = useLeadSubmit();
+  const sent = lead.status === 'success';
+  const waUrl = buildSiteWhatsAppUrl(site.contactPhone, buildContactMessage(site.biz, { name, phone, message }));
 
   const ownerFirst = site.owner.split(' ')[0];
   const directWhatsApp = buildSiteWhatsAppUrl(
@@ -40,11 +46,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
     if (!normalizeDutchPhone(phone)) {
       errs.phone = 'Gebruik een geldig nummer, bijv. 06 12345678 of +31 6 12345678';
     }
+    if (email.trim() && !isValidEmail(email)) {
+      errs.email = 'Vul een geldig e-mailadres in of laat het leeg';
+    }
     if (message.trim().length < 10) {
       errs.message = 'Omschrijf je klus in minimaal 10 tekens';
     }
     setErrors(errs);
-    const firstInvalid = ['name', 'phone', 'message'].find((field) => errs[field]);
+    const firstInvalid = ['name', 'phone', 'email', 'message'].find((field) => errs[field]);
     if (firstInvalid) {
       document.getElementById(`contact-${firstInvalid}`)?.focus();
     }
@@ -53,13 +62,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    setWaUrl(
-      buildSiteWhatsAppUrl(
-        site.contactPhone,
-        buildContactMessage(site.biz, { name, phone, message })
-      )
-    );
+    if (!validate() || lead.sending) return;
+    void lead.submit({
+      kind: 'contact',
+      site: { biz: site.biz, sector: site.id, path: window.location.pathname },
+      name,
+      phone,
+      email,
+      message,
+    });
   };
 
   const inputClass = (hasError?: string) =>
@@ -132,7 +143,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
             </a>
           </div>
 
-          {!mobileFormOpen && !waUrl && (
+          {!mobileFormOpen && !sent && (
             <button
               type="button"
               onClick={() => setMobileFormOpen(true)}
@@ -151,7 +162,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
           {/* Alternative channel: short contact form */}
           <div
             className={`${
-              mobileFormOpen || waUrl ? 'flex' : 'hidden sm:flex'
+              mobileFormOpen || sent ? 'flex' : 'hidden sm:flex'
             } lg:col-span-7 border p-6 sm:p-9 shadow-sm flex-col`}
             style={{
               background: site.card,
@@ -159,36 +170,36 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
               borderRadius: site.radiusLg,
             }}
           >
-            {waUrl ? (
-              <div className="flex-1 flex flex-col items-center justify-center text-center gap-5 py-8 animate-fade-in">
+            {sent ? (
+              <div className="flex-1 flex flex-col items-center justify-center text-center gap-5 py-8 animate-fade-in" role="status">
                 <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg pulse-glow">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-black text-stone-900 m-0">
-                  Je bericht staat klaar.
+                  Je bericht is verstuurd.
                 </h3>
                 <p className="text-stone-600 text-sm max-w-md m-0">
-                  Open WhatsApp om je bericht aan {site.biz} te versturen.
-                  Daarna heb je het gesprek gewoon in je eigen WhatsApp staan.
+                  {ownerFirst} heeft je aanvraag ontvangen en neemt zo snel mogelijk contact
+                  met je op{lead.result?.customerEmailSent ? '. Je krijgt ook een bevestiging per mail' : ''}.
+                  {lead.result?.reference && (
+                    <>
+                      {' '}Referentie: <strong className="font-mono">{lead.result.reference}</strong>
+                    </>
+                  )}
                 </p>
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="h-14 px-8 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Verstuur via WhatsApp
-                </a>
                 <button
-                  onClick={() => setWaUrl(null)}
+                  onClick={() => {
+                    lead.reset();
+                    setMessage('');
+                  }}
                   className="text-xs font-bold text-stone-500 underline bg-transparent border-0 cursor-pointer"
                 >
-                  Wijzig je bericht
+                  Nog een bericht sturen
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1">
+              <form onSubmit={handleSubmit} className="relative flex flex-col gap-4 flex-1" noValidate>
+                <LeadHoneypot inputRef={lead.honeypotRef} />
                 <h3 className="text-xl font-bold text-stone-900 m-0">
                   Liever een formulier?
                 </h3>
@@ -245,6 +256,31 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     )}
                   </div>
                 </div>
+                <div>
+                  <label htmlFor="contact-email" className="block text-xs font-bold text-stone-700 mb-1">
+                    E-mail (optioneel, voor je bevestiging)
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setErrors((p) => ({ ...p, email: '' }));
+                    }}
+                    placeholder="naam@voorbeeld.nl"
+                    className={inputClass(errors.email)}
+                  />
+                  {errors.email && (
+                    <span id="contact-email-error" role="alert" className="text-xs text-rose-600 font-bold block mt-1">
+                      {errors.email}
+                    </span>
+                  )}
+                </div>
                 <div className="flex-1 flex flex-col">
                   <label htmlFor="contact-message" className="block text-xs font-bold text-stone-700 mb-1">
                     Waar kunnen we je mee helpen? *
@@ -271,16 +307,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                     </span>
                   )}
                 </div>
+                {lead.status === 'error' && lead.error && (
+                  <LeadError
+                    error={lead.error}
+                    whatsappUrl={waUrl}
+                    onWhatsAppClick={() => track('whatsapp_click', { source: 'contact-form-fallback' })}
+                  />
+                )}
                 <button
                   type="submit"
-                  className="h-14 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+                  disabled={lead.sending}
+                  aria-busy={lead.sending}
+                  className="h-14 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-wait"
                 >
                   <Send className="w-5 h-5" />
-                  Verstuur naar {ownerFirst}
+                  {lead.sending ? 'Versturen…' : `Verstuur naar ${ownerFirst}`}
                 </button>
                 <p className="text-xs text-stone-400 leading-relaxed m-0 text-center">
-                  Dit formulier opent WhatsApp met je bericht klaarstaan — je
-                  hoeft alleen op versturen te drukken.
+                  Je bericht komt direct binnen; je krijgt meteen te zien of het gelukt is.
                 </p>
               </form>
             )}

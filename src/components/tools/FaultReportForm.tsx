@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PlugZap, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { PlugZap, Send, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
   buildSiteTelUrl,
@@ -8,6 +8,9 @@ import {
   normalizeDutchPhone,
   type FaultReportInput,
 } from '../../utils/contact';
+import { track } from '../../utils/analytics';
+import { useLeadSubmit } from '../../hooks/useLeadSubmit';
+import { LeadError, LeadHoneypot } from '../LeadFormStatus';
 
 const FAULT_TYPES = [
   'Geen stroom / spanning weg',
@@ -31,8 +34,8 @@ interface FaultReportFormProps {
 }
 
 /**
- * Elektricien: storingsmelding. The structured form composes a clear
- * WhatsApp message so the electrician receives every detail in one tap.
+ * Elektricien: storingsmelding. The structured form posts every detail to
+ * /api/lead; the same message as WhatsApp is the fallback if sending fails.
  */
 export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
   const [form, setForm] = useState<FaultReportInput>({
@@ -45,8 +48,10 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
     details: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [waUrl, setWaUrl] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const lead = useLeadSubmit();
+  const sent = lead.status === 'success';
+  const waUrl = buildSiteWhatsAppUrl(site.contactPhone, buildFaultReportMessage(site.biz, form));
 
   const update = (field: keyof FaultReportInput, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -66,10 +71,12 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    setWaUrl(
-      buildSiteWhatsAppUrl(site.contactPhone, buildFaultReportMessage(site.biz, form))
-    );
+    if (!validate() || lead.sending) return;
+    void lead.submit({
+      kind: 'storing',
+      site: { biz: site.biz, sector: site.id, path: window.location.pathname },
+      ...form,
+    });
   };
 
   const inputClass = (hasError?: string) =>
@@ -99,8 +106,8 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
             Storing? Meld hem in 1 minuut.
           </h2>
           <p className="text-base sm:text-lg text-stone-600 leading-relaxed m-0">
-            Vul het formulier in en je melding wordt met alle details via
-            WhatsApp naar {site.owner.split(' ')[0]} verstuurd. Bij acuut
+            Vul het formulier in en je melding komt met alle details direct
+            binnen bij {site.owner.split(' ')[0]}. Bij acuut
             onveilige situaties: bel direct{' '}
             <a
               href={buildSiteTelUrl(site.contactPhone)}
@@ -121,7 +128,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
             </span>
           </div>
 
-          {!mobileOpen && !waUrl && (
+          {!mobileOpen && !sent && (
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
@@ -140,7 +147,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
 
         <div
           className={`${
-            mobileOpen || waUrl ? 'block' : 'hidden sm:block'
+            mobileOpen || sent ? 'block' : 'hidden sm:block'
           } lg:col-span-7 border p-6 sm:p-8 shadow-lg`}
           style={{
             background: site.card,
@@ -148,37 +155,33 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
             borderRadius: site.radiusLg,
           }}
         >
-          {waUrl ? (
-            <div className="flex flex-col items-center text-center gap-5 py-6 animate-fade-in">
+          {sent ? (
+            <div className="flex flex-col items-center text-center gap-5 py-6 animate-fade-in" role="status">
               <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg pulse-glow">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h3 className="text-2xl font-black text-stone-900 m-0">
-                Je melding staat klaar.
+                Je storingsmelding is verstuurd.
               </h3>
               <p className="text-stone-600 text-sm max-w-md m-0">
-                Open WhatsApp om de storingsmelding naar {site.biz} te
-                versturen. {site.owner.split(' ')[0]} neemt daarna contact met
-                je op.
+                {site.owner.split(' ')[0]} heeft je melding ontvangen en belt je zo snel
+                mogelijk terug op {form.phone}.
+                {lead.result?.reference && (
+                  <>
+                    {' '}Referentie: <strong className="font-mono">{lead.result.reference}</strong>
+                  </>
+                )}
               </p>
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="h-14 px-8 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Verstuur via WhatsApp
-              </a>
               <button
-                onClick={() => setWaUrl(null)}
+                onClick={lead.reset}
                 className="text-xs font-bold text-stone-500 underline bg-transparent border-0 cursor-pointer"
               >
-                Wijzig de melding
+                Nog een melding doen
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="relative flex flex-col gap-4" noValidate>
+              <LeadHoneypot inputRef={lead.honeypotRef} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-stone-700 mb-1">
@@ -307,12 +310,21 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                 />
               </div>
 
+              {lead.status === 'error' && lead.error && (
+                <LeadError
+                  error={lead.error}
+                  whatsappUrl={waUrl}
+                  onWhatsAppClick={() => track('whatsapp_click', { source: 'fault-report-fallback' })}
+                />
+              )}
               <button
                 type="submit"
-                className="h-14 mt-1 px-6 rounded-full bg-[#25D366] hover:brightness-95 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+                disabled={lead.sending}
+                aria-busy={lead.sending}
+                className="h-14 mt-1 px-6 rounded-full bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-wait"
               >
-                <MessageCircle className="w-5 h-5" />
-                Stel storingsmelding op via WhatsApp
+                <Send className="w-5 h-5" />
+                {lead.sending ? 'Versturen…' : 'Verstuur storingsmelding'}
               </button>
             </form>
           )}

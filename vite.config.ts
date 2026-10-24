@@ -4,14 +4,15 @@ import path from 'path';
 import {defineConfig, loadEnv, type Plugin} from 'vite';
 
 /**
- * Serve POST /api/send-quote during `vite dev` with the same handler the
- * Netlify Function uses, so the wizard's quote e-mail works locally too.
+ * Serve the API during `vite dev` with the same handlers the Netlify
+ * Functions use. Leads and quotes are saved as JSON files under `.data/`
+ * instead of Netlify Blobs; without RESEND_API_KEY mails go to the terminal.
  */
-function quoteApiDevServer(env: Record<string, string>): Plugin {
+function apiDevServer(env: Record<string, string>): Plugin {
   return {
-    name: 'klusbaas-quote-api',
+    name: 'klusbaas-api',
     configureServer(server) {
-      server.middlewares.use('/api/send-quote', async (req, res) => {
+      server.middlewares.use('/api/lead', async (req, res) => {
         const reply = (status: number, body: unknown) => {
           res.statusCode = status;
           res.setHeader('Content-Type', 'application/json');
@@ -26,8 +27,13 @@ function quoteApiDevServer(env: Record<string, string>): Plugin {
         } catch {
           return reply(400, { ok: false, error: 'Ongeldige JSON.' });
         }
-        const { handleSendQuote } = await server.ssrLoadModule('/src/server/sendQuote.ts');
-        const result = await handleSendQuote(body, env);
+        const { handleLead } = await server.ssrLoadModule('/src/server/lead.ts');
+        const { createFileStore } = await server.ssrLoadModule('/src/server/store.ts');
+        const result = await handleLead(body, {
+          env,
+          leads: createFileStore(path.resolve(__dirname, '.data/leads')),
+          clientKey: req.socket.remoteAddress,
+        });
         reply(result.status, result.body);
       });
     },
@@ -37,7 +43,7 @@ function quoteApiDevServer(env: Record<string, string>): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
-    plugins: [react(), tailwindcss(), quoteApiDevServer(env)],
+    plugins: [react(), tailwindcss(), apiDevServer(env)],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

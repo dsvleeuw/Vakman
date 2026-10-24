@@ -117,12 +117,12 @@ export function parseQuoteRequest(
   if (!normalizeDutchPhone(cleanForm.phone)) {
     return { ok: false, error: 'Ongeldig telefoonnummer.' };
   }
-  if (!isValidEmail(cleanForm.email)) {
-    return { ok: false, error: 'Ongeldig e-mailadres.' };
-  }
-
   const channel: QuoteChannel =
     raw.channel === 'E-mail' || raw.channel === 'Allebei' ? raw.channel : 'WhatsApp';
+  // The address is only required when the quote is mailed to the customer.
+  if ((cleanForm.email || channel !== 'WhatsApp') && !isValidEmail(cleanForm.email)) {
+    return { ok: false, error: 'Ongeldig e-mailadres.' };
+  }
   const services = Array.isArray(raw.services)
     ? raw.services.map((s) => clip(s, 120)).filter(Boolean).slice(0, 30)
     : [];
