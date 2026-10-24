@@ -86,7 +86,12 @@ test('quote lead: numbered, stored with PDF, previewed without API key', async (
   assert.equal(first.body.delivery?.customer.status, 'preview');
   assert.equal(first.body.quote?.path, `/offerte/KB-2026-0001?token=${TOKEN}`);
   assert.equal('token' in (first.body.quote ?? {}), false);
-  assert.ok(logs.some((line) => line.includes('Bijlage: Offerte-KB-2026-0001.pdf')));
+  assert.ok(logs.some((line) => line.includes('Bijlagen: Offerte-KB-2026-0001.pdf')));
+  const previewLogs = logs.filter((line) => line.includes('PREVIEW'));
+  assert.ok(previewLogs.length > 0);
+  assert.ok(previewLogs.every((line) => !line.includes('Hoi Kees')));
+  assert.ok(previewLogs.every((line) => !/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(line)));
+  assert.ok(previewLogs.every((line) => line.includes('Ontvanger-domein:')));
 
   const pdf = await PDFDocument.load(mem.pdfs.get('KB-2026-0001')!);
   assert.ok(pdf.getPageCount() >= 1);

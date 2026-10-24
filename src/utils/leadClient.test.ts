@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { NETWORK_ERROR, describeDelivery, submitLead } from './leadClient';
+import { LEAD_TIMEOUT_MS, NETWORK_ERROR, TIMEOUT_ERROR, describeDelivery, submitLead } from './leadClient';
 import { quotePdfHref } from './quote';
 
 test('submitLead returns the server body on success', async () => {
   const result = await submitLead({ type: 'contact' }, async (url, init) => {
     assert.equal(url, '/api/lead');
     assert.equal(init.method, 'POST');
+    assert.ok(init.signal instanceof AbortSignal);
     return Response.json({ ok: true, reference: 'L-ABCDEF' });
   });
   assert.equal(result.ok, true);
@@ -28,6 +29,15 @@ test('submitLead turns server errors and network failures into Dutch messages', 
     throw new TypeError('Failed to fetch');
   });
   assert.deepEqual([offline.ok, offline.status], [false, 0]);
+});
+
+test('submitLead returns a Dutch error when its 12-second request times out', async () => {
+  const result = await submitLead({}, async () => {
+    throw new DOMException('aborted', 'TimeoutError');
+  });
+  assert.equal(LEAD_TIMEOUT_MS, 12_000);
+  assert.deepEqual([result.ok, result.status, result.error], [false, 0, TIMEOUT_ERROR]);
+  assert.match(result.error ?? '', /te lang/i);
 });
 
 test('describeDelivery explains what happened to the confirmation mail', () => {
