@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { SectorId, StyleDef } from '../types';
 import {
   ORDER,
@@ -12,6 +12,7 @@ import { ImageWithFallback } from './ImageWithFallback';
 import { RouteLink } from './RouteLink';
 import { track } from '../utils/analytics';
 import { styleIdFromIndex, type Route } from '../utils/router';
+import { ensureAllStyleFontsLoaded } from '../utils/fonts';
 
 interface PresetsSectionProps {
   selectedSector: SectorId;
@@ -30,7 +31,30 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
   useLinks = false,
 }) => {
   const [showAllStyles, setShowAllStyles] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const currentSector = SECTORS[selectedSector];
+
+  // The style cards render in each style's display font, but index.html only
+  // ships the base fonts. Fetch the style fonts shortly before the section
+  // scrolls into view so first paint stays light.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      ensureAllStyleFontsLoaded();
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          ensureAllStyleFontsLoaded();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '600px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   const openSite = (styleIndex: number) => {
     track('preset_open', { sector: selectedSector, style: styleIndex });
     onOpenSite(selectedSector, styleIndex);
@@ -47,6 +71,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
 
   return (
     <section
+      ref={sectionRef}
       id="presets"
       className="py-12 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12 max-w-7xl mx-auto w-full flex flex-col gap-10 scroll-mt-24"
     >
