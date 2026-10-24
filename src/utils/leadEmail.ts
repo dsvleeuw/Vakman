@@ -51,22 +51,71 @@ const table = (rows: Row[], strongLast = false) =>
 const section = (title: string, body: string) =>
   `<h2 style="margin:24px 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#78716c;">${escapeHtml(title)}</h2>${body}`;
 
-function wrapHtml(intro: string, reference: string, sections: string, outro: string, button?: { href: string; label: string }) {
+export interface EmailLayout {
+  intro: string;
+  /** Lead or quote reference shown under the intro. */
+  reference?: string;
+  /** Pre-rendered HTML sections (escape user content first). */
+  sections?: string;
+  outro: string;
+  button?: { href: string; label: string };
+  /** Site origin for the logo image and the privacy link. */
+  siteUrl: string;
+  /** Why the recipient gets this mail; shown in the footer. */
+  footerNote?: string;
+  /** Unsubscribe link for newsletter mails. */
+  unsubscribeUrl?: string;
+}
+
+export const DEFAULT_SITE_URL = 'https://klusbaas.nl';
+
+const origin = (siteUrl: string) => (siteUrl || DEFAULT_SITE_URL).replace(/\/$/, '');
+
+/** Logo for e-mail: a PNG, because many mail clients block SVG images. */
+export const emailLogoUrl = (siteUrl: string) => `${origin(siteUrl)}/brand/klusbaas-logo-email.png`;
+export const privacyUrl = (siteUrl: string) => `${origin(siteUrl)}/privacy`;
+
+/**
+ * Shared HTML shell for every Klusbaas mail: logo header, white card and a
+ * footer with the privacy link (plus an unsubscribe link for newsletter mail).
+ */
+export function renderEmailLayout(layout: EmailLayout): string {
+  const { intro, reference, sections = '', outro, button, siteUrl, footerNote, unsubscribeUrl } = layout;
   const cta = button
     ? `<p style="margin:24px 0 0;"><a href="${escapeHtml(button.href)}" style="display:inline-block;background:#1c1917;color:#ffffff;text-decoration:none;font-weight:800;padding:12px 20px;border-radius:999px;">${escapeHtml(button.label)}</a></p>`
     : '';
+  const link = (href: string, label: string) =>
+    `<a href="${escapeHtml(href)}" style="color:#78716c;text-decoration:underline;">${escapeHtml(label)}</a>`;
+  const footerLinks = [
+    link(privacyUrl(siteUrl), 'Privacyverklaring'),
+    ...(unsubscribeUrl ? [link(unsubscribeUrl, 'Afmelden')] : []),
+  ].join(' &nbsp;|&nbsp; ');
   return `<!doctype html><html lang="nl"><body style="margin:0;background:#f5f5f4;font-family:Arial,Helvetica,sans-serif;color:#1c1917;">
 <div style="max-width:560px;margin:0 auto;padding:24px 16px;">
 <div style="background:#ffffff;border-radius:16px;border:1px solid #e7e5e4;padding:28px;">
-<div style="font-weight:900;font-size:20px;margin-bottom:16px;">Klusbaas</div>
+<img src="${escapeHtml(emailLogoUrl(siteUrl))}" width="160" height="25" alt="Klusbaas" style="display:block;border:0;outline:none;height:25px;width:160px;margin:0 0 20px;">
 <p style="margin:0 0 8px;font-size:15px;line-height:1.5;">${escapeHtml(intro)}</p>
-<p style="margin:0;font-size:12px;color:#78716c;">Referentie: <strong>${escapeHtml(reference)}</strong></p>
+${reference ? `<p style="margin:0;font-size:12px;color:#78716c;">Referentie: <strong>${escapeHtml(reference)}</strong></p>` : ''}
 ${sections}${cta}
 <p style="margin:24px 0 0;font-size:13px;line-height:1.5;color:#57534e;">${escapeHtml(outro)}</p>
 </div>
-<p style="text-align:center;font-size:11px;color:#a8a29e;margin:16px 0 0;">Klusbaas · ${escapeHtml(PLATFORM_CONTACT.email)}</p>
+<p style="text-align:center;font-size:11px;line-height:1.6;color:#78716c;margin:16px 0 0;">Klusbaas · ${escapeHtml(PLATFORM_CONTACT.email)}${footerNote ? `<br>${escapeHtml(footerNote)}` : ''}<br>${footerLinks}</p>
 </div></body></html>`;
 }
+
+/** Plain-text footer that mirrors the HTML footer. */
+export function emailTextFooter(siteUrl: string, footerNote?: string, unsubscribeUrl?: string): string {
+  return [
+    '--',
+    `Klusbaas · ${PLATFORM_CONTACT.email}`,
+    ...(footerNote ? [footerNote] : []),
+    `Privacyverklaring: ${privacyUrl(siteUrl)}`,
+    ...(unsubscribeUrl ? [`Afmelden: ${unsubscribeUrl}`] : []),
+  ].join('\n');
+}
+
+export const TRANSACTIONAL_NOTE =
+  'Je krijgt deze mail omdat je via Klusbaas een aanvraag deed. Je staat hiermee niet op een nieuwsbrief.';
 
 const textRows = (rows: Row[]) => rows.map((row) => `${row.label}: ${row.value}${row.href && row.href !== row.value ? ` (${row.href})` : ''}`);
 
@@ -95,6 +144,7 @@ export function buildQuoteEmail(
   audience: 'team' | 'customer',
   links: { quoteUrl: string; whatsappUrl?: string }
 ): LeadEmail {
+  const siteUrl = new URL(links.quoteUrl).origin;
   const { customer } = record;
   const firstName = customer.owner.split(' ')[0] || customer.owner;
   const delivery = quoteDelivery(record.channel);
@@ -153,18 +203,23 @@ export function buildQuoteEmail(
     ...textRows(actions),
     '',
     outro,
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
   ].join('\n');
 
-  const html = wrapHtml(
+  const html = renderEmailLayout({
     intro,
-    record.id,
-    section('Gegevens', table(details)) +
+    reference: record.id,
+    sections:
+      section('Gegevens', table(details)) +
       section('Diensten op de website', `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>`) +
       section('Offerte', `${table(quotePriceRows(record))}<hr style="border:0;border-top:1px solid #e7e5e4;margin:12px 0;">${table(quoteTotalRows(record), true)}`) +
       (actions.length > 1 ? section('Acties', table(actions)) : ''),
     outro,
-    { href: links.quoteUrl, label: 'Bekijk offerte online' }
-  );
+    button: { href: links.quoteUrl, label: 'Bekijk offerte online' },
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
 
   return { subject, text, html };
 }
@@ -173,7 +228,8 @@ export function buildQuoteEmail(
 export function buildSiteLeadEmail(
   lead: SiteLead,
   audience: 'team' | 'customer',
-  reference: string
+  reference: string,
+  siteUrl: string = DEFAULT_SITE_URL
 ): LeadEmail {
   const label = LEAD_TYPE_LABELS[lead.type];
   const who = lead.fields.name || 'Een bezoeker';
@@ -196,7 +252,14 @@ export function buildSiteLeadEmail(
         ? `Antwoorden op deze mail gaat naar ${lead.fields.email}.`
         : `Neem contact op via ${lead.fields.phone}.`
       : 'Klopt er iets niet? Antwoord gewoon op deze mail.';
-  const text = [intro, '', `Referentie: ${reference}`, '', ...textRows(rows), '', outro].join('\n');
-  const html = wrapHtml(intro, reference, section('Gegevens', table(rows)), outro);
+  const text = [intro, '', `Referentie: ${reference}`, '', ...textRows(rows), '', outro, '', emailTextFooter(siteUrl, TRANSACTIONAL_NOTE)].join('\n');
+  const html = renderEmailLayout({
+    intro,
+    reference,
+    sections: section('Gegevens', table(rows)),
+    outro,
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
   return { subject, text, html };
 }
