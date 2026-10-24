@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PlugZap, MessageCircle, CheckCircle2 } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
+  buildTelUrl,
   buildWhatsAppUrl,
   buildFaultReportMessage,
   normalizeDutchPhone,
@@ -101,8 +102,8 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
             WhatsApp naar {site.owner.split(' ')[0]} verstuurd. Bij acuut
             onveilige situaties: bel direct{' '}
             <a
-              href={`tel:${site.phone.replace(/[\s-]/g, '')}`}
-              className="font-bold text-stone-900 underline"
+              href={buildTelUrl(site.phone)}
+              className="inline-flex items-center min-h-11 font-bold text-stone-900 underline"
             >
               {site.phone}
             </a>

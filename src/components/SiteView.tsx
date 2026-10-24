@@ -65,17 +65,17 @@ export const SiteView: React.FC<SiteViewProps> = ({
     <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}>
       {/* Top Preview Control Bar */}
       {!embedded && (
-      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 pt-[calc(0.5rem+env(safe-area-inset-top))] pb-2 flex sm:pt-[calc(0.625rem+env(safe-area-inset-top))] sm:pb-2.5 flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md">
-        <div className="flex items-center justify-between gap-2 sm:justify-start sm:gap-3">
+      <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 pt-[calc(0.375rem+env(safe-area-inset-top))] pb-1.5 flex lg:pt-[calc(0.5rem+env(safe-area-inset-top))] lg:pb-2 flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md">
+        <div className="flex items-center justify-between gap-2 lg:justify-start lg:gap-3">
           <RouteLink
             route={{ name: 'home', sector: selectedSector }}
             hash="presets"
-            className="h-8 px-3 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-semibold whitespace-nowrap transition-colors inline-flex items-center no-underline"
+            className="min-h-11 px-3.5 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-semibold whitespace-nowrap transition-colors inline-flex items-center no-underline"
           >
             ← Alle presets
           </RouteLink>
 
-          <div className="flex items-center gap-2 sm:hidden">
+          <div className="flex items-center gap-2 lg:hidden min-w-0">
             <span className="text-[11px] font-semibold text-stone-300 truncate">
               {SECTORS[selectedSector].name} · {STYLES[selectedStyleIndex].name}
             </span>
@@ -84,14 +84,14 @@ export const SiteView: React.FC<SiteViewProps> = ({
               onClick={() => setControlsOpen((open) => !open)}
               aria-expanded={controlsOpen}
               aria-controls="site-preview-controls"
-              className="h-8 px-3 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-bold whitespace-nowrap cursor-pointer"
+              className="min-h-11 px-3.5 rounded-full border border-stone-700 bg-stone-800 hover:bg-stone-700 text-white font-bold whitespace-nowrap cursor-pointer inline-flex items-center shrink-0"
             >
               {controlsOpen ? 'Sluiten' : 'Aanpassen'}
             </button>
           </div>
 
           {/* Quick sector circles (desktop) */}
-          <div className="hidden sm:flex items-center gap-1.5" title="Kies een ander vak">
+          <div className="hidden lg:flex items-center gap-0.5" title="Kies een ander vak">
             {ORDER.map((secId) => {
               const sec = SECTORS[secId];
               const isCurrent = secId === selectedSector;
@@ -104,15 +104,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   title={sec.name}
                   aria-label={`Bekijk het ${sec.name}-voorbeeld`}
                   aria-current={isCurrent ? 'true' : undefined}
-                  className={`w-7 h-7 rounded-full p-0 overflow-hidden bg-transparent transition-transform hover:scale-110 block ${
-                    isCurrent ? 'ring-2 ring-white scale-105' : 'opacity-65 hover:opacity-100'
-                  }`}
+                  className="w-10 h-10 rounded-full p-0 bg-transparent transition-transform hover:scale-110 inline-flex items-center justify-center"
                 >
-                  <ImageWithFallback
-                    src={thumb}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
+                  <span
+                    className={`w-7 h-7 rounded-full overflow-hidden block ${
+                      isCurrent ? 'ring-2 ring-white scale-105' : 'opacity-65 hover:opacity-100'
+                    }`}
+                  >
+                    <ImageWithFallback
+                      src={thumb}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </span>
                 </RouteLink>
               );
             })}
@@ -120,7 +124,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
         </div>
 
         {/* Quick Style Chips (desktop) */}
-        <div className="hidden sm:flex items-center gap-1 bg-stone-800/80 p-1 rounded-full overflow-x-auto max-w-full">
+        <div className="hidden lg:flex items-center gap-1 bg-stone-800/80 p-1 rounded-full overflow-x-auto max-w-full">
           {STYLES.map((st, idx) => {
             const isCurrent = idx === selectedStyleIndex;
             return (
@@ -128,7 +132,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 key={st.id}
                 route={{ name: 'site', sector: selectedSector, styleId: st.id }}
                 aria-current={isCurrent ? 'true' : undefined}
-                className={`h-7 px-3 rounded-full text-xs font-bold transition-colors whitespace-nowrap inline-flex items-center no-underline ${
+                className={`min-h-10 px-3 rounded-full text-xs font-bold transition-colors whitespace-nowrap inline-flex items-center no-underline ${
                   isCurrent
                     ? 'bg-white text-stone-900 shadow-sm'
                     : 'bg-transparent text-stone-300 hover:text-white'
@@ -148,16 +152,16 @@ export const SiteView: React.FC<SiteViewProps> = ({
             sector: selectedSector,
             styleId: styleIdFromIndex(selectedStyleIndex),
           }}
-          className="hidden sm:inline-flex h-8 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline"
+          className="hidden lg:inline-flex min-h-11 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline"
         >
           {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
         </RouteLink>
 
-        {/* Expanded controls on phones */}
+        {/* Expanded controls on phones & tablets */}
         {controlsOpen && (
           <div
             id="site-preview-controls"
-            className="sm:hidden flex flex-col gap-2 pb-1 animate-fade-in"
+            className="lg:hidden flex flex-col gap-2 pb-1 animate-fade-in"
           >
             <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5" aria-label="Kies een ander vak">
               {ORDER.map((secId) => {
@@ -169,7 +173,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     route={{ name: 'site', sector: secId, styleId: styleIdFromIndex(selectedStyleIndex) }}
                     aria-label={`Bekijk het ${sec.name}-voorbeeld`}
                     aria-current={isCurrent ? 'true' : undefined}
-                    className={`h-7 px-2.5 rounded-full text-[11px] font-bold whitespace-nowrap inline-flex items-center no-underline ${
+                    className={`min-h-11 px-3 rounded-full text-xs font-bold whitespace-nowrap inline-flex items-center no-underline ${
                       isCurrent ? 'bg-white text-stone-900' : 'bg-stone-800 text-stone-300'
                     }`}
                   >
@@ -186,7 +190,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     key={st.id}
                     route={{ name: 'site', sector: selectedSector, styleId: st.id }}
                     aria-current={isCurrent ? 'true' : undefined}
-                    className={`h-7 px-3 rounded-full text-[11px] font-bold whitespace-nowrap inline-flex items-center no-underline ${
+                    className={`min-h-11 px-3.5 rounded-full text-xs font-bold whitespace-nowrap inline-flex items-center no-underline ${
                       isCurrent ? 'bg-white text-stone-900' : 'bg-stone-800 text-stone-300'
                     }`}
                   >
@@ -202,7 +206,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 sector: selectedSector,
                 styleId: styleIdFromIndex(selectedStyleIndex),
               }}
-              className="h-9 px-4 rounded-full bg-amber-400 text-stone-900 font-extrabold text-xs inline-flex items-center justify-center no-underline"
+              className="min-h-11 px-4 rounded-full bg-amber-400 text-stone-900 font-extrabold text-xs inline-flex items-center justify-center no-underline"
             >
               {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
             </RouteLink>
@@ -221,7 +225,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
       >
         {/* Site Header */}
         <header
-          className={`${embedded ? 'sticky top-0' : 'sticky top-[calc(3rem+env(safe-area-inset-top))] sm:top-[calc(2.75rem+env(safe-area-inset-top))]'} z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors`}
+          className={`${embedded ? 'sticky top-0' : 'sticky top-[calc(3.5rem+env(safe-area-inset-top))] lg:top-[calc(3.75rem+env(safe-area-inset-top))]'} z-20 backdrop-blur-md border-b flex items-center justify-between gap-6 px-4 sm:px-8 md:px-12 py-4 transition-colors`}
           style={{
             background: site.hdrBg,
             borderColor: site.line,
@@ -254,20 +258,20 @@ export const SiteView: React.FC<SiteViewProps> = ({
           </div>
 
           {/* Nav links */}
-          <nav aria-label="Hoofdnavigatie" className="hidden md:flex items-center gap-7 text-sm font-semibold">
-            <a href="#diensten" className="hover:opacity-75 transition-opacity whitespace-nowrap">
+          <nav aria-label="Hoofdnavigatie" className="hidden md:flex items-center gap-6 lg:gap-7 text-sm font-semibold">
+            <a href="#diensten" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Diensten
             </a>
-            <a href="#werk" className="hover:opacity-75 transition-opacity whitespace-nowrap">
+            <a href="#werk" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Eerder werk
             </a>
-            <a href="#prijs" className="hover:opacity-75 transition-opacity whitespace-nowrap">
+            <a href="#prijs" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Prijs berekenen
             </a>
-            <a href="#gebied" className="hover:opacity-75 transition-opacity whitespace-nowrap">
+            <a href="#gebied" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Werkgebied
             </a>
-            <a href="#contact" className="hover:opacity-75 transition-opacity whitespace-nowrap">
+            <a href="#contact" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Contact
             </a>
           </nav>
@@ -276,7 +280,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
               href={buildTelUrl(site.phone)}
-              className="hidden sm:flex h-10 px-5 items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
+              className="hidden sm:flex min-h-11 px-5 items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
               style={{
                 borderRadius: site.radius,
                 background: site.fg,
