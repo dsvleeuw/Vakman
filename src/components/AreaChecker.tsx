@@ -107,7 +107,7 @@ export const AreaChecker: React.FC<AreaCheckerProps> = ({ site }) => {
               <span className="h-8 px-3.5 rounded-full bg-white text-stone-900 flex items-center font-bold text-sm shadow">
                 {site.city} + 25 km
               </span>
-              <span className="text-[11px] text-white/90 font-medium mt-1">
+              <span className="text-xs text-white/90 font-medium mt-1">
                 geen extra voorrijkosten
               </span>
             </div>

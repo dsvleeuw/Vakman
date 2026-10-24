@@ -112,7 +112,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           </RouteLink>
 
           <div className="flex items-center gap-2 lg:hidden min-w-0">
-            <span className="text-[11px] font-semibold text-stone-300 truncate">
+            <span className="text-xs font-semibold text-stone-300 truncate">
               {SECTORS[selectedSector].name} · {STYLES[selectedStyleIndex].name}
             </span>
             <button
@@ -838,7 +838,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
             {site.marks.map((mark, idx) => (
               <span key={idx} className="flex items-center gap-2.5">
                 <span
-                  className="w-5 h-5 rounded-full flex items-center justify-center font-black text-[11px]"
+                  className="w-5 h-5 rounded-full flex items-center justify-center font-black text-xs"
                   style={{
                     background: site.soft,
                     color: site.accentText,

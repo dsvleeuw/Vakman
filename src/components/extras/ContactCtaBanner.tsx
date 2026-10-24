@@ -63,7 +63,7 @@ export const ContactCtaBanner: React.FC<ContactCtaBannerProps> = ({
           <Phone className="w-4 h-4" aria-hidden="true" />
           {site.callLabel}
         </a>
-        <span className="text-[11px] text-center" style={{ color: site.invMuted }}>
+        <span className="text-xs text-center" style={{ color: site.invMuted }}>
           Vrijblijvend · persoonlijk advies
         </span>
       </div>

@@ -135,7 +135,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
                         {currentSector.headline}
                       </span>
                       <span
-                        className="self-start h-6 px-2.5 text-[11px] font-bold flex items-center"
+                        className="self-start h-6 px-2.5 text-xs font-bold flex items-center"
                         style={{
                           borderRadius: pal.radius,
                           background: pal.accent,
@@ -179,7 +179,7 @@ export const PresetsSection: React.FC<PresetsSectionProps> = ({
                         {currentSector.headline}
                       </span>
                       <span
-                        className="self-start h-6 px-2.5 text-[11px] font-bold flex items-center"
+                        className="self-start h-6 px-2.5 text-xs font-bold flex items-center"
                         style={{
                           borderRadius: pal.radius,
                           background: pal.accent,

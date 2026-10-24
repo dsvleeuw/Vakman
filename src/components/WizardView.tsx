@@ -720,7 +720,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="flex items-center gap-3 pt-1" aria-hidden="true">
                 <span className="h-px flex-1 bg-stone-200" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-stone-400">
                   Optioneel: een afspraak
                 </span>
                 <span className="h-px flex-1 bg-stone-200" />
@@ -751,9 +751,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
                               : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-400'
                           }`}
                         >
-                          <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
+                          <span className="text-xs uppercase opacity-75">{d.dayName}</span>
                           <span className="text-lg font-black">{d.dayNum}</span>
-                          <span className="text-[10px] opacity-75">{d.monthName}</span>
+                          <span className="text-xs opacity-75">{d.monthName}</span>
                         </button>
                       );
                     })}
@@ -805,7 +805,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       </button>
                     ))}
                   </div>
-                  <p className="text-[11px] text-stone-500 mt-2 m-0" aria-live="polite">
+                  <p className="text-xs text-stone-500 mt-2 m-0" aria-live="polite">
                     {channel === 'WhatsApp'
                       ? 'We sturen de offerte naar je WhatsApp.'
                       : channel === 'E-mail'

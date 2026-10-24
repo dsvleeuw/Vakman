@@ -278,7 +278,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   <Send className="w-5 h-5" />
                   Verstuur naar {ownerFirst}
                 </button>
-                <p className="text-[11px] text-stone-400 leading-relaxed m-0 text-center">
+                <p className="text-xs text-stone-400 leading-relaxed m-0 text-center">
                   Dit formulier opent WhatsApp met je bericht klaarstaan — je
                   hoeft alleen op versturen te drukken.
                 </p>

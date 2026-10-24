@@ -279,9 +279,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                             : 'border-stone-500 bg-white text-stone-800 hover:border-stone-700'
                         }`}
                       >
-                        <span className="text-[11px] uppercase opacity-75">{d.dayName}</span>
+                        <span className="text-xs uppercase opacity-75">{d.dayName}</span>
                         <span className="text-lg font-black">{d.dayNum}</span>
-                        <span className="text-[10px] opacity-75">{d.monthName}</span>
+                        <span className="text-xs opacity-75">{d.monthName}</span>
                       </button>
                     );
                   })}
