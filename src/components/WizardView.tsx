@@ -503,8 +503,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 Jouw bedrijfsgegevens
               </h1>
               <p className="text-stone-600 text-sm sm:text-base m-0">
-                Vul hieronder je contactgegevens in. Zodra je typt, werkt het live
-                voorbeeld rechts meteen bij.
+                Vul hieronder je contactgegevens in. Zodra je typt, werkt je live
+                voorbeeld meteen bij.
               </p>
 
               <div className="flex flex-col gap-4 pt-2">
