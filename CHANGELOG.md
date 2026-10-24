@@ -130,6 +130,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Meta en routering.** Geprerenderde pagina's hebben nog maar één `og:image`
+  en `twitter:image`; `robots.txt` sluit `/kaart` uit; bij client-navigatie
+  worden canonical en `robots` (noindex op `/start/*`, `/offerte/*`, `/kaart`,
+  `/afmelden` en 404) bijgewerkt; scrollherstel wacht tot de lazy view geladen
+  is en een aliasrewrite wist de scrollpositie niet meer; aantallen vakken,
+  stijlen en presets komen uit de data (7 × 5 = 35) in plaats van hardcoded;
+  gecachete afbeeldingen verliezen hun placeholder direct na hydratie.
 - **Toegankelijke formulieren en demo-dialoog.** Storingsformulier en
   m²-calculator: elk veld een gekoppeld label, foutmeldingen via
   `aria-describedby`/`aria-invalid`, randen 3:1 en leesbare WhatsApp-knoppen.

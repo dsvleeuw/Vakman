@@ -162,7 +162,9 @@ export default function App() {
     const canonical = buildPath(routeRef.current);
     const current = `${window.location.pathname}${window.location.search}`;
     if (canonical !== current && routeRef.current.name !== 'notFound') {
-      window.history.replaceState(null, '', canonical);
+      // Keep the entry's state (scrollY) so the browser can restore the offset
+      // later instead of losing it on this alias rewrite.
+      window.history.replaceState(window.history.state ?? {}, '', canonical);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -316,7 +318,7 @@ export default function App() {
             <section className="pt-12 sm:pt-20 md:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 md:px-12 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
               <div className="lg:col-span-8 flex flex-col gap-6">
                 <span className="font-mono text-xs font-bold tracking-widest text-stone-500 uppercase">
-                  WEBSITES VOOR VAKMENSEN · 6 VAKKEN · 30 STIJLEN
+                  WEBSITES VOOR VAKMENSEN · {Object.keys(SECTORS).length} VAKKEN · {STYLES.length} STIJLEN
                 </span>
                 <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-[0.92] text-stone-900 text-balance m-0">
                   Jouw vak. Jouw website. Binnen een kwartier.

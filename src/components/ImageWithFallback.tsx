@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface ImageWithFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -17,6 +17,15 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
 }) => {
   const [error, setError] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // A prerendered (or otherwise cached) image can already be `complete` before
+  // the client hydrates. Mark it loaded in an effect — never during the first
+  // render — so the first client output matches the server markup and the
+  // placeholder disappears without a hydration mismatch.
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   if (error) {
     return (
@@ -48,6 +57,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
 
   return (
     <img
+      ref={imgRef}
       src={src}
       alt={alt}
       loading="lazy"

@@ -38,11 +38,29 @@ function rememberScroll() {
   }
 }
 
+/** Upper bound for waiting on a lazy route view before restoring the offset. */
+const RESTORE_SCROLL_MAX_MS = 1000;
+
+/**
+ * Restore the offset saved on the history entry we came from. The target
+ * view is lazy-loaded, so the document is often still the old (or fallback)
+ * height on the first frame; wait with repeated rAFs until it is tall enough
+ * to scroll to the offset, at most ~1 s.
+ */
 function restoreScroll(scrollY: number | null) {
   const top = scrollY ?? 0;
-  window.requestAnimationFrame(() => {
-    window.scrollTo({ top, left: 0, behavior: 'instant' });
-  });
+  const started = performance.now();
+
+  const attempt = () => {
+    const fits = document.documentElement.scrollHeight >= top + window.innerHeight;
+    if (top === 0 || fits || performance.now() - started > RESTORE_SCROLL_MAX_MS) {
+      window.scrollTo({ top, left: 0, behavior: 'instant' });
+      return;
+    }
+    window.requestAnimationFrame(attempt);
+  };
+
+  window.requestAnimationFrame(attempt);
 }
 
 function readRoute(): Route {
