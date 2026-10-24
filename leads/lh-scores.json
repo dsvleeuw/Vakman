@@ -151,9 +151,9 @@
    "vak": "loodgieter",
    "regio": "Haarlemmermeer",
    "website": "t-b-k.nl",
-   "performance": null,
-   "seo": null,
-   "toegankelijkheid": null,
+   "performance": 47,
+   "seo": 85,
+   "toegankelijkheid": 90,
    "best_practices": null
   },
   {
@@ -1383,9 +1383,9 @@
    "vak": "loodgieter",
    "regio": "Zaanstreek",
    "website": "zaanstotaaltechniek.nl",
-   "performance": null,
+   "performance": 38,
    "seo": null,
-   "toegankelijkheid": null,
+   "toegankelijkheid": 95,
    "best_practices": null
   },
   {
@@ -1702,9 +1702,9 @@
    "vak": "elektricien",
    "regio": "Alkmaar",
    "website": "boezerooijelektrotechniek.nl",
-   "performance": null,
+   "performance": 67,
    "seo": null,
-   "toegankelijkheid": null,
+   "toegankelijkheid": 93,
    "best_practices": null
   },
   {
@@ -1900,9 +1900,9 @@
    "vak": "hovenier",
    "regio": "West-Friesland",
    "website": "floridus.nl",
-   "performance": null,
+   "performance": 52,
    "seo": null,
-   "toegankelijkheid": null,
+   "toegankelijkheid": 71,
    "best_practices": null
   },
   {
@@ -1911,10 +1911,10 @@
    "vak": "hovenier",
    "regio": "Alkmaar",
    "website": "vankleef.com",
-   "performance": null,
-   "seo": null,
-   "toegankelijkheid": null,
-   "best_practices": null
+   "performance": 33,
+   "seo": 100,
+   "toegankelijkheid": 100,
+   "best_practices": 100
   },
   {
    "nr": 218,
@@ -2021,9 +2021,9 @@
    "vak": "schilder",
    "regio": "Overig NH",
    "website": "jtvschilders.nl",
-   "performance": 33,
+   "performance": null,
    "seo": null,
-   "toegankelijkheid": null,
+   "toegankelijkheid": 75,
    "best_practices": null
   },
   {

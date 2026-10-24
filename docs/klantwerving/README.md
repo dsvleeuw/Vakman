@@ -17,7 +17,7 @@ verwijzen naar elkaar waar ze overlappen.
 ## Leadlijst
 
 De actuele inventarisatie staat als Google Sheet in Drive:
-[Vakmensen Noord-Holland — leadlijst (229 bedrijven, met website-analyse)](https://docs.google.com/spreadsheets/d/1V8to4V0knRrW0Ky4SwYDCG8kPS4LVn74k5gARROj034/edit).
+[Vakmensen Noord-Holland — leadlijst (229 bedrijven, met website-analyse)](https://docs.google.com/spreadsheets/d/1rpdi8YC0m9FIcUxu4MdyUig_n3mHJ4TC2S-CN4XeV_Q/edit).
 229 bedrijven over zes vakken, met adres, telefoon, e-mail, website,
 KvK-nummer, diensten, oprichtingsjaar, reviews, een bron-URL en een
 kant-en-klare persoonlijke demo-link per regel.

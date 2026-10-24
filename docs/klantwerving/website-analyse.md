@@ -22,37 +22,37 @@ persoonlijke demo van Klusbaas.
 |---|---|
 | Bedrijven in de leadlijst | 229 |
 | Met eigen website | 185 |
-| Lighthouse-meting gelukt | 147 |
-| Daarvan met een performance-score | 130 |
-| Geen score (time-out, blokkade of lege respons) | 55 |
+| Lighthouse-meting gelukt | 152 |
+| Daarvan met een performance-score | 134 |
+| Geen score (time-out, blokkade of lege respons) | 51 |
 
-Van de 130 gemeten sites scoort **44 onder de 50** op mobiele
-performance, 69 tussen 50 en 89 en 17 op 90 of hoger.
-Gemiddelde performance: **60.8** (mediaan 58).
+Van de 134 gemeten sites scoort **46 onder de 50** op mobiele
+performance, 71 tussen 50 en 89 en 17 op 90 of hoger.
+Gemiddelde performance: **60.5** (mediaan 58).
 
 ## Uitslag per vak
 
 | Vak | Gemeten | Gemiddelde performance |
 |-----|---------|------------------------|
-| hovenier | 21 | 49.7 |
+| hovenier | 23 | 49.0 |
 | timmerman | 12 | 51.4 |
 | stukadoor | 17 | 59.3 |
-| schilder | 31 | 60.5 |
-| elektricien | 24 | 64.1 |
-| loodgieter | 25 | 72.8 |
+| schilder | 30 | 61.4 |
+| elektricien | 25 | 64.2 |
+| loodgieter | 27 | 70.6 |
 
 ## Uitslag per regio
 
 | Regio | Gemeten | Gemiddelde performance |
 |-------|---------|------------------------|
-| West-Friesland | 3 | 74.0 |
 | Waterland | 12 | 73.9 |
-| Overig NH | 6 | 63.7 |
-| Haarlemmermeer | 59 | 61.3 |
-| Zaanstreek | 3 | 58.7 |
+| Overig NH | 5 | 69.8 |
+| West-Friesland | 4 | 68.5 |
+| Haarlemmermeer | 60 | 61.0 |
 | Haarlem | 29 | 56.6 |
 | Kennemerland | 1 | 55.0 |
-| Alkmaar | 14 | 54.6 |
+| Alkmaar | 16 | 54.1 |
+| Zaanstreek | 4 | 53.5 |
 | Kop van Noord-Holland | 3 | 53.3 |
 
 ## Zwakste 25 sites — hier eerst bellen
@@ -74,10 +74,11 @@ de demo van Klusbaas het verschil laat zien.
 | De Ruig Stucadoors | stukadoor | Hoofddorp | **32** | – | – | – |
 | Stukadoorsbedrijf Hoog | stukadoor | Haarlemmermeer | **32** | – | – | – |
 | E&B Loodgieters | loodgieter | Hillegom | **33** | 92 | 73 | 65 |
-| JTV Schilders | schilder | Regio | **33** | – | – | – |
 | Nick Vester Tuinen | hovenier | Zwaanshoek | **33** | – | 79 | – |
 | SVDK Schilders | schilder | Alkmaar | **33** | – | – | – |
+| Van Kleef Hoveniers | hovenier | Alkmaar | **33** | 100 | 100 | 100 |
 | Cees Boer B.V. Elektrotechnisch Installatiebedrijf | elektricien | Nieuw-Vennep | **36** | – | – | – |
+| Zaans Totaal Techniek | loodgieter | Zaandam | **38** | – | 95 | – |
 | DV Bouwbedrijf | timmerman | Haarlemmermeer | **39** | – | 90 | – |
 | Grau Schilders & Stucadoors | stukadoor | Haarlem | **39** | – | – | – |
 | Stukadoorsbedrijf van Es | stukadoor | Hoofddorp | **39** | 100 | 97 | – |
@@ -86,7 +87,6 @@ de demo van Klusbaas het verschil laat zien.
 | Home4All Klussenbedrijf | timmerman | Badhoevedorp | **42** | – | 82 | – |
 | Rob Blom Tuinen | hovenier | Leimuiderbrug | **42** | – | 85 | – |
 | Schildersbedrijf J. Schipper (Meester Schilders) | schilder | Alkmaar | **42** | – | – | – |
-| Stukadoors Plein | stukadoor | Haarlemmermeer | **42** | – | – | – |
 
 ## Sterkste 12 sites — niet op site-kwaliteit aanspreken
 
@@ -125,7 +125,7 @@ administratie gaan, niet over "uw site is traag".
 
 ## Kanttekeningen
 
-- **Geen score is niet hetzelfde als een kapotte site.** 55 sites gaven een
+- **Geen score is niet hetzelfde als een kapotte site.** 51 sites gaven een
   time-out, blokkade (403/429) of lege respons. Sommige werken gewoon in een browser;
   meet die opnieuw voordat je er iets over zegt.
 - Een aantal sites levert een **lege of placeholder-pagina** (enkele tientallen bytes)
