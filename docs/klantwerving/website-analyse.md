@@ -8,9 +8,11 @@ persoonlijke demo van Klusbaas.
 
 - **Lighthouse 13.5.0, mobiel profiel** (Moto G Power-emulatie, 4G-throttling),
   vier categorieën: performance, SEO, toegankelijkheid en best practices.
-- Uitgevoerd via de Microlink-API (`insights.lighthouse`), omdat in deze omgeving
-  geen Chrome/Chromium beschikbaar is en alleen verkeer naar een vaste lijst hosts
-  is toegestaan. PageSpeed Insights zelf weigerde wegens ontbrekende API-key.
+- Uitgevoerd via de Microlink-API (`insights.lighthouse`), omdat deze omgeving
+  wel npm/PyPI/GitHub bereikt maar geen enkele bedrijfssite: de Lighthouse-CLI
+  installeert en start hier prima (zie hieronder), maar krijgt
+  `net::ERR_CONNECTION_CLOSED` op elke externe site. PageSpeed Insights zelf
+  weigerde wegens ontbrekende API-key. Microlink draait Lighthouse server-side.
 - Gemeten op 24 oktober 2026, één meting per site. Lighthouse-scores schommelen per
   run met enkele punten; gebruik ze als signaal, niet als jurering.
 - Bronbestand: `leads/leads-noord-holland.csv` (kolommen `lh_performance`,
@@ -122,6 +124,40 @@ administratie gaan, niet over "uw site is traag".
 4. **Gebruik de SEO-score voor vindbaarheid.** Scoort SEO laag, dan mist het bedrijf
    de basis (titel, omschrijving, koppenstructuur) en is het op "loodgieter <plaats>"
    nauwelijks te vinden.
+
+## Zelf opnieuw meten met de Lighthouse-CLI
+
+De CLI is de betere route zodra je op een machine met internet zit: geen
+API-limiet, geen tussenpartij, en je krijgt ook LCP, TBT en de volledige audits.
+In de repo staat een script dat de leadlijst inleest en de scores terugschrijft.
+
+```bash
+npm run lh:scan                    # alle sites zonder score scannen (mobiel, 2 tegelijk)
+npm run lh:scan -- --limit 10      # eerst 10 proberen
+npm run lh:scan -- --desktop       # desktop-profiel in plaats van mobiel
+npm run lh:scan -- --force         # alles opnieuw meten
+npm run lh:merge                   # scores in leads/leads-noord-holland.csv zetten
+```
+
+- Vereist Node 18+ en Chrome/Chromium. Vindt Lighthouse de browser niet, zet dan
+  `CHROME_PATH=/pad/naar/chrome`. Gebruik je een lokaal geïnstalleerde Lighthouse
+  in plaats van `npx`, zet dan `LIGHTHOUSE_BIN=./node_modules/.bin/lighthouse`.
+- Resultaten gaan naar `leads/lh-cli-scores.json` en worden na elke site
+  weggeschreven, dus een crash of afgebroken run kost hooguit één meting.
+  Opnieuw starten slaat alles over wat al gemeten is.
+- `--merge` vult `lh_performance`, `lh_seo`, `lh_toegankelijkheid`,
+  `lh_best_practices`, `lh_lcp` (milliseconden) en `lh_meting` in de CSV.
+  Genereer daarna het `.xlsx` opnieuw als je dat bestand deelt.
+- Tijdsinschatting: reken op 20–40 seconden per site, dus alle 185 sites kosten
+  met één werker ongeveer anderhalf tot twee uur. Met `--concurrency 3` op een snelle
+  verbinding gaat het sneller, maar de scores worden dan iets minder zuiver omdat
+  sites elkaar bandbreedte afpakken; meet in dat geval de belangrijkste prospects
+  opnieuw met `--concurrency 1`.
+
+Waarom niet gewoon de CLI in deze sessie: de sandbox heeft wel npm maar geen
+uitgaand verkeer naar willekeurige hosts. Getest en bevestigd — Lighthouse 13.5.0
+met Chromium 153 draait, meet een lokale pagina foutloos, en faalt op elke
+bedrijfssite met `ERR_CONNECTION_CLOSED`.
 
 ## Kanttekeningen
 

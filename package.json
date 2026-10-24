@@ -10,7 +10,9 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "test": "bun test src",
-    "build:spa": "vite build"
+    "build:spa": "vite build",
+    "lh:scan": "node scripts/lighthouse-scan.mjs",
+    "lh:merge": "node scripts/lighthouse-scan.mjs --merge"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

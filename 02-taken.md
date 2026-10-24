@@ -16,7 +16,8 @@ logboek; taken die af zijn gaan naar *Gedaan* met de datum erbij.
 | — | `controle nodig`-regels verifiëren via KvK (25 regels) | P1 | Open |
 | — | Restant websites bezoeken (`site_bezocht = nee`, 194 regels) | P1 | Open |
 | — | Mobiele Lighthouse-scan van alle bedrijfssites | P0 | Klaar — 134 van 185 scores, zie docs/klantwerving/website-analyse.md |
-| — | 55 sites opnieuw meten die time-out/blokkade gaven | P2 | Open |
+| — | 51 sites opnieuw meten die time-out/blokkade gaven | P2 | Open |
+| — | Volledige CLI-scan (LCP + alle audits) lokaal draaien met `npm run lh:scan` | P2 | Script klaar, nog niet gedraaid |
 | — | Beltijden 07:30–08:30 en 12:00–13:00 reserveren | P1 | Open |
 | — | 20 brieven/kaarten met QR naar persoonlijke demo (week 2) | P2 | Open |
 
