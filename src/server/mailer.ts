@@ -8,6 +8,8 @@ export type FetchLike = (url: string, init: RequestInit) => Promise<Response>;
 export interface MailAttachment {
   filename: string;
   content: Uint8Array;
+  /** MIME type, so mail clients show e.g. a PDF preview instead of a download. */
+  contentType?: string;
 }
 
 export interface OutgoingMail {
@@ -57,6 +59,7 @@ export async function sendViaResend(
               attachments: mail.attachments.map((file) => ({
                 filename: file.filename,
                 content: toBase64(file.content),
+                ...(file.contentType ? { content_type: file.contentType } : {}),
               })),
             }
           : {}),

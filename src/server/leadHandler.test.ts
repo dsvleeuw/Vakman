@@ -126,6 +126,21 @@ test('quote lead: a refused customer mail (Resend test mode) does not fail the r
   assert.ok(mem.quotes.has('KB-2026-0001'));
 });
 
+test('quote lead: the PDF goes out as application/pdf to both sides', async () => {
+  const sent: { to: string[]; attachments?: { filename: string; content_type?: string }[] }[] = [];
+  const fetchImpl = async (_url: string, init: RequestInit) => {
+    sent.push(JSON.parse(String(init.body)));
+    return new Response('{"id":"re_1"}', { status: 200 });
+  };
+  const { deps } = setup({ env: { RESEND_API_KEY: 'test' }, fetchImpl });
+  await handleLead(body, 'ip', deps);
+  assert.equal(sent.length, 2);
+  for (const mail of sent) {
+    assert.equal(mail.attachments?.[0].filename, 'Offerte-KB-2026-0001.pdf');
+    assert.equal(mail.attachments?.[0].content_type, 'application/pdf');
+  }
+});
+
 test('quote lead: a failed team mail returns 502 but keeps the stored quote', async () => {
   const { deps, mem } = setup({
     env: { RESEND_API_KEY: 'test' },

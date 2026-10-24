@@ -143,7 +143,7 @@ async function handleQuote(
         `Hoi ${record.customer.owner.split(' ')[0]}, hier is je offerte ${record.id} van Klusbaas: ${quoteUrl}`
       )
     : undefined;
-  const attachment = { filename: `Offerte-${record.id}.pdf`, content: pdf };
+  const attachment = { filename: `Offerte-${record.id}.pdf`, content: pdf, contentType: 'application/pdf' };
 
   const teamMail = buildQuoteEmail(record, 'team', { quoteUrl, whatsappUrl });
   const team = await deliver(
