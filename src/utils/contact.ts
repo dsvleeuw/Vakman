@@ -69,6 +69,36 @@ export function normalizeDutchPhone(phone: string): string | null {
 }
 
 /**
+ * The number demo sites route every call and WhatsApp button to.
+ *
+ * The sector data ships made-up numbers ("06 12 34 56 78") that may belong to
+ * real strangers, so a demo must never link to them. `VITE_DEMO_PHONE` holds
+ * the Klusbaas number instead. It is read per call (not at import time) so
+ * the build-time prerender, which runs outside Vite, sees the same value as
+ * the browser bundle. Returns `null` when unset or not a Dutch number.
+ */
+export function getDemoPhone(): string | null {
+  const fromVite: unknown = import.meta.env?.VITE_DEMO_PHONE;
+  const fromNode: unknown =
+    typeof process !== 'undefined' ? process.env?.VITE_DEMO_PHONE : undefined;
+  const raw = typeof fromVite === 'string' && fromVite ? fromVite : fromNode;
+  return typeof raw === 'string' ? normalizeDutchPhone(raw) : null;
+}
+
+/**
+ * Decide which number a site's call/WhatsApp buttons may use: the owner's own
+ * number when they entered one, otherwise the Klusbaas demo number. `null`
+ * means there is no safe number and the buttons must show the demo notice.
+ */
+export function resolveContactPhone(
+  ownPhone: string | undefined,
+  demoPhone: string | null
+): string | null {
+  const own = ownPhone?.trim();
+  return own ? own : demoPhone;
+}
+
+/**
  * Build a click-to-chat WhatsApp URL, optionally with a prefilled message.
  */
 export function buildWhatsAppUrl(phone: string, message?: string): string {
@@ -82,6 +112,22 @@ export function buildWhatsAppUrl(phone: string, message?: string): string {
  */
 export function buildTelUrl(phone: string): string {
   return `tel:${phone.replace(/[\s-]/g, '')}`;
+}
+
+/** Href of a demo button without a safe number; SiteView opens the notice. */
+export const DEMO_CONTACT_HREF = '#klusbaas-demo';
+
+/**
+ * tel: link for a site's call buttons, or the demo-notice anchor when the site
+ * has no safe number (see `resolveContactPhone`).
+ */
+export function buildSiteTelUrl(contactPhone: string | null): string {
+  return contactPhone ? buildTelUrl(contactPhone) : DEMO_CONTACT_HREF;
+}
+
+/** WhatsApp link for a site's chat buttons, or the demo-notice anchor. */
+export function buildSiteWhatsAppUrl(contactPhone: string | null, message?: string): string {
+  return contactPhone ? buildWhatsAppUrl(contactPhone, message) : DEMO_CONTACT_HREF;
 }
 
 /**

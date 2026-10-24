@@ -18,7 +18,7 @@ import {
 } from '../data/tradesData';
 import { formatPrice, validateWizardForm } from '../utils/pricing';
 import { getPlan } from '../data/plans';
-import { PLATFORM_CONTACT } from '../data/platform';
+import { PLATFORM_CONTACT, getPlatformWhatsApp } from '../data/platform';
 import {
   buildMailtoUrl,
   buildQuoteRequestMessage,
@@ -39,7 +39,7 @@ import {
   TIME_SLOTS,
   type TimeSlot,
 } from '../utils/appointments';
-import { WIZARD_STEPS, WIZARD_STEP_LABELS, type WizardRouteStep } from '../utils/router';
+import { WIZARD_STEPS, WIZARD_STEP_LABELS, type WizardRouteStep, type DemoPersonalization } from '../utils/router';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { ImageWithFallback } from './ImageWithFallback';
 import { SiteView } from './SiteView';
@@ -53,6 +53,8 @@ interface WizardViewProps {
   hasInitialSector?: boolean;
   initialStyleIndex: number;
   initialForm?: WizardFormData | null;
+  /** Details from a personal demo link; applied once after hydration. */
+  prefill?: DemoPersonalization;
   initialDisabledServices?: Record<number, boolean>;
   /** Package chosen in the pricing table, carried in the URL as ?pakket=pro */
   plan?: PlanId;
@@ -72,6 +74,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
   hasInitialSector,
   initialStyleIndex,
   initialForm,
+  prefill,
   initialDisabledServices,
   plan,
   onDraftChange,
@@ -96,6 +99,20 @@ export const WizardView: React.FC<WizardViewProps> = ({
         city: '',
       }
   );
+
+  // "Maak dit mijn website" on a personal demo link prefills these fields.
+  // Keyed on the values so a re-parsed route does not undo the visitor's edits.
+  const prefillKey = prefill ? JSON.stringify(prefill) : '';
+  useEffect(() => {
+    if (!prefill) return;
+    setFormData((current) => ({
+      ...current,
+      ...(prefill.biz ? { biz: prefill.biz } : {}),
+      ...(prefill.city ? { city: prefill.city } : {}),
+      ...(prefill.phone ? { phone: prefill.phone } : {}),
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prefillKey]);
 
   const [disabledServices, setDisabledServices] = useState<Record<number, boolean>>(
     initialDisabledServices ?? {}
@@ -295,6 +312,8 @@ export const WizardView: React.FC<WizardViewProps> = ({
   const showPreview = isDesktop || previewOpen;
   const selectedPlan = getPlan(plan);
 
+  // No VITE_DEMO_PHONE means no safe WhatsApp number: fall back to e-mail.
+  const platformWhatsApp = getPlatformWhatsApp();
   const quoteMessage = buildQuoteRequestMessage({
     bizName: formData.biz.trim() || baseSector.biz,
     owner: formData.owner.trim() || baseSector.owner,
@@ -932,9 +951,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   Stuur je gegevens alvast mee
                 </span>
                 <div className="flex flex-col sm:flex-row gap-2">
-                  {(channel === 'WhatsApp' || channel === 'Allebei') && (
+                  {platformWhatsApp && (channel === 'WhatsApp' || channel === 'Allebei') && (
                     <a
-                      href={buildWhatsAppUrl(PLATFORM_CONTACT.whatsapp, quoteMessage)}
+                      href={buildWhatsAppUrl(platformWhatsApp, quoteMessage)}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => track('whatsapp_click', { source: 'wizard-confirmation' })}
@@ -943,7 +962,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       Via WhatsApp
                     </a>
                   )}
-                  {(channel === 'E-mail' || channel === 'Allebei') && (
+                  {(channel === 'E-mail' || channel === 'Allebei' || !platformWhatsApp) && (
                     <a
                       href={buildMailtoUrl(
                         PLATFORM_CONTACT.email,

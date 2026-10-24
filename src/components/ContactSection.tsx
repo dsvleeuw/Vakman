@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { MessageCircle, Phone, CheckCircle2, Send } from 'lucide-react';
 import type { ActiveSiteData } from '../types';
 import {
-  buildWhatsAppUrl,
-  buildTelUrl,
+  buildSiteWhatsAppUrl,
+  buildSiteTelUrl,
   buildContactMessage,
   normalizeDutchPhone,
 } from '../utils/contact';
@@ -29,8 +29,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   const ownerFirst = site.owner.split(' ')[0];
-  const directWhatsApp = buildWhatsAppUrl(
-    site.phone,
+  const directWhatsApp = buildSiteWhatsAppUrl(
+    site.contactPhone,
     `Hallo ${site.biz}! Ik wil graag meer informatie over een klus.`
   );
 
@@ -55,8 +55,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
     e.preventDefault();
     if (!validate()) return;
     setWaUrl(
-      buildWhatsAppUrl(
-        site.phone,
+      buildSiteWhatsAppUrl(
+        site.contactPhone,
         buildContactMessage(site.biz, { name, phone, message })
       )
     );
@@ -124,7 +124,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
               Open WhatsApp
             </a>
             <a
-              href={buildTelUrl(site.phone)}
+              href={buildSiteTelUrl(site.contactPhone)}
               className="h-12 px-6 rounded-full border-2 border-white/70 text-white font-bold text-sm flex items-center justify-center gap-2 transition-colors hover:bg-white/10"
             >
               <Phone className="w-4 h-4" />

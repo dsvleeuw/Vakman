@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, MessageCircle, Siren, Clock } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
-import { buildTelUrl, buildWhatsAppUrl, buildEmergencyMessage } from '../../utils/contact';
+import { buildSiteTelUrl, buildSiteWhatsAppUrl, buildEmergencyMessage } from '../../utils/contact';
 
 const EMERGENCY_PROBLEMS = [
   'Waterlekkage',
@@ -20,8 +20,8 @@ interface EmergencyButtonProps {
  */
 export const EmergencyButton: React.FC<EmergencyButtonProps> = ({ site }) => {
   const [problem, setProblem] = useState(EMERGENCY_PROBLEMS[0]);
-  const waUrl = buildWhatsAppUrl(
-    site.phone,
+  const waUrl = buildSiteWhatsAppUrl(
+    site.contactPhone,
     buildEmergencyMessage(site.biz, problem)
   );
 
@@ -83,7 +83,7 @@ export const EmergencyButton: React.FC<EmergencyButtonProps> = ({ site }) => {
             Direct contact bij spoed
           </span>
           <a
-            href={buildTelUrl(site.phone)}
+            href={buildSiteTelUrl(site.contactPhone)}
             className="h-15 py-4 px-6 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
           >
             <Phone className="w-5 h-5" />

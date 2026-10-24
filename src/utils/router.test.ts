@@ -4,6 +4,7 @@ import {
   DEFAULT_STYLE_ID,
   buildPath,
   getRouteMeta,
+  mergeDemoPersonalization,
   parseRoute,
   routeFromLegacyQuery,
   styleIdFromIndex,
@@ -169,4 +170,74 @@ test('every route gets a unique, descriptive document title', () => {
     getRouteMeta({ name: 'site', sector: 'loodgieter', styleId: 'krachtig' }).title,
     /loodgieter/i
   );
+});
+
+test('a personal demo link carries name, place and a valid phone', () => {
+  const route = parseRoute(
+    '/voorbeeld/schilder/modern',
+    '?naam=Schildersbedrijf%20Jansen&plaats=Hoofddorp&tel=%2B31%206%2012345670'
+  );
+  assert.deepEqual(route, {
+    name: 'site',
+    sector: 'schilder',
+    styleId: 'modern',
+    personal: { biz: 'Schildersbedrijf Jansen', city: 'Hoofddorp', phone: '0612345670' },
+  });
+  assert.equal(
+    buildPath(route),
+    '/voorbeeld/schilder/modern?naam=Schildersbedrijf+Jansen&plaats=Hoofddorp&tel=0612345670'
+  );
+  assert.deepEqual(parseRoute(buildPath(route).split('?')[0], `?${buildPath(route).split('?')[1]}`), route);
+});
+
+test('personal demo params are trimmed, capped and validated', () => {
+  const route = parseRoute(
+    '/voorbeeld/schilder/modern',
+    `?naam=${encodeURIComponent('  Jansen   &  Zn  ')}&plaats=%20%20&tel=12345&extra=1`
+  );
+  assert.deepEqual(route, {
+    name: 'site',
+    sector: 'schilder',
+    styleId: 'modern',
+    personal: { biz: 'Jansen & Zn' },
+  });
+  const long = parseRoute('/voorbeeld/schilder/modern', `?naam=${'a'.repeat(200)}`);
+  assert.equal(long.name === 'site' && long.personal?.biz?.length, 60);
+  // Nothing usable means no personalization at all, so the canonical URL stays clean.
+  const empty = parseRoute('/voorbeeld/schilder/modern', '?naam=&tel=abc');
+  assert.deepEqual(empty, { name: 'site', sector: 'schilder', styleId: 'modern' });
+  assert.equal(buildPath(empty), '/voorbeeld/schilder/modern');
+});
+
+test('the wizard accepts prefilled details from "Maak dit mijn website"', () => {
+  const route: Route = {
+    name: 'wizard',
+    step: 'gegevens',
+    sector: 'schilder',
+    styleId: 'modern',
+    prefill: { biz: 'Schildersbedrijf Jansen', city: 'Hoofddorp' },
+  };
+  const path = buildPath(route);
+  assert.equal(
+    path,
+    '/start/gegevens?vak=schilder&stijl=modern&naam=Schildersbedrijf+Jansen&plaats=Hoofddorp'
+  );
+  const [pathname, query] = path.split('?');
+  assert.deepEqual(parseRoute(pathname, `?${query}`), route);
+});
+
+test('mergeDemoPersonalization lets the link win and keeps sector fallbacks', () => {
+  assert.equal(mergeDemoPersonalization(undefined, undefined), undefined);
+  const saved = { biz: 'Oud BV', owner: 'Piet', phone: '0611111111', city: 'Delft' };
+  assert.equal(mergeDemoPersonalization(saved, undefined), saved);
+  assert.deepEqual(mergeDemoPersonalization(undefined, { biz: 'Jansen' }), {
+    biz: 'Jansen',
+    owner: '',
+    phone: '',
+    city: '',
+  });
+  assert.deepEqual(mergeDemoPersonalization(saved, { city: 'Hoofddorp' }), {
+    ...saved,
+    city: 'Hoofddorp',
+  });
 });

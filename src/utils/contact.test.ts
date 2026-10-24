@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  DEMO_CONTACT_HREF,
+  buildSiteTelUrl,
+  buildSiteWhatsAppUrl,
+  getDemoPhone,
+  resolveContactPhone,
   buildMailtoUrl,
   buildQuoteRequestMessage,
   normalizeDutchPhone,
@@ -136,4 +141,33 @@ test('buildSurfaceQuoteMessage summarises the m² calculation', () => {
   assert.ok(msg.includes('Oppervlakte: 42 m² (3 wand(en), 2 deur/raam correctie)'));
   assert.ok(msg.includes('Richtprijs: € 756'));
   assert.ok(msg.includes('Naam: Anouk'));
+});
+
+test('resolveContactPhone prefers the owner number, then the demo number', () => {
+  assert.equal(resolveContactPhone('06 98765432', '0201234567'), '06 98765432');
+  assert.equal(resolveContactPhone('  ', '0201234567'), '0201234567');
+  assert.equal(resolveContactPhone(undefined, '0201234567'), '0201234567');
+  assert.equal(resolveContactPhone(undefined, null), null);
+});
+
+test('site contact links never dial without a safe number', () => {
+  assert.equal(buildSiteTelUrl('020 123 45 67'), 'tel:0201234567');
+  assert.equal(buildSiteWhatsAppUrl('0612345670', 'Hoi'), 'https://wa.me/31612345670?text=Hoi');
+  assert.equal(buildSiteTelUrl(null), DEMO_CONTACT_HREF);
+  assert.equal(buildSiteWhatsAppUrl(null, 'Hoi'), DEMO_CONTACT_HREF);
+});
+
+test('getDemoPhone reads and validates VITE_DEMO_PHONE', () => {
+  const previous = process.env.VITE_DEMO_PHONE;
+  try {
+    delete process.env.VITE_DEMO_PHONE;
+    assert.equal(getDemoPhone(), null);
+    process.env.VITE_DEMO_PHONE = '+31 6 11 22 33 44';
+    assert.equal(getDemoPhone(), '0611223344');
+    process.env.VITE_DEMO_PHONE = 'geen nummer';
+    assert.equal(getDemoPhone(), null);
+  } finally {
+    if (previous === undefined) delete process.env.VITE_DEMO_PHONE;
+    else process.env.VITE_DEMO_PHONE = previous;
+  }
 });

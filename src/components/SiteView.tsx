@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Phone, MessageCircle, Zap, Menu, X } from 'lucide-react';
 import type { ActiveSiteData, SectorId } from '../types';
 import { ORDER, SECTORS, STYLES, getUnsplashUrl } from '../data/tradesData';
@@ -12,9 +12,10 @@ import { ContactSection } from './ContactSection';
 import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
 import { RouteLink } from './RouteLink';
-import { styleIdFromIndex } from '../utils/router';
+import { DemoContactNotice } from './DemoContactNotice';
+import { styleIdFromIndex, type DemoPersonalization, type Route } from '../utils/router';
 import { track } from '../utils/analytics';
-import { buildTelUrl, buildWhatsAppUrl } from '../utils/contact';
+import { DEMO_CONTACT_HREF, buildSiteTelUrl, buildSiteWhatsAppUrl } from '../utils/contact';
 
 interface SiteViewProps {
   site: ActiveSiteData;
@@ -24,6 +25,8 @@ interface SiteViewProps {
   /** When true, renders only the website body (no preview controls, floating
    *  buttons or mobile sticky bar) so it can live inside another frame. */
   embedded?: boolean;
+  /** Details from a personal demo link (`?naam=&plaats=&tel=`). */
+  personal?: DemoPersonalization;
 }
 
 export const SiteView: React.FC<SiteViewProps> = ({
@@ -32,6 +35,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
   selectedStyleIndex,
   isCustomized,
   embedded = false,
+  personal,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   // The preview bar is three wrapped rows on a phone; collapse the sector and
@@ -91,8 +95,36 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
   const hidePreviewBar = previewBarHidden && !controlsOpen;
 
+  const [demoNoticeOpen, setDemoNoticeOpen] = useState(false);
+  const closeDemoNotice = useCallback(() => setDemoNoticeOpen(false), []);
+  // Call/WhatsApp buttons without a safe number link to DEMO_CONTACT_HREF;
+  // catch those clicks here so every button shows the same demo notice.
+  const handleDemoContactClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest(`a[href="${DEMO_CONTACT_HREF}"]`)) return;
+    event.preventDefault();
+    setDemoNoticeOpen(true);
+  };
+
+  /** "Maak dit mijn website" carries a personal link's details along. */
+  const wizardRoute: Route = {
+    name: 'wizard',
+    step: 'gegevens',
+    sector: selectedSector,
+    styleId: styleIdFromIndex(selectedStyleIndex),
+    ...(personal ? { prefill: personal } : {}),
+  };
+  const builderLabel = personal
+    ? 'Maak dit mijn website →'
+    : isCustomized
+      ? 'Bewerk jouw gegevens ✎'
+      : 'Pas deze site aan →';
+
   return (
-    <div className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}>
+    <div
+      className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}
+      onClickCapture={handleDemoContactClick}
+    >
       {/* Top Preview Control Bar */}
       {!embedded && (
       <div
@@ -182,15 +214,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
         {/* Builder CTA (desktop) */}
         <RouteLink
-          route={{
-            name: 'wizard',
-            step: 'gegevens',
-            sector: selectedSector,
-            styleId: styleIdFromIndex(selectedStyleIndex),
-          }}
-          className="hidden lg:inline-flex min-h-11 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline"
+          route={wizardRoute}
+          className={`${personal ? 'inline-flex justify-center' : 'hidden lg:inline-flex'} min-h-11 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline`}
         >
-          {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
+          {builderLabel}
         </RouteLink>
 
         {/* Expanded controls on phones & tablets */}
@@ -236,15 +263,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
               })}
             </div>
             <RouteLink
-              route={{
-                name: 'wizard',
-                step: 'gegevens',
-                sector: selectedSector,
-                styleId: styleIdFromIndex(selectedStyleIndex),
-              }}
+              route={wizardRoute}
               className="min-h-11 px-4 rounded-full bg-amber-400 text-stone-900 font-extrabold text-xs inline-flex items-center justify-center no-underline"
             >
-              {isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →'}
+              {builderLabel}
             </RouteLink>
           </div>
         )}
@@ -321,7 +343,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           {/* Action button + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a
-              href={buildTelUrl(site.phone)}
+              href={buildSiteTelUrl(site.contactPhone)}
               className="hidden sm:flex min-h-11 px-5 items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
               style={{
                 borderRadius: site.radius,
@@ -611,7 +633,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                       {site.cta1} →
                     </a>
                     <a
-                      href={buildTelUrl(site.phone)}
+                      href={buildSiteTelUrl(site.contactPhone)}
                       className="hidden sm:flex h-14 px-7 items-center font-black text-base border-2"
                       style={{
                         borderRadius: site.radius,
@@ -1228,8 +1250,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
             <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-6 flex-wrap pt-2">
               <div className="flex gap-3 flex-wrap">
                 <a
-                  href={buildWhatsAppUrl(
-                    site.phone,
+                  href={buildSiteWhatsAppUrl(
+                    site.contactPhone,
                     `Hallo ${site.biz}! Ik wil graag een klus bespreken.`
                   )}
                   target="_blank"
@@ -1241,7 +1263,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   WhatsApp ons
                 </a>
                 <a
-                  href={buildTelUrl(site.phone)}
+                  href={buildSiteTelUrl(site.contactPhone)}
                   className="h-14 px-7 flex items-center gap-2.5 font-black text-base border-2"
                   style={{
                     borderRadius: site.radius,
@@ -1267,8 +1289,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
       <>
       <div className="hidden sm:flex fixed right-5 bottom-5 z-40 flex-col items-end gap-2.5">
         <a
-          href={buildWhatsAppUrl(
-            site.phone,
+          href={buildSiteWhatsAppUrl(
+            site.contactPhone,
             `Hallo ${site.biz}! Ik heb een vraag.`
           )}
           target="_blank"
@@ -1298,7 +1320,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
         style={{ background: site.card, borderColor: site.line }}
       >
         <a
-          href={buildTelUrl(site.phone)}
+          href={buildSiteTelUrl(site.contactPhone)}
           onClick={() => track('phone_click', { source: 'sticky-bar', sector: selectedSector })}
           className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm"
           style={{ background: site.fg, color: site.bg }}
@@ -1307,8 +1329,8 @@ export const SiteView: React.FC<SiteViewProps> = ({
           Bellen
         </a>
         <a
-          href={buildWhatsAppUrl(
-            site.phone,
+          href={buildSiteWhatsAppUrl(
+            site.contactPhone,
             `Hallo ${site.biz}! Ik heb een vraag.`
           )}
           target="_blank"
@@ -1323,6 +1345,11 @@ export const SiteView: React.FC<SiteViewProps> = ({
       </>
       )}
 
+      <DemoContactNotice
+        open={demoNoticeOpen}
+        onClose={closeDemoNotice}
+        wizardRoute={wizardRoute}
+      />
     </div>
   );
 };

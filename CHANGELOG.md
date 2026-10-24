@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Persoonlijke demo-link.** `/voorbeeld/:vak/:stijl?naam=&plaats=&tel=`
+  vult bedrijfsnaam, plaats en (geldig) telefoonnummer in, met dezelfde
+  terugval op sectordefaults als de wizard. De knop "Maak dit mijn website"
+  opent `/start/gegevens` met die velden vooringevuld. De gegevens worden pas
+  na hydration toegepast, zodat de geprerenderde HTML blijft kloppen, en gaan
+  niet mee in `track()` (alleen het pad wordt gelogd).
+
 
 - **Prerendering van alle indexeerbare routes.** `npm run build` rendert nu na
   `vite build` de homepage en alle 35 vakmanssites naar echte HTML
@@ -74,6 +81,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Demosites bellen of appen geen echte vreemden meer.** Tel- en
+  WhatsApp-knoppen (sticky bar, header, footer, contact, spoedknop,
+  storingsformulier, openingstijden, CTA-banner, m²-calculator) gebruiken
+  `site.contactPhone`: het eigen nummer van de klant, anders het
+  Klusbaas-nummer uit `VITE_DEMO_PHONE`. Zonder dat nummer toont de knop
+  "Dit is een demo — zo komen klanten bij jou binnen" met een knop naar de
+  wizard. De verzonnen voorbeeldnummers uit `tradesData.ts` staan nergens
+  meer in een link.
+- **Ook de wizard stuurt offertes niet meer naar een verzonnen nummer.**
+  `PLATFORM_CONTACT.whatsapp` (`+31 6 12345678`) is vervangen door
+  `getPlatformWhatsApp()`, dat hetzelfde `VITE_DEMO_PHONE` gebruikt. Zonder
+  dat nummer toont het bevestigingsscherm alleen de e-mailknop.
 - **Stijlfonts op de homepage terug.** Sinds `index.html` alleen Archivo en
   JetBrains Mono laadt, vielen de stijlkaarten in `PresetsSection` terug op
   Georgia/systeemfonts. De sectie laadt de stijlfonts nu via een

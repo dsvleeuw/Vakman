@@ -7,7 +7,7 @@ import {
   calculateM2Estimate,
 } from '../../utils/surface';
 import {
-  buildWhatsAppUrl,
+  buildSiteWhatsAppUrl,
   buildSurfaceQuoteMessage,
 } from '../../utils/contact';
 import { formatPrice } from '../../utils/pricing';
@@ -69,8 +69,8 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
   const removeWall = (idx: number) =>
     setWalls((prev) => (prev.length > 1 ? prev.filter((_, i) => i !== idx) : prev));
 
-  const waUrl = buildWhatsAppUrl(
-    site.phone,
+  const waUrl = buildSiteWhatsAppUrl(
+    site.contactPhone,
     buildSurfaceQuoteMessage(site.biz, {
       serviceName: selectedService.name,
       pricePerM2: selectedService.price,

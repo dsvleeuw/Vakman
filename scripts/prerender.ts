@@ -9,10 +9,13 @@
  * Run automatically by `npm run build` (and `bun run build`).
  *
  *   PRERENDER_SITE_URL   canonical origin, default https://klusbaas.nl
+ *   VITE_DEMO_PHONE      read from the environment or .env like `vite build`,
+ *                        so prerendered demo buttons match the client bundle
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadEnv } from 'vite';
 import { buildPath, getRouteMeta, type Route } from '../src/utils/router';
 import { getStyleFontHref } from '../src/utils/fonts';
 import { ORDER, STYLES } from '../src/data/tradesData';
@@ -20,6 +23,12 @@ import { renderRoute } from '../src/entry-server';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dist = join(here, '..', 'dist');
+// Mirror Vite's env loading for the client-visible variables the app reads
+// at render time (getDemoPhone), without overriding real environment values.
+for (const [key, value] of Object.entries(loadEnv('production', join(here, '..'), 'VITE_'))) {
+  process.env[key] ??= value;
+}
+
 const siteUrl = (process.env.PRERENDER_SITE_URL ?? 'https://klusbaas.nl').replace(/\/$/, '');
 
 /** Routes worth rendering for search engines and link previews. */
