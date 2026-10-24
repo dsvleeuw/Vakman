@@ -120,6 +120,7 @@ export type Route =
     }
   | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
   | { name: 'components'; componentId?: string }
+  | { name: 'prospects' }
   | { name: 'notFound'; path: string };
 
 export function isSectorId(value: string | null | undefined): value is SectorId {
@@ -214,6 +215,13 @@ export function parseRoute(pathname: string, search = ''): Route {
     return second ? { name: 'components', componentId: second } : { name: 'components' };
   }
 
+  // Interne werkkaart met de leadlijst. Bewust niet in de navigatie, niet in de
+  // sitemap en niet geprerenderd: het is gereedschap, geen marketingpagina.
+  if (first === 'kaart') {
+    if (segments.length > 1) return { name: 'notFound', path: pathname };
+    return { name: 'prospects' };
+  }
+
   return { name: 'notFound', path: pathname };
 }
 
@@ -241,6 +249,8 @@ export function buildPath(route: Route): string {
       return route.componentId
         ? `/componenten/${encodeURIComponent(route.componentId)}`
         : '/componenten';
+    case 'prospects':
+      return '/kaart';
     case 'notFound':
       return route.path || '/';
   }
@@ -316,6 +326,11 @@ export function getRouteMeta(route: Route): RouteMeta {
         description: `Bekijk de ${style.name}-stijl voor een ${sectorName.toLowerCase()}: diensten, tarieven, prijscalculator, reviews en direct contact via WhatsApp.`,
       };
     }
+    case 'prospects':
+      return {
+        title: 'Werkkaart · Klusbaas',
+        description: 'Interne werkkaart met de bedrijven uit de leadlijst Noord-Holland.',
+      };
     case 'components':
       return {
         title: 'Componentenbibliotheek · Klusbaas',

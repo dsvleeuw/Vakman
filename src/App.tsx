@@ -38,6 +38,11 @@ const ComponentGallery = lazy(() =>
     default: module.ComponentGallery,
   }))
 );
+const ProspectMapView = lazy(() =>
+  import('./components/ProspectMapView').then((module) => ({
+    default: module.ProspectMapView,
+  }))
+);
 
 const PageFallback: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -392,7 +397,14 @@ export default function App() {
         </Suspense>
       )}
 
-      {/* 3. LIVE SITE VIEW */}
+      {/* 3. WERKKAART (intern, niet in de navigatie of sitemap) */}
+      {route.name === 'prospects' && (
+        <Suspense fallback={<PageFallback label="Werkkaart laden…" />}>
+          <ProspectMapView />
+        </Suspense>
+      )}
+
+      {/* 4. LIVE SITE VIEW */}
       {route.name === 'site' && (
         <div id="main-content">
           <Suspense fallback={<PageFallback label="Voorbeeldwebsite laden…" />}>

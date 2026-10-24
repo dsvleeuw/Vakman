@@ -13,3 +13,7 @@ leads/*.csv
 
 # Excel-export van de leadlijst (zelfde persoonsgegevens).
 leads/*.xlsx
+
+# Werkbestand van de kaart (/kaart) bevat contactgegevens: alleen het
+# voorbeeldbestand is versiebeheerd.
+public/kaart/leads.json

@@ -12,6 +12,7 @@ verwijzen naar elkaar waar ze overlappen.
 | `02-taken.md` (repo-root) | Taken en dagelijks logboek |
 | [website-analyse.md](./website-analyse.md) | Lighthouse-meting per bedrijfssite: wie heeft een zwakke site |
 | `scripts/lighthouse-scan.mjs` (repo-root) | Zelf alle sites opnieuw meten met de Lighthouse-CLI (`npm run lh:scan`) |
+| [kaart.md](./kaart.md) | Werkkaart op `/kaart`: bedrijven op de kaart met hun gegevens en site-scores |
 | `leads/leads-haarlemmermeer.example.csv` (repo-root) | Kolomdefinitie voor de leadlijst |
 | `leads/leads-noord-holland.csv` / `.xlsx` (repo-root, niet in git) | Volledige leadlijst met verrijking en demo-links |
 
