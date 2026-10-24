@@ -10,13 +10,14 @@ verwijzen naar elkaar waar ze overlappen.
 |---------|--------|
 | [01-roadmap.md](./01-roadmap.md) | Doelgroep, leadbronnen, kanalen, dagritme, bezwaren |
 | `02-taken.md` (repo-root) | Taken en dagelijks logboek |
+| [website-analyse.md](./website-analyse.md) | Lighthouse-meting per bedrijfssite: wie heeft een zwakke site |
 | `leads/leads-haarlemmermeer.example.csv` (repo-root) | Kolomdefinitie voor de leadlijst |
 | `leads/leads-noord-holland.csv` / `.xlsx` (repo-root, niet in git) | Volledige leadlijst met verrijking en demo-links |
 
 ## Leadlijst
 
 De actuele inventarisatie staat als Google Sheet in Drive:
-[Vakmensen Noord-Holland — leadlijst (229 bedrijven, verrijkt)](https://docs.google.com/spreadsheets/d/1XpYFqEPuLfsnXuO53a6I6q83e9wF-Cw7Rd6of34Jdtk/edit).
+[Vakmensen Noord-Holland — leadlijst (229 bedrijven, met website-analyse)](https://docs.google.com/spreadsheets/d/1V8to4V0knRrW0Ky4SwYDCG8kPS4LVn74k5gARROj034/edit).
 229 bedrijven over zes vakken, met adres, telefoon, e-mail, website,
 KvK-nummer, diensten, oprichtingsjaar, reviews, een bron-URL en een
 kant-en-klare persoonlijke demo-link per regel.
@@ -48,8 +49,12 @@ Haarlemmermeer-regels zitten ook in de nieuwe lijst.
 | Kennemerland (Bloemendaal, Santpoort) | 2 |
 
 Dekking: 176 regels met e-mail, 205 met telefoon, 71 met KvK-nummer,
-119 met een omschrijving van de diensten. 35 bedrijven zijn daadwerkelijk
-op hun eigen website bezocht; die regels hebben `site_bezocht = ja` en
+119 met een omschrijving van de diensten. Van de 185 bedrijven met een eigen
+website is bij 130 de mobiele Lighthouse-score gemeten (performance, SEO,
+toegankelijkheid, best practices); de uitkomsten staan in
+[website-analyse.md](./website-analyse.md) en in de kolommen `lh_*`.
+35 bedrijven zijn daadwerkelijk op hun eigen website bezocht; die regels
+hebben `site_bezocht = ja` en
 zijn aangevuld met oprichtingsjaar, diensten, keurmerken, eigenaar/team,
 werkgebied en reviews.
 

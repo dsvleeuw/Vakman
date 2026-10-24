@@ -15,6 +15,8 @@ logboek; taken die af zijn gaan naar *Gedaan* met de datum erbij.
 | — | Ontbrekende e-mailadressen aanvullen (53 regels) | P1 | Open |
 | — | `controle nodig`-regels verifiëren via KvK (25 regels) | P1 | Open |
 | — | Restant websites bezoeken (`site_bezocht = nee`, 194 regels) | P1 | Open |
+| — | Mobiele Lighthouse-scan van alle bedrijfssites | P0 | Klaar — 130 van 185 scores, zie docs/klantwerving/website-analyse.md |
+| — | 55 sites opnieuw meten die time-out/blokkade gaven | P2 | Open |
 | — | Beltijden 07:30–08:30 en 12:00–13:00 reserveren | P1 | Open |
 | — | 20 brieven/kaarten met QR naar persoonlijke demo (week 2) | P2 | Open |
 
@@ -24,3 +26,4 @@ logboek; taken die af zijn gaan naar *Gedaan* met de datum erbij.
 |-------|-----------|-----------|
 | 2026-10-24 | Leadlijst Haarlemmermeer eerste opzet | 113 bedrijven, 73 e-mailadressen, 92 telefoonnummers, 47 KvK-nummers |
 | 2026-10-24 | Uitbreiding naar regio Noord-Holland + websitebezoek | 229 bedrijven over 8 regio's, 176 e-mail, 205 telefoon, 71 KvK, 35 eigen websites bezocht en verrijkt, demo-link per regel |
+| 2026-10-24 | Lighthouse-scan van alle 185 bedrijfssites (mobiel) | 130 sites met score: gemiddeld 60,8 performance, 44 onder de 50, 17 boven de 90; kolommen `lh_*` in de leadlijst, samenvatting in website-analyse.md |
