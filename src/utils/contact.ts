@@ -193,6 +193,11 @@ export function buildQuoteRequestMessage(input: QuoteChannelInput): string {
   return lines.join('\n');
 }
 
+/** Pragmatic e-mail check: something@domain.tld, no spaces. */
+export function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+}
+
 /**
  * Build a `mailto:` link with a subject and a prefilled body.
  */

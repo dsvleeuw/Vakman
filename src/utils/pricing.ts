@@ -1,5 +1,5 @@
 import type { WizardFormData } from '../types';
-import { normalizeDutchPhone } from './contact';
+import { isValidEmail, normalizeDutchPhone } from './contact';
 
 /**
  * Pure helper to generate oklch color string
@@ -128,6 +128,9 @@ export function validateWizardForm(form: WizardFormData): Record<string, string>
   }
   if (!form.city || !form.city.trim()) {
     errors.city = 'Vul je plaats in';
+  }
+  if (!isValidEmail(form.email || '')) {
+    errors.email = 'Vul een geldig e-mailadres in, hier sturen we je offerte heen';
   }
   return errors;
 }

@@ -164,7 +164,7 @@ test('every route gets a unique, descriptive document title', () => {
   for (const title of titles) {
     assert.ok(title.length > 0);
   }
-  assert.match(getRouteMeta({ name: 'wizard', step: 'gegevens' }).title, /Stap 3 van 5/);
+  assert.match(getRouteMeta({ name: 'wizard', step: 'gegevens' }).title, /Stap 3 van 6/);
   assert.match(
     getRouteMeta({ name: 'site', sector: 'loodgieter', styleId: 'krachtig' }).title,
     /loodgieter/i

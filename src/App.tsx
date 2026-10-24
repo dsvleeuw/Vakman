@@ -56,6 +56,7 @@ function loadDraft(): WizardDraft {
     styleIndex: 0,
     form: null,
     disabledServices: {},
+    addons: [],
   };
   if (typeof window === 'undefined') return fallback;
   try {
@@ -75,6 +76,7 @@ function loadDraft(): WizardDraft {
           : 0,
       form: parsed.form ?? null,
       disabledServices: parsed.disabledServices ?? {},
+      addons: Array.isArray(parsed.addons) ? parsed.addons.filter((id) => typeof id === 'string') : [],
     };
   } catch {
     return fallback;
@@ -141,13 +143,14 @@ export default function App() {
   }, []);
 
   /** Keep the wizard URL in sync with the trade/style picked inside it. */
-  const handleWizardSelectionChange = useCallback((sector: SectorId, styleIndex: number) => {
+  const handleWizardSelectionChange = useCallback((sector: SectorId, styleIndex: number, plan?: PlanId) => {
     const current = routeRef.current;
     if (current.name !== 'wizard') return;
     const styleId = styleIdFromIndex(styleIndex);
-    if (current.sector === sector && current.styleId === styleId) return;
+    const nextPlan = plan ?? current.plan;
+    if (current.sector === sector && current.styleId === styleId && current.plan === nextPlan) return;
     replaceUrl(
-      { name: 'wizard', step: current.step, sector, styleId, plan: current.plan },
+      { name: 'wizard', step: current.step, sector, styleId, plan: nextPlan },
       { scroll: false, keepHash: true }
     );
   }, []);
@@ -383,8 +386,9 @@ export default function App() {
           onStepChange={handleWizardStepChange}
           initialSector={wizardSector}
           initialStyleIndex={wizardStyleIndex}
-          initialForm={draft.sector === wizardSector ? draft.form : null}
+          initialForm={draft.form}
           initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}
+          initialAddons={draft.addons}
           plan={route.plan}
           onDraftChange={handleDraftChange}
           onSelectionChange={handleWizardSelectionChange}
