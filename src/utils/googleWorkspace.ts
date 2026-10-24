@@ -1,34 +1,122 @@
-import { initializeApp, getApps } from 'firebase/app';
+import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
+  type Auth,
   type User,
 } from 'firebase/auth';
 
-// Use firebase applet config if present, or fallback gracefully
-let firebaseConfig: Record<string, string> = {
-  apiKey: 'fake-key-for-local',
+/**
+ * Public Firebase web config. The real values live in
+ * `firebase-applet-config.json` at the repo root (public by design, see
+ * AGENTS.md) and can be overridden with `VITE_FIREBASE_*` env vars.
+ *
+ * `PLACEHOLDER_API_KEY` marks "no project configured": it never counts as
+ * configured, so the Google Agenda option stays hidden instead of failing.
+ */
+export const PLACEHOLDER_API_KEY = 'fake-key-for-local';
+
+export interface GoogleConfig {
+  apiKey?: string;
+  authDomain?: string;
+  projectId?: string;
+  storageBucket?: string;
+  messagingSenderId?: string;
+  appId?: string;
+  [key: string]: string | undefined;
+}
+
+type EnvRecord = Record<string, string | undefined>;
+
+const FALLBACK_CONFIG: GoogleConfig = {
+  apiKey: PLACEHOLDER_API_KEY,
   authDomain: 'localhost',
   projectId: 'gen-lang-client-0169081330',
 };
 
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const config = require('../../firebase-applet-config.json');
-  if (config) firebaseConfig = config;
-} catch {
-  // Use default fallback
+/** Env vars that may override the committed applet config (public web keys only). */
+const ENV_OVERRIDES: Record<string, keyof GoogleConfig> = {
+  VITE_FIREBASE_API_KEY: 'apiKey',
+  VITE_FIREBASE_AUTH_DOMAIN: 'authDomain',
+  VITE_FIREBASE_PROJECT_ID: 'projectId',
+  VITE_FIREBASE_STORAGE_BUCKET: 'storageBucket',
+  VITE_FIREBASE_MESSAGING_SENDER_ID: 'messagingSenderId',
+  VITE_FIREBASE_APP_ID: 'appId',
+};
+
+/**
+ * Read `firebase-applet-config.json` through Vite's `import.meta.glob`, which is
+ * resolved at build time and therefore also works in the production browser
+ * bundle (`require()` does not). Runtimes without Vite — `bun test` and the
+ * prerender pass in `scripts/prerender.ts` via tsx — get `null` and fall back to
+ * env values or the placeholder config.
+ */
+function loadAppletConfig(): GoogleConfig | null {
+  try {
+    // `import.meta.glob` is compiled to a static map by Vite; in runtimes without
+    // Vite the call throws and we fall through to env values / the placeholder.
+    const modules = import.meta.glob('/firebase-applet-config.json', {
+      eager: true,
+      import: 'default',
+    }) as unknown as Record<string, GoogleConfig | undefined>;
+    const config = modules['/firebase-applet-config.json'];
+    return config && typeof config === 'object' ? config : null;
+  } catch {
+    return null;
+  }
 }
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const auth = getAuth(app);
+function readEnv(): EnvRecord {
+  const env = (import.meta as ImportMeta & { env?: EnvRecord }).env;
+  return env ?? {};
+}
 
-const provider = new GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/drive.file');
-provider.addScope('https://www.googleapis.com/auth/calendar.events');
+/**
+ * Pure merge of the fallback config, `firebase-applet-config.json` and the
+ * `VITE_FIREBASE_*` env vars (non-empty env values win). A missing or empty
+ * `apiKey` stays empty on purpose: `isGoogleConfigured()` must report `false`
+ * rather than silently using the placeholder key.
+ */
+export function resolveGoogleConfig(
+  appletConfig: GoogleConfig | null = loadAppletConfig(),
+  env: EnvRecord = readEnv()
+): GoogleConfig {
+  const config: GoogleConfig = { ...FALLBACK_CONFIG };
+  if (appletConfig) {
+    for (const [key, value] of Object.entries(appletConfig)) {
+      if (typeof value === 'string') config[key] = value;
+    }
+  }
+  for (const [envKey, configKey] of Object.entries(ENV_OVERRIDES)) {
+    const value = env[envKey]?.trim();
+    if (value) config[configKey] = value;
+  }
+  return config;
+}
+
+const firebaseConfig: GoogleConfig = resolveGoogleConfig();
+
+let cachedAuth: Auth | null = null;
+
+/** Firebase is initialised on first use, so importing this module stays side-effect free. */
+function getFirebaseAuth(): Auth {
+  if (!cachedAuth) {
+    const app: FirebaseApp =
+      getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    cachedAuth = getAuth(app);
+  }
+  return cachedAuth;
+}
+
+function createProvider(): GoogleAuthProvider {
+  const nextProvider = new GoogleAuthProvider();
+  nextProvider.addScope('https://www.googleapis.com/auth/drive.file');
+  nextProvider.addScope('https://www.googleapis.com/auth/calendar.events');
+  return nextProvider;
+}
 
 let cachedAccessToken: string | null = null;
 let isSigningIn = false;
@@ -37,7 +125,7 @@ export const initAuthListener = (
   onSuccess: (user: User, token: string) => void,
   onFailure: () => void
 ) => {
-  return onAuthStateChanged(auth, (user: User | null) => {
+  return onAuthStateChanged(getFirebaseAuth(), (user: User | null) => {
     if (user && cachedAccessToken) {
       onSuccess(user, cachedAccessToken);
     } else if (!isSigningIn) {
@@ -48,9 +136,12 @@ export const initAuthListener = (
 };
 
 export const signInWithGoogle = async (): Promise<{ user: User; accessToken: string } | null> => {
+  if (!isGoogleConfigured()) {
+    throw new Error('Google Agenda is niet geconfigureerd in deze omgeving.');
+  }
   try {
     isSigningIn = true;
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(getFirebaseAuth(), createProvider());
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (!credential?.accessToken) {
       throw new Error('Geen OAuth access token ontvangen van Google');
@@ -69,15 +160,18 @@ export const signInWithGoogle = async (): Promise<{ user: User; accessToken: str
 export const getCachedAccessToken = (): string | null => cachedAccessToken;
 
 export const logoutGoogle = async () => {
-  await signOut(auth);
+  await signOut(getFirebaseAuth());
   cachedAccessToken = null;
 };
 
 /**
- * Check if Google integration is properly configured (not using the fake local key).
+ * Check if Google integration is properly configured: a real apiKey is present and
+ * it is not the placeholder used for local runs / fresh clones.
  */
-export function isGoogleConfigured(): boolean {
-  return firebaseConfig.apiKey !== 'fake-key-for-local';
+export function isGoogleConfigured(config: GoogleConfig = firebaseConfig): boolean {
+  const apiKey = config.apiKey?.trim();
+  if (!apiKey) return false;
+  return apiKey !== PLACEHOLDER_API_KEY;
 }
 
 export interface CalendarEventPayload {

@@ -161,6 +161,9 @@ export const WizardView: React.FC<WizardViewProps> = ({
   // Optional Google sign-in so the appointment can be pushed into the user's calendar
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  // `isGoogleConfigured()` reads a Vite-only config source, so keep it out of the
+  // render pass: SSR/prerender and the first client render both start hidden.
+  const [googleConfigured, setGoogleConfigured] = useState(false);
 
   useEffect(() => {
     track('wizard_step_view', { step, sector, style: styleIndex });
@@ -187,6 +190,11 @@ export const WizardView: React.FC<WizardViewProps> = ({
       }
     );
     return () => unsubscribe();
+  }, []);
+
+  // Google Agenda is only offered when the deployed Firebase config is real.
+  useEffect(() => {
+    setGoogleConfigured(isGoogleConfigured());
   }, []);
 
   // Keep the URL and the saved draft in sync with what the visitor picked.
@@ -257,6 +265,18 @@ export const WizardView: React.FC<WizardViewProps> = ({
     if (currentStepIndex > 0) {
       onStepChange(WIZARD_STEPS[currentStepIndex - 1]);
     }
+  };
+
+  // Enter or the primary button submits the step: the quote request on 'afspraak',
+  // "next step" everywhere else. Confirmation has no submit action.
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isPublished) return;
+    if (step === 'afspraak') {
+      void handleBookAppointment();
+      return;
+    }
+    handleNext();
   };
 
   const toggleAddon = (id: string) =>
@@ -483,14 +503,18 @@ export const WizardView: React.FC<WizardViewProps> = ({
       {/* Main Split Layout: Centered max-w-xl on tablet, two-column split on desktop */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-8 md:py-10 md:px-8 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left Column: Form Steps */}
-        <div className="lg:col-span-6 flex flex-col gap-6 w-full max-w-xl mx-auto lg:mx-0">
+        <form
+          onSubmit={handleFormSubmit}
+          noValidate
+          className="lg:col-span-6 flex flex-col gap-6 w-full max-w-xl mx-auto lg:mx-0"
+        >
           {/* Context: what the visitor already picked, and how to change it */}
           {currentStepIndex >= 2 && (
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => onStepChange('vak')}
-                className="min-h-11 pl-3.5 pr-3 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
+                className="min-h-11 pl-3.5 pr-3 rounded-full bg-white border border-stone-500 hover:border-stone-800 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
               >
                 Vak: {baseSector.name}
                 <span className="text-stone-400 font-semibold">wijzig</span>
@@ -498,7 +522,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
               <button
                 type="button"
                 onClick={() => onStepChange('stijl')}
-                className="min-h-11 pl-3.5 pr-3 rounded-full bg-white border border-stone-200 hover:border-stone-400 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
+                className="min-h-11 pl-3.5 pr-3 rounded-full bg-white border border-stone-500 hover:border-stone-800 text-xs font-bold text-stone-700 cursor-pointer inline-flex items-center gap-1.5"
               >
                 Stijl: {STYLES[styleIndex].name}
                 <span className="text-stone-400 font-semibold">wijzig</span>
@@ -530,6 +554,16 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 </p>
               )}
 
+              {!sectorChosen && (
+                <p
+                  className="text-sm font-bold text-stone-900 bg-amber-100 border-2 border-stone-500 rounded-xl px-3 py-2 m-0"
+                  role="status"
+                >
+                  Kies eerst je vak: zonder gekozen vak blijf je op deze stap en kunnen we je
+                  website en offerte niet maken.
+                </p>
+              )}
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
                 {ORDER.map((secId) => {
                   const sec = SECTORS[secId];
@@ -539,6 +573,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   return (
                     <button
                       key={secId}
+                      type="button"
                       onClick={() => handleSelectSector(secId)}
                       aria-pressed={isSelected}
                       aria-label={`Kies ${sec.name}`}
@@ -584,12 +619,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   return (
                     <button
                       key={st.id}
+                      type="button"
                       onClick={() => setStyleIndex(idx)}
                       aria-pressed={isSelected}
                       className={`p-4 rounded-2xl border-2 bg-white text-left cursor-pointer flex items-center justify-between gap-4 transition-all ${
                         isSelected
                           ? 'border-stone-900 ring-2 ring-stone-900 ring-offset-1 shadow-sm'
-                          : 'border-stone-200 hover:border-stone-300'
+                          : 'border-stone-500 hover:border-stone-800'
                       }`}
                     >
                       <div className="flex flex-col gap-1">
@@ -770,6 +806,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   return (
                     <button
                       key={sv.n}
+                      type="button"
                       onClick={() => {
                         setDisabledServices((prev) => ({
                           ...prev,
@@ -780,7 +817,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       className={`p-4 rounded-xl border-2 bg-white text-left cursor-pointer flex items-center justify-between gap-4 transition-all ${
                         isEnabled
                           ? 'border-stone-900 shadow-sm'
-                          : 'border-stone-200 opacity-60'
+                          : 'border-stone-500'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -826,6 +863,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="flex flex-col gap-2">
                 <button
+                  type="button"
                   onClick={() => onViewPublishedSite(sector, styleIndex, formData)}
                   className="w-full h-14 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
                 >
@@ -862,7 +900,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                           className={`p-3 rounded-xl border-2 text-left cursor-pointer transition-all ${
                             isSel
                               ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
-                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-500'
+                              : 'border-stone-500 bg-stone-50 text-stone-800 hover:border-stone-800'
                           }`}
                         >
                           <span className="block font-extrabold text-sm">{p.name}</span>
@@ -891,7 +929,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                               <label
                                 key={addon.id}
                                 className={`min-h-11 px-3 py-2 rounded-xl border-2 flex items-center gap-2.5 text-sm ${
-                                  checked ? 'border-stone-900 bg-stone-50' : 'border-stone-200 bg-white hover:border-stone-300'
+                                  checked ? 'border-stone-900 bg-stone-50' : 'border-stone-500 bg-white hover:border-stone-800'
                                 } ${included ? 'cursor-default opacity-80' : 'cursor-pointer'}`}
                                 title={addon.description}
                               >
@@ -925,13 +963,14 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       return (
                         <button
                           key={d.iso}
+                          type="button"
                           onClick={() => setBookingDate(d)}
                           aria-pressed={isSel}
                           aria-label={`${d.dayName} ${d.dayNum} ${d.monthName}`}
                           className={`p-2.5 rounded-xl border-2 text-center cursor-pointer flex flex-col items-center justify-center transition-all ${
                             isSel
                               ? 'border-stone-900 bg-stone-900 text-white font-bold shadow-sm'
-                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-500'
+                              : 'border-stone-500 bg-stone-50 text-stone-800 hover:border-stone-800'
                           }`}
                         >
                           <span className="text-xs uppercase opacity-75">{d.dayName}</span>
@@ -953,12 +992,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
                       return (
                         <button
                           key={slot}
+                          type="button"
                           onClick={() => setBookingSlot(slot)}
                           aria-pressed={isSel}
                           className={`p-3.5 rounded-xl border-2 font-bold text-sm text-left cursor-pointer transition-all ${
                             isSel
                               ? 'border-stone-900 bg-stone-900 text-white shadow-sm'
-                              : 'border-stone-200 bg-stone-50 text-stone-800 hover:border-stone-300'
+                              : 'border-stone-500 bg-stone-50 text-stone-800 hover:border-stone-800'
                           }`}
                         >
                           {slot}
@@ -976,12 +1016,13 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     {(['WhatsApp', 'E-mail', 'Allebei'] as const).map((ch) => (
                       <button
                         key={ch}
+                        type="button"
                         onClick={() => setChannel(ch)}
                         aria-pressed={channel === ch}
                         className={`h-11 px-4 rounded-xl border-2 text-sm font-bold cursor-pointer transition-all ${
                           channel === ch
                             ? 'bg-stone-900 text-white border-stone-900'
-                            : 'bg-transparent text-stone-700 border-stone-200 hover:border-stone-300'
+                            : 'bg-transparent text-stone-700 border-stone-500 hover:border-stone-800'
                         }`}
                       >
                         {ch}
@@ -1024,7 +1065,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   </div>
                 </div>
 
-                {isGoogleConfigured() && (
+                {googleConfigured && (
                   <label className="min-h-11 flex items-center gap-3 text-xs text-stone-600 cursor-pointer">
                     <input
                       type="checkbox"
@@ -1086,7 +1127,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                   />
                 )}
                 <button
-                  onClick={handleBookAppointment}
+                  type="submit"
                   disabled={isBooking}
                   className="h-14 rounded-full border-0 bg-amber-400 hover:bg-amber-300 text-stone-950 font-extrabold text-base cursor-pointer transition-colors disabled:opacity-60"
                 >
@@ -1140,7 +1181,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     href={quotePdfHref(quoteResult.quote.path)}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 h-12 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center no-underline"
+                    className="flex-1 h-12 rounded-full border-2 border-stone-500 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center no-underline"
                   >
                     Download PDF
                   </a>
@@ -1217,7 +1258,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                         `Afspraak ${bookingResult?.booking.id ?? ''}`.trim(),
                         quoteMessage
                       )}
-                      className="flex-1 h-12 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center gap-2 no-underline"
+                      className="flex-1 h-12 rounded-full border-2 border-stone-500 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center gap-2 no-underline"
                     >
                       Via e-mail
                     </a>
@@ -1231,6 +1272,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                     Ingelogd als: <strong>{authUser.email}</strong>
                   </span>
                   <button
+                    type="button"
                     onClick={logoutGoogle}
                     className="text-rose-600 underline cursor-pointer bg-none border-0 p-0"
                   >
@@ -1241,14 +1283,16 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="pt-3 w-full flex flex-col sm:flex-row gap-3 justify-center">
                 <button
+                  type="button"
                   onClick={() => onViewPublishedSite(sector, styleIndex, formData)}
                   className="h-14 px-8 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-transform hover:-translate-y-0.5"
                 >
                   Bekijk je website →
                 </button>
                 <button
+                  type="button"
                   onClick={onGoHome}
-                  className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer"
+                  className="h-14 px-6 rounded-full border-2 border-stone-500 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer"
                 >
                   Terug naar Klusbaas
                 </button>
@@ -1290,17 +1334,19 @@ export const WizardView: React.FC<WizardViewProps> = ({
             <div className="sticky bottom-0 z-20 -mx-4 sm:mx-0 flex items-center gap-3 border-t border-stone-200 bg-stone-100/95 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:px-0 sm:pt-3 sm:pb-0 sm:backdrop-blur-none">
               {currentStepIndex > 0 && (
                 <button
+                  type="button"
                   onClick={handleBack}
-                  className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-base cursor-pointer transition-colors"
+                  className="h-14 px-6 rounded-full border-2 border-stone-500 bg-white hover:bg-stone-50 text-stone-900 font-bold text-base cursor-pointer transition-colors"
                 >
                   ← Terug
                 </button>
               )}
               <button
+                type={step === 'afspraak' ? 'button' : 'submit'}
                 onClick={
                   step === 'afspraak'
                     ? () => onViewPublishedSite(sector, styleIndex, formData)
-                    : handleNext
+                    : undefined
                 }
                 disabled={step === 'afspraak' && isBooking}
                 className="flex-1 h-14 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all hover:-translate-y-0.5 disabled:opacity-60"
@@ -1310,7 +1356,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
             </div>
           )}
 
-        </div>
+        </form>
 
         {/* Right Column: Full live render of the generated website */}
         {showPreview && (

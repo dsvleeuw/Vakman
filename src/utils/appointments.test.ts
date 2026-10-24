@@ -97,10 +97,21 @@ test('buildNextDates returns exactly count weekdays skipping weekends', () => {
   });
 });
 
-test('buildNextDates returns 14 dates by default', () => {
+test('buildNextDates returns 14 weekdays by default', () => {
   const from = new Date('2026-10-26T00:00:00');
-  const dates = buildNextDates(14, from);
+  // No explicit count: exercises the default parameter (14 working days).
+  const dates = buildNextDates(undefined, from);
   assert.equal(dates.length, 14);
+  assert.equal(dates[0].iso, '2026-10-27');
+
+  dates.forEach((date) => {
+    const d = new Date(date.iso + 'T00:00:00');
+    const dayOfWeek = d.getDay();
+    assert.ok(dayOfWeek >= 1 && dayOfWeek <= 5, `Date ${date.iso} is a weekend day (${dayOfWeek})`);
+  });
+
+  // 14 working days after Monday 2026-10-26 end on Friday 2026-11-13.
+  assert.equal(dates[dates.length - 1].iso, '2026-11-13');
 });
 
 test('buildNextDates skips Saturday and Sunday', () => {
@@ -108,6 +119,7 @@ test('buildNextDates skips Saturday and Sunday', () => {
   const from = new Date('2026-10-30T00:00:00');
   const dates = buildNextDates(7, from);
   assert.equal(dates.length, 7);
+  assert.equal(dates[0].iso, '2026-11-02');
 
   // All should be weekdays
   dates.forEach((date) => {

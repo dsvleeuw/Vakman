@@ -39,6 +39,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
 
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  // `isGoogleConfigured()` reads a Vite-only config source, so keep it out of the
+  // render pass: SSR/prerender and the first client render both start hidden.
+  const [googleConfigured, setGoogleConfigured] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingResult, setBookingResult] = useState<{
@@ -76,6 +79,11 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
       }
     );
     return () => unsubscribe();
+  }, []);
+
+  // Google Agenda/Drive is only offered when the deployed Firebase config is real.
+  useEffect(() => {
+    setGoogleConfigured(isGoogleConfigured());
   }, []);
 
   const validate = () => {
@@ -288,7 +296,14 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
         )}
 
         {!bookingResult ? (
-          <div className={`${mobileOpen ? 'grid' : 'hidden sm:grid'} grid-cols-1 lg:grid-cols-12 gap-8 items-start`}>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              void handleBook(false);
+            }}
+            noValidate
+            className={`${mobileOpen ? 'grid' : 'hidden sm:grid'} grid-cols-1 lg:grid-cols-12 gap-8 items-start`}
+          >
             {/* Step 1: Date & Time Slot Picker */}
             <div className="lg:col-span-7 flex flex-col gap-6">
               <div>
@@ -301,6 +316,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                     return (
                       <button
                         key={d.iso}
+                        type="button"
                         onClick={() => setSelectedDate(d)}
                         className={`p-2.5 rounded-xl border-2 text-center cursor-pointer flex flex-col items-center justify-center transition-all ${
                           isSelected
@@ -327,6 +343,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                     return (
                       <button
                         key={slot}
+                        type="button"
                         onClick={() => setSelectedSlot(slot)}
                         className={`p-3.5 rounded-xl border-2 font-bold text-sm text-left cursor-pointer transition-all ${
                           isSelected
@@ -440,8 +457,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                     onRetry={() => handleBook(lastSyncRef.current)}
                   />
                 )}
-                {isGoogleConfigured() && (
+                {googleConfigured && (
                   <button
+                    type="button"
                     onClick={() => handleBook(true)}
                     disabled={isSubmitting}
                     className="h-14 px-6 rounded-2xl border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm sm:text-base cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
@@ -453,9 +471,9 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   </button>
                 )}
 
-                {isGoogleConfigured() ? (
+                {googleConfigured ? (
                   <button
-                    onClick={() => handleBook(false)}
+                    type="submit"
                     disabled={isSubmitting}
                     className="h-11 px-4 rounded-xl border border-stone-500 bg-transparent hover:bg-stone-100 text-stone-700 font-bold text-xs cursor-pointer"
                   >
@@ -463,7 +481,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                   </button>
                 ) : (
                   <button
-                    onClick={() => handleBook(false)}
+                    type="submit"
                     disabled={isSubmitting}
                     className="h-14 px-6 rounded-2xl border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-sm sm:text-base cursor-pointer shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
                   >
@@ -476,13 +494,13 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
               {authUser && (
                 <div className="flex justify-between items-center text-xs text-stone-500 pt-2 border-t border-stone-100">
                   <span>Ingelogd als: <strong>{authUser.email}</strong></span>
-                  <button onClick={logoutGoogle} className="text-rose-600 underline cursor-pointer bg-none border-0 p-0">
+                  <button type="button" onClick={logoutGoogle} className="text-rose-600 underline cursor-pointer bg-none border-0 p-0">
                     Uitloggen
                   </button>
                 </div>
               )}
             </div>
-          </div>
+          </form>
         ) : (
           /* Confirmation Screen */
           <div className="bg-white p-8 sm:p-12 rounded-3xl border border-stone-500 shadow-xl flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
@@ -512,28 +530,34 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 <span className="text-stone-500">Referentie:</span>
                 <span className="font-mono font-bold">{bookingResult.booking.id}</span>
               </div>
-              <div className="flex justify-between border-b pb-2 border-stone-200">
-                <span className="text-stone-500">Google Calendar Sync:</span>
-                <span className={`font-bold ${bookingResult.calendarSynced ? 'text-emerald-600' : 'text-stone-500'}`}>
-                  {bookingResult.calendarSynced ? '✓ Gesynchroniseerd' : 'Niet ingelogd'}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-stone-500">Google Drive Quote PDF:</span>
-                <span className={`font-bold ${bookingResult.driveSynced ? 'text-emerald-600' : 'text-stone-500'}`}>
-                  {bookingResult.driveSynced ? '✓ Opgeslagen in Drive' : 'Niet ingelogd'}
-                </span>
-              </div>
+              {googleConfigured && (
+                <>
+                  <div className="flex justify-between border-b pb-2 border-stone-200">
+                    <span className="text-stone-500">Google Calendar Sync:</span>
+                    <span className={`font-bold ${bookingResult.calendarSynced ? 'text-emerald-600' : 'text-stone-500'}`}>
+                      {bookingResult.calendarSynced ? '✓ Gesynchroniseerd' : 'Niet gekoppeld'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone-500">Google Drive Quote PDF:</span>
+                    <span className={`font-bold ${bookingResult.driveSynced ? 'text-emerald-600' : 'text-stone-500'}`}>
+                      {bookingResult.driveSynced ? '✓ Opgeslagen in Drive' : 'Niet gekoppeld'}
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="flex gap-3 flex-wrap justify-center pt-2">
               <button
+                type="button"
                 onClick={handleDownloadTextQuote}
                 className="h-12 px-6 rounded-full border-2 border-stone-900 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer shadow-sm"
               >
                 📥 Download Offerte .TXT
               </button>
               <button
+                type="button"
                 onClick={() => {
                   setBookingResult(null);
                   lead.reset();
