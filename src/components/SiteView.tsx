@@ -1,4 +1,5 @@
 import React from 'react';
+import { Phone, MessageCircle, Zap } from 'lucide-react';
 import type { ActiveSiteData, SectorId } from '../types';
 import { ORDER, SECTORS, STYLES, getUnsplashUrl } from '../data/tradesData';
 import { ImageWithFallback } from './ImageWithFallback';
@@ -7,8 +8,10 @@ import { AreaChecker } from './AreaChecker';
 import { BookingCalendar } from './BookingCalendar';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
 import { TradeTool } from './tools/TradeTool';
+import { ContactSection } from './ContactSection';
 import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
+import { buildTelUrl, buildWhatsAppUrl } from '../utils/contact';
 
 interface SiteViewProps {
   site: ActiveSiteData;
@@ -32,7 +35,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
   onGoStart,
 }) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen pb-20 sm:pb-0">
       {/* Top Preview Control Bar */}
       <div className="sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 flex-wrap text-xs sm:text-sm border-b border-stone-800 shadow-md">
         <div className="flex items-center gap-3 flex-wrap">
@@ -154,6 +157,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
             </a>
             <a href="#gebied" className="hover:opacity-75 transition-opacity whitespace-nowrap">
               Werkgebied
+            </a>
+            <a href="#contact" className="hover:opacity-75 transition-opacity whitespace-nowrap">
+              Contact
             </a>
           </nav>
 
@@ -837,16 +843,38 @@ export const SiteView: React.FC<SiteViewProps> = ({
         {/* Customer Reviews */}
         <section className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60">
           <div className="max-w-7xl mx-auto flex flex-col gap-8">
-            <h2
-              className="text-3xl sm:text-5xl font-black leading-tight tracking-tight m-0"
-              style={{
-                fontFamily: site.display,
-                fontWeight: site.dw,
-                letterSpacing: site.ls,
-              }}
-            >
-              Wat klanten over mij zeggen
-            </h2>
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <h2
+                className="text-3xl sm:text-5xl font-black leading-tight tracking-tight m-0"
+                style={{
+                  fontFamily: site.display,
+                  fontWeight: site.dw,
+                  letterSpacing: site.ls,
+                }}
+              >
+                Wat klanten over mij zeggen
+              </h2>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  `${site.biz} ${site.city}`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 h-12 px-5 border font-bold text-sm transition-transform hover:-translate-y-0.5"
+                style={{
+                  borderColor: site.line,
+                  background: site.card,
+                  color: site.fg,
+                  borderRadius: site.radius,
+                }}
+                title="Bekijk alle reviews op het Google Bedrijfsprofiel"
+              >
+                <span className="w-7 h-7 rounded-full bg-white border border-stone-200 flex items-center justify-center text-[#4285F4] font-black text-base shadow-sm">
+                  G
+                </span>
+                {site.rating} op Google · {site.reviewCount} reviews
+              </a>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {site.reviews.map((rv, idx) => (
@@ -884,6 +912,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
         {/* FAQ Accordion */}
         <FaqSection faqs={site.faqs} />
 
+        {/* WhatsApp-first contact section with form fallback */}
+        <ContactSection site={site} />
+
         {/* Site Footer */}
         <footer
           className="py-16 sm:py-24 px-4 sm:px-8 md:px-12 text-center sm:text-left"
@@ -907,28 +938,29 @@ export const SiteView: React.FC<SiteViewProps> = ({
             <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-6 flex-wrap pt-2">
               <div className="flex gap-3 flex-wrap">
                 <a
-                  href={`tel:${site.phone.replace(/[\s-]/g, '')}`}
-                  className="h-14 px-8 flex items-center font-black text-base shadow transition-transform hover:-translate-y-0.5"
-                  style={{
-                    borderRadius: site.radius,
-                    background: site.onAccent,
-                    color: site.accent,
-                  }}
-                >
-                  {site.callLabel}
-                </a>
-                <a
-                  href={`https://wa.me/31${site.phone.replace(/\D/g, '').replace(/^0/, '')}`}
+                  href={buildWhatsAppUrl(
+                    site.phone,
+                    `Hallo ${site.biz}! Ik wil graag een klus bespreken.`
+                  )}
                   target="_blank"
                   rel="noreferrer"
-                  className="h-14 px-7 flex items-center font-black text-base border-2"
+                  className="h-14 px-8 flex items-center gap-2.5 font-black text-base shadow transition-transform hover:-translate-y-0.5 bg-[#25D366] text-white"
+                  style={{ borderRadius: site.radius }}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp ons
+                </a>
+                <a
+                  href={buildTelUrl(site.phone)}
+                  className="h-14 px-7 flex items-center gap-2.5 font-black text-base border-2"
                   style={{
                     borderRadius: site.radius,
                     borderColor: site.onAccent,
                     color: site.onAccent,
                   }}
                 >
-                  WhatsApp bericht
+                  <Phone className="w-5 h-5" />
+                  {site.callLabel}
                 </a>
               </div>
 
@@ -940,17 +972,59 @@ export const SiteView: React.FC<SiteViewProps> = ({
         </footer>
       </div>
 
-      {/* Floating Action Badge */}
-      <a
-        href="#prijs"
-        className="fixed right-5 bottom-5 z-40 h-14 px-6 rounded-full flex items-center gap-2 font-extrabold text-sm sm:text-base shadow-2xl transition-transform hover:scale-105"
-        style={{
-          background: site.accent,
-          color: site.onAccent,
-        }}
+      {/* Desktop floating action stack (mobile uses the sticky bar below) */}
+      <div className="hidden sm:flex fixed right-5 bottom-5 z-40 flex-col items-end gap-2.5">
+        <a
+          href={buildWhatsAppUrl(
+            site.phone,
+            `Hallo ${site.biz}! Ik heb een vraag.`
+          )}
+          target="_blank"
+          rel="noreferrer"
+          className="h-12 px-5 rounded-full flex items-center gap-2 font-extrabold text-sm shadow-2xl bg-[#25D366] text-white transition-transform hover:scale-105"
+        >
+          <MessageCircle className="w-4 h-4" />
+          WhatsApp
+        </a>
+        <a
+          href="#prijs"
+          className="h-14 px-6 rounded-full flex items-center gap-2 font-extrabold text-sm sm:text-base shadow-2xl transition-transform hover:scale-105"
+          style={{
+            background: site.accent,
+            color: site.onAccent,
+          }}
+        >
+          <Zap className="w-4 h-4" />
+          Offerte in 1 minuut
+        </a>
+      </div>
+
+      {/* Mobile sticky contact bar: call and WhatsApp always in reach */}
+      <div
+        className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex gap-2 p-3 border-t shadow-[0_-4px_20px_rgba(0,0,0,0.12)]"
+        style={{ background: site.card, borderColor: site.line }}
       >
-        <span>⚡ Offerte in 1 minuut</span>
-      </a>
+        <a
+          href={buildTelUrl(site.phone)}
+          className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm"
+          style={{ background: site.fg, color: site.bg }}
+        >
+          <Phone className="w-4 h-4" />
+          Bellen
+        </a>
+        <a
+          href={buildWhatsAppUrl(
+            site.phone,
+            `Hallo ${site.biz}! Ik heb een vraag.`
+          )}
+          target="_blank"
+          rel="noreferrer"
+          className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm bg-[#25D366] text-white"
+        >
+          <MessageCircle className="w-4 h-4" />
+          WhatsApp
+        </a>
+      </div>
     </div>
   );
 };
