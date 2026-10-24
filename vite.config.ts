@@ -1,11 +1,68 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig} from 'vite';
+import {defineConfig, loadEnv, type Plugin} from 'vite';
 
-export default defineConfig(() => {
+/**
+ * Serve POST /api/lead and GET /api/quote during `vite dev` with the same
+ * handlers the Netlify Functions use. Quotes and leads land in `.data/`
+ * (gitignored) instead of Netlify Blobs.
+ */
+function leadApiDevServer(env: Record<string, string>): Plugin {
   return {
-    plugins: [react(), tailwindcss()],
+    name: 'klusbaas-lead-api',
+    configureServer(server) {
+      const load = async () => {
+        const handler = await server.ssrLoadModule('/src/server/leadHandler.ts');
+        const { createFileStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        return { handler, storage: createFileStorage(path.resolve(__dirname, '.data')) };
+      };
+      const reply = (res: import('http').ServerResponse, status: number, body: unknown) => {
+        res.statusCode = status;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(body));
+      };
+
+      server.middlewares.use('/api/lead', async (req, res) => {
+        if (req.method !== 'POST') return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const { handler, storage } = await load();
+        const result = await handler.handleLead(body, req.socket.remoteAddress ?? 'dev', {
+          env,
+          storage,
+          siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+        });
+        reply(res, result.status, result.body);
+      });
+
+      server.middlewares.use('/api/quote', async (req, res) => {
+        if (req.method !== 'GET') return reply(res, 405, { ok: false, error: 'Alleen GET is toegestaan.' });
+        const { handler, storage } = await load();
+        const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
+        const result = await handler.handleGetQuote(url.searchParams, storage);
+        if (result.kind === 'pdf') {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', `inline; filename="${result.filename}"`);
+          return res.end(Buffer.from(result.pdf));
+        }
+        reply(res, result.status, result.body);
+      });
+    },
+  };
+}
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    plugins: [react(), tailwindcss(), leadApiDevServer(env)],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
@@ -18,7 +75,8 @@ export default defineConfig(() => {
       // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
-      watch: process.env.DISABLE_HMR === 'true' ? null : {},
+      // Quotes/leads written to .data/ during dev must not trigger reloads.
+      watch: process.env.DISABLE_HMR === 'true' ? null : { ignored: ['**/.data/**'] },
     },
   };
 });
