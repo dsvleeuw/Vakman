@@ -5,14 +5,22 @@ to [ROADMAP.md](../ROADMAP.md).
 
 ## Lead handling
 
-- **No backend.** Every form (contact, fault report, m² quote) only opens
-  WhatsApp with a prefilled message. Nothing is stored server-side and
-  there is no delivery guarantee if the visitor abandons WhatsApp.
-- **No e-mail channel.** The wizard offers "E-mail" and "Allebei" as
-  channel choices, but the selection is ignored and there are no `mailto:`
-  links anywhere (roadmap 1.1/1.2).
-- **No persistence of submissions.** Bookings, fault reports and contact
-  messages live in React state and disappear on refresh (roadmap 1.3/3.1).
+- **No own mail domain yet.** Mail goes through Resend with the shared
+  sender `onboarding@resend.dev`. In that test mode Resend only delivers to
+  the account address (`thomascliphero@gmail.com`): lead notifications
+  arrive, but confirmations to customers are refused and only logged until
+  a domain is verified and `QUOTE_FROM_EMAIL` changed. The request itself
+  still succeeds and the customer sees the quote on screen.
+- **No admin view.** Leads (`leads`) and quotes (`quotes`) are stored in
+  Netlify Blobs but can only be read in the Netlify UI/CLI or via the
+  quote link; there is no dashboard or export yet.
+- **Rate limit is per function instance** (in memory, 5 per 10 minutes per
+  IP). It stops a hammered form, not a distributed attack.
+- **WhatsApp delivery is manual.** Choosing WhatsApp puts a one-tap wa.me
+  link in our notification mail; someone at Klusbaas still has to press
+  send. There is no WhatsApp Business API integration.
+- **Demo-site leads come to Klusbaas**, not to the craftsman shown on the
+  demo; real customer sites need a per-site recipient (roadmap 3.x).
 - `PublishedSiteRecord` is defined in `types.ts` but unused; publishing is
   not actually recorded.
 
@@ -62,9 +70,8 @@ to [ROADMAP.md](../ROADMAP.md).
   deployment origin or those tags point at the wrong host.
 - Analytics events are emitted but only collected once a tag manager (GTM or
   GA4) is added to `index.html`; nothing is sent today.
-- Leads still end in WhatsApp/`mailto:` deep links: the channel choice now
-  produces a ready-to-send message, but there is no backend, no delivery
-  guarantee and no confirmation e-mail (roadmap 1.2/1.3).
+- `bun.lock` was not regenerated for `pdf-lib` and `@netlify/blobs` (bun was
+  not available); run `bun install` once to update it.
 - The wizard draft lives in sessionStorage, so a prerendered deep link such
   as `/start/afspraak` opened in a fresh tab starts with an empty form.
 - Accessibility has been handled pragmatically (labels, aria attributes,

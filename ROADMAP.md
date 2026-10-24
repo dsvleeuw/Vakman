@@ -15,9 +15,9 @@ Small, high-trust fixes closing gaps between the UI and real behaviour.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 1.1 | Wire the wizard's `channel` choice (WhatsApp / E-mail / Allebei) into the published site | S | The state exists in `WizardView` but is not persisted or read by `SiteView`. Today every site is WhatsApp-first regardless of the choice. |
-| 1.2 | Implement the e-mail channel (`mailto:` at minimum, transactional mail later) | M | There are currently no `mailto:` links anywhere; the FAQ already implies e-mail support. |
-| 1.3 | Persist appointments and quote requests | M | Booking state is in-memory only and `PublishedSiteRecord` is defined but unused. Start with `localStorage`, move to a backend in phase 3. |
+| 1.1 | ✅ Done (lead endpoint + `quoteDelivery`) — Wire the wizard's `channel` choice (WhatsApp / E-mail / Allebei) into the published site | S | The state exists in `WizardView` but is not persisted or read by `SiteView`. Today every site is WhatsApp-first regardless of the choice. |
+| 1.2 | ✅ Done (Resend via `/api/lead`; own domain pending) — Implement the e-mail channel (`mailto:` at minimum, transactional mail later) | M | There are currently no `mailto:` links anywhere; the FAQ already implies e-mail support. |
+| 1.3 | ✅ Done (Netlify Blobs `leads`/`quotes`) — Persist appointments and quote requests | M | Booking state is in-memory only and `PublishedSiteRecord` is defined but unused. Start with `localStorage`, move to a backend in phase 3. |
 | 1.4 | Build (or remove the promise of) the Klusbaas dashboard mentioned in the FAQ | L | The FAQ claims prices, services and photos can be edited via a dashboard that does not exist yet. |
 | 1.5 | Make the Google Bedrijfsprofiel badge a real integration or label it honestly | S | It currently links to a Maps search; no API connection exists. |
 

@@ -5,23 +5,55 @@
 The competitor research concluded that tradespeople use WhatsApp all day,
 while a subset of visitors prefers a traditional form. The chosen strategy
 is therefore **D: WhatsApp as the primary button, a short form as the
-alternative**. This is implemented without a backend: every form composes
-a prefilled `wa.me` message and opens WhatsApp, so the craftsman receives
-all leads in a single inbox and nothing can fail server-side.
+alternative**. Every form now posts to one endpoint, `POST /api/lead`, so
+each lead is saved and mailed to us; the prefilled `wa.me` message stays
+available as the fallback when sending fails.
+
+## How a lead travels
+
+1. The form validates in the browser and posts JSON with `kind`
+   (`offerte`, `contact`, `storing`, `oppervlak`, `afspraak`), a hidden
+   honeypot field `website` and `startedAt` (when the form mounted).
+2. `src/server/lead.ts` (same code in the Netlify Function and `vite dev`)
+   validates again with `utils/lead.ts`, silently drops spam (honeypot or
+   under 3 seconds), applies the rate limit and saves the lead in Netlify
+   Blobs (`leads`; `.data/leads` in dev).
+3. For `offerte` it also creates the numbered quote, stores it plus its PDF
+   in `quotes` and builds the private link `/offerte/:id?token=…`.
+4. Mail to `QUOTE_NOTIFY_EMAIL` (reply-to the visitor). This must succeed,
+   otherwise the visitor sees an error with the WhatsApp fallback; the lead
+   is already saved either way.
+5. Mail to the visitor, only when they gave an address and, for quotes,
+   when the channel includes e-mail. A refusal (Resend test mode) is logged
+   and reported, never fatal.
+
+The UI shows the real state through `useLeadSubmit` + `LeadError`:
+"Versturen…", a confirmation with the reference, or the error.
+
+## Wizard channel choice
+
+`quoteDelivery(channel)` in `utils/quote.ts` decides:
+
+| Choice | Customer gets | Klusbaas gets |
+|--------|---------------|---------------|
+| E-mail | mail with PDF + link | mail with PDF |
+| WhatsApp | quote link on screen (no mail; e-mail optional) | mail with PDF + one-tap wa.me link to send the quote |
+| Allebei | mail with PDF + link | mail with PDF + wa.me link |
 
 ## Where contacts can start
 
 | Surface | Component | Channels offered |
 |---------|-----------|------------------|
-| Demo site, dedicated section | `ContactSection` | WhatsApp card (primary) + short form that opens WhatsApp |
+| Demo site, dedicated section | `ContactSection` | WhatsApp card (primary) + short form → `/api/lead` (optional e-mail for a confirmation) |
 | Mobile, always visible | sticky bar in `SiteView` | `tel:` call + WhatsApp |
 | Desktop, always visible | floating stack in `SiteView` | WhatsApp + quote CTA (`#prijs`) |
 | Demo site header | `SiteView` header | `tel:` call |
 | Demo site footer | `SiteView` footer | WhatsApp (primary) + call |
 | Plumber emergency | `EmergencyButton` | call + emergency WhatsApp with problem prefilled |
-| Electrician fault report | `FaultReportForm` | validated form → WhatsApp notification; emergency phone link |
-| Painter m² calculator | `SurfaceCalculator` | quote summary → WhatsApp |
-| Booking calendar | `BookingCalendar` | Google Calendar/Drive sync when logged in, otherwise local confirmation |
+| Electrician fault report | `FaultReportForm` | validated form → `/api/lead`; WhatsApp fallback; emergency phone link |
+| Painter m² calculator | `SurfaceCalculator` | name + phone → `/api/lead`, or the estimate via WhatsApp |
+| Booking calendar | `BookingCalendar` | `/api/lead`, plus Google Calendar/Drive sync when logged in |
+| Wizard | `WizardView` step "Versturen" | `/api/lead` (`kind: offerte`) → numbered quote, PDF, link |
 
 ## Message templates
 
@@ -64,8 +96,10 @@ pass through unchanged.
 
 ## Validation rules
 
-- Dutch phone fields require ten digits starting with `0` after stripping
-  whitespace and dashes: `/^0\d{9}$/`.
+- Phone fields go through `normalizeDutchPhone()` (accepts `06…`, `+31 6…`,
+  `0031 (0)6…`), in the browser and again on the server.
+- E-mail is optional on forms, and required in the wizard only when the
+  quote is mailed (`E-mail` or `Allebei`).
 - Required name/address fields show inline red errors and block submission
   until valid.
 - The generic contact message needs at least 10 characters to prevent
@@ -73,18 +107,15 @@ pass through unchanged.
 
 ## Known gaps (see [known-limitations.md](./known-limitations.md))
 
-- The wizard's channel choice (WhatsApp / E-mail / Allebei) is not yet
-  wired into published sites; every demo currently follows strategy D
-  regardless of the selection.
-- No e-mail channel exists yet (no `mailto:` or transactional mail).
-- Submissions are not stored: opening WhatsApp is the only delivery
-  mechanism. A lead API is phase 3 on the [roadmap](../ROADMAP.md).
+- Without a verified mail domain, Resend only delivers to the account
+  address; customer confirmations are logged, not sent.
+- Leads from demo sites go to Klusbaas, not to the demo's craftsman.
+- WhatsApp delivery of a quote is a one-tap link for us, not automatic.
 
 ## Changing the strategy
 
 - To reword a template, edit the relevant helper — the tests will show
   every component affected.
-- To add a real form backend later, keep the WhatsApp URL as a fallback
-  path and introduce an async submit alongside the deep link rather than
-  replacing it, so the no-backend behaviour remains available in
-  previews and tests.
+- To add a form, give it a `kind` in `utils/lead.ts` (with tests), a mail
+  in `utils/leadEmail.ts`, and use `useLeadSubmit` + `LeadHoneypot` +
+  `LeadError` in the component. Keep the WhatsApp URL as fallback.

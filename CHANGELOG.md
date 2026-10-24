@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Eén lead-endpoint (`POST /api/lead`).** Wizard, afspraakkalender,
+  contactformulier, storingsmelding en m²-offerte posten naar één Netlify
+  Function (`netlify/functions/lead.mts`); `vite dev` gebruikt dezelfde
+  handler (`src/server/lead.ts`). Elke lead wordt gevalideerd
+  (`utils/lead.ts`), gefilterd met honeypot en minimale invultijd (3 s),
+  per IP beperkt (5 per 10 min per instance), opgeslagen in Netlify Blobs
+  (`leads`, lokaal `.data/leads`) en gemaild naar `QUOTE_NOTIFY_EMAIL` via
+  Resend. Formulieren tonen de echte status: "Versturen…", bevestiging met
+  referentie, of een fout met WhatsApp-terugval. Een geweigerde mail aan de
+  klant (Resend-testmodus) laat de aanvraag niet mislukken.
+- **Offertebouwer.** Nieuwe wizardstap "Extra's" (pakket uit `data/plans.ts`
+  + add-ons uit `data/addons.ts`) met live samenvatting. Versturen maakt een
+  genummerde offerte (`KB-2026-0001`) met regels, subtotaal, btw 21 %, totaal
+  en 30 dagen geldigheid (`utils/quote.ts`), slaat die op in Blobs-store
+  `quotes`, rendert een Nederlandse PDF met `pdf-lib` en hangt die aan de
+  mail naar Klusbaas én de klant. De offerte is terug te zien op
+  `/offerte/:id?token=…` (256-bit token; PDF via `/api/offerte/:id?…&format=pdf`).
+- **Kanaalkeuze werkt echt.** WhatsApp / E-mail / Allebei bepaalt via
+  `quoteDelivery()` of de klant de PDF gemaild krijgt en of Klusbaas in de
+  eigen mail een kant-en-klare WhatsApp-link krijgt om de offerte te sturen.
+  E-mail is alleen verplicht als er gemaild wordt.
+- Zonder `RESEND_API_KEY` draait alles in previewmodus: mails komen in de
+  serverlog en de bevestiging zegt eerlijk dat er niets is gemaild.
+
 - **Persoonlijke demo-link.** `/voorbeeld/:vak/:stijl?naam=&plaats=&tel=`
   vult bedrijfsnaam, plaats en (geldig) telefoonnummer in, met dezelfde
   terugval op sectordefaults als de wizard. De knop "Maak dit mijn website"
