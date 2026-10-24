@@ -210,3 +210,22 @@ test('helpers: tokensMatch and pdfSafe', () => {
   assert.equal(tokensMatch('abc', 'ab'), false);
   assert.equal(pdfSafe('Prijs € 1.250,00 · m² ✓ → klaar'), 'Prijs € 1.250,00 · m² v -> klaar');
 });
+
+test('MAIL_TEST_RECIPIENT sends the customer mail to the test inbox, marked as test', async () => {
+  const sent: { to: string[]; subject: string; text: string; html: string }[] = [];
+  const fetchImpl = async (_url: string, init: RequestInit) => {
+    sent.push(JSON.parse(String(init.body)));
+    return new Response('{"id":"re_1"}', { status: 200 });
+  };
+  const { deps } = setup({
+    env: { RESEND_API_KEY: 'test', QUOTE_NOTIFY_EMAIL: 'team@example.nl', MAIL_TEST_RECIPIENT: 'team@example.nl' },
+    fetchImpl,
+  });
+  const result = await handleLead(body, 'ip', deps);
+  assert.equal(result.body.delivery?.customer.status, 'sent');
+  assert.deepEqual(sent.map((mail) => mail.to[0]), ['team@example.nl', 'team@example.nl']);
+  assert.match(sent[1].subject, /^\[TEST → kees@example\.nl\] /);
+  assert.match(sent[1].text, /^TESTMAIL: bedoeld voor kees@example\.nl/);
+  assert.ok(sent[1].html.includes('TESTMAIL: bedoeld voor kees@example.nl'));
+  assert.ok(!sent[0].subject.startsWith('[TEST'));
+});

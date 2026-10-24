@@ -22,6 +22,28 @@ export interface OutgoingMail {
   attachments?: MailAttachment[];
 }
 
+/**
+ * Testing without a verified domain: Resend only delivers to the account's
+ * own address. With `testRecipient` set, a customer mail goes there instead,
+ * marked with the intended address in the subject and a banner, so every
+ * mail can be reviewed in one inbox. Without it the mail is unchanged.
+ */
+export function redirectForTest(mail: OutgoingMail, testRecipient: string | undefined): OutgoingMail {
+  const to = testRecipient?.trim();
+  if (!to || to === mail.to) return mail;
+  const note = `TESTMAIL: bedoeld voor ${mail.to}`;
+  return {
+    ...mail,
+    to,
+    subject: `[TEST → ${mail.to}] ${mail.subject}`,
+    text: `${note}\n\n${mail.text}`,
+    html: mail.html.replace(
+      /<body([^>]*)>/,
+      `<body$1><div style="background:#fef3c7;color:#78350f;font:700 13px Arial,sans-serif;padding:10px 16px;text-align:center;">${note.replace(/[<>&]/g, '')}</div>`
+    ),
+  };
+}
+
 export type DeliveryStatus = 'sent' | 'preview' | 'failed' | 'skipped';
 
 export interface DeliveryResult {

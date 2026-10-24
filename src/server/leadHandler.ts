@@ -12,7 +12,7 @@ import {
   toPublicQuote,
   type PublicQuote,
 } from '../utils/quote';
-import { sendViaResend, type DeliveryResult, type FetchLike, type OutgoingMail } from './mailer';
+import { redirectForTest, sendViaResend, type DeliveryResult, type FetchLike, type OutgoingMail } from './mailer';
 import { renderQuotePdf } from './quotePdf';
 import type { LeadStorage } from './storage';
 
@@ -29,6 +29,8 @@ export interface LeadEnv {
   QUOTE_FROM_EMAIL?: string;
   /** Where every lead and quote is delivered. */
   QUOTE_NOTIFY_EMAIL?: string;
+  /** Testing only: customer confirmations go here instead. Empty in production. */
+  MAIL_TEST_RECIPIENT?: string;
 }
 
 export const DEFAULT_NOTIFY_EMAIL = 'thomascliphero@gmail.com';
@@ -158,7 +160,10 @@ async function handleQuote(
   if (delivery.email && record.customer.email) {
     const customerMail = buildQuoteEmail(record, 'customer', { quoteUrl });
     customer = await deliver(
-      { from, to: record.customer.email, replyTo: notify, ...customerMail, attachments: [attachment] },
+      redirectForTest(
+        { from, to: record.customer.email, replyTo: notify, ...customerMail, attachments: [attachment] },
+        deps.env.MAIL_TEST_RECIPIENT
+      ),
       deps.env,
       deps.fetchImpl,
       log,
@@ -205,7 +210,10 @@ async function handleSiteLead(
   let customer: DeliveryResult = { to: lead.fields.email ?? lead.fields.phone ?? '', status: 'skipped' };
   if (lead.fields.email) {
     customer = await deliver(
-      { from, to: lead.fields.email, replyTo: notify, ...buildSiteLeadEmail(lead, 'customer', reference) },
+      redirectForTest(
+        { from, to: lead.fields.email, replyTo: notify, ...buildSiteLeadEmail(lead, 'customer', reference) },
+        deps.env.MAIL_TEST_RECIPIENT
+      ),
       deps.env,
       deps.fetchImpl,
       log,

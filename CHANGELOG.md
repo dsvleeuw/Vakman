@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`MAIL_TEST_RECIPIENT`** stuurt klantbevestigingen tijdelijk naar één
+  testinbox, met `[TEST → echt adres]` in het onderwerp en een gele balk in de
+  mail, zolang Resend zonder geverifieerd domein alleen aan het accountadres
+  levert. Leeg laten in productie. De offerte-PDF gaat nu mee als
+  `application/pdf`.
+
 - **Eén lead-endpoint `POST /api/lead`.** Wizard-offerte, afspraak
   (`BookingCalendar`), contactformulier, storingsmelding en m²-offerte posten
   naar dezelfde Netlify Function (en in `vite dev` naar dezelfde handler via
