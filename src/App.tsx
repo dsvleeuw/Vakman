@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import { HeroStrip } from './components/HeroStrip';
 import { PresetsSection } from './components/PresetsSection';
 import { HowItWorks } from './components/HowItWorks';
+import { PricingSection } from './components/PricingSection';
 import { FaqSection } from './components/FaqSection';
 import { SiteView } from './components/SiteView';
 import { WizardView } from './components/WizardView';
@@ -186,6 +187,9 @@ export default function App() {
 
             {/* How It Works */}
             <HowItWorks onStart={handleGoStart} />
+
+            {/* Platform Pricing */}
+            <PricingSection onStart={handleGoStart} />
 
             {/* Platform FAQ */}
             <FaqSection />
