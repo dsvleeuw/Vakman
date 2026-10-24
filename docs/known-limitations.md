@@ -14,7 +14,7 @@ to [ROADMAP.md](../ROADMAP.md).
 - **No admin view.** Leads (`leads`) and quotes (`quotes`) are stored in
   Netlify Blobs but can only be read in the Netlify UI/CLI or via the
   quote link; there is no dashboard or export yet.
-- **Rate limit is per function instance** (in memory, 5 per 10 minutes per
+- **Rate limit is per function instance** (in memory, 20 per 10 minutes per
   IP). It stops a hammered form, not a distributed attack.
 - **WhatsApp delivery is manual.** Choosing WhatsApp puts a one-tap wa.me
   link in our notification mail; someone at Klusbaas still has to press
@@ -70,8 +70,6 @@ to [ROADMAP.md](../ROADMAP.md).
   deployment origin or those tags point at the wrong host.
 - Analytics events are emitted but only collected once a tag manager (GTM or
   GA4) is added to `index.html`; nothing is sent today.
-- `bun.lock` was not regenerated for `pdf-lib` and `@netlify/blobs` (bun was
-  not available); run `bun install` once to update it.
 - The wizard draft lives in sessionStorage, so a prerendered deep link such
   as `/start/afspraak` opened in a fresh tab starts with an empty form.
 - Accessibility has been handled pragmatically (labels, aria attributes,

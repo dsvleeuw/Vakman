@@ -44,12 +44,16 @@ export interface LeadResult {
     /** How the quote reaches the customer, from the wizard channel choice. */
     delivery?: QuoteDelivery;
     customerEmailSent?: boolean;
+    /** Per recipient what happened, so a refused test-mode mail is visible. */
+    mail?: { team: MailStatus; customer: MailStatus };
     error?: string;
   };
 }
 
-/** Five submissions per ten minutes per IP, per function instance. */
-const defaultRateLimiter = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
+export type MailStatus = 'sent' | 'preview' | 'refused' | 'skipped';
+
+/** Twenty submissions per ten minutes per IP, per function instance. */
+const defaultRateLimiter = createRateLimiter({ limit: 20, windowMs: 10 * 60 * 1000 });
 
 export interface StoredLead {
   reference: string;
@@ -142,6 +146,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
   }
 
   let customerEmailSent = false;
+  let customerStatus: MailStatus = 'skipped';
   if (customerMail && contact.email) {
     const customer = await sendMail(
       { to: contact.email, replyTo: notify, attachments, ...customerMail },
@@ -150,6 +155,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
       log
     );
     customerEmailSent = customer.ok && !customer.preview;
+    customerStatus = customer.preview ? 'preview' : customer.ok ? 'sent' : 'refused';
   }
   record.customerEmailSent = customerEmailSent;
   await deps.leads.set(reference, record).catch(() => undefined);
@@ -162,6 +168,7 @@ export async function handleLead(body: unknown, deps: LeadDeps): Promise<LeadRes
       reference,
       ...(quote && lead.kind === 'offerte' ? { quote, quoteUrl, delivery: quoteDelivery(lead.request.channel) } : {}),
       customerEmailSent,
+      mail: { team: team.preview ? 'preview' : 'sent', customer: customerStatus },
     },
   };
 }

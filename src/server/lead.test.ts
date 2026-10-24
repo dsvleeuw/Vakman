@@ -109,6 +109,7 @@ test('a refused customer mail (Resend test mode) does not fail the lead', async 
   assert.equal(result.status, 200);
   assert.equal(result.body.ok, true);
   assert.equal(result.body.customerEmailSent, false);
+  assert.deepEqual(result.body.mail, { team: 'sent', customer: 'refused' });
   const [saved] = [...leads.data.values()] as { teamEmailSent: boolean }[];
   assert.equal(saved.teamEmailSent, true);
 });

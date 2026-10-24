@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Function (`netlify/functions/lead.mts`); `vite dev` gebruikt dezelfde
   handler (`src/server/lead.ts`). Elke lead wordt gevalideerd
   (`utils/lead.ts`), gefilterd met honeypot en minimale invultijd (3 s),
-  per IP beperkt (5 per 10 min per instance), opgeslagen in Netlify Blobs
+  per IP beperkt (20 per 10 min per instance), opgeslagen in Netlify Blobs
   (`leads`, lokaal `.data/leads`) en gemaild naar `QUOTE_NOTIFY_EMAIL` via
   Resend. Formulieren tonen de echte status: "Versturen…", bevestiging met
   referentie, of een fout met WhatsApp-terugval. Een geweigerde mail aan de
