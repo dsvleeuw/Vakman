@@ -19,10 +19,17 @@ Full context: [docs/architecture.md](./docs/architecture.md).
 - Commit in small, focused chunks using Conventional Commits
   (`feat:`, `fix:`, `docs:`, `test:`, `refactor:`).
 - Push to the session branch and open/update one PR against `main`.
-- Only merge when the user explicitly asks. When you do, use
-  `gh pr merge <number> --merge` as the **last** command of the chain,
-  with no pipes or redirects, and never pass `--auto`. Do not delete the
-  session branch unless asked.
+- **You may merge without asking** once the PR is ready: `bun run check`
+  is green on the branch, the PR is `MERGEABLE`/`CLEAN` against `main`
+  and no GitHub/Netlify check has failed. Read the diff before merging
+  someone else's PR. Use `gh pr merge <number> --merge` as the **last**
+  command of the chain, with no pipes or redirects, and never pass
+  `--auto`. Do not delete the session branch unless asked.
+- A PR that conflicts or is stacked on another PR: merge the base PR
+  first, rebase the branch onto the new `main` (`git rebase --onto`),
+  re-run `bun run check`, retarget it to `main`, then merge.
+- Still ask first for anything outside this repo's PRs (force-pushing
+  `main`, deleting branches, publishing data such as lead lists).
 - Never request credentials or tokens; GitHub auth is preconfigured. If
   `git`/`gh` fails with an auth error, tell the user to reconnect GitHub.
 
@@ -34,14 +41,17 @@ esbuild/Vite peer conflict.
 ```bash
 bun install
 bun run dev      # dev server on port 3000, bound to 0.0.0.0
+bun run check    # lint + test + build in parallel (~20 s) — use this
 bun run lint     # tsc --noEmit — must stay clean
-bun test         # node:test unit tests under src/**/*.test.ts
+bun run test     # bun test src (unit tests under src/**/*.test.ts)
 bun run build    # vite build + prerender 39 routes + sitemap/robots
 bun run build:spa  # vite build only (no prerender), for debugging
 ```
 
 All three (`lint`, `test`, `build`) must be green before you finish a
-change. The Netlify deploy preview is the only external CI check.
+change; `bun run check` runs them at the same time and prints each
+result. The Netlify deploy preview is the only external CI check. If
+`bun` is missing, install it with `npm i -g bun`.
 
 ## Code conventions
 
@@ -129,7 +139,7 @@ change. The Netlify deploy preview is the only external CI check.
 
 ## Definition of done for any change
 
-1. `bun run lint`, `bun test` and `bun run build` all pass.
+1. `bun run check` passes (lint, test and build).
 2. New pure logic has tests; user-facing strings are Dutch.
 3. `CHANGELOG.md` updated under `Unreleased` (or a new dated section at
    release time).

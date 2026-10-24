@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`bun run check`** draait lint, tests en build tegelijk
+  (`scripts/check.mjs`, ~20 s in plaats van ~70 s na elkaar).
+- **Agents mogen zelf mergen** zodra `bun run check` groen is en de PR
+  schoon tegen `main` staat; gestapelde PR's eerst rebasen (`AGENTS.md`).
+- **Arena-auditplan** (`docs/07-arena-audit-plan.md`) en de app-fixlijst
+  (`docs/06-app-fixlijst.md`).
 - **`MAIL_TEST_RECIPIENT`** stuurt klantbevestigingen tijdelijk naar één
   testinbox, met `[TEST → echt adres]` in het onderwerp en een gele balk in de
   mail, zolang Resend zonder geverifieerd domein alleen aan het accountadres

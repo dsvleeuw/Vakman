@@ -8,6 +8,7 @@
     "build": "vite build && tsx scripts/prerender.ts",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
+    "check": "node scripts/check.mjs",
     "lint": "tsc --noEmit",
     "test": "bun test src",
     "build:spa": "vite build"
