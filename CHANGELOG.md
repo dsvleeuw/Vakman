@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Persoonlijke demo-link.** `/voorbeeld/:vak/:stijl?naam=&plaats=&tel=`
+  vult bedrijfsnaam, plaats en (geldig) telefoonnummer in, met dezelfde
+  terugval op sectordefaults als de wizard. De knop "Maak dit mijn website"
+  opent `/start/gegevens` met die velden vooringevuld. De gegevens worden pas
+  na hydration toegepast, zodat de geprerenderde HTML blijft kloppen, en gaan
+  niet mee in `track()` (alleen het pad wordt gelogd).
+
 
 - **Prerendering van alle indexeerbare routes.** `npm run build` rendert nu na
   `vite build` de homepage en alle 35 vakmanssites naar echte HTML

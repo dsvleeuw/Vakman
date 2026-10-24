@@ -13,7 +13,7 @@ import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
 import { RouteLink } from './RouteLink';
 import { DemoContactNotice } from './DemoContactNotice';
-import { styleIdFromIndex, type Route } from '../utils/router';
+import { styleIdFromIndex, type DemoPersonalization, type Route } from '../utils/router';
 import { track } from '../utils/analytics';
 import { DEMO_CONTACT_HREF, buildSiteTelUrl, buildSiteWhatsAppUrl } from '../utils/contact';
 
@@ -25,6 +25,8 @@ interface SiteViewProps {
   /** When true, renders only the website body (no preview controls, floating
    *  buttons or mobile sticky bar) so it can live inside another frame. */
   embedded?: boolean;
+  /** Details from a personal demo link (`?naam=&plaats=&tel=`). */
+  personal?: DemoPersonalization;
 }
 
 export const SiteView: React.FC<SiteViewProps> = ({
@@ -33,6 +35,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
   selectedStyleIndex,
   isCustomized,
   embedded = false,
+  personal,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   // The preview bar is three wrapped rows on a phone; collapse the sector and
@@ -103,13 +106,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
     setDemoNoticeOpen(true);
   };
 
+  /** "Maak dit mijn website" carries a personal link's details along. */
   const wizardRoute: Route = {
     name: 'wizard',
     step: 'gegevens',
     sector: selectedSector,
     styleId: styleIdFromIndex(selectedStyleIndex),
+    ...(personal ? { prefill: personal } : {}),
   };
-  const builderLabel = isCustomized ? 'Bewerk jouw gegevens ✎' : 'Pas deze site aan →';
+  const builderLabel = personal
+    ? 'Maak dit mijn website →'
+    : isCustomized
+      ? 'Bewerk jouw gegevens ✎'
+      : 'Pas deze site aan →';
 
   return (
     <div
@@ -206,7 +215,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
         {/* Builder CTA (desktop) */}
         <RouteLink
           route={wizardRoute}
-          className={`hidden lg:inline-flex min-h-11 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline`}
+          className={`${personal ? 'inline-flex justify-center' : 'hidden lg:inline-flex'} min-h-11 px-4 rounded-full bg-amber-400 hover:bg-amber-300 text-stone-900 font-extrabold text-xs whitespace-nowrap transition-transform hover:-translate-y-0.5 items-center no-underline`}
         >
           {builderLabel}
         </RouteLink>

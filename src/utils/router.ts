@@ -1,6 +1,7 @@
-import type { PlanId, SectorId, StyleId } from '../types';
+import type { PlanId, SectorId, StyleId, WizardFormData } from '../types';
 import { SECTORS, STYLES } from '../data/tradesData';
 import { isPlanId } from '../data/plans';
+import { normalizeDutchPhone } from './contact';
 
 /**
  * Every view of the app gets a real, shareable URL. This module is pure so
@@ -9,8 +10,11 @@ import { isPlanId } from '../data/plans';
  *   /                                   home
  *   /?vak=loodgieter                    home with a preselected trade
  *   /voorbeeld/loodgieter/signaal       generated trade website
+ *   /voorbeeld/schilder/modern?naam=Schildersbedrijf%20Jansen&plaats=Hoofddorp
+ *                                       personal demo link for a prospect
  *   /start/vak                          wizard, step 1 (also /start)
  *   /start/gegevens?vak=schilder&stijl=modern
+ *   /start/gegevens?vak=schilder&naam=…&plaats=…&tel=…   prefilled details
  *   /start/klaar                        wizard confirmation screen
  *   /componenten                        component library
  *   /componenten/trust-bar              component library with a selection
@@ -37,6 +41,71 @@ export const WIZARD_STEP_LABELS: Record<WizardRouteStep, string> = {
 export const DEFAULT_SECTOR: SectorId = 'timmerman';
 export const DEFAULT_STYLE_ID: StyleId = STYLES[0].id;
 
+/**
+ * Business details carried in a personal demo link (`?naam=&plaats=&tel=`).
+ * Only fields that survived validation are present.
+ */
+export interface DemoPersonalization {
+  biz?: string;
+  city?: string;
+  phone?: string;
+}
+
+/** Long enough for any real trade name, short enough to keep layouts intact. */
+const MAX_PERSONAL_TEXT = 60;
+
+function cleanPersonalText(value: string | null): string | undefined {
+  if (value === null) return undefined;
+  const cleaned = value.replace(/\s+/g, ' ').trim().slice(0, MAX_PERSONAL_TEXT).trim();
+  return cleaned || undefined;
+}
+
+/**
+ * Read `naam`, `plaats` and `tel` from a query string. The phone number only
+ * counts when it is a valid Dutch number; it is kept in its normalised
+ * 10-digit form. Returns `undefined` when nothing usable is present.
+ */
+export function parseDemoPersonalization(
+  params: URLSearchParams
+): DemoPersonalization | undefined {
+  const biz = cleanPersonalText(params.get('naam'));
+  const city = cleanPersonalText(params.get('plaats'));
+  const rawPhone = params.get('tel');
+  const phone = rawPhone ? normalizeDutchPhone(rawPhone) ?? undefined : undefined;
+  if (!biz && !city && !phone) return undefined;
+  return {
+    ...(biz ? { biz } : {}),
+    ...(city ? { city } : {}),
+    ...(phone ? { phone } : {}),
+  };
+}
+
+function setPersonalParams(params: URLSearchParams, personal?: DemoPersonalization) {
+  if (!personal) return;
+  if (personal.biz) params.set('naam', personal.biz);
+  if (personal.city) params.set('plaats', personal.city);
+  if (personal.phone) params.set('tel', personal.phone);
+}
+
+/**
+ * Combine wizard details saved on this device with a personal demo link.
+ * The link wins per field because it is the explicit request; empty fields
+ * stay empty so `buildActiveSite` falls back to the sector defaults, exactly
+ * like the wizard does.
+ */
+export function mergeDemoPersonalization(
+  saved: WizardFormData | undefined,
+  personal: DemoPersonalization | undefined
+): WizardFormData | undefined {
+  if (!personal) return saved;
+  return {
+    biz: personal.biz ?? saved?.biz ?? '',
+    owner: saved?.owner ?? '',
+    phone: personal.phone ?? saved?.phone ?? '',
+    city: personal.city ?? saved?.city ?? '',
+  };
+}
+
 export type Route =
   | { name: 'home'; sector?: SectorId }
   | {
@@ -46,8 +115,10 @@ export type Route =
       styleId?: StyleId;
       /** Chosen package from the pricing table, e.g. /start/vak?pakket=pro */
       plan?: PlanId;
+      /** Details to prefill, e.g. from "Maak dit mijn website" on a demo link. */
+      prefill?: DemoPersonalization;
     }
-  | { name: 'site'; sector: SectorId; styleId: StyleId }
+  | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
   | { name: 'components'; componentId?: string }
   | { name: 'notFound'; path: string };
 
@@ -118,12 +189,14 @@ export function parseRoute(pathname: string, search = ''): Route {
     }
     const styleParam = params.get('stijl');
     const planParam = params.get('pakket');
+    const prefill = parseDemoPersonalization(params);
     return {
       name: 'wizard',
       step,
       ...(sector ? { sector } : {}),
       ...(isStyleId(styleParam) ? { styleId: styleParam } : {}),
       ...(isPlanId(planParam) ? { plan: planParam } : {}),
+      ...(prefill ? { prefill } : {}),
     };
   }
 
@@ -132,7 +205,8 @@ export function parseRoute(pathname: string, search = ''): Route {
     if (!isSectorId(second)) return { name: 'notFound', path: pathname };
     const styleId = third ?? DEFAULT_STYLE_ID;
     if (!isStyleId(styleId)) return { name: 'notFound', path: pathname };
-    return { name: 'site', sector: second, styleId };
+    const personal = parseDemoPersonalization(params);
+    return { name: 'site', sector: second, styleId, ...(personal ? { personal } : {}) };
   }
 
   if (first === 'componenten') {
@@ -153,11 +227,16 @@ export function buildPath(route: Route): string {
       if (route.sector) params.set('vak', route.sector);
       if (route.styleId) params.set('stijl', route.styleId);
       if (route.plan) params.set('pakket', route.plan);
+      setPersonalParams(params, route.prefill);
       const query = params.toString();
       return `/start/${route.step}${query ? `?${query}` : ''}`;
     }
-    case 'site':
-      return `/voorbeeld/${route.sector}/${route.styleId}`;
+    case 'site': {
+      const params = new URLSearchParams();
+      setPersonalParams(params, route.personal);
+      const query = params.toString();
+      return `/voorbeeld/${route.sector}/${route.styleId}${query ? `?${query}` : ''}`;
+    }
     case 'components':
       return route.componentId
         ? `/componenten/${encodeURIComponent(route.componentId)}`

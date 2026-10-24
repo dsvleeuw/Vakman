@@ -9,6 +9,7 @@ import {
   styleIdFromIndex,
   styleIndexFromId,
   type WizardRouteStep,
+  mergeDemoPersonalization,
 } from './utils/router';
 import { isPlanId } from './data/plans';
 import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
@@ -96,6 +97,14 @@ export default function App() {
     track('page_view', { route: route.name, path: window.location.pathname });
   }, [route]);
 
+  // Personal demo links (?naam=&plaats=&tel=) only apply after hydration:
+  // the prerendered HTML has the sector defaults, so the first client render
+  // must match it before the URL details take over.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  const personal = hydrated && route.name === 'site' ? route.personal : undefined;
+  const wizardPrefill = hydrated && route.name === 'wizard' ? route.prefill : undefined;
+
   const [draft, setDraft] = useState<WizardDraft>(loadDraft);
   const [scrolled, setScrolled] = useState(false);
 
@@ -150,7 +159,7 @@ export default function App() {
     const styleId = styleIdFromIndex(styleIndex);
     if (current.sector === sector && current.styleId === styleId) return;
     replaceUrl(
-      { name: 'wizard', step: current.step, sector, styleId, plan: current.plan },
+      { name: 'wizard', step: current.step, sector, styleId, plan: current.plan, prefill: current.prefill },
       { scroll: false, keepHash: true }
     );
   }, []);
@@ -388,10 +397,15 @@ export default function App() {
         <div id="main-content">
           <Suspense fallback={<PageFallback label="Voorbeeldwebsite laden…" />}>
             <SiteView
-              site={buildActiveSite(route.sector, styleIndexFromId(route.styleId), customData[route.sector])}
+              site={buildActiveSite(
+                route.sector,
+                styleIndexFromId(route.styleId),
+                mergeDemoPersonalization(customData[route.sector], personal)
+              )}
               selectedSector={route.sector}
               selectedStyleIndex={styleIndexFromId(route.styleId)}
               isCustomized={!!customData[route.sector]}
+              personal={personal}
             />
           </Suspense>
         </div>
@@ -407,6 +421,7 @@ export default function App() {
           hasInitialSector={Boolean(route.sector || draft.sectorChosen)}
           initialStyleIndex={wizardStyleIndex}
           initialForm={draft.form}
+          prefill={wizardPrefill}
           initialDisabledServices={draft.sector === wizardSector ? draft.disabledServices : undefined}
           plan={route.plan}
           onDraftChange={handleDraftChange}
