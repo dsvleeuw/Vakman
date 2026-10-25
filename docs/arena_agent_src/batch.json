@@ -1,0 +1,184 @@
+[
+ {
+  "id": "vk-src-01",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": false,
+  "scope": "src/App.tsx,src/main.tsx,src/entry-server.tsx,src/hooks/,src/utils/router.ts,src/utils/fonts.ts,src/components/RouteLink.tsx,src/components/NotFoundView.tsx,src/components/Header.tsx,src/components/SiteFooter.tsx,scripts/prerender.ts,index.html,public/_redirects,public/site.webmanifest",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-01-app-router-seo.prompt.md (App, router, SEO, prerender en hydratie).",
+  "accept": [
+   "Resultaatbestand KB-SRC-01 bestaat met de negen verplichte secties",
+   "Vragen 1, 6, 7, 11 en 16 zijn getest met commando of script, niet alleen beredeneerd",
+   "Elke bevinding heeft pad:regel als bewijs",
+   "Minstens drie S-verbeteringen zijn direct uitvoerbaar zonder nieuwe dependency",
+   "Eerdere auditpunten uit docs/08 zijn voorzien van een actuele status"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-02",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "src/server/,netlify/functions/,vite.config.ts,src/utils/lead.ts,src/utils/leadClient.ts,src/utils/leadEmail.ts,src/utils/quote.ts,src/utils/newsletter.ts,src/utils/newsletterClient.ts,src/utils/newsletterStatus.ts,src/hooks/useLeadForm.ts,src/components/LeadStatus.tsx,src/components/QuoteView.tsx,src/components/QuoteSummary.tsx,src/data/plans.ts,src/data/addons.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-02-server-api-security.prompt.md (Server, lead-API, offertes en security).",
+  "accept": [
+   "Er is een veld-voor-veld-tabel client naar server met de bron van waarheid",
+   "Offertetoken, rate limit en spamdrempels zijn aantoonbaar getest",
+   "Elke P0/P1 heeft een minimaal fixvoorstel zonder herontwerp",
+   "Niet-verifieerbare risico's staan expliciet benoemd"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-03",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": false,
+  "scope": "src/data/,src/types.ts,src/utils/pricing.ts,src/utils/surface.ts,src/utils/color.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-03-data-model-content.prompt.md (Datamodel, content en prijzen).",
+  "accept": [
+   "Er is een veld-voor-veld-tabel van SectorData met gebruikt-door en dood/dubbel",
+   "Alle prijzen in de code staan in een inventaris met pad:regel",
+   "De rekenketen quiz naar offerte is met script of test gecontroleerd",
+   "Minstens drie ontbrekende data-invarianten zijn als testvoorstel beschreven"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-04",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "src/components/WizardView.tsx,src/components/SiteView.tsx,src/components/BookingCalendar.tsx,src/components/PriceCalculator.tsx,src/components/AreaChecker.tsx,src/components/InfoPages.tsx,src/components/DemoContactNotice.tsx,src/components/BeforeAfterSlider.tsx,src/utils/appointments.ts,src/utils/googleWorkspace.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-04-wizard-site-conversie.prompt.md (Wizard, demosite en conversie).",
+  "accept": [
+   "Stapbewaking is aantoonbaar getest (deep link zonder gegevens)",
+   "Er is een CTA-inventarisatie per view met aantallen en pad:regel",
+   "Elk afhaakmoment heeft bewijs en een S/M/L-oplossing",
+   "Ongedekte beloftes in de UI zijn expliciet benoemd"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-05",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": false,
+  "scope": "src/components/tools/,src/components/extras/,src/components/ContactSection.tsx,src/components/FaqSection.tsx,src/components/HeroStrip.tsx,src/components/PresetsSection.tsx,src/components/PricingSection.tsx,src/components/HowItWorks.tsx,src/components/NewsletterSignup.tsx,src/components/ImageWithFallback.tsx,src/data/componentCatalog.ts,src/utils/contact.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-05-tools-extras-componenten.prompt.md (Tools, extras en marketingcomponenten).",
+  "accept": [
+   "De tooltabel is compleet voor alle vier de tools",
+   "Galerij-only componenten en cataloguspariteit zijn met grep bewezen",
+   "Er is een onderbouwde toolaanbeveling per ontbrekende sector",
+   "Elke aanbeveling noemt het exacte bestand waar hij landt"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-06",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "src/index.css,src/components/,src/hooks/useMediaQuery.ts,e2e/,src/data/paletteContrast.test.ts",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-06-a11y-ux-cross-cutting.prompt.md (Toegankelijkheid en UX-patronen).",
+  "accept": [
+   "De veldmatrix dekt alle formulieren in de app",
+   "Contrast is berekend met utils/color.ts of eigen berekening, niet geschat",
+   "Reduced motion en afbeeldingsattributen zijn per bestand volledig geïnventariseerd",
+   "Minstens één toetsenbordprobleem is gereproduceerd en beschreven"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-07",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": true,
+  "scope": "e2e/,playwright.config.ts,.github/,scripts/,package.json,tsconfig.json,.gitignore,netlify/,.claude/,.aistudio/,bun.lock,src/utils/,src/server/,src/data/,src/hooks/,src/components/",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-07-tests-tooling-repo.prompt.md (Tests, tooling, CI en repo-hygiëne).",
+  "accept": [
+   "Er is een feitelijke dekkingskaart per map met aantallen en soort test",
+   "strict en noUncheckedIndexedAccess zijn met tsc getest",
+   "Elke hygiënebevinding zegt of verwijderen veilig is en wat er breekt",
+   "Minstens drie ontbrekende checks zijn gekoppeld aan een echte regressie"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-08",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": false,
+  "scope": "README.md,AGENTS.md,ROADMAP.md,CHANGELOG.md,SKILL.md,arena-plan.md,02-taken.md,video-spec.md,docs/",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-08-docs-drift-waarheid.prompt.md (Documentatie tegen de code).",
+  "accept": [
+   "Minstens 40 claims zijn getoetst met citaat en bewijs",
+   "Alle cijfers uit de docs staan in een tabel met de juiste waarde",
+   "Elke tekstvervanging is direct plakbaar",
+   "De audits 06, 07 en 08 zijn zelf op veroudering getoetst"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-09",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": false,
+  "scope": "docs/arena_agent_src/output/",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-09-synthese-roadmap.prompt.md (Synthese: prioriteiten en feature-roadmap).",
+  "accept": [
+   "Alle acht invoerresultaten zijn gebruikt en genoemd",
+   "Minstens drie tegenstrijdigheden zijn benoemd en beslecht",
+   "De top 20 is gesorteerd met een uitlegbare methode",
+   "De executive summary past op twee kantjes",
+   "Er is een niet-doen-lijst met minstens vijf punten"
+  ],
+  "attach": false,
+  "context": false
+ },
+ {
+  "id": "vk-src-10",
+  "in": "vakman",
+  "mode": "research",
+  "run": false,
+  "fix_rounds": 1,
+  "arena_review": false,
+  "scope": "docs/arena_agent_src/output/,.claude/arena/",
+  "message": "Hoi! Deze chat is gekoppeld aan de GitHub-repo dsvleeuw/Vakman (branch arena/3f301fb7-vakman). Je hoeft niets te klonen. Lees eerst AGENTS.md, docs/arena_agent_src/01-baseline-en-seed.md en docs/arena_agent_src/02-promptconventies.md. Voer daarna de opdracht uit die in het genoemde promptbestand staat, volledig en in de aangegeven volgorde. Wijzig GEEN applicatiecode en GEEN bestaande documentatie: je enige schrijfactie is het resultaatbestand in docs/arena_agent_src/output/. Elke bevinding krijgt pad:regel als bewijs; zonder bewijs hoort het in 'Open vragen'. Alles in het Nederlands. Promptbestand: docs/arena_agent_src/prompts/src-10-bouwprompts-generator.prompt.md (Bouwprompts voor de top 5).",
+  "accept": [
+   "Vijf bouwprompts met testbare acceptatiecriteria en strakke scope",
+   "Geen twee prompts raken hetzelfde bestand in dezelfde golf",
+   "Elke prompt heeft non-goals en een verificatiecommando",
+   "Het JSON-fragment in sectie 5 is gevalideerd met JSON.parse"
+  ],
+  "attach": false,
+  "context": false
+ }
+]

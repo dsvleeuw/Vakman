@@ -15,14 +15,22 @@ Algemene documentatie over de Klusbaas applicatie: architectuur, workflows, pric
 | `ux-review.md` | UX/navigatie review + open aanbevelingen |
 | `mobile-ux-plan.md` | Mobile/iOS werkplan (voorbeeld agent brief, shipped in PR #6) |
 | `component-library.md` | Component catalogus documentatie & gebruik |
+| `06-app-fixlijst.md` | Fixlijst A1–D2 (demo-nummers, mail, privacy, klikproef) |
+| `07-arena-audit-plan.md` | Plan voor de vier parallelle Arena-audits |
+| `08-audit-resultaten.md` | Uitkomsten en prioriteiten van die audits |
+| `arena_agent_src/README.md` | **Promptpakket voor de ultra diepe src-audit** (start hier) |
 | `ROADMAP.md` | Langere termijn prioriteiten & visie |
 
 ## Submappen
 
 - `klantwerving/` — Klantwerving specifieke docs (roadmap, kaart, website analyse)
+- `bedrijfsinformatie/` — Bedrijfsgegevens en positionering
+- `arena_agent_src/` — Promptpakket + resultaten van de code-gedreven src-audit
+  (zie `arena_agent_src/00-bevestigen.md` vóór je iets draait)
 
 ## Leesvolgorde voor nieuwe teamleden
 
+0. `arena_agent_src/README.md` — loopt er een audit? begin daar
 1. `architecture.md` — Begrip van het geheel
 2. `AGENTS.md` (project root) — Werkwijze, regels, commands
 3. `contact-strategy.md` — Hoe leads/quotes werken
