@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Code-gedreven src-audit** (`docs/arena_agent_src/`): acht onderzoeken
+  (app/router/SEO, server/API, data/pricing, wizard/demosite, tools/extras,
+  a11y, tests/tooling, docs-drift), een synthese met 58 punten en top 20, en
+  vijf klaargezette bouwprompts. Elke bevinding met `pad:regel`; 34 doc-claims
+  getoetst. Read-only: er is geen applicatiecode gewijzigd.
 - **`bun run check`** draait lint, tests en build tegelijk
   (`scripts/check.mjs`, ~20 s in plaats van ~70 s na elkaar).
 - **Agents mogen zelf mergen** zodra `bun run check` groen is en de PR
