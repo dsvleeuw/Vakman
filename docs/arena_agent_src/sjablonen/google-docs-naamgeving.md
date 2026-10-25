@@ -62,6 +62,25 @@ Zodra een prompt gedraaid is, wordt het bijbehorende doc **vervangen door het
 resultaat** (zelfde naam, zelfde datum) of komt er een nieuw doc met de
 uitvoerdatum bij. De prompt zelf blijft in de repo staan als geschiedenis.
 
+## Resultaatdocs (na uitvoering)
+
+Een resultaat krijgt dezelfde prefix en datum, met `-resultaten` vóór de datum,
+zodat het naast de opdracht kan staan zonder dezelfde naam:
+
+```
+KB-SRC-01-app-router-seo-resultaten-2026-10-25
+...
+KB-SRC-10-bouwprompts-resultaten-2026-10-25
+```
+
+In de map staan nu:
+
+| Opdracht-doc (promptpakket) | Resultaat-doc | Status |
+|---|---|---|
+| `KB-SRC-00-…` t/m `KB-SRC-10-…` (15 stuks) | — | geüpload |
+| — | `KB-SRC-01` … `KB-SRC-06-resultaten` | geüpload |
+| — | `KB-SRC-07` … `KB-SRC-10-resultaten` | **nog te uploaden** (uploadlimiet) |
+
 ## Regels
 
 - **Eén doc per resultaat.** Geen losse notities in dezelfde map.
