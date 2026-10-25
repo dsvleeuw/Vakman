@@ -78,8 +78,7 @@ In de map staan nu:
 | Opdracht-doc (promptpakket) | Resultaat-doc | Status |
 |---|---|---|
 | `KB-SRC-00-…` t/m `KB-SRC-10-…` (15 stuks) | — | geüpload |
-| — | `KB-SRC-01` … `KB-SRC-06-resultaten` | geüpload |
-| — | `KB-SRC-07` … `KB-SRC-10-resultaten` | **nog te uploaden** (uploadlimiet) |
+| — | `KB-SRC-01` … `KB-SRC-10-resultaten` | geüpload (25 docs totaal) |
 
 ## Regels
 
