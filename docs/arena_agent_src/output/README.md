@@ -30,8 +30,15 @@ Vuistregels:
 
 ## Status
 
-| Bestand | Status | Opmerking |
+| Bestand | Status | Kernbevinding |
 |---|---|---|
-| KB-SRC-01 … KB-SRC-08 | nog niet gedraaid | wacht op bevestiging (`../00-bevestigen.md`) |
-| KB-SRC-09 | nog niet gedraaid | vereist 01–08 |
-| KB-SRC-10 | nog niet gedraaid | vereist 09 |
+| KB-SRC-01 app-router-seo | klaar | soft 404, `utm_*` wordt gestript, geen error boundary |
+| KB-SRC-02 server-api-security | klaar | geen idempotentie, token verloopt nooit, geen mailalarm |
+| KB-SRC-03 data-model-content | klaar | serviceprijzen als tekst, `overige` leeg, 4/7 tools |
+| KB-SRC-04 wizard-site-conversie | klaar | voorbeeldnummer als tekst (P0), KvK 12345678 |
+| KB-SRC-05 tools-extras | klaar | 10 extras alleen in de galerij (shelfware) |
+| KB-SRC-06 a11y-ux | klaar | 7 labels zonder `htmlFor`, geen `width/height`, geen axe |
+| KB-SRC-07 tests-tooling | klaar | `strict` uit, 15 modules ongetest, dode scripts/deps |
+| KB-SRC-08 docs-drift | klaar | 34 claims getoetst; "geen backend" en cijfers fout |
+| KB-SRC-09 synthese | klaar | 58 punten, top 20, vier sprints, 3 grote gokken |
+| KB-SRC-10 bouwprompts | klaar | 5 prompts, golf 1 parallel, `run: false` |

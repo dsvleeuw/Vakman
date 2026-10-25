@@ -109,16 +109,19 @@ gedraaid is. Zie [sjablonen/google-docs-naamgeving.md](./sjablonen/google-docs-n
 
 | Prompt | Golf | Status |
 |---|---|---|
-| src-01 app/router/SEO | 1 | klaar om te draaien |
-| src-02 server/API/security | 1 | klaar om te draaien |
-| src-03 data/content/pricing | 1 | klaar om te draaien |
-| src-04 wizard/site/conversie | 1 | klaar om te draaien |
-| src-05 tools/extras/componenten | 1 | klaar om te draaien |
-| src-06 a11y/UX cross-cutting | 1 | klaar om te draaien |
-| src-07 tests/tooling/repo | 1 | klaar om te draaien |
-| src-08 docs-drift | 1 | klaar om te draaien |
-| src-09 synthese | 2 | wacht op golf 1 |
-| src-10 bouwprompts | 3 | wacht op golf 2 |
+| src-01 app/router/SEO | 1 | klaar |
+| src-02 server/API/security | 1 | klaar |
+| src-03 data/content/pricing | 1 | klaar |
+| src-04 wizard/site/conversie | 1 | klaar |
+| src-05 tools/extras/componenten | 1 | klaar |
+| src-06 a11y/UX cross-cutting | 1 | klaar |
+| src-07 tests/tooling/repo | 1 | klaar |
+| src-08 docs-drift | 1 | klaar |
+| src-09 synthese | 2 | klaar |
+| src-10 bouwprompts | 3 | klaar — wacht op jouw start |
 
-Volgende stap: lees [00-bevestigen.md](./00-bevestigen.md) en bevestig de
-keuzes. Daarna start ik golf 1.
+Volgende stap: de audit is gedraaid. Lees
+[output/KB-SRC-09-synthese-2026-10-25.md](./output/KB-SRC-09-synthese-2026-10-25.md)
+(executive summary + top 20) en daarna
+[output/KB-SRC-10-bouwprompts-2026-10-25.md](./output/KB-SRC-10-bouwprompts-2026-10-25.md)
+voor de vijf klaargezette bouwprompts (`run: false`).
