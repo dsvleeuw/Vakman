@@ -9,18 +9,14 @@ import { fileURLToPath } from 'node:url';
 const generator = fileURLToPath(new URL('./file-inventory.mjs', import.meta.url));
 const publisher = fileURLToPath(new URL('./publish-file-inventory.sh', import.meta.url));
 const output = 'docs/bestandenoverzicht.csv';
+const legacyHeader = '"Bestand","Pad","Type","Extensie","Branch","Eerste commit (UTC)","Laatste wijziging (UTC)"\n';
 const cleanEnv = { ...process.env, GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: devNull, TZ: 'UTC' };
 for (const key of ['GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE', 'GIT_COMMON_DIR', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_PREFIX']) {
   delete cleanEnv[key];
 }
 
 function command(cwd, executable, args, { env = {}, allowed = [0] } = {}) {
-  const result = spawnSync(executable, args, {
-    cwd,
-    encoding: 'utf8',
-    env: { ...cleanEnv, ...env },
-    maxBuffer: 16 * 1024 * 1024,
-  });
+  const result = spawnSync(executable, args, { cwd, encoding: 'utf8', env: { ...cleanEnv, ...env }, maxBuffer: 32 * 1024 * 1024 });
   if (result.error) throw result.error;
   assert.ok(allowed.includes(result.status), `${executable} ${args.join(' ')}: ${result.stderr}\n${result.stdout}`);
   return result;
@@ -46,10 +42,11 @@ function write(dir, file, content = 'example\n') {
   writeFileSync(destination, content);
 }
 
-function commit(dir, message, date) {
-  command(dir, 'git', ['commit', '--quiet', '-m', message], {
+function commit(dir, message, date, extra = []) {
+  command(dir, 'git', ['commit', '--quiet', ...extra, '-m', message], {
     env: { GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date },
   });
+  return git(dir, 'rev-parse', 'HEAD');
 }
 
 function generate(dir, args = [], allowed = [0]) {
@@ -57,7 +54,7 @@ function generate(dir, args = [], allowed = [0]) {
 }
 
 function readRows(dir) {
-  // CSV-parser voor de tests: ook komma's, quotes en regeleinden in paden.
+  // Ondersteunt ook komma's, quotes en regeleinden in paden en commitberichten.
   const input = readFileSync(path.join(dir, output), 'utf8').replace(/^\uFEFF/, '');
   const records = [];
   let record = [];
@@ -85,57 +82,105 @@ function readRows(dir) {
   return body.map((values) => Object.fromEntries(header.map((name, index) => [name, values[index]])));
 }
 
-function row(rows, branch, file) {
-  return rows.find((entry) => entry.Branch === branch && entry.Pad === file);
+function forFile(rows, file) {
+  const code = `p:${Buffer.from(file).toString('base64url')}`;
+  return rows.filter((entry) => entry.Padcode === code);
 }
 
-test('inventariseert branches, de index, Git-tijden en veilige CSV zonder genegeerde bestanden', (t) => {
+function event(rows, file, hash) {
+  return forFile(rows, file).find((entry) => entry.Commit === hash);
+}
+
+function currentBranches(row) {
+  return JSON.parse(row['Actueel op branches']);
+}
+
+test('wijzigingsgeschiedenis, actuele branches en uitgebreide veilige metadata', (t) => {
   const dir = repo(t);
-  const dangerousName = '=SUM(1,2)\n"bestand".md';
+  const dangerous = '=SUM(1,2)\n"bestand".md';
+  const apostrophe = `'${dangerous}`;
+  git(dir, 'remote', 'add', 'origin', 'https://github.com/example/inventory.git');
   write(dir, '.gitignore', 'ignored/\n.env*\n!.env.example\n');
   write(dir, '.env.example');
   write(dir, 'README.md', 'first\n');
   write(dir, 'docs/oude-naam.md', 'unchanged content for rename detection\n');
-  write(dir, dangerousName);
+  write(dir, 'notes.txt', 'obsolete\n');
+  write(dir, 'image.bin', Buffer.from([0, 1, 2]));
+  write(dir, dangerous);
+  write(dir, apostrophe);
   symlinkSync('README.md', path.join(dir, 'link'));
   git(dir, 'add', '.');
-  commit(dir, 'first', '2024-01-01T10:00:00+02:00');
-  git(dir, 'update-ref', 'refs/remotes/origin/main', 'HEAD');
+  const first = commit(dir, 'First commit\n\nMore details, with "quotes".', '2024-01-01T10:00:00+02:00');
+  git(dir, 'update-ref', 'refs/remotes/origin/main', first);
   git(dir, 'symbolic-ref', 'refs/remotes/origin/HEAD', 'refs/remotes/origin/main');
 
   git(dir, 'mv', 'docs/oude-naam.md', 'docs/nieuwe-naam.md');
-  commit(dir, 'rename', '2024-01-02T09:00:00+00:00');
-  git(dir, 'update-ref', 'refs/remotes/origin/feature/test', 'HEAD');
+  write(dir, 'README.md', 'first\nsecond\n');
+  git(dir, 'rm', '--quiet', 'notes.txt');
+  git(dir, 'add', 'README.md');
+  const second = commit(dir, '=Change files\n\nDetailed body\nwith a second line.', '2024-01-02T09:00:00Z');
+  git(dir, 'update-ref', 'refs/remotes/origin/feature/test', second);
   write(dir, 'src/nieuw.ts');
   git(dir, 'add', 'src/nieuw.ts');
-  git(dir, 'update-index', '--add', '--cacheinfo', `160000,${git(dir, 'rev-parse', 'HEAD')},vendor/module`);
+  git(dir, 'update-index', '--add', '--cacheinfo', `160000,${second},vendor/module`);
   write(dir, 'ignored/geheim.csv', 'private data\n');
-  git(dir, 'add', '-f', 'ignored/geheim.csv'); // ook geforceerd toegevoegde ignore-paden uitsluiten
+  git(dir, 'add', '-f', 'ignored/geheim.csv');
   write(dir, 'niet-toegevoegd.txt');
   write(dir, '.env.secret', 'private data\n');
 
   generate(dir);
-  const rows = readRows(dir);
-  assert.deepEqual([...new Set(rows.map((entry) => entry.Branch))], ['feature/test', 'main', 'work']);
-  assert.ok(row(rows, 'main', 'docs/oude-naam.md'));
-  assert.equal(row(rows, 'main', 'docs/nieuwe-naam.md'), undefined);
-  assert.equal(row(rows, 'feature/test', 'src/nieuw.ts'), undefined);
-  assert.equal(row(rows, 'work', 'src/nieuw.ts')['Eerste commit (UTC)'], '');
-  assert.equal(row(rows, 'work', 'src/nieuw.ts')['Laatste wijziging (UTC)'], '');
-  assert.equal(row(rows, 'work', 'src/nieuw.ts').Type, 'TypeScript');
-  assert.equal(row(rows, 'work', 'link').Type, 'Symbolische link');
-  assert.equal(row(rows, 'work', 'vendor/module').Type, 'Git-submodule');
-  assert.ok(row(rows, 'work', '.env.example'));
-  assert.ok(rows.every((entry) => !entry.Pad.endsWith('.gitignore')));
-  assert.ok(rows.every((entry) => !entry.Pad.includes('geheim.csv') && entry.Pad !== '.env.secret'));
-  assert.equal(row(rows, 'work', 'niet-toegevoegd.txt'), undefined);
+  let rows = readRows(dir);
+  const oldReadme = event(rows, 'README.md', first);
+  const newReadme = event(rows, 'README.md', second);
+  assert.equal(oldReadme['Is actueel'], 'TRUE');
+  assert.deepEqual(currentBranches(oldReadme), ['main']);
+  assert.deepEqual(currentBranches(newReadme), ['feature/test', 'work']);
+  assert.deepEqual(JSON.parse(oldReadme['Branches (commit in geschiedenis)']), ['feature/test', 'main', 'work']);
+  assert.equal(newReadme['Commitdatum (UTC)'], '2024-01-02T09:00:00Z');
+  assert.equal(oldReadme['Auteurdatum (UTC)'], '2024-01-01T08:00:00Z');
+  assert.equal(newReadme.Auteur, 'Inventory Test');
+  assert.equal(newReadme['Auteur e-mail'], 'inventory@example.test');
+  assert.equal(newReadme.Committer, 'Inventory Test');
+  assert.equal(newReadme['Commit onderwerp'], "'=Change files");
+  assert.match(newReadme['Commit bericht'], /^'=Change files\n\nDetailed body\nwith a second line\.$/);
+  assert.equal(newReadme['Toegevoegde regels'], '1');
+  assert.equal(newReadme['Verwijderde regels'], '0');
+  assert.equal(newReadme.Binair, 'FALSE');
+  assert.equal(newReadme['Grootte (bytes)'], '13');
+  assert.ok(newReadme['Git object-ID']);
+  assert.equal(newReadme['Commit-URL'], `https://github.com/example/inventory/commit/${second}`);
+  assert.equal(newReadme['Bestandsversie-URL'], `https://github.com/example/inventory/blob/${second}/README.md`);
+  assert.ok(newReadme['Voor het eerst gezien (UTC)'].endsWith('Z'));
 
-  const renamed = row(rows, 'work', 'docs/nieuwe-naam.md');
-  assert.equal(renamed['Eerste commit (UTC)'], '2024-01-01T08:00:00Z');
-  assert.equal(renamed['Laatste wijziging (UTC)'], '2024-01-02T09:00:00Z');
-  const safe = row(rows, 'work', `'${dangerousName}`);
-  assert.equal(safe.Bestand, `'${dangerousName}`);
-  assert.equal(safe.Type, 'Markdown-document');
+  const renamed = event(rows, 'docs/nieuwe-naam.md', second);
+  assert.equal(renamed.Wijziging, 'Hernoemd');
+  assert.equal(renamed['Vorige pad'], 'docs/oude-naam.md');
+  assert.deepEqual(currentBranches(renamed), ['feature/test', 'work']);
+  assert.deepEqual(currentBranches(event(rows, 'docs/oude-naam.md', first)), ['main']);
+  const deleted = event(rows, 'notes.txt', second);
+  assert.equal(deleted.Wijziging, 'Verwijderd');
+  assert.equal(deleted['Is actueel'], 'FALSE');
+  assert.equal(deleted['Bestandsversie-URL'], `https://github.com/example/inventory/blob/${first}/notes.txt`);
+  assert.deepEqual(currentBranches(event(rows, 'notes.txt', first)), ['main']);
+  assert.equal(event(rows, 'image.bin', first).Binair, 'TRUE');
+  assert.equal(event(rows, 'image.bin', first)['Grootte (bytes)'], '3');
+  assert.equal(event(rows, 'link', first).Type, 'Symbolische link');
+
+  const staged = forFile(rows, 'src/nieuw.ts')[0];
+  assert.equal(staged.Bron, 'Git-index');
+  assert.equal(staged.Commit, '');
+  assert.equal(staged['Is actueel'], 'TRUE');
+  assert.deepEqual(currentBranches(staged), ['work']);
+  assert.equal(forFile(rows, 'vendor/module')[0].Type, 'Git-submodule');
+  assert.ok(forFile(rows, '.env.example').length);
+  assert.ok(rows.every((entry) => !entry.Pad.endsWith('.gitignore') && !entry.Pad.includes('geheim.csv')));
+  assert.equal(forFile(rows, '.env.secret').length, 0);
+  assert.equal(forFile(rows, 'niet-toegevoegd.txt').length, 0);
+  assert.equal(forFile(rows, output).length, 0);
+  assert.equal(event(rows, dangerous, first).Pad, `'${dangerous}`);
+  assert.equal(event(rows, apostrophe, first).Pad, apostrophe);
+  assert.notEqual(event(rows, dangerous, first)['Gebeurtenis-ID'], event(rows, apostrophe, first)['Gebeurtenis-ID']);
+  assert.match(event(rows, dangerous, first)['Bestandsversie-URL'], /%3DSUM%281%2C2%29%0A%22bestand%22\.md$/);
 
   const before = readFileSync(path.join(dir, output), 'utf8');
   generate(dir, ['--check']);
@@ -145,49 +190,143 @@ test('inventariseert branches, de index, Git-tijden en veilige CSV zonder genege
   assert.equal(generate(dir, ['--check'], [1]).status, 1);
   assert.equal(readFileSync(path.join(dir, output), 'utf8'), before);
   generate(dir);
-  assert.ok(row(readRows(dir), 'work', 'src/tweede.ts'));
-
+  rows = readRows(dir);
+  assert.equal(forFile(rows, 'src/tweede.ts')[0].Bron, 'Git-index');
+  assert.ok(rows.find((entry) => entry['Gebeurtenis-ID'] === oldReadme['Gebeurtenis-ID']));
   generate(dir, ['--include-untracked']);
-  const withUntracked = readRows(dir);
-  assert.ok(row(withUntracked, 'work', 'niet-toegevoegd.txt'));
-  assert.ok(row(withUntracked, 'work', output));
-  assert.ok(withUntracked.every((entry) => !entry.Pad.includes('geheim.csv') && entry.Pad !== '.env.secret'));
+  assert.equal(forFile(readRows(dir), 'niet-toegevoegd.txt')[0].Bron, 'Niet gevolgd');
+  assert.equal(forFile(readRows(dir), 'niet-toegevoegd.txt')[0]['Is actueel'], 'FALSE');
+  assert.equal(forFile(readRows(dir), '.env.secret').length, 0);
 });
 
-test('een automatische CSV-commit veroorzaakt geen eindeloze updatecyclus', (t) => {
+test('alleen gewijzigde bestanden krijgen regels; indexregels worden commitregels', (t) => {
   const dir = repo(t);
-  write(dir, 'file.txt');
+  write(dir, 'file.txt', 'first\n');
+  write(dir, 'other.txt', 'unmodified\n');
   git(dir, 'add', '.');
-  commit(dir, 'initial', '2024-02-01T12:00:00Z');
-  git(dir, 'update-ref', 'refs/remotes/origin/main', 'HEAD');
+  const first = commit(dir, 'initial', '2024-02-01T12:00:00Z');
   generate(dir);
+  const initial = readRows(dir);
+  const firstSeen = event(initial, 'file.txt', first)['Voor het eerst gezien (UTC)'];
+  write(dir, 'file.txt', 'second\n');
+  git(dir, 'add', 'file.txt');
+  generate(dir);
+  let rows = readRows(dir);
+  assert.equal(forFile(rows, 'file.txt').length, 2);
+  assert.equal(event(rows, 'file.txt', first)['Is actueel'], 'FALSE');
+  assert.equal(forFile(rows, 'file.txt').find((r) => r.Bron === 'Git-index')['Is actueel'], 'TRUE');
+  const second = commit(dir, 'change file', '2024-02-02T12:00:00Z');
+  generate(dir);
+  rows = readRows(dir);
+  assert.equal(forFile(rows, 'file.txt').length, 2);
+  assert.equal(forFile(rows, 'file.txt').filter((r) => r.Bron === 'Git-index').length, 0);
+  assert.equal(event(rows, 'file.txt', second)['Is actueel'], 'TRUE');
+  assert.equal(event(rows, 'file.txt', first)['Voor het eerst gezien (UTC)'], firstSeen);
+  assert.equal(forFile(rows, 'other.txt').length, 1);
+  const beforeEmptyCommit = readFileSync(path.join(dir, output), 'utf8');
+  commit(dir, 'empty commit', '2024-02-03T12:00:00Z', ['--allow-empty']);
+  generate(dir);
+  assert.equal(readFileSync(path.join(dir, output), 'utf8'), beforeEmptyCommit);
+
+  // Een extra branch met dezelfde historie verandert vlaggen, maar voegt geen regels toe.
+  const ids = readRows(dir).map((row) => row['Gebeurtenis-ID']);
+  git(dir, 'update-ref', 'refs/remotes/origin/extra', 'HEAD');
+  generate(dir);
+  rows = readRows(dir);
+  assert.deepEqual(rows.map((row) => row['Gebeurtenis-ID']), ids);
+  assert.deepEqual(currentBranches(event(rows, 'file.txt', second)), ['extra', 'work']);
+
+  // De spreadsheet zelf wordt niet gelogd: botcommits veroorzaken geen lus.
   git(dir, 'add', output);
-  commit(dir, 'add inventory', '2024-02-02T12:00:00Z');
+  commit(dir, 'automated refresh', '2024-02-04T12:00:00Z');
+  const afterSheetCommit = readFileSync(path.join(dir, output), 'utf8');
   generate(dir);
-  const firstRefresh = readFileSync(path.join(dir, output), 'utf8');
-  const self = row(readRows(dir), 'work', output);
-  assert.equal(self['Eerste commit (UTC)'], '2024-02-02T12:00:00Z');
-  assert.equal(self['Laatste wijziging (UTC)'], '');
-  git(dir, 'add', output);
-  commit(dir, 'automated refresh', '2024-02-03T12:00:00Z');
-  generate(dir);
-  assert.equal(readFileSync(path.join(dir, output), 'utf8'), firstRefresh);
-  assert.equal(git(dir, 'status', '--porcelain', '--', output), '');
+  assert.equal(readFileSync(path.join(dir, output), 'utf8'), afterSheetCommit);
+  assert.equal(forFile(readRows(dir), output).length, 0);
+  generate(dir, ['--check']);
 });
 
-test('detached HEAD en shallow clones worden niet stilzwijgend verkeerd weergegeven', (t) => {
+test('mergeversies zijn actueel op de juiste branch en wijzigen geen andere bestanden', (t) => {
+  const dir = repo(t);
+  write(dir, 'base.txt', 'base\n');
+  git(dir, 'add', '.');
+  const base = commit(dir, 'base', '2024-03-01T00:00:00Z');
+  write(dir, 'feature.txt', 'feature\n');
+  git(dir, 'add', 'feature.txt');
+  const featureTree = git(dir, 'write-tree');
+  const feature = git(dir, 'commit-tree', featureTree, '-p', base, '-m', 'feature');
+  git(dir, 'reset', '--quiet', '--hard', 'HEAD');
+  git(dir, 'update-ref', 'refs/remotes/origin/feature', feature);
+  write(dir, 'work.txt', 'work\n');
+  git(dir, 'add', 'work.txt');
+  const work = commit(dir, 'work', '2024-03-02T00:00:00Z');
+  write(dir, 'feature.txt', 'feature\n');
+  git(dir, 'add', 'feature.txt');
+  const mergeTree = git(dir, 'write-tree');
+  const merge = git(dir, 'commit-tree', mergeTree, '-p', work, '-p', feature, '-m', 'merge feature');
+  git(dir, 'update-ref', 'refs/heads/work', merge);
+  git(dir, 'reset', '--quiet', '--hard', merge);
+  generate(dir);
+  const rows = readRows(dir);
+  assert.deepEqual(currentBranches(event(rows, 'feature.txt', feature)), ['feature']);
+  assert.deepEqual(currentBranches(event(rows, 'feature.txt', merge)), ['work']);
+  assert.deepEqual(JSON.parse(event(rows, 'feature.txt', feature)['Branches (commit in geschiedenis)']), ['feature', 'work']);
+  assert.deepEqual(JSON.parse(event(rows, 'feature.txt', merge).Oudercommits), [work, feature]);
+  assert.equal(event(rows, 'work.txt', merge), undefined);
+  assert.equal(event(rows, 'base.txt', merge), undefined);
+  assert.equal(forFile(rows, 'work.txt').length, 1);
+});
+
+test('verwijderde branches behouden historie; rebuild en ignore-regels kunnen die wissen', (t) => {
+  const dir = repo(t);
+  write(dir, '.gitignore', 'private/\n');
+  write(dir, 'base.txt');
+  git(dir, 'add', '.');
+  const base = commit(dir, 'base', '2024-04-01T00:00:00Z');
+  write(dir, 'feature-only.md', 'old feature\n');
+  git(dir, 'add', 'feature-only.md');
+  const tree = git(dir, 'write-tree');
+  const feature = git(dir, 'commit-tree', tree, '-p', base, '-m', 'feature');
+  git(dir, 'reset', '--quiet', '--hard', 'HEAD');
+  git(dir, 'update-ref', 'refs/remotes/origin/feature', feature);
+  generate(dir);
+  const featureRow = event(readRows(dir), 'feature-only.md', feature);
+  assert.deepEqual(currentBranches(featureRow), ['feature']);
+  git(dir, 'update-ref', '-d', 'refs/remotes/origin/feature');
+  generate(dir);
+  let retained = event(readRows(dir), 'feature-only.md', feature);
+  assert.ok(retained);
+  assert.equal(retained['Is actueel'], 'FALSE');
+  assert.deepEqual(JSON.parse(retained['Branches (commit in geschiedenis)']), []);
+  assert.deepEqual(JSON.parse(retained['Eerder gezien op branches']), ['feature']);
+  generate(dir, ['--check']);
+  generate(dir, ['--rebuild']);
+  assert.equal(event(readRows(dir), 'feature-only.md', feature), undefined);
+
+  git(dir, 'update-ref', 'refs/remotes/origin/feature', feature);
+  generate(dir);
+  write(dir, '.gitignore', 'private/\nfeature-only.md\n');
+  generate(dir);
+  retained = event(readRows(dir), 'feature-only.md', feature);
+  assert.equal(retained, undefined);
+});
+
+test('detached HEAD, onvolledige historie en ongeldige bestaande CSV worden veilig behandeld', (t) => {
   const dir = repo(t);
   write(dir, 'first.txt');
   git(dir, 'add', '.');
-  commit(dir, 'first', '2024-03-01T00:00:00Z');
+  commit(dir, 'first', '2024-05-01T00:00:00Z');
   write(dir, 'second.txt');
   git(dir, 'add', '.');
-  commit(dir, 'second', '2024-03-02T00:00:00Z');
+  commit(dir, 'second', '2024-05-02T00:00:00Z');
   assert.match(generate(dir, ['--branch', 'wrong'], [1]).stderr, /HEAD staat op work/);
   git(dir, 'checkout', '--quiet', '--detach', 'HEAD');
   assert.match(generate(dir, [], [1]).stderr, /Detached HEAD/);
   generate(dir, ['--branch', 'work']);
-  assert.ok(row(readRows(dir), 'work', 'second.txt'));
+  assert.ok(forFile(readRows(dir), 'second.txt').length);
+  write(dir, output, 'unexpected format\n');
+  assert.match(generate(dir, ['--branch', 'work'], [1]).stderr, /Onbekend CSV-formaat/);
+  generate(dir, ['--branch', 'work', '--rebuild']);
 
   const clone = `${dir}-shallow`;
   t.after(() => rmSync(clone, { recursive: true, force: true }));
@@ -196,7 +335,7 @@ test('detached HEAD en shallow clones worden niet stilzwijgend verkeerd weergege
   assert.match(generate(clone, [], [1]).stderr, /git fetch --unshallow/);
 });
 
-test('publicatie werkt op een schoon tijdelijk remote en blijft idempotent', (t) => {
+test('publicatie werkt op een tijdelijk remote, is idempotent en bewaart oude branchhistorie', (t) => {
   const dir = repo(t);
   const bare = `${dir}-remote.git`;
   t.after(() => rmSync(bare, { recursive: true, force: true }));
@@ -205,13 +344,12 @@ test('publicatie werkt op een schoon tijdelijk remote en blijft idempotent', (t)
   mkdirSync(path.join(dir, 'scripts'), { recursive: true });
   copyFileSync(generator, path.join(dir, 'scripts/file-inventory.mjs'));
   copyFileSync(publisher, path.join(dir, 'scripts/publish-file-inventory.sh'));
-  write(dir, output, 'oud overzicht\n');
+  write(dir, output, legacyHeader);
   write(dir, 'tracked.txt');
   git(dir, 'add', '.');
-  commit(dir, 'initial', '2024-04-01T00:00:00Z');
+  commit(dir, 'initial', '2024-06-01T00:00:00Z');
   git(dir, 'push', '--quiet', 'origin', 'work');
 
-  // Buiten Actions of met niet-gecommitte wijzigingen mag de reset nooit draaien.
   assert.match(command(dir, 'bash', [publisher, 'work'], { env: { GITHUB_ACTIONS: '' }, allowed: [1] }).stderr, /alleen/);
   write(dir, 'niet-kwijtraken.txt', 'local\n');
   assert.match(command(dir, 'bash', [publisher, 'work'], { env: { GITHUB_ACTIONS: 'true' }, allowed: [1] }).stderr, /niet schoon/);
@@ -223,26 +361,29 @@ test('publicatie werkt op een schoon tijdelijk remote en blijft idempotent', (t)
   const refreshed = git(dir, 'rev-parse', 'HEAD');
   assert.equal(git(dir, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD'), output);
   assert.equal(git(dir, 'rev-parse', 'refs/remotes/origin/work'), refreshed);
-  assert.ok(row(readRows(dir), 'work', 'tracked.txt'));
+  assert.equal(forFile(readRows(dir), 'tracked.txt')[0]['Is actueel'], 'TRUE');
   publish();
   assert.equal(git(dir, 'rev-parse', 'HEAD'), refreshed);
 
-  // Een extra remote branch wordt in hetzelfde centrale overzicht opgenomen.
   write(dir, 'feature-alleen.md');
   git(dir, 'add', 'feature-alleen.md');
   const tree = git(dir, 'write-tree');
-  const featureCommit = git(dir, 'commit-tree', tree, '-p', 'HEAD', '-m', 'feature');
+  const feature = git(dir, 'commit-tree', tree, '-p', 'HEAD', '-m', 'feature');
   git(dir, 'reset', '--quiet', '--hard', 'HEAD');
-  git(dir, 'push', '--quiet', 'origin', `${featureCommit}:refs/heads/feature/test`);
+  git(dir, 'push', '--quiet', 'origin', `${feature}:refs/heads/feature/test`);
   assert.equal(existsSync(path.join(dir, 'feature-alleen.md')), false);
   publish();
-  assert.ok(row(readRows(dir), 'feature/test', 'feature-alleen.md'));
-  assert.equal(row(readRows(dir), 'work', 'feature-alleen.md'), undefined);
+  assert.deepEqual(currentBranches(event(readRows(dir), 'feature-alleen.md', feature)), ['feature/test']);
   assert.equal(git(dir, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD'), output);
 
   git(dir, 'push', '--quiet', 'origin', ':refs/heads/feature/test');
   publish();
-  assert.equal(row(readRows(dir), 'feature/test', 'feature-alleen.md'), undefined);
+  const retained = event(readRows(dir), 'feature-alleen.md', feature);
+  assert.equal(retained['Is actueel'], 'FALSE');
+  assert.deepEqual(JSON.parse(retained['Eerder gezien op branches']), ['feature/test']);
+  const last = git(dir, 'rev-parse', 'HEAD');
+  publish();
+  assert.equal(git(dir, 'rev-parse', 'HEAD'), last);
 });
 
 test('een gelijktijdige push wordt opgehaald en niet overschreven', (t) => {
@@ -258,13 +399,11 @@ test('een gelijktijdige push wordt opgehaald en niet overschreven', (t) => {
   mkdirSync(path.join(dir, 'scripts'), { recursive: true });
   copyFileSync(generator, path.join(dir, 'scripts/file-inventory.mjs'));
   copyFileSync(publisher, path.join(dir, 'scripts/publish-file-inventory.sh'));
-  write(dir, output, 'oud overzicht\n');
+  write(dir, output, legacyHeader);
   write(dir, 'basis.txt');
   git(dir, 'add', '.');
-  commit(dir, 'initial', '2024-05-01T00:00:00Z');
+  commit(dir, 'initial', '2024-07-01T00:00:00Z');
   git(dir, 'push', '--quiet', 'origin', 'work');
-
-  // Maak een echte concurrerende commit en zet het object alvast in de remote.
   write(dir, 'gelijktijdige-wijziging.txt', 'behouden\n');
   git(dir, 'add', 'gelijktijdige-wijziging.txt');
   const tree = git(dir, 'write-tree');
@@ -272,27 +411,59 @@ test('een gelijktijdige push wordt opgehaald en niet overschreven', (t) => {
   git(dir, 'reset', '--quiet', '--hard', 'HEAD');
   git(dir, 'push', '--quiet', 'origin', `${racingCommit}:refs/heads/racing-object`);
 
-  // Verplaats de remote precies vóór de eerste push van de bot. De echte git
-  // weigert daarna de niet-fast-forward push; de tweede poging moet slagen.
   mkdirSync(bin, { recursive: true });
   const realGit = command(dir, 'which', ['git']).stdout.trim();
   const wrapper = path.join(bin, 'git');
   writeFileSync(wrapper, `#!/usr/bin/env bash\nset -e\nif [[ "\${1:-}" == push && ! -e "$RACE_MARKER" ]]; then\n  "$REAL_GIT" --git-dir="$RACE_REMOTE" update-ref refs/heads/work "$RACE_COMMIT"\n  touch "$RACE_MARKER"\nfi\nexec "$REAL_GIT" "$@"\n`);
   chmodSync(wrapper, 0o755);
   const result = command(dir, 'bash', [publisher, 'work'], {
-    env: {
-      GITHUB_ACTIONS: 'true',
-      PATH: `${bin}${path.delimiter}${cleanEnv.PATH}`,
-      REAL_GIT: realGit,
-      RACE_REMOTE: bare,
-      RACE_COMMIT: racingCommit,
-      RACE_MARKER: path.join(bin, 'injected'),
-    },
+    env: { GITHUB_ACTIONS: 'true', PATH: `${bin}${path.delimiter}${cleanEnv.PATH}`,
+      REAL_GIT: realGit, RACE_REMOTE: bare, RACE_COMMIT: racingCommit, RACE_MARKER: path.join(bin, 'injected') },
   });
   assert.match(result.stdout, /poging 1\/3/);
   git(dir, 'merge-base', '--is-ancestor', racingCommit, 'HEAD');
   assert.equal(readFileSync(path.join(dir, 'gelijktijdige-wijziging.txt'), 'utf8'), 'behouden\n');
-  assert.ok(row(readRows(dir), 'work', 'gelijktijdige-wijziging.txt'));
+  assert.ok(currentBranches(event(readRows(dir), 'gelijktijdige-wijziging.txt', racingCommit)).includes('work'));
   assert.equal(git(dir, 'diff-tree', '--no-commit-id', '--name-only', '-r', 'HEAD'), output);
   assert.equal(git(dir, 'rev-parse', 'HEAD'), git(bare, 'rev-parse', 'refs/heads/work'));
+});
+
+test('een revert en een moduswijziging leveren een nieuwe actuele versie op', (t) => {
+  const dir = repo(t);
+  write(dir, 'file.sh', 'first\n');
+  git(dir, 'add', '.');
+  const first = commit(dir, 'first', '2024-08-01T00:00:00Z');
+  write(dir, 'file.sh', 'second\n');
+  git(dir, 'add', 'file.sh');
+  const second = commit(dir, 'second', '2024-08-02T00:00:00Z');
+  write(dir, 'file.sh', 'first\n');
+  git(dir, 'add', 'file.sh');
+  const revert = commit(dir, 'revert', '2024-08-03T00:00:00Z');
+  git(dir, 'update-index', '--chmod=+x', 'file.sh');
+  const chmod = commit(dir, 'make executable', '2024-08-04T00:00:00Z');
+  generate(dir);
+  const rows = readRows(dir);
+  assert.equal(forFile(rows, 'file.sh').length, 4);
+  assert.equal(event(rows, 'file.sh', first)['Is actueel'], 'FALSE');
+  assert.equal(event(rows, 'file.sh', second)['Is actueel'], 'FALSE');
+  assert.equal(event(rows, 'file.sh', revert)['Is actueel'], 'FALSE');
+  assert.equal(event(rows, 'file.sh', chmod)['Is actueel'], 'TRUE');
+  assert.equal(event(rows, 'file.sh', chmod)['Vorig object-ID'], event(rows, 'file.sh', chmod)['Git object-ID']);
+  assert.equal(event(rows, 'file.sh', chmod)['Vorige modus'], '100644');
+  assert.equal(event(rows, 'file.sh', chmod).Modus, '100755');
+});
+
+test('een staged hernoeming naar een genegeerd pad laat geen oude versie als actueel staan', (t) => {
+  const dir = repo(t);
+  write(dir, '.gitignore', 'private/\n');
+  write(dir, 'visible.txt', 'a long file to ensure rename detection\n');
+  git(dir, 'add', '.');
+  const initial = commit(dir, 'initial', '2024-09-01T00:00:00Z');
+  generate(dir);
+  mkdirSync(path.join(dir, 'private'), { recursive: true });
+  git(dir, 'mv', '-f', 'visible.txt', 'private/secret.txt');
+  generate(dir);
+  const rows = readRows(dir);
+  assert.equal(event(rows, 'visible.txt', initial)['Is actueel'], 'FALSE');
+  assert.equal(forFile(rows, 'private/secret.txt').length, 0);
 });
