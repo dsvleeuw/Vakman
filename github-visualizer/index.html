@@ -7,7 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Toast en tooltip staan direct onder <body>: beide zijn position: fixed en
+       app.js positioneert de tooltip met viewportcoördinaten (clientX/clientY).
+       Binnen een .card zouden ze breken, want backdrop-filter maakt een card tot
+       containing block voor fixed descendants. -->
   <div class="toast" id="toast" aria-live="polite"></div>
+  <div id="heatmapTooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
 
   <header class="toolbar">
     <div class="toolbar__brand">
@@ -75,7 +80,6 @@
           </div>
         </div>
         <div id="heatmapEmpty" class="empty">Geen activiteit</div>
-        <div id="heatmapTooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
       </div>
 
       <div class="view" id="viewTimeline">
