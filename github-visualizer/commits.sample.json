@@ -1,0 +1,132 @@
+[
+  {
+    "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+    "message": "Fix bug in login flow",
+    "author": {
+      "name": "Jan Jansen",
+      "email": "jan@example.com",
+      "date": "2026-10-27T09:15:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/a1b2c3d"
+  },
+  {
+    "sha": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1",
+    "message": "Voeg donkere modus toe aan instellingen",
+    "author": {
+      "name": "Maria van Dijk",
+      "email": "maria@example.com",
+      "date": "2026-10-26T16:45:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/b2c3d4e"
+  },
+  {
+    "sha": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+    "message": "Update README met installatie-instructies",
+    "author": {
+      "name": "Jan Jansen",
+      "email": "jan@example.com",
+      "date": "2026-10-26T11:20:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/c3d4e5f"
+  },
+  {
+    "sha": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+    "message": "Refactor authentication service",
+    "author": {
+      "name": "Piet de Vries",
+      "email": "piet@example.com",
+      "date": "2026-10-24T20:05:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/d4e5f6a"
+  },
+  {
+    "sha": "e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+    "message": "Zet CI-pipeline op voor pull requests",
+    "author": {
+      "name": "Maria van Dijk",
+      "email": "maria@example.com",
+      "date": "2026-10-24T13:00:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/e5f6a7b"
+  },
+  {
+    "sha": "f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
+    "message": "Los layout issues op mobiel op",
+    "author": {
+      "name": "Jan Jansen",
+      "email": "jan@example.com",
+      "date": "2026-10-23T08:30:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/f6a7b8c"
+  },
+  {
+    "sha": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6",
+    "message": "Voeg unit tests toe voor betalingsmodule",
+    "author": {
+      "name": "Piet de Vries",
+      "email": "piet@example.com",
+      "date": "2026-10-22T14:10:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/a7b8c9d"
+  },
+  {
+    "sha": "b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7",
+    "message": "Verminder laadtijd van startpagina",
+    "author": {
+      "name": "Maria van Dijk",
+      "email": "maria@example.com",
+      "date": "2026-10-20T17:55:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/b8c9d0e"
+  },
+  {
+    "sha": "c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8",
+    "message": "Update dependencies naar laatste versies",
+    "author": {
+      "name": "Jan Jansen",
+      "email": "jan@example.com",
+      "date": "2026-10-18T11:00:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/c9d0e1f"
+  },
+  {
+    "sha": "d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9",
+    "message": "Implementeer zoekfunctie in documentatie",
+    "author": {
+      "name": "Piet de Vries",
+      "email": "piet@example.com",
+      "date": "2026-10-15T09:40:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/d0e1f2a"
+  },
+  {
+    "sha": "e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0",
+    "message": "Los memory leak op in image viewer",
+    "author": {
+      "name": "Jan Jansen",
+      "email": "jan@example.com",
+      "date": "2026-10-10T22:15:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/e1f2a3b"
+  },
+  {
+    "sha": "f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1",
+    "message": "Voeg toegankelijkheidsverbeteringen toe",
+    "author": {
+      "name": "Maria van Dijk",
+      "email": "maria@example.com",
+      "date": "2026-10-05T13:25:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/f2a3b4c"
+  },
+  {
+    "sha": "a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+    "message": "Initial project setup",
+    "author": {
+      "name": "Jan Jansen",
+      "email": "jan@example.com",
+      "date": "2026-09-25T10:00:00Z"
+    },
+    "url": "https://github.com/owner/repo/commit/a3b4c5d"
+  }
+]
