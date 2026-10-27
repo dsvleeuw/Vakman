@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Commit Geschiedenis</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <header class="toolbar">
+    <div class="toolbar__brand">
+      <h1>GitHub Commit Geschiedenis</h1>
+      <p class="toolbar__subtitle">Visualiseer de commitgeschiedenis van een GitHub-repository uit een JSON-export</p>
+    </div>
+    <div class="toolbar__actions">
+      <button type="button" class="btn btn--icon" id="btnTheme" title="Schakel donkere modus" aria-label="Schakel donkere modus">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card input-section">
+      <h2>Gegevens importeren</h2>
+      <div class="input-tabs">
+        <button type="button" class="input-tab input-tab--active" id="tabFile">Bestand uploaden</button>
+        <button type="button" class="input-tab" id="tabPaste">Plak JSON</button>
+      </div>
+      <div class="input-panel input-panel--active" id="panelFile">
+        <label class="file-label">
+          <span>JSON-bestand kiezen</span>
+          <input type="file" id="fileInput" accept=".json">
+        </label>
+        <p class="hint">Voorbeeld export: <code>gh api repos/OWNER/REPO/commits --paginate --jq '.[] | {sha, message: .commit.message, author: {name: .commit.author.name, email: .commit.author.email, date: .commit.author.date}, url: .html_url}' &gt; commits.json</code></p>
+      </div>
+      <div class="input-panel" id="panelPaste">
+        <textarea id="pasteInput" rows="8" placeholder="Plak hier de JSON met de commitgeschiedenis ..."></textarea>
+        <div class="input-panel__actions">
+          <button type="button" class="btn btn--primary" id="btnLoadPaste">JSON laden</button>
+        </div>
+      </div>
+      <div id="loadStatus" class="status"></div>
+    </section>
+
+    <section class="card controls-section">
+      <div class="filters">
+        <label for="filterAuthor">Filter op auteur</label>
+        <select id="filterAuthor"><option value="">Alle auteurs</option></select>
+        <label for="searchInput">Zoek in commits</label>
+        <input type="search" id="searchInput" placeholder="Zoek op bericht, auteur of SHA">
+        <button type="button" class="btn btn--outline" id="btnResetFilters">Filters resetten</button>
+      </div>
+    </section>
+
+    <section class="card views-section">
+      <div class="view-tabs">
+        <button type="button" class="view-tab view-tab--active" id="tabHeatmap" data-view="heatmap">Bijdragen</button>
+        <button type="button" class="view-tab" id="tabTimeline" data-view="timeline">Commits</button>
+      </div>
+
+      <div class="view view--active" id="viewHeatmap">
+        <div class="heatmap-wrap" id="heatmapWrap">
+          <div class="heatmap" id="heatmap">
+            <div class="day-labels" id="dayLabels"></div>
+            <div class="month-labels" id="monthLabels"></div>
+            <div class="heatmap-grid" id="heatmapGrid"></div>
+          </div>
+          <div class="heatmap-legend">
+            <span class="legend-item"><span class="legend-swatch level-0"></span><span>0</span></span>
+            <span class="legend-item"><span class="legend-swatch level-1"></span><span>1–3</span></span>
+            <span class="legend-item"><span class="legend-swatch level-2"></span><span>4–6</span></span>
+            <span class="legend-item"><span class="legend-swatch level-3"></span><span>7+</span></span>
+          </div>
+        </div>
+        <div id="heatmapEmpty" class="empty">Geen activiteit</div>
+        <div id="heatmapTooltip" class="tooltip" role="tooltip" aria-hidden="true"></div>
+      </div>
+
+      <div class="view" id="viewTimeline">
+        <div id="timeline" class="timeline"></div>
+        <div id="timelineEmpty" class="empty">Geen commits gevonden</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
