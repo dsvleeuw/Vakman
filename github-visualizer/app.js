@@ -30,16 +30,20 @@
     toast: document.getElementById('toast'),
   };
 
+  /* ---------- constants ---------- */
   const DAYS_NL = ['zon', 'maa', 'din', 'woe', 'don', 'vrij', 'zat'];
   const MONTHS_NL = [
     'januari', 'februari', 'maart', 'april', 'mei', 'juni',
     'juli', 'augustus', 'september', 'oktober', 'november', 'december',
   ];
+  const ANIM_STAGGER_MS = 6;
 
+  /* ---------- state ---------- */
   let commits = [];
   let authorFilter = localStorage.getItem('ghvis_author') || '';
   let searchFilter = localStorage.getItem('ghvis_search') || '';
   let view = localStorage.getItem('ghvis_view') || 'heatmap';
+  let isLoading = false;
 
   /* ---------- helpers ---------- */
   function dateKey(date) {
@@ -125,26 +129,61 @@
     } else {
       document.documentElement.classList.remove('dark');
     }
-    els.btnTheme.textContent = dark ? '☀️' : '🌙';
+    const icon = els.btnTheme.querySelector('.icon-btn__icon');
+    icon.textContent = dark ? '☀️' : '🌙';
   }
 
   function toggleTheme() {
     const dark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('ghvis_theme', dark ? 'dark' : 'light');
-    els.btnTheme.textContent = dark ? '☀️' : '🌙';
+    applyTheme(dark);
+    showToast(dark ? 'Donkere modus aan' : 'Lichte modus aan');
   }
 
   /* ---------- toast ---------- */
-  function showToast(message) {
+  let toastTimer;
+  function showToast(message, duration = 2500) {
+    clearTimeout(toastTimer);
     els.toast.textContent = message;
     els.toast.classList.add('show');
-    setTimeout(() => els.toast.classList.remove('show'), 2500);
+    toastTimer = setTimeout(() => els.toast.classList.remove('show'), duration);
   }
 
   /* ---------- status ---------- */
   function setStatus(message, kind = 'ok') {
     els.loadStatus.textContent = message;
     els.loadStatus.className = `status status--${kind}`;
+    els.loadStatus.style.opacity = '1';
+    setTimeout(() => { els.loadStatus.style.opacity = '0'; }, 4000);
+  }
+
+  function showSkeleton(show) {
+    isLoading = show;
+    if (show) {
+      els.heatmapGrid.innerHTML = '';
+      els.monthLabels.innerHTML = '';
+      els.dayLabels.innerHTML = '';
+      els.timeline.innerHTML = '';
+      els.heatmapEmpty.style.display = 'none';
+      els.timelineEmpty.style.display = 'none';
+      for (let i = 0; i < 7; i++) {
+        const row = document.createElement('div');
+        row.className = 'skeleton';
+        row.style.height = '11px';
+        row.style.width = '100%';
+        els.heatmapGrid.appendChild(row);
+      }
+      for (let i = 0; i < 4; i++) {
+        const card = document.createElement('div');
+        card.className = 'skeleton commit-card skeleton-card';
+        card.style.height = '120px';
+        card.style.marginBottom = '0.75rem';
+        card.innerHTML = '<div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text" style="width:80%"></div><div class="skeleton skeleton-text"></div>';
+        els.timeline.appendChild(card);
+      }
+    } else {
+      document.querySelectorAll('.skeleton-card').forEach(n => n.remove());
+    }
   }
 
   /* ---------- data ---------- */
@@ -156,7 +195,7 @@
     try {
       localStorage.setItem('ghvis_last_json', JSON.stringify(json));
     } catch (e) {
-      // localStorage quota of private mode: negeer, gegevens blijven wel in geheugen
+      // localStorage quota / private mode: negeer
     }
     setStatus(`${commits.length} commit${commits.length === 1 ? '' : 's'} geladen.`, 'ok');
     populateAuthors();
@@ -164,7 +203,7 @@
   }
 
   function parseAndLoad(text) {
-    const json = JSON.parse(text); // werpt fout bij ongeldige JSON
+    const json = JSON.parse(text);
     loadCommits(json);
   }
 
@@ -172,9 +211,9 @@
     const authors = [
       ...new Set(commits.map(c => (c && c.author && c.author.name) || null).filter(Boolean)),
     ].sort((a, b) => a.localeCompare(b, 'nl'));
-    els.filterAuthor.innerHTML =
-      '<option value="">Alle auteurs</option>' +
-      authors.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+    const options = authors.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join('');
+    els.filterAuthor.innerHTML = '<option value="">Alle auteurs</option>' + options;
+    els.filterAuthor.value = authorFilter;
   }
 
   function filterCommits() {
@@ -210,7 +249,9 @@
     els.tabTimeline.classList.toggle('view-tab--active', !heat);
     els.viewHeatmap.classList.toggle('view--active', heat);
     els.viewTimeline.classList.toggle('view--active', !heat);
-    render();
+    const list = filterCommits();
+    renderHeatmap(list);
+    renderTimeline(list);
   }
 
   function render() {
@@ -219,13 +260,13 @@
     renderTimeline(list);
   }
 
-  /* ---------- heatmap (bijdragen) ---------- */
+  /* ---------- heatmap ---------- */
   function renderHeatmap(list) {
     els.heatmapGrid.innerHTML = '';
     els.monthLabels.innerHTML = '';
     els.dayLabels.innerHTML = '';
     els.heatmapEmpty.style.display = 'none';
-    els.heatmapTooltip.style.display = 'none';
+    els.heatmapTooltip.classList.remove('visible');
 
     DAYS_NL.forEach(day => {
       const div = document.createElement('div');
@@ -248,10 +289,12 @@
     const todayKey = dateKey(today);
     const start = startOfWeek(addDays(today, -364));
 
+    let cellIndex = 0;
+    const fragment = document.createDocumentFragment();
+
     for (let w = 0; w < 52; w++) {
       const weekStart = addDays(start, w * 7);
 
-      // Maandlabel voor de eerste week waarin een maand begint
       let monthLabel = '';
       for (let d = 0; d < 7; d++) {
         const probe = addDays(weekStart, d);
@@ -275,43 +318,47 @@
         }`;
         cell.dataset.date = key;
         cell.dataset.count = count;
+        cell.style.animationDelay = `${cellIndex * ANIM_STAGGER_MS}ms`;
+        cellIndex++;
+
         if (count > 0) {
           const label = `${count} commit${count === 1 ? '' : 's'} op ${formatDate(key)}`;
           cell.addEventListener('mouseenter', evt => showTooltip(evt, label));
           cell.addEventListener('mousemove', moveTooltip);
           cell.addEventListener('mouseleave', hideTooltip);
         }
-        els.heatmapGrid.appendChild(cell);
+        fragment.appendChild(cell);
       }
     }
+    els.heatmapGrid.appendChild(fragment);
 
     if (!list.length || Object.keys(counts).length === 0) {
-      els.heatmapEmpty.style.display = 'block';
+      els.heatmapEmpty.style.display = 'flex';
     }
   }
 
   function showTooltip(evt, label) {
     const t = els.heatmapTooltip;
     t.textContent = label;
-    t.style.display = 'block';
+    t.classList.add('visible');
     moveTooltip(evt);
   }
 
   function moveTooltip(evt) {
     const t = els.heatmapTooltip;
-    t.style.left = `${evt.clientX + 12}px`;
-    t.style.top = `${evt.clientY + 12}px`;
+    t.style.left = `${evt.clientX + 14}px`;
+    t.style.top = `${evt.clientY + 14}px`;
   }
 
   function hideTooltip() {
-    els.heatmapTooltip.style.display = 'none';
+    els.heatmapTooltip.classList.remove('visible');
   }
 
-  /* ---------- timeline (commits) ---------- */
+  /* ---------- timeline ---------- */
   function renderTimeline(list) {
     els.timeline.innerHTML = '';
     if (!list.length) {
-      els.timelineEmpty.style.display = 'block';
+      els.timelineEmpty.style.display = 'flex';
       return;
     }
     els.timelineEmpty.style.display = 'none';
@@ -327,9 +374,17 @@
         groups.get(key).push(c);
       });
 
+    const fragment = document.createDocumentFragment();
+    let groupIndex = 0;
     for (const [key, items] of groups) {
       const group = document.createElement('div');
       group.className = 'timeline-group';
+      group.style.animationDelay = `${groupIndex * 60}ms`;
+      groupIndex++;
+
+      const marker = document.createElement('div');
+      marker.className = 'timeline-group__marker';
+      group.appendChild(marker);
 
       const header = document.createElement('div');
       header.className = 'timeline-group__date';
@@ -337,8 +392,9 @@
       group.appendChild(header);
 
       items.forEach(c => group.appendChild(commitCard(c)));
-      els.timeline.appendChild(group);
+      fragment.appendChild(group);
     }
+    els.timeline.appendChild(fragment);
   }
 
   function commitCard(c) {
@@ -348,34 +404,41 @@
     const full = c.sha || '';
     card.innerHTML = `
       <div class="commit-card__head">
-        <span class="commit-card__sha" data-sha="${escapeHtml(
-          full
-        )}" title="Kopieer SHA naar klembord">${escapeHtml(short)}</span>
-        ${
-          c.url
-            ? `<a class="commit-card__url" href="${escapeHtml(
-                c.url
-              )}" target="_blank" rel="noopener">Bekijk op GitHub</a>`
-            : ''
-        }
+        <span class="commit-card__sha" data-sha="${escapeHtml(full)}" title="Kopieer SHA naar klembord">${escapeHtml(short)}</span>
+        ${c.url ? `<a class="commit-card__url" href="${escapeHtml(c.url)}" target="_blank" rel="noopener">Bekijk op GitHub</a>` : ''}
       </div>
       <div class="commit-card__message">${escapeHtml(c.message || '(geen bericht)')}</div>
       <div class="commit-card__meta">
-        <span class="commit-card__author">${escapeHtml(
-          c.author && c.author.name ? c.author.name : 'onbekende auteur'
-        )} &lt;${escapeHtml(c.author && c.author.email ? c.author.email : '')}&gt;</span>
-        <time class="commit-card__date">${
-          c.author && c.author.date ? formatDateTime(c.author.date) : ''
-        }</time>
+        <span class="commit-card__author">${escapeHtml(c.author && c.author.name ? c.author.name : 'onbekende auteur')} &lt;${escapeHtml(c.author && c.author.email ? c.author.email : '')}&gt;</span>
+        <time class="commit-card__date">${c.author && c.author.date ? formatDateTime(c.author.date) : ''}</time>
       </div>
     `;
-    card.querySelector('.commit-card__sha').addEventListener('click', () => copySha(full));
+    const shaBtn = card.querySelector('.commit-card__sha');
+    shaBtn.addEventListener('click', () => copySha(full));
+    shaBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copySha(full);
+      }
+    });
+    shaBtn.setAttribute('tabindex', '0');
+    shaBtn.setAttribute('role', 'button');
     return card;
   }
 
   async function copySha(sha) {
+    const btn = document.querySelector(`.commit-card__sha[data-sha="${escapeHtml(sha)}"]`);
+    const original = btn ? btn.textContent : '';
     try {
       await navigator.clipboard.writeText(sha);
+      if (btn) {
+        btn.textContent = '✓ gekopieerd';
+        btn.style.color = 'var(--color-success)';
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.color = '';
+        }, 1400);
+      }
       showToast('SHA gekopieerd naar klembord');
     } catch (err) {
       const textarea = document.createElement('textarea');
@@ -415,26 +478,34 @@
 
     els.fileInput.addEventListener('change', evt => {
       const file = evt.target.files && evt.target.files[0];
-      if (!file) {
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = e => {
-        try {
-          parseAndLoad(e.target.result);
-        } catch (err) {
-          setStatus('Ongeldig JSON-bestand: ' + escapeHtml(err.message), 'error');
-        }
-      };
-      reader.readAsText(file);
+      if (!file) return;
+      showSkeleton(true);
+      setTimeout(() => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          try {
+            parseAndLoad(e.target.result);
+          } catch (err) {
+            setStatus('Ongeldig JSON-bestand: ' + escapeHtml(err.message), 'error');
+          } finally {
+            showSkeleton(false);
+          }
+        };
+        reader.readAsText(file);
+      }, 120);
     });
 
     els.btnLoadPaste.addEventListener('click', () => {
-      try {
-        parseAndLoad(els.pasteInput.value);
-      } catch (err) {
-        setStatus('Ongeldig JSON: ' + escapeHtml(err.message), 'error');
-      }
+      showSkeleton(true);
+      setTimeout(() => {
+        try {
+          parseAndLoad(els.pasteInput.value);
+        } catch (err) {
+          setStatus('Ongeldig JSON: ' + escapeHtml(err.message), 'error');
+        } finally {
+          showSkeleton(false);
+        }
+      }, 120);
     });
 
     els.tabHeatmap.addEventListener('click', () => setView('heatmap'));
@@ -458,6 +529,7 @@
       localStorage.removeItem('ghvis_author');
       localStorage.removeItem('ghvis_search');
       render();
+      showToast('Filters gereset');
     });
 
     els.heatmapWrap.addEventListener('mouseleave', hideTooltip);
