@@ -151,6 +151,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Klusbaas-homepage hersteld.** De zelfstandige GitHub-geschiedenispagina
+  staat nu apart op `/github-history/index.html`, zonder link op de homepage.
+  De prerender-build geeft een fout als het React-root-element ontbreekt.
+
 - **Meta en routering.** Geprerenderde pagina's hebben nog maar één `og:image`
   en `twitter:image`; `robots.txt` sluit `/kaart` uit; bij client-navigatie
   worden canonical en `robots` (noindex op `/start/*`, `/offerte/*`, `/kaart`,

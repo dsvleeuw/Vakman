@@ -7,6 +7,7 @@ Browser-gebaseerde integratie tests die de volledige gebruikersflows valideren.
 | Bestand | Geteste flows |
 |---------|---------------|
 | `routes.spec.ts` | Alle 39 routes laden zonder fouten (200/301), legacy query redirects, SPA fallback |
+| `github-history.spec.ts` | Klusbaas-homepage en losse GitHub-geschiedenispagina blijven gescheiden |
 | `wizard.spec.ts` | Volledige 6-stap wizard: vak → stijl → gegevens → diensten → afspraak → klaar; form validatie, navigatie, quote generatie |
 
 ## Draaien
