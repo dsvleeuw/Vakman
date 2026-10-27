@@ -657,3 +657,331 @@ html.dark .status--error {
     flex-direction: column;
   }
 }
+
+/* Branches view */
+.branches-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.branches-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0;
+}
+.branches-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.branches-actions select {
+  min-width: 160px;
+}
+.branches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.branch-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.branch-item:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow);
+}
+.branch-item__name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-strong);
+  min-width: 200px;
+}
+.branch-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 12.5px;
+  color: var(--muted);
+  flex: 1;
+}
+.branch-item__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.branch-item__badge--active {
+  background: #dcfce7;
+  color: #166534;
+}
+html.dark .branch-item__badge--active {
+  background: #064e3b;
+  color: #86efac;
+}
+.branch-item__badge--merged {
+  background: #e7d5fc;
+  color: #6b21a8;
+}
+html.dark .branch-item__badge--merged {
+  background: #3b1a5c;
+  color: #e9d5ff;
+}
+.branch-item__badge--open {
+  background: #dbeafe;
+  color: #1e40af;
+}
+html.dark .branch-item__badge--open {
+  background: #1e3a5f;
+  color: #93c5fd;
+}
+.branch-item__badge--stale {
+  background: #fee2e2;
+  color: #991b1b;
+}
+html.dark .branch-item__badge--stale {
+  background: #450a0a;
+  color: #fca5a5;
+}
+.branch-item__actions {
+  display: flex;
+  gap: 6px;
+}
+.branch-item__files {
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  display: none;
+}
+.branch-item__files--open {
+  display: block;
+}
+.branch-item__files-summary {
+  font-size: 12.5px;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.branch-item__files-summary:hover {
+  color: var(--text);
+}
+.branch-item__files-list {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.branch-item__file {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.branch-item__file--added {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+html.dark .branch-item__file--added {
+  background: #052e16;
+  border-color: #22c55e;
+}
+.branch-item__file--modified {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+html.dark .branch-item__file--modified {
+  background: #1e3a5f;
+  border-color: #3b82f6;
+}
+.branch-item__file--removed {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+html.dark .branch-item__file--removed {
+  background: #450a0a;
+  border-color: #ef4444;
+}
+.branch-item__file--renamed {
+  border-color: #fde68a;
+  background: #fefce8;
+}
+html.dark .branch-item__file--renamed {
+  background: #422006;
+  border-color: #eab308;
+}
+
+/* Network view */
+.network-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.network-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0;
+}
+.network-controls {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.network-controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.network-canvas-wrap {
+  position: relative;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-height: 400px;
+}
+#networkCanvas {
+  display: block;
+}
+
+/* Commit card file expansion */
+.commit-card__files-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.commit-card__files-toggle:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.commit-card__files-toggle[aria-expanded="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+.commit-card__files {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: none;
+}
+.commit-card__files--open {
+  display: block;
+  animation: slideDown 0.15s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.commit-card__files-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.commit-card__file {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.commit-card__file--added {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+html.dark .commit-card__file--added {
+  background: #052e16;
+  border-color: #22c55e;
+}
+.commit-card__file--modified {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+html.dark .commit-card__file--modified {
+  background: #1e3a5f;
+  border-color: #3b82f6;
+}
+.commit-card__file--removed {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+html.dark .commit-card__file--removed {
+  background: #450a0a;
+  border-color: #ef4444;
+}
+.commit-card__file--renamed {
+  border-color: #fde68a;
+  background: #fefce8;
+}
+html.dark .commit-card__file--renamed {
+  background: #422006;
+  border-color: #eab308;
+}
+.commit-card__file-status {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+.commit-card__file-status--added {
+  background: #22c55e;
+  color: #fff;
+}
+.commit-card__file-status--modified {
+  background: #3b82f6;
+  color: #fff;
+}
+.commit-card__file-status--removed {
+  background: #ef4444;
+  color: #fff;
+}
+.commit-card__file-status--renamed {
+  background: #eab308;
+  color: #fff;
+}

@@ -31,7 +31,7 @@
           <span>JSON-bestand kiezen</span>
           <input type="file" id="fileInput" accept=".json">
         </label>
-        <p class="hint">Voorbeeld export: <code>gh api repos/OWNER/REPO/commits --paginate --jq '.[] | {sha, message: .commit.message, author: {name: .commit.author.name, email: .commit.author.email, date: .commit.author.date}, url: .html_url}' &gt; commits.json</code></p>
+        <p class="hint">Voorbeeld export: <code>gh api repos/dsvleeuw/Vakman/commits --paginate --jq '.[] | {sha, message: .commit.message, author: {name: .commit.author.name, email: .commit.author.email, date: .commit.author.date}, url: .html_url}' &gt; commits.json</code></p>
       </div>
       <div class="input-panel" id="panelPaste">
         <textarea id="pasteInput" rows="8" placeholder="Plak hier de JSON met de commitgeschiedenis ..."></textarea>
@@ -56,6 +56,8 @@
       <div class="view-tabs">
         <button type="button" class="view-tab view-tab--active" id="tabHeatmap" data-view="heatmap">Bijdragen</button>
         <button type="button" class="view-tab" id="tabTimeline" data-view="timeline">Commits</button>
+        <button type="button" class="view-tab" id="tabBranches" data-view="branches">Branches</button>
+        <button type="button" class="view-tab" id="tabNetwork" data-view="network">Netwerk</button>
       </div>
 
       <div class="view view--active" id="viewHeatmap">
@@ -79,6 +81,41 @@
       <div class="view" id="viewTimeline">
         <div id="timeline" class="timeline"></div>
         <div id="timelineEmpty" class="empty">Geen commits gevonden</div>
+      </div>
+
+      <div class="view" id="viewBranches">
+        <div class="branches-header">
+          <h3>Branches & Pull Requests</h3>
+          <div class="branches-actions">
+            <select id="branchFilter" aria-label="Filter branches">
+              <option value="all">Alle branches</option>
+              <option value="active">Actief (laatste 30 dagen)</option>
+              <option value="merged">Gemerged</option>
+              <option value="open">Open PRs</option>
+            </select>
+            <button type="button" class="btn btn--outline" id="btnFetchBranches" disabled>Branches ophalen van GitHub</button>
+          </div>
+        </div>
+        <div id="branchesList" class="branches-list"></div>
+        <div id="branchesEmpty" class="empty">Geen branch-data beschikbaar. Klik "Branches ophalen van GitHub" of laad commits met branch-info.</div>
+      </div>
+
+      <div class="view" id="viewNetwork">
+        <div class="network-header">
+          <h3>Git Netwerk Grafiek</h3>
+          <div class="network-controls">
+            <label>
+              <input type="checkbox" id="networkShowAll" checked> Alle commits tonen
+            </label>
+            <label>
+              <input type="checkbox" id="networkCompact"> Compacte weergave
+            </label>
+          </div>
+        </div>
+        <div class="network-canvas-wrap">
+          <canvas id="networkCanvas"></canvas>
+        </div>
+        <div id="networkEmpty" class="empty">Netwerk visualisatie vereist commit-ouder/kind relaties. Laad commits van een repository met merge-commits.</div>
       </div>
     </section>
   </main>
