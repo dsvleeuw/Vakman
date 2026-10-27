@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Glassmorphism design system voor de GitHub-visualizer**
+  (`github-visualizer/style.css`): alle vormgeving als CSS custom properties
+  met licht en donker thema — glass-tokens (`--glass-bg`, `--glass-border`,
+  `--glass-shadow`, `--glass-backdrop`), semantische surfaces (`--surface-1`
+  tot `--surface-4`), fluid typografie (`--text-xs` tot `--text-4xl` via
+  `clamp()`), motion-tokens, een z-index-schaal en focus-ringen via
+  `--focus-ring`. `prefers-reduced-motion`, `prefers-reduced-transparency` en
+  `forced-colors` vallen terug op veilige waarden; zonder
+  `backdrop-filter`-ondersteuning worden de oppervlakken dicht. De
+  heatmap-tooltip staat nu direct onder `<body>`, want `backdrop-filter` maakt
+  een card tot containing block voor `position: fixed`.
 - **Code-gedreven src-audit** (`docs/arena_agent_src/`): acht onderzoeken
   (app/router/SEO, server/API, data/pricing, wizard/demosite, tools/extras,
   a11y, tests/tooling, docs-drift), een synthese met 58 punten en top 20, en
