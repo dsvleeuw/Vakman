@@ -1,8 +1,8 @@
-// Runs lint, test and build at the same time and fails if any of them fails.
+// Runs lint, tests and build at the same time and fails if any of them fails.
 // Output is buffered per step so the logs stay readable.
 import { spawn } from 'node:child_process';
 
-const steps = ['lint', 'test', 'build'];
+const steps = ['lint', 'test', 'inventory:test', 'build'];
 
 const run = (name) =>
   new Promise((resolve) => {
@@ -20,6 +20,6 @@ for (const { name, code, output } of results) {
 }
 console.log('');
 for (const { name, code, seconds } of results) {
-  console.log(`${code === 0 ? 'ok  ' : 'FAIL'} ${name.padEnd(6)} ${seconds.toFixed(1)} s`);
+  console.log(`${code === 0 ? 'ok  ' : 'FAIL'} ${name.padEnd(14)} ${seconds.toFixed(1)} s`);
 }
 process.exit(results.some((r) => r.code !== 0) ? 1 : 0);

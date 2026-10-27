@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `backdrop-filter`-ondersteuning worden de oppervlakken dicht. De
   heatmap-tooltip staat nu direct onder `<body>`, want `backdrop-filter` maakt
   een card tot containing block voor `position: fixed`.
+- **Automatische bestandsgeschiedenis** (`docs/bestandenoverzicht.csv`): één
+  regel per bestandswijziging met actuele vlag, branches, Git-commitbericht,
+  auteur, datums, object-ID's, grootte en links. Historische regels blijven
+  behouden; GitHub Actions vult nieuwe wijzigingen aan. Genegeerde bestanden
+  blijven buiten beeld. Zie `docs/bestandenoverzicht.md` voor de details.
 - **Code-gedreven src-audit** (`docs/arena_agent_src/`): acht onderzoeken
   (app/router/SEO, server/API, data/pricing, wizard/demosite, tools/extras,
   a11y, tests/tooling, docs-drift), een synthese met 58 punten en top 20, en
@@ -145,6 +150,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (geen preview-besturing, zwevende knoppen of mobiele balk).
 
 ### Fixed
+
+- **Klusbaas-homepage hersteld.** De zelfstandige GitHub-geschiedenispagina
+  staat nu apart op `/github-history/index.html`, zonder link op de homepage.
+  De prerender-build geeft een fout als het React-root-element ontbreekt.
 
 - **Meta en routering.** Geprerenderde pagina's hebben nog maar één `og:image`
   en `twitter:image`; `robots.txt` sluit `/kaart` uit; bij client-navigatie

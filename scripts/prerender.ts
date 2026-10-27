@@ -100,6 +100,10 @@ function outputFile(path: string): string {
 
 async function main() {
   const template = await readFile(join(dist, 'index.html'), 'utf8');
+  const rootPlaceholder = '<div id="root"></div>';
+  if (!template.includes(rootPlaceholder)) {
+    throw new Error(`Cannot prerender: dist/index.html is missing ${rootPlaceholder}`);
+  }
 
   // Drop the static head tags we regenerate per route.
   const shell = template
@@ -126,10 +130,7 @@ async function main() {
 
     const html = shell
       .replace('</head>', `  ${headTags(route)}\n  </head>`)
-      .replace(
-        '<div id="root"></div>',
-        `<div id="root" data-route="${dataRoute}">${markup}</div>`
-      );
+      .replace(rootPlaceholder, `<div id="root" data-route="${dataRoute}">${markup}</div>`);
 
     const file = outputFile(path);
     await mkdir(dirname(file), { recursive: true });

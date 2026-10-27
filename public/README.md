@@ -27,6 +27,10 @@ Alle Klusbaas brand assets:
 - `klusbaas-logo-email.png` — Email signature variant
 - `klusbaas-icon-square.svg` — Square icon voor favicon/app icon
 
+### `github-history/`
+De losse GitHub-geschiedenispagina, bereikbaar via `/github-history/index.html`.
+Deze staat los van de Klusbaas-homepage.
+
 ### `kaart/`
 Data voor prospect kaart weergave:
 - `leads.example.json` — Voorbeeld data structuur

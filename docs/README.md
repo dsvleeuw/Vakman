@@ -6,6 +6,7 @@ Algemene documentatie over de Klusbaas applicatie: architectuur, workflows, pric
 
 | Bestand | Onderwerp |
 |---------|-----------|
+| `bestandenoverzicht.csv` / `bestandenoverzicht.md` | Automatische bestandswijzigingsgeschiedenis met actuele branches en commitgegevens |
 | `architecture.md` | **Volledige architectuur** — stack, data flow, routing, deployment, security |
 | `adding-a-sector.md` | Handleiding: nieuwe vak toevoegen (data, palette, tools, tests) |
 | `adding-a-trade-tool.md` | Handleiding: nieuwe smart tool per vak maken |
