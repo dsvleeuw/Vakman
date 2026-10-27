@@ -1,0 +1,273 @@
+/* ==========================================================================
+   github-visualizer/animations.css
+   Reusable motion & interaction primitives (Task 1.2, CSS-only).
+
+   Load this AFTER style.css: the motion tokens (--duration-*, --ease-*,
+   --focus-color, --glass-shadow) come from there and are only re-declared
+   here as fallbacks so this file also works on its own.
+
+   Rules:
+   - Only `transform` and `opacity` are animated (no layout/paint churn).
+   - Everything is opt-in: no class is applied globally.
+   - No JS, no header/palette/component styles — wiring happens later.
+   - `will-change` is only set on elements that opted into an animation or
+     are in the middle of a hover/press interaction, never on a wildcard.
+   ========================================================================== */
+
+/* ---------- 1. Tokens ---------- */
+:root {
+  /* Aliases onto the design-system motion tokens. */
+  --anim-duration: var(--duration-base, 250ms);
+  --anim-ease: var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+
+  /* Travel/zoom used by the slide and scale keyframes. Override per element
+     (or per container) to make an entrance feel bigger or subtler. */
+  --anim-distance: 16px;
+  --anim-scale: 0.96;
+
+  /* Base step of the stagger system. */
+  --stagger-delay: 50ms;
+
+  /* Shadow raised by .hover-lift:hover (theme-aware via style.css). */
+  --lift-shadow: var(--glass-shadow, 0 12px 32px rgba(15, 23, 42, 0.12));
+
+  /* Glow colour for .hover-glow. */
+  --glow-color: rgba(9, 105, 218, 0.45);
+}
+
+/* ---------- 2. Keyframes (transform + opacity only) ---------- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translate3d(0, var(--anim-distance), 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translate3d(0, calc(var(--anim-distance) * -1), 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes slide-left {
+  from { opacity: 0; transform: translate3d(var(--anim-distance), 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes slide-right {
+  from { opacity: 0; transform: translate3d(calc(var(--anim-distance) * -1), 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(var(--anim-scale)); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(var(--anim-scale)); }
+}
+
+@keyframes flip-in {
+  from { opacity: 0; transform: perspective(600px) rotateY(-90deg); }
+  to { opacity: 1; transform: perspective(600px) rotateY(0deg); }
+}
+
+@keyframes flip-out {
+  from { opacity: 1; transform: perspective(600px) rotateY(0deg); }
+  to { opacity: 0; transform: perspective(600px) rotateY(90deg); }
+}
+
+/* ---------- 3. Animation utilities ----------
+   Entrances use `both` so a staggering delay holds the element at its
+   start frame (hidden) instead of flashing in. Exits use `forwards` so the
+   element keeps its end state until it is removed from the DOM.
+   Override `--anim-duration`, `--anim-distance`, `--anim-scale` or
+   `--anim-ease` on an element to tune a single instance. */
+.animate-fade-in { animation: fade-in var(--anim-duration) var(--anim-ease) both; }
+.animate-fade-out { animation: fade-out var(--anim-duration) var(--anim-ease) forwards; }
+.animate-slide-up { animation: slide-up var(--anim-duration) var(--anim-ease) both; }
+.animate-slide-down { animation: slide-down var(--anim-duration) var(--anim-ease) both; }
+.animate-slide-left { animation: slide-left var(--anim-duration) var(--anim-ease) both; }
+.animate-slide-right { animation: slide-right var(--anim-duration) var(--anim-ease) both; }
+.animate-scale-in { animation: scale-in var(--anim-duration) var(--anim-ease) both; }
+.animate-scale-out { animation: scale-out var(--anim-duration) var(--anim-ease) forwards; }
+.animate-flip-in { animation: flip-in var(--anim-duration) var(--anim-ease) both; }
+.animate-flip-out { animation: flip-out var(--anim-duration) var(--anim-ease) forwards; }
+
+/* Compositor hint only for the elements that explicitly animate. A later
+   task may drop the .animate-* class on `animationend`; the hint then goes
+   away with it. */
+.animate-fade-in,
+.animate-fade-out,
+.animate-slide-up,
+.animate-slide-down,
+.animate-slide-left,
+.animate-slide-right,
+.animate-scale-in,
+.animate-scale-out,
+.animate-flip-in,
+.animate-flip-out {
+  will-change: opacity, transform;
+}
+
+/* ---------- 4. Stagger system ----------
+   Declared after the .animate-* rules: same specificity, source order wins,
+   so `class="animate-fade-in stagger-3"` keeps the stagger delay.
+
+   Usage:
+     <ul class="stagger-children"><li class="animate-fade-in">…</li>…</ul>
+     <div class="animate-slide-up stagger-4">…</div>
+     <div class="animate-fade-in stagger-item" style="--stagger-order: 2"> */
+.stagger-item {
+  /* Per-item hook for lists that are not direct children of the container
+     (or that get their order from the markup). */
+  animation-delay: calc(var(--stagger-delay) * var(--stagger-order, 1));
+}
+
+.stagger-1 { animation-delay: calc(var(--stagger-delay) * 1); }
+.stagger-2 { animation-delay: calc(var(--stagger-delay) * 2); }
+.stagger-3 { animation-delay: calc(var(--stagger-delay) * 3); }
+.stagger-4 { animation-delay: calc(var(--stagger-delay) * 4); }
+.stagger-5 { animation-delay: calc(var(--stagger-delay) * 5); }
+.stagger-6 { animation-delay: calc(var(--stagger-delay) * 6); }
+.stagger-7 { animation-delay: calc(var(--stagger-delay) * 7); }
+.stagger-8 { animation-delay: calc(var(--stagger-delay) * 8); }
+.stagger-9 { animation-delay: calc(var(--stagger-delay) * 9); }
+.stagger-10 { animation-delay: calc(var(--stagger-delay) * 10); }
+.stagger-11 { animation-delay: calc(var(--stagger-delay) * 11); }
+.stagger-12 { animation-delay: calc(var(--stagger-delay) * 12); }
+
+/* Container-driven stagger: children 1–12 step by --stagger-delay, later
+   children keep the default 0ms delay (no unbounded waits). */
+.stagger-children > :nth-child(1) { animation-delay: calc(var(--stagger-delay) * 1); }
+.stagger-children > :nth-child(2) { animation-delay: calc(var(--stagger-delay) * 2); }
+.stagger-children > :nth-child(3) { animation-delay: calc(var(--stagger-delay) * 3); }
+.stagger-children > :nth-child(4) { animation-delay: calc(var(--stagger-delay) * 4); }
+.stagger-children > :nth-child(5) { animation-delay: calc(var(--stagger-delay) * 5); }
+.stagger-children > :nth-child(6) { animation-delay: calc(var(--stagger-delay) * 6); }
+.stagger-children > :nth-child(7) { animation-delay: calc(var(--stagger-delay) * 7); }
+.stagger-children > :nth-child(8) { animation-delay: calc(var(--stagger-delay) * 8); }
+.stagger-children > :nth-child(9) { animation-delay: calc(var(--stagger-delay) * 9); }
+.stagger-children > :nth-child(10) { animation-delay: calc(var(--stagger-delay) * 10); }
+.stagger-children > :nth-child(11) { animation-delay: calc(var(--stagger-delay) * 11); }
+.stagger-children > :nth-child(12) { animation-delay: calc(var(--stagger-delay) * 12); }
+
+/* ---------- 5. Interactions (opt-in) ---------- */
+.hover-lift {
+  transition:
+    transform var(--anim-duration) var(--anim-ease),
+    box-shadow var(--anim-duration) var(--anim-ease);
+}
+
+/* Keyboard users get the same affordance as pointer users. */
+.hover-lift:hover,
+.hover-lift:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--lift-shadow);
+}
+
+.hover-lift:hover,
+.tap-scale:active {
+  /* Hint only while the interaction is active. */
+  will-change: transform;
+}
+
+.hover-glow {
+  transition: box-shadow var(--anim-duration) var(--anim-ease);
+}
+
+.hover-glow:hover,
+.hover-glow:focus-visible {
+  box-shadow:
+    0 0 0 1px var(--glow-color),
+    0 0 18px 2px var(--glow-color);
+}
+
+.tap-scale {
+  transition: transform var(--duration-fast, 150ms) var(--anim-ease);
+}
+
+.tap-scale:active {
+  transform: scale(0.97);
+}
+
+/* Native controls already get the shadow ring from style.css; this class
+   adds an outline that works on any element without affecting layout. */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--focus-color, #0969da);
+  outline-offset: 2px;
+}
+
+/* ---------- 6. Reduced motion ----------
+   No motion, and no `opacity: 0` trap: an entrance that never runs still
+   ends visible instead of leaving its content invisible. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --stagger-delay: 0ms;
+    --anim-duration: 1ms;
+  }
+
+  /* Entrances: show the final state immediately. */
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-down,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale-in,
+  .animate-flip-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Exits: jump to their (hidden) end state instead of animating. */
+  .animate-fade-out,
+  .animate-scale-out,
+  .animate-flip-out {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    will-change: auto !important;
+  }
+
+  /* Nothing may be held back by a stagger delay. */
+  .stagger-1,
+  .stagger-2,
+  .stagger-3,
+  .stagger-4,
+  .stagger-5,
+  .stagger-6,
+  .stagger-7,
+  .stagger-8,
+  .stagger-9,
+  .stagger-10,
+  .stagger-11,
+  .stagger-12,
+  .stagger-item,
+  .stagger-children > * {
+    animation-delay: 0ms !important;
+  }
+
+  /* Interactions stay as instant feedback, without movement. */
+  .hover-lift,
+  .hover-glow,
+  .tap-scale {
+    transition: none !important;
+  }
+
+  .hover-lift:hover,
+  .hover-lift:focus-visible,
+  .tap-scale:active {
+    transform: none !important;
+    will-change: auto !important;
+  }
+}
