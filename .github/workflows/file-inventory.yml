@@ -1,0 +1,46 @@
+name: Bestandenoverzicht bijwerken
+
+on:
+  push:
+    branches:
+      - '**'
+  create:
+  delete:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+# Alleen het gegenereerde overzicht op de standaardbranch wordt aangepast.
+permissions:
+  contents: write
+
+# Eén overzicht voor alle branches. Een eventuele volgende run haalt altijd
+# opnieuw alle refs op, ook als GitHub een oudere wachtende run vervangt.
+concurrency:
+  group: file-inventory-default-branch
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Genereer en publiceer het overzicht
+        env:
+          TARGET_BRANCH: ${{ github.event.repository.default_branch }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Een featurebranch kan deze workflow al bevatten voordat de code
+          # op de standaardbranch is gemerged. Dan is er nog niets te doen.
+          if [[ ! -f scripts/publish-file-inventory.sh ]]; then
+            echo 'De generator staat nog niet op de standaardbranch; niets te doen.'
+            exit 0
+          fi
+          bash scripts/publish-file-inventory.sh "$TARGET_BRANCH"

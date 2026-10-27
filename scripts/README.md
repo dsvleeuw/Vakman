@@ -7,7 +7,10 @@ Node/Bun scripts voor build proces, prerendering, brand generatie, en performanc
 | Script | Doel | Commando |
 |--------|------|----------|
 | `prerender.ts` | Prerender alle 39 routes voor SEO + sitemap/robots.txt generatie | `bun run build` (auto) |
-| `check.mjs` | Voert `lint` + `test` + `build` parallel uit (~20s) | `bun run check` |
+| `check.mjs` | Voert `lint`, applicatietests, inventarisatietests en `build` parallel uit | `bun run check` |
+| `file-inventory.mjs` | Genereert het Git-bestandenoverzicht in `docs/` | `bun run inventory` |
+| `file-inventory.test.mjs` | Test branches, Git-tijden, uitzonderingen en publicatie | `bun run inventory:test` |
+| `publish-file-inventory.sh` | Publiceert het overzicht vanuit een schone GitHub Actions-checkout | Alleen via Actions |
 | `generate-brand.mjs` | Genereert brand assets (logos, icons, OG images) uit SVG source | `bun run generate:brand` |
 | `lighthouse-scan.mjs` | Lighthouse CI audit voor performance, accessibility, SEO | `bun run lighthouse` |
 
