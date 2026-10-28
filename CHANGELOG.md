@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Repo-studie met de ogen van Kun Chen** (`docs/kun-repo-study.md`): een
+  onafhankelijke blik op Klusbaas via de `/kun`-skill, met gemeten cijfers
+  (134 tests groen, 28 PR's, 18.366 regels applicatiecode). Benadrukt dat de
+  gegenereerde site het commodity-deel is en de leadlijst + de persoonlijke
+  demo-link de echte waarde; documenteert acht documentatie-claims die nu
+  liegen, het openstaande `test.fixme` op de voorbeeldtelefoonnummers, het
+  hardcoded KvK-nummer, de ontbrekende tests op de lead-/offerte-/PDF-pad en
+  de twee componenten van 1.300+ regels, en de
+  `commit-msg`-hook die agents als co-auteur opschrijft. Eindigt met tien geprioriteerde
+  acties (S/M/L), een lijst van expliciete niet-doen, en zes open beslissingen
+  voor de eigenaar. Alleen documentatie; geen applicatiecode gewijzigd.
 - **Glassmorphism design system voor de GitHub-visualizer**
   (`github-visualizer/style.css`): alle vormgeving als CSS custom properties
   met licht en donker thema — glass-tokens (`--glass-bg`, `--glass-border`,
