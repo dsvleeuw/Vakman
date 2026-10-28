@@ -228,6 +228,18 @@ export const SiteView: React.FC<SiteViewProps> = ({
           {builderLabel}
         </RouteLink>
 
+        {/* Fill in the site yourself (desktop) */}
+        <RouteLink
+          route={{
+            name: 'editor',
+            sector: selectedSector,
+            styleId: styleIdFromIndex(selectedStyleIndex),
+          }}
+          className="hidden lg:inline-flex min-h-11 px-4 rounded-full border border-stone-600 text-stone-200 hover:bg-stone-700 hover:text-white font-extrabold text-xs whitespace-nowrap items-center no-underline"
+        >
+          Vul je site zelf in
+        </RouteLink>
+
         {/* Expanded controls on phones & tablets */}
         {controlsOpen && (
           <div
@@ -275,6 +287,16 @@ export const SiteView: React.FC<SiteViewProps> = ({
               className="min-h-11 px-4 rounded-full bg-amber-400 text-stone-900 font-extrabold text-xs inline-flex items-center justify-center no-underline"
             >
               {builderLabel}
+            </RouteLink>
+            <RouteLink
+              route={{
+                name: 'editor',
+                sector: selectedSector,
+                styleId: styleIdFromIndex(selectedStyleIndex),
+              }}
+              className="min-h-11 px-4 rounded-full border border-stone-600 text-stone-200 font-extrabold text-xs inline-flex items-center justify-center no-underline"
+            >
+              Vul je site zelf in
             </RouteLink>
           </div>
         )}

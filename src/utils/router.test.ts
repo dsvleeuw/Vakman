@@ -20,6 +20,22 @@ test('home is the root path and can preselect a trade', () => {
   assert.equal(buildPath({ name: 'home', sector: 'schilder' }), '/?vak=schilder');
 });
 
+test('the editor has its own route and keeps trade and style', () => {
+  assert.deepEqual(parseRoute('/mijn-site'), { name: 'editor' });
+  assert.deepEqual(parseRoute('/mijn-site', '?vak=schilder&stijl=modern'), {
+    name: 'editor',
+    sector: 'schilder',
+    styleId: 'modern',
+  });
+  assert.equal(buildPath({ name: 'editor' }), '/mijn-site');
+  assert.equal(
+    buildPath({ name: 'editor', sector: 'schilder', styleId: 'modern' }),
+    '/mijn-site?vak=schilder&stijl=modern'
+  );
+  assert.equal(buildPath(parseRoute('/mijn-site?vak=schilder&stijl=modern')), '/mijn-site?vak=schilder&stijl=modern');
+  assert.ok(getRouteMeta({ name: 'editor' }).title.includes('Mijn site'));
+});
+
 test('a generated site gets a readable sector/style URL', () => {
   assert.deepEqual(parseRoute('/voorbeeld/hovenier/modern'), {
     name: 'site',

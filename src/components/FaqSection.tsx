@@ -29,7 +29,7 @@ const DEFAULT_FAQS: FaqItem[] = [
   },
   {
     q: 'Kan ik de prijzen en diensten later aanpassen?',
-    a: 'Ja, absoluut. Via het Klusbaas-dashboard kun je op elk moment diensten toevoegen, tarieven wijzigen of nieuwe werkfoto’s uploaden.',
+    a: 'Ja. In je eigen site-editor zet je diensten aan of uit, schrijf je teksten van jezelf en kies je welke onderdelen op je site staan. De website staat meteen voor je klaar, zonder wachttijd.',
   },
   {
     q: 'Heb ik een KvK-nummer nodig om te starten?',

@@ -68,6 +68,7 @@ import {
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { ImageWithFallback } from './ImageWithFallback';
 import { SiteView } from './SiteView';
+import { RouteLink } from './RouteLink';
 import { Logo } from './Logo';
 import { PrivacyNote } from './PrivacyNote';
 
@@ -1271,6 +1272,12 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 >
                   Bekijk je website →
                 </button>
+                <RouteLink
+                  route={{ name: 'editor', sector, styleId: styleIdFromIndex(styleIndex) }}
+                  className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center no-underline"
+                >
+                  Vul je site zelf in
+                </RouteLink>
                 <button
                   onClick={onGoHome}
                   className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer"

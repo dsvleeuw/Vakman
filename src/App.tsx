@@ -58,6 +58,11 @@ const ProspectMapView = lazy(() =>
     default: module.ProspectMapView,
   }))
 );
+const SiteEditor = lazy(() =>
+  import('./components/editor/SiteEditor').then((module) => ({
+    default: module.SiteEditor,
+  }))
+);
 
 const PageFallback: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -445,6 +450,15 @@ export default function App() {
               isCustomized={!!customData[route.sector]}
               personal={personal}
             />
+          </Suspense>
+        </div>
+      )}
+
+      {/* 4b. DE KLANT VULT ZIJN EIGEN SITE IN */}
+      {route.name === 'editor' && (
+        <div id="main-content">
+          <Suspense fallback={<PageFallback label="Je site laden…" />}>
+            <SiteEditor sector={route.sector} styleId={route.styleId} />
           </Suspense>
         </div>
       )}

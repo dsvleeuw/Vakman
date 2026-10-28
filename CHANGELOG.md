@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Eigen site-editor (`/mijn-site`)**: de klant vult zijn site zelf in.
+  De editor toont de live site links en het invulpanel rechts: zijn gegevens,
+  de tekst van de pagina en de blokken die hij op de site wil hebben. Per
+  blok staan de teksten die hij kan herschrijven (vertrouwensbalk,
+  garantielijst, review, vakman-kaart, projectcijfers, openingstijden,
+  beschikbaarheid, actiebanner, werkgebied en contactbanner). Blokken gaan aan
+  en uit en zijn te herordenen (slepen of met de pijltjes). Alles wordt
+  direct opgeslagen in de browser van de klant; er is geen AI en geen
+  modelkosten: de klant schrijft zijn eigen tekst.
+
 - **Repo-studie met de ogen van Kun Chen** (`docs/kun-repo-study.md`): een
   onafhankelijke blik op Klusbaas via de `/kun`-skill, met gemeten cijfers
   (134 tests groen, 28 PR's, 18.366 regels applicatiecode). Benadrukt dat de

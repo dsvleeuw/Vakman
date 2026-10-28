@@ -6,6 +6,7 @@ import {
   applySiteContent,
   defaultSiteContent,
   moveBlock,
+  moveBlockTo,
   sanitizeSiteContent,
   setBlockEnabled,
 } from './siteContent';
@@ -51,6 +52,18 @@ test('een blok verplaatsen werkt en stopt aan de randen', () => {
   assert.equal(moved[1], 'price-calculator');
   assert.equal(moved[0], 'area-checker');
   assert.deepEqual(moveBlock(moved, 'area-checker', -1), moved);
+});
+
+test('een blok naar een andere plek slepen werkt', () => {
+  const blocks = [...DEFAULT_BLOCK_ORDER];
+  const moved = moveBlockTo(blocks, 'booking-calendar', 0);
+
+  assert.equal(moved[0], 'booking-calendar');
+  assert.equal(moved.length, blocks.length);
+  // Een blok naar zijn eigen plek slepen verandert niets.
+  assert.deepEqual(moveBlockTo(blocks, 'price-calculator', 0), blocks);
+  // Buiten de randen gaat het naar de laatste plek.
+  assert.equal(moveBlockTo(blocks, 'price-calculator', 99)[3], 'price-calculator');
 });
 
 test('de tekst van de craftsman overschrijft die van het vak', () => {

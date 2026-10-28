@@ -125,6 +125,8 @@ export type Route =
       prefill?: DemoPersonalization;
     }
   | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
+  /** De editor waarin een vakman zijn eigen site invult: /mijn-site */
+  | { name: 'editor'; sector?: SectorId; styleId?: StyleId }
   | { name: 'components'; componentId?: string }
   | { name: 'prospects' }
   | { name: 'quote'; id: string; token: string }
@@ -220,6 +222,16 @@ export function parseRoute(pathname: string, search = ''): Route {
     return { name: 'site', sector: second, styleId, ...(personal ? { personal } : {}) };
   }
 
+  if (first === 'mijn-site') {
+    if (segments.length > 1) return { name: 'notFound', path: pathname };
+    const styleParam = params.get('stijl');
+    return {
+      name: 'editor',
+      ...(sector ? { sector } : {}),
+      ...(isStyleId(styleParam) ? { styleId: styleParam } : {}),
+    };
+  }
+
   if (first === 'offerte') {
     if (segments.length !== 2 || !isQuoteNumber(second)) return { name: 'notFound', path: pathname };
     return { name: 'quote', id: second, token: params.get('token') ?? '' };
@@ -269,6 +281,13 @@ export function buildPath(route: Route): string {
       setPersonalParams(params, route.personal);
       const query = params.toString();
       return `/voorbeeld/${route.sector}/${route.styleId}${query ? `?${query}` : ''}`;
+    }
+    case 'editor': {
+      const params = new URLSearchParams();
+      if (route.sector) params.set('vak', route.sector);
+      if (route.styleId) params.set('stijl', route.styleId);
+      const query = params.toString();
+      return `/mijn-site${query ? `?${query}` : ''}`;
     }
     case 'components':
       return route.componentId
@@ -363,6 +382,12 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: 'Werkkaart · Klusbaas',
         description: 'Interne werkkaart met de bedrijven uit de leadlijst Noord-Holland.',
+      };
+    case 'editor':
+      return {
+        title: 'Mijn site · Klusbaas',
+        description:
+          'Vul je eigen vakmansite: je gegevens, je tekst en de onderdelen die je op je site wilt hebben.',
       };
     case 'components':
       return {

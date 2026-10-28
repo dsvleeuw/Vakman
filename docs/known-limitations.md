@@ -46,12 +46,16 @@ to [ROADMAP.md](../ROADMAP.md).
 
 ## Customisation
 
-- Only the four wizard fields (business name, owner, phone, city) and the
-  service on/off toggles persist, via the `klusbaas_custom_sites`
-  localStorage key. Photos, palette, services prices and copy cannot be
-  edited by a user yet.
-- The FAQ references a "Klusbaas-dashboard" that does not exist
-  (roadmap 1.4/3.3).
+- The editor (`/mijn-site`) lets a craftsman fill in the business name,
+  owner, phone, city and e-mail, switch services off, rewrite the page copy
+  and the copy per block, and choose which blocks are on the page and in
+  which order. Everything is stored per browser in localStorage
+  (`klusbaas_mijn_sites`, per trade and style).
+- Photos, palette, service prices, reviews and portfolio photos are still
+  fixed: they come from the trade preset and cannot be edited.
+- The editor is not yet a place where a site is published: the site lives in
+  the craftsman's own browser. Publishing to a public `/site/:slug` is the
+  next step (see `PublishedSiteRecord` in `types.ts`).
 - Customised data is per browser: there are no accounts for craftsmen
   (Firebase Auth is only used for the Google Calendar/Drive sync).
 

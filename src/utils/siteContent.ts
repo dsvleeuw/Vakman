@@ -224,6 +224,18 @@ export function moveBlock(blocks: BlockId[], id: BlockId, delta: number): BlockI
   return next;
 }
 
+/** Move a block to another position, used while dragging it to a new place. */
+export function moveBlockTo(blocks: BlockId[], id: BlockId, targetIndex: number): BlockId[] {
+  const index = blocks.indexOf(id);
+  if (index === -1) return blocks;
+  const target = Math.max(0, Math.min(blocks.length - 1, targetIndex));
+  if (target === index) return blocks;
+  const next = [...blocks];
+  const [moved] = next.splice(index, 1);
+  next.splice(target, 0, moved);
+  return next;
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }

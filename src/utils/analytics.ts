@@ -29,7 +29,8 @@ export type AnalyticsEventName =
   | 'lead_success'
   | 'lead_error'
   | 'newsletter_signup'
-  | 'newsletter_error';
+  | 'newsletter_error'
+  | 'site_content_changed';
 
 export type AnalyticsProps = Record<string, string | number | boolean | undefined>;
 
