@@ -650,6 +650,9 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                             onClick={() => {
                               setBlocks(setBlockEnabled(content.blocks, block.id, true));
                               setShowAdd(false);
+                              // Open the block right away, so the customer can
+                              // fill in his own words.
+                              setOpenBlock(isContentBlockId(block.id) ? block.id : null);
                             }}
                             className="flex items-center gap-3 text-left p-3 rounded-xl border-2 border-stone-200 hover:border-stone-900"
                           >
