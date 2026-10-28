@@ -9,23 +9,67 @@ function siteKey(sector: SectorId, styleId: StyleId): string {
 }
 
 /**
+ * The site the craftsman published for this trade and style. The editor
+ * needs it: a second visit must update the site that is already online,
+ * not create a second one.
+ */
+export interface PublishedLink {
+  slug: string;
+  token: string;
+}
+
+type StoredSite = {
+  content?: SiteContent;
+  published?: PublishedLink;
+};
+
+function readStore(): Record<string, StoredSite> {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return {};
+    const parsed: unknown = JSON.parse(raw);
+    if (typeof parsed !== 'object' || parsed === null) return {};
+    return parsed as Record<string, StoredSite>;
+  } catch {
+    return {};
+  }
+}
+
+export function loadPublishedLink(
+  sector: SectorId,
+  styleId: StyleId
+): PublishedLink | null {
+  const entry = readStore()[siteKey(sector, styleId)];
+  const link = entry?.published;
+  return link && link.slug && link.token ? link : null;
+}
+
+export function savePublishedLink(
+  sector: SectorId,
+  styleId: StyleId,
+  link: PublishedLink
+): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const all = readStore();
+    const key = siteKey(sector, styleId);
+    all[key] = { ...all[key], published: link };
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  } catch {
+    // Storage can be full or blocked; publishing itself still worked.
+  }
+}
+
+/**
  * The site a craftsman filled in himself, kept in his own browser.
  *
  * The key is sector plus style, so the same craftsman can keep a page per
  * trade and per style without overwriting the other one.
  */
 export function loadSiteContent(sector: SectorId, styleId: StyleId): SiteContent | null {
-  if (typeof window === 'undefined') return null;
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed: unknown = JSON.parse(raw);
-    if (typeof parsed !== 'object' || parsed === null) return null;
-    const entry = (parsed as Record<string, unknown>)[siteKey(sector, styleId)];
-    return sanitizeSiteContent(entry);
-  } catch {
-    return null;
-  }
+  const entry = readStore()[siteKey(sector, styleId)];
+  return sanitizeSiteContent(entry?.content);
 }
 
 export function saveSiteContent(
@@ -35,13 +79,9 @@ export function saveSiteContent(
 ): void {
   if (typeof window === 'undefined') return;
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    let all: Record<string, unknown> = {};
-    if (raw) {
-      const parsed: unknown = JSON.parse(raw);
-      if (typeof parsed === 'object' && parsed !== null) all = parsed as Record<string, unknown>;
-    }
-    all[siteKey(sector, styleId)] = content;
+    const all = readStore();
+    const key = siteKey(sector, styleId);
+    all[key] = { ...all[key], content };
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
   } catch {
     // Storage can be full or blocked; the editor keeps working in memory.

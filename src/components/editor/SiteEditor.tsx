@@ -12,7 +12,11 @@ import {
   setBlockEnabled,
 } from '../../utils/siteContent';
 import { fetchPublishedSite, publishSite } from '../../utils/siteClient';
-import { useSiteContent } from '../../hooks/useSiteContent';
+import {
+  loadPublishedLink,
+  savePublishedLink,
+  useSiteContent,
+} from '../../hooks/useSiteContent';
 import { track } from '../../utils/analytics';
 import { SiteView } from '../SiteView';
 import { BlockForm, type AnyBlockContent } from './BlockForm';
@@ -103,9 +107,44 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
   // Load the published site when the craftsman opens his management link.
   useEffect(() => {
     if (!initialSlug) {
-      setPublished(null);
-      setRemoteContent(null);
-      return;
+      // No link in the address bar: the site this browser published earlier
+      // is the one to work on, so the customer updates his live site
+      // instead of creating a second one.
+      const link = loadPublishedLink(sector, styleId);
+      if (!link) {
+        setPublished(null);
+        setRemoteContent(null);
+        return;
+      }
+      let cancelled = false;
+      fetchPublishedSite(link.slug, link.token).then((result) => {
+        if (cancelled) return;
+        if (!result.ok || !result.site) {
+          setPublished(null);
+          return;
+        }
+        const content = sanitizeSiteContent({
+          version: 1,
+          sector: result.site.sector,
+          styleId: result.site.styleId,
+          form: result.site.form,
+          disabledServices: result.site.disabledServices,
+          blocks: result.site.blocks,
+          blockContent: result.site.blockContent,
+          text: result.site.text,
+        });
+        if (!content || cancelled) return;
+        setRemoteContent(content);
+        setPublished({
+          slug: link.slug,
+          token: link.token,
+          url: `${window.location.origin}/site/${link.slug}`,
+          manageUrl: `${window.location.origin}/mijn-site/${link.slug}?token=${link.token}`,
+        });
+      });
+      return () => {
+        cancelled = true;
+      };
     }
     let cancelled = false;
     fetchPublishedSite(initialSlug, initialToken).then((result) => {
@@ -140,7 +179,7 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
     return () => {
       cancelled = true;
     };
-  }, [initialSlug, initialToken]);
+  }, [initialSlug, initialToken, sector, styleId]);
 
   const setBlocks = (blocks: BlockId[]) => update({ ...content, blocks });
 
@@ -189,6 +228,7 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
       result.manageUrl ??
       `${window.location.origin}/mijn-site/${result.slug}?token=${result.token ?? ''}`;
     setPublished({ slug: result.slug, token: result.token ?? '', url, manageUrl });
+    if (result.token) savePublishedLink(sector, styleId, { slug: result.slug, token: result.token });
     if (!remoteContent) setRemoteContent(content);
     setPublishDone(true);
     track('site_content_changed', { sector, published: true });
