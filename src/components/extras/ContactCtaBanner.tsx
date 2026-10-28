@@ -1,17 +1,14 @@
 import React from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
+import type { ActiveSiteData, ContactCtaContent } from '../../types';
 import { buildSiteTelUrl } from '../../utils/contact';
 
 export interface ContactCtaBannerProps {
   site: ActiveSiteData;
-  title?: string;
+  content: ContactCtaContent;
 }
 
-export const ContactCtaBanner: React.FC<ContactCtaBannerProps> = ({
-  site,
-  title = 'Een heldere prijs voor jouw klus?',
-}) => {
+export const ContactCtaBanner: React.FC<ContactCtaBannerProps> = ({ site, content }) => {
   return (
     <section
       className="w-full p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-8 items-center border"
@@ -31,10 +28,10 @@ export const ContactCtaBanner: React.FC<ContactCtaBannerProps> = ({
           className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight m-0"
           style={{ fontFamily: site.display, fontWeight: site.dw, letterSpacing: site.ls }}
         >
-          {title}
+          {content.title}
         </h3>
         <p className="text-sm sm:text-base leading-relaxed m-0" style={{ color: site.invMuted }}>
-          Beantwoord een paar korte vragen en ontvang een realistische inschatting. Liever persoonlijk contact? Bel ons gerust.
+          {content.description}
         </p>
       </div>
 

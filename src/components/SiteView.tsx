@@ -3,12 +3,9 @@ import { Phone, MessageCircle, Zap, Menu, X } from 'lucide-react';
 import type { ActiveSiteData, SectorId } from '../types';
 import { ORDER, SECTORS, STYLES, getUnsplashUrl } from '../data/tradesData';
 import { ImageWithFallback } from './ImageWithFallback';
-import { PriceCalculator } from './PriceCalculator';
-import { AreaChecker } from './AreaChecker';
-import { BookingCalendar } from './BookingCalendar';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
-import { TradeTool } from './tools/TradeTool';
 import { ContactSection } from './ContactSection';
+import { BlockRenderer } from './BlockRenderer';
 import { FaqSection } from './FaqSection';
 import { StarRating, StarIcon, CheckIcon } from './Icons';
 import { RouteLink } from './RouteLink';
@@ -1134,17 +1131,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
           </div>
         </section>
 
-        {/* Embedded Interactive Price Calculator */}
-        <PriceCalculator site={site} />
-
-        {/* Service Area Checker */}
-        <AreaChecker site={site} />
-
-        {/* Smart, trade-specific conversion tool */}
-        <TradeTool site={site} />
-
-        {/* Customer Appointment Booking Calendar */}
-        <BookingCalendar site={site} />
+        {/* Blocks the craftsman can switch on, order and fill in */}
+        {site.blocks.map((block) => (
+          <BlockRenderer key={block} site={site} block={block} />
+        ))}
 
         {/* Customer Reviews */}
         <section className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60">

@@ -156,6 +156,150 @@ export interface Palette {
   hdrA: string;
 }
 
+/* -------------------------------------------------------------------------- *
+ * Blocks: the parts of a craftsman website that can be switched on, ordered
+ * and filled in by the craftsman himself.
+ * -------------------------------------------------------------------------- */
+
+export type BlockId =
+  | 'trust-bar'
+  | 'guarantees'
+  | 'testimonial'
+  | 'team-member'
+  | 'project-stats'
+  | 'opening-hours'
+  | 'availability'
+  | 'promotion'
+  | 'service-areas'
+  | 'contact-cta'
+  | 'price-calculator'
+  | 'area-checker'
+  | 'booking-calendar'
+  | 'trade-tool';
+
+/** The icon a trust-bar item shows. Fixed set, so the editor stays simple. */
+export type TrustIcon = 'shield' | 'clock' | 'pin' | 'star' | 'check' | 'award' | 'leaf' | 'tool';
+
+export interface TrustBarItem {
+  icon: TrustIcon;
+  title: string;
+  text: string;
+}
+
+export interface TrustBarContent {
+  items: TrustBarItem[];
+}
+
+export interface GuaranteeItem {
+  title: string;
+  description: string;
+}
+
+export interface GuaranteeContent {
+  items: GuaranteeItem[];
+}
+
+export interface TestimonialContent {
+  quote: string;
+  who: string;
+  rating: number;
+}
+
+export interface TeamMemberContent {
+  name: string;
+  role: string;
+  text: string;
+  since: string;
+}
+
+export interface ProjectStatItem {
+  value: string;
+  label: string;
+}
+
+export interface ProjectStatsContent {
+  stats: ProjectStatItem[];
+}
+
+export interface BusinessHour {
+  days: string;
+  time: string;
+}
+
+export interface OpeningHoursContent {
+  hours: BusinessHour[];
+  note: string;
+}
+
+export interface AvailabilityContent {
+  next: string;
+  promises: string[];
+}
+
+export interface PromotionContent {
+  title: string;
+  description: string;
+  cta: string;
+}
+
+export interface ServiceAreasContent {
+  areas: string[];
+}
+
+export interface ContactCtaContent {
+  title: string;
+  description: string;
+}
+
+/**
+ * Editable copy per content block. The four tools (price calculator, postcode
+ * check, booking calendar, trade tool) read their data from the sector and
+ * therefore have no content of their own.
+ */
+export interface BlockContentMap {
+  'trust-bar': TrustBarContent;
+  'guarantees': GuaranteeContent;
+  'testimonial': TestimonialContent;
+  'team-member': TeamMemberContent;
+  'project-stats': ProjectStatsContent;
+  'opening-hours': OpeningHoursContent;
+  'availability': AvailabilityContent;
+  'promotion': PromotionContent;
+  'service-areas': ServiceAreasContent;
+  'contact-cta': ContactCtaContent;
+}
+
+/** Block ids that carry editable copy. */
+export type ContentBlockId = keyof BlockContentMap;
+
+/** The copy of the page itself, so a craftsman can write his own headline. */
+export interface SiteText {
+  kicker: string;
+  headline: string;
+  intro: string;
+  about: string;
+  cta1: string;
+  cta2: string;
+}
+
+/**
+ * Everything that makes one craftsman's website his own: his details, the
+ * services he offers, which blocks are on the page and what they say.
+ */
+export interface SiteContent {
+  version: 1;
+  sector: SectorId;
+  styleId: StyleId;
+  form: WizardFormData;
+  disabledServices: Record<number, boolean>;
+  /** Enabled blocks, in the order they appear on the page. */
+  blocks: BlockId[];
+  /** Editable copy per content block. */
+  blockContent: Partial<BlockContentMap>;
+  /** Editable copy of the page itself. */
+  text: SiteText;
+}
+
 export interface ActiveSiteData extends SectorData, Palette {
   display: string;
   dw: number;
@@ -184,6 +328,10 @@ export interface ActiveSiteData extends SectorData, Palette {
   ownerFirstUpper: string;
   hdrBg: string;
   hiText: string;
+  /** Blocks on this page, in order. Set by `applySiteContent`. */
+  blocks: BlockId[];
+  /** Editable copy per block. Set by `applySiteContent`. */
+  blockContent: Partial<BlockContentMap>;
 }
 
 export interface WizardFormData {
@@ -217,6 +365,18 @@ export interface WizardDraft {
   channel?: QuoteChannel;
   /** True once the visitor explicitly chose a trade (or arrived with ?vak=). */
   sectorChosen?: boolean;
+}
+
+/**
+ * What is kept for a craftsman who filled in his own site: his details, the
+ * blocks on his page and the services he switched off.
+ */
+export interface CustomSite {
+  form: WizardFormData;
+  /** Blocks on his page, in order. */
+  blocks: BlockId[];
+  /** Services he switched off, by index in the trade preset. */
+  disabledServices: Record<number, boolean>;
 }
 
 export interface PublishedSiteRecord {

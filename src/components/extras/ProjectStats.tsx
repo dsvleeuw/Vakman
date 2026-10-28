@@ -1,24 +1,12 @@
 import React from 'react';
-import type { ActiveSiteData } from '../../types';
-
-export interface ProjectStat {
-  value: string;
-  label: string;
-}
+import type { ActiveSiteData, ProjectStatsContent } from '../../types';
 
 export interface ProjectStatsProps {
   site: ActiveSiteData;
-  stats?: ProjectStat[];
+  content: ProjectStatsContent;
 }
 
-export const ProjectStats: React.FC<ProjectStatsProps> = ({ site, stats }) => {
-  const visibleStats = stats ?? [
-    { value: site.since, label: 'Actief als vakman sinds' },
-    { value: `${site.reviewCount}`, label: 'Klantbeoordelingen' },
-    { value: site.rating, label: 'Gemiddeld cijfer' },
-    { value: '25 km', label: `Werkgebied rond ${site.city}` },
-  ];
-
+export const ProjectStats: React.FC<ProjectStatsProps> = ({ site, content }) => {
   return (
     <section
       className="w-full grid grid-cols-2 lg:grid-cols-4 gap-px overflow-hidden"
@@ -29,7 +17,7 @@ export const ProjectStats: React.FC<ProjectStatsProps> = ({ site, stats }) => {
       }}
       aria-label="Cijfers en ervaring"
     >
-      {visibleStats.map((stat) => (
+      {content.stats.map((stat) => (
         <div
           key={stat.label}
           className="p-5 sm:p-7 flex flex-col gap-2"

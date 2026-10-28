@@ -1,16 +1,14 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
-import type { ActiveSiteData, ReviewItem } from '../../types';
+import type { ActiveSiteData, TestimonialContent } from '../../types';
 import { StarRating } from '../Icons';
 
 export interface TestimonialCardProps {
   site: ActiveSiteData;
-  review?: ReviewItem;
+  content: TestimonialContent;
 }
 
-export const TestimonialCard: React.FC<TestimonialCardProps> = ({ site, review }) => {
-  const featuredReview = review ?? site.reviews[0];
-
+export const TestimonialCard: React.FC<TestimonialCardProps> = ({ site, content }) => {
   return (
     <article
       className="w-full p-6 sm:p-8 border flex flex-col gap-6"
@@ -41,7 +39,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ site, review }
         className="text-xl sm:text-2xl font-semibold leading-relaxed tracking-tight m-0"
         style={{ fontFamily: site.display }}
       >
-        “{featuredReview.q}”
+        “{content.quote}”
       </blockquote>
 
       <footer
@@ -49,13 +47,13 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ site, review }
         style={{ borderColor: site.line }}
       >
         <div>
-          <cite className="not-italic font-bold text-sm">{featuredReview.who}</cite>
+          <cite className="not-italic font-bold text-sm">{content.who}</cite>
           <p className="text-xs m-0 mt-1" style={{ color: site.muted }}>
             Klant van {site.biz}
           </p>
         </div>
         <span className="text-xs font-semibold" style={{ color: site.muted }}>
-          {site.rating} uit 5 · {site.reviewCount} beoordelingen
+          {content.rating} uit 5 · {site.reviewCount} beoordelingen
         </span>
       </footer>
     </article>

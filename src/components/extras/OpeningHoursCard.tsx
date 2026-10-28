@@ -1,28 +1,14 @@
 import React from 'react';
 import { Clock, MessageCircle, Phone } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
+import type { ActiveSiteData, OpeningHoursContent } from '../../types';
 import { buildSiteTelUrl, buildSiteWhatsAppUrl } from '../../utils/contact';
-
-export interface BusinessHour {
-  days: string;
-  time: string;
-}
 
 export interface OpeningHoursCardProps {
   site: ActiveSiteData;
-  hours?: BusinessHour[];
+  content: OpeningHoursContent;
 }
 
-const DEFAULT_HOURS: BusinessHour[] = [
-  { days: 'Maandag – vrijdag', time: '07:30 – 17:30' },
-  { days: 'Zaterdag', time: '09:00 – 13:00' },
-  { days: 'Zondag', time: 'Gesloten' },
-];
-
-export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
-  site,
-  hours = DEFAULT_HOURS,
-}) => {
+export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({ site, content }) => {
   const whatsAppUrl = buildSiteWhatsAppUrl(
     site.contactPhone,
     `Hallo ${site.biz}, ik wil graag een afspraak maken.`
@@ -76,7 +62,7 @@ export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
       </div>
 
       <div className="flex flex-col">
-        {hours.map((hour, index) => (
+        {content.hours.map((hour, index) => (
           <div
             key={hour.days}
             className="py-3.5 flex items-center justify-between gap-4 text-sm"
@@ -89,7 +75,7 @@ export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
       </div>
 
       <p className="text-sm leading-relaxed m-0" style={{ color: site.muted }}>
-        Buiten deze tijden kun je gewoon een bericht achterlaten. Je krijgt zo snel mogelijk reactie.
+        {content.note}
       </p>
 
       <div className="flex flex-col sm:flex-row gap-3">

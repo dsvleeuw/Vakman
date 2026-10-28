@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
-import type { PlanId, SectorId, WizardDraft, WizardFormData } from './types';
+import type { CustomSite, PlanId, SectorId, WizardDraft, WizardFormData } from './types';
 import { SECTORS, STYLES, buildActiveSite } from './data/tradesData';
 import {
   DEFAULT_SECTOR,
@@ -12,6 +12,7 @@ import {
   mergeDemoPersonalization,
 } from './utils/router';
 import { isPlanId } from './data/plans';
+import { applySiteContent, contentForCustomSite, sanitizeCustomSite } from './utils/siteContent';
 import { navigate, replaceUrl, useRoute } from './hooks/useRouter';
 import { track } from './utils/analytics';
 import { ensureAllStyleFontsLoaded, ensureStyleFontLoaded } from './utils/fonts';
@@ -132,11 +133,19 @@ export default function App() {
   const [draft, setDraft] = useState<WizardDraft>(loadDraft);
   const [scrolled, setScrolled] = useState(false);
 
-  // Store user-customized details per sector in localStorage
-  const [customData, setCustomData] = useState<Record<string, WizardFormData>>(() => {
+  // Store the site each craftsman filled in himself, per sector.
+  const [customData, setCustomData] = useState<Record<string, CustomSite>>(() => {
     try {
       const saved = localStorage.getItem('klusbaas_custom_sites');
-      return saved ? JSON.parse(saved) : {};
+      const parsed: unknown = saved ? JSON.parse(saved) : {};
+      if (typeof parsed !== 'object' || parsed === null) return {};
+      const entries = Object.entries(parsed as Record<string, unknown>);
+      const sites: Record<string, CustomSite> = {};
+      for (const [sector, value] of entries) {
+        const site = sanitizeCustomSite(value);
+        if (site) sites[sector] = site;
+      }
+      return sites;
     } catch {
       return {};
     }
@@ -247,15 +256,16 @@ export default function App() {
   const handleViewPublishedSite = (
     sectorId: SectorId,
     styleIdx: number,
-    form: WizardFormData
+    custom: CustomSite
   ) => {
+    const form = custom.form;
     const hasCustomInput = Boolean(
       form.biz.trim() || form.owner.trim() || form.phone.trim() || form.city.trim()
     );
     if (hasCustomInput) {
       const updated = {
         ...customData,
-        [sectorId]: form,
+        [sectorId]: custom,
       };
       setCustomData(updated);
       try {
@@ -414,10 +424,21 @@ export default function App() {
         <div id="main-content">
           <Suspense fallback={<PageFallback label="Voorbeeldwebsite laden…" />}>
             <SiteView
-              site={buildActiveSite(
-                route.sector,
-                styleIndexFromId(route.styleId),
-                mergeDemoPersonalization(customData[route.sector], personal)
+              site={applySiteContent(
+                buildActiveSite(
+                  route.sector,
+                  styleIndexFromId(route.styleId),
+                  mergeDemoPersonalization(customData[route.sector]?.form, personal)
+                ),
+                contentForCustomSite(
+                  customData[route.sector] ?? {
+                    form: { biz: '', owner: '', phone: '', city: '' },
+                    blocks: [],
+                    disabledServices: {},
+                  },
+                  route.sector,
+                  route.styleId
+                )
               )}
               selectedSector={route.sector}
               selectedStyleIndex={styleIndexFromId(route.styleId)}

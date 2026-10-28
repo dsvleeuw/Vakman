@@ -1,14 +1,15 @@
 import React from 'react';
 import { ArrowRight, BadgeCheck, MapPin } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
+import type { ActiveSiteData, TeamMemberContent } from '../../types';
 import { ImageWithFallback } from '../ImageWithFallback';
 
 export interface TeamMemberCardProps {
   site: ActiveSiteData;
+  content: TeamMemberContent;
 }
 
-export const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ site }) => {
-  const ownerFirst = site.owner.split(' ')[0];
+export const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ site, content }) => {
+  const ownerFirst = content.name.split(' ')[0];
 
   return (
     <article
@@ -23,7 +24,7 @@ export const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ site }) => {
       <div className="h-56 sm:h-auto sm:min-h-72" style={{ background: site.soft }}>
         <ImageWithFallback
           src={site.img.hero}
-          alt={`${site.owner} van ${site.biz}`}
+          alt={`${content.name} van ${site.biz}`}
           className="w-full h-full object-cover"
           loading="lazy"
         />
@@ -41,21 +42,21 @@ export const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ site }) => {
             className="text-3xl font-bold tracking-tight m-0"
             style={{ fontFamily: site.display, fontWeight: site.dw }}
           >
-            {site.owner}
+            {content.name}
           </h3>
           <p className="text-sm font-semibold m-0" style={{ color: site.muted }}>
-            Vakman & eigenaar van {site.biz}
+            {content.role}
           </p>
         </div>
 
         <p className="text-sm sm:text-base leading-relaxed m-0" style={{ color: site.muted }}>
-          “Ik denk vanaf het eerste gesprek met je mee en blijf zelf betrokken tot de klus netjes is opgeleverd.”
+          “{content.text}”
         </p>
 
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
           <span className="flex items-center gap-2">
             <BadgeCheck className="w-4 h-4" style={{ color: site.accentText }} aria-hidden="true" />
-            Vakman sinds {site.since}
+            Vakman sinds {content.since}
           </span>
           <span className="flex items-center gap-2">
             <MapPin className="w-4 h-4" style={{ color: site.accentText }} aria-hidden="true" />

@@ -5,8 +5,10 @@ import type {
   SectorData,
   Palette,
   ActiveSiteData,
+  SiteText,
   WizardFormData,
 } from '../types';
+import { DEFAULT_BLOCK_ORDER } from './blocks';
 import { getOklchColor, generateDomainSlug, formatPhoneNumber } from '../utils/pricing';
 import { getDemoPhone, resolveContactPhone } from '../utils/contact';
 import { AA_TEXT, bestOnColor, ensureContrast, ensureSurfaceContrast } from '../utils/color';
@@ -1093,6 +1095,27 @@ function buildPalette(sector: SectorData, style: StyleDef): Palette {
   };
 }
 
+/**
+ * The copy of the page itself, built from the trade preset and the details the
+ * craftsman filled in. Shared by the generated site and the editor, so both
+ * start from the same text.
+ */
+export function buildSiteText(
+  base: SectorData,
+  customForm?: WizardFormData
+): SiteText {
+  const owner = customForm?.owner?.trim() ? customForm.owner.trim() : base.owner;
+  const city = customForm?.city?.trim() ? customForm.city.trim() : base.city;
+  return {
+    kicker: `${base.kicker} · ${city.toUpperCase()}`,
+    headline: base.headline,
+    intro: base.intro,
+    about: `Ik ben ${owner.split(' ')[0]}. ${base.about}`,
+    cta1: base.cta1,
+    cta2: base.cta2,
+  };
+}
+
 export function buildActiveSite(
   sectorId: SectorId,
   styleIndex: number,
@@ -1118,8 +1141,9 @@ export function buildActiveSite(
   const bizLetter = biz.charAt(0).toUpperCase() || 'K';
   const callLabel = `Bel ${phone}`;
   const ownerFirstUpper = owner.split(' ')[0].toUpperCase();
-  const about = `Ik ben ${owner.split(' ')[0]}. ${base.about}`;
-  const kicker = `${base.kicker} · ${city.toUpperCase()}`;
+  const text = buildSiteText(base, customForm);
+  const about = text.about;
+  const kicker = text.kicker;
 
   const filteredServices = base.services
     .filter((_, idx) => !disabledServices || !disabledServices[idx])
@@ -1162,5 +1186,7 @@ export function buildActiveSite(
     work,
     hdrBg,
     hiText,
+    blocks: [...DEFAULT_BLOCK_ORDER],
+    blockContent: {},
   };
 }

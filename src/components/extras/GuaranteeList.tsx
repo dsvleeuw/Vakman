@@ -1,28 +1,13 @@
 import React from 'react';
 import { CheckCircle2, ShieldCheck } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
-
-export interface GuaranteeItem {
-  title: string;
-  description: string;
-}
+import type { ActiveSiteData, GuaranteeContent } from '../../types';
 
 export interface GuaranteeListProps {
   site: ActiveSiteData;
-  items?: GuaranteeItem[];
+  content: GuaranteeContent;
 }
 
-const DEFAULT_GUARANTEES: GuaranteeItem[] = [
-  { title: 'Duidelijke prijs vooraf', description: 'Je weet waar je aan toe bent voordat we starten.' },
-  { title: 'Garantie op vakwerk', description: 'We staan achter de kwaliteit van de oplevering.' },
-  { title: 'Netjes opgeleverd', description: 'Een schone werkplek en zorg voor jouw eigendommen.' },
-  { title: 'Persoonlijk contact', description: 'Eén vast aanspreekpunt tijdens de hele klus.' },
-];
-
-export const GuaranteeList: React.FC<GuaranteeListProps> = ({
-  site,
-  items = DEFAULT_GUARANTEES,
-}) => {
+export const GuaranteeList: React.FC<GuaranteeListProps> = ({ site, content }) => {
   return (
     <section
       className="w-full p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8"
@@ -59,7 +44,7 @@ export const GuaranteeList: React.FC<GuaranteeListProps> = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {items.map((item) => (
+        {content.items.map((item) => (
           <div
             key={item.title}
             className="p-5 border flex flex-col gap-3"
