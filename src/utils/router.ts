@@ -18,6 +18,7 @@ import { isNewsletterPageStatus, isNewsletterToken, type NewsletterPageStatus } 
  *   /start/gegevens?vak=schilder&stijl=modern
  *   /start/gegevens?vak=schilder&naam=…&plaats=…&tel=…   prefilled details
  *   /start/klaar                        wizard confirmation screen
+ *   /mijn-account                       login and the sites of the customer
  *   /componenten                        component library
  *   /componenten/trust-bar              component library with a selection
  *   /offerte/KB-2026-0001?token=…       a stored quote (token-protected)
@@ -137,6 +138,8 @@ export type Route =
     }
   /** A site a customer published: /site/<slug> */
   | { name: 'published'; slug: string }
+  /** The account of the customer: login and his own sites. /mijn-account */
+  | { name: 'account' }
   | { name: 'components'; componentId?: string }
   | { name: 'prospects' }
   | { name: 'quote'; id: string; token: string }
@@ -246,6 +249,11 @@ export function parseRoute(pathname: string, search = ''): Route {
     };
   }
 
+  if (first === 'mijn-account') {
+    if (segments.length > 1) return { name: 'notFound', path: pathname };
+    return { name: 'account' };
+  }
+
   if (first === 'site') {
     // The public address of a site a customer published.
     if (segments.length !== 2 || !second) return { name: 'notFound', path: pathname };
@@ -315,6 +323,8 @@ export function buildPath(route: Route): string {
     }
     case 'published':
       return `/site/${encodeURIComponent(route.slug)}`;
+    case 'account':
+      return '/mijn-account';
     case 'components':
       return route.componentId
         ? `/componenten/${encodeURIComponent(route.componentId)}`
@@ -419,6 +429,12 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: 'Vakmanssite · Klusbaas',
         description: 'Een website van een vakman, gemaakt met Klusbaas.',
+      };
+    case 'account':
+      return {
+        title: 'Mijn account · Klusbaas',
+        description:
+          'Log in om je eigen websites te beheren: tekst aanpassen, onderdelen kiezen en je site bekijken.',
       };
     case 'components':
       return {

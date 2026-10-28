@@ -77,17 +77,61 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         reply(res, result.status, result.body);
       });
 
+      // Accounts: register, log in, log out. The session lives in an
+      // httpOnly cookie; accounts and sessions land in `.data/accounts` and
+      // `.data/sessions` in dev.
+      server.middlewares.use('/api/account', async (req, res) => {
+        if (req.method !== 'POST') return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const accountHandler = await server.ssrLoadModule('/src/server/accountHandler.ts');
+        const { createFileAccountStorage, createFileSiteStorage } = await server.ssrLoadModule(
+          '/src/server/storage.ts'
+        );
+        const result = await accountHandler.handleAccount(
+          body,
+          {
+            accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
+            sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
+          },
+          req.headers.cookie ?? null,
+          false
+        );
+        res.statusCode = result.status;
+        res.setHeader('Content-Type', 'application/json');
+        if (result.setCookie) res.setHeader('Set-Cookie', result.setCookie);
+        if (result.clearCookie) res.setHeader('Set-Cookie', result.clearCookie);
+        res.end(JSON.stringify(result.body));
+      });
+
       // Published sites: publish or read them, with the same handlers the
       // Netlify Function uses. Sites land in `.data/sites` in dev.
       server.middlewares.use('/api/site', async (req, res) => {
         const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
         const siteHandler = await server.ssrLoadModule('/src/server/siteHandler.ts');
-        const { createFileSiteStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const accountHandler = await server.ssrLoadModule('/src/server/accountHandler.ts');
+        const { createFileAccountStorage, createFileSiteStorage } = await server.ssrLoadModule(
+          '/src/server/storage.ts'
+        );
         const storage = createFileSiteStorage(path.resolve(__dirname, '.data'));
         const siteUrl = env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`;
+        // A logged-in customer owns the sites he published.
+        const account = await accountHandler.accountFromSession(req.headers.cookie ?? null, {
+          accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
+        });
 
         if (req.method === 'GET') {
-          const result = await siteHandler.handleGetSite(url.searchParams, storage);
+          const result = await siteHandler.handleGetSite(
+            url.searchParams,
+            storage,
+            account?.id
+          );
           return reply(res, result.status, result.body);
         }
         if (req.method !== 'POST') {
@@ -101,7 +145,11 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         } catch {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
-        const result = await siteHandler.handlePublishSite(body, { storage, siteUrl });
+        const result = await siteHandler.handlePublishSite(body, {
+          storage,
+          siteUrl,
+          ...(account ? { ownerId: account.id } : {}),
+        });
         reply(res, result.status, result.body);
       });
 

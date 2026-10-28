@@ -390,15 +390,38 @@ export interface CustomSite {
 }
 
 /**
+ * A customer account: the craftsman logs in once and manages his own sites.
+ */
+export interface Account {
+  id: string;
+  /** Lowercase, trimmed. The login name. */
+  email: string;
+  /** The scrypt hash of the password. Never the password itself. */
+  passwordHash: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+/** A logged-in session. The id travels in an httpOnly cookie. */
+export interface AccountSession {
+  id: string;
+  accountId: string;
+  createdAt: number;
+  expiresAt: number;
+}
+
+/**
  * A site the customer published: it lives on its own address
  * (`/site/<slug>`) and is edited through the management link
- * (`/mijn-site/<slug>?token=…`).
+ * (`/mijn-site/<slug>?token=…`) or through the account of its owner.
  */
 export interface PublishedSiteRecord {
   /** The public address of the site: `/site/<slug>`. */
   slug: string;
   /** Secret token of the management link. Never shown on the public page. */
   token: string;
+  /** The account that owns this site, when it was published while logged in. */
+  ownerId?: string;
   sector: SectorId;
   styleId: StyleId;
   form: WizardFormData;

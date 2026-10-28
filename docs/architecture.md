@@ -165,6 +165,37 @@ is the only networked write path and requires Firebase OAuth.
 | Custom business data per sector | `localStorage` key `klusbaas_custom_sites` | Persistent |
 | Booking, contact, fault-report and calculator submissions | React state only | Lost on refresh |
 | Google OAuth token | Module-level cache in `googleWorkspace.ts` | Session |
+| Customer account (e-mail, password hash) | `accounts` in Netlify Blobs, `.data/accounts` in dev | Until the account is deleted |
+| Session of a logged-in customer | `sessions` in the same store, `.data/sessions` in dev; the id travels in the cookie `klusbaas_session` | 30 days |
+| Published site | `sites` in Netlify Blobs, `.data/sites` in dev | Until the site is replaced |
+
+## Accounts and sessions
+
+A customer can log in at `/mijn-account` and manage his sites from there.
+The account replaces the management link as the normal way in; the link
+keeps working for sites that were published before accounts existed.
+
+1. `POST /api/account` (`netlify/functions/account.mts`, in dev the same
+   handler behind the Vite middleware) takes an `action`: `register`,
+   `login`, `logout`, `me`, `sites` or `claim`.
+2. The password is hashed with scrypt from `node:crypto`
+   (`src/utils/password.ts`); only the hash is stored, with a random salt.
+   No new dependency, no plain text password anywhere.
+3. A session is a random id in the cookie `klusbaas_session`
+   (`HttpOnly`, `SameSite=Lax`, `Secure` in production, 30 days). The browser
+   never handles the session id in JavaScript.
+4. The account id is a hash of the e-mail address
+   (`accountId(email)` in `src/server/storage.ts`), so looking an account up
+   is one read and the id itself leaks no address.
+5. A site published while logged in gets an `ownerId`. The owner may then
+   change the site without a token (`handlePublishSite` with `ownerId`), and
+   the token of the site never changes: a link that works keeps working.
+6. `claim` links a site that was published with a management link to the
+   account: the customer proves ownership with that link.
+
+`src/server/accountHandler.ts` holds the logic, `src/server/storage.ts` the
+two storages (Blobs in production, files in dev), `src/utils/accountClient.ts`
+the client calls.
 
 ## Testing
 

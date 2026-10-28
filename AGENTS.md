@@ -6,11 +6,12 @@ workflow and gotchas so work stays consistent across sessions.
 ## What this product is
 
 Klusbaas generates demo marketing websites for Dutch tradespeople
-(6 trades × 5 styles = 30 presets). It is a React 19 + TypeScript +
-Vite + Tailwind v4 single-page app with **no application backend**:
-forms submit through WhatsApp/tel deep links, and the only API
-integration is optional Google Calendar/Drive sync via Firebase Auth.
-Full context: [docs/architecture.md](./docs/architecture.md).
+(7 trades × 5 styles = 35 presets). It is a React 19 + TypeScript +
+Vite + Tailwind v4 single-page app with a small server side: Netlify
+Functions for leads, quotes, published customer sites and customer
+accounts (see [docs/architecture.md](./docs/architecture.md)). The forms
+submit through the lead API (with WhatsApp/tel deep links as the fast
+path) and Google Calendar/Drive sync via Firebase Auth is optional.
 
 ## Branch and GitHub rules
 
@@ -44,7 +45,7 @@ bun run dev      # dev server on port 3000, bound to 0.0.0.0
 bun run check    # lint + test + build in parallel (~20 s) — use this
 bun run lint     # tsc --noEmit — must stay clean
 bun run test     # bun test src (unit tests under src/**/*.test.ts)
-bun run build    # vite build + prerender 39 routes + sitemap/robots
+bun run build    # vite build + prerender routes + sitemap/robots
 bun run build:spa  # vite build only (no prerender), for debugging
 ```
 
@@ -93,7 +94,9 @@ result. The Netlify deploy preview is the only external CI check. If
 
 - Every view has a real route: `/`, `/voorbeeld/:sector/:stijl`,
   `/start/:stap` (`vak`, `stijl`, `gegevens`, `diensten`, `afspraak`,
-  `klaar`), `/componenten/:id`. Route rules live in `src/utils/router.ts`;
+  `klaar`), `/componenten/:id`, `/mijn-site` (the editor), `/site/:slug`
+  (a published customer site) and `/mijn-account` (login and the sites of
+  the customer). Route rules live in `src/utils/router.ts`;
   change them there (with tests) rather than branching on state in
   `App.tsx`.
 - The pre-router links `?sector=loodgieter&style=2&view=site` and
@@ -133,6 +136,13 @@ result. The Netlify deploy preview is the only external CI check. If
 - Without `RESEND_API_KEY` the API runs in preview mode (mail printed to the
   log). In dev, quotes/leads land in `.data/` (gitignored); in production in
   Netlify Blobs (stores `quotes` and `leads`). Never commit an API key.
+- Customer accounts live on the server: the password is hashed with scrypt
+  (`src/utils/password.ts`, `node:crypto`, no dependency) and the session
+  id travels in the cookie `klusbaas_session` (`HttpOnly`, `SameSite=Lax`).
+  Never put a password, a session id or a management token in
+  `localStorage`, in the URL of a public page or in a log line. The token
+  of a published site never changes; a token in the request is only a key
+  to the door.
 - Unsplash ids in each sector's `pool` are rotated by
   `getPhotoSet(sector, styleIndex)`; reuse pool ids rather than adding
   external image hosts.

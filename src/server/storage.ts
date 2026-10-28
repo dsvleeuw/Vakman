@@ -1,6 +1,7 @@
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { PublishedSiteRecord } from '../types';
+import { createHash } from 'node:crypto';
+import type { Account, AccountSession, PublishedSiteRecord } from '../types';
 import type { QuoteRecord } from '../utils/quote';
 
 /**
@@ -84,6 +85,77 @@ export function createFileStorage(root: string): LeadStorage {
       const file = path.join(leadsDir, `${safe(reference)}.json`);
       await writeFile(file, JSON.stringify(lead, null, 2));
       return file;
+    },
+  };
+}
+
+/**
+ * Where customer accounts and their sessions are kept. Production uses
+ * Netlify Blobs (store `accounts`), `vite dev` uses JSON files in
+ * `.data/accounts` and `.data/sessions`.
+ */
+export interface AccountStorage {
+  getAccount(id: string): Promise<Account | null>;
+  getAccountByEmail(email: string): Promise<Account | null>;
+  saveAccount(account: Account): Promise<string>;
+  saveSession(session: AccountSession): Promise<string>;
+  getSession(id: string): Promise<AccountSession | null>;
+  deleteSession(id: string): Promise<void>;
+}
+
+/**
+ * The id of an account is derived from the e-mail address, so looking an
+ * account up by e-mail is a single read and the id itself leaks no address.
+ */
+export function accountId(email: string): string {
+  return createHash('sha256').update(email.trim().toLowerCase()).digest('hex').slice(0, 32);
+}
+
+/**
+ * File storage for accounts and sessions: `.data/accounts` and
+ * `.data/sessions`.
+ */
+export function createFileAccountStorage(root: string): AccountStorage {
+  const accountsDir = path.join(root, 'accounts');
+  const sessionsDir = path.join(root, 'sessions');
+  const safe = (id: string) => id.replace(/[^A-Za-z0-9-]/g, '');
+
+  const readJson = async <T>(file: string): Promise<T | null> => {
+    try {
+      return JSON.parse(await readFile(file, 'utf8')) as T;
+    } catch {
+      return null;
+    }
+  };
+
+  return {
+    async getAccount(id) {
+      return readJson<Account>(path.join(accountsDir, `${safe(id)}.json`));
+    },
+    async getAccountByEmail(email) {
+      return readJson<Account>(path.join(accountsDir, `${safe(accountId(email))}.json`));
+    },
+    async saveAccount(account) {
+      await mkdir(accountsDir, { recursive: true });
+      const file = path.join(accountsDir, `${safe(account.id)}.json`);
+      await writeFile(file, JSON.stringify(account, null, 2));
+      return file;
+    },
+    async saveSession(session) {
+      await mkdir(sessionsDir, { recursive: true });
+      const file = path.join(sessionsDir, `${safe(session.id)}.json`);
+      await writeFile(file, JSON.stringify(session, null, 2));
+      return file;
+    },
+    async getSession(id) {
+      return readJson<AccountSession>(path.join(sessionsDir, `${safe(id)}.json`));
+    },
+    async deleteSession(id) {
+      try {
+        await unlink(path.join(sessionsDir, `${safe(id)}.json`));
+      } catch {
+        // Already gone: logging out twice is not an error.
+      }
     },
   };
 }
@@ -192,6 +264,41 @@ export async function createBlobSiteStorage(): Promise<SiteStorage> {
         if (record?.slug) records.push(record);
       }
       return records;
+    },
+  };
+}
+
+/**
+ * Netlify Blobs storage for accounts and sessions (store `accounts`).
+ */
+export async function createBlobAccountStorage(): Promise<AccountStorage> {
+  const { getStore } = await import('@netlify/blobs');
+  const accounts = getStore({ name: 'accounts', consistency: 'strong' });
+
+  return {
+    async getAccount(id) {
+      return ((await accounts.get(id, { type: 'json' })) as Account | null) ?? null;
+    },
+    async getAccountByEmail(email) {
+      return (
+        ((await accounts.get(accountId(email), { type: 'json' })) as Account | null) ?? null
+      );
+    },
+    async saveAccount(account) {
+      await accounts.setJSON(account.id, account);
+      return `blobs:accounts/${account.id}`;
+    },
+    async saveSession(session) {
+      await accounts.setJSON(`session-${session.id}`, session);
+      return `blobs:accounts/session-${session.id}`;
+    },
+    async getSession(id) {
+      return (
+        ((await accounts.get(`session-${id}`, { type: 'json' })) as AccountSession | null) ?? null
+      );
+    },
+    async deleteSession(id) {
+      await accounts.delete(`session-${id}`);
     },
   };
 }

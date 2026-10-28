@@ -43,8 +43,8 @@ Required before paid customers can rely on the product.
 |---|------|--------|-------|
 | 3.1 | Lead API: store contact-form, fault-report and quote submissions server-side | L | Replace the "open WhatsApp" only path with a real submission plus the WhatsApp option. |
 | 3.2 | Transactional e-mail and WhatsApp Business templates | L | Depends on 1.2 and a provider decision. |
-| 3.3 | Craftsman dashboard: ~~edit services, prices, photos, opening hours~~ The editor covers details, copy, services, opening hours and blocks; prices and photos are still fixed | L | Also needs accounts (3.4): a published site is now managed through a private link with a token, not through a login. |
-| 3.4 | Authentication and multi-site ownership | L | Firebase Auth is already used for the Google sync; reuse it. |
+| 3.3 | Craftsman dashboard: ~~edit services, prices, photos, opening hours~~ The editor covers details, copy, services, opening hours and blocks; prices and photos are still fixed | L | Accounts are in place (3.4): a published site is managed from `/mijn-account`; the private link with a token stays as a fallback. What is still missing is an overview of all quotes and leads per customer. |
+| 3.4 | ~~Authentication and multi-site ownership~~ Done: e-mail + password (scrypt), session in an httpOnly cookie, `ownerId` on the published site and a list of his sites at `/mijn-account` | L | Missing: password reset (no mail yet), e-mail verification and a way to delete an account. The password is hashed with `node:crypto`, so no new dependency was needed; Firebase Auth was not used. |
 | 3.5 | Conversion analytics per preset (opens, calculator completions, leads) | M | Needed to prove the proactive-demo sales approach works. |
 
 ## Phase 4 — Discoverability and sales

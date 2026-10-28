@@ -36,6 +36,14 @@ test('the editor has its own route and keeps trade and style', () => {
   assert.ok(getRouteMeta({ name: 'editor' }).title.includes('Mijn site'));
 });
 
+test('the customer account has its own route', () => {
+  assert.deepEqual(parseRoute('/mijn-account'), { name: 'account' });
+  assert.equal(buildPath({ name: 'account' }), '/mijn-account');
+  assert.equal(buildPath(parseRoute('/mijn-account')), '/mijn-account');
+  assert.equal(parseRoute('/mijn-account/jansen').name, 'notFound');
+  assert.ok(getRouteMeta({ name: 'account' }).title.includes('Mijn account'));
+});
+
 test('a published site has its own public address', () => {
   assert.deepEqual(parseRoute('/site/jansen-schilderwerken'), {
     name: 'published',

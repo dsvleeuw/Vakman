@@ -14,7 +14,7 @@ import type { NewsletterPageStatus } from '../utils/newsletterStatus';
 
 /** Temporary contact address until klusbaas.nl mail is set up (see docs/known-limitations.md). */
 export const PRIVACY_CONTACT_EMAIL = 'thomascliphero@gmail.com';
-export const PRIVACY_UPDATED = '24 oktober 2026';
+export const PRIVACY_UPDATED = '29 oktober 2026';
 
 const InfoLayout: React.FC<{ children: React.ReactNode; showSignup?: boolean }> = ({ children, showSignup = true }) => (
   <div className="flex flex-col min-h-screen bg-stone-100 text-stone-900">
@@ -74,6 +74,13 @@ const DATA_ROWS: DataRow[] = [
     why: 'Je af en toe de nieuwsbrief sturen.',
     basis: 'Jouw toestemming, die je met de bevestigingsmail geeft (dubbele opt-in). Intrekken kan altijd.',
     keep: 'Zolang je bent aangemeld. Onbevestigde aanmeldingen vervallen na 30 dagen. Na afmelden bewaren we alleen dat je bent afgemeld, zodat we je niet opnieuw mailen.',
+  },
+  {
+    what: 'Klusbaas-account (mijn-account)',
+    data: 'Je e-mailadres, een versleutelde hash van je wachtwoord, wanneer je account is aangemaakt en welke websites je aan je account hebt gekoppeld. Van een lopende sessie bewaren we alleen het sessie-id en de vervaldatum.',
+    why: 'Je websites kunnen beheren: inloggen, je eigen sites terugvinden en ze aanpassen zonder beheerlink.',
+    basis: 'Nodig om je account te laten werken: uitvoering van de overeenkomst die je met ons sluit.',
+    keep: 'Zolang je account bestaat. Een sessie verloopt na 30 dagen. Verwijder je je account, dan gaan je gegevens en de koppeling met je sites mee.',
   },
   {
     what: 'Zakelijk contact met vakmensen',

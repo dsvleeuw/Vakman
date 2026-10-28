@@ -12,12 +12,14 @@ import {
   setBlockEnabled,
 } from '../../utils/siteContent';
 import { fetchPublishedSite, publishSite } from '../../utils/siteClient';
+import { fetchAccount, type AccountInfo } from '../../utils/accountClient';
 import {
   loadPublishedLink,
   savePublishedLink,
   useSiteContent,
 } from '../../hooks/useSiteContent';
 import { track } from '../../utils/analytics';
+import { RouteLink } from '../RouteLink';
 import { SiteView } from '../SiteView';
 import { BlockForm, type AnyBlockContent } from './BlockForm';
 import { TextAreaField, TextField } from './Field';
@@ -72,6 +74,9 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
   const [publishing, setPublishing] = useState(false);
   const [publishError, setPublishError] = useState<string | null>(null);
   const [publishDone, setPublishDone] = useState(false);
+  // Whether the craftsman is logged in: a logged-in customer owns the site
+  // he publishes and finds it back under /mijn-account.
+  const [account, setAccount] = useState<AccountInfo | null>(null);
 
   const content = remoteContent ?? localContent;
 
@@ -103,6 +108,17 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
     setPublishDone(false);
     track('site_content_changed', { sector });
   };
+
+  // Is the craftsman logged in? The session cookie says so.
+  useEffect(() => {
+    let cancelled = false;
+    fetchAccount().then((current) => {
+      if (!cancelled) setAccount(current);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Load the published site when the craftsman opens his management link.
   useEffect(() => {
@@ -278,6 +294,26 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
         </div>
       </header>
 
+      <div className="bg-white border-b border-stone-200 px-4 sm:px-6 py-2.5 text-sm flex flex-wrap items-center gap-x-3 gap-y-1">
+        {account ? (
+          <>
+            <span className="text-stone-700">
+              Ingelogd als <strong className="text-stone-900">{account.email}</strong>
+            </span>
+            <RouteLink route={{ name: 'account' }} className="font-bold text-stone-900 underline underline-offset-2">
+              Mijn sites
+            </RouteLink>
+          </>
+        ) : (
+          <>
+            <span className="text-stone-700">Nog geen account? Log in om al je sites op één plek te vinden.</span>
+            <RouteLink route={{ name: 'account' }} className="font-bold text-stone-900 underline underline-offset-2">
+              Inloggen
+            </RouteLink>
+          </>
+        )}
+      </div>
+
       {published && (
         <div className="bg-emerald-50 border-b border-emerald-200 px-4 sm:px-6 py-3 text-sm text-emerald-900 flex flex-wrap items-center gap-x-4 gap-y-2">
           <span className="font-bold">Je site staat live:</span>
@@ -288,7 +324,9 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
             Beheerlink (privé)
           </a>
           <span className="text-xs text-emerald-800">
-            Bewaar deze beheerlink: daarmee pas je je site verder aan.
+            {account
+              ? 'Je site staat in je account. De beheerlink blijft een extra zekerheid.'
+              : 'Bewaar deze beheerlink: daarmee pas je je site verder aan.'}
           </span>
         </div>
       )}

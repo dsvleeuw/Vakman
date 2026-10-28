@@ -68,6 +68,11 @@ const PublishedSiteView = lazy(() =>
     default: module.PublishedSiteView,
   }))
 );
+const AccountView = lazy(() =>
+  import('./components/AccountView').then((module) => ({
+    default: module.AccountView,
+  }))
+);
 
 const PageFallback: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -474,6 +479,15 @@ export default function App() {
               slug={route.slug}
               token={route.token}
             />
+          </Suspense>
+        </div>
+      )}
+
+      {/* 4d. HET ACCOUNT VAN DE KLANT */}
+      {route.name === 'account' && (
+        <div id="main-content">
+          <Suspense fallback={<PageFallback label="Je account laden…" />}>
+            <AccountView />
           </Suspense>
         </div>
       )}

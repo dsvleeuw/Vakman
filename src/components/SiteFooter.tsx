@@ -6,6 +6,7 @@ import type { Route } from '../utils/router';
 
 const LINKS: { label: string; route: Route }[] = [
   { label: 'Start je website', route: { name: 'wizard', step: 'vak' } },
+  { label: 'Mijn account', route: { name: 'account' } },
   { label: 'Componenten', route: { name: 'components' } },
   { label: 'Nieuwsbrief', route: { name: 'newsletter' } },
   { label: 'Privacyverklaring', route: { name: 'privacy' } },
