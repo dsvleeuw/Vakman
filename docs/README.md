@@ -16,6 +16,7 @@ Algemene documentatie over de Klusbaas applicatie: architectuur, workflows, pric
 | `ux-review.md` | UX/navigatie review + open aanbevelingen |
 | `mobile-ux-plan.md` | Mobile/iOS werkplan (voorbeeld agent brief, shipped in PR #6) |
 | `component-library.md` | Component catalogus documentatie & gebruik |
+| `kun-repo-study.md` | Repo-studie met de ogen van Kun Chen: wat klopt, wat misgaat, en in welke volgorde te repareren |
 | `06-app-fixlijst.md` | Fixlijst A1–D2 (demo-nummers, mail, privacy, klikproef) |
 | `07-arena-audit-plan.md` | Plan voor de vier parallelle Arena-audits |
 | `08-audit-resultaten.md` | Uitkomsten en prioriteiten van die audits |
