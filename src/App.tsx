@@ -63,6 +63,11 @@ const SiteEditor = lazy(() =>
     default: module.SiteEditor,
   }))
 );
+const PublishedSiteView = lazy(() =>
+  import('./components/PublishedSiteView').then((module) => ({
+    default: module.PublishedSiteView,
+  }))
+);
 
 const PageFallback: React.FC<{ label: string }> = ({ label }) => (
   <div
@@ -463,7 +468,21 @@ export default function App() {
       {route.name === 'editor' && (
         <div id="main-content">
           <Suspense fallback={<PageFallback label="Je site laden…" />}>
-            <SiteEditor sector={route.sector} styleId={route.styleId} />
+            <SiteEditor
+              sector={route.sector}
+              styleId={route.styleId}
+              slug={route.slug}
+              token={route.token}
+            />
+          </Suspense>
+        </div>
+      )}
+
+      {/* 4c. EEN GEPUBLICEERDE SITE VAN EEN KLANT */}
+      {route.name === 'published' && (
+        <div id="main-content">
+          <Suspense fallback={<PageFallback label="Site laden…" />}>
+            <PublishedSiteView slug={route.slug} />
           </Suspense>
         </div>
       )}

@@ -389,11 +389,38 @@ export interface CustomSite {
   disabledServices: Record<number, boolean>;
 }
 
+/**
+ * A site the customer published: it lives on its own address
+ * (`/site/<slug>`) and is edited through the management link
+ * (`/mijn-site/<slug>?token=…`).
+ */
 export interface PublishedSiteRecord {
+  /** The public address of the site: `/site/<slug>`. */
+  slug: string;
+  /** Secret token of the management link. Never shown on the public page. */
+  token: string;
   sector: SectorId;
-  styleIndex: number;
+  styleId: StyleId;
   form: WizardFormData;
   channel: 'WhatsApp' | 'E-mail' | 'Allebei';
   disabledServices: Record<number, boolean>;
+  /** The blocks the customer chose, in the order they appear on the page. */
+  blocks: BlockId[];
+  /** The copy per block. */
+  blockContent: Partial<BlockContentMap>;
+  /** The copy of the page itself. */
+  text: SiteText;
+  /** When the site was first published. */
   timestamp: number;
+  /** When the site was last changed. */
+  updatedAt: number;
 }
+
+/**
+ * What the public page needs to draw a site. The management token stays out
+ * of it: this is what any visitor can read.
+ */
+export type PublicPublishedSite = Omit<
+  PublishedSiteRecord,
+  'token' | 'channel' | 'timestamp' | 'updatedAt'
+> & { updatedAt: number };

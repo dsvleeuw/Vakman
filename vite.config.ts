@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -74,6 +75,88 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             ? await nl.handleNewsletterUnsubscribe(body, deps)
             : await nl.handleNewsletterSignup(body, req.socket.remoteAddress ?? 'dev', deps);
         reply(res, result.status, result.body);
+      });
+
+      // Published sites: publish or read them, with the same handlers the
+      // Netlify Function uses. Sites land in `.data/sites` in dev.
+      server.middlewares.use('/api/site', async (req, res) => {
+        const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
+        const siteHandler = await server.ssrLoadModule('/src/server/siteHandler.ts');
+        const { createFileSiteStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const storage = createFileSiteStorage(path.resolve(__dirname, '.data'));
+        const siteUrl = env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`;
+
+        if (req.method === 'GET') {
+          const result = await siteHandler.handleGetSite(url.searchParams, storage);
+          return reply(res, result.status, result.body);
+        }
+        if (req.method !== 'POST') {
+          return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        }
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const result = await siteHandler.handlePublishSite(body, { storage, siteUrl });
+        reply(res, result.status, result.body);
+      });
+
+      // A published site is rendered on the server, exactly like in
+      // production: the crawler and the link preview see the site.
+      server.middlewares.use('/site', async (req, res) => {
+        const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
+        const slug = url.pathname.split('/').filter(Boolean)[1] ?? '';
+        const { createFileSiteStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const { toPublicSite } = await server.ssrLoadModule('/src/server/siteHandler.ts');
+        const { renderPublishedSite } = await server.ssrLoadModule('/src/entry-server.tsx');
+        const { publishedMeta, publishedHeadTags } = await server.ssrLoadModule(
+          '/src/utils/publishedMeta.ts'
+        );
+        const storage = createFileSiteStorage(path.resolve(__dirname, '.data'));
+        const record = await storage.getSite(slug);
+        if (!record) {
+          res.statusCode = 302;
+          res.setHeader('Location', '/');
+          return res.end();
+        }
+        const site = toPublicSite(record);
+        const markup = await renderPublishedSite(slug, site);
+        const origin = env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`;
+        const meta = publishedMeta(site, origin);
+        const { replaceRootMarkup, stripStaticHeadTags } = await server.ssrLoadModule(
+          '/src/utils/htmlHead.ts'
+        );
+        const shell = await readFile(path.resolve(__dirname, 'index.html'), 'utf8');
+        const html = replaceRootMarkup(
+          stripStaticHeadTags(shell).replace(
+            '</head>',
+            `  ${publishedHeadTags(meta, origin)}\n  </head>`
+          ),
+          markup,
+          'published'
+        ).replace(
+          '</body>',
+          `  <script>window.__PUBLISHED_SITE__=${JSON.stringify(site)};</script>\n  </body>`
+        );
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.end(html);
+      });
+
+      // The sitemap of the published sites, so the dev server behaves like
+      // production.
+      server.middlewares.use('/sitemap-sites.xml', async (req, res) => {
+        const { createFileSiteStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const { buildPublishedSitesSitemap } = await server.ssrLoadModule('/src/utils/sitemap.ts');
+        const storage = createFileSiteStorage(path.resolve(__dirname, '.data'));
+        const siteUrl = env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`;
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+        res.end(buildPublishedSitesSitemap(await storage.listSites(), siteUrl));
       });
 
       server.middlewares.use('/api/quote', async (req, res) => {

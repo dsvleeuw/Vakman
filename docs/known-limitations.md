@@ -22,10 +22,9 @@ to [ROADMAP.md](../ROADMAP.md).
   in Netlify Blobs (dashboard/CLI) or in `.data/` locally.
 - Site leads on demo sites go to Klusbaas, not to the tradesperson: there
   is no per-customer recipient yet.
-- `PublishedSiteRecord` is defined in `types.ts` but unused; publishing is
-  not actually recorded.
 - A published site sends its leads to Klusbaas as well: the lead API has no
   per-site recipient yet, so the customer's own e-mail address is not used.
+  The lead does carry the name of the site, so it can be traced back.
 
 ## Privacy and newsletter
 
@@ -71,11 +70,19 @@ to [ROADMAP.md](../ROADMAP.md).
   (`klusbaas_mijn_sites`, per trade and style).
 - Photos, palette, service prices, reviews and portfolio photos are still
   fixed: they come from the trade preset and cannot be edited.
-- The editor is not yet a place where a site is published: the site lives in
-  the craftsman's own browser. Publishing to a public `/site/:slug` is the
-  next step (see `PublishedSiteRecord` in `types.ts`).
+- The editor publishes the site: it goes to `/site/<slug>` and is stored in
+  Netlify Blobs (in `.data/sites` locally). The site is managed through a
+  private link `/mijn-site/<slug>?token=…`; the token is the only way to
+  change the site.
+- A published site needs a name, an address and a phone number: without
+  them the site would show a number that is not the customer's.
+- Published sites live in the Blobs store `sites`. There is no overview of
+  all published sites: the list is only in the store itself (and in the
+  sitemap `/sitemap-sites.xml`).
 - Customised data is per browser: there are no accounts for craftsmen
-  (Firebase Auth is only used for the Google Calendar/Drive sync).
+  (Firebase Auth is only used for the Google Calendar/Drive sync). A
+  customer who clears his browser data loses the draft that was never
+  published; a published site keeps working.
 
 ## Integrations
 

@@ -22,6 +22,11 @@ interface SiteViewProps {
   /** When true, renders only the website body (no preview controls, floating
    *  buttons or mobile sticky bar) so it can live inside another frame. */
   embedded?: boolean;
+  /**
+   * A site a customer published: no preview bar with Klusbaas' own links.
+   * The contact buttons and the mobile bar stay, they belong to the site.
+   */
+  published?: boolean;
   /** Details from a personal demo link (`?naam=&plaats=&tel=`). */
   personal?: DemoPersonalization;
 }
@@ -32,6 +37,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
   selectedStyleIndex,
   isCustomized,
   embedded = false,
+  published = false,
   personal,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -139,7 +145,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
       onClickCapture={handleDemoContactClick}
     >
       {/* Top Preview Control Bar */}
-      {!embedded && (
+      {!embedded && !published && (
       <div
         className={`sticky top-0 z-30 bg-stone-900 text-white px-3 sm:px-6 pt-[calc(0.375rem+env(safe-area-inset-top))] pb-1.5 flex lg:pt-[calc(0.5rem+env(safe-area-inset-top))] lg:pb-2 flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 text-xs sm:text-sm border-b border-stone-800 shadow-md transition-transform duration-200 ${
           hidePreviewBar

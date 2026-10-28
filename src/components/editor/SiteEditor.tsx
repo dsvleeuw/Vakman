@@ -8,8 +8,10 @@ import {
   applySiteContent,
   moveBlock,
   moveBlockTo,
+  sanitizeSiteContent,
   setBlockEnabled,
 } from '../../utils/siteContent';
+import { fetchPublishedSite, publishSite } from '../../utils/siteClient';
 import { useSiteContent } from '../../hooks/useSiteContent';
 import { track } from '../../utils/analytics';
 import { SiteView } from '../SiteView';
@@ -19,6 +21,10 @@ import { TextAreaField, TextField } from './Field';
 export interface SiteEditorProps {
   sector?: SectorId;
   styleId?: StyleId;
+  /** A published site that is being changed: `/mijn-site/<slug>?token=…`. */
+  slug?: string;
+  /** The management token of that published site. */
+  token?: string;
 }
 
 type PanelTab = 'gegevens' | 'tekst' | 'blokken';
@@ -36,16 +42,34 @@ const TABS: { id: PanelTab; label: string }[] = [
 export const SiteEditor: React.FC<SiteEditorProps> = ({
   sector: initialSector,
   styleId: initialStyleId,
+  slug: initialSlug,
+  token: initialToken,
 }) => {
   const [sector, setSector] = useState<SectorId>(initialSector ?? DEFAULT_SECTOR);
   const [styleId, setStyleId] = useState<StyleId>(initialStyleId ?? DEFAULT_STYLE_ID);
-  const { content, setContent } = useSiteContent(sector, styleId);
+  const { content: localContent, setContent: setLocalContent } = useSiteContent(sector, styleId);
   const [tab, setTab] = useState<PanelTab>('blokken');
   const [openBlock, setOpenBlock] = useState<ContentBlockId | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [device, setDevice] = useState<'desktop' | 'mobiel'>('desktop');
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const dragId = useRef<BlockId | null>(null);
+
+  // A published site lives on the server: that is the version visitors see.
+  // Until it is published, the site is a draft in the browser of the
+  // craftsman.
+  const [published, setPublished] = useState<{
+    slug: string;
+    token: string;
+    url: string;
+    manageUrl: string;
+  } | null>(null);
+  const [remoteContent, setRemoteContent] = useState<SiteContent | null>(null);
+  const [publishing, setPublishing] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
+  const [publishDone, setPublishDone] = useState(false);
+
+  const content = remoteContent ?? localContent;
 
   // The site as the craftsman sees it while he edits it.
   const liveSite = useMemo(
@@ -70,9 +94,53 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
   }, [content]);
 
   const update = (next: SiteContent) => {
-    setContent(next);
+    if (remoteContent) setRemoteContent(next);
+    else setLocalContent(next);
+    setPublishDone(false);
     track('site_content_changed', { sector });
   };
+
+  // Load the published site when the craftsman opens his management link.
+  useEffect(() => {
+    if (!initialSlug) {
+      setPublished(null);
+      setRemoteContent(null);
+      return;
+    }
+    let cancelled = false;
+    fetchPublishedSite(initialSlug, initialToken).then((result) => {
+      if (cancelled) return;
+      if (!result.ok || !result.site) {
+        setPublishError(result.error ?? 'Deze site kon niet worden geladen.');
+        return;
+      }
+      const content = sanitizeSiteContent({
+        version: 1,
+        sector: result.site.sector,
+        styleId: result.site.styleId,
+        form: result.site.form,
+        disabledServices: result.site.disabledServices,
+        blocks: result.site.blocks,
+        blockContent: result.site.blockContent,
+        text: result.site.text,
+      });
+      if (!content || cancelled) return;
+      setSector(result.site.sector);
+      setStyleId(result.site.styleId);
+      setRemoteContent(content);
+      setPublished({
+        slug: result.site.slug,
+        token: initialToken ?? '',
+        url: `${window.location.origin}/site/${result.site.slug}`,
+        manageUrl: `${window.location.origin}/mijn-site/${result.site.slug}${
+          initialToken ? `?token=${initialToken}` : ''
+        }`,
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialSlug, initialToken]);
 
   const setBlocks = (blocks: BlockId[]) => update({ ...content, blocks });
 
@@ -81,6 +149,49 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
       ...content,
       blockContent: { ...content.blockContent, [block]: value },
     });
+  };
+
+  // In a published site the trade and style belong to the site itself; in a
+  // draft every trade keeps its own version.
+  const handleSectorChange = (next: SectorId) => {
+    setSector(next);
+    if (remoteContent) update({ ...remoteContent, sector: next });
+  };
+
+  const handleStyleChange = (next: StyleId) => {
+    setStyleId(next);
+    if (remoteContent) update({ ...remoteContent, styleId: next });
+  };
+
+  const handlePublish = async () => {
+    setPublishing(true);
+    setPublishError(null);
+    const result = await publishSite({
+      ...(published?.slug ? { slug: published.slug } : {}),
+      ...(published?.token ? { token: published.token } : {}),
+      sector: content.sector,
+      styleId: content.styleId,
+      form: content.form,
+      disabledServices: content.disabledServices,
+      blocks: content.blocks,
+      blockContent: content.blockContent,
+      text: content.text,
+    });
+    setPublishing(false);
+
+    if (!result.ok || !result.slug) {
+      setPublishError(result.error ?? 'Publiceren lukte niet. Probeer het nog eens.');
+      return;
+    }
+
+    const url = result.url ?? `${window.location.origin}/site/${result.slug}`;
+    const manageUrl =
+      result.manageUrl ??
+      `${window.location.origin}/mijn-site/${result.slug}?token=${result.token ?? ''}`;
+    setPublished({ slug: result.slug, token: result.token ?? '', url, manageUrl });
+    if (!remoteContent) setRemoteContent(content);
+    setPublishDone(true);
+    track('site_content_changed', { sector, published: true });
   };
 
   const available = BLOCKS.filter((block) => !content.blocks.includes(block.id));
@@ -96,20 +207,51 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
         <div className="flex flex-col">
           <h1 className="text-lg font-black text-stone-900 m-0 leading-tight">Je eigen site</h1>
           <span className="text-xs text-stone-600">
-            {savedAt ? 'Alles staat opgeslagen in je browser' : 'Bezig met opslaan…'}
+            {publishError
+              ? publishError
+              : publishDone
+                ? 'Je site staat live.'
+                : savedAt
+                  ? 'Alles staat opgeslagen in je browser'
+                  : 'Bezig met opslaan…'}
           </span>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={handlePublish}
+            disabled={publishing}
+            className="h-11 px-4 inline-flex items-center gap-2 rounded-full bg-stone-900 text-white text-sm font-bold disabled:opacity-60"
+          >
+            {publishing ? 'Bezig met publiceren…' : published ? 'Site bijwerken' : 'Site publiceren'}
+          </button>
           <a
-            href={`/voorbeeld/${sector}/${styleId}`}
+            href={published ? published.url : `/voorbeeld/${sector}/${styleId}`}
+            target={published ? '_blank' : undefined}
+            rel={published ? 'noreferrer' : undefined}
             className="h-11 px-4 inline-flex items-center gap-2 rounded-full border-2 border-stone-300 text-sm font-bold text-stone-900 hover:border-stone-900"
           >
             <Eye className="w-4 h-4" aria-hidden="true" />
-            Bekijk je site
+            {published ? 'Bekijk je live site' : 'Bekijk je site'}
           </a>
         </div>
       </header>
+
+      {published && (
+        <div className="bg-emerald-50 border-b border-emerald-200 px-4 sm:px-6 py-3 text-sm text-emerald-900 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="font-bold">Je site staat live:</span>
+          <a href={published.url} className="underline break-all" target="_blank" rel="noreferrer">
+            {published.url}
+          </a>
+          <a href={published.manageUrl} className="underline">
+            Beheerlink (privé)
+          </a>
+          <span className="text-xs text-emerald-800">
+            Bewaar deze beheerlink: daarmee pas je je site verder aan.
+          </span>
+        </div>
+      )}
 
       <div className="flex-1 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,34rem)]">
         {/* Live preview */}
@@ -269,8 +411,8 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                     <select
                       aria-label="Vak"
                       value={sector}
-                      onChange={(event) => setSector(event.target.value as SectorId)}
-                      className="h-12 px-3 rounded-xl border-2 border-stone-300 bg-white text-sm font-semibold"
+                      onChange={(event) => handleSectorChange(event.target.value as SectorId)}
+                      className="h-14 px-3 rounded-xl border-2 border-stone-300 bg-white text-base font-semibold"
                     >
                       {ORDER.map((id) => (
                         <option key={id} value={id}>
@@ -281,8 +423,8 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                     <select
                       aria-label="Stijl"
                       value={styleId}
-                      onChange={(event) => setStyleId(event.target.value as StyleId)}
-                      className="h-12 px-3 rounded-xl border-2 border-stone-300 bg-white text-sm font-semibold"
+                      onChange={(event) => handleStyleChange(event.target.value as StyleId)}
+                      className="h-14 px-3 rounded-xl border-2 border-stone-300 bg-white text-base font-semibold"
                     >
                       {STYLES.map((style) => (
                         <option key={style.id} value={style.id}>

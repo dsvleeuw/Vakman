@@ -14,6 +14,10 @@ async function boot() {
   if (prerendered) {
     try {
       if (container.dataset.route === 'site') await import('./components/SiteView');
+      if (container.dataset.route === 'published') {
+        await import('./components/PublishedSiteView');
+        await import('./components/SiteView');
+      }
       if (container.dataset.route === 'components') await import('./components/ComponentGallery');
       if (['privacy', 'newsletter', 'unsubscribe'].includes(container.dataset.route ?? '')) {
         await import('./components/InfoPages');

@@ -36,6 +36,28 @@ test('the editor has its own route and keeps trade and style', () => {
   assert.ok(getRouteMeta({ name: 'editor' }).title.includes('Mijn site'));
 });
 
+test('a published site has its own public address', () => {
+  assert.deepEqual(parseRoute('/site/jansen-schilderwerken'), {
+    name: 'published',
+    slug: 'jansen-schilderwerken',
+  });
+  assert.equal(buildPath({ name: 'published', slug: 'jansen-schilderwerken' }), '/site/jansen-schilderwerken');
+  assert.equal(parseRoute('/site').name, 'notFound');
+  assert.equal(parseRoute('/site/een/twee').name, 'notFound');
+});
+
+test('the management link of a published site keeps the token', () => {
+  assert.deepEqual(parseRoute('/mijn-site/jansen-schilderwerken', '?token=abc123'), {
+    name: 'editor',
+    slug: 'jansen-schilderwerken',
+    token: 'abc123',
+  });
+  assert.equal(
+    buildPath({ name: 'editor', slug: 'jansen-schilderwerken', token: 'abc123' }),
+    '/mijn-site/jansen-schilderwerken?token=abc123'
+  );
+});
+
 test('a generated site gets a readable sector/style URL', () => {
   assert.deepEqual(parseRoute('/voorbeeld/hovenier/modern'), {
     name: 'site',

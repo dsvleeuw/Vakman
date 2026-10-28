@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Publiceren van een klantsite (`/site/<slug>`)**: een klant kan zijn site
+  publiek zetten. De site krijgt een eigen adres (`/site/jansen-schilderwerken`)
+  en een privé beheerlink (`/mijn-site/<slug>?token=…`) waarmee hij hem later
+  kan bijwerken. De pagina wordt op de server gerenderd, zodat zoekmachines en
+  een linkpreview in WhatsApp de site zien in plaats van een lege pagina.
+  De site krijgt zijn eigen titel, beschrijving, canonieke link en
+  `LocalBusiness`-structured data, en komt in de sitemap
+  (`/sitemap-sites.xml`). Zonder telefoonnummer, bedrijfsnaam of plaats mag
+  een site niet publiek: een openbare pagina mag geen nummer tonen dat niet
+  van de klant is.
 - **Eigen site-editor (`/mijn-site`)**: de klant vult zijn site zelf in.
   De editor toont de live site links en het invulpanel rechts: zijn gegevens,
   de tekst van de pagina en de blokken die hij op de site wil hebben. Per
