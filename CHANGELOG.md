@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Beoordeling van de zes Kun-tools** (`docs/kun-tools-review.md`): wat
+  `no-mistakes`, `gh-axi`, `backpass`, `lavish-axi`, `vision` en `treehouse`
+  doen, hoe ze in deze repo zouden passen en of ze de maatstaf "past in een
+  repo zonder runtime-dependencies" halen. `gh-axi`, `lavish-axi` en
+  `vision` zijn bruikbaar, `no-mistakes` niet (CI dekt lint, tests en build
+  al), `backpass` en `treehouse` vooral voor de eigenaar.
+- **`VISION.md`**: het accept-beleid van Klusbaas in tien principes, elk met
+  bewijs uit de eigen PR-historie, plus acht stress-test-hypotheses met
+  een verdict. Het bestand is de maatstaf voor wat wel en niet de moedere
+  op.
 - **Publiceren van een klantsite (`/site/<slug>`)**: een klant kan zijn site
   publiek zetten. De site krijgt een eigen adres (`/site/jansen-schilderwerken`)
   en een privé beheerlink (`/mijn-site/<slug>?token=…`) waarmee hij hem later
@@ -181,6 +191,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (geen preview-besturing, zwevende knoppen of mobiele balk).
 
 ### Fixed
+
 
 - **Geen verzonnen KvK-nummer of voorbeeldnummer op een klantsite.** De
   footer noemde `KvK 12345678` en de vakken bevatten een made-up
