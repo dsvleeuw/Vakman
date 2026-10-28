@@ -1121,7 +1121,13 @@ export function buildActiveSite(
   styleIndex: number,
   customForm?: WizardFormData,
   disabledServices?: Record<number, boolean>,
-  demoPhone: string | null = getDemoPhone()
+  demoPhone: string | null = getDemoPhone(),
+  /**
+   * A site that belongs to a customer (published, or the craftsman's own
+   * editor) never uses the Klusbaas demo number and never shows the sample
+   * number of the trade. Only the owner's own number is used.
+   */
+  customerSite = false
 ): ActiveSiteData {
   const base = SECTORS[sectorId];
   const style = STYLES[Math.max(0, Math.min(STYLES.length - 1, styleIndex))];
@@ -1132,14 +1138,17 @@ export function buildActiveSite(
   const owner = customForm?.owner?.trim() ? customForm.owner.trim() : base.owner;
   // Never link to the made-up sector number: use the owner's own number or
   // the Klusbaas demo number, and keep the sample only as display text.
-  const linkPhone = resolveContactPhone(customForm?.phone, demoPhone);
-  const phone = linkPhone ? formatPhoneNumber(linkPhone) : base.phone;
+  // On a customer's site the demo number stays out of it, and without the
+  // owner's own number the site shows no number at all.
+  const linkPhone = resolveContactPhone(customForm?.phone, customerSite ? null : demoPhone);
+  const phone = linkPhone ? formatPhoneNumber(linkPhone) : customerSite ? '' : base.phone;
   const contactPhone = linkPhone ? phone : null;
   const city = customForm?.city?.trim() ? customForm.city.trim() : base.city;
+  const kvk = customForm?.kvk?.trim() ? customForm.kvk.trim() : null;
 
   const domain = generateDomainSlug(biz);
   const bizLetter = biz.charAt(0).toUpperCase() || 'K';
-  const callLabel = `Bel ${phone}`;
+  const callLabel = phone ? `Bel ${phone}` : 'Bellen';
   const ownerFirstUpper = owner.split(' ')[0].toUpperCase();
   const text = buildSiteText(base, customForm);
   const about = text.about;
@@ -1167,6 +1176,8 @@ export function buildActiveSite(
     owner,
     phone,
     contactPhone,
+    isCustomerSite: customerSite,
+    kvk,
     city,
     display: style.display,
     dw: style.dw,

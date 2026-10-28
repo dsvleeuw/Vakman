@@ -5,6 +5,7 @@ import {
   buildSiteTelUrl,
   buildSiteWhatsAppUrl,
   buildFaultReportMessage,
+  canShowContactButtons,
   normalizeDutchPhone,
   type FaultReportInput,
 } from '../../utils/contact';
@@ -115,15 +116,20 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
           </h2>
           <p className="text-base sm:text-lg text-stone-600 leading-relaxed m-0">
             Vul het formulier in en je melding wordt met alle details via
-            WhatsApp naar {site.owner.split(' ')[0]} verstuurd. Bij acuut
-            onveilige situaties: bel direct{' '}
-            <a
-              href={buildSiteTelUrl(site.contactPhone)}
-              className="inline-flex items-center min-h-11 font-bold text-stone-900 underline"
-            >
-              {site.phone}
-            </a>
-            .
+            WhatsApp naar {site.owner.split(' ')[0]} verstuurd.
+            {canShowContactButtons(site) && (
+              <>
+                {' '}
+                Bij acuut onveilige situaties: bel direct{' '}
+                <a
+                  href={buildSiteTelUrl(site.contactPhone)}
+                  className="inline-flex items-center min-h-11 font-bold text-stone-900 underline"
+                >
+                  {site.phone}
+                </a>
+                .
+              </>
+            )}
           </p>
           <div className="flex flex-col gap-2 text-sm text-stone-600">
             <span className="flex items-center gap-2">

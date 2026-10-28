@@ -172,6 +172,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Geen verzonnen KvK-nummer of voorbeeldnummer op een klantsite.** De
+  footer noemde `KvK 12345678` en de vakken bevatten een made-up
+  telefoonnummer. Een KvK-nummer is een openbare claim over een echt
+  bedrijf en een telefoonnummer kan van iemand anders zijn: de footer
+  toont nu alleen een KvK-nummer dat de klant zelf heeft ingevuld, en op
+  een klantsite zonder eigen nummer verdwijnen de bel- en WhatsApp-knoppen
+  in plaats van een nummer te tonen dat niet van de klant is. De
+  demomelding ("dit is een demosite") blijft op de demosites van Klusbaas en
+  komt niet op de site van een klant.
 - **Klusbaas-homepage hersteld.** De zelfstandige GitHub-geschiedenispagina
   staat nu apart op `/github-history/index.html`, zonder link op de homepage.
   De prerender-build geeft een fout als het React-root-element ontbreekt.

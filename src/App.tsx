@@ -433,7 +433,12 @@ export default function App() {
                 buildActiveSite(
                   route.sector,
                   styleIndexFromId(route.styleId),
-                  mergeDemoPersonalization(customData[route.sector]?.form, personal)
+                  mergeDemoPersonalization(customData[route.sector]?.form, personal),
+                  undefined,
+                  undefined,
+                  // Een site met de gegevens van de klant is geen demosite:
+                  // geen demonummer en geen demomelding.
+                  Boolean(customData[route.sector])
                 ),
                 contentForCustomSite(
                   customData[route.sector] ?? {

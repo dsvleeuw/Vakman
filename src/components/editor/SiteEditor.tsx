@@ -55,7 +55,10 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
           sector,
           styleIndexFromId(styleId),
           content.form,
-          content.disabledServices
+          content.disabledServices,
+          undefined,
+          // Dit is de site van de klant: geen demo- of voorbeeldnummer.
+          true
         ),
         content
       ),
@@ -206,9 +209,15 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
-                  hint="Je klanten bellen dit nummer. Laat het leeg om het demo-nummer te gebruiken."
+                  hint="Je klanten bellen dit nummer. Zonder nummer blijven de bel- en WhatsApp-knoppen weg."
                   value={content.form.phone}
                   onChange={(phone) => update({ ...content, form: { ...content.form, phone } })}
+                />
+                <TextField
+                  label="KvK-nummer"
+                  hint="Vul je echte KvK-nummer in. Het verschijnt dan onderaan je site. Leeg laten mag ook."
+                  value={content.form.kvk ?? ''}
+                  onChange={(kvk) => update({ ...content, form: { ...content.form, kvk } })}
                 />
                 <TextField
                   label="Plaats"

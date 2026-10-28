@@ -325,6 +325,14 @@ export interface ActiveSiteData extends SectorData, Palette {
    * buttons then show the demo notice instead of dialling the sample number.
    */
   contactPhone: string | null;
+  /**
+   * True when the site belongs to a customer instead of Klusbaas: a published
+   * site or the craftsman's own editor. Such a site never shows the Klusbaas
+   * demo number and never shows the demo notice.
+   */
+  isCustomerSite: boolean;
+  /** KvK number of the company. Only shown when the owner entered a real one. */
+  kvk: string | null;
   ownerFirstUpper: string;
   hdrBg: string;
   hiText: string;
@@ -341,6 +349,8 @@ export interface WizardFormData {
   city: string;
   /** Where the quote is mailed. Optional so older saved drafts still load. */
   email?: string;
+  /** KvK number of the company. Only filled in when the owner has one. */
+  kvk?: string;
 }
 
 /** How a visitor wants to receive their quote. */

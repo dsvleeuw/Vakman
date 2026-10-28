@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Phone } from 'lucide-react';
 import type { ActiveSiteData, ContactCtaContent } from '../../types';
-import { buildSiteTelUrl } from '../../utils/contact';
+import { buildSiteTelUrl, canShowContactButtons } from '../../utils/contact';
 
 export interface ContactCtaBannerProps {
   site: ActiveSiteData;
@@ -48,18 +48,20 @@ export const ContactCtaBanner: React.FC<ContactCtaBannerProps> = ({ site, conten
           Bereken je prijs
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </a>
-        <a
-          href={buildSiteTelUrl(site.contactPhone)}
-          className="h-13 px-6 flex items-center justify-center gap-2 text-sm font-bold border"
-          style={{
-            borderColor: site.invLine,
-            color: site.invFg,
-            borderRadius: site.radius,
-          }}
-        >
-          <Phone className="w-4 h-4" aria-hidden="true" />
-          {site.callLabel}
-        </a>
+        {canShowContactButtons(site) && (
+          <a
+            href={buildSiteTelUrl(site.contactPhone)}
+            className="h-13 px-6 flex items-center justify-center gap-2 text-sm font-bold border"
+            style={{
+              borderColor: site.invLine,
+              color: site.invFg,
+              borderRadius: site.radius,
+            }}
+          >
+            <Phone className="w-4 h-4" aria-hidden="true" />
+            {site.callLabel}
+          </a>
+        )}
         <span className="text-xs text-center" style={{ color: site.invMuted }}>
           Vrijblijvend · persoonlijk advies
         </span>

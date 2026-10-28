@@ -128,6 +128,11 @@ export const SiteView: React.FC<SiteViewProps> = ({
       ? 'Bewerk jouw gegevens ✎'
       : 'Pas deze site aan →';
 
+  // Op een klantsite hoort geen demo- of voorbeeldnummer: zonder eigen
+  // nummer verdwijnen de bel- en WhatsApp-knoppen, in plaats van een
+  // nummer te tonen dat niet van de klant is.
+  const canCall = Boolean(site.contactPhone) || !site.isCustomerSite;
+
   return (
     <div
       className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}
@@ -373,17 +378,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
           {/* Action button + Mobile Menu */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <a
-              href={buildSiteTelUrl(site.contactPhone)}
-              className="hidden sm:flex min-h-11 px-5 items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
-              style={{
-                borderRadius: site.radius,
-                background: site.fg,
-                color: site.bg,
-              }}
-            >
-              {site.callLabel}
-            </a>
+            {canCall && (
+              <a
+                href={buildSiteTelUrl(site.contactPhone)}
+                className="hidden sm:flex min-h-11 px-5 items-center font-bold text-xs sm:text-sm whitespace-nowrap transition-transform hover:-translate-y-0.5"
+                style={{
+                  borderRadius: site.radius,
+                  background: site.fg,
+                  color: site.bg,
+                }}
+              >
+                {site.callLabel}
+              </a>
+            )}
             <button
               ref={menuButtonRef}
               type="button"
@@ -663,17 +670,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     >
                       {site.cta1} →
                     </a>
-                    <a
-                      href={buildSiteTelUrl(site.contactPhone)}
-                      className="hidden sm:flex h-14 px-7 items-center font-black text-base border-2"
-                      style={{
-                        borderRadius: site.radius,
-                        borderColor: site.onAccent,
-                        color: site.onAccent,
-                      }}
-                    >
-                      {site.callLabel}
-                    </a>
+                    {canCall && (
+                      <a
+                        href={buildSiteTelUrl(site.contactPhone)}
+                        className="hidden sm:flex h-14 px-7 items-center font-black text-base border-2"
+                        style={{
+                          borderRadius: site.radius,
+                          borderColor: site.onAccent,
+                          color: site.onAccent,
+                        }}
+                      >
+                        {site.callLabel}
+                      </a>
+                    )}
                   </div>
                 </div>
 
@@ -1272,36 +1281,40 @@ export const SiteView: React.FC<SiteViewProps> = ({
             </h2>
 
             <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-6 flex-wrap pt-2">
-              <div className="flex gap-3 flex-wrap">
-                <a
-                  href={buildSiteWhatsAppUrl(
-                    site.contactPhone,
-                    `Hallo ${site.biz}! Ik wil graag een klus bespreken.`
-                  )}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="h-14 px-8 flex items-center gap-2.5 font-black text-base shadow transition-transform hover:-translate-y-0.5 bg-[#25D366] text-stone-950"
-                  style={{ borderRadius: site.radius }}
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp ons
-                </a>
-                <a
-                  href={buildSiteTelUrl(site.contactPhone)}
-                  className="h-14 px-7 flex items-center gap-2.5 font-black text-base border-2"
-                  style={{
-                    borderRadius: site.radius,
-                    borderColor: site.onAccent,
-                    color: site.onAccent,
-                  }}
-                >
-                  <Phone className="w-5 h-5" />
-                  {site.callLabel}
-                </a>
-              </div>
+              {canCall && (
+                <div className="flex gap-3 flex-wrap">
+                  <a
+                    href={buildSiteWhatsAppUrl(
+                      site.contactPhone,
+                      `Hallo ${site.biz}! Ik wil graag een klus bespreken.`
+                    )}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="h-14 px-8 flex items-center gap-2.5 font-black text-base shadow transition-transform hover:-translate-y-0.5 bg-[#25D366] text-stone-950"
+                    style={{ borderRadius: site.radius }}
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    WhatsApp ons
+                  </a>
+                  <a
+                    href={buildSiteTelUrl(site.contactPhone)}
+                    className="h-14 px-7 flex items-center gap-2.5 font-black text-base border-2"
+                    style={{
+                      borderRadius: site.radius,
+                      borderColor: site.onAccent,
+                      color: site.onAccent,
+                    }}
+                  >
+                    <Phone className="w-5 h-5" />
+                    {site.callLabel}
+                  </a>
+                </div>
+              )}
 
               <span className="text-xs sm:text-sm font-medium opacity-90">
-                {site.biz} · {site.owner} · KvK 12345678 · {site.city}
+                {[site.biz, site.owner, site.kvk ? `KvK ${site.kvk}` : null, site.city]
+                  .filter(Boolean)
+                  .join(' · ')}
               </span>
             </div>
           </div>
@@ -1312,19 +1325,21 @@ export const SiteView: React.FC<SiteViewProps> = ({
       {!embedded && (
       <>
       <div className="hidden sm:flex fixed right-5 bottom-5 z-40 flex-col items-end gap-2.5">
-        <a
-          href={buildSiteWhatsAppUrl(
-            site.contactPhone,
-            `Hallo ${site.biz}! Ik heb een vraag.`
-          )}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => track('whatsapp_click', { source: 'floating', sector: selectedSector })}
-          className="h-12 px-5 rounded-full flex items-center gap-2 font-extrabold text-sm shadow-2xl bg-[#25D366] text-stone-950 transition-transform hover:scale-105"
-        >
-          <MessageCircle className="w-4 h-4" />
-          WhatsApp
-        </a>
+        {canCall && (
+          <a
+            href={buildSiteWhatsAppUrl(
+              site.contactPhone,
+              `Hallo ${site.biz}! Ik heb een vraag.`
+            )}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => track('whatsapp_click', { source: 'floating', sector: selectedSector })}
+            className="h-12 px-5 rounded-full flex items-center gap-2 font-extrabold text-sm shadow-2xl bg-[#25D366] text-stone-950 transition-transform hover:scale-105"
+          >
+            <MessageCircle className="w-4 h-4" />
+            WhatsApp
+          </a>
+        )}
         <a
           href="#prijs"
           className="h-14 px-6 rounded-full flex items-center gap-2 font-extrabold text-sm sm:text-base shadow-2xl transition-transform hover:scale-105"
@@ -1343,37 +1358,43 @@ export const SiteView: React.FC<SiteViewProps> = ({
         className="sm:hidden fixed inset-x-0 bottom-0 z-40 flex gap-2 px-3 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] border-t shadow-[0_-4px_20px_rgba(0,0,0,0.12)]"
         style={{ background: site.card, borderColor: site.line }}
       >
-        <a
-          href={buildSiteTelUrl(site.contactPhone)}
-          onClick={() => track('phone_click', { source: 'sticky-bar', sector: selectedSector })}
-          className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm"
-          style={{ background: site.fg, color: site.bg }}
-        >
-          <Phone className="w-4 h-4" />
-          Bellen
-        </a>
-        <a
-          href={buildSiteWhatsAppUrl(
-            site.contactPhone,
-            `Hallo ${site.biz}! Ik heb een vraag.`
-          )}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => track('whatsapp_click', { source: 'sticky-bar', sector: selectedSector })}
-          className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm bg-[#25D366] text-stone-950"
-        >
-          <MessageCircle className="w-4 h-4" />
-          WhatsApp
-        </a>
+        {canCall && (
+          <>
+            <a
+              href={buildSiteTelUrl(site.contactPhone)}
+              onClick={() => track('phone_click', { source: 'sticky-bar', sector: selectedSector })}
+              className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm"
+              style={{ background: site.fg, color: site.bg }}
+            >
+              <Phone className="w-4 h-4" />
+              Bellen
+            </a>
+            <a
+              href={buildSiteWhatsAppUrl(
+                site.contactPhone,
+                `Hallo ${site.biz}! Ik heb een vraag.`
+              )}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => track('whatsapp_click', { source: 'sticky-bar', sector: selectedSector })}
+              className="flex-1 h-12 rounded-full flex items-center justify-center gap-2 font-extrabold text-sm bg-[#25D366] text-stone-950"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
+            </a>
+          </>
+        )}
       </div>
       </>
       )}
 
-      <DemoContactNotice
-        open={demoNoticeOpen}
-        onClose={closeDemoNotice}
-        wizardRoute={wizardRoute}
-      />
+      {!site.isCustomerSite && (
+        <DemoContactNotice
+          open={demoNoticeOpen}
+          onClose={closeDemoNotice}
+          wizardRoute={wizardRoute}
+        />
+      )}
     </div>
   );
 };

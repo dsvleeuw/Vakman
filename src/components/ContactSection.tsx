@@ -38,6 +38,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
     site.contactPhone,
     `Hallo ${site.biz}! Ik wil graag meer informatie over een klus.`
   );
+  // Zonder eigen telefoonnummer blijft alleen het formulier over; een
+  // demo- of voorbeeldnummer hoort niet op de site van een klant.
+  const canCall = Boolean(site.contactPhone) || !site.isCustomerSite;
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -105,7 +108,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           {/* Primary channel: WhatsApp. Near-black text: white on #25D366
               only reaches 1.98:1, stone-950 reaches 9.96:1. */}
-          <div className="lg:col-span-5 bg-[#25D366] text-stone-950 rounded-3xl p-7 sm:p-9 flex flex-col gap-5 shadow-lg">
+          <div
+            className={`${
+              canCall ? 'lg:col-span-5' : 'hidden'
+            } bg-[#25D366] text-stone-950 rounded-3xl p-7 sm:p-9 flex flex-col gap-5 shadow-lg`}
+          >
             <span className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
               <MessageCircle className="w-6 h-6" />
             </span>
@@ -137,13 +144,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
               <MessageCircle className="w-5 h-5" />
               Open WhatsApp
             </a>
-            <a
-              href={buildSiteTelUrl(site.contactPhone)}
-              className="h-12 px-6 rounded-full border-2 border-stone-950/50 text-stone-950 font-bold text-sm flex items-center justify-center gap-2 transition-colors hover:bg-stone-950/10"
-            >
-              <Phone className="w-4 h-4" />
-              Of bel {site.phone}
-            </a>
+            {site.phone && (
+              <a
+                href={buildSiteTelUrl(site.contactPhone)}
+                className="h-12 px-6 rounded-full border-2 border-stone-950/50 text-stone-950 font-bold text-sm flex items-center justify-center gap-2 transition-colors hover:bg-stone-950/10"
+              >
+                <Phone className="w-4 h-4" />
+                Of bel {site.phone}
+              </a>
+            )}
           </div>
 
           {!mobileFormOpen && !waUrl && (
@@ -166,7 +175,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
           <div
             className={`${
               mobileFormOpen || waUrl ? 'flex' : 'hidden sm:flex'
-            } lg:col-span-7 border p-6 sm:p-9 shadow-sm flex-col`}
+            } ${canCall ? 'lg:col-span-7' : 'lg:col-span-12'} border p-6 sm:p-9 shadow-sm flex-col`}
             style={{
               background: site.card,
               borderColor: site.line,

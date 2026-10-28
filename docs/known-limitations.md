@@ -24,6 +24,8 @@ to [ROADMAP.md](../ROADMAP.md).
   is no per-customer recipient yet.
 - `PublishedSiteRecord` is defined in `types.ts` but unused; publishing is
   not actually recorded.
+- A published site sends its leads to Klusbaas as well: the lead API has no
+  per-site recipient yet, so the customer's own e-mail address is not used.
 
 ## Privacy and newsletter
 
@@ -43,6 +45,22 @@ to [ROADMAP.md](../ROADMAP.md).
   willekeurige adressen als het domein in Resend geverifieerd is.
 - **Rate limit nieuwsbrief** is 5 aanmeldingen per 10 minuten per IP, in
   geheugen per functie-instantie.
+
+## Demo content and public claims
+
+- **No made-up KvK number.** The footer used to say `KvK 12345678`. A KvK
+  number is a public claim about a real company, so the footer only shows a
+  KvK number the owner entered themselves (field in the editor).
+- **No sample number on a customer's site.** The trade presets contain a
+  made-up number (`06 12 34 56 78`) that may belong to a stranger. A demo
+  site may show it as text (it is never linked to), but a customer's site
+  shows nothing unless the owner entered their own number: the call and
+  WhatsApp buttons then disappear instead of pointing at a number that is
+  not theirs.
+- The demo notice ("this is a demo site") only appears on Klusbaas' own
+  demo sites, never on a customer's site.
+- Reviews, ratings and portfolio photos in the presets are examples. They
+  are not the customer's own work and cannot be replaced yet.
 
 ## Customisation
 
