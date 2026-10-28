@@ -55,3 +55,41 @@ test('buildActiveSite never links demo buttons to the sample sector number', () 
   );
   assert.equal(own.contactPhone, '06 98 76 54 32');
 });
+
+test('a customer site never shows a demo or sample number', () => {
+  const base = SECTORS.loodgieter;
+
+  // Zonder eigen nummer: geen nummer en geen demo-nummer.
+  const empty = buildActiveSite('loodgieter', 0, { biz: ' Jansen', owner: '', phone: '', city: '' }, undefined, '0201234567', true);
+  assert.equal(empty.contactPhone, null);
+  assert.equal(empty.phone, '');
+  assert.notEqual(empty.phone, base.phone);
+  assert.equal(empty.callLabel, 'Bellen');
+  assert.equal(empty.isCustomerSite, true);
+
+  // Met eigen nummer: alleen dat nummer.
+  const own = buildActiveSite(
+    'loodgieter',
+    0,
+    { biz: ' Jansen', owner: '', phone: '0698765432', city: '' },
+    undefined,
+    '0201234567',
+    true
+  );
+  assert.equal(own.contactPhone, '06 98 76 54 32');
+  assert.ok(!own.callLabel.includes('02 01 23 45 67'));
+});
+
+test('the KvK number is only shown when the owner entered one', () => {
+  const without = buildActiveSite('loodgieter', 0, undefined, undefined, null);
+  assert.equal(without.kvk, null);
+
+  const withKvk = buildActiveSite(
+    'loodgieter',
+    0,
+    { biz: ' Jansen', owner: '', phone: '0698765432', city: '', kvk: ' 12345678 ' },
+    undefined,
+    null
+  );
+  assert.equal(withKvk.kvk, '12345678');
+});

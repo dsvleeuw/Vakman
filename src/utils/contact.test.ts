@@ -16,6 +16,7 @@ import {
   buildEmergencyMessage,
   buildFaultReportMessage,
   buildSurfaceQuoteMessage,
+  canShowContactButtons,
 } from './contact';
 
 test('phoneToWaDigits converts Dutch mobile numbers to wa.me format', () => {
@@ -155,6 +156,16 @@ test('site contact links never dial without a safe number', () => {
   assert.equal(buildSiteWhatsAppUrl('0612345670', 'Hoi'), 'https://wa.me/31612345670?text=Hoi');
   assert.equal(buildSiteTelUrl(null), DEMO_CONTACT_HREF);
   assert.equal(buildSiteWhatsAppUrl(null, 'Hoi'), DEMO_CONTACT_HREF);
+});
+
+test('a customer site without a number shows no call buttons', () => {
+  assert.equal(canShowContactButtons({ contactPhone: null, isCustomerSite: true }), false);
+  assert.equal(
+    canShowContactButtons({ contactPhone: '06 98 76 54 32', isCustomerSite: true }),
+    true
+  );
+  // A demo site may always show the buttons: they open the demo notice.
+  assert.equal(canShowContactButtons({ contactPhone: null, isCustomerSite: false }), true);
 });
 
 test('getDemoPhone reads and validates VITE_DEMO_PHONE', () => {

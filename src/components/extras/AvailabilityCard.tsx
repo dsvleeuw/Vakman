@@ -1,20 +1,18 @@
 import React from 'react';
 import { ArrowRight, Calendar, CheckCircle2 } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
+import type { ActiveSiteData, AvailabilityContent } from '../../types';
 
 export interface AvailabilityCardProps {
   site: ActiveSiteData;
-  nextAvailability?: string;
+  content: AvailabilityContent;
   bookingHref?: string;
 }
 
 export const AvailabilityCard: React.FC<AvailabilityCardProps> = ({
   site,
-  nextAvailability = 'Deze week',
+  content,
   bookingHref = '#afspraak',
 }) => {
-  const promises = ['Opname op locatie', 'Offerte binnen 2 werkdagen', 'Startdatum in overleg'];
-
   return (
     <article
       className="w-full p-6 sm:p-8 border flex flex-col gap-6"
@@ -43,7 +41,7 @@ export const AvailabilityCard: React.FC<AvailabilityCardProps> = ({
           className="text-4xl sm:text-5xl font-black tracking-tight leading-none m-0"
           style={{ fontFamily: site.display, fontWeight: site.dw, letterSpacing: site.ls }}
         >
-          {nextAvailability}
+          {content.next}
         </h3>
         <p className="text-sm sm:text-base leading-relaxed m-0" style={{ color: site.muted }}>
           Plan vrijblijvend een opname of adviesgesprek voor jouw klus.
@@ -51,7 +49,7 @@ export const AvailabilityCard: React.FC<AvailabilityCardProps> = ({
       </div>
 
       <ul className="flex flex-col gap-2.5 m-0 p-0 list-none">
-        {promises.map((promise) => (
+        {content.promises.map((promise) => (
           <li key={promise} className="flex items-center gap-2.5 text-sm font-semibold">
             <CheckCircle2
               className="w-4 h-4 shrink-0"

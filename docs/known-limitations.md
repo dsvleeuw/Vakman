@@ -22,8 +22,9 @@ to [ROADMAP.md](../ROADMAP.md).
   in Netlify Blobs (dashboard/CLI) or in `.data/` locally.
 - Site leads on demo sites go to Klusbaas, not to the tradesperson: there
   is no per-customer recipient yet.
-- `PublishedSiteRecord` is defined in `types.ts` but unused; publishing is
-  not actually recorded.
+- A published site sends its leads to Klusbaas as well: the lead API has no
+  per-site recipient yet, so the customer's own e-mail address is not used.
+  The lead does carry the name of the site, so it can be traced back.
 
 ## Privacy and newsletter
 
@@ -44,16 +45,44 @@ to [ROADMAP.md](../ROADMAP.md).
 - **Rate limit nieuwsbrief** is 5 aanmeldingen per 10 minuten per IP, in
   geheugen per functie-instantie.
 
+## Demo content and public claims
+
+- **No made-up KvK number.** The footer used to say `KvK 12345678`. A KvK
+  number is a public claim about a real company, so the footer only shows a
+  KvK number the owner entered themselves (field in the editor).
+- **No sample number on a customer's site.** The trade presets contain a
+  made-up number (`06 12 34 56 78`) that may belong to a stranger. A demo
+  site may show it as text (it is never linked to), but a customer's site
+  shows nothing unless the owner entered their own number: the call and
+  WhatsApp buttons then disappear instead of pointing at a number that is
+  not theirs.
+- The demo notice ("this is a demo site") only appears on Klusbaas' own
+  demo sites, never on a customer's site.
+- Reviews, ratings and portfolio photos in the presets are examples. They
+  are not the customer's own work and cannot be replaced yet.
+
 ## Customisation
 
-- Only the four wizard fields (business name, owner, phone, city) and the
-  service on/off toggles persist, via the `klusbaas_custom_sites`
-  localStorage key. Photos, palette, services prices and copy cannot be
-  edited by a user yet.
-- The FAQ references a "Klusbaas-dashboard" that does not exist
-  (roadmap 1.4/3.3).
+- The editor (`/mijn-site`) lets a craftsman fill in the business name,
+  owner, phone, city and e-mail, switch services off, rewrite the page copy
+  and the copy per block, and choose which blocks are on the page and in
+  which order. Everything is stored per browser in localStorage
+  (`klusbaas_mijn_sites`, per trade and style).
+- Photos, palette, service prices, reviews and portfolio photos are still
+  fixed: they come from the trade preset and cannot be edited.
+- The editor publishes the site: it goes to `/site/<slug>` and is stored in
+  Netlify Blobs (in `.data/sites` locally). The site is managed through a
+  private link `/mijn-site/<slug>?token=…`; the token is the only way to
+  change the site.
+- A published site needs a name, an address and a phone number: without
+  them the site would show a number that is not the customer's.
+- Published sites live in the Blobs store `sites`. There is no overview of
+  all published sites: the list is only in the store itself (and in the
+  sitemap `/sitemap-sites.xml`).
 - Customised data is per browser: there are no accounts for craftsmen
-  (Firebase Auth is only used for the Google Calendar/Drive sync).
+  (Firebase Auth is only used for the Google Calendar/Drive sync). A
+  customer who clears his browser data loses the draft that was never
+  published; a published site keeps working.
 
 ## Integrations
 

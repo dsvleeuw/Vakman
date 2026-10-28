@@ -1,5 +1,6 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import type { PublishedSiteRecord } from '../types';
 import type { QuoteRecord } from '../utils/quote';
 
 /**
@@ -17,6 +18,19 @@ export interface LeadStorage {
 }
 
 const counterKey = (year: number) => `counter-${year}`;
+
+/**
+ * Where published customer sites are kept. Production uses Netlify Blobs
+ * (store `sites`), `vite dev` uses JSON files in `.data/sites`.
+ */
+export interface SiteStorage {
+  /** Store a site under its slug; an existing site with the same slug is replaced. */
+  saveSite(record: PublishedSiteRecord): Promise<string>;
+  /** Read one site by its slug. */
+  getSite(slug: string): Promise<PublishedSiteRecord | null>;
+  /** Every published site, for the sitemap. */
+  listSites(): Promise<PublishedSiteRecord[]>;
+}
 
 /** File storage for local development: `.data/quotes` and `.data/leads`. */
 export function createFileStorage(root: string): LeadStorage {
@@ -74,6 +88,49 @@ export function createFileStorage(root: string): LeadStorage {
   };
 }
 
+/**
+ * File storage for published sites: `.data/sites/<slug>.json`.
+ */
+export function createFileSiteStorage(root: string): SiteStorage {
+  const sitesDir = path.join(root, 'sites');
+  const safe = (slug: string) => slug.replace(/[^A-Za-z0-9-]/g, '');
+
+  return {
+    async saveSite(record) {
+      await mkdir(sitesDir, { recursive: true });
+      const file = path.join(sitesDir, `${safe(record.slug)}.json`);
+      await writeFile(file, JSON.stringify(record, null, 2));
+      return file;
+    },
+    async getSite(slug) {
+      try {
+        const raw = await readFile(path.join(sitesDir, `${safe(slug)}.json`), 'utf8');
+        return JSON.parse(raw) as PublishedSiteRecord;
+      } catch {
+        return null;
+      }
+    },
+    async listSites() {
+      try {
+        const files = await readdir(sitesDir);
+        const records: PublishedSiteRecord[] = [];
+        for (const file of files) {
+          if (!file.endsWith('.json')) continue;
+          try {
+            const raw = await readFile(path.join(sitesDir, file), 'utf8');
+            records.push(JSON.parse(raw) as PublishedSiteRecord);
+          } catch {
+            // A half-written file must not break the whole sitemap.
+          }
+        }
+        return records;
+      } catch {
+        return [];
+      }
+    },
+  };
+}
+
 /** Netlify Blobs storage. Imported lazily so `vite dev` never needs it. */
 export async function createBlobStorage(): Promise<LeadStorage> {
   const { getStore } = await import('@netlify/blobs');
@@ -108,6 +165,33 @@ export async function createBlobStorage(): Promise<LeadStorage> {
     async saveLead(reference, lead) {
       await leads.setJSON(reference, lead);
       return `blobs:leads/${reference}`;
+    },
+  };
+}
+
+/**
+ * Netlify Blobs storage for published sites (store `sites`).
+ */
+export async function createBlobSiteStorage(): Promise<SiteStorage> {
+  const { getStore } = await import('@netlify/blobs');
+  const sites = getStore({ name: 'sites', consistency: 'strong' });
+
+  return {
+    async saveSite(record) {
+      await sites.setJSON(record.slug, record);
+      return `blobs:sites/${record.slug}`;
+    },
+    async getSite(slug) {
+      return ((await sites.get(slug, { type: 'json' })) as PublishedSiteRecord | null) ?? null;
+    },
+    async listSites() {
+      const listed = await sites.list();
+      const records: PublishedSiteRecord[] = [];
+      for (const entry of listed.blobs) {
+        const record = (await sites.get(entry.key, { type: 'json' })) as PublishedSiteRecord | null;
+        if (record?.slug) records.push(record);
+      }
+      return records;
     },
   };
 }

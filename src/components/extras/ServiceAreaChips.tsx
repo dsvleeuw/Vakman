@@ -1,14 +1,14 @@
 import React from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
+import type { ActiveSiteData, ServiceAreasContent } from '../../types';
 
 export interface ServiceAreaChipsProps {
   site: ActiveSiteData;
-  areas?: string[];
+  content: ServiceAreasContent;
 }
 
-export const ServiceAreaChips: React.FC<ServiceAreaChipsProps> = ({ site, areas }) => {
-  const visibleAreas = (areas ?? [site.city, ...site.near]).slice(0, 9);
+export const ServiceAreaChips: React.FC<ServiceAreaChipsProps> = ({ site, content }) => {
+  const visibleAreas = content.areas.slice(0, 9);
 
   return (
     <section

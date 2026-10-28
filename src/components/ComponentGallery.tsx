@@ -9,8 +9,10 @@ import {
   Sparkles,
   X,
 } from 'lucide-react';
-import type { SectorId, WizardFormData } from '../types';
+import type { SectorId, CustomSite,
+  WizardFormData } from '../types';
 import type { WizardRouteStep } from '../utils/router';
+import { defaultBlockContent } from '../data/blocks';
 import { buildActiveSite } from '../data/tradesData';
 import {
   COMPONENT_ENTRIES,
@@ -69,7 +71,7 @@ interface ComponentGalleryProps {
   onViewPublishedSite: (
     sectorId: SectorId,
     styleIndex: number,
-    form: WizardFormData
+    custom: CustomSite
   ) => void;
 }
 
@@ -168,25 +170,25 @@ export const ComponentGallery: React.FC<ComponentGalleryProps> = ({
   const renderPreview = (entry: ComponentCatalogEntry) => {
     switch (entry.id) {
       case 'trust-bar':
-        return <TrustBar site={demoSite} />;
+        return <TrustBar site={demoSite} content={defaultBlockContent(demoSite, 'trust-bar')} />;
       case 'opening-hours':
-        return <OpeningHoursCard site={demoSite} />;
+        return <OpeningHoursCard site={demoSite} content={defaultBlockContent(demoSite, 'opening-hours')} />;
       case 'availability':
-        return <AvailabilityCard site={demoSite} />;
+        return <AvailabilityCard site={demoSite} content={defaultBlockContent(demoSite, 'availability')} />;
       case 'team-member':
-        return <TeamMemberCard site={demoSite} />;
+        return <TeamMemberCard site={demoSite} content={defaultBlockContent(demoSite, 'team-member')} />;
       case 'testimonial':
-        return <TestimonialCard site={demoSite} />;
+        return <TestimonialCard site={demoSite} content={defaultBlockContent(demoSite, 'testimonial')} />;
       case 'guarantees':
-        return <GuaranteeList site={demoSite} />;
+        return <GuaranteeList site={demoSite} content={defaultBlockContent(demoSite, 'guarantees')} />;
       case 'promotion':
-        return <PromotionBanner site={demoSite} />;
+        return <PromotionBanner site={demoSite} content={defaultBlockContent(demoSite, 'promotion')} />;
       case 'service-areas':
-        return <ServiceAreaChips site={demoSite} />;
+        return <ServiceAreaChips site={demoSite} content={defaultBlockContent(demoSite, 'service-areas')} />;
       case 'project-stats':
-        return <ProjectStats site={demoSite} />;
+        return <ProjectStats site={demoSite} content={defaultBlockContent(demoSite, 'project-stats')} />;
       case 'contact-cta':
-        return <ContactCtaBanner site={demoSite} />;
+        return <ContactCtaBanner site={demoSite} content={defaultBlockContent(demoSite, 'contact-cta')} />;
       case 'header':
         return <Header />;
       case 'hero-strip':

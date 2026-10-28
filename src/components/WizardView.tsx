@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import type {
+  CustomSite,
   PlanId,
   QuoteChannel,
   SectorId,
+  SiteContent,
   WizardFormData,
   WizardDraft,
   AppointmentBooking,
@@ -19,6 +21,8 @@ import {
 import { validateWizardForm } from '../utils/pricing';
 import { PLANS, getPlan } from '../data/plans';
 import { ADDONS, ADDON_GROUPS, isAddonIncluded } from '../data/addons';
+import { DEFAULT_BLOCK_ORDER, mergeBlocks } from '../data/blocks';
+import { applySiteContent, defaultSiteContent } from '../utils/siteContent';
 import {
   calculateQuote,
   formatDutchDate,
@@ -54,10 +58,17 @@ import {
   TIME_SLOTS,
   type TimeSlot,
 } from '../utils/appointments';
-import { WIZARD_STEPS, WIZARD_STEP_LABELS, type WizardRouteStep, type DemoPersonalization } from '../utils/router';
+import {
+  WIZARD_STEPS,
+  WIZARD_STEP_LABELS,
+  styleIdFromIndex,
+  type WizardRouteStep,
+  type DemoPersonalization,
+} from '../utils/router';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import { ImageWithFallback } from './ImageWithFallback';
 import { SiteView } from './SiteView';
+import { RouteLink } from './RouteLink';
 import { Logo } from './Logo';
 import { PrivacyNote } from './PrivacyNote';
 
@@ -82,7 +93,7 @@ interface WizardViewProps {
   onDraftChange?: (draft: WizardDraft) => void;
   onSelectionChange?: (sector: SectorId, styleIndex: number, plan?: PlanId) => void;
   onGoHome: () => void;
-  onViewPublishedSite: (sectorId: SectorId, styleIndex: number, form: WizardFormData) => void;
+  onViewPublishedSite: (sectorId: SectorId, styleIndex: number, custom: CustomSite) => void;
 }
 
 const FIELD_ORDER: (keyof WizardFormData)[] = ['biz', 'owner', 'phone', 'city'];
@@ -395,7 +406,22 @@ export const WizardView: React.FC<WizardViewProps> = ({
     onStepChange('klaar');
   };
 
-  const liveSite = buildActiveSite(sector, styleIndex, formData, disabledServices);
+  // The blocks the craftsman picked are part of his site, so the preview shows
+  // exactly what he gets.
+  const customSite: CustomSite = {
+    form: formData,
+    blocks: mergeBlocks(DEFAULT_BLOCK_ORDER, addons),
+    disabledServices,
+  };
+  const liveContent: SiteContent = {
+    ...defaultSiteContent(sector, styleIdFromIndex(styleIndex), formData),
+    blocks: customSite.blocks,
+    disabledServices,
+  };
+  const liveSite = applySiteContent(
+    buildActiveSite(sector, styleIndex, formData, disabledServices),
+    liveContent
+  );
   const showPreview = isDesktop || previewOpen;
   const selectedPlan = getPlan(plan);
   const effectivePlan: PlanId = selectedPlan?.id ?? 'pro';
@@ -826,7 +852,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="flex flex-col gap-2">
                 <button
-                  onClick={() => onViewPublishedSite(sector, styleIndex, formData)}
+                  onClick={() => onViewPublishedSite(sector, styleIndex, customSite)}
                   className="w-full h-14 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-all hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
                 >
                   Bekijk je website →
@@ -1241,11 +1267,17 @@ export const WizardView: React.FC<WizardViewProps> = ({
 
               <div className="pt-3 w-full flex flex-col sm:flex-row gap-3 justify-center">
                 <button
-                  onClick={() => onViewPublishedSite(sector, styleIndex, formData)}
+                  onClick={() => onViewPublishedSite(sector, styleIndex, customSite)}
                   className="h-14 px-8 rounded-full border-0 bg-stone-900 hover:bg-stone-800 text-white font-extrabold text-base cursor-pointer shadow-md transition-transform hover:-translate-y-0.5"
                 >
                   Bekijk je website →
                 </button>
+                <RouteLink
+                  route={{ name: 'editor', sector, styleId: styleIdFromIndex(styleIndex) }}
+                  className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm inline-flex items-center justify-center no-underline"
+                >
+                  Vul je site zelf in
+                </RouteLink>
                 <button
                   onClick={onGoHome}
                   className="h-14 px-6 rounded-full border-2 border-stone-300 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm cursor-pointer"
@@ -1299,7 +1331,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
               <button
                 onClick={
                   step === 'afspraak'
-                    ? () => onViewPublishedSite(sector, styleIndex, formData)
+                    ? () => onViewPublishedSite(sector, styleIndex, customSite)
                     : handleNext
                 }
                 disabled={step === 'afspraak' && isBooking}

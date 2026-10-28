@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Phone, MessageCircle, Siren, Clock } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
-import { buildSiteTelUrl, buildSiteWhatsAppUrl, buildEmergencyMessage } from '../../utils/contact';
+import {
+  buildSiteTelUrl,
+  buildSiteWhatsAppUrl,
+  buildEmergencyMessage,
+  canShowContactButtons,
+} from '../../utils/contact';
 
 const EMERGENCY_PROBLEMS = [
   'Waterlekkage',
@@ -82,22 +87,26 @@ export const EmergencyButton: React.FC<EmergencyButtonProps> = ({ site }) => {
           <span className="font-mono text-xs font-bold tracking-widest uppercase text-stone-500">
             Direct contact bij spoed
           </span>
-          <a
-            href={buildSiteTelUrl(site.contactPhone)}
-            className="h-15 py-4 px-6 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
-          >
-            <Phone className="w-5 h-5" />
-            Bel {site.phone}
-          </a>
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="h-15 py-4 px-6 rounded-2xl bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
-          >
-            <MessageCircle className="w-5 h-5" />
-            WhatsApp: {problem}
-          </a>
+          {canShowContactButtons(site) && (
+            <>
+              <a
+                href={buildSiteTelUrl(site.contactPhone)}
+                className="h-15 py-4 px-6 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+              >
+                <Phone className="w-5 h-5" />
+                Bel {site.phone}
+              </a>
+              <a
+                href={waUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="h-15 py-4 px-6 rounded-2xl bg-[#25D366] hover:brightness-95 text-stone-950 font-extrabold text-lg flex items-center justify-center gap-2.5 shadow-md transition-transform hover:-translate-y-0.5"
+              >
+                <MessageCircle className="w-5 h-5" />
+                WhatsApp: {problem}
+              </a>
+            </>
+          )}
           <p className="text-xs text-stone-500 leading-relaxed m-0 text-center">
             Kies je probleem hierboven; je WhatsApp-bericht staat meteen
             klaar met de juiste spoedinformatie.

@@ -99,6 +99,21 @@ export function resolveContactPhone(
 }
 
 /**
+ * May a site show a call or WhatsApp button?
+ *
+ * A demo site may: its buttons point to the Klusbaas number or open the
+ * demo notice. A customer's site may only when the owner entered a number
+ * of their own: the Klusbaas demo number and the sample number of the
+ * trade do not belong on the site of a real craftsman.
+ */
+export function canShowContactButtons(site: {
+  contactPhone: string | null;
+  isCustomerSite: boolean;
+}): boolean {
+  return Boolean(site.contactPhone) || !site.isCustomerSite;
+}
+
+/**
  * Build a click-to-chat WhatsApp URL, optionally with a prefilled message.
  */
 export function buildWhatsAppUrl(phone: string, message?: string): string {

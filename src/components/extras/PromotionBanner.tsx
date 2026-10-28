@@ -1,18 +1,13 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
+import type { ActiveSiteData, PromotionContent } from '../../types';
 
 export interface PromotionBannerProps {
   site: ActiveSiteData;
-  title?: string;
-  description?: string;
+  content: PromotionContent;
 }
 
-export const PromotionBanner: React.FC<PromotionBannerProps> = ({
-  site,
-  title = 'Meerdere klussen? Zet ze op één lijst.',
-  description = 'We bekijken de werkzaamheden samen en maken één helder voorstel. Zo houd je grip op planning, prijs en uitvoering.',
-}) => {
+export const PromotionBanner: React.FC<PromotionBannerProps> = ({ site, content }) => {
   return (
     <aside
       className="relative w-full overflow-hidden p-6 sm:p-8 lg:p-10"
@@ -37,9 +32,9 @@ export const PromotionBanner: React.FC<PromotionBannerProps> = ({
             className="text-3xl sm:text-4xl font-black tracking-tight leading-tight m-0"
             style={{ fontFamily: site.display, fontWeight: site.dw, letterSpacing: site.ls }}
           >
-            {title}
+            {content.title}
           </h3>
-          <p className="text-sm sm:text-base leading-relaxed m-0 opacity-90">{description}</p>
+          <p className="text-sm sm:text-base leading-relaxed m-0 opacity-90">{content.description}</p>
         </div>
 
         <div className="flex flex-col gap-3 lg:items-end">
@@ -52,7 +47,7 @@ export const PromotionBanner: React.FC<PromotionBannerProps> = ({
               borderRadius: site.radius,
             }}
           >
-            Vraag een voorstel aan
+            {content.cta}
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </a>
           <span className="text-xs font-semibold opacity-80">Vrijblijvend · duidelijke prijs vooraf</span>

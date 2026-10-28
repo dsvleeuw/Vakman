@@ -1,4 +1,3 @@
-import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { SECTORS, STYLES } from '../data/tradesData';
 import { buildWhatsAppUrl } from '../utils/contact';
 import { createRateLimiter, parseLead, type QuoteLeadRequest, type SiteLead } from '../utils/lead';
@@ -68,16 +67,13 @@ export interface HandlerResult<T> {
 
 const defaultLimiter = createRateLimiter({ limit: 20, windowMs: 10 * 60 * 1000 });
 
-/** 24 random bytes, URL-safe: unguessable link token for a quote. */
-export function createQuoteToken(): string {
-  return randomBytes(24).toString('base64url');
-}
+/**
+ * 24 random bytes, URL-safe: unguessable link token for a quote.
+ * The same pattern is used for published sites (`server/siteHandler.ts`).
+ */
+import { createToken as createQuoteToken, tokensMatch } from './tokens';
 
-export function tokensMatch(expected: string, given: string): boolean {
-  const a = Buffer.from(expected);
-  const b = Buffer.from(given);
-  return a.length === b.length && timingSafeEqual(a, b);
-}
+export { createQuoteToken, tokensMatch };
 
 const publicDelivery = (result: DeliveryResult): PublicDelivery => ({ to: result.to, status: result.status });
 

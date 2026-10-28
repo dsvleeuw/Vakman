@@ -5,8 +5,10 @@ import type {
   SectorData,
   Palette,
   ActiveSiteData,
+  SiteText,
   WizardFormData,
 } from '../types';
+import { DEFAULT_BLOCK_ORDER } from './blocks';
 import { getOklchColor, generateDomainSlug, formatPhoneNumber } from '../utils/pricing';
 import { getDemoPhone, resolveContactPhone } from '../utils/contact';
 import { AA_TEXT, bestOnColor, ensureContrast, ensureSurfaceContrast } from '../utils/color';
@@ -1093,12 +1095,39 @@ function buildPalette(sector: SectorData, style: StyleDef): Palette {
   };
 }
 
+/**
+ * The copy of the page itself, built from the trade preset and the details the
+ * craftsman filled in. Shared by the generated site and the editor, so both
+ * start from the same text.
+ */
+export function buildSiteText(
+  base: SectorData,
+  customForm?: WizardFormData
+): SiteText {
+  const owner = customForm?.owner?.trim() ? customForm.owner.trim() : base.owner;
+  const city = customForm?.city?.trim() ? customForm.city.trim() : base.city;
+  return {
+    kicker: `${base.kicker} · ${city.toUpperCase()}`,
+    headline: base.headline,
+    intro: base.intro,
+    about: `Ik ben ${owner.split(' ')[0]}. ${base.about}`,
+    cta1: base.cta1,
+    cta2: base.cta2,
+  };
+}
+
 export function buildActiveSite(
   sectorId: SectorId,
   styleIndex: number,
   customForm?: WizardFormData,
   disabledServices?: Record<number, boolean>,
-  demoPhone: string | null = getDemoPhone()
+  demoPhone: string | null = getDemoPhone(),
+  /**
+   * A site that belongs to a customer (published, or the craftsman's own
+   * editor) never uses the Klusbaas demo number and never shows the sample
+   * number of the trade. Only the owner's own number is used.
+   */
+  customerSite = false
 ): ActiveSiteData {
   const base = SECTORS[sectorId];
   const style = STYLES[Math.max(0, Math.min(STYLES.length - 1, styleIndex))];
@@ -1109,17 +1138,21 @@ export function buildActiveSite(
   const owner = customForm?.owner?.trim() ? customForm.owner.trim() : base.owner;
   // Never link to the made-up sector number: use the owner's own number or
   // the Klusbaas demo number, and keep the sample only as display text.
-  const linkPhone = resolveContactPhone(customForm?.phone, demoPhone);
-  const phone = linkPhone ? formatPhoneNumber(linkPhone) : base.phone;
+  // On a customer's site the demo number stays out of it, and without the
+  // owner's own number the site shows no number at all.
+  const linkPhone = resolveContactPhone(customForm?.phone, customerSite ? null : demoPhone);
+  const phone = linkPhone ? formatPhoneNumber(linkPhone) : customerSite ? '' : base.phone;
   const contactPhone = linkPhone ? phone : null;
   const city = customForm?.city?.trim() ? customForm.city.trim() : base.city;
+  const kvk = customForm?.kvk?.trim() ? customForm.kvk.trim() : null;
 
   const domain = generateDomainSlug(biz);
   const bizLetter = biz.charAt(0).toUpperCase() || 'K';
-  const callLabel = `Bel ${phone}`;
+  const callLabel = phone ? `Bel ${phone}` : 'Bellen';
   const ownerFirstUpper = owner.split(' ')[0].toUpperCase();
-  const about = `Ik ben ${owner.split(' ')[0]}. ${base.about}`;
-  const kicker = `${base.kicker} · ${city.toUpperCase()}`;
+  const text = buildSiteText(base, customForm);
+  const about = text.about;
+  const kicker = text.kicker;
 
   const filteredServices = base.services
     .filter((_, idx) => !disabledServices || !disabledServices[idx])
@@ -1143,6 +1176,8 @@ export function buildActiveSite(
     owner,
     phone,
     contactPhone,
+    isCustomerSite: customerSite,
+    kvk,
     city,
     display: style.display,
     dw: style.dw,
@@ -1162,5 +1197,7 @@ export function buildActiveSite(
     work,
     hdrBg,
     hiText,
+    blocks: [...DEFAULT_BLOCK_ORDER],
+    blockContent: {},
   };
 }

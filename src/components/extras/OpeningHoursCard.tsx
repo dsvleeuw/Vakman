@@ -1,28 +1,18 @@
 import React from 'react';
 import { Clock, MessageCircle, Phone } from 'lucide-react';
-import type { ActiveSiteData } from '../../types';
-import { buildSiteTelUrl, buildSiteWhatsAppUrl } from '../../utils/contact';
-
-export interface BusinessHour {
-  days: string;
-  time: string;
-}
+import type { ActiveSiteData, OpeningHoursContent } from '../../types';
+import {
+  buildSiteTelUrl,
+  buildSiteWhatsAppUrl,
+  canShowContactButtons,
+} from '../../utils/contact';
 
 export interface OpeningHoursCardProps {
   site: ActiveSiteData;
-  hours?: BusinessHour[];
+  content: OpeningHoursContent;
 }
 
-const DEFAULT_HOURS: BusinessHour[] = [
-  { days: 'Maandag – vrijdag', time: '07:30 – 17:30' },
-  { days: 'Zaterdag', time: '09:00 – 13:00' },
-  { days: 'Zondag', time: 'Gesloten' },
-];
-
-export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
-  site,
-  hours = DEFAULT_HOURS,
-}) => {
+export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({ site, content }) => {
   const whatsAppUrl = buildSiteWhatsAppUrl(
     site.contactPhone,
     `Hallo ${site.biz}, ik wil graag een afspraak maken.`
@@ -76,7 +66,7 @@ export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
       </div>
 
       <div className="flex flex-col">
-        {hours.map((hour, index) => (
+        {content.hours.map((hour, index) => (
           <div
             key={hour.days}
             className="py-3.5 flex items-center justify-between gap-4 text-sm"
@@ -89,37 +79,39 @@ export const OpeningHoursCard: React.FC<OpeningHoursCardProps> = ({
       </div>
 
       <p className="text-sm leading-relaxed m-0" style={{ color: site.muted }}>
-        Buiten deze tijden kun je gewoon een bericht achterlaten. Je krijgt zo snel mogelijk reactie.
+        {content.note}
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-3">
-        <a
-          href={buildSiteTelUrl(site.contactPhone)}
-          className="h-12 px-5 flex items-center justify-center gap-2 text-sm font-bold"
-          style={{
-            background: site.accent,
-            color: site.onAccent,
-            borderRadius: site.radius,
-          }}
-        >
-          <Phone className="w-4 h-4" aria-hidden="true" />
-          Bel {site.phone}
-        </a>
-        <a
-          href={whatsAppUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="h-12 px-5 flex items-center justify-center gap-2 text-sm font-bold border"
-          style={{
-            borderColor: site.line,
-            color: site.fg,
-            borderRadius: site.radius,
-          }}
-        >
-          <MessageCircle className="w-4 h-4" aria-hidden="true" />
-          Stuur een bericht
-        </a>
-      </div>
+      {canShowContactButtons(site) && (
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href={buildSiteTelUrl(site.contactPhone)}
+            className="h-12 px-5 flex items-center justify-center gap-2 text-sm font-bold"
+            style={{
+              background: site.accent,
+              color: site.onAccent,
+              borderRadius: site.radius,
+            }}
+          >
+            <Phone className="w-4 h-4" aria-hidden="true" />
+            Bel {site.phone}
+          </a>
+          <a
+            href={whatsAppUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="h-12 px-5 flex items-center justify-center gap-2 text-sm font-bold border"
+            style={{
+              borderColor: site.line,
+              color: site.fg,
+              borderRadius: site.radius,
+            }}
+          >
+            <MessageCircle className="w-4 h-4" aria-hidden="true" />
+            Stuur een bericht
+          </a>
+        </div>
+      )}
     </article>
   );
 };

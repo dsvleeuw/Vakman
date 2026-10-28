@@ -15,6 +15,8 @@ back/forward buttons.
 | `/voorbeeld/:sector/:stijl` | `SiteView` | The generated craftsman website (the product demo) |
 | `/start/vak` … `/start/afspraak` | `WizardView` | Five-step onboarding; every step has its own URL |
 | `/start/klaar` | `WizardView` | Confirmation screen after requesting an appointment |
+| `/mijn-site` (+ `/:slug?token=…`) | `SiteEditor` | The editor where the customer fills in his own site: details, copy and blocks, with a live preview |
+| `/site/:slug` | `PublishedSiteView` | A site the customer published: rendered on the server, so search engines and link previews see it |
 | `/componenten` (+ `/:id`) | `ComponentGallery` | Searchable live catalogue of every component module and ten reusable additions |
 | anything else | `NotFoundView` | Branded 404 with links back into the product |
 

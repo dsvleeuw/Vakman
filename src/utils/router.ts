@@ -125,6 +125,18 @@ export type Route =
       prefill?: DemoPersonalization;
     }
   | { name: 'site'; sector: SectorId; styleId: StyleId; personal?: DemoPersonalization }
+  /** De editor waarin een vakman zijn eigen site invult: /mijn-site */
+  | {
+      name: 'editor';
+      sector?: SectorId;
+      styleId?: StyleId;
+      /** A published site that is being changed: /mijn-site/<slug>?token=… */
+      slug?: string;
+      /** The management token of that site. */
+      token?: string;
+    }
+  /** A site a customer published: /site/<slug> */
+  | { name: 'published'; slug: string }
   | { name: 'components'; componentId?: string }
   | { name: 'prospects' }
   | { name: 'quote'; id: string; token: string }
@@ -220,6 +232,26 @@ export function parseRoute(pathname: string, search = ''): Route {
     return { name: 'site', sector: second, styleId, ...(personal ? { personal } : {}) };
   }
 
+  if (first === 'mijn-site') {
+    if (segments.length > 2) return { name: 'notFound', path: pathname };
+    const styleParam = params.get('stijl');
+    const token = params.get('token');
+    const slug = second;
+    return {
+      name: 'editor',
+      ...(sector ? { sector } : {}),
+      ...(isStyleId(styleParam) ? { styleId: styleParam } : {}),
+      ...(slug ? { slug } : {}),
+      ...(token ? { token } : {}),
+    };
+  }
+
+  if (first === 'site') {
+    // The public address of a site a customer published.
+    if (segments.length !== 2 || !second) return { name: 'notFound', path: pathname };
+    return { name: 'published', slug: second };
+  }
+
   if (first === 'offerte') {
     if (segments.length !== 2 || !isQuoteNumber(second)) return { name: 'notFound', path: pathname };
     return { name: 'quote', id: second, token: params.get('token') ?? '' };
@@ -270,6 +302,19 @@ export function buildPath(route: Route): string {
       const query = params.toString();
       return `/voorbeeld/${route.sector}/${route.styleId}${query ? `?${query}` : ''}`;
     }
+    case 'editor': {
+      const params = new URLSearchParams();
+      if (route.sector) params.set('vak', route.sector);
+      if (route.styleId) params.set('stijl', route.styleId);
+      if (route.token) params.set('token', route.token);
+      const query = params.toString();
+      if (route.slug) {
+        return `/mijn-site/${encodeURIComponent(route.slug)}${query ? `?${query}` : ''}`;
+      }
+      return `/mijn-site${query ? `?${query}` : ''}`;
+    }
+    case 'published':
+      return `/site/${encodeURIComponent(route.slug)}`;
     case 'components':
       return route.componentId
         ? `/componenten/${encodeURIComponent(route.componentId)}`
@@ -363,6 +408,17 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: 'Werkkaart · Klusbaas',
         description: 'Interne werkkaart met de bedrijven uit de leadlijst Noord-Holland.',
+      };
+    case 'editor':
+      return {
+        title: 'Mijn site · Klusbaas',
+        description:
+          'Vul je eigen vakmansite: je gegevens, je tekst en de onderdelen die je op je site wilt hebben.',
+      };
+    case 'published':
+      return {
+        title: 'Vakmanssite · Klusbaas',
+        description: 'Een website van een vakman, gemaakt met Klusbaas.',
       };
     case 'components':
       return {

@@ -8,6 +8,7 @@ const ROUTES = [
   { path: '/privacy', label: 'privacyverklaring' },
   { path: '/nieuwsbrief', label: 'nieuwsbrief' },
   { path: '/componenten', label: 'componentenbibliotheek' },
+  { path: '/mijn-site', label: 'site-editor' },
   {
     path: '/deze-route-bestaat-niet',
     label: 'onbekende route',
@@ -102,6 +103,13 @@ async function expectNoDemoPhoneNumbers(page: Page): Promise<void> {
     expect(text).not.toContain(phoneNumber);
   }
 }
+
+test('de site-editor opent met de site en de blokken', async ({ page }) => {
+  await visit(page, '/mijn-site');
+
+  await expect(page.getByRole('heading', { name: 'Je eigen site' })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Blok toevoegen/ })).toBeVisible();
+});
 
 test('het hovenier-voorbeeld toont geen voorbeeldtelefoonnummers', async ({ page }) => {
   await visit(page, '/voorbeeld/hovenier/donker');

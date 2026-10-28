@@ -18,7 +18,7 @@ Small, high-trust fixes closing gaps between the UI and real behaviour.
 | 1.1 | ~~Wire the wizard's `channel` choice (WhatsApp / E-mail / Allebei)~~ Done: it decides quote delivery via `/api/lead` | S | The state exists in `WizardView` but is not persisted or read by `SiteView`. Today every site is WhatsApp-first regardless of the choice. |
 | 1.2 | Implement the e-mail channel (`mailto:` at minimum, transactional mail later) | M | There are currently no `mailto:` links anywhere; the FAQ already implies e-mail support. |
 | 1.3 | Persist appointments and quote requests | M | Booking state is in-memory only and `PublishedSiteRecord` is defined but unused. Start with `localStorage`, move to a backend in phase 3. |
-| 1.4 | Build (or remove the promise of) the Klusbaas dashboard mentioned in the FAQ | L | The FAQ claims prices, services and photos can be edited via a dashboard that does not exist yet. |
+| 1.4 | ~~Build (or remove the promise of) the Klusbaas dashboard mentioned in the FAQ~~ Partly done: the FAQ now points to the site editor (`/mijn-site`), where the customer edits his details, copy, services and blocks | L | Prices, photos and portfolio images are still fixed presets and cannot be changed by the customer. |
 | 1.5 | Make the Google Bedrijfsprofiel badge a real integration or label it honestly | S | It currently links to a Maps search; no API connection exists. |
 
 ## Phase 2 — More trades and more smart tools
@@ -43,7 +43,7 @@ Required before paid customers can rely on the product.
 |---|------|--------|-------|
 | 3.1 | Lead API: store contact-form, fault-report and quote submissions server-side | L | Replace the "open WhatsApp" only path with a real submission plus the WhatsApp option. |
 | 3.2 | Transactional e-mail and WhatsApp Business templates | L | Depends on 1.2 and a provider decision. |
-| 3.3 | Craftsman dashboard: edit services, prices, photos, opening hours | L | Delivers the existing FAQ promise (1.4). |
+| 3.3 | Craftsman dashboard: ~~edit services, prices, photos, opening hours~~ The editor covers details, copy, services, opening hours and blocks; prices and photos are still fixed | L | Also needs accounts (3.4): a published site is now managed through a private link with a token, not through a login. |
 | 3.4 | Authentication and multi-site ownership | L | Firebase Auth is already used for the Google sync; reuse it. |
 | 3.5 | Conversion analytics per preset (opens, calculator completions, leads) | M | Needed to prove the proactive-demo sales approach works. |
 

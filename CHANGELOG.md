@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Publiceren van een klantsite (`/site/<slug>`)**: een klant kan zijn site
+  publiek zetten. De site krijgt een eigen adres (`/site/jansen-schilderwerken`)
+  en een privé beheerlink (`/mijn-site/<slug>?token=…`) waarmee hij hem later
+  kan bijwerken. De pagina wordt op de server gerenderd, zodat zoekmachines en
+  een linkpreview in WhatsApp de site zien in plaats van een lege pagina.
+  De site krijgt zijn eigen titel, beschrijving, canonieke link en
+  `LocalBusiness`-structured data, en komt in de sitemap
+  (`/sitemap-sites.xml`). Zonder telefoonnummer, bedrijfsnaam of plaats mag
+  een site niet publiek: een openbare pagina mag geen nummer tonen dat niet
+  van de klant is.
+- **Eigen site-editor (`/mijn-site`)**: de klant vult zijn site zelf in.
+  De editor toont de live site links en het invulpanel rechts: zijn gegevens,
+  de tekst van de pagina en de blokken die hij op de site wil hebben. Per
+  blok staan de teksten die hij kan herschrijven (vertrouwensbalk,
+  garantielijst, review, vakman-kaart, projectcijfers, openingstijden,
+  beschikbaarheid, actiebanner, werkgebied en contactbanner). Blokken gaan aan
+  en uit en zijn te herordenen (slepen of met de pijltjes). Alles wordt
+  direct opgeslagen in de browser van de klant; er is geen AI en geen
+  modelkosten: de klant schrijft zijn eigen tekst.
+
 - **Repo-studie met de ogen van Kun Chen** (`docs/kun-repo-study.md`): een
   onafhankelijke blik op Klusbaas via de `/kun`-skill, met gemeten cijfers
   (134 tests groen, 28 PR's, 18.366 regels applicatiecode). Benadrukt dat de
@@ -162,6 +182,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Geen verzonnen KvK-nummer of voorbeeldnummer op een klantsite.** De
+  footer noemde `KvK 12345678` en de vakken bevatten een made-up
+  telefoonnummer. Een KvK-nummer is een openbare claim over een echt
+  bedrijf en een telefoonnummer kan van iemand anders zijn: de footer
+  toont nu alleen een KvK-nummer dat de klant zelf heeft ingevuld, en op
+  een klantsite zonder eigen nummer verdwijnen de bel- en WhatsApp-knoppen
+  in plaats van een nummer te tonen dat niet van de klant is. De
+  demomelding ("dit is een demosite") blijft op de demosites van Klusbaas en
+  komt niet op de site van een klant.
 - **Klusbaas-homepage hersteld.** De zelfstandige GitHub-geschiedenispagina
   staat nu apart op `/github-history/index.html`, zonder link op de homepage.
   De prerender-build geeft een fout als het React-root-element ontbreekt.
