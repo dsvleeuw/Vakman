@@ -364,6 +364,68 @@ export function buildAcceptEmail(
   return { subject, text, html };
 }
 
+/**
+ * The mail to the customer when Klusbaas marks his offer as paid.
+ *
+ * The customer transferred the money and waits for a reply. This mail says
+ * that the money arrived, what he paid for and what happens next. The
+ * invoice is attached as a PDF.
+ */
+export function buildPaidEmail(
+  record: QuoteRecord,
+  links: { siteUrl?: string; paidAt?: string } = {}
+): LeadEmail {
+  const siteUrl = links.siteUrl ?? DEFAULT_SITE_URL;
+  const { customer } = record;
+  const paidAt = links.paidAt ?? record.paidAt ?? record.createdAt;
+  const firstName = customer.owner.split(' ')[0] || customer.owner;
+  const subject = `Je betaling voor offerte ${record.id} is binnen`;
+  const intro = `Hoi ${firstName}, je betaling voor offerte ${record.id} is binnen. De factuur staat als PDF bij deze mail.`;
+
+  const details: Row[] = [
+    { label: 'Offerte', value: record.id },
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Betaald op', value: formatDutchDate(paidAt) },
+    { label: 'Pakket', value: record.planName },
+    { label: 'Bedrag incl. btw', value: formatEuroCents(record.totalCents) },
+  ];
+  const services = record.services.length ? record.services : ['Geen diensten gekozen'];
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    ...textRows(details),
+    '',
+    'DIENSTEN OP DE WEBSITE',
+    ...services.map((service) => `- ${service}`),
+    '',
+    'Wat nu?',
+    'Je site blijft online. We plannen de bouw in en nemen contact met je op voor',
+    'de oplevering. Vragen? Antwoord gewoon op deze mail.',
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections:
+      section('Gegevens', emailTable(details)) +
+      section(
+        'Diensten op de website',
+        `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>`
+      ),
+    outro:
+      'Je site blijft online. We plannen de bouw in en nemen contact met je op voor de oplevering. Vragen? Antwoord gewoon op deze mail.',
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
 /** Mail for a lead from one of the site forms (afspraak, contact, storing, m²). */
 /**
  * The mail for a lead from a site.

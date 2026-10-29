@@ -157,6 +157,24 @@ to [ROADMAP.md](../ROADMAP.md).
 - **A cancelled offer cannot be accepted.** A paid offer stays paid; asking
   to accept it again changes nothing.
 
+## The invoice
+
+- **The customer gets an invoice when the offer is marked as paid.** It is a
+  PDF (`F-<year>-<number>`, following the offer number) sent by mail, and
+  the customer can download it again from the offer page and from his
+  account.
+- **Klusbaas' own details come from the environment.** `INVOICE_NAME`,
+  `INVOICE_ADDRESS`, `INVOICE_KVK`, `INVOICE_VAT` and `INVOICE_EMAIL` fill
+  the sender block. What is not set is not printed: no KvK number and no
+  VAT number are ever made up. Set them before you send an invoice to a
+  business customer.
+- **The payment itself is still manual.** Klusbaas marks the offer as paid
+  when the money arrives. There is no payment provider and no automatic
+  check, so a customer who transfers the money on Friday evening is not
+  confirmed until Monday.
+- **There is no reminder.** An offer that stays open gets no chase, and an
+  offer that expires is not withdrawn by itself.
+
 ## The offer Klusbaas writes himself
 
 - **Klusbaas writes the offer, the customer does not ask for one.** In

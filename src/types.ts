@@ -507,6 +507,26 @@ export interface PaymentDetails {
   email: string;
 }
 
+/**
+ * Klusbaas' own details on an invoice.
+ *
+ * Everything here is optional and comes from the environment: an invoice
+ * without a KvK number or a VAT number stays incomplete, but nothing is
+ * made up. What is not set is simply not printed.
+ */
+export interface InvoiceDetails {
+  /** The name the invoice is issued under. */
+  name: string;
+  /** The postal address of the business. */
+  address?: string;
+  /** The KvK number, when it is known. */
+  kvk?: string;
+  /** The VAT number, when it is known. */
+  vat?: string;
+  /** The e-mail address for questions about the invoice. */
+  email?: string;
+}
+
 /** A published site as the Klusbaas overview shows it. */
 export interface AdminSite {
   slug: string;

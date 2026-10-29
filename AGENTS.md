@@ -148,6 +148,10 @@ result. The Netlify deploy preview is the only external CI check. If
   offer link proves it is his offer; the offer gets the status `accepted`
   and Klusbaas gets a mail. Accepting is not paying: the money is still
   transferred by the customer and marked as paid by hand.
+- Marking an offer as paid sends the customer an invoice
+  (`server/paidNotice.ts` → `server/invoicePdf.ts`). The invoice details of
+  Klusbaas come from the environment (`server/invoice.ts`); nothing is
+  invented. A failing mail does not undo the payment.
 - Klusbaas writes an offer himself in `/klusbaas` (`AdminQuoteForm.tsx` →
   `POST /api/admin` with `action: 'create-quote'` → `server/adminOffer.ts`).
   The offer is a real offer with a number, a PDF and a price, it is linked

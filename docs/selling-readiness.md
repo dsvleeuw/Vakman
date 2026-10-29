@@ -32,6 +32,8 @@ on `main`; the commands to re-measure them are at the bottom.
    (phase 7.4).
 10. The customer says yes himself: one click on the offer page, and Klusbaas
     knows it the same day (phase 7.5).
+11. The customer gets an invoice when he pays, by mail and as a download
+    (phase 7.6).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -61,6 +63,7 @@ there is no payment provider (still open).
 | 14 | The offer does not say where to pay | `src/server/quotePdf.ts` had no payment block and `GET /api/quote` returned no payment details | A customer without an account could open the offer but not see where to transfer the money, so the sale stopped at the offer | **fixed (7.3)** |
 | 15 | A request cannot become an offer | the "Offerte maken" form listed only published sites and accounts | Someone who only sent a request could not be given an offer, so a lead from a form had no path to an order | **fixed (7.4)** |
 | 16 | The customer has to write a mail to accept | the offer page only showed the price and the way to pay | The customer had to write a mail or a WhatsApp message to say yes, and that is where a sale is lost most easily | **fixed (7.5)** |
+| 17 | A paid customer gets nothing | `quote-status` only changed a field in the store | The customer transferred the money and heard nothing: no confirmation and no document for his own administration | **fixed (7.6)** |
 
 The status column says what has been done since the audit was written
 (phases 6.1–6.9 and 7.1–7.4). "Partly fixed" means: an offer can be ordered
@@ -101,17 +104,20 @@ no invoice.
   maken" form (phase 7.4).
 - The customer accepts the offer himself: one click on the offer page, and
   Klusbaas hears about it the same day (phase 7.5).
+- A paying customer gets an invoice by mail and can download it again
+  (phase 7.6).
 
 ## Definition of done
 
 The eight conditions in ROADMAP phase 6 are the contract: a craftsman can
 be sold a website when he can sign up, publish a site that only says true
 things, see his requests, pay, and find everything back on any device.
-Phase 7 adds five conditions of its own: Klusbaas can write an offer for a
+Phase 7 adds six conditions of its own: Klusbaas can write an offer for a
 customer who did not come through the wizard (7.2), the photo upload cannot
 be used to fill the store (7.1), the customer can pay the offer without
-making an account first (7.3), a request can become an offer (7.4), and the
-customer can accept the offer himself (7.5).
+making an account first (7.3), a request can become an offer (7.4), the
+customer can accept the offer himself (7.5), and a paying customer gets an
+invoice (7.6).
 
 ## How to re-measure this
 
@@ -150,6 +156,9 @@ grep -n "leadReference" src/server/adminOffer.ts | head -1
 
 # 16: the customer accepts the offer himself
 grep -n "quote/accept" src/server/acceptQuote.ts | head -1
+
+# 17: a paid customer gets an invoice
+grep -n "sendPaidNotice" src/server/adminHandler.ts | head -1
 
 # and the checks that must stay green
 bun run check
