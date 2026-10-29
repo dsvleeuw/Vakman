@@ -516,6 +516,10 @@ export interface AdminSite {
   city: string;
   email?: string;
   sector: string;
+  /** The style the site was made in, so an offer can name it. */
+  styleId: string;
+  /** The services the craftsman put on the site, as plain names. */
+  services: string[];
   updatedAt: number;
   /** True when the site belongs to a customer account. */
   hasAccount: boolean;
@@ -545,6 +549,19 @@ export interface AdminAccount {
   verified: boolean;
   /** The number of sites that belong to this account. */
   sites: number;
+}
+
+/** The offer Klusbaas made by hand, as the overview shows it. */
+export interface AdminCreatedQuote {
+  id: string;
+  /** The link the customer opens: `/offerte/KB-2026-0001?token=…`. */
+  path: string;
+  planName: string;
+  totalCents: number;
+  /** True when the mail with the offer really went out. */
+  mailed: boolean;
+  /** What happened with the mail: `sent`, `preview`, `failed` or `geen mailer`. */
+  mailStatus: string;
 }
 
 /** Everything the Klusbaas overview shows. */

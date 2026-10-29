@@ -1,9 +1,17 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
-import type { AdminAccount, AdminOverview, AdminQuote } from '../types';
+import type {
+  AdminAccount,
+  AdminCreatedQuote,
+  AdminOverview,
+  AdminQuote,
+  PaymentDetails,
+} from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
 import { buildQuotePath } from '../utils/quote';
 import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
+import { createOfferForCustomer, type OfferRequest } from './adminOffer';
+import type { AccountMail } from './accountMailer';
 
 /**
  * The Klusbaas overview: what Klusbaas needs to see to sell and to serve.
@@ -21,9 +29,10 @@ export type AdminAction =
   | 'logout'
   | 'overview'
   | 'quote-status'
-  | 'verify-account';
+  | 'verify-account'
+  | 'create-quote';
 
-export interface AdminRequestBody {
+export interface AdminRequestBody extends OfferRequest {
   action?: AdminAction;
   password?: string;
   id?: string;
@@ -33,7 +42,10 @@ export interface AdminRequestBody {
 export interface AdminResponseBody {
   ok: boolean;
   overview?: AdminOverview;
+  /** The offer Klusbaas made by hand. */
+  quote?: AdminCreatedQuote;
   error?: string;
+  field?: string;
 }
 
 export interface AdminHandlerResult {
@@ -52,6 +64,12 @@ export interface AdminDeps {
   leads: LeadStorage;
   /** The customer accounts. Without them the overview has no account list. */
   accounts?: AccountStorage;
+  /** Sends the offer to the customer. Without it the offer is still made. */
+  sendMail?: (mail: AccountMail) => Promise<string>;
+  /** How the customer pays, shown in the mail. */
+  payment?: PaymentDetails;
+  /** The origin for the link in the mail, e.g. https://klusbaas.nl */
+  siteUrl?: string;
   now?: () => number;
   createSessionId?: () => string;
   /** Rate limiter: returns false when this key is over its limit. */
@@ -161,6 +179,8 @@ export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
     city: site.form.city,
     ...(site.form.email ? { email: site.form.email } : {}),
     sector: site.sector,
+    styleId: site.styleId,
+    services: (site.services ?? []).map((offer) => offer.n).filter(Boolean),
     updatedAt: site.updatedAt,
     hasAccount: Boolean(site.ownerId),
     ownerId: site.ownerId ?? '',
@@ -279,6 +299,29 @@ export async function handleAdmin(
     });
     log(`[admin] account ${id} bevestigd`);
     return { status: 200, body: { ok: true } };
+  }
+
+  if (action === 'create-quote') {
+    // Klusbaas schrijft zelf een offerte: voor een klant die geen aanvraag
+    // deed, maar wél een account en een site. Het wordt een echte offerte
+    // met PDF, in het account van de klant, en per mail verstuurd.
+    const result = await createOfferForCustomer(body, {
+      leads: deps.leads,
+      sites: deps.sites,
+      ...(deps.accounts ? { accounts: deps.accounts } : {}),
+      ...(deps.sendMail ? { sendMail: deps.sendMail } : {}),
+      ...(deps.payment ? { payment: deps.payment } : {}),
+      ...(deps.siteUrl ? { siteUrl: deps.siteUrl } : {}),
+      ...(deps.now ? { now: deps.now } : {}),
+      log,
+    });
+    if (!result.ok) {
+      return {
+        status: 400,
+        body: { ok: false, error: result.error, ...(result.field ? { field: result.field } : {}) },
+      };
+    }
+    return { status: 200, body: { ok: true, quote: result.quote } };
   }
 
   if (action === 'overview') {

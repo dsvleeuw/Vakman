@@ -129,6 +129,43 @@ to [ROADMAP.md](../ROADMAP.md).
   purpose: Klusbaas needs it when a customer lost his account. It means the
   password is worth protecting like a key to every customer site.
 
+## Paying an offer
+
+- **The payment details are in the offer itself.** The IBAN, the name of the
+  account holder, the amount and the reference stand in the offer PDF and on
+  the offer page, so a customer can transfer the money without making an
+  account first.
+- **Klusbaas marks the payment by hand.** There is no payment provider, no
+  automatic check against the bank statement and no reminder: the offer
+  waits until Klusbaas marks it paid in `/klusbaas`.
+- **Without `PAYMENT_IBAN` there are no payment details.** The offer then
+  says that Klusbaas will send them. That is deliberate: a wrong IBAN is
+  worse than no IBAN.
+
+## The offer Klusbaas writes himself
+
+- **Klusbaas writes the offer, the customer does not ask for one.** In
+  `/klusbaas` there is a form "Offerte maken": pick the customer (his site
+  fills in the details), pick the package and the extra components. The
+  offer becomes a real offer with a number, a PDF and a price, it is linked
+  to the customer's account and mailed to him with the PDF attached.
+- **Without `RESEND_API_KEY` no mail goes out.** The offer is still made and
+  the overview says so ("de mail is niet verstuurd (preview)"); the mail
+  itself is then only in the server log. The same is true for the
+  `MAIL_TEST_RECIPIENT` redirect, which sends every customer mail to one
+  test address.
+- **A customer who only sent a request can get an offer too.** The form
+  lists the published sites, the accounts and the requests that came in
+  through a form of Klusbaas. A request on a published customer site does
+  not appear: that one belongs to the craftsman.
+- **An offer for someone without an account does not land in an account.**
+  The customer gets it by mail and pays with the IBAN in the offer. He sees
+  the offer and its status only when he makes an account and claims it.
+- **Klusbaas marks the payment by hand.** The offer gets the status `open`
+  and Klusbaas changes it to `paid` once the money is in. There is no
+  payment provider, no automatic reminder and no separate invoice document:
+  the offer with its PDF is the invoice.
+
 ## Payment
 
 - **The customer pays by bank transfer, not with a payment provider.** That
@@ -138,8 +175,9 @@ to [ROADMAP.md](../ROADMAP.md).
 - **Without `PAYMENT_IBAN` there are no payment details.** The account then
   says that Klusbaas will send them. That is deliberate: a wrong IBAN is
   worse than no IBAN.
-- **The status is set by hand.** There is no admin screen yet to mark an
-  offer as paid (that is phase 6.4); today it is changed in the Blobs store.
+- **The status is set by hand.** `/klusbaas` has a button per offer to mark
+  it as paid, cancelled or open again. There is no automatic check against
+  the bank statement.
 
 ## Privacy and newsletter
 
@@ -222,6 +260,11 @@ to [ROADMAP.md](../ROADMAP.md).
 - A photo is kept under a random name. Nothing is deleted: there is no
   delete button and no limit per customer, so the store grows with every
   upload. The Blobs store `media` has to be watched.
+- **The upload is open for everyone, so it has a limit.** `POST /api/media`
+  accepts 30 uploads per hour per IP address. The limit lives in the memory
+  of one function instance, so it stops a single script but not a
+  distributed attack, and it is not a quota per customer: a customer with an
+  account shares the limit with everyone else behind the same address.
 - The published page only shows photos of the customer that are served
   from our own server. A photo address from somewhere else is dropped when
   the content is read (`sanitizePhoto`).

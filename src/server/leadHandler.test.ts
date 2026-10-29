@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { PDFDocument } from 'pdf-lib';
 import type { QuoteRecord } from '../utils/quote';
 import { handleGetQuote, handleLead, tokensMatch, type LeadDeps } from './leadHandler';
+import type { PublicQuote } from '../utils/quote';
 import { pdfSafe } from './quotePdf';
 import type { LeadStorage, SiteStorage } from './storage';
 import type { PublishedSiteRecord } from '../types';
@@ -244,6 +245,27 @@ test('GET quote: right token returns it, wrong token 403, unknown 404, bad id 40
   assert.equal(unknown.status, 404);
   const bad = await handleGetQuote(new URLSearchParams({ id: '../x', token: TOKEN }), deps.storage);
   assert.equal(bad.status, 400);
+});
+
+test('the offer page carries the payment details, so the customer can pay without an account', async () => {
+  const { deps } = setup();
+  await handleLead(body, 'ip', deps);
+  const withPayment = await handleGetQuote(
+    new URLSearchParams({ id: 'KB-2026-0001', token: TOKEN }),
+    deps.storage,
+    { payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' } }
+  );
+  assert.ok(withPayment.kind === 'json' && 'customer' in withPayment.body);
+  const quote = withPayment.body as PublicQuote;
+  assert.equal(quote.payment?.iban, 'NL91ABNA0417164300');
+  assert.equal(quote.payment?.name, 'Klusbaas');
+  // Zonder betaalgegevens blijft de offerte gewoon een offerte.
+  const without = await handleGetQuote(
+    new URLSearchParams({ id: 'KB-2026-0001', token: TOKEN }),
+    deps.storage
+  );
+  assert.ok(without.kind === 'json' && 'customer' in without.body);
+  assert.equal((without.body as PublicQuote).payment, undefined);
 });
 
 test('helpers: tokensMatch and pdfSafe', () => {

@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een aanvraag kan een offerte worden.** Iemand die alleen een aanvraag
+  stuurde en nooit een account maakte staat nu in de lijst van "Offerte
+  maken" in `/klusbaas`. Klusbaas kiest hem, de offerte neemt zijn naam,
+  zijn telefoonnummer, zijn e-mailadres en zijn vak uit de aanvraag, en de
+  klant krijgt hem per mail. Een aanvraag op een klantsite hoort bij die
+  vakman en staat er dus niet bij.
+- **De klant kan de offerte meteen betalen.** De IBAN, de naam van de
+  rekeninghouder en het bedrag staan nu in de offerte-PDF en op de
+  offertepagina. Een klant zonder account kon de offerte wel openen, maar
+  wist niet waar hij het bedrag naartoe moest overmaken; nu wel.
+- **Klusbaas schrijft zelf een offerte voor een klant.** In `/klusbaas` staat
+  een formulier "Offerte maken": kies de klant (zijn site vult de naam, de
+  telefoon, de plaats en het vak in), kies het pakket en de extra
+  componenten, en de offerte wordt gemaakt. Het is een echte offerte met een
+  nummer, een PDF en een prijs, hij komt in het account van de klant te
+  staan en de klant krijgt hem per mail met de PDF erbij. Zo heeft ook een
+  klant die zelf een account maakte en zijn site publiceerde een offerte,
+  en dus een order en een factuur.
+- **De foto-upload is niet meer misbruikbaar.** `POST /api/media` heeft een
+  grens van 30 foto's per uur per IP: een script kan de fotostore niet meer
+  vol zetten.
 - **De vakman vult zijn diensten en zijn prijzen zelf in.** In de editor
   staat nu een lijst met diensten: naam, korte omschrijving, de vanaf-prijs
   en eventueel de eenheid ("per m²", "per uur"). De voorbeelddiensten van het

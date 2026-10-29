@@ -43,6 +43,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         const account = await accountHandler.accountFromSession(req.headers.cookie ?? null, {
           accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
         });
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const result = await handler.handleLead(body, req.socket.remoteAddress ?? 'dev', {
           env,
           storage,
@@ -51,6 +53,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           // de vakman zelf gaan, in plaats van naar Klusbaas.
           sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
           siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+          // De betaalgegevens staan in de offerte-PDF en op de offertepagina.
+          ...(payment ? { payment } : {}),
         });
         reply(res, result.status, result.body);
       });
@@ -70,6 +74,9 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         const { createFileAdminStorage } = await server.ssrLoadModule('/src/server/adminStorage.ts');
         const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
+        const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const result = await adminHandler.handleAdmin(
           body,
           {
@@ -78,6 +85,13 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
             leads: createFileStorage(path.resolve(__dirname, '.data')),
             accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
+            // Een offerte die Klusbaas zelf schrijft gaat per mail naar de
+            // klant, met de PDF erbij en de betaalgegevens.
+            sendMail: createAccountMailer(env, (message: string) =>
+              server.config.logger.info(message)
+            ),
+            ...(payment ? { payment } : {}),
+            siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
           },
           req.headers.cookie ?? null,
           false
@@ -201,7 +215,10 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         } catch {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
-        const result = await mediaHandler.handleUploadMedia(body, { storage });
+        const result = await mediaHandler.handleUploadMedia(body, {
+          storage,
+          clientKey: req.socket.remoteAddress ?? 'dev',
+        });
         reply(res, result.status, result.body);
       });
 
@@ -307,8 +324,14 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
       server.middlewares.use('/api/quote', async (req, res) => {
         if (req.method !== 'GET') return reply(res, 405, { ok: false, error: 'Alleen GET is toegestaan.' });
         const { handler, storage } = await load();
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
-        const result = await handler.handleGetQuote(url.searchParams, storage);
+        const result = await handler.handleGetQuote(
+          url.searchParams,
+          storage,
+          payment ? { payment } : {}
+        );
         if (result.kind === 'pdf') {
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/pdf');

@@ -1,4 +1,10 @@
-import type { AdminOverview, AdminQuote, AdminSite, StoredLead } from '../types';
+import type {
+  AdminCreatedQuote,
+  AdminOverview,
+  AdminQuote,
+  AdminSite,
+  StoredLead,
+} from '../types';
 import type { QuoteStatus } from './quote';
 
 /**
@@ -11,7 +17,10 @@ import type { QuoteStatus } from './quote';
 export interface AdminResult {
   ok: boolean;
   overview?: AdminOverview;
+  /** The offer Klusbaas made by hand. */
+  quote?: AdminCreatedQuote;
   error?: string;
+  field?: string;
 }
 
 async function post(body: unknown): Promise<AdminResult> {
@@ -56,4 +65,31 @@ export function verifyAccount(id: string): Promise<AdminResult> {
   return post({ action: 'verify-account', id });
 }
 
-export type { AdminOverview, AdminQuote, AdminSite, StoredLead };
+/**
+ * The offer Klusbaas writes for a customer who did not ask for one: the
+ * customer has an account and a site, but no order yet.
+ */
+export interface OfferInput {
+  email: string;
+  accountId?: string;
+  siteSlug?: string;
+  /** The request the customer sent (`L-XXXXXX`), when he only sent one. */
+  leadReference?: string;
+  plan: string;
+  addons?: string[];
+  sector?: string;
+  style?: string;
+  services?: string[];
+  biz?: string;
+  owner?: string;
+  phone?: string;
+  city?: string;
+  /** Set to false to save the offer without mailing it. */
+  send?: boolean;
+}
+
+export function createQuote(input: OfferInput): Promise<AdminResult> {
+  return post({ action: 'create-quote', ...input });
+}
+
+export type { AdminCreatedQuote, AdminOverview, AdminQuote, AdminSite, StoredLead };

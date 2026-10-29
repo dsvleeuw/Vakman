@@ -204,6 +204,58 @@ test('een onbekende offerte geeft een duidelijke melding', async () => {
   assert.equal(result.status, 404);
 });
 
+test('zonder cookie kan niemand een offerte maken', async () => {
+  const d = deps();
+  const result = await handleAdmin(
+    { action: 'create-quote', email: 'jan@jansen.nl', plan: 'pro' },
+    d,
+    null,
+    false
+  );
+  assert.equal(result.status, 401);
+  assert.equal((await d.leads.listQuotes()).length, 1, 'er is nog steeds alleen de oude offerte');
+});
+
+test('Klusbaas maakt een offerte voor een klant', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  const cookie = login.setCookie;
+
+  const result = await handleAdmin(
+    {
+      action: 'create-quote',
+      email: 'jan@jansen.nl',
+      plan: 'pro',
+      siteSlug: 'jansen-schilderwerken',
+    },
+    d,
+    cookie,
+    false
+  );
+
+  assert.equal(result.status, 200);
+  assert.match(result.body.quote?.id ?? '', /^KB-\d{4}-0002$/);
+  assert.equal(result.body.quote?.planName, 'Pro');
+  assert.equal(result.body.quote?.mailed, false, 'zonder mailer gaat er geen mail uit');
+
+  // De nieuwe offerte staat in het overzicht.
+  const overview = await handleAdmin({ action: 'overview' }, d, cookie, false);
+  assert.equal(overview.body.overview?.quotes.length, 2);
+});
+
+test('een offerte zonder e-mailadres wordt geweigerd', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  const result = await handleAdmin(
+    { action: 'create-quote', plan: 'pro' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 400);
+  assert.equal(result.body.field, 'email');
+});
+
 test('uitloggen wist de sessie', async () => {
   const d = deps();
   const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);

@@ -1,4 +1,4 @@
-import { redirectForTest, sendViaResend, type FetchLike } from './mailer';
+import { redirectForTest, sendViaResend, type FetchLike, type MailAttachment } from './mailer';
 
 /**
  * The mailer for the customer account: the reset link and the confirmation
@@ -19,6 +19,8 @@ export interface AccountMail {
   subject: string;
   text: string;
   html: string;
+  /** Files that go with the mail, e.g. the PDF of an offer. */
+  attachments?: MailAttachment[];
 }
 
 export const DEFAULT_FROM = 'Klusbaas <onboarding@resend.dev>';
@@ -41,7 +43,14 @@ export function createAccountMailer(
     const result = await sendViaResend(
       env.RESEND_API_KEY,
       redirectForTest(
-        { from, to: mail.to, subject: mail.subject, text: mail.text, html: mail.html },
+        {
+          from,
+          to: mail.to,
+          subject: mail.subject,
+          text: mail.text,
+          html: mail.html,
+          ...(mail.attachments?.length ? { attachments: mail.attachments } : {}),
+        },
         env.MAIL_TEST_RECIPIENT
       ),
       fetchImpl

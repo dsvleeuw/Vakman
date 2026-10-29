@@ -105,6 +105,35 @@ no provider dashboards, no design decision a human has to make first.
 | 6.8 | ~~The offer becomes true~~ Done: the price calculator and the postcode check now run on the craftsman's own prices and his own work area (both stay off the page until he fills them in), the calculator sends a real request, and every promise on the pricing page is either built or removed | M | The domain is registered by hand per order, the Google Calendar/Drive sync still needs a Firebase login, and a price is a starting price: the calculator says "vanaf", not a fixed quote. |
 | 6.9 | ~~The craftsman uploads his own photos~~ Done: a tab "Photos" in the editor with a hero photo and his own projects (title, kind of work, year and a photo each); the photo is scaled down in the browser, stored in the Blobs store `media` and served by `/api/media`; the published page shows his own work and leaves the placeholder when he has no photos | L | Uploaded photos are never cleaned up: there is no delete and no limit per customer. A photo is a jpg, png or webp of at most 1,5 MB. |
 
+## Phase 7 — Sell without the wizard
+
+Phase 6 made the product honest. Phase 7 closes the two gaps that stood
+between "the customer has a site" and "Klusbaas can invoice him". Both are
+work inside this repository: no provider, no dashboard, no human decision
+needed first.
+
+**Definition of done — Klusbaas can sell to a customer who did not come
+through the wizard when:**
+
+1. He can write an offer for a customer who has an account and a published
+   site, without the customer asking for one.
+2. That offer is a real order: a number, a PDF, a price, a status and a way
+   to pay, and it stands in the customer's own account.
+3. The customer receives it by mail, with the PDF attached and the link to
+   the online offer.
+4. The photo upload cannot be abused by a third party.
+5. The customer can pay the offer: the IBAN and the amount stand in the offer
+   itself, so an account is not needed to pay.
+6. A request can become an offer: someone who only sent a request can be
+   given an offer, with his details taken from the request.
+
+| # | Item | Effort | Notes |
+|---|------|--------|-------|
+| 7.1 | ~~The photo upload is not abuse-proof~~ Done: `POST /api/media` has a rate limit of 30 uploads per hour per IP, and the limit is in front of the upload, not behind it | S | The limit lives per function instance, so it stops one script but not a distributed attack. There is still no delete and no quota per customer: a customer can use up his 30 photos and cannot remove them. |
+| 7.2 | ~~Klusbaas can write an offer himself~~ Done: in `/klusbaas` there is a form "Offerte maken": pick the customer (his site fills in the details), pick the package and the extra components, and Klusbaas writes the offer. It becomes a quote record with a PDF, it is linked to the customer's account and mailed to him with the PDF attached | M | The customer sees the offer in `/mijn-account` and can pay it by bank transfer. Without `RESEND_API_KEY` no mail goes out (the offer is still made and the overview says so). Klusbaas still marks the payment by hand; there is no payment provider and no automatic reminder. |
+| 7.3 | ~~The customer can pay the offer~~ Done: the IBAN and the amount stand in the offer PDF and on the offer page (`/offerte/<id>`), so a customer without an account can also transfer the money right away | S | Klusbaas still has to mark the offer as paid by hand: there is no payment provider and no bank check. Without `PAYMENT_IBAN` there are no payment details, and the offer says so instead of showing a broken bank account. |
+| 7.4 | ~~A request can become an offer~~ Done: a customer who only sent a request (`L-XXXXXX`) and never made an account stands in the list of "Offerte maken"; Klusbaas picks him and the offer takes his details from the request | S | The offer of someone without an account does not appear in `/mijn-account`, because he has no account. He gets it by mail and can pay with the IBAN in the offer (7.3). |
+
 ## Decision log
 
 - **Contact option D (WhatsApp primary + form fallback)** was chosen because

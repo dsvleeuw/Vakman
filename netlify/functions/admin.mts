@@ -1,5 +1,7 @@
+import { createAccountMailer } from '../../src/server/accountMailer';
 import { handleAdmin } from '../../src/server/adminHandler';
 import { createBlobAdminStorage } from '../../src/server/adminStorage';
+import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 import { createRateLimiter } from '../../src/utils/lead';
 
@@ -24,6 +26,7 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
     return Response.json({ ok: false, error: 'Ongeldige JSON.' }, { status: 400 });
   }
 
+  const payment = paymentDetailsFromEnv(process.env);
   const result = await handleAdmin(
     body,
     {
@@ -34,6 +37,11 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       sites: await createBlobSiteStorage(),
       leads: await createBlobStorage(),
       accounts: await createBlobAccountStorage(),
+      // Een offerte die Klusbaas zelf schrijft gaat per mail naar de klant,
+      // met de PDF erbij en de betaalgegevens.
+      sendMail: createAccountMailer(process.env),
+      ...(payment ? { payment } : {}),
+      siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
     },
     req.headers.get('cookie'),
     true

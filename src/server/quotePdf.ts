@@ -1,6 +1,7 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
 import { BRAND_MARK, BRAND_WORDMARK } from '../data/brandMark';
 import { PLATFORM_CONTACT } from '../data/platform';
+import type { PaymentDetails } from '../types';
 import { QUOTE_VALID_DAYS, formatDutchDate, formatEuroCents, type QuoteRecord } from '../utils/quote';
 
 /**
@@ -53,7 +54,7 @@ function wrap(text: string, font: PDFFont, size: number, maxWidth: number): stri
 
 export async function renderQuotePdf(
   record: QuoteRecord,
-  options: { siteUrl?: string } = {}
+  options: { siteUrl?: string; payment?: PaymentDetails } = {}
 ): Promise<Uint8Array> {
   const privacyHost = (options.siteUrl ?? 'https://klusbaas.nl').replace(/\/$/, '').replace(/^https?:\/\//, '');
   const doc = await PDFDocument.create();
@@ -189,6 +190,29 @@ export async function renderQuotePdf(
     y -= strong ? 20 : 15;
   }
   y -= 16;
+
+  // Betalen: de klant moet het bedrag kunnen overmaken vanaf de offerte
+  // zelf, zonder eerst een account te maken.
+  if (options.payment) {
+    const payment = options.payment;
+    ensure(70);
+    text('BETALEN', MARGIN, 8, bold, MUTED);
+    y -= 14;
+    const payRows: [string, string][] = [
+      ['Bankrekening (IBAN)', payment.iban],
+      ['Ten name van', payment.name],
+      ...(payment.email ? ([['E-mail', payment.email]] as [string, string][]) : []),
+      ['Bedrag', `${formatEuroCents(record.totalCents)} incl. btw`],
+      ['Omschrijving', record.id],
+    ];
+    for (const [label, value] of payRows) {
+      ensure(14);
+      text(label, MARGIN, 10, regular, MUTED);
+      text(value, MARGIN + 150, 10, bold);
+      y -= 14;
+    }
+    y -= 10;
+  }
 
   // Conditions
   const conditions = [

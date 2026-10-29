@@ -87,6 +87,18 @@ test('een sleutel die niet van ons is wordt niet geserveerd', async () => {
   assert.equal(result.body, null);
 });
 
+test('een client kan niet onbeperkt foto’s uploaden', async () => {
+  const storage = memoryStorage();
+  const clientKey = 'script-1';
+  let refused = 0;
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    const result = await handleUploadMedia({ data: JPEG }, { storage, clientKey });
+    if (result.status === 429) refused += 1;
+  }
+  assert.equal(refused, 10, 'na de grens volgt bij elke volgende upload een weigering');
+  assert.equal(storage.photos.size, 30, 'maximaal 30 foto’s per uur per client');
+});
+
 test('een foto die er niet is geeft 404', async () => {
   const storage = memoryStorage();
   const result = await handleGetMedia(new URLSearchParams('key=aaaaaa.jpg'), { storage });

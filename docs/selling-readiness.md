@@ -4,7 +4,7 @@ A measured audit of the gap between "the product makes a site" and "a
 craftsman can be sold a website". Every claim below was read from the code
 on `main`; the commands to re-measure them are at the bottom.
 
-## The journey today
+## The journey today (measured on `main`, 2026-10-29)
 
 1. A craftsman picks a trade and a style, fills in his details and sees his
    site in the editor (`/mijn-site`).
@@ -20,10 +20,24 @@ on `main`; the commands to re-measure them are at the bottom.
 6. Klusbaas marks the order as paid once the money is in, and sees
    everything — requests, orders and published sites — in one overview
    (`/klusbaas`, phase 6.4).
+7. A customer who never went through the wizard gets an offer too: Klusbaas
+   writes one himself for a customer with an account and a site. It becomes a
+   real order with a PDF, it stands in that customer's account and it is
+   mailed to him (phase 7.2).
+8. The customer can pay that order: the IBAN and the amount stand in the
+   offer PDF and on the offer page, so an account is not needed to transfer
+   the money (phase 7.3).
+9. A request can become an order too: Klusbaas picks the request in the
+   "Offerte maken" form and the offer takes the customer's details from it
+   (phase 7.4).
 
-What is still missing is on the craftsman's side: he cannot reset his
-password, he does not get a mail when his site goes live, and the price
-list still promises things the code does not do.
+The craftsman's side is complete in phase 6: he can reset his password, he
+gets a mail when his site goes live, and every promise on the price list is
+either built or removed. On Klusbaas' side the sale is complete too: he can
+write an offer for anyone (a customer with an account, a customer who only
+sent a request), the offer says where to pay, and the customer can pay it.
+What is left is the bookkeeping: Klusbaas marks the payment by hand and
+there is no payment provider (still open).
 
 ## The blockers, measured
 
@@ -35,14 +49,18 @@ list still promises things the code does not do.
 | 4 | …and the preset's prices | `services[].p` in `src/data/tradesData.ts` | "v.a. € 650 per stuk" is an example price shown as his own | **fixed (6.1)** |
 | 5 | …and the preset's marks | `defaultBlockContentMap` (`trust-bar`, `guarantees`, `project-stats`) | "VCA gecertifieerd", "120 projecten": claims the craftsman never made, and the editor falls back to them while a field is still empty | **fixed (6.1)** |
 | 6 | Nothing can be ordered or paid | `grep -rni "stripe\|ideal\|betaal" src netlify` finds nothing | The packages (€ 595 / € 995 / € 1.795) are presentation only — ROADMAP 4.5 | **partly fixed (6.3)** |
-| 7 | No password reset, no e-mail verification | `src/server/accountHandler.ts` has `register`, `login`, `logout`, `me`, `sites`, `claim` | A craftsman who forgets his password loses his site, and every request has to go through Klusbaas by hand | **open (6.5)** |
+| 7 | No password reset, no e-mail verification | `src/server/accountHandler.ts` has `register`, `login`, `logout`, `me`, `sites`, `claim` | A craftsman who forgets his password loses his site, and every request has to go through Klusbaas by hand | **fixed (6.5)** |
 | 8 | The requests live only in the mail | `src/server/leadHandler.ts` | When the mail to the craftsman does not arrive, Klusbaas keeps a back-up but the craftsman sees nothing — and the back-up can only be found in the Blobs store | **fixed (6.2)** |
 | 9 | No overview for Klusbaas | no admin route; `src/server/` has no list view | Customers, sites, orders and requests are invisible outside the mail and the Blobs dashboard | **fixed (6.4)** |
-| 10 | The privacy note on a customer site points to Klusbaas' statement | `src/components/PrivacyNote.tsx` links to `{ name: 'privacy' }` | On a customer site the craftsman is the party responsible for the data on his own site; the link says otherwise | **open (6.7)** |
-| 11 | The pricing page promises what is not built | `src/data/plans.ts` | "Eigen .nl-domein, eerste jaar inbegrepen", "Offertes automatisch opgeslagen in Google Drive" and "Koppeling met je Google Bedrijfsprofiel" are on the price list and nowhere in the code | **open (6.8)** |
+| 10 | The privacy note on a customer site points to Klusbaas' statement | `src/components/PrivacyNote.tsx` links to `{ name: 'privacy' }` | On a customer site the craftsman is the party responsible for the data on his own site; the link says otherwise | **fixed (6.7)** |
+| 11 | The pricing page promises what is not built | `src/data/plans.ts` | "Eigen .nl-domein, eerste jaar inbegrepen", "Offertes automatisch opgeslagen in Google Drive" and "Koppeling met je Google Bedrijfsprofiel" are on the price list and nowhere in the code | **fixed (6.8)** |
+| 12 | The photo upload can be abused | `POST /api/media` had no limit and no login | Anyone could fill the photo store with rubbish: the upload is open on purpose, so it needs a limit | **fixed (7.1)** |
+| 13 | Only the wizard creates an offer | `src/server/adminHandler.ts` knew `login`, `logout`, `overview`, `quote-status` and `verify-account` | A customer who makes his own account and publishes his own site never gets an offer, and therefore no order and no invoice. Klusbaas could not write one either | **fixed (7.2)** |
+| 14 | The offer does not say where to pay | `src/server/quotePdf.ts` had no payment block and `GET /api/quote` returned no payment details | A customer without an account could open the offer but not see where to transfer the money, so the sale stopped at the offer | **fixed (7.3)** |
+| 15 | A request cannot become an offer | the "Offerte maken" form listed only published sites and accounts | Someone who only sent a request could not be given an offer, so a lead from a form had no path to an order | **fixed (7.4)** |
 
 The status column says what has been done since the audit was written
-(phases 6.1–6.4). "Partly fixed" means: an offer can be ordered
+(phases 6.1–6.9 and 7.1–7.4). "Partly fixed" means: an offer can be ordered
 and paid for, but there is no payment provider, no automatic reminder and
 no invoice.
 
@@ -66,12 +84,28 @@ no invoice.
   sites, behind a password (phase 6.4).
 - Every trade preset has 5 styles, the site renders on the server, and the
   page has `LocalBusiness` structured data for local SEO.
+- The customer can reset his password and confirm his e-mail address
+  himself (phase 6.5), and gets a mail when his site goes live (phase 6.6).
+- Every promise on the price list is either built or removed (phase 6.8).
+- The customer site has its own privacy statement that names the craftsman
+  as the responsible party (phase 6.7).
+- Klusbaas can write an offer for a customer who did not ask for one; it
+  becomes an order in that customer's account and is mailed to him
+  (phase 7.2).
+- The offer says where to pay: the IBAN and the amount are in the PDF and on
+  the offer page (phase 7.3).
+- A request can become an offer: the request is a customer in the "Offerte
+  maken" form (phase 7.4).
 
 ## Definition of done
 
 The eight conditions in ROADMAP phase 6 are the contract: a craftsman can
 be sold a website when he can sign up, publish a site that only says true
 things, see his requests, pay, and find everything back on any device.
+Phase 7 adds four conditions of its own: Klusbaas can write an offer for a
+customer who did not come through the wizard (7.2), the photo upload cannot
+be used to fill the store (7.1), the customer can pay the offer without
+making an account first (7.3), and a request can become an offer (7.4).
 
 ## How to re-measure this
 
@@ -95,6 +129,18 @@ grep -rn "action === 'overview'" src/server/adminHandler.ts
 
 # 11: the promises on the price list
 grep -n "domein\|Drive\|Bedrijfsprofiel" src/data/plans.ts
+
+# 12: the photo upload has a limit
+grep -n "MEDIA_UPLOADS_PER_HOUR" src/server/mediaHandler.ts
+
+# 13: Klusbaas writes an offer himself
+grep -rn "'create-quote'" src/server/adminHandler.ts
+
+# 14: the offer says where to pay
+grep -n "payment" src/server/quotePdf.ts | head -1
+
+# 15: a request can become an offer
+grep -n "leadReference" src/server/adminOffer.ts | head -1
 
 # and the checks that must stay green
 bun run check

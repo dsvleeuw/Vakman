@@ -1,5 +1,6 @@
 import { accountFromSession } from '../../src/server/accountHandler';
 import { handleLead } from '../../src/server/leadHandler';
+import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 
 /** POST /api/lead: every form (wizard quote, afspraak, contact, storing, m²). */
@@ -18,6 +19,7 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
   const account = await accountFromSession(req.headers.get('cookie'), {
     accounts: await createBlobAccountStorage(),
   });
+  const payment = paymentDetailsFromEnv(process.env);
   const result = await handleLead(body, context.ip ?? req.headers.get('x-nf-client-connection-ip') ?? '', {
     env: {
       RESEND_API_KEY: process.env.RESEND_API_KEY,
@@ -27,6 +29,8 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
     },
     storage: await createBlobStorage(),
     ...(account ? { accountId: account.id } : {}),
+    // De betaalgegevens staan in de offerte-PDF en op de offertepagina.
+    ...(payment ? { payment } : {}),
     // Met de sites kan een aanvraag op een gepubliceerde klantsite naar de
     // vakman zelf gaan, in plaats van naar Klusbaas.
     sites: await createBlobSiteStorage(),

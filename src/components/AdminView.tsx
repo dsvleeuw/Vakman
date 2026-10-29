@@ -8,7 +8,15 @@ import {
   verifyAccount,
 } from '../utils/adminClient';
 import { formatEuroCents } from '../utils/quote';
-import type { AdminAccount, AdminOverview, AdminQuote, AdminSite, StoredLead } from '../types';
+import type {
+  AdminAccount,
+  AdminCreatedQuote,
+  AdminOverview,
+  AdminQuote,
+  AdminSite,
+  StoredLead,
+} from '../types';
+import { AdminQuoteForm } from './AdminQuoteForm';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 
@@ -223,6 +231,7 @@ export const AdminView: React.FC = () => {
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setOverview(await fetchAdminOverview());
@@ -266,6 +275,12 @@ export const AdminView: React.FC = () => {
     await load();
   };
 
+  const handleCreated = async (quote: AdminCreatedQuote) => {
+    // Het overzicht laat de nieuwe offerte meteen zien.
+    await load();
+    setNotice(`Offerte ${quote.id} staat nu in het overzicht.`);
+  };
+
   const handleStatus = async (id: string, status: 'paid' | 'cancelled' | 'open') => {
     setBusy(true);
     const result = await setQuoteStatus(id, status);
@@ -303,6 +318,12 @@ export const AdminView: React.FC = () => {
             </p>
           )}
 
+          {notice && (
+            <p className="m-0 rounded-xl px-4 py-3 text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200">
+              {notice}
+            </p>
+          )}
+
           {loading ? (
             <p className="flex items-center gap-3 text-stone-600" role="status">
               <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Even laden…
@@ -334,6 +355,25 @@ export const AdminView: React.FC = () => {
             </form>
           ) : (
             <>
+              <section className="flex flex-col gap-4">
+                <h2 className="m-0 text-xl font-black tracking-tight">Offerte maken</h2>
+                <p className="m-0 text-stone-600 leading-relaxed">
+                  Een klant die zelf een account maakt en zijn site publiceert vraagt
+                  zelf geen offerte aan. Schrijf hem er hier één: de klant krijgt
+                  hem per mail, ziet hem in zijn account en kan hem betalen. Ook
+                  iemand die alleen een aanvraag stuurde staat in de lijst.
+                </p>
+                <div className="rounded-2xl bg-white border border-stone-200 p-6">
+                  <AdminQuoteForm
+                    sites={overview.sites}
+                    accounts={overview.accounts}
+                    leads={overview.leads}
+                    busy={busy}
+                    onCreated={handleCreated}
+                  />
+                </div>
+              </section>
+
               <section className="flex flex-col gap-4">
                 <h2 className="m-0 text-xl font-black tracking-tight">
                   Aanvragen{' '}

@@ -1,4 +1,5 @@
 import { randomBytes } from 'node:crypto';
+import { createRateLimiter } from '../utils/lead';
 
 /**
  * Photos of the craftsman.
@@ -85,14 +86,36 @@ export interface MediaHandlerResult {
   body: unknown;
 }
 
+/** How many photos one client may upload per hour. */
+export const MEDIA_UPLOADS_PER_HOUR = 30;
+
+/**
+ * One rate limiter for the whole process. In a serverless function it lives
+ * per warm instance, which is enough to stop one script from filling the
+ * store; it is not a distributed quota.
+ */
+const uploadLimiter = createRateLimiter({
+  limit: MEDIA_UPLOADS_PER_HOUR,
+  windowMs: 60 * 60 * 1000,
+});
+
 /**
  * POST /api/media: store a photo and hand back the address where it is
  * served. The body is `{ data: "data:image/jpeg;base64,…" }`.
  */
 export async function handleUploadMedia(
   body: unknown,
-  deps: { storage: MediaStorage }
+  deps: { storage: MediaStorage; clientKey?: string; now?: number }
 ): Promise<MediaHandlerResult> {
+  // Het uploaden is open voor iedereen, dus er zit een grens op: zonder
+  // limiet kan een script de fotostore vol zetten.
+  const now = deps.now ?? Date.now();
+  if (!uploadLimiter(deps.clientKey ?? 'onbekend', now)) {
+    return {
+      status: 429,
+      body: { ok: false, error: 'Te veel foto’s geüpload. Probeer het later opnieuw.' },
+    };
+  }
   const source = body && typeof body === 'object' ? (body as Record<string, unknown>) : {};
   const parsed = readDataUrl(source.data);
   if (!parsed.ok) {

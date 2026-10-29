@@ -1,6 +1,7 @@
 import { PLATFORM_CONTACT } from '../data/platform';
 import { SECTORS } from '../data/tradesData';
 import { LEAD_TYPE_LABELS, leadFieldRows, type SiteLead } from './lead';
+import type { PaymentDetails } from '../types';
 import { formatDutchDate, formatEuroCents, quoteDelivery, type QuoteRecord } from './quote';
 
 /**
@@ -14,7 +15,7 @@ export interface LeadEmail {
   html: string;
 }
 
-interface Row {
+export interface Row {
   label: string;
   value: string;
   href?: string;
@@ -50,6 +51,12 @@ const table = (rows: Row[], strongLast = false) =>
 
 const section = (title: string, body: string) =>
   `<h2 style="margin:24px 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#78716c;">${escapeHtml(title)}</h2>${body}`;
+
+/** A two-column table of label/value pairs, shared by every Klusbaas mail. */
+export const emailTable = table;
+
+/** A titled block in a mail, shared by every Klusbaas mail. */
+export const emailSection = section;
 
 export interface EmailLayout {
   intro: string;
@@ -215,6 +222,88 @@ export function buildQuoteEmail(
       section('Diensten op de website', `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>`) +
       section('Offerte', `${table(quotePriceRows(record))}<hr style="border:0;border-top:1px solid #e7e5e4;margin:12px 0;">${table(quoteTotalRows(record), true)}`) +
       (actions.length > 1 ? section('Acties', table(actions)) : ''),
+    outro,
+    button: { href: links.quoteUrl, label: 'Bekijk offerte online' },
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
+/**
+ * The mail for an offer Klusbaas made by hand for a customer (phase 7.2).
+ *
+ * The customer did not ask for it, so the text says what happened: Klusbaas
+ * wrote an offer, it is in the PDF and the same offer is in his account.
+ */
+export function buildOfferEmail(
+  record: QuoteRecord,
+  links: { quoteUrl: string; payment?: PaymentDetails }
+): LeadEmail {
+  const siteUrl = new URL(links.quoteUrl).origin;
+  const { customer } = record;
+  const firstName = customer.owner.split(' ')[0] || customer.owner;
+  const subject = `Je offerte ${record.id} van Klusbaas`;
+  const intro = `Hoi ${firstName}, Klusbaas heeft een offerte voor je klaargesteld. In de bijlage vind je offerte ${record.id} als PDF; hieronder staat dezelfde offerte.`;
+
+  const details: Row[] = [
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Contactpersoon', value: customer.owner },
+    { label: 'Telefoon', value: customer.phone },
+    ...(customer.email ? [{ label: 'E-mail', value: customer.email }] : []),
+    { label: 'Plaats', value: customer.city },
+    { label: 'Vak', value: record.sectorName },
+    { label: 'Stijl', value: record.styleName },
+    { label: 'Pakket', value: record.planName },
+    { label: 'Geldig tot', value: formatDutchDate(record.validUntil) },
+  ];
+  const services = record.services.length ? record.services : ['Geen diensten gekozen'];
+  const payment = links.payment;
+  const paymentRows: Row[] = payment
+    ? [
+        { label: 'Bankrekening (IBAN)', value: payment.iban },
+        { label: 'Ten name van', value: payment.name },
+        ...(payment.email ? [{ label: 'E-mail', value: payment.email }] : []),
+      ]
+    : [];
+  const outro = payment
+    ? 'Akkoord of iets wijzigen? Antwoord gewoon op deze mail. Je betaalt daarna via bankoverschrijving; je site blijft online, ook als je nog niet betaald hebt.'
+    : 'Akkoord of iets wijzigen? Antwoord gewoon op deze mail. De exacte betaalgegevens staan in je account.';
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    'GEGEVENS',
+    ...textRows(details),
+    '',
+    'DIENSTEN OP DE WEBSITE',
+    ...services.map((service) => `- ${service}`),
+    '',
+    'OFFERTE',
+    ...textRows(quotePriceRows(record)),
+    '',
+    ...textRows(quoteTotalRows(record)),
+    '',
+    ...(paymentRows.length ? ['BETALEN', ...textRows(paymentRows), ''] : []),
+    'Bekijk de offerte online:',
+    links.quoteUrl,
+    '',
+    outro,
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections:
+      section('Gegevens', emailTable(details)) +
+      section('Diensten op de website', `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>`) +
+      section('Offerte', `${emailTable(quotePriceRows(record))}<hr style="border:0;border-top:1px solid #e7e5e4;margin:12px 0;">${emailTable(quoteTotalRows(record), true)}`) +
+      (paymentRows.length ? section('Betalen', emailTable(paymentRows)) : ''),
     outro,
     button: { href: links.quoteUrl, label: 'Bekijk offerte online' },
     siteUrl,

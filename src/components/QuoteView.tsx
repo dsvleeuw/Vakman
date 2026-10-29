@@ -150,12 +150,43 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               </div>
             </dl>
 
+            {state.quote.status === 'open' && state.quote.payment && (
+              <section className="mx-6 sm:mx-8 mb-6 rounded-2xl bg-stone-50 border border-stone-200 p-5">
+                <h2 className="m-0 text-sm font-black text-stone-900">Zo betaal je</h2>
+                <p className="m-0 mt-2 text-sm text-stone-700">
+                  Maak het bedrag over naar{' '}
+                  <strong className="text-stone-900">{state.quote.payment.iban}</strong> t.n.v.{' '}
+                  {state.quote.payment.name}, met als omschrijving{' '}
+                  <strong className="text-stone-900">{state.quote.id}</strong>.
+                </p>
+                <p className="m-0 mt-2 text-xs text-stone-600">
+                  {state.quote.payment.email ? (
+                    <>
+                      Vragen?{' '}
+                      <a
+                        href={`mailto:${state.quote.payment.email}`}
+                        className="font-bold underline underline-offset-2"
+                      >
+                        {state.quote.payment.email}
+                      </a>
+                    </>
+                  ) : (
+                    'Vragen? Antwoord op de offertemail.'
+                  )}
+                </p>
+              </section>
+            )}
+
             <footer className="px-6 sm:px-8 pb-8 text-xs text-stone-500 flex items-start gap-2">
               <FileText className="w-4 h-4 shrink-0" aria-hidden="true" />
               {state.quote.status === 'paid' ? (
                 <span className="font-bold text-emerald-700">
                   Deze offerte is betaald
                   {state.quote.paidAt ? ` op ${formatDutchDate(state.quote.paidAt)}` : ''}. Bedankt!
+                </span>
+              ) : state.quote.status === 'cancelled' ? (
+                <span className="font-bold text-stone-600">
+                  Deze offerte is ingetrokken. Neig contact op als je verder wilt.
                 </span>
               ) : (
                 <>
