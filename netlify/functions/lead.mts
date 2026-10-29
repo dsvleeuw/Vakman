@@ -1,5 +1,5 @@
 import { handleLead } from '../../src/server/leadHandler';
-import { createBlobStorage } from '../../src/server/storage';
+import { createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 
 /** POST /api/lead: every form (wizard quote, afspraak, contact, storing, m²). */
 export default async (req: Request, context: { ip?: string }): Promise<Response> => {
@@ -20,6 +20,9 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       MAIL_TEST_RECIPIENT: process.env.MAIL_TEST_RECIPIENT,
     },
     storage: await createBlobStorage(),
+    // Met de sites kan een aanvraag op een gepubliceerde klantsite naar de
+    // vakman zelf gaan, in plaats van naar Klusbaas.
+    sites: await createBlobSiteStorage(),
     // Netlify sets URL to the production site URL; links in mails must never point at a preview or function host.
     siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
   });

@@ -225,23 +225,40 @@ export function buildQuoteEmail(
 }
 
 /** Mail for a lead from one of the site forms (afspraak, contact, storing, m²). */
+/**
+ * The mail for a lead from a site.
+ *
+ * - `team`: the notification for Klusbaas about a lead on a Klusbaas demo.
+ * - `customer`: the confirmation for the visitor who filled in the form.
+ * - `owner`: the lead for the craftsman whose published site it is. The
+ *   visitor's details go to him, because his site asked for them.
+ */
 export function buildSiteLeadEmail(
   lead: SiteLead,
-  audience: 'team' | 'customer',
+  audience: 'team' | 'customer' | 'owner',
   reference: string,
-  siteUrl: string = DEFAULT_SITE_URL
+  siteUrl: string = DEFAULT_SITE_URL,
+  options: { ownerFirstName?: string } = {}
 ): LeadEmail {
   const label = LEAD_TYPE_LABELS[lead.type];
   const who = lead.fields.name || 'Een bezoeker';
   const sectorName = SECTORS[lead.site.sector]?.name ?? lead.site.sector;
+  const ownerFirstName = options.ownerFirstName ?? '';
   const subject =
     audience === 'team'
       ? `${label}: ${who} via ${lead.site.biz} · ${reference}`
-      : `We hebben je ${label.toLowerCase()} ontvangen · ${reference}`;
+      : audience === 'owner'
+        ? `Nieuwe aanvraag via je website · ${reference}`
+        : `We hebben je ${label.toLowerCase()} ontvangen · ${reference}`;
   const intro =
     audience === 'team'
       ? `Nieuwe ${label.toLowerCase()} via de site van ${lead.site.biz} (${sectorName}).`
-      : `Hoi ${lead.fields.name || ''}, bedankt! We hebben je ${label.toLowerCase()} voor ${lead.site.biz} ontvangen en nemen snel contact met je op.`.replace('Hoi ,', 'Hoi,');
+      : audience === 'owner'
+        ? `Hoi ${ownerFirstName || ''}, iemand heeft contact opgenomen via jouw website (${lead.site.biz}).`.replace(
+            'Hoi ,',
+            'Hoi,'
+          )
+        : `Hoi ${lead.fields.name || ''}, bedankt! We hebben je ${label.toLowerCase()} voor ${lead.site.biz} ontvangen en nemen snel contact met je op.`.replace('Hoi ,', 'Hoi,');
   const rows: Row[] = [
     ...leadFieldRows(lead),
     { label: 'Website', value: `${lead.site.biz}${lead.site.style ? ` (${lead.site.style})` : ''}` },
@@ -251,7 +268,9 @@ export function buildSiteLeadEmail(
       ? lead.fields.email
         ? `Antwoorden op deze mail gaat naar ${lead.fields.email}.`
         : `Neem contact op via ${lead.fields.phone}.`
-      : 'Klopt er iets niet? Antwoord gewoon op deze mail.';
+      : audience === 'owner'
+        ? `Bel of mail ${who} terug: ${lead.fields.phone}${lead.fields.email ? ` · ${lead.fields.email}` : ''}.`
+        : 'Klopt er iets niet? Antwoord gewoon op deze mail.';
   const text = [intro, '', `Referentie: ${reference}`, '', ...textRows(rows), '', outro, '', emailTextFooter(siteUrl, TRANSACTIONAL_NOTE)].join('\n');
   const html = renderEmailLayout({
     intro,

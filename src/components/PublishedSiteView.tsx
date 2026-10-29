@@ -112,7 +112,7 @@ export const PublishedSiteView: React.FC<PublishedSiteViewProps> = ({ slug }) =>
       text: site.text,
     });
     if (!content) return null;
-    return applySiteContent(
+    const active = applySiteContent(
       buildActiveSite(
         site.sector,
         styleIndexFromId(site.styleId),
@@ -123,6 +123,9 @@ export const PublishedSiteView: React.FC<PublishedSiteViewProps> = ({ slug }) =>
       ),
       content
     );
+    // The address of this site: a form on this page must reach the owner of
+    // this site, not Klusbaas.
+    return { ...active, publishedSlug: site.slug };
   }, [site]);
 
   if (loading) {

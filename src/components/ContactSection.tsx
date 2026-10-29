@@ -9,6 +9,8 @@ import {
 } from '../utils/contact';
 import { track } from '../utils/analytics';
 import { describeDelivery } from '../utils/leadClient';
+import { siteContext } from '../utils/lead';
+import { leadRecipient } from '../utils/leadCopy';
 import { useLeadForm } from '../hooks/useLeadForm';
 import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
@@ -34,6 +36,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
   const [mobileFormOpen, setMobileFormOpen] = useState(false);
 
   const ownerFirst = site.owner.split(' ')[0];
+  // Where this lead goes: to the craftsman on a published site, to Klusbaas
+  // on a demo site. The page says the same thing.
+  const recipient = leadRecipient(site);
   const directWhatsApp = buildSiteWhatsAppUrl(
     site.contactPhone,
     `Hallo ${site.biz}! Ik wil graag meer informatie over een klus.`
@@ -69,7 +74,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
     if (!validate() || lead.status === 'sending') return;
     const response = await lead.submit({
       type: 'contact',
-      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      site: siteContext(site),
       fields: { name, phone, message },
     });
     if (response.ok) setWaUrl(fallbackWaUrl);
@@ -191,7 +196,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   Je bericht is verstuurd.
                 </h3>
                 <p className="text-sm max-w-md m-0" style={{ color: site.muted }} aria-live="polite">
-                  {site.biz} heeft je bericht ontvangen
+                  {recipient.name} heeft je bericht ontvangen
                   {lead.result?.reference ? ` (referentie ${lead.result.reference})` : ''} en
                   neemt snel contact met je op. {lead.result ? describeDelivery(lead.result) : ''}
                 </p>
@@ -330,10 +335,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   className="text-xs leading-relaxed m-0 text-center"
                   style={{ color: site.muted }}
                 >
-                  Je bericht gaat direct naar {site.biz}. Je krijgt meteen te zien
-                  of het is aangekomen.
+                  {recipient.line}
                 </p>
-                <PrivacyNote className="text-center" style={{ color: site.muted }} />
+                <PrivacyNote
+                  className="text-center"
+                  style={{ color: site.muted }}
+                  note={recipient.privacy}
+                />
               </form>
             )}
           </div>
