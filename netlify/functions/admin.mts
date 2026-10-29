@@ -1,6 +1,7 @@
 import { createAccountMailer } from '../../src/server/accountMailer';
 import { handleAdmin } from '../../src/server/adminHandler';
 import { createBlobAdminStorage } from '../../src/server/adminStorage';
+import { invoiceDetailsFromEnv } from '../../src/server/invoice';
 import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 import { createRateLimiter } from '../../src/utils/lead';
@@ -27,6 +28,7 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
   }
 
   const payment = paymentDetailsFromEnv(process.env);
+  const invoice = invoiceDetailsFromEnv(process.env);
   const result = await handleAdmin(
     body,
     {
@@ -41,6 +43,8 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       // met de PDF erbij en de betaalgegevens.
       sendMail: createAccountMailer(process.env),
       ...(payment ? { payment } : {}),
+      // Klusbaas' eigen gegevens, voor op de factuur.
+      invoice,
       siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
     },
     req.headers.get('cookie'),

@@ -1,5 +1,5 @@
 import { SECTORS, STYLES } from '../data/tradesData';
-import type { PaymentDetails } from '../types';
+import type { InvoiceDetails, PaymentDetails } from '../types';
 import { buildWhatsAppUrl, isValidEmail } from '../utils/contact';
 import { createRateLimiter, parseLead, type QuoteLeadRequest, type SiteLead } from '../utils/lead';
 import { buildQuoteEmail, buildSiteLeadEmail, createLeadReference } from '../utils/leadEmail';
@@ -13,6 +13,8 @@ import {
   type PublicQuote,
 } from '../utils/quote';
 import { redirectForTest, sendViaResend, type DeliveryResult, type FetchLike, type OutgoingMail } from './mailer';
+import { invoiceNumberFor } from './invoice';
+import { renderInvoicePdf } from './invoicePdf';
 import { renderQuotePdf } from './quotePdf';
 import type { LeadStorage, SiteStorage } from './storage';
 
@@ -400,7 +402,7 @@ export async function handleLead(
 export type QuoteLookup =
   | { status: 200; kind: 'json'; body: PublicQuote }
   | { status: 200; kind: 'pdf'; filename: string; pdf: Uint8Array }
-  | { status: 400 | 403 | 404; kind: 'json'; body: { ok: false; error: string } };
+  | { status: 400 | 403 | 404 | 503; kind: 'json'; body: { ok: false; error: string } };
 
 /**
  * `GET /api/quote?id=KB-2026-0001&token=…[&format=pdf]`
@@ -411,7 +413,7 @@ export type QuoteLookup =
 export async function handleGetQuote(
   params: URLSearchParams,
   storage: LeadStorage,
-  deps: { payment?: PaymentDetails } = {}
+  deps: { payment?: PaymentDetails; invoice?: InvoiceDetails } = {}
 ): Promise<QuoteLookup> {
   const id = params.get('id') ?? '';
   const token = params.get('token') ?? '';
@@ -426,6 +428,34 @@ export async function handleGetQuote(
   if (params.get('format') === 'pdf') {
     const pdf = (await storage.getQuotePdf(id)) ?? (await renderQuotePdf(record));
     return { status: 200, kind: 'pdf', filename: `Offerte-${id}.pdf`, pdf };
+  }
+  // De factuur van een betaalde offerte: hetzelfde document als in de mail,
+  // maar dan op aanvraag. Zonder betaalde status is er geen factuur.
+  if (params.get('format') === 'invoice') {
+    if (record.status !== 'paid') {
+      return {
+        status: 400,
+        kind: 'json',
+        body: { ok: false, error: 'Deze offerte is nog niet betaald.' },
+      };
+    }
+    if (!deps.invoice) {
+      return {
+        status: 503,
+        kind: 'json',
+        body: { ok: false, error: 'De factuur is niet beschikbaar. Neig contact op met Klusbaas.' },
+      };
+    }
+    const pdf = await renderInvoicePdf(record, {
+      invoice: deps.invoice,
+      ...(deps.payment ? { payment: deps.payment } : {}),
+    });
+    return {
+      status: 200,
+      kind: 'pdf',
+      filename: `Factuur-${invoiceNumberFor(record.id)}.pdf`,
+      pdf,
+    };
   }
   return {
     status: 200,

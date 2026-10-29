@@ -238,6 +238,25 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               </section>
             )}
 
+            {state.quote.status === 'paid' && (
+              <section className="mx-6 sm:mx-8 mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+                <h2 className="m-0 text-sm font-black text-emerald-900">Je factuur</h2>
+                <p className="m-0 mt-2 text-sm text-emerald-900">
+                  Je betaling is binnen. De factuur staat als PDF in de mail die je kreeg;
+                  je kunt hem hieronder ook nog een keer downloaden.
+                </p>
+                <a
+                  href={`/api/quote?${query}&format=invoice`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex h-11 items-center gap-2 rounded-full bg-emerald-900 hover:bg-emerald-800 px-5 text-white font-extrabold text-sm no-underline"
+                >
+                  <Download className="w-4 h-4" aria-hidden="true" />
+                  Download factuur
+                </a>
+              </section>
+            )}
+
             {state.quote.status === 'accepted' && (
               <p className="m-0 mx-6 sm:mx-8 mb-6 flex items-start gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />

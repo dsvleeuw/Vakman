@@ -128,6 +128,8 @@ through the wizard when:**
    given an offer, with his details taken from the request.
 7. The customer can accept the offer himself, without writing a mail: one
    click on the offer page, and Klusbaas hears about it the same day.
+8. The customer gets a document for his administration: marking an offer as
+   paid sends him an invoice, and he can download it again later.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -136,6 +138,7 @@ through the wizard when:**
 | 7.3 | ~~The customer can pay the offer~~ Done: the IBAN and the amount stand in the offer PDF and on the offer page (`/offerte/<id>`), so a customer without an account can also transfer the money right away | S | Klusbaas still has to mark the offer as paid by hand: there is no payment provider and no bank check. Without `PAYMENT_IBAN` there are no payment details, and the offer says so instead of showing a broken bank account. |
 | 7.4 | ~~A request can become an offer~~ Done: a customer who only sent a request (`L-XXXXXX`) and never made an account stands in the list of "Offerte maken"; Klusbaas picks him and the offer takes his details from the request | S | The offer of someone without an account does not appear in `/mijn-account`, because he has no account. He gets it by mail and can pay with the IBAN in the offer (7.3). |
 | 7.5 | ~~The customer can accept the offer himself~~ Done: on the offer page there is a button "Ja, ik ga akkoord". The customer types his name, the offer gets the status `accepted` and Klusbaas gets a mail with the details | S | Accepting is not paying: the customer still has to transfer the money, and Klusbaas marks the offer as paid when it arrives. There is no signature and no contract; the mail of the customer is the agreement. |
+| 7.6 | ~~The customer gets an invoice when he pays~~ Done: when Klusbaas marks an offer as paid, the customer gets an invoice as a PDF (`F-<jaar>-<nr>`, following the offer number) by mail and can download it again from the offer page and from his account | S | The details of Klusbaas on the invoice come from the environment (`INVOICE_NAME`, `INVOICE_ADDRESS`, `INVOICE_KVK`, `INVOICE_VAT`, `INVOICE_EMAIL`); what is not set is not printed. Klusbaas still marks the payment by hand and there is no reminder for an offer that stays open. |
 
 ## Decision log
 

@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant krijgt een factuur als hij betaalt.** Zodra Klusbaas een
+  offerte als "betaald" markeert, krijgt de klant een factuur als PDF
+  (`F-2026-0001`, volgend op het offertenummer) in zijn mailbox, met de
+  klantgegevens, het bedrag, de btw en de betaaldatum. Hij kan de factuur
+  ook opnieuw downloaden vanaf de offertepagina en uit zijn account. De
+  gegevens van Klusbaas op de factuur komen uit de omgeving
+  (`INVOICE_NAME`, `INVOICE_ADDRESS`, `INVOICE_KVK`, `INVOICE_VAT`,
+  `INVOICE_EMAIL`): wat niet is ingevuld, wordt niet afgedrukt. Er wordt
+  dus geen KvK-nummer verzonnen.
 - **De klant kan de offerte zelf accepteren.** Op de offertepagina staat een
   knop "Ja, ik ga akkoord". De klant vult zijn naam in, de offerte krijgt de
   status "Geaccepteerd" en Klusbaas krijgt daar een mail van. Voorheen

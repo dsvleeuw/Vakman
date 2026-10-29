@@ -211,6 +211,18 @@ const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({
     {quote.status === 'paid' && quote.paidAt && (
       <p className="m-0 text-sm text-emerald-800">Betaald op {leadDate(quote.paidAt)}.</p>
     )}
+    {quote.status === 'paid' && (
+      <a
+        href={`/api/quote?id=${encodeURIComponent(quote.id)}&token=${encodeURIComponent(
+          quoteToken(quote.url)
+        )}&format=invoice`}
+        target="_blank"
+        rel="noreferrer"
+        className="text-sm font-bold text-stone-900 underline underline-offset-2 inline-flex items-center min-h-11"
+      >
+        Factuur downloaden
+      </a>
+    )}
     {quote.status === 'open' && !payment && (
       <p className="m-0 text-sm text-stone-600">
         Deze offerte staat open. Klusbaas stuurt je de betaalgegevens, of vraag ernaar via je mail.

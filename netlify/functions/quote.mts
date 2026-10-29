@@ -1,4 +1,5 @@
 import { handleGetQuote, quoteLookupResponse } from '../../src/server/leadHandler';
+import { invoiceDetailsFromEnv } from '../../src/server/invoice';
 import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobStorage } from '../../src/server/storage';
 
@@ -8,10 +9,11 @@ export default async (req: Request): Promise<Response> => {
     return Response.json({ ok: false, error: 'Alleen GET is toegestaan.' }, { status: 405 });
   }
   const payment = paymentDetailsFromEnv(process.env);
+  const invoice = invoiceDetailsFromEnv(process.env);
   const result = await handleGetQuote(
     new URL(req.url).searchParams,
     await createBlobStorage(),
-    payment ? { payment } : {}
+    { ...(payment ? { payment } : {}), invoice }
   );
   return quoteLookupResponse(result);
 };

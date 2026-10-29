@@ -57,6 +57,18 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 6. Met `leadReference` neemt de offerte de klantgegevens uit een aanvraag
    (`L-XXXXXX`), voor iemand die nooit een account maakte
 
+## Factuur bij een betaalde offerte
+
+Wanneer Klusbaas een offerte op `paid` zet (`adminHandler.ts`, actie
+`quote-status`), krijgt de klant een factuur als PDF: `server/paidNotice.ts`
+maakt de mail, `server/invoicePdf.ts` tekent het document. De factuurgegevens
+van Klusbaas komen uit de omgeving via `server/invoice.ts`
+(`INVOICE_NAME`, `INVOICE_ADDRESS`, `INVOICE_KVK`, `INVOICE_VAT`,
+`INVOICE_EMAIL`); wat niet is ingevuld, wordt niet afgedrukt.
+
+De klant kan de factuur ook opnieuw downloaden: `GET /api/quote?id=…&token=…&
+format=invoice` geeft hem alleen terug als de offerte betaald is.
+
 ## Accepteren door de klant
 
 `POST /api/quote/accept` met `{ id, token, name }`: de klant zegt ja op de

@@ -4,6 +4,7 @@ import type {
   AdminCreatedQuote,
   AdminOverview,
   AdminQuote,
+  InvoiceDetails,
   PaymentDetails,
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
@@ -12,6 +13,7 @@ import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
 import { createOfferForCustomer, type OfferRequest } from './adminOffer';
 import type { AccountMail } from './accountMailer';
+import { sendPaidNotice } from './paidNotice';
 
 /**
  * The Klusbaas overview: what Klusbaas needs to see to sell and to serve.
@@ -44,6 +46,8 @@ export interface AdminResponseBody {
   overview?: AdminOverview;
   /** The offer Klusbaas made by hand. */
   quote?: AdminCreatedQuote;
+  /** What happened with the invoice mail when an offer was marked as paid. */
+  mailStatus?: string;
   error?: string;
   field?: string;
 }
@@ -68,6 +72,8 @@ export interface AdminDeps {
   sendMail?: (mail: AccountMail) => Promise<string>;
   /** How the customer pays, shown in the mail. */
   payment?: PaymentDetails;
+  /** Klusbaas' own details, printed on the invoice the customer gets. */
+  invoice?: InvoiceDetails;
   /** The origin for the link in the mail, e.g. https://klusbaas.nl */
   siteUrl?: string;
   now?: () => number;
@@ -270,12 +276,30 @@ export async function handleAdmin(
     if (!id || (status !== 'paid' && status !== 'cancelled' && status !== 'open')) {
       return { status: 400, body: { ok: false, error: 'Ongeldige offerte of status.' } };
     }
+    const before = await deps.leads.getQuote(id);
     const updated = await deps.leads.updateQuoteStatus(id, status);
     if (!updated) {
       return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
     }
     log(`[admin] offerte ${id} is nu ${status}`);
-    return { status: 200, body: { ok: true } };
+    // De klant heeft betaald: hij krijgt een factuur en een mail. Een
+    // mislukte mail maakt de betaling niet ongedaan.
+    let mailed: string | undefined;
+    if (status === 'paid' && before?.status !== 'paid') {
+      try {
+        mailed = await sendPaidNotice(updated, {
+          ...(deps.sendMail ? { sendMail: deps.sendMail } : {}),
+          ...(deps.invoice ? { invoice: deps.invoice } : {}),
+          ...(deps.payment ? { payment: deps.payment } : {}),
+          ...(deps.siteUrl ? { siteUrl: deps.siteUrl } : {}),
+          log,
+        });
+      } catch (error) {
+        mailed = 'mislukt';
+        log(`[admin] factuur voor offerte ${id} mislukt: ${String(error)}`);
+      }
+    }
+    return { status: 200, body: { ok: true, ...(mailed ? { mailStatus: mailed } : {}) } };
   }
 
   if (action === 'verify-account') {

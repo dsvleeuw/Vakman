@@ -96,7 +96,13 @@ const quote: QuoteRecord = {
   createdAt: '2026-10-29T10:00:00.000Z',
   validUntil: '2026-11-28T10:00:00.000Z',
   status: 'open',
-  customer: { biz: 'Jansen Schilderwerken', owner: 'Jan Jansen', phone: '0698765432', city: 'Haarlem' },
+  customer: {
+    biz: 'Jansen Schilderwerken',
+    owner: 'Jan Jansen',
+    phone: '0698765432',
+    city: 'Haarlem',
+    email: 'jan@jansen.nl',
+  },
   sector: 'schilder',
   sectorName: 'Schilder',
   styleName: 'Modern',
@@ -190,6 +196,56 @@ test('een offerte als betaald markeren werkt', async () => {
 
   const overview = await handleAdmin({ action: 'overview' }, d, cookie, false);
   assert.equal(overview.body.overview?.quotes[0].status, 'paid');
+});
+
+test('een betaalde offerte stuurt de klant een factuur', async () => {
+  const mails: { to: string; subject: string; attachments?: { filename: string }[] }[] = [];
+  const d = {
+    ...deps(),
+    sendMail: async (mail: { to: string; subject: string; attachments?: { filename: string }[] }) => {
+      mails.push(mail);
+      return 'sent';
+    },
+    invoice: { name: 'Klusbaas VOF', kvk: '87654321' },
+    payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+  };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin(
+    { action: 'quote-status', id: 'KB-2026-0001', status: 'paid' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 200);
+  assert.equal(result.body.mailStatus, 'sent');
+  assert.equal(mails.length, 1);
+  assert.equal(mails[0].to, 'jan@jansen.nl');
+  assert.match(mails[0].subject, /KB-2026-0001/);
+  assert.equal(mails[0].attachments?.[0].filename, 'Factuur-F-2026-0001.pdf');
+});
+
+test('een tweede keer als betaald markeren stuurt geen tweede factuur', async () => {
+  const mails: { to: string }[] = [];
+  const d = {
+    ...deps(),
+    sendMail: async (mail: { to: string }) => {
+      mails.push(mail);
+      return 'sent';
+    },
+    invoice: { name: 'Klusbaas VOF' },
+  };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  await handleAdmin({ action: 'quote-status', id: 'KB-2026-0001', status: 'paid' }, d, login.setCookie, false);
+  const second = await handleAdmin(
+    { action: 'quote-status', id: 'KB-2026-0001', status: 'paid' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(second.status, 200);
+  assert.equal(mails.length, 1);
 });
 
 test('een onbekende offerte geeft een duidelijke melding', async () => {

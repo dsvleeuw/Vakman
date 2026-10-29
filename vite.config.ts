@@ -76,6 +76,7 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           await server.ssrLoadModule('/src/server/storage.ts');
         const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
         const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const { invoiceDetailsFromEnv } = await server.ssrLoadModule('/src/server/invoice.ts');
         const payment = paymentDetailsFromEnv(env);
         const result = await adminHandler.handleAdmin(
           body,
@@ -91,6 +92,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
               server.config.logger.info(message)
             ),
             ...(payment ? { payment } : {}),
+            // Klusbaas' eigen gegevens, voor op de factuur.
+            invoice: invoiceDetailsFromEnv(env),
             siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
           },
           req.headers.cookie ?? null,
@@ -352,12 +355,13 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         if (req.method !== 'GET') return reply(res, 405, { ok: false, error: 'Alleen GET is toegestaan.' });
         const { handler, storage } = await load();
         const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const { invoiceDetailsFromEnv } = await server.ssrLoadModule('/src/server/invoice.ts');
         const payment = paymentDetailsFromEnv(env);
         const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
         const result = await handler.handleGetQuote(
           url.searchParams,
           storage,
-          payment ? { payment } : {}
+          { ...(payment ? { payment } : {}), invoice: invoiceDetailsFromEnv(env) }
         );
         if (result.kind === 'pdf') {
           res.statusCode = 200;
