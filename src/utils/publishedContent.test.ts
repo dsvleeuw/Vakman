@@ -171,6 +171,8 @@ test('een volledig ingevulde site heeft niets meer op de checklijst', () => {
   const base = content();
   const done = siteChecklist({
     ...base,
+    services: [{ n: 'Binnen schilderwerk', d: 'Wanden en kozijnen', amount: 45, unit: 'per uur' }],
+    workArea: ['2011 AB'],
     text: {
       kicker: 'Schilder · HAARLEM',
       headline: 'Ik maak jouw muur mooi',
@@ -182,4 +184,59 @@ test('een volledig ingevulde site heeft niets meer op de checklijst', () => {
   });
 
   assert.deepEqual(done, []);
+});
+
+test('de checklijst vraagt om eigen prijzen en een eigen werkgebied', () => {
+  const ids = siteChecklist(content()).map((item) => item.id);
+  assert.ok(ids.includes('prices'), 'zonder eigen prijzen blijft de calculator van de site');
+  assert.ok(ids.includes('work-area'), 'zonder eigen werkgebied blijft de postcodecheck van de site');
+});
+
+test('de calculator komt op de site zodra de vakman zijn eigen prijzen heeft', () => {
+  const base = content();
+  const published = site({
+    ...base,
+    services: [{ n: 'Binnen schilderwerk', d: 'Wanden en kozijnen', amount: 45, unit: 'per uur' }],
+  });
+
+  assert.ok(published.blocks.includes('price-calculator'));
+  assert.equal(published.flow.length, 1);
+  assert.equal(published.flow[0].o.length, 1);
+  assert.equal(published.flow[0].o[0].l, 'Binnen schilderwerk');
+  assert.equal(published.flow[0].o[0].b, 45);
+  assert.equal(published.flow[0].o[0].h, '€ 45 per uur');
+});
+
+test('de site toont de diensten en prijzen van de vakman', () => {
+  const base = content();
+  const published = site({
+    ...base,
+    services: [
+      { n: 'Binnen schilderwerk', d: 'Wanden en kozijnen', amount: 45, unit: 'per uur' },
+      { n: 'Advies op locatie', d: 'Kijk ik mee en geef ik advies', amount: 0 },
+    ],
+  });
+
+  assert.equal(published.services.length, 2);
+  assert.equal(published.services[0].n, 'Binnen schilderwerk');
+  assert.equal(published.services[0].p, '€ 45 per uur');
+  assert.equal(published.services[1].p, '', 'een dienst zonder prijs toont geen prijs');
+});
+
+test('de calculator blijft weg als de vakman geen prijzen heeft', () => {
+  const published = site(content());
+  assert.ok(!published.blocks.includes('price-calculator'));
+});
+
+test('de postcodecheck komt op de site met het werkgebied van de vakman', () => {
+  const base = content();
+  const published = site({ ...base, workArea: ['2011 AB'] });
+
+  assert.ok(published.blocks.includes('area-checker'));
+  assert.deepEqual(published.near, ['20']);
+});
+
+test('de postcodecheck blijft weg zonder het werkgebied van de vakman', () => {
+  const published = site(content());
+  assert.ok(!published.blocks.includes('area-checker'));
 });

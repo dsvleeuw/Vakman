@@ -130,6 +130,15 @@ result. The Netlify deploy preview is the only external CI check. If
   material: its reviews, rating, Google badge, photos, prices, marks and FAQ
   never end up on his page. When you add content, check it against the
   preset: example text stays in the editor, not on the site (principle 2).
+- The price calculator and the postcode check are tools with numbers, so
+  they only go on a published page when the craftsman filled them in:
+  `content.services` (his own services with a price, `utils/services.ts`) and
+  `content.workArea` (his own postcodes, `utils/postcodes.ts`). Without them
+  the blocks stay off the page instead of showing the prices or the area of
+  the trade example. The editor's checklist says what is missing.
+- Every promise on the pricing page (`data/plans.ts`) is built or removed.
+  Do not add a feature line that the code does not deliver; there is a test
+  that keeps the old, unbuilt promises out (`data/plans.test.ts`).
 - A lead from a published customer site (`/site/<slug>`) belongs to that
   craftsman: it is mailed to the e-mail address he entered, not to Klusbaas.
   The recipient always comes from the stored site, never from the request,

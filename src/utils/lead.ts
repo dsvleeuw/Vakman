@@ -9,7 +9,15 @@ import { DEFAULT_PLAN, quoteDelivery, sanitizeAddonIds } from './quote';
  * the same rules and both are unit-tested. The server never trusts the body.
  */
 
-export const LEAD_TYPES = ['quote', 'appointment', 'contact', 'fault', 'surface'] as const;
+export const LEAD_TYPES = [
+  'quote',
+  'appointment',
+  'contact',
+  'fault',
+  'surface',
+  'price',
+  'area',
+] as const;
 export type LeadType = (typeof LEAD_TYPES)[number];
 export type SiteLeadType = Exclude<LeadType, 'quote'>;
 
@@ -22,6 +30,8 @@ export const LEAD_TYPE_LABELS: Record<LeadType, string> = {
   contact: 'Contactformulier',
   fault: 'Storingsmelding',
   surface: 'm²-offerte',
+  price: 'Prijsindicatie-aanvraag',
+  area: 'Werkgebied-check',
 };
 
 interface FieldSpec {
@@ -75,6 +85,20 @@ export const LEAD_FIELDS: Record<SiteLeadType, FieldSpec[]> = {
     { key: 'estimate', label: 'Indicatie', required: true, max: 40 },
     { key: 'walls', label: 'Aantal wanden', max: 10 },
     { key: 'openings', label: 'Deuren/ramen', max: 10 },
+  ],
+  price: [
+    name,
+    phone,
+    email,
+    { key: 'service', label: 'Dienst', required: true, max: 240 },
+    { key: 'estimate', label: 'Prijsindicatie', required: true, max: 40 },
+    { key: 'message', label: 'Toelichting', max: 2000 },
+  ],
+  area: [
+    { key: 'postcode', label: 'Postcode', required: true, max: 12 },
+    { ...name, required: false },
+    { ...phone, required: false },
+    { key: 'message', label: 'Toelichting', max: 500 },
   ],
 };
 

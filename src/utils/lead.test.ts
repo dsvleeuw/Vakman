@@ -27,6 +27,60 @@ const contactBody = {
   fields: { name: 'Piet', phone: '+31 6 12345678', message: 'Mijn kraan lekt al een week.' },
 };
 
+test('de prijsindicatie van de calculator komt als aanvraag binnen', () => {
+  const parsed = parseLead(
+    {
+      type: 'price',
+      startedAt: started,
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+      fields: {
+        name: 'Piet',
+        phone: '06 12345678',
+        service: 'Welke klus wil je laten doen?: Binnen schilderwerk',
+        estimate: '€ 45',
+      },
+    },
+    NOW
+  );
+
+  assert.equal(parsed.kind, 'site');
+  if (parsed.kind !== 'site') return;
+  assert.equal(parsed.lead.type, 'price');
+  assert.equal(parsed.lead.fields.estimate, '€ 45');
+  assert.equal(parsed.lead.site.slug, 'jansen-schilderwerken');
+});
+
+test('de postcodecheck komt als aanvraag binnen', () => {
+  const parsed = parseLead(
+    {
+      type: 'area',
+      startedAt: started,
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+      fields: { postcode: '2011 AB', name: 'Piet', phone: '06 12345678' },
+    },
+    NOW
+  );
+
+  assert.equal(parsed.kind, 'site');
+  if (parsed.kind !== 'site') return;
+  assert.equal(parsed.lead.type, 'area');
+  assert.equal(parsed.lead.fields.postcode, '2011 AB');
+});
+
+test('een postcode zonder postcode is geen werkgebied-check', () => {
+  const parsed = parseLead(
+    {
+      type: 'area',
+      startedAt: started,
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder' },
+      fields: { name: 'Piet', phone: '06 12345678' },
+    },
+    NOW
+  );
+
+  assert.equal(parsed.kind, 'invalid');
+});
+
 test('parseLead accepts a wizard quote and cleans add-ons', () => {
   const parsed = parseLead(quoteBody, NOW);
   assert.equal(parsed.kind, 'quote');

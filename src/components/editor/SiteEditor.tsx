@@ -13,6 +13,8 @@ import {
   setBlockEnabled,
 } from '../../utils/siteContent';
 import { publishedSite, siteChecklist } from '../../utils/publishedContent';
+import { rowsToOffers, serviceRows } from '../../utils/services';
+import { formatWorkArea, parseWorkArea } from '../../utils/postcodes';
 import { fetchPublishedSite, publishSite } from '../../utils/siteClient';
 import { fetchAccount, type AccountInfo } from '../../utils/accountClient';
 import {
@@ -24,7 +26,7 @@ import { track } from '../../utils/analytics';
 import { RouteLink } from '../RouteLink';
 import { SiteView } from '../SiteView';
 import { BlockForm, type AnyBlockContent } from './BlockForm';
-import { TextAreaField, TextField } from './Field';
+import { ListField, TextAreaField, TextField } from './Field';
 
 export interface SiteEditorProps {
   sector?: SectorId;
@@ -111,6 +113,20 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
 
   /** What still has to be filled in before the site is really his. */
   const checklist = useMemo(() => siteChecklist(content), [content]);
+
+  /** The services in the editor: the craftsman's own, or the trade preset. */
+  const offerRows = useMemo(() => serviceRows(content), [content]);
+
+  // The work area is typed as free text; the content keeps the postcodes
+  // that came out of it.
+  const [areaText, setAreaText] = useState(() => formatWorkArea(content.workArea ?? []));
+  useEffect(() => {
+    const saved = content.workArea ?? [];
+    const typed = parseWorkArea(areaText);
+    const same =
+      typed.length === saved.length && typed.every((postcode, index) => postcode === saved[index]);
+    if (!same) setAreaText(formatWorkArea(saved));
+  }, [content.workArea]);
 
   useEffect(() => {
     setSavedAt(Date.now());
@@ -250,6 +266,8 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
       blocks: content.blocks,
       confirmed: content.confirmed ?? [],
       blockContent: content.blockContent,
+      services: content.services,
+      workArea: content.workArea,
       text: content.text,
     });
     setPublishing(false);
@@ -474,6 +492,15 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                   onChange={(city) => update({ ...content, form: { ...content.form, city } })}
                 />
                 <TextField
+                  label="Postcodes waar je werkt"
+                  hint="Typ een paar postcodes waar je werkt, bijvoorbeeld 2011 AB. Met deze postcode werkt de postcodecheck op je site."
+                  value={areaText}
+                  onChange={(text) => {
+                    setAreaText(text);
+                    update({ ...content, workArea: parseWorkArea(text) });
+                  }}
+                />
+                <TextField
                   label="E-mailadres"
                   type="email"
                   autoComplete="email"
@@ -482,34 +509,20 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                   onChange={(email) => update({ ...content, form: { ...content.form, email } })}
                 />
 
-                <fieldset className="flex flex-col gap-2 border-0 p-0 m-0">
-                  <legend className="text-sm font-bold text-stone-900 p-0">Diensten</legend>
-                  <p className="text-xs text-stone-600 m-0">
-                    Zet een dienst uit als je die niet aanbiedt.
-                  </p>
-                  {SECTORS[sector].services.map((service, index) => {
-                    const hidden = content.disabledServices[index];
-                    return (
-                      <label
-                        key={service.n}
-                        className="flex items-center gap-3 h-12 px-3 rounded-xl border-2 border-stone-200 cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={!hidden}
-                          onChange={(event) => {
-                            const disabledServices = { ...content.disabledServices };
-                            if (event.target.checked) delete disabledServices[index];
-                            else disabledServices[index] = true;
-                            update({ ...content, disabledServices });
-                          }}
-                          className="w-5 h-5 accent-stone-900"
-                        />
-                        <span className="text-sm font-semibold text-stone-900">{service.n}</span>
-                      </label>
-                    );
-                  })}
-                </fieldset>
+                <ListField
+                  label="Diensten"
+                  hint="Zet hier de diensten die jij aanbiedt. Typ je eigen prijs: die komt op je site en in je prijscalculator. De voorbeeldprijzen van het vak zijn niet van jou."
+                  items={offerRows}
+                  fields={[
+                    { key: 'n', label: 'Dienst' },
+                    { key: 'd', label: 'Korte omschrijving', type: 'textarea' },
+                    { key: 'amount', label: 'Vanaf-prijs (€)' },
+                    { key: 'unit', label: 'Eenheid (bijv. per m², per uur)' },
+                  ]}
+                  createItem={() => ({ n: '', d: '', amount: '', unit: '' })}
+                  itemTitle={(row) => row.n.trim() || 'Nieuwe dienst'}
+                  onChange={(rows) => update({ ...content, services: rowsToOffers(rows) })}
+                />
 
                 <fieldset className="flex flex-col gap-2 border-0 p-0 m-0">
                   <legend className="text-sm font-bold text-stone-900 p-0">Vak en stijl</legend>
