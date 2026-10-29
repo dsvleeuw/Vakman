@@ -5372,7 +5372,7 @@ feat: lead-API, offertebouwer met PDF en kanaalkeuze (blok B)","33","10","FALSE"
 "known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37","618dfa5c2c0e","[""c350aa2493b0fca944ad941f2368e2c0c4d0383e"",""4db7bacf63b551345695cd4bd769c53f453336fa""]","2026-10-24T16:22:38Z","2026-10-24T16:22:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte
 
 feat: lead-API, offertebouwer met PDF en kanaalkeuze (blok B)","20","11","FALSE","4156","3560","745dd49205f8d3229941c948afe241f867b782bf","79c1badd537f58fecfb01e8d01e35d08d09337c0","100644","100644","https://github.com/dsvleeuw/Vakman/commit/618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37","https://github.com/dsvleeuw/Vakman/blob/618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37/docs/known-limitations.md","Commit","2026-10-27T13:36:04.578Z","618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"lead.mts","netlify/functions/lead.mts","TypeScript-module",".mts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Toegevoegd","A","","","618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37","618dfa5c2c0e","[""c350aa2493b0fca944ad941f2368e2c0c4d0383e"",""4db7bacf63b551345695cd4bd769c53f453336fa""]","2026-10-24T16:22:38Z","2026-10-24T16:22:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte
+"lead.mts","netlify/functions/lead.mts","TypeScript-module",".mts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Toegevoegd","A","","","618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37","618dfa5c2c0e","[""c350aa2493b0fca944ad941f2368e2c0c4d0383e"",""4db7bacf63b551345695cd4bd769c53f453336fa""]","2026-10-24T16:22:38Z","2026-10-24T16:22:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte
 
 feat: lead-API, offertebouwer met PDF en kanaalkeuze (blok B)","29","0","FALSE","1289","","bd61f59f9ce06320cecb7536f73ecfc6b399af6a","","100644","","https://github.com/dsvleeuw/Vakman/commit/618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37","https://github.com/dsvleeuw/Vakman/blob/618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37/netlify/functions/lead.mts","Commit","2026-10-27T13:36:04.578Z","618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37:bmV0bGlmeS9mdW5jdGlvbnMvbGVhZC5tdHM","p:bmV0bGlmeS9mdW5jdGlvbnMvbGVhZC5tdHM",""
 "quote.mts","netlify/functions/quote.mts","TypeScript-module",".mts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""feat/brand-privacy-newsletter"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Toegevoegd","A","","","618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37","618dfa5c2c0e","[""c350aa2493b0fca944ad941f2368e2c0c4d0383e"",""4db7bacf63b551345695cd4bd769c53f453336fa""]","2026-10-24T16:22:38Z","2026-10-24T16:22:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte","Merge pull request #10 from dsvleeuw/feat/resend-leads-offerte
@@ -6119,7 +6119,7 @@ feat: Klusbaas-logo, privacyverklaring en nieuwsbrief met dubbele opt-in (C1–C
 "NotFoundView.tsx","src/components/NotFoundView.tsx","React / TypeScript",".tsx","TRUE","[""arena/30d36368-vakman"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
 
 feat: Klusbaas-logo, privacyverklaring en nieuwsbrief met dubbele opt-in (C1–C3)","2","4","FALSE","3757","3929","16d16cf41c392799f2f37c5a5a625dd87bc4e770","9fa89e5f4a7d4053d779719897dcbfa6e3c11210","100644","100644","https://github.com/dsvleeuw/Vakman/commit/24c8c92cf935ba26f12ef3fa6d14711964c2a360","https://github.com/dsvleeuw/Vakman/blob/24c8c92cf935ba26f12ef3fa6d14711964c2a360/src/components/NotFoundView.tsx","Commit","2026-10-27T13:36:04.578Z","24c8c92cf935ba26f12ef3fa6d14711964c2a360:c3JjL2NvbXBvbmVudHMvTm90Rm91bmRWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvTm90Rm91bmRWaWV3LnRzeA",""
-"PrivacyNote.tsx","src/components/PrivacyNote.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Toegevoegd","A","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
+"PrivacyNote.tsx","src/components/PrivacyNote.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Toegevoegd","A","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
 
 feat: Klusbaas-logo, privacyverklaring en nieuwsbrief met dubbele opt-in (C1–C3)","26","0","FALSE","816","","77cda744014b39c94686169d3c2ecce5591f45a8","","100644","","https://github.com/dsvleeuw/Vakman/commit/24c8c92cf935ba26f12ef3fa6d14711964c2a360","https://github.com/dsvleeuw/Vakman/blob/24c8c92cf935ba26f12ef3fa6d14711964c2a360/src/components/PrivacyNote.tsx","Commit","2026-10-27T13:36:04.578Z","24c8c92cf935ba26f12ef3fa6d14711964c2a360:c3JjL2NvbXBvbmVudHMvUHJpdmFjeU5vdGUudHN4","p:c3JjL2NvbXBvbmVudHMvUHJpdmFjeU5vdGUudHN4",""
 "QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
@@ -6164,7 +6164,7 @@ feat: Klusbaas-logo, privacyverklaring en nieuwsbrief met dubbele opt-in (C1–C
 "lead.test.ts","src/utils/lead.test.ts","TypeScript",".ts","TRUE","[""chore/agents-merge-and-check"",""docs/audit-resultaten""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
 
 feat: Klusbaas-logo, privacyverklaring en nieuwsbrief met dubbele opt-in (C1–C3)","12","0","FALSE","7181","6436","2604d2827bd593f018e98bb0cc4aefb53b64d1b3","aef9ac5e14a47f6fc632716351b79bd2d4610356","100644","100644","https://github.com/dsvleeuw/Vakman/commit/24c8c92cf935ba26f12ef3fa6d14711964c2a360","https://github.com/dsvleeuw/Vakman/blob/24c8c92cf935ba26f12ef3fa6d14711964c2a360/src/utils/lead.test.ts","Commit","2026-10-27T13:36:04.578Z","24c8c92cf935ba26f12ef3fa6d14711964c2a360:c3JjL3V0aWxzL2xlYWQudGVzdC50cw","p:c3JjL3V0aWxzL2xlYWQudGVzdC50cw",""
-"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
+"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
 
 feat: Klusbaas-logo, privacyverklaring en nieuwsbrief met dubbele opt-in (C1–C3)","75","12","FALSE","11571","8991","8620e95345cc2db16ad7e2f2760d39b93e396196","b333d7f32cda6ec433dd5979fc4564406fe3dc09","100644","100644","https://github.com/dsvleeuw/Vakman/commit/24c8c92cf935ba26f12ef3fa6d14711964c2a360","https://github.com/dsvleeuw/Vakman/blob/24c8c92cf935ba26f12ef3fa6d14711964c2a360/src/utils/leadEmail.ts","Commit","2026-10-27T13:36:04.578Z","24c8c92cf935ba26f12ef3fa6d14711964c2a360:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
 "newsletter.test.ts","src/utils/newsletter.test.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/1ce597de-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""chore/agents-merge-and-check"",""docs/audit-resultaten"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/leads-silent-loss"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Toegevoegd","A","","","24c8c92cf935ba26f12ef3fa6d14711964c2a360","24c8c92cf935","[""618dfa5c2c0e1fa3b610a0195fa7eab3396c6c37"",""234eaa2f2cf723eeae1802ef7bee4da4a68590bf""]","2026-10-24T16:25:38Z","2026-10-24T16:25:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter","Merge pull request #12 from dsvleeuw/feat/brand-privacy-newsletter
@@ -6761,7 +6761,7 @@ fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs"
 "useLeadForm.ts","src/hooks/useLeadForm.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
 
 fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs","0","1","FALSE","1504","1540","6753c002355a52e096645e5578317bfc635a5608","a30b1f3768a740d228015f5cfc361e8bf11a420e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/83b13be8e51fb0043d07fb59fe08bf3eb61db763","https://github.com/dsvleeuw/Vakman/blob/83b13be8e51fb0043d07fb59fe08bf3eb61db763/src/hooks/useLeadForm.ts","Commit","2026-10-27T13:36:04.578Z","83b13be8e51fb0043d07fb59fe08bf3eb61db763:c3JjL2hvb2tzL3VzZUxlYWRGb3JtLnRz","p:c3JjL2hvb2tzL3VzZUxlYWRGb3JtLnRz",""
-"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
 
 fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs","6","1","FALSE","9709","9356","2d3b9f3df6d2c2913f366d4e9c7d07ceaaf094cd","24d44d77dc9e4f22fda75f744ac05ccc4e455afd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/83b13be8e51fb0043d07fb59fe08bf3eb61db763","https://github.com/dsvleeuw/Vakman/blob/83b13be8e51fb0043d07fb59fe08bf3eb61db763/src/server/leadHandler.test.ts","Commit","2026-10-27T13:36:04.578Z","83b13be8e51fb0043d07fb59fe08bf3eb61db763:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
 "leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
@@ -6776,13 +6776,13 @@ fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs"
 "lead.test.ts","src/utils/lead.test.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
 
 fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs","10","0","FALSE","7705","7181","c20e2cc686af40ebc6a557c0da4e3b3a798dae0c","2604d2827bd593f018e98bb0cc4aefb53b64d1b3","100644","100644","https://github.com/dsvleeuw/Vakman/commit/83b13be8e51fb0043d07fb59fe08bf3eb61db763","https://github.com/dsvleeuw/Vakman/blob/83b13be8e51fb0043d07fb59fe08bf3eb61db763/src/utils/lead.test.ts","Commit","2026-10-27T13:36:04.578Z","83b13be8e51fb0043d07fb59fe08bf3eb61db763:c3JjL3V0aWxzL2xlYWQudGVzdC50cw","p:c3JjL3V0aWxzL2xlYWQudGVzdC50cw",""
-"lead.ts","src/utils/lead.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
+"lead.ts","src/utils/lead.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
 
 fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs","1","1","FALSE","10279","10280","6264c344c18a0048c20d656db326c46c8e29a63e","129aa691534bfd541713e97f640778e79f300bf1","100644","100644","https://github.com/dsvleeuw/Vakman/commit/83b13be8e51fb0043d07fb59fe08bf3eb61db763","https://github.com/dsvleeuw/Vakman/blob/83b13be8e51fb0043d07fb59fe08bf3eb61db763/src/utils/lead.ts","Commit","2026-10-27T13:36:04.578Z","83b13be8e51fb0043d07fb59fe08bf3eb61db763:c3JjL3V0aWxzL2xlYWQudHM","p:c3JjL3V0aWxzL2xlYWQudHM",""
 "leadClient.test.ts","src/utils/leadClient.test.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
 
 fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs","11","1","FALSE","2615","2144","43ceb3f74978d15e25787813f04cb03df6f65c3e","77e2691ca316f7fce83992351e290da9d4cf9446","100644","100644","https://github.com/dsvleeuw/Vakman/commit/83b13be8e51fb0043d07fb59fe08bf3eb61db763","https://github.com/dsvleeuw/Vakman/blob/83b13be8e51fb0043d07fb59fe08bf3eb61db763/src/utils/leadClient.test.ts","Commit","2026-10-27T13:36:04.578Z","83b13be8e51fb0043d07fb59fe08bf3eb61db763:c3JjL3V0aWxzL2xlYWRDbGllbnQudGVzdC50cw","p:c3JjL3V0aWxzL2xlYWRDbGllbnQudGVzdC50cw",""
-"leadClient.ts","src/utils/leadClient.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
+"leadClient.ts","src/utils/leadClient.ts","TypeScript",".ts","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","83b13be8e51fb0043d07fb59fe08bf3eb61db763","83b13be8e51f","[""479bfd781c12387bac67a1f8ac3e1fb23fa6e414"",""a7d5036b7b67ccd35a992768bb22c44c3886f058""]","2026-10-24T18:18:50Z","2026-10-24T18:18:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss","Merge pull request #16 from dsvleeuw/fix/leads-silent-loss
 
 fix(leads): geen stil verlies van snelle aanvragen, timeout en geen PII in logs","6","2","FALSE","2691","2371","3353722c41fdc1564d617602089615c0e1bf643c","74b45595ffa850220eaf4b47c12a56c4d9204a47","100644","100644","https://github.com/dsvleeuw/Vakman/commit/83b13be8e51fb0043d07fb59fe08bf3eb61db763","https://github.com/dsvleeuw/Vakman/blob/83b13be8e51fb0043d07fb59fe08bf3eb61db763/src/utils/leadClient.ts","Commit","2026-10-27T13:36:04.578Z","83b13be8e51fb0043d07fb59fe08bf3eb61db763:c3JjL3V0aWxzL2xlYWRDbGllbnQudHM","p:c3JjL3V0aWxzL2xlYWRDbGllbnQudHM",""
 "CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""fix/a11y-contrast""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-contrast"",""fix/a11y-forms"",""fix/seo-meta"",""fix/wizard-d2"",""main""]","Gewijzigd","M","","","9ac1b339f44e66a3988810ab2b7de20d3dffffc5","9ac1b339f44e","[""83b13be8e51fb0043d07fb59fe08bf3eb61db763""]","2026-10-24T19:36:44Z","2026-10-24T19:36:44Z","upnexxt","vanleeuwen.daniel@upnexxt.nl","upnexxt","vanleeuwen.daniel@upnexxt.nl","fix(a11y): WCAG AA-contrast in alle stijlen, zichtbare focusring, mobiel menu sluit buiten","fix(a11y): WCAG AA-contrast in alle stijlen, zichtbare focusring, mobiel menu sluit buiten
@@ -6978,7 +6978,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>","7","0","FALSE","6467",
 "CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","94ed5a66b4cff094d302bbe2d3435a9f960744af","94ed5a66b4cf","[""23987d93a9e653ff0db21b02092f7cb507f757cf"",""3f9c001500066502f6b6fceff8d792498339c56a""]","2026-10-24T19:39:30Z","2026-10-24T19:39:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #18 from dsvleeuw/fix/wizard-d2","Merge pull request #18 from dsvleeuw/fix/wizard-d2
 
 fix(wizard): losse eindjes D2","7","0","FALSE","17595","17064","a9ce31a76a1a662bfd6382e65e9c3c624cb72980","b9cb5ccc886c7d56e80d22bcfc69a7f2e1953762","100644","100644","https://github.com/dsvleeuw/Vakman/commit/94ed5a66b4cff094d302bbe2d3435a9f960744af","https://github.com/dsvleeuw/Vakman/blob/94ed5a66b4cff094d302bbe2d3435a9f960744af/CHANGELOG.md","Commit","2026-10-27T13:36:04.578Z","94ed5a66b4cff094d302bbe2d3435a9f960744af:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"BookingCalendar.tsx","src/components/BookingCalendar.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","94ed5a66b4cff094d302bbe2d3435a9f960744af","94ed5a66b4cf","[""23987d93a9e653ff0db21b02092f7cb507f757cf"",""3f9c001500066502f6b6fceff8d792498339c56a""]","2026-10-24T19:39:30Z","2026-10-24T19:39:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #18 from dsvleeuw/fix/wizard-d2","Merge pull request #18 from dsvleeuw/fix/wizard-d2
+"BookingCalendar.tsx","src/components/BookingCalendar.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","94ed5a66b4cff094d302bbe2d3435a9f960744af","94ed5a66b4cf","[""23987d93a9e653ff0db21b02092f7cb507f757cf"",""3f9c001500066502f6b6fceff8d792498339c56a""]","2026-10-24T19:39:30Z","2026-10-24T19:39:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #18 from dsvleeuw/fix/wizard-d2","Merge pull request #18 from dsvleeuw/fix/wizard-d2
 
 fix(wizard): losse eindjes D2","55","53","FALSE","22104","21638","ebb50a7ab160d639a55cbd9bea111814ce381ab3","efb8619c1d544ac8468af78f036b677f9a91053b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/94ed5a66b4cff094d302bbe2d3435a9f960744af","https://github.com/dsvleeuw/Vakman/blob/94ed5a66b4cff094d302bbe2d3435a9f960744af/src/components/BookingCalendar.tsx","Commit","2026-10-27T13:36:04.578Z","94ed5a66b4cff094d302bbe2d3435a9f960744af:c3JjL2NvbXBvbmVudHMvQm9va2luZ0NhbGVuZGFyLnRzeA","p:c3JjL2NvbXBvbmVudHMvQm9va2luZ0NhbGVuZGFyLnRzeA",""
 "WizardView.tsx","src/components/WizardView.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/a11y-forms"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","94ed5a66b4cff094d302bbe2d3435a9f960744af","94ed5a66b4cf","[""23987d93a9e653ff0db21b02092f7cb507f757cf"",""3f9c001500066502f6b6fceff8d792498339c56a""]","2026-10-24T19:39:30Z","2026-10-24T19:39:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #18 from dsvleeuw/fix/wizard-d2","Merge pull request #18 from dsvleeuw/fix/wizard-d2
@@ -7074,7 +7074,7 @@ fix(a11y): toegankelijke formulieren, focustrap en HeroStrip-links","8","10","FA
 "FaultReportForm.tsx","src/components/tools/FaultReportForm.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","724b5ae393330c6bb796e017832c950722feac31","724b5ae39333","[""94ed5a66b4cff094d302bbe2d3435a9f960744af"",""13fe60fac6f4810985bbf768c98c09945c9d223e""]","2026-10-24T19:58:50Z","2026-10-24T19:58:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #19 from dsvleeuw/fix/a11y-forms","Merge pull request #19 from dsvleeuw/fix/a11y-forms
 
 fix(a11y): toegankelijke formulieren, focustrap en HeroStrip-links","57","16","FALSE","15424","13509","4958767ff04f14c18f66ed2f42a0f01a0eb845ef","e0e902a9d57ab408027691cd1464d09165dc13f8","100644","100644","https://github.com/dsvleeuw/Vakman/commit/724b5ae393330c6bb796e017832c950722feac31","https://github.com/dsvleeuw/Vakman/blob/724b5ae393330c6bb796e017832c950722feac31/src/components/tools/FaultReportForm.tsx","Commit","2026-10-27T13:36:04.578Z","724b5ae393330c6bb796e017832c950722feac31:c3JjL2NvbXBvbmVudHMvdG9vbHMvRmF1bHRSZXBvcnRGb3JtLnRzeA","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvRmF1bHRSZXBvcnRGb3JtLnRzeA",""
-"SurfaceCalculator.tsx","src/components/tools/SurfaceCalculator.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","724b5ae393330c6bb796e017832c950722feac31","724b5ae39333","[""94ed5a66b4cff094d302bbe2d3435a9f960744af"",""13fe60fac6f4810985bbf768c98c09945c9d223e""]","2026-10-24T19:58:50Z","2026-10-24T19:58:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #19 from dsvleeuw/fix/a11y-forms","Merge pull request #19 from dsvleeuw/fix/a11y-forms
+"SurfaceCalculator.tsx","src/components/tools/SurfaceCalculator.tsx","React / TypeScript",".tsx","TRUE","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","724b5ae393330c6bb796e017832c950722feac31","724b5ae39333","[""94ed5a66b4cff094d302bbe2d3435a9f960744af"",""13fe60fac6f4810985bbf768c98c09945c9d223e""]","2026-10-24T19:58:50Z","2026-10-24T19:58:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #19 from dsvleeuw/fix/a11y-forms","Merge pull request #19 from dsvleeuw/fix/a11y-forms
 
 fix(a11y): toegankelijke formulieren, focustrap en HeroStrip-links","138","100","FALSE","17596","15959","8beb4aa55aa03c1d03811d82b51150b1a78ba6ef","06f50b380e01bacb14d8d22fbdeee4757a3d3ce4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/724b5ae393330c6bb796e017832c950722feac31","https://github.com/dsvleeuw/Vakman/blob/724b5ae393330c6bb796e017832c950722feac31/src/components/tools/SurfaceCalculator.tsx","Commit","2026-10-27T13:36:04.578Z","724b5ae393330c6bb796e017832c950722feac31:c3JjL2NvbXBvbmVudHMvdG9vbHMvU3VyZmFjZUNhbGN1bGF0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvU3VyZmFjZUNhbGN1bGF0b3IudHN4",""
 "CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""fix/seo-meta""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","[""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/30d36368-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/855aceec-vakman"",""arena/add-readmes-and-docs"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/session-"",""fix/seo-meta"",""main""]","Gewijzigd","M","","","b722b4ea2822d7f25b5f13417df04e4c13d12dbe","b722b4ea2822","[""724b5ae393330c6bb796e017832c950722feac31""]","2026-10-24T20:53:06Z","2026-10-24T20:53:06Z","upnexxt","vanleeuwen.daniel@upnexxt.nl","upnexxt","vanleeuwen.daniel@upnexxt.nl","fix(seo): enkele og/twitter-image, robots voor /kaart, canonical en robots bij navigatie, scrollherstel","fix(seo): enkele og/twitter-image, robots voor /kaart, canonical en robots bij navigatie, scrollherstel
@@ -10593,16 +10593,16 @@ feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","182","0"
 "ComponentGallery.tsx","src/components/ComponentGallery.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","14","12","FALSE","27127","26509","a15757880b4637b6d5474fd5b7e1977978ccbb16","06eb03a05c9c58b257fdb7a430661dd74e01ae11","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/ComponentGallery.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvQ29tcG9uZW50R2FsbGVyeS50c3g","p:c3JjL2NvbXBvbmVudHMvQ29tcG9uZW50R2FsbGVyeS50c3g",""
-"ContactSection.tsx","src/components/ContactSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
+"ContactSection.tsx","src/components/ContactSection.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","18","9","FALSE","15069","14690","3752aface30b6040196877c091ccd326d0bff4ee","a295bade78c6fca554362b024f8904d8031c8a8b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/ContactSection.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvQ29udGFjdFNlY3Rpb24udHN4","p:c3JjL2NvbXBvbmVudHMvQ29udGFjdFNlY3Rpb24udHN4",""
 "FaqSection.tsx","src/components/FaqSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","1","1","FALSE","6132","6076","c3b34619011b16c4f451df7e18c5189d79b43e8b","f03b48ebd059c824b2a052067f62b8957e004f39","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/FaqSection.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g","p:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g",""
-"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Toegevoegd","A","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
+"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Toegevoegd","A","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","164","0","FALSE","5543","","8bd55967fc3628ba31c551d06ea20f9e632482aa","","100644","","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/PublishedSiteView.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4",""
-"SiteView.test.tsx","src/components/SiteView.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Toegevoegd","A","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
+"SiteView.test.tsx","src/components/SiteView.test.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Toegevoegd","A","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","46","0","FALSE","1761","","b2334660897144d7395c5c34cbd20b3b293c5514","","100644","","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/SiteView.test.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudGVzdC50c3g","p:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudGVzdC50c3g",""
 "SiteView.tsx","src/components/SiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
@@ -10662,7 +10662,7 @@ feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","3","3","
 "EmergencyButton.tsx","src/components/tools/EmergencyButton.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","26","17","FALSE","4542","4358","484572c19a83eb6ede7c1e3d379acdbf0c938f73","102c2da042e35562b7ca784e3804fbd7908fce42","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/tools/EmergencyButton.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvdG9vbHMvRW1lcmdlbmN5QnV0dG9uLnRzeA","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvRW1lcmdlbmN5QnV0dG9uLnRzeA",""
-"FaultReportForm.tsx","src/components/tools/FaultReportForm.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
+"FaultReportForm.tsx","src/components/tools/FaultReportForm.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","15","9","FALSE","15599","15424","9ba6650878225b04bcd712ff9d043f15bf35a861","4958767ff04f14c18f66ed2f42a0f01a0eb845ef","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/components/tools/FaultReportForm.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL2NvbXBvbmVudHMvdG9vbHMvRmF1bHRSZXBvcnRGb3JtLnRzeA","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvRmF1bHRSZXBvcnRGb3JtLnRzeA",""
 "blocks.ts","src/data/blocks.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Toegevoegd","A","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
@@ -10683,7 +10683,7 @@ feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","117","0"
 "main.tsx","src/main.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","4","0","FALSE","1196","1032","f8fd4b0d58fa54b674002d2b953d978713b1aaf8","9830222e413dba092b9f6c57170e27dadcbf0023","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/main.tsx","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL21haW4udHN4","p:c3JjL21haW4udHN4",""
-"leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
+"leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
 
 feat: klant vult zijn eigen site in en publiceert die op /site/<slug>","6","10","FALSE","11659","11818","2dd232de24adb35d428c0527d5a5df9002b125de","868a0eda25b94343f31de36144c20dc99503545c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/721f03558ef487258c3f1a67af5f4f6cecd6c4ce","https://github.com/dsvleeuw/Vakman/blob/721f03558ef487258c3f1a67af5f4f6cecd6c4ce/src/server/leadHandler.ts","Commit","2026-10-28T23:36:00.703Z","721f03558ef487258c3f1a67af5f4f6cecd6c4ce:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw",""
 "siteHandler.test.ts","src/server/siteHandler.test.ts","TypeScript",".ts","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Toegevoegd","A","","","721f03558ef487258c3f1a67af5f4f6cecd6c4ce","721f03558ef4","[""f4213235113759eda4fe81117f2568a003416ad8"",""c42786353b38d88c3795229ffd3241858245d2ea""]","2026-10-28T23:35:47Z","2026-10-28T23:35:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman","Merge pull request #30 from dsvleeuw/arena/855aceec-vakman
@@ -10779,7 +10779,7 @@ VISION.md legt het accept-beleid vast in tien principes met bewijs uit
 de eigen PR-historie, plus acht stress-test-hypotheses met een verdict.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","95","0","FALSE","5326","","49fb42d71aa12a75e086d672d639893081017c0b","","100644","","https://github.com/dsvleeuw/Vakman/commit/76d9dc1d2ad888b609a5d3718a9565f0531ce533","https://github.com/dsvleeuw/Vakman/blob/76d9dc1d2ad888b609a5d3718a9565f0531ce533/docs/kun-tools-review.md","Commit","2026-10-28T23:49:29.120Z","76d9dc1d2ad888b609a5d3718a9565f0531ce533:ZG9jcy9rdW4tdG9vbHMtcmV2aWV3Lm1k","p:ZG9jcy9rdW4tdG9vbHMtcmV2aWV3Lm1k",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -10804,7 +10804,7 @@ eigenaar en is zonder beheerlink te wijzigen.
   nog 30 presets in plaats van 35.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","17","7","FALSE","8748","8085","8b71204274470a85f1d858519a26c87706e6df51","27da8b56bf10e03e4317deb9c0eaf182465af0e7","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d6399f9976d8c58d087e4b00cc2361d8f46ee790","https://github.com/dsvleeuw/Vakman/blob/d6399f9976d8c58d087e4b00cc2361d8f46ee790/AGENTS.md","Commit","2026-10-28T23:49:29.120Z","d6399f9976d8c58d087e4b00cc2361d8f46ee790:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -10829,7 +10829,7 @@ eigenaar en is zonder beheerlink te wijzigen.
   nog 30 presets in plaats van 35.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","16","0","FALSE","24814","23710","95ad8a1756c7313d89ff5bf88785de3c03f98cca","bc03e2b602b669833fee5640dd361a679be8ae31","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d6399f9976d8c58d087e4b00cc2361d8f46ee790","https://github.com/dsvleeuw/Vakman/blob/d6399f9976d8c58d087e4b00cc2361d8f46ee790/CHANGELOG.md","Commit","2026-10-28T23:49:29.120Z","d6399f9976d8c58d087e4b00cc2361d8f46ee790:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -10879,7 +10879,7 @@ eigenaar en is zonder beheerlink te wijzigen.
   nog 30 presets in plaats van 35.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","31","0","FALSE","12146","10253","c6bf943e891d890ae95b1e1ce1f50746afa88d51","672e4abd6330fe1e5d2bd8a5f31d5db1216ce12c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d6399f9976d8c58d087e4b00cc2361d8f46ee790","https://github.com/dsvleeuw/Vakman/blob/d6399f9976d8c58d087e4b00cc2361d8f46ee790/docs/architecture.md","Commit","2026-10-28T23:49:29.120Z","d6399f9976d8c58d087e4b00cc2361d8f46ee790:ZG9jcy9hcmNoaXRlY3R1cmUubWQ","p:ZG9jcy9hcmNoaXRlY3R1cmUubWQ",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -11004,7 +11004,7 @@ eigenaar en is zonder beheerlink te wijzigen.
   nog 30 presets in plaats van 35.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","372","0","FALSE","14361","","405f845e5b0d42f290ec1e32741179eedde9a309","","100644","","https://github.com/dsvleeuw/Vakman/commit/d6399f9976d8c58d087e4b00cc2361d8f46ee790","https://github.com/dsvleeuw/Vakman/blob/d6399f9976d8c58d087e4b00cc2361d8f46ee790/src/components/AccountView.tsx","Commit","2026-10-28T23:49:29.120Z","d6399f9976d8c58d087e4b00cc2361d8f46ee790:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
-"InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -11204,7 +11204,7 @@ eigenaar en is zonder beheerlink te wijzigen.
   nog 30 presets in plaats van 35.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","109","2","FALSE","10964","7332","1965e9e52eae16cf5123312882237e26896eebe0","211bca3bbf5e985c0aa15270c8a916dbb10617db","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d6399f9976d8c58d087e4b00cc2361d8f46ee790","https://github.com/dsvleeuw/Vakman/blob/d6399f9976d8c58d087e4b00cc2361d8f46ee790/src/server/storage.ts","Commit","2026-10-28T23:49:29.120Z","d6399f9976d8c58d087e4b00cc2361d8f46ee790:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -11379,7 +11379,7 @@ eigenaar en is zonder beheerlink te wijzigen.
   nog 30 presets in plaats van 35.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","1","FALSE","2815","2623","90bdeb5b5c28458b654ca7804dbc4f3f7dbcb3bb","e7dd48f5bb6763991a353578ef581249cfe978ba","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d6399f9976d8c58d087e4b00cc2361d8f46ee790","https://github.com/dsvleeuw/Vakman/blob/d6399f9976d8c58d087e4b00cc2361d8f46ee790/src/utils/siteClient.ts","Commit","2026-10-28T23:49:29.120Z","d6399f9976d8c58d087e4b00cc2361d8f46ee790:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM","p:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM",""
-"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
+"vite.config.ts","vite.config.ts","TypeScript",".ts","FALSE","[]","[""arena/d371cb19-vakman"",""main""]","[""arena/d371cb19-vakman"",""main""]","Gewijzigd","M","","","d6399f9976d8c58d087e4b00cc2361d8f46ee790","d6399f9976d8","[""76d9dc1d2ad888b609a5d3718a9565f0531ce533""]","2026-10-28T23:49:13Z","2026-10-28T23:49:13Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: klantenaccount met login in plaats van alleen een beheerlink","feat: klantenaccount met login in plaats van alleen een beheerlink
 
 De klant beheert zijn site straks via een login: /mijn-account toont
 zijn sites, en een site die ingelogd gepubliceerd wordt krijgt een
@@ -11485,3 +11485,577 @@ feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-
 "vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","51","3","FALSE","11281","9268","c053def0b410065b5501b3f27771616f6a75233d","77814ba765752b1c425ebb656038205e1489af00","100644","100644","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/vite.config.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
+"lead.mts","netlify/functions/lead.mts","TypeScript-module",".mts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","1","FALSE","1484","1289","fd1ad2dbfaffc8b494d6e0a0b6b499248325818e","bd61f59f9ce06320cecb7536f73ecfc6b399af6a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/netlify/functions/lead.mts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:bmV0bGlmeS9mdW5jdGlvbnMvbGVhZC5tdHM","p:bmV0bGlmeS9mdW5jdGlvbnMvbGVhZC5tdHM",""
+"BookingCalendar.tsx","src/components/BookingCalendar.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","3","FALSE","22247","22104","ad4f85a6ad1513cb70bceb176dcbb6e4c551a9d3","ebb50a7ab160d639a55cbd9bea111814ce381ab3","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/components/BookingCalendar.tsx","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL2NvbXBvbmVudHMvQm9va2luZ0NhbGVuZGFyLnRzeA","p:c3JjL2NvbXBvbmVudHMvQm9va2luZ0NhbGVuZGFyLnRzeA",""
+"ContactSection.tsx","src/components/ContactSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","13","5","FALSE","15307","15069","44bb43d0f0be4bddc2767e2eb8340d50668308b3","3752aface30b6040196877c091ccd326d0bff4ee","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/components/ContactSection.tsx","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL2NvbXBvbmVudHMvQ29udGFjdFNlY3Rpb24udHN4","p:c3JjL2NvbXBvbmVudHMvQ29udGFjdFNlY3Rpb24udHN4",""
+"PrivacyNote.tsx","src/components/PrivacyNote.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","1","FALSE","933","816","485c92d587db6492dc6a6fa0857846ded4e7ad7d","77cda744014b39c94686169d3c2ecce5591f45a8","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/components/PrivacyNote.tsx","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL2NvbXBvbmVudHMvUHJpdmFjeU5vdGUudHN4","p:c3JjL2NvbXBvbmVudHMvUHJpdmFjeU5vdGUudHN4",""
+"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","1","FALSE","5712","5543","876b381281dc9ee26fa6ac682a5ef969f77334cb","8bd55967fc3628ba31c551d06ea20f9e632482aa","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/components/PublishedSiteView.tsx","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4",""
+"FaultReportForm.tsx","src/components/tools/FaultReportForm.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","3","FALSE","15742","15599","11c7d752727344a26f77703a5643c92b8e0bbb48","9ba6650878225b04bcd712ff9d043f15bf35a861","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/components/tools/FaultReportForm.tsx","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL2NvbXBvbmVudHMvdG9vbHMvRmF1bHRSZXBvcnRGb3JtLnRzeA","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvRmF1bHRSZXBvcnRGb3JtLnRzeA",""
+"SurfaceCalculator.tsx","src/components/tools/SurfaceCalculator.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","2","FALSE","17658","17596","41126fef41bbcbbf52a01821474632bc75daef1a","8beb4aa55aa03c1d03811d82b51150b1a78ba6ef","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/components/tools/SurfaceCalculator.tsx","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL2NvbXBvbmVudHMvdG9vbHMvU3VyZmFjZUNhbGN1bGF0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvU3VyZmFjZUNhbGN1bGF0b3IudHN4",""
+"leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","106","3","FALSE","15164","11659","c8d3e38b0b5a18f4965062275638fe4ad97b1457","2dd232de24adb35d428c0527d5a5df9002b125de","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/server/leadHandler.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","11118","10899","abc8f6d24419316738807e5454d56b3d5bbff911","8269e9ac24d2081dda363269ec47709b446c6260","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/types.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"lead.ts","src/utils/lead.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","31","1","FALSE","11427","10279","2fa8b5065e9ff847bd70ed9b6914b6cd54e09a7a","6264c344c18a0048c20d656db326c46c8e29a63e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/utils/lead.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL3V0aWxzL2xlYWQudHM","p:c3JjL3V0aWxzL2xlYWQudHM",""
+"leadClient.ts","src/utils/leadClient.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","18","0","FALSE","3275","2691","05e95051ce17b44650f40ab003335e005eedc27a","3353722c41fdc1564d617602089615c0e1bf643c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/utils/leadClient.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL3V0aWxzL2xlYWRDbGllbnQudHM","p:c3JjL3V0aWxzL2xlYWRDbGllbnQudHM",""
+"leadCopy.ts","src/utils/leadCopy.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Toegevoegd","A","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","33","0","FALSE","1084","","e50bdb4387bab32bceb9d137b6cd6689e0baec0d","","100644","","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/utils/leadCopy.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL3V0aWxzL2xlYWRDb3B5LnRz","p:c3JjL3V0aWxzL2xlYWRDb3B5LnRz",""
+"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","24","5","FALSE","12454","11571","fbc56539ac2588714711ab21f87786b4308bfb78","8620e95345cc2db16ad7e2f2760d39b93e396196","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/src/utils/leadEmail.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
+"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fa665232efed09dcbe99337cc59a54700ae82ab7","fa665232efed","[""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:11:49Z","2026-10-29T00:11:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas
+
+Een bezoeker op een gepubliceerde klantsite (/site/<slug>) stond zijn
+aanvraag naar Klusbaas te mailen, terwijl de pagina zei dat het bericht
+direct naar de vakman ging. De klant die zelf zijn site betaalt kreeg dus
+geen aanvragen: een publieke pagina die iets anders doet dan wat er
+staat (principe 2 in VISION.md).
+
+Wat er verandert:
+
+- De formulieren sturen nu het adres van de site mee (siteContext).
+  Alleen een echte, gepubliceerde site heeft zo'n adres; een demosite
+  en de preview in de editor niet.
+- De server zoekt de site op en mailt de aanvraag naar het e-mailadres
+  dat de vakman zelf heeft ingevuld. Dat adres komt uit de opgeslagen
+  site, nooit uit het verzoek van de bezoeker.
+- Lukt de mail naar de vakman niet (of draait de site in testmodus),
+  dan blijft de aanvraag bij Klusbaas liggen en gaat er een mail naar
+  het team: een aanvraag mag nooit stil verdwijnen (principe 4).
+- Bij een geslaagde bezorging bij de vakman blijft er niets bij
+  Klusbaas liggen: het zijn zijn klantgegevens.
+- De pagina zegt nu wat er gebeurt (utils/leadCopy.ts): op een klantsite
+  ""Je bericht gaat direct naar {naam}"", op een demosite ""Dit is een
+  demosite: je bericht komt bij Klusbaas binnen"". Ook de privacyregel
+  onder elk formulier zegt waar de gegevens heen gaan.
+- De bezoeker ziet nooit het e-mailadres van de vakman; de API geeft
+  alleen de status door.
+
+Getest: 188 tests groen, lint, build en inventory groen. Handmatig
+gecontroleerd via de dev-server: een aanvraag met een site-adres komt
+bij de eigenaar terecht, een aanvraag zonder adres bij Klusbaas.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","11593","11281","742217ff4bff24a489b64a73179db5cb20ff57cc","c053def0b410065b5501b3f27771616f6a75233d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fa665232efed09dcbe99337cc59a54700ae82ab7","https://github.com/dsvleeuw/Vakman/blob/fa665232efed09dcbe99337cc59a54700ae82ab7/vite.config.ts","Commit","2026-10-29T00:12:07.879Z","fa665232efed09dcbe99337cc59a54700ae82ab7:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
+"SiteView.test.tsx","src/components/SiteView.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fe9dc5f07d217588af70c6e0f846a56412d2bc72","fe9dc5f07d21","[""fa665232efed09dcbe99337cc59a54700ae82ab7""]","2026-10-29T00:11:51Z","2026-10-29T00:11:51Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Tests: een aanvraag van een klantsite gaat naar de vakman","Tests: een aanvraag van een klantsite gaat naar de vakman
+
+Vier nieuwe tests op de lead-API:
+
+- een aanvraag met een site-adres gaat naar de vakman, er blijft niets
+  bij Klusbaas liggen en de bezoeker ziet zijn adres niet;
+- een aanvraag zonder site-adres (demosite) komt bij Klusbaas;
+- een onbekend adres of een site zonder e-mailadres komt ook bij
+  Klusbaas, niet bij niemand;
+- gaat de mail naar de vakman mis, dan blijft de aanvraag bij Klusbaas
+  liggen en mailt het team: niets gaat verloren.
+
+Plus een test op de tekst: het contactformulier zegt wie de aanvraag
+krijgt — op een demosite Klusbaas, op een klantsite de vakman.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","35","0","FALSE","2926","1761","d628aa0b4fed9eef88456261cd3d13d0faeff7b5","b2334660897144d7395c5c34cbd20b3b293c5514","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fe9dc5f07d217588af70c6e0f846a56412d2bc72","https://github.com/dsvleeuw/Vakman/blob/fe9dc5f07d217588af70c6e0f846a56412d2bc72/src/components/SiteView.test.tsx","Commit","2026-10-29T00:12:07.879Z","fe9dc5f07d217588af70c6e0f846a56412d2bc72:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudGVzdC50c3g","p:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudGVzdC50c3g",""
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","fe9dc5f07d217588af70c6e0f846a56412d2bc72","fe9dc5f07d21","[""fa665232efed09dcbe99337cc59a54700ae82ab7""]","2026-10-29T00:11:51Z","2026-10-29T00:11:51Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Tests: een aanvraag van een klantsite gaat naar de vakman","Tests: een aanvraag van een klantsite gaat naar de vakman
+
+Vier nieuwe tests op de lead-API:
+
+- een aanvraag met een site-adres gaat naar de vakman, er blijft niets
+  bij Klusbaas liggen en de bezoeker ziet zijn adres niet;
+- een aanvraag zonder site-adres (demosite) komt bij Klusbaas;
+- een onbekend adres of een site zonder e-mailadres komt ook bij
+  Klusbaas, niet bij niemand;
+- gaat de mail naar de vakman mis, dan blijft de aanvraag bij Klusbaas
+  liggen en mailt het team: niets gaat verloren.
+
+Plus een test op de tekst: het contactformulier zegt wie de aanvraag
+krijgt — op een demosite Klusbaas, op een klantsite de vakman.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","175","1","FALSE","15277","9709","323cd6143d250da4c9228a87d838fb64105e8c6d","2d3b9f3df6d2c2913f366d4e9c7d07ceaaf094cd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/fe9dc5f07d217588af70c6e0f846a56412d2bc72","https://github.com/dsvleeuw/Vakman/blob/fe9dc5f07d217588af70c6e0f846a56412d2bc72/src/server/leadHandler.test.ts","Commit","2026-10-29T00:12:07.879Z","fe9dc5f07d217588af70c6e0f846a56412d2bc72:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","66d53c82d5a8","[""fe9dc5f07d217588af70c6e0f846a56412d2bc72""]","2026-10-29T00:11:53Z","2026-10-29T00:11:53Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Privacyverklaring en documentatie bijgewerkt voor de lead-routing","Privacyverklaring en documentatie bijgewerkt voor de lead-routing
+
+- De privacyverklaring krijgt een eigen regel voor aanvragen via een
+  klantsite: de aanvraag gaat naar de vakman, die de eigenaar is van die
+  klantgegevens. Klusbaas bewaart alleen een back-up wanneer de mail
+  niet aankomt.
+- known-limitations: de gap ""een aanvraag van een klantsite komt bij
+  Klusbaas"" is geschrapt; wat nog ontbreekt staat er wel: de vakman
+  moet een e-mailadres invullen en de back-up wordt met de hand
+  opgeruimd.
+- ROADMAP 3.1 staat bijgewerkt; AGENTS.md legt de regel vast: een
+  aanvraag van een klantsite hoort bij de vakman, en de pagina moet
+  hetzelfde zeggen als wat er gebeurt.
+- CHANGELOG: de verandering uitgeschreven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","9142","8748","a5374a72ec48df11251262f5228350a21f4fc192","8b71204274470a85f1d858519a26c87706e6df51","100644","100644","https://github.com/dsvleeuw/Vakman/commit/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","https://github.com/dsvleeuw/Vakman/blob/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03/AGENTS.md","Commit","2026-10-29T00:12:07.879Z","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","66d53c82d5a8","[""fe9dc5f07d217588af70c6e0f846a56412d2bc72""]","2026-10-29T00:11:53Z","2026-10-29T00:11:53Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Privacyverklaring en documentatie bijgewerkt voor de lead-routing","Privacyverklaring en documentatie bijgewerkt voor de lead-routing
+
+- De privacyverklaring krijgt een eigen regel voor aanvragen via een
+  klantsite: de aanvraag gaat naar de vakman, die de eigenaar is van die
+  klantgegevens. Klusbaas bewaart alleen een back-up wanneer de mail
+  niet aankomt.
+- known-limitations: de gap ""een aanvraag van een klantsite komt bij
+  Klusbaas"" is geschrapt; wat nog ontbreekt staat er wel: de vakman
+  moet een e-mailadres invullen en de back-up wordt met de hand
+  opgeruimd.
+- ROADMAP 3.1 staat bijgewerkt; AGENTS.md legt de regel vast: een
+  aanvraag van een klantsite hoort bij de vakman, en de pagina moet
+  hetzelfde zeggen als wat er gebeurt.
+- CHANGELOG: de verandering uitgeschreven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","25533","24814","37e55b4246d59e329cf9e23add554233d934e36a","95ad8a1756c7313d89ff5bf88785de3c03f98cca","100644","100644","https://github.com/dsvleeuw/Vakman/commit/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","https://github.com/dsvleeuw/Vakman/blob/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03/CHANGELOG.md","Commit","2026-10-29T00:12:07.879Z","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","66d53c82d5a8","[""fe9dc5f07d217588af70c6e0f846a56412d2bc72""]","2026-10-29T00:11:53Z","2026-10-29T00:11:53Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Privacyverklaring en documentatie bijgewerkt voor de lead-routing","Privacyverklaring en documentatie bijgewerkt voor de lead-routing
+
+- De privacyverklaring krijgt een eigen regel voor aanvragen via een
+  klantsite: de aanvraag gaat naar de vakman, die de eigenaar is van die
+  klantgegevens. Klusbaas bewaart alleen een back-up wanneer de mail
+  niet aankomt.
+- known-limitations: de gap ""een aanvraag van een klantsite komt bij
+  Klusbaas"" is geschrapt; wat nog ontbreekt staat er wel: de vakman
+  moet een e-mailadres invullen en de back-up wordt met de hand
+  opgeruimd.
+- ROADMAP 3.1 staat bijgewerkt; AGENTS.md legt de regel vast: een
+  aanvraag van een klantsite hoort bij de vakman, en de pagina moet
+  hetzelfde zeggen als wat er gebeurt.
+- CHANGELOG: de verandering uitgeschreven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","1","FALSE","6782","6578","1a87ddb39c425ceeb98f833df279886754b800a8","084d76bea2f4415c78d4dc71352a557006fc5b8a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","https://github.com/dsvleeuw/Vakman/blob/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03/ROADMAP.md","Commit","2026-10-29T00:12:07.879Z","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","66d53c82d5a8","[""fe9dc5f07d217588af70c6e0f846a56412d2bc72""]","2026-10-29T00:11:53Z","2026-10-29T00:11:53Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Privacyverklaring en documentatie bijgewerkt voor de lead-routing","Privacyverklaring en documentatie bijgewerkt voor de lead-routing
+
+- De privacyverklaring krijgt een eigen regel voor aanvragen via een
+  klantsite: de aanvraag gaat naar de vakman, die de eigenaar is van die
+  klantgegevens. Klusbaas bewaart alleen een back-up wanneer de mail
+  niet aankomt.
+- known-limitations: de gap ""een aanvraag van een klantsite komt bij
+  Klusbaas"" is geschrapt; wat nog ontbreekt staat er wel: de vakman
+  moet een e-mailadres invullen en de back-up wordt met de hand
+  opgeruimd.
+- ROADMAP 3.1 staat bijgewerkt; AGENTS.md legt de regel vast: een
+  aanvraag van een klantsite hoort bij de vakman, en de pagina moet
+  hetzelfde zeggen als wat er gebeurt.
+- CHANGELOG: de verandering uitgeschreven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","3","FALSE","8999","8731","c6dce7becd2c67bef9d88e88d64f573ad72a2044","624da71973caa7a73d3124f807311e002abb596b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","https://github.com/dsvleeuw/Vakman/blob/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03/docs/known-limitations.md","Commit","2026-10-29T00:12:07.879Z","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","TRUE","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","[""arena/d371cb19-vakman""]","Gewijzigd","M","","","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","66d53c82d5a8","[""fe9dc5f07d217588af70c6e0f846a56412d2bc72""]","2026-10-29T00:11:53Z","2026-10-29T00:11:53Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Privacyverklaring en documentatie bijgewerkt voor de lead-routing","Privacyverklaring en documentatie bijgewerkt voor de lead-routing
+
+- De privacyverklaring krijgt een eigen regel voor aanvragen via een
+  klantsite: de aanvraag gaat naar de vakman, die de eigenaar is van die
+  klantgegevens. Klusbaas bewaart alleen een back-up wanneer de mail
+  niet aankomt.
+- known-limitations: de gap ""een aanvraag van een klantsite komt bij
+  Klusbaas"" is geschrapt; wat nog ontbreekt staat er wel: de vakman
+  moet een e-mailadres invullen en de back-up wordt met de hand
+  opgeruimd.
+- ROADMAP 3.1 staat bijgewerkt; AGENTS.md legt de regel vast: een
+  aanvraag van een klantsite hoort bij de vakman, en de pagina moet
+  hetzelfde zeggen als wat er gebeurt.
+- CHANGELOG: de verandering uitgeschreven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","16858","16243","98f366bf5cdba18f80333283f2db13ab72127ca5","9e6719fbeeb299405ed185b9ae8c720202d70c44","100644","100644","https://github.com/dsvleeuw/Vakman/commit/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03","https://github.com/dsvleeuw/Vakman/blob/66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03/src/components/InfoPages.tsx","Commit","2026-10-29T00:12:07.879Z","66d53c82d5a84f88f7c1ed6872de4ad9d10e8f03:c3JjL2NvbXBvbmVudHMvSW5mb1BhZ2VzLnRzeA","p:c3JjL2NvbXBvbmVudHMvSW5mb1BhZ2VzLnRzeA",""
