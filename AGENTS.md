@@ -154,6 +154,9 @@ result. The Netlify deploy preview is the only external CI check. If
 - An offer is valid for thirty days (`isQuoteExpired`). An expired offer is
   marked as such in the overview and on the offer page, cannot be
   accepted, and Klusbaas can extend it with `extend-quote`.
+- An offer remembers the request it was written for (`leadReference` on
+  the quote record), so the overview can show at a request which offer
+  exists.
 - Marking an offer as paid sends the customer an invoice
   (`server/paidNotice.ts` → `server/invoicePdf.ts`). The invoice details of
   Klusbaas come from the environment (`server/invoice.ts`); nothing is

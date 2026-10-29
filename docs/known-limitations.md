@@ -182,6 +182,16 @@ to [ROADMAP.md](../ROADMAP.md).
   promise. Klusbaas can extend the offer with one button when the price
   still holds, or cancel it by hand when the customer is not coming.
 
+## A request and its offer
+
+- **The offer remembers the request it was written for.** The overview
+  shows at the request which offer exists, and the "Offerte maken" form
+  says "al een offerte", so Klusbaas does not write the same offer twice.
+- **A request from a customer site is not in Klusbaas' overview.** That
+  request belongs to the craftsman who published the site. Klusbaas
+  therefore cannot see whether he already answered it; he has to look in
+  his own mailbox.
+
 ## The offer Klusbaas writes himself
 
 - **Klusbaas writes the offer, the customer does not ask for one.** In

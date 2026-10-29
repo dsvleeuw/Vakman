@@ -401,6 +401,26 @@ test('de betaalgegevens staan in de PDF van de offerte', async () => {
   assert.match(text, /Klusbaas/);
 });
 
+test('de offerte onthoudt de aanvraag waarvoor hij gemaakt is', async () => {
+  const leads = memoryStorage([], [request]);
+
+  const result = await createOfferForCustomer(
+    { leadReference: 'L-AB12CD', plan: 'pro' },
+    {
+      leads,
+      sites: memorySites([]),
+      accounts: memoryAccounts([]),
+      now: () => Date.UTC(2026, 9, 29, 10, 0, 0),
+      createToken: () => 'offertetoken',
+      siteUrl: 'https://klusbaas.nl',
+    }
+  );
+
+  assert.equal(result.ok, true);
+  const quotes = await leads.listQuotes();
+  assert.equal(quotes[0].leadReference, 'L-AB12CD');
+});
+
 test('met send=false blijft de offerte onverstuurd', async () => {
   const { deps: d, mails } = deps();
 

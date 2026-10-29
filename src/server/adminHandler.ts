@@ -179,6 +179,7 @@ function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
     customerPhone: quote.customer.phone,
     city: quote.customer.city,
     expired: isQuoteExpired(quote, now),
+    ...(quote.leadReference ? { leadReference: quote.leadReference } : {}),
   };
 }
 

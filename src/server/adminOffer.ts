@@ -208,6 +208,7 @@ export async function createOfferForCustomer(
     services,
     channel: 'E-mail',
     ...(account ? { accountId: account.id } : {}),
+    ...(lead ? { leadReference: lead.reference } : {}),
   });
 
   const siteUrl = deps.siteUrl ?? 'https://klusbaas.nl';

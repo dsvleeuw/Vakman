@@ -57,6 +57,12 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 6. Met `leadReference` neemt de offerte de klantgegevens uit een aanvraag
    (`L-XXXXXX`), voor iemand die nooit een account maakte
 
+## Een aanvraag en haar offerte
+
+`createOfferForCustomer` slaat de `leadReference` van de aanvraag op in de
+offerte (`QuoteRecord.leadReference`). `buildOverview` geeft die door, zodat
+het overzicht bij een aanvraag kan zeggen welke offerte er al is.
+
 ## Een verlopen offerte verlengen
 
 `extend-quote` in `adminHandler.ts`: de offerte krijgt dertig dagen extra,

@@ -174,6 +174,12 @@ export interface QuoteRecord extends QuoteTotals {
   acceptedAt?: string;
   /** The account of the customer, when he was logged in while requesting it. */
   accountId?: string;
+  /**
+   * The request this offer was written for (`L-XXXXXX`), when the customer
+   * only sent a request. It lets Klusbaas see that a request already has
+   * an offer, instead of writing a second one.
+   */
+  leadReference?: string;
   customer: QuoteCustomer;
   sector: string;
   sectorName: string;
@@ -220,6 +226,8 @@ export function buildQuoteRecord(input: {
   appointment?: { date: string; slot: string };
   /** The account of the customer, when he was logged in. */
   accountId?: string;
+  /** The request this offer was written for, when the customer only sent one. */
+  leadReference?: string;
 }): QuoteRecord {
   const totals = calculateQuote(input.planId, input.addons);
   return {
@@ -229,6 +237,7 @@ export function buildQuoteRecord(input: {
     validUntil: addDaysIso(input.now, QUOTE_VALID_DAYS),
     status: 'open',
     ...(input.accountId ? { accountId: input.accountId } : {}),
+    ...(input.leadReference ? { leadReference: input.leadReference } : {}),
     customer: input.customer,
     sector: input.sector,
     sectorName: input.sectorName,
