@@ -11425,7 +11425,7 @@ feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-
 "kun-tools-review.md","docs/kun-tools-review.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","95","0","FALSE","5326","","49fb42d71aa12a75e086d672d639893081017c0b","","100644","","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/docs/kun-tools-review.md","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:ZG9jcy9rdW4tdG9vbHMtcmV2aWV3Lm1k","p:ZG9jcy9rdW4tdG9vbHMtcmV2aWV3Lm1k",""
-"account.mts","netlify/functions/account.mts","TypeScript-module",".mts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
+"account.mts","netlify/functions/account.mts","TypeScript-module",".mts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","48","0","FALSE","1657","","efa93b45e257e447a86e452fece5be560a637b2a","","100644","","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/netlify/functions/account.mts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:bmV0bGlmeS9mdW5jdGlvbnMvYWNjb3VudC5tdHM","p:bmV0bGlmeS9mdW5jdGlvbnMvYWNjb3VudC5tdHM",""
 "site.mts","netlify/functions/site.mts","TypeScript-module",".mts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
@@ -11434,7 +11434,7 @@ feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-
 "App.tsx","src/App.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","14","0","FALSE","20743","20349","58fc6bdd7a93e5d1baa123c6e818b57dfe40ec54","8f14564c0f652b90f7bcbe0c54b60274398e2f6f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/App.tsx","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL0FwcC50c3g","p:c3JjL0FwcC50c3g",""
-"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
+"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","372","0","FALSE","14361","","405f845e5b0d42f290ec1e32741179eedde9a309","","100644","","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/components/AccountView.tsx","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
 "InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
@@ -11446,10 +11446,10 @@ feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-
 "SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","39","1","FALSE","31386","29842","a72324fd453d59198860c97dd46190d1c5af9bef","65f6c3812f7d20b3c95f6a909e3fc49dc0d2bb86","100644","100644","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/components/editor/SiteEditor.tsx","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4",""
-"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
+"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","271","0","FALSE","8905","","d7197abc332dbcd841fb3a12518a0d33454923b2","","100644","","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/server/accountHandler.test.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz",""
-"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
+"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","290","0","FALSE","9076","","c787df511b66120c47b9ecae91a1f67df0889fa6","","100644","","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/server/accountHandler.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw",""
 "siteHandler.test.ts","src/server/siteHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
@@ -11458,13 +11458,13 @@ feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-
 "siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","21","3","FALSE","10219","9258","4e0aa01c9df74f09667b595f0292cc14a0251397","9ea33975cfe1f16dead58c10d94f70007b561c32","100644","100644","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/server/siteHandler.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw","p:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw",""
-"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
+"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","109","2","FALSE","10964","7332","1965e9e52eae16cf5123312882237e26896eebe0","211bca3bbf5e985c0aa15270c8a916dbb10617db","100644","100644","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/server/storage.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
 "types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","24","1","FALSE","10899","10256","8269e9ac24d2081dda363269ec47709b446c6260","517d540f737d46fbeed12b0468bf021258c44d9d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/types.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
-"accountClient.ts","src/utils/accountClient.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
+"accountClient.ts","src/utils/accountClient.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
 
 feat: klantenaccount met login in plaats van alleen een beheerlink (+ Kun-tools-review en VISION.md)","97","0","FALSE","3004","","c3f13561d251f48ce2a9dc7f25cb85fc01c11109","","100644","","https://github.com/dsvleeuw/Vakman/commit/57dbfa6580c60a7a8403378a9313c5eae272c7bf","https://github.com/dsvleeuw/Vakman/blob/57dbfa6580c60a7a8403378a9313c5eae272c7bf/src/utils/accountClient.ts","Commit","2026-10-29T00:06:22.078Z","57dbfa6580c60a7a8403378a9313c5eae272c7bf:c3JjL3V0aWxzL2FjY291bnRDbGllbnQudHM","p:c3JjL3V0aWxzL2FjY291bnRDbGllbnQudHM",""
 "password.test.ts","src/utils/password.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","57dbfa6580c60a7a8403378a9313c5eae272c7bf","57dbfa6580c6","[""36c8ab4259c13104f891138aee6c64338a5fdfa5"",""2e9e0a5e77bd615deafc3c25dd6ad15aadf8feb2""]","2026-10-29T00:06:08Z","2026-10-29T00:06:08Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #31 from dsvleeuw/arena/d371cb19-vakman
@@ -12099,7 +12099,7 @@ Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","8","3","
 "ContactSection.tsx","src/components/ContactSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","13","5","FALSE","15307","15069","44bb43d0f0be4bddc2767e2eb8340d50668308b3","3752aface30b6040196877c091ccd326d0bff4ee","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/src/components/ContactSection.tsx","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:c3JjL2NvbXBvbmVudHMvQ29udGFjdFNlY3Rpb24udHN4","p:c3JjL2NvbXBvbmVudHMvQ29udGFjdFNlY3Rpb24udHN4",""
-"InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
+"InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","7","0","FALSE","16858","16243","98f366bf5cdba18f80333283f2db13ab72127ca5","9e6719fbeeb299405ed185b9ae8c720202d70c44","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/src/components/InfoPages.tsx","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:c3JjL2NvbXBvbmVudHMvSW5mb1BhZ2VzLnRzeA","p:c3JjL2NvbXBvbmVudHMvSW5mb1BhZ2VzLnRzeA",""
 "PrivacyNote.tsx","src/components/PrivacyNote.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
@@ -12117,10 +12117,10 @@ Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","8","3","
 "SurfaceCalculator.tsx","src/components/tools/SurfaceCalculator.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","4","2","FALSE","17658","17596","41126fef41bbcbbf52a01821474632bc75daef1a","8beb4aa55aa03c1d03811d82b51150b1a78ba6ef","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/src/components/tools/SurfaceCalculator.tsx","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:c3JjL2NvbXBvbmVudHMvdG9vbHMvU3VyZmFjZUNhbGN1bGF0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvdG9vbHMvU3VyZmFjZUNhbGN1bGF0b3IudHN4",""
-"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","197","1","FALSE","15947","9709","c9f704f950973d5a89413c5e3ea72c9264a08736","2d3b9f3df6d2c2913f366d4e9c7d07ceaaf094cd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/src/server/leadHandler.test.ts","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
-"leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
+"leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","116","3","FALSE","15508","11659","516de9c12aad17064e547bfbee452bfc399f2ab9","2dd232de24adb35d428c0527d5a5df9002b125de","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/src/server/leadHandler.ts","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw",""
 "types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
@@ -12138,7 +12138,7 @@ Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","33","0",
 "leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","24","5","FALSE","12454","11571","fbc56539ac2588714711ab21f87786b4308bfb78","8620e95345cc2db16ad7e2f2760d39b93e396196","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/src/utils/leadEmail.ts","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
-"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
+"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","037741e0edc5b5032f72cf2965958d94d2643bc4","037741e0edc5","[""a8e9a8d2468534e1e4269cf5780f8d07ff1f5da5"",""1d67f68795330820e72f3bc8b22d1212414a6306""]","2026-10-29T00:19:10Z","2026-10-29T00:19:10Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman","Merge pull request #32 from dsvleeuw/arena/d371cb19-vakman
 
 Een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas","4","0","FALSE","11593","11281","742217ff4bff24a489b64a73179db5cb20ff57cc","c053def0b410065b5501b3f27771616f6a75233d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/037741e0edc5b5032f72cf2965958d94d2643bc4","https://github.com/dsvleeuw/Vakman/blob/037741e0edc5b5032f72cf2965958d94d2643bc4/vite.config.ts","Commit","2026-10-29T00:19:26.897Z","037741e0edc5b5032f72cf2965958d94d2643bc4:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
 "ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","2725f6a993461613613a5d95be61c510657baa35","2725f6a99346","[""037741e0edc5b5032f72cf2965958d94d2643bc4""]","2026-10-29T00:22:00Z","2026-10-29T00:22:00Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","docs: de roadmap voor verkoopbaar zijn, met een gemeten audit","docs: de roadmap voor verkoopbaar zijn, met een gemeten audit
@@ -12191,7 +12191,7 @@ docs: de roadmap voor verkoopbaar zijn, met een gemeten audit","42","0","FALSE",
 "selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","ad38cea6764ae5772881de52031efc6d8224d836","ad38cea6764a","[""17efa3436021479e2f0457904161d9cd8c659469"",""2725f6a993461613613a5d95be61c510657baa35""]","2026-10-29T00:23:25Z","2026-10-29T00:23:25Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #33 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #33 from dsvleeuw/arena/a0d9de2c-vakman
 
 docs: de roadmap voor verkoopbaar zijn, met een gemeten audit","75","0","FALSE","4881","","a224fde986cbf67024509ebcfb8121eb06dea71f","","100644","","https://github.com/dsvleeuw/Vakman/commit/ad38cea6764ae5772881de52031efc6d8224d836","https://github.com/dsvleeuw/Vakman/blob/ad38cea6764ae5772881de52031efc6d8224d836/docs/selling-readiness.md","Commit","2026-10-29T00:23:39.564Z","ad38cea6764ae5772881de52031efc6d8224d836:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12224,7 +12224,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","5","0","FALSE","9517","9142","ee7bb3c7b0984ca086207aa33e0329ea563e1feb","a5374a72ec48df11251262f5228350a21f4fc192","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/AGENTS.md","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12257,7 +12257,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","25","0","FALSE","26904","25533","18579c7064410cc58334cecf2caea555a4da95cc","37e55b4246d59e329cf9e23add554233d934e36a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/CHANGELOG.md","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12290,7 +12290,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","1","FALSE","10345","10302","018161b97484ad7d3dbada14d2af49155736d96a","181057ce9cc6a57f63434b06e6812395073a1099","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/ROADMAP.md","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12323,7 +12323,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","17","0","FALSE","10009","9040","61bcb149314b26537cd160cf956f2fb54b96147e","678fc943770a7558a473ddbce4ec85637c272250","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/docs/known-limitations.md","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"BlockRenderer.tsx","src/components/BlockRenderer.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"BlockRenderer.tsx","src/components/BlockRenderer.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12356,7 +12356,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","23","52","FALSE","4276","5135","eb8d15e6c2d7564c2e79cb287911ff58acc75f42","a5b03bb55686fd5f63960c134c77966fd25617ab","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/components/BlockRenderer.tsx","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL2NvbXBvbmVudHMvQmxvY2tSZW5kZXJlci50c3g","p:c3JjL2NvbXBvbmVudHMvQmxvY2tSZW5kZXJlci50c3g",""
-"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12389,7 +12389,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","2","FALSE","5783","5712","d69d51bff997d29727ad7fdaec3ac1e07a80e513","876b381281dc9ee26fa6ac682a5ef969f77334cb","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/components/PublishedSiteView.tsx","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4",""
-"SiteView.tsx","src/components/SiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"SiteView.tsx","src/components/SiteView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12422,7 +12422,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","131","95","FALSE","59041","57517","15a39d10edd9fda53c610a46b37eba5871bf4489","e8fd5c5cdf4faed6eda3b16559b32ef4c9da3914","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/components/SiteView.tsx","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudHN4",""
-"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12455,7 +12455,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","49","1","FALSE","33927","31386","7ffa2b58325e09d96644def3c695c6954bbdb70b","a72324fd453d59198860c97dd46190d1c5af9bef","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/components/editor/SiteEditor.tsx","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4",""
-"blocks.ts","src/data/blocks.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"blocks.ts","src/data/blocks.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12488,7 +12488,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","22","0","FALSE","8731","7871","8c11743ad7846cf00fc5cecf5d7d9e1264283449","a5da0831b4f4a749d9a6078985ae660664021ee4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/data/blocks.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL2RhdGEvYmxvY2tzLnRz","p:c3JjL2RhdGEvYmxvY2tzLnRz",""
-"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12521,7 +12521,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","10457","10219","e50987cdf2cce99c00f45e161474fc9d17362127","4e0aa01c9df74f09667b595f0292cc14a0251397","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/server/siteHandler.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw","p:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12554,7 +12554,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","0","FALSE","11711","11118","e29d27b0742e122a2938ea3be16be3034f0a1ed4","abc8f6d24419316738807e5454d56b3d5bbff911","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/types.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
-"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12587,7 +12587,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","185","0","FALSE","6153","","bf37b12c1904bfb35b7fbb8c3bbf333ad0444949","","100644","","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/utils/publishedContent.test.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw",""
-"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12620,7 +12620,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","363","0","FALSE","12593","","d0338fe191f2cafc377ccd4d5b2aeedba0f14f48","","100644","","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/utils/publishedContent.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM",""
-"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12653,7 +12653,7 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","11","1","FALSE","2939","2815","47af1acac8d25969de32015abea0509310edcc7d","90bdeb5b5c28458b654ca7804dbc4f3f7dbcb3bb","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/utils/siteClient.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM","p:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM",""
-"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
+"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","FALSE","[]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","910866f7712011b6295c7b9b85b01c89b9842da2","910866f77120","[""ad38cea6764ae5772881de52031efc6d8224d836""]","2026-10-29T00:30:50Z","2026-10-29T00:30:50Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","feat: een klantsite toont alleen wat de vakman zelf heeft geschreven
 
 De pagina van een gepubliceerde klantsite werd getekend uit de
 voorbeeldtekst van het vak. Daardoor stonden op andermans site dingen
@@ -12686,48 +12686,370 @@ verzonnen cijfers, geen voorbeeldprijzen en geen foto's van andermans
 werk.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","17","0","FALSE","12115","11580","ed8091a6dd20c3a99c4bd5536fd65b441901ca92","67e3353032ef1621b7d3dab4cea1bfbf4b578e19","100644","100644","https://github.com/dsvleeuw/Vakman/commit/910866f7712011b6295c7b9b85b01c89b9842da2","https://github.com/dsvleeuw/Vakman/blob/910866f7712011b6295c7b9b85b01c89b9842da2/src/utils/siteContent.ts","Commit","2026-10-29T00:31:04.273Z","910866f7712011b6295c7b9b85b01c89b9842da2:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz","p:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","5","0","FALSE","9517","9142","ee7bb3c7b0984ca086207aa33e0329ea563e1feb","a5374a72ec48df11251262f5228350a21f4fc192","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/AGENTS.md","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","25","0","FALSE","26904","25533","18579c7064410cc58334cecf2caea555a4da95cc","37e55b4246d59e329cf9e23add554233d934e36a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/CHANGELOG.md","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","1","1","FALSE","10345","10302","018161b97484ad7d3dbada14d2af49155736d96a","181057ce9cc6a57f63434b06e6812395073a1099","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/ROADMAP.md","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","17","0","FALSE","10009","9040","61bcb149314b26537cd160cf956f2fb54b96147e","678fc943770a7558a473ddbce4ec85637c272250","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/docs/known-limitations.md","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"BlockRenderer.tsx","src/components/BlockRenderer.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"BlockRenderer.tsx","src/components/BlockRenderer.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","23","52","FALSE","4276","5135","eb8d15e6c2d7564c2e79cb287911ff58acc75f42","a5b03bb55686fd5f63960c134c77966fd25617ab","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/components/BlockRenderer.tsx","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL2NvbXBvbmVudHMvQmxvY2tSZW5kZXJlci50c3g","p:c3JjL2NvbXBvbmVudHMvQmxvY2tSZW5kZXJlci50c3g",""
-"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","4","2","FALSE","5783","5712","d69d51bff997d29727ad7fdaec3ac1e07a80e513","876b381281dc9ee26fa6ac682a5ef969f77334cb","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/components/PublishedSiteView.tsx","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4",""
-"SiteView.tsx","src/components/SiteView.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"SiteView.tsx","src/components/SiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","131","95","FALSE","59041","57517","15a39d10edd9fda53c610a46b37eba5871bf4489","e8fd5c5cdf4faed6eda3b16559b32ef4c9da3914","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/components/SiteView.tsx","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvU2l0ZVZpZXcudHN4",""
-"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","49","1","FALSE","33927","31386","7ffa2b58325e09d96644def3c695c6954bbdb70b","a72324fd453d59198860c97dd46190d1c5af9bef","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/components/editor/SiteEditor.tsx","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4",""
-"blocks.ts","src/data/blocks.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"blocks.ts","src/data/blocks.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","22","0","FALSE","8731","7871","8c11743ad7846cf00fc5cecf5d7d9e1264283449","a5da0831b4f4a749d9a6078985ae660664021ee4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/data/blocks.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL2RhdGEvYmxvY2tzLnRz","p:c3JjL2RhdGEvYmxvY2tzLnRz",""
-"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","9","0","FALSE","10457","10219","e50987cdf2cce99c00f45e161474fc9d17362127","4e0aa01c9df74f09667b595f0292cc14a0251397","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/server/siteHandler.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw","p:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","14","0","FALSE","11711","11118","e29d27b0742e122a2938ea3be16be3034f0a1ed4","abc8f6d24419316738807e5454d56b3d5bbff911","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/types.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
-"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Toegevoegd","A","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","185","0","FALSE","6153","","bf37b12c1904bfb35b7fbb8c3bbf333ad0444949","","100644","","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/utils/publishedContent.test.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw",""
-"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Toegevoegd","A","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Toegevoegd","A","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","363","0","FALSE","12593","","d0338fe191f2cafc377ccd4d5b2aeedba0f14f48","","100644","","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/utils/publishedContent.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM",""
-"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","11","1","FALSE","2939","2815","47af1acac8d25969de32015abea0509310edcc7d","90bdeb5b5c28458b654ca7804dbc4f3f7dbcb3bb","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/utils/siteClient.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM","p:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM",""
-"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
+"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","[""arena/a0d9de2c-vakman"",""main""]","Gewijzigd","M","","","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","0ebadf2dd079","[""21ab16a38ebd9ab653fe33dbedb02710aaf7d7e9"",""910866f7712011b6295c7b9b85b01c89b9842da2""]","2026-10-29T00:33:45Z","2026-10-29T00:33:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman","Merge pull request #34 from dsvleeuw/arena/a0d9de2c-vakman
 
 feat: een klantsite toont alleen wat de vakman zelf heeft geschreven","17","0","FALSE","12115","11580","ed8091a6dd20c3a99c4bd5536fd65b441901ca92","67e3353032ef1621b7d3dab4cea1bfbf4b578e19","100644","100644","https://github.com/dsvleeuw/Vakman/commit/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2","https://github.com/dsvleeuw/Vakman/blob/0ebadf2dd0790786eda3d7f5112dba6c7145b8c2/src/utils/siteContent.ts","Commit","2026-10-29T00:33:58.234Z","0ebadf2dd0790786eda3d7f5112dba6c7145b8c2:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz","p:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","13","2","FALSE","27452","26904","9acc799b59f908791a53905e667bf513b18c8656","18579c7064410cc58334cecf2caea555a4da95cc","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/CHANGELOG.md","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","1","FALSE","10501","10345","4ada2c09cd90e8f62740248ec858aab2d36c409f","018161b97484ad7d3dbada14d2af49155736d96a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/ROADMAP.md","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","10531","10009","fee10dacf03176e378911b8f0305d316d0d3deb0","61bcb149314b26537cd160cf956f2fb54b96147e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/docs/known-limitations.md","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"account.mts","netlify/functions/account.mts","TypeScript-module",".mts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","1","FALSE","1732","1657","e5780b1f530fc677edb47ff65cae4bfff1f88b46","efa93b45e257e447a86e452fece5be560a637b2a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/netlify/functions/account.mts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:bmV0bGlmeS9mdW5jdGlvbnMvYWNjb3VudC5tdHM","p:bmV0bGlmeS9mdW5jdGlvbnMvYWNjb3VudC5tdHM",""
+"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","90","2","FALSE","17550","14361","86f1de213a5d90c76ecf207b8da34ffc936502da","405f845e5b0d42f290ec1e32741179eedde9a309","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/components/AccountView.tsx","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
+"InfoPages.tsx","src/components/InfoPages.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","2","FALSE","16968","16858","fb7dafe7c916ed5d41b9cdb8180cf152b3eafe76","98f366bf5cdba18f80333283f2db13ab72127ca5","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/components/InfoPages.tsx","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL2NvbXBvbmVudHMvSW5mb1BhZ2VzLnRzeA","p:c3JjL2NvbXBvbmVudHMvSW5mb1BhZ2VzLnRzeA",""
+"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","85","2","FALSE","11553","8905","305e74645b3079e62f5954a3844bce1753b51577","d7197abc332dbcd841fb3a12518a0d33454923b2","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/server/accountHandler.test.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz",""
+"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","29","3","FALSE","9993","9076","a4757a94ee619512d97895386f1adbca12c06b52","c787df511b66120c47b9ecae91a1f67df0889fa6","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/server/accountHandler.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw",""
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","3","FALSE","16167","15947","2f6e10008604aec3a3b5db43e23a9c66e4f94e09","c9f704f950973d5a89413c5e3ea72c9264a08736","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/server/leadHandler.test.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
+"leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","6","FALSE","15533","15508","5c7ffc1f5030c74b6cce5d295231ef86a5293550","516de9c12aad17064e547bfbee452bfc399f2ab9","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/server/leadHandler.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50cw",""
+"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","27","1","FALSE","11867","10964","0e2e3121749bdd6bce542c1733c6261710a954d3","1965e9e52eae16cf5123312882237e26896eebe0","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/server/storage.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","16","0","FALSE","12278","11711","295823a972a69f830fa5ed7da8e706248540b626","e29d27b0742e122a2938ea3be16be3034f0a1ed4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/types.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"accountClient.ts","src/utils/accountClient.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","13","1","FALSE","3476","3004","83118b61fa4c3d15cf08d903ceec09fc7a36dbbd","c3f13561d251f48ce2a9dc7f25cb85fc01c11109","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/src/utils/accountClient.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:c3JjL3V0aWxzL2FjY291bnRDbGllbnQudHM","p:c3JjL3V0aWxzL2FjY291bnRDbGllbnQudHM",""
+"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","[""arena/a0d9de2c-vakman""]","Gewijzigd","M","","","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","074a7cecc131","[""0ebadf2dd0790786eda3d7f5112dba6c7145b8c2""]","2026-10-29T00:36:45Z","2026-10-29T00:36:45Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de vakman ziet zijn aanvragen in zijn account","feat: de vakman ziet zijn aanvragen in zijn account
+
+Een aanvraag via de site van een vakman kwam alleen per mail binnen.
+Mist de mail, dan heeft hij geen idee dat er iemand heeft geschreven: de
+aanvraag ligt alleen bij Klusbaas in de opslag. Voor iemand die zijn
+site verkoopt is dat het belangrijkste wat er is.
+
+Nu staat elke aanvraag in het account van de vakman, bij zijn sites:
+naam, telefoonnummer, e-mailadres, zijn bericht, de datum en de
+referentie. De mail blijft komen; de mail is niet meer de enige plek
+waar hij de aanvraag terugvindt.
+
+Daarom wordt de aanvraag nu altijd bewaard, ook als de mail naar de
+vakman aankomt. Klusbaas bewaart hem in naam van de vakman, gebruikt
+hem voor niets anders en de privacyverklaring zegt dat precies. De
+belofte uit PR #32 (""bij de vakman ligt niets"") is dus veranderd, en
+eerlijk gezegd in de tekst en de privacyverklaring bijgewerkt.
+
+201 tests groen, `bun run check` groen. Handmatig gecontroleerd via de
+dev-server: aanmelden, site publiceren, aanvraag versturen en de
+aanvraag terugzien in het account.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","3","FALSE","11674","11593","a12a45bf0dd428159a7eda95747e16b1a7e75bb9","742217ff4bff24a489b64a73179db5cb20ff57cc","100644","100644","https://github.com/dsvleeuw/Vakman/commit/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a","https://github.com/dsvleeuw/Vakman/blob/074a7cecc131c9c83d5be9e15e6a3734b6f4a44a/vite.config.ts","Commit","2026-10-29T00:36:58.441Z","074a7cecc131c9c83d5be9e15e6a3734b6f4a44a:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
