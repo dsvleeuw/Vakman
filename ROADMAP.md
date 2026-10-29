@@ -105,6 +105,22 @@ no provider dashboards, no design decision a human has to make first.
 | 6.8 | ~~The offer becomes true~~ Done: the price calculator and the postcode check now run on the craftsman's own prices and his own work area (both stay off the page until he fills them in), the calculator sends a real request, and every promise on the pricing page is either built or removed | M | The domain is registered by hand per order, the Google Calendar/Drive sync still needs a Firebase login, and a price is a starting price: the calculator says "vanaf", not a fixed quote. |
 | 6.9 | ~~The craftsman uploads his own photos~~ Done: a tab "Photos" in the editor with a hero photo and his own projects (title, kind of work, year and a photo each); the photo is scaled down in the browser, stored in the Blobs store `media` and served by `/api/media`; the published page shows his own work and leaves the placeholder when he has no photos | L | Uploaded photos are never cleaned up: there is no delete and no limit per customer. A photo is a jpg, png or webp of at most 1,5 MB. |
 
+## Phase 7 — Sell without the wizard
+
+Phase 6 made the product honest. Phase 7 closes the two gaps that stood
+between "the customer has a site" and "Klusbaas can invoice him". Both are
+work inside this repository: no provider, no dashboard, no human decision
+needed first.
+
+**Definition of done — Klusbaas can sell to a customer who did not come
+through the wizard when:**
+
+1. The photo upload cannot be abused by a third party.
+
+| # | Item | Effort | Notes |
+|---|------|--------|-------|
+| 7.1 | ~~The photo upload is not abuse-proof~~ Done: `POST /api/media` has a rate limit of 30 uploads per hour per IP, and the limit is in front of the upload, not behind it | S | The limit lives per function instance, so it stops one script but not a distributed attack. There is still no delete and no quota per customer: a customer can use up his 30 photos and cannot remove them. |
+
 ## Decision log
 
 - **Contact option D (WhatsApp primary + form fallback)** was chosen because

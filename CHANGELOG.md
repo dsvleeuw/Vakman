@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De foto-upload is niet meer misbruikbaar.** `POST /api/media` heeft een
+  grens van 30 foto's per uur per IP: een script kan de fotostore niet meer
+  vol zetten.
 - **De vakman vult zijn diensten en zijn prijzen zelf in.** In de editor
   staat nu een lijst met diensten: naam, korte omschrijving, de vanaf-prijs
   en eventueel de eenheid ("per m²", "per uur"). De voorbeelddiensten van het

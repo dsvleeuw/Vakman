@@ -222,6 +222,11 @@ to [ROADMAP.md](../ROADMAP.md).
 - A photo is kept under a random name. Nothing is deleted: there is no
   delete button and no limit per customer, so the store grows with every
   upload. The Blobs store `media` has to be watched.
+- **The upload is open for everyone, so it has a limit.** `POST /api/media`
+  accepts 30 uploads per hour per IP address. The limit lives in the memory
+  of one function instance, so it stops a single script but not a
+  distributed attack, and it is not a quota per customer: a customer with an
+  account shares the limit with everyone else behind the same address.
 - The published page only shows photos of the customer that are served
   from our own server. A photo address from somewhere else is dropped when
   the content is read (`sanitizePhoto`).

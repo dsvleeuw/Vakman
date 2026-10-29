@@ -201,7 +201,10 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         } catch {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
-        const result = await mediaHandler.handleUploadMedia(body, { storage });
+        const result = await mediaHandler.handleUploadMedia(body, {
+          storage,
+          clientKey: req.socket.remoteAddress ?? 'dev',
+        });
         reply(res, result.status, result.body);
       });
 

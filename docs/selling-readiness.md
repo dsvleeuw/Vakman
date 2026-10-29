@@ -40,6 +40,7 @@ list still promises things the code does not do.
 | 9 | No overview for Klusbaas | no admin route; `src/server/` has no list view | Customers, sites, orders and requests are invisible outside the mail and the Blobs dashboard | **fixed (6.4)** |
 | 10 | The privacy note on a customer site points to Klusbaas' statement | `src/components/PrivacyNote.tsx` links to `{ name: 'privacy' }` | On a customer site the craftsman is the party responsible for the data on his own site; the link says otherwise | **open (6.7)** |
 | 11 | The pricing page promises what is not built | `src/data/plans.ts` | "Eigen .nl-domein, eerste jaar inbegrepen", "Offertes automatisch opgeslagen in Google Drive" and "Koppeling met je Google Bedrijfsprofiel" are on the price list and nowhere in the code | **open (6.8)** |
+| 12 | The photo upload can be abused | `POST /api/media` had no limit and no login | Anyone could fill the photo store with rubbish: the upload is open on purpose, so it needs a limit | **fixed (7.1)** |
 
 The status column says what has been done since the audit was written
 (phases 6.1–6.4). "Partly fixed" means: an offer can be ordered
@@ -95,6 +96,9 @@ grep -rn "action === 'overview'" src/server/adminHandler.ts
 
 # 11: the promises on the price list
 grep -n "domein\|Drive\|Bedrijfsprofiel" src/data/plans.ts
+
+# 12: the photo upload has a limit
+grep -n "MEDIA_UPLOADS_PER_HOUR" src/server/mediaHandler.ts
 
 # and the checks that must stay green
 bun run check

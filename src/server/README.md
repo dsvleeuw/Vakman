@@ -7,6 +7,7 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 | Bestand | Doel |
 |---------|------|
 | `leadHandler.ts` | `POST /api/lead` — Ontvangt leads van demo sites & wizard, valideert, stuurt mails, slaat op in Blobs/.data |
+| `mediaHandler.ts` | `POST/GET /api/media` — Foto's van de vakman opslaan en serveren (max. 1,5 MB, 30 uploads per uur per IP) |
 | `newsletterHandler.ts` | `POST /api/newsletter` — Nieuwsbrief inschrijvingen |
 | `mailer.ts` | E-mail verzending via Resend (productie) of console log (dev/preview) |
 | `quotePdf.ts` | PDF generatie voor offertes (pdfkit) |

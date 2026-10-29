@@ -38,7 +38,10 @@ export default async (req: Request): Promise<Response> => {
     return Response.json({ ok: false, error: 'Ongeldige JSON.' }, { status: 400 });
   }
 
-  const result = await handleUploadMedia(body, { storage });
+  const result = await handleUploadMedia(body, {
+    storage,
+    clientKey: req.headers.get('x-nf-client-connection-ip') ?? 'onbekend',
+  });
   return Response.json(result.body, { status: result.status });
 };
 

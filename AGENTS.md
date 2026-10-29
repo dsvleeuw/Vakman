@@ -134,7 +134,8 @@ result. The Netlify deploy preview is the only external CI check. If
   `media`; they are served from `GET /api/media?key=…`. The browser scales
   the photo down first (`utils/mediaClient.ts`). Only jpg, png and webp of
   at most 1,5 MB are accepted, and only photo addresses from our own
-  server survive in the content (`sanitizePhoto`).
+  server survive in the content (`sanitizePhoto`). The upload has a limit
+  of 30 photos per hour per IP (`mediaHandler.ts`); the excess gets a 429.
 - The price calculator and the postcode check are tools with numbers, so
   they only go on a published page when the craftsman filled them in:
   `content.services` (his own services with a price, `utils/services.ts`) and
