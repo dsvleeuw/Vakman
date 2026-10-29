@@ -33,8 +33,11 @@ on `main`; the commands to re-measure them are at the bottom.
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
-either built or removed. What is left is on Klusbaas' side: he marks the
-payment by hand and there is no payment provider (phase 7.2, still open).
+either built or removed. On Klusbaas' side the sale is complete too: he can
+write an offer for anyone (a customer with an account, a customer who only
+sent a request), the offer says where to pay, and the customer can pay it.
+What is left is the bookkeeping: Klusbaas marks the payment by hand and
+there is no payment provider (still open).
 
 ## The blockers, measured
 
@@ -57,7 +60,7 @@ payment by hand and there is no payment provider (phase 7.2, still open).
 | 15 | A request cannot become an offer | the "Offerte maken" form listed only published sites and accounts | Someone who only sent a request could not be given an offer, so a lead from a form had no path to an order | **fixed (7.4)** |
 
 The status column says what has been done since the audit was written
-(phases 6.1–6.9 and 7.1–7.2). "Partly fixed" means: an offer can be ordered
+(phases 6.1–6.9 and 7.1–7.4). "Partly fixed" means: an offer can be ordered
 and paid for, but there is no payment provider, no automatic reminder and
 no invoice.
 
