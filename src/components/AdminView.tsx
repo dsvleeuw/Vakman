@@ -360,12 +360,14 @@ export const AdminView: React.FC = () => {
                 <p className="m-0 text-stone-600 leading-relaxed">
                   Een klant die zelf een account maakt en zijn site publiceert vraagt
                   zelf geen offerte aan. Schrijf hem er hier één: de klant krijgt
-                  hem per mail, ziet hem in zijn account en kan hem betalen.
+                  hem per mail, ziet hem in zijn account en kan hem betalen. Ook
+                  iemand die alleen een aanvraag stuurde staat in de lijst.
                 </p>
                 <div className="rounded-2xl bg-white border border-stone-200 p-6">
                   <AdminQuoteForm
                     sites={overview.sites}
                     accounts={overview.accounts}
+                    leads={overview.leads}
                     busy={busy}
                     onCreated={handleCreated}
                   />

@@ -2,7 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { CheckCircle2, Loader2, TriangleAlert } from 'lucide-react';
 import { ADDONS } from '../data/addons';
 import { PLANS } from '../data/plans';
-import type { AdminAccount, AdminCreatedQuote, AdminSite } from '../types';
+import { STYLES } from '../data/tradesData';
+import type { AdminAccount, AdminCreatedQuote, AdminSite, StoredLead } from '../types';
 import { createQuote } from '../utils/adminClient';
 import { formatEuroCents } from '../utils/quote';
 
@@ -34,9 +35,52 @@ interface Customer {
   sector?: string;
   style?: string;
   services: string[];
+  /** The request the customer sent, when he only sent one. */
+  leadReference?: string;
 }
 
-function customersFrom(sites: AdminSite[], accounts: AdminAccount[]): Customer[] {
+/**
+ * The requests that came in through a form of Klusbaas itself. A request on
+ * a published customer site belongs to that craftsman, so it is not
+ * Klusbaas' customer: only the requests without a site are.
+ */
+/**
+ * A request carries the name of the style (`Vakwerk`), but an offer needs
+ * the id of it (`klassiek`).
+ */
+function styleIdOf(styleName: string | undefined): string | undefined {
+  if (!styleName) return undefined;
+  return STYLES.find((style) => style.id === styleName || style.name === styleName)?.id;
+}
+
+function leadsAsCustomers(leads: StoredLead[]): Customer[] {
+  return leads
+    .filter((lead) => !lead.site?.slug)
+    .map((lead) => {
+      const fields = lead.fields ?? {};
+      return {
+        key: `lead-${lead.reference}`,
+        label: `${fields.name?.trim() || fields.email?.trim() || 'Aanvraag'} · ${lead.site?.biz ?? 'onbekend'} (${lead.reference})`,
+        email: fields.email?.trim() ?? '',
+        // De bedrijfsnaam van de site waar de aanvraag binnenkwam is niet de
+        // naam van het bedrijf van de klant; die vullen we zelf in.
+        biz: lead.site?.slug ? (lead.site?.biz ?? '') : (fields.name?.trim() ?? ''),
+        owner: fields.name?.trim() ?? '',
+        phone: fields.phone?.trim() ?? '',
+        city: fields.city?.trim() ?? '',
+        ...(lead.site?.sector ? { sector: lead.site.sector } : {}),
+        ...(styleIdOf(lead.site?.style) ? { style: styleIdOf(lead.site?.style) } : {}),
+        services: [],
+        leadReference: lead.reference,
+      };
+    });
+}
+
+function customersFrom(
+  sites: AdminSite[],
+  accounts: AdminAccount[],
+  leads: StoredLead[] = []
+): Customer[] {
   const byOwner = new Map<string, AdminAccount>();
   for (const account of accounts) byOwner.set(account.id, account);
 
@@ -75,12 +119,21 @@ function customersFrom(sites: AdminSite[], accounts: AdminAccount[]): Customer[]
     });
   }
 
+  // Iemand die alleen een aanvraag stuurde is ook een klant: Klusbaas kan
+  // hem een offerte schrijven, ook zonder account.
+  for (const lead of leadsAsCustomers(leads)) {
+    if (customers.some((customer) => customer.email === lead.email && lead.email)) continue;
+    customers.push(lead);
+  }
+
   return customers;
 }
 
 export interface AdminQuoteFormProps {
   sites: AdminSite[];
   accounts: AdminAccount[];
+  /** The requests that came in through a form of Klusbaas. */
+  leads?: StoredLead[];
   busy: boolean;
   /** Called after a successful offer, so the overview can be refreshed. */
   onCreated: (quote: AdminCreatedQuote) => void;
@@ -89,10 +142,11 @@ export interface AdminQuoteFormProps {
 export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
   sites,
   accounts,
+  leads = [],
   busy,
   onCreated,
 }) => {
-  const customers = useMemo(() => customersFrom(sites, accounts), [sites, accounts]);
+  const customers = useMemo(() => customersFrom(sites, accounts, leads), [sites, accounts, leads]);
   const [selected, setSelected] = useState('');
   const [plan, setPlan] = useState<string>(PLANS[1]?.id ?? 'pro');
   const [addons, setAddons] = useState<string[]>([]);
@@ -136,6 +190,7 @@ export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
       send,
       ...(customer?.accountId ? { accountId: customer.accountId } : {}),
       ...(customer?.siteSlug ? { siteSlug: customer.siteSlug } : {}),
+      ...(customer?.leadReference ? { leadReference: customer.leadReference } : {}),
       ...(customer?.sector ? { sector: customer.sector } : {}),
       ...(customer?.style ? { style: customer.style } : {}),
       ...(customer?.services.length ? { services: customer.services } : {}),
@@ -174,7 +229,8 @@ export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
             ))}
           </select>
           <p className="m-0 mt-1.5 text-xs text-stone-500">
-            De gegevens van de klant komen uit zijn site. Zonder site vul je ze zelf in.
+            De gegevens van de klant komen uit zijn site of zijn aanvraag. Zonder
+            account of site vul je ze zelf in.
           </p>
         </div>
         <div>

@@ -140,6 +140,9 @@ result. The Netlify deploy preview is the only external CI check. If
   and `renderQuotePdf` writes them into the PDF, so a customer without an
   account can pay too. They come from the environment (`PAYMENT_IBAN`,
   `PAYMENT_NAME`, `PAYMENT_EMAIL`); without an IBAN there are none.
+- An offer can also go to someone who only sent a request: the request
+  (`leadReference`) is a customer in the form. A request on a published
+  customer site belongs to that craftsman and is not Klusbaas' customer.
 - Klusbaas writes an offer himself in `/klusbaas` (`AdminQuoteForm.tsx` →
   `POST /api/admin` with `action: 'create-quote'` → `server/adminOffer.ts`).
   The offer is a real offer with a number, a PDF and a price, it is linked

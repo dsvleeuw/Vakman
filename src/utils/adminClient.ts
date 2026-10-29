@@ -73,6 +73,8 @@ export interface OfferInput {
   email: string;
   accountId?: string;
   siteSlug?: string;
+  /** The request the customer sent (`L-XXXXXX`), when he only sent one. */
+  leadReference?: string;
   plan: string;
   addons?: string[];
   sector?: string;

@@ -33,6 +33,11 @@ export interface OfferRequest {
   accountId?: string;
   /** The published site of the customer: his details come from it. */
   siteSlug?: string;
+  /**
+   * The request the customer sent (`L-XXXXXX`). His details come from it,
+   * so Klusbaas can write an offer for someone who never made an account.
+   */
+  leadReference?: string;
   /** The package: `basis`, `pro` or `premium`. */
   plan?: string;
   /** The extra components, e.g. `['trust-bar']`. */
@@ -103,7 +108,15 @@ export async function createOfferForCustomer(
   deps: OfferDeps
 ): Promise<OfferResult> {
   const log = deps.log ?? (() => {});
-  const email = clip(request.email).toLowerCase();
+  // Het e-mailadres komt uit de aanvraag als Klusbaas het niet meegeeft.
+  const leadEmail = request.leadReference
+    ? clip(
+        (
+          await deps.leads.listLeads()
+        ).find((record) => record.reference === request.leadReference)?.fields?.email
+      ).toLowerCase()
+    : '';
+  const email = clip(request.email).toLowerCase() || leadEmail;
   if (!email || !isValidEmail(email)) {
     return { ok: false, error: 'Vul een geldig e-mailadres in.', field: 'email' };
   }
@@ -133,10 +146,20 @@ export async function createOfferForCustomer(
     };
   }
 
-  const biz = clip(request.biz) || clip(site?.form.biz);
-  const owner = clip(request.owner) || clip(site?.form.owner);
-  const phone = clip(request.phone, 40) || clip(site?.form.phone, 40);
-  const city = clip(request.city, 80) || clip(site?.form.city, 80);
+  // Een aanvraag zonder site: daar komen de klantgegevens uit.
+  const lead = request.leadReference
+    ? (await deps.leads.listLeads()).find((record) => record.reference === request.leadReference)
+    : undefined;
+  const leadFields = lead?.fields ?? {};
+  const owner =
+    clip(request.owner) || clip(site?.form.owner) || clip(leadFields.name, 120);
+  // Bij een aanvraag is `site.biz` de site waar de aanvraag binnenkwam
+  // (bv. Klusbaas zelf), niet de naam van het bedrijf van de klant. Zonder
+  // bedrijfsnaam nemen we de naam van de klant.
+  const leadBiz = lead && !lead.site?.slug ? '' : clip(lead?.site?.biz);
+  const biz = clip(request.biz) || clip(site?.form.biz) || leadBiz || owner;
+  const phone = clip(request.phone, 40) || clip(site?.form.phone, 40) || clip(leadFields.phone, 40);
+  const city = clip(request.city, 80) || clip(site?.form.city, 80) || clip(leadFields.city, 80);
   if (!biz) {
     return { ok: false, error: 'Vul de bedrijfsnaam in.', field: 'biz' };
   }
@@ -144,15 +167,22 @@ export async function createOfferForCustomer(
     return { ok: false, error: 'Vul de naam van de contactpersoon in.', field: 'owner' };
   }
 
-  const sector = pickSector(site?.sector, request.sector);
+  const sector = pickSector(site?.sector, request.sector) ?? pickSector(lead?.site?.sector, undefined);
   if (!sector) {
     return { ok: false, error: 'Kies een vak.', field: 'sector' };
   }
+  // De stijl van een aanvraag is een naam (`Vakwerk`), van een site een id
+  // (`klassiek`).
+  const leadStyle = lead?.site?.style
+    ? STYLES.find((entry) => entry.id === lead.site?.style || entry.name === lead.site?.style)?.id
+    : undefined;
   const style = site
     ? styleName(site.styleId)
     : request.style && STYLES.some((entry) => entry.id === request.style)
       ? styleName(request.style)
-      : styleName('klassiek');
+      : leadStyle
+        ? styleName(leadStyle)
+        : styleName('klassiek');
 
   const services = Array.isArray(request.services)
     ? request.services

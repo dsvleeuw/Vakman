@@ -154,9 +154,13 @@ to [ROADMAP.md](../ROADMAP.md).
   itself is then only in the server log. The same is true for the
   `MAIL_TEST_RECIPIENT` redirect, which sends every customer mail to one
   test address.
-- **The customer has to be found first.** The form lists the published sites
-  and the accounts; a customer who has neither does not appear, so Klusbaas
-  has to create the account first.
+- **A customer who only sent a request can get an offer too.** The form
+  lists the published sites, the accounts and the requests that came in
+  through a form of Klusbaas. A request on a published customer site does
+  not appear: that one belongs to the craftsman.
+- **An offer for someone without an account does not land in an account.**
+  The customer gets it by mail and pays with the IBAN in the offer. He sees
+  the offer and its status only when he makes an account and claims it.
 - **Klusbaas marks the payment by hand.** The offer gets the status `open`
   and Klusbaas changes it to `paid` once the money is in. There is no
   payment provider, no automatic reminder and no separate invoice document:

@@ -124,12 +124,15 @@ through the wizard when:**
 4. The photo upload cannot be abused by a third party.
 5. The customer can pay the offer: the IBAN and the amount stand in the offer
    itself, so an account is not needed to pay.
+6. A request can become an offer: someone who only sent a request can be
+   given an offer, with his details taken from the request.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
 | 7.1 | ~~The photo upload is not abuse-proof~~ Done: `POST /api/media` has a rate limit of 30 uploads per hour per IP, and the limit is in front of the upload, not behind it | S | The limit lives per function instance, so it stops one script but not a distributed attack. There is still no delete and no quota per customer: a customer can use up his 30 photos and cannot remove them. |
 | 7.2 | ~~Klusbaas can write an offer himself~~ Done: in `/klusbaas` there is a form "Offerte maken": pick the customer (his site fills in the details), pick the package and the extra components, and Klusbaas writes the offer. It becomes a quote record with a PDF, it is linked to the customer's account and mailed to him with the PDF attached | M | The customer sees the offer in `/mijn-account` and can pay it by bank transfer. Without `RESEND_API_KEY` no mail goes out (the offer is still made and the overview says so). Klusbaas still marks the payment by hand; there is no payment provider and no automatic reminder. |
 | 7.3 | ~~The customer can pay the offer~~ Done: the IBAN and the amount stand in the offer PDF and on the offer page (`/offerte/<id>`), so a customer without an account can also transfer the money right away | S | Klusbaas still has to mark the offer as paid by hand: there is no payment provider and no bank check. Without `PAYMENT_IBAN` there are no payment details, and the offer says so instead of showing a broken bank account. |
+| 7.4 | ~~A request can become an offer~~ Done: a customer who only sent a request (`L-XXXXXX`) and never made an account stands in the list of "Offerte maken"; Klusbaas picks him and the offer takes his details from the request | S | The offer of someone without an account does not appear in `/mijn-account`, because he has no account. He gets it by mail and can pay with the IBAN in the offer (7.3). |
 
 ## Decision log
 

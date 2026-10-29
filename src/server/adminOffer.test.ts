@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import zlib from 'node:zlib';
-import type { Account, PublishedSiteRecord } from '../types';
+import type { Account, PublishedSiteRecord, StoredLead } from '../types';
 import type { QuoteRecord } from '../utils/quote';
 import { createOfferForCustomer } from './adminOffer';
 import type { AccountMail } from './accountMailer';
@@ -25,7 +25,10 @@ function memorySites(sites: PublishedSiteRecord[] = []): SiteStorage {
 }
 
 /** The offers in memory, with the PDF that was saved with them. */
-function memoryStorage(quotes: QuoteRecord[] = []): LeadStorage & { pdfs: Map<string, Uint8Array> } {
+function memoryStorage(
+  quotes: QuoteRecord[] = [],
+  storedLeads: StoredLead[] = []
+): LeadStorage & { pdfs: Map<string, Uint8Array> } {
   const quoteMap = new Map(quotes.map((quote) => [quote.id, quote]));
   const pdfs = new Map<string, Uint8Array>();
   return {
@@ -48,7 +51,7 @@ function memoryStorage(quotes: QuoteRecord[] = []): LeadStorage & { pdfs: Map<st
       return `memory:${reference}`;
     },
     async listLeads() {
-      return [];
+      return storedLeads;
     },
     async listQuotes() {
       return [...quoteMap.values()];
@@ -310,6 +313,61 @@ function pdfText(pdf: Uint8Array): string {
   }
   return words.join('\n');
 }
+
+/** A request that came in through a form of Klusbaas. */
+const request: StoredLead = {
+  reference: 'L-AB12CD',
+  createdAt: '2026-10-29T10:00:00.000Z',
+  type: 'contact',
+  site: { biz: 'Houtwerk De Vries', sector: 'timmerman', style: 'Vakwerk' },
+  fields: {
+    name: 'Jan de Vries',
+    phone: '0612345678',
+    email: 'jan@devries.nl',
+    message: 'Ik wil een website.',
+  },
+};
+
+test('Klusbaas schrijft een offerte voor iemand die alleen een aanvraag stuurde', async () => {
+  const leads = memoryStorage([], [request]);
+  const mails: AccountMail[] = [];
+
+  const result = await createOfferForCustomer(
+    {
+      email: '',
+      leadReference: 'L-AB12CD',
+      plan: 'pro',
+    },
+    {
+      leads,
+      sites: memorySites([]),
+      accounts: memoryAccounts([]),
+      sendMail: async (mail: AccountMail) => {
+        mails.push(mail);
+        return 'sent';
+      },
+      now: () => Date.UTC(2026, 9, 29, 10, 0, 0),
+      createToken: () => 'offertetoken',
+      siteUrl: 'https://klusbaas.nl',
+    }
+  );
+
+  assert.equal(result.ok, true);
+  const quotes = await leads.listQuotes();
+  assert.equal(quotes.length, 1);
+  // De klantgegevens komen uit de aanvraag. De bedrijfsnaam van de site
+  // waar hij binnenkwam is niet de naam van zijn bedrijf, dus die wordt de
+  // naam van de klant.
+  assert.equal(quotes[0].customer.biz, 'Jan de Vries');
+  assert.equal(quotes[0].customer.owner, 'Jan de Vries');
+  assert.equal(quotes[0].customer.email, 'jan@devries.nl');
+  assert.equal(quotes[0].customer.phone, '0612345678');
+  assert.equal(quotes[0].sectorName, 'Timmerman');
+  // En de klant krijgt de offerte per mail.
+  assert.equal(mails.length, 1);
+  assert.equal(mails[0].to, 'jan@devries.nl');
+  assert.equal(mails[0].attachments?.length, 1);
+});
 
 test('de betaalgegevens staan in de PDF van de offerte', async () => {
   const { deps: d, leads } = deps({

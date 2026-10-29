@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een aanvraag kan een offerte worden.** Iemand die alleen een aanvraag
+  stuurde en nooit een account maakte staat nu in de lijst van "Offerte
+  maken" in `/klusbaas`. Klusbaas kiest hem, de offerte neemt zijn naam,
+  zijn telefoonnummer, zijn e-mailadres en zijn vak uit de aanvraag, en de
+  klant krijgt hem per mail. Een aanvraag op een klantsite hoort bij die
+  vakman en staat er dus niet bij.
 - **De klant kan de offerte meteen betalen.** De IBAN, de naam van de
   rekeninghouder en het bedrag staan nu in de offerte-PDF en op de
   offertepagina. Een klant zonder account kon de offerte wel openen, maar

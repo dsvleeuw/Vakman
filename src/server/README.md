@@ -54,6 +54,8 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
    online offerte (`utils/leadEmail.ts`, `buildOfferEmail`)
 5. De betaalgegevens (`server/payment.ts`) komen in de PDF en in
    `GET /api/quote`, zodat de klant kan betalen zonder account
+6. Met `leadReference` neemt de offerte de klantgegevens uit een aanvraag
+   (`L-XXXXXX`), voor iemand die nooit een account maakte
 
 ## Tests
 
