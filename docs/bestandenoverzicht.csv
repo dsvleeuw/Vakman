@@ -15482,7 +15482,7 @@ feat: elke klantsite krijgt zijn eigen privacyverklaring","67","0","FALSE","2473
 "sitePrivacy.ts","src/utils/sitePrivacy.ts","TypeScript",".ts","TRUE","[""Dev"",""Prod"",""arena/3af65cc3-vakman"",""main""]","[""Dev"",""Prod"",""arena/3af65cc3-vakman"",""main""]","[""Dev"",""Prod"",""arena/3af65cc3-vakman"",""main""]","Toegevoegd","A","","","0b1912f9da28fa98e39d3df8c17b03d05d255835","0b1912f9da28","[""961859254e0de21dc0b1b2d1f2fd31268688d25c"",""86d0612d0b405a223884ee40e9b80f8ed66a0a32""]","2026-10-29T01:10:40Z","2026-10-29T01:10:40Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #39 from dsvleeuw/arena/24fd0401-vakman","Merge pull request #39 from dsvleeuw/arena/24fd0401-vakman
 
 feat: elke klantsite krijgt zijn eigen privacyverklaring","96","0","FALSE","3298","","6fa4d7a19b1a1b2b1a15d43159011b20e47d0d31","","100644","","https://github.com/dsvleeuw/Vakman/commit/0b1912f9da28fa98e39d3df8c17b03d05d255835","https://github.com/dsvleeuw/Vakman/blob/0b1912f9da28fa98e39d3df8c17b03d05d255835/src/utils/sitePrivacy.ts","Commit","2026-10-29T01:10:54.221Z","0b1912f9da28fa98e39d3df8c17b03d05d255835:c3JjL3V0aWxzL3NpdGVQcml2YWN5LnRz","p:c3JjL3V0aWxzL3NpdGVQcml2YWN5LnRz",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15505,7 +15505,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","11947","11289","99dd65017bff835eb3f783bfda33298df4ef9cbc","1c1661c7493048d3f0aaa30a028a7088938170d2","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/AGENTS.md","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15528,7 +15528,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","33","0","FALSE","32617","30594","283b9e37f22349a36001c4505843acf919767533","e412e5003ae49ba3a9009159d9d7815520238fb3","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/CHANGELOG.md","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15551,7 +15551,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","2","FALSE","11930","11644","8d0f3cc0c170051c393a6813708f8d147d686dd0","6ea39438efbcb6975d19a9fca44e8405716493f5","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/ROADMAP.md","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15574,7 +15574,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","21","0","FALSE","15000","13751","110f6862f6bb2e91597dc212fb2d6d8034a4654a","42cccbeaec247a8c3a465492a84b4d1ca0c9ea98","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/docs/known-limitations.md","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"AreaChecker.tsx","src/components/AreaChecker.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"AreaChecker.tsx","src/components/AreaChecker.tsx","React / TypeScript",".tsx","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15597,7 +15597,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","187","26","FALSE","11403","4682","b336bfdf45de86f88e21b23fe4d42510d3c6b450","92436174d3c685eb3d6bc9e123f9e1cc471897ce","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/components/AreaChecker.tsx","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2NvbXBvbmVudHMvQXJlYUNoZWNrZXIudHN4","p:c3JjL2NvbXBvbmVudHMvQXJlYUNoZWNrZXIudHN4",""
-"PriceCalculator.tsx","src/components/PriceCalculator.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"PriceCalculator.tsx","src/components/PriceCalculator.tsx","React / TypeScript",".tsx","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15620,7 +15620,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","169","28","FALSE","14364","8168","cbd55e5671303173cc5c33d6a0601d3a48ea7258","1ac944591425db6f04c2d8bc844508722c485f09","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/components/PriceCalculator.tsx","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2NvbXBvbmVudHMvUHJpY2VDYWxjdWxhdG9yLnRzeA","p:c3JjL2NvbXBvbmVudHMvUHJpY2VDYWxjdWxhdG9yLnRzeA",""
-"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15643,7 +15643,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","0","FALSE","5845","5783","77b8b4a8e4173155a4823731c8d99d801cd06cc8","d69d51bff997d29727ad7fdaec3ac1e07a80e513","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/components/PublishedSiteView.tsx","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4",""
-"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15666,7 +15666,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","42","29","FALSE","34598","33927","a289ae9649f25bc0671a1b6c2ad09900d38e8209","7ffa2b58325e09d96644def3c695c6954bbdb70b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/components/editor/SiteEditor.tsx","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4",""
-"publishedTools.test.tsx","src/components/publishedTools.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"publishedTools.test.tsx","src/components/publishedTools.test.tsx","React / TypeScript",".tsx","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15689,7 +15689,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","90","0","FALSE","3066","","601bafd062523d4dde6415453d517504b55b6fc9","","100644","","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/components/publishedTools.test.tsx","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2NvbXBvbmVudHMvcHVibGlzaGVkVG9vbHMudGVzdC50c3g","p:c3JjL2NvbXBvbmVudHMvcHVibGlzaGVkVG9vbHMudGVzdC50c3g",""
-"plans.test.ts","src/data/plans.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"plans.test.ts","src/data/plans.test.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15712,7 +15712,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","51","0","FALSE","1709","","b79c7c04c159df905a26bcd9c4ba0c84576302a3","","100644","","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/data/plans.test.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2RhdGEvcGxhbnMudGVzdC50cw","p:c3JjL2RhdGEvcGxhbnMudGVzdC50cw",""
-"plans.ts","src/data/plans.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"plans.ts","src/data/plans.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15735,7 +15735,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","10","FALSE","2582","2271","08186c1275f6a7d962a95a50f700deecf80c1702","f47c2cac498cb7a9b84713a5b62b5b1b83b8a827","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/data/plans.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL2RhdGEvcGxhbnMudHM","p:c3JjL2RhdGEvcGxhbnMudHM",""
-"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15758,7 +15758,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","15","1","FALSE","12983","12294","3cab8822f8b7a884ef66bfed56f2ee4fa28bd9af","a0f29ec35cb696f59e61c887e545b030c6e223ae","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/server/siteHandler.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw","p:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15781,7 +15781,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","32","0","FALSE","15941","14808","e2e4827985b99b61f265ff69799325e01bfe4736","cc98661338509656c1a5f1f934239d602c7b7778","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/types.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
-"lead.test.ts","src/utils/lead.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"lead.test.ts","src/utils/lead.test.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15804,7 +15804,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","54","0","FALSE","9244","7705","8f85034487ac4d2547be18a826a41afe5bb9f110","c20e2cc686af40ebc6a557c0da4e3b3a798dae0c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/lead.test.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL2xlYWQudGVzdC50cw","p:c3JjL3V0aWxzL2xlYWQudGVzdC50cw",""
-"lead.ts","src/utils/lead.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"lead.ts","src/utils/lead.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15827,7 +15827,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","25","1","FALSE","11981","11427","032957a658044e2c92a9a53d65850fe596e2d7bc","2fa8b5065e9ff847bd70ed9b6914b6cd54e09a7a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/lead.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL2xlYWQudHM","p:c3JjL3V0aWxzL2xlYWQudHM",""
-"postcodes.test.ts","src/utils/postcodes.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"postcodes.test.ts","src/utils/postcodes.test.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15850,7 +15850,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","23","0","FALSE","1019","","f1eba86a9d8359fa8a8b7ed8944d32c6646d6621","","100644","","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/postcodes.test.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50ZXN0LnRz","p:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50ZXN0LnRz",""
-"postcodes.ts","src/utils/postcodes.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"postcodes.ts","src/utils/postcodes.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15873,7 +15873,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","36","0","FALSE","1388","","c117ff759bfc382569e5a4723b2ee0b15262a077","","100644","","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/postcodes.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50cw","p:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50cw",""
-"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15896,7 +15896,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","57","0","FALSE","8437","6153","1d1db6b502ca75205a8262fecf5b42e5e8253a04","bf37b12c1904bfb35b7fbb8c3bbf333ad0444949","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/publishedContent.test.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw",""
-"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15919,7 +15919,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","79","7","FALSE","15408","12593","6829136ec1f9753708d8687b394777140e7aea91","d0338fe191f2cafc377ccd4d5b2aeedba0f14f48","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/publishedContent.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM",""
-"services.test.ts","src/utils/services.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"services.test.ts","src/utils/services.test.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15942,7 +15942,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","123","0","FALSE","4238","","c3871466b90bc6455cbd7973488222ee3070671e","","100644","","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/services.test.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3NlcnZpY2VzLnRlc3QudHM","p:c3JjL3V0aWxzL3NlcnZpY2VzLnRlc3QudHM",""
-"services.ts","src/utils/services.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"services.ts","src/utils/services.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15965,7 +15965,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","150","0","FALSE","5309","","ae74a23170e24a58e42ee1a7d9dd41e4ec54d811","","100644","","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/services.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3NlcnZpY2VzLnRz","p:c3JjL3V0aWxzL3NlcnZpY2VzLnRz",""
-"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -15988,7 +15988,7 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","5","0","FALSE","3141","2939","abc94717fc8e865e951cba910d714dab0da4b911","47af1acac8d25969de32015abea0509310edcc7d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/siteClient.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM","p:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM",""
-"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","FALSE","[]","[]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","92e82090ef2fe0265df1ac930e76dd93c5d7baab","92e82090ef2f","[""0b7930085259547a85216066d9cc6c0921281769""]","2026-10-29T01:46:46Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
 
 De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
 prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
@@ -16011,3 +16011,532 @@ werken met de gegevens van de vakman:
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","47","0","FALSE","13787","12115","fdd95e35d172a1249b3bedd3a15937063b597731","ed8091a6dd20c3a99c4bd5536fd65b441901ca92","100644","100644","https://github.com/dsvleeuw/Vakman/commit/92e82090ef2fe0265df1ac930e76dd93c5d7baab","https://github.com/dsvleeuw/Vakman/blob/92e82090ef2fe0265df1ac930e76dd93c5d7baab/src/utils/siteContent.ts","Commit","2026-10-29T01:47:15.774Z","92e82090ef2fe0265df1ac930e76dd93c5d7baab:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz","p:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","11947","11289","99dd65017bff835eb3f783bfda33298df4ef9cbc","1c1661c7493048d3f0aaa30a028a7088938170d2","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/AGENTS.md","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","33","0","FALSE","32617","30594","283b9e37f22349a36001c4505843acf919767533","e412e5003ae49ba3a9009159d9d7815520238fb3","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/CHANGELOG.md","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","2","FALSE","11930","11644","8d0f3cc0c170051c393a6813708f8d147d686dd0","6ea39438efbcb6975d19a9fca44e8405716493f5","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/ROADMAP.md","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","21","0","FALSE","15000","13751","110f6862f6bb2e91597dc212fb2d6d8034a4654a","42cccbeaec247a8c3a465492a84b4d1ca0c9ea98","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/docs/known-limitations.md","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"AreaChecker.tsx","src/components/AreaChecker.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","187","26","FALSE","11403","4682","b336bfdf45de86f88e21b23fe4d42510d3c6b450","92436174d3c685eb3d6bc9e123f9e1cc471897ce","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/components/AreaChecker.tsx","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2NvbXBvbmVudHMvQXJlYUNoZWNrZXIudHN4","p:c3JjL2NvbXBvbmVudHMvQXJlYUNoZWNrZXIudHN4",""
+"PriceCalculator.tsx","src/components/PriceCalculator.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","169","28","FALSE","14364","8168","cbd55e5671303173cc5c33d6a0601d3a48ea7258","1ac944591425db6f04c2d8bc844508722c485f09","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/components/PriceCalculator.tsx","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2NvbXBvbmVudHMvUHJpY2VDYWxjdWxhdG9yLnRzeA","p:c3JjL2NvbXBvbmVudHMvUHJpY2VDYWxjdWxhdG9yLnRzeA",""
+"PublishedSiteView.tsx","src/components/PublishedSiteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","0","FALSE","5845","5783","77b8b4a8e4173155a4823731c8d99d801cd06cc8","d69d51bff997d29727ad7fdaec3ac1e07a80e513","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/components/PublishedSiteView.tsx","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvUHVibGlzaGVkU2l0ZVZpZXcudHN4",""
+"SiteEditor.tsx","src/components/editor/SiteEditor.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","42","29","FALSE","34598","33927","a289ae9649f25bc0671a1b6c2ad09900d38e8209","7ffa2b58325e09d96644def3c695c6954bbdb70b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/components/editor/SiteEditor.tsx","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4","p:c3JjL2NvbXBvbmVudHMvZWRpdG9yL1NpdGVFZGl0b3IudHN4",""
+"publishedTools.test.tsx","src/components/publishedTools.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","90","0","FALSE","3066","","601bafd062523d4dde6415453d517504b55b6fc9","","100644","","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/components/publishedTools.test.tsx","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2NvbXBvbmVudHMvcHVibGlzaGVkVG9vbHMudGVzdC50c3g","p:c3JjL2NvbXBvbmVudHMvcHVibGlzaGVkVG9vbHMudGVzdC50c3g",""
+"plans.test.ts","src/data/plans.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","51","0","FALSE","1709","","b79c7c04c159df905a26bcd9c4ba0c84576302a3","","100644","","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/data/plans.test.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2RhdGEvcGxhbnMudGVzdC50cw","p:c3JjL2RhdGEvcGxhbnMudGVzdC50cw",""
+"plans.ts","src/data/plans.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","10","FALSE","2582","2271","08186c1275f6a7d962a95a50f700deecf80c1702","f47c2cac498cb7a9b84713a5b62b5b1b83b8a827","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/data/plans.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL2RhdGEvcGxhbnMudHM","p:c3JjL2RhdGEvcGxhbnMudHM",""
+"siteHandler.ts","src/server/siteHandler.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","15","1","FALSE","12983","12294","3cab8822f8b7a884ef66bfed56f2ee4fa28bd9af","a0f29ec35cb696f59e61c887e545b030c6e223ae","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/server/siteHandler.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw","p:c3JjL3NlcnZlci9zaXRlSGFuZGxlci50cw",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","32","0","FALSE","15941","14808","e2e4827985b99b61f265ff69799325e01bfe4736","cc98661338509656c1a5f1f934239d602c7b7778","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/types.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"lead.test.ts","src/utils/lead.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","54","0","FALSE","9244","7705","8f85034487ac4d2547be18a826a41afe5bb9f110","c20e2cc686af40ebc6a557c0da4e3b3a798dae0c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/lead.test.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL2xlYWQudGVzdC50cw","p:c3JjL3V0aWxzL2xlYWQudGVzdC50cw",""
+"lead.ts","src/utils/lead.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","25","1","FALSE","11981","11427","032957a658044e2c92a9a53d65850fe596e2d7bc","2fa8b5065e9ff847bd70ed9b6914b6cd54e09a7a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/lead.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL2xlYWQudHM","p:c3JjL3V0aWxzL2xlYWQudHM",""
+"postcodes.test.ts","src/utils/postcodes.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","23","0","FALSE","1019","","f1eba86a9d8359fa8a8b7ed8944d32c6646d6621","","100644","","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/postcodes.test.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50ZXN0LnRz","p:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50ZXN0LnRz",""
+"postcodes.ts","src/utils/postcodes.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","36","0","FALSE","1388","","c117ff759bfc382569e5a4723b2ee0b15262a077","","100644","","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/postcodes.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50cw","p:c3JjL3V0aWxzL3Bvc3Rjb2Rlcy50cw",""
+"publishedContent.test.ts","src/utils/publishedContent.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","57","0","FALSE","8437","6153","1d1db6b502ca75205a8262fecf5b42e5e8253a04","bf37b12c1904bfb35b7fbb8c3bbf333ad0444949","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/publishedContent.test.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudGVzdC50cw",""
+"publishedContent.ts","src/utils/publishedContent.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","79","7","FALSE","15408","12593","6829136ec1f9753708d8687b394777140e7aea91","d0338fe191f2cafc377ccd4d5b2aeedba0f14f48","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/publishedContent.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM","p:c3JjL3V0aWxzL3B1Ymxpc2hlZENvbnRlbnQudHM",""
+"services.test.ts","src/utils/services.test.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","123","0","FALSE","4238","","c3871466b90bc6455cbd7973488222ee3070671e","","100644","","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/services.test.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3NlcnZpY2VzLnRlc3QudHM","p:c3JjL3V0aWxzL3NlcnZpY2VzLnRlc3QudHM",""
+"services.ts","src/utils/services.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Toegevoegd","A","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","150","0","FALSE","5309","","ae74a23170e24a58e42ee1a7d9dd41e4ec54d811","","100644","","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/services.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3NlcnZpY2VzLnRz","p:c3JjL3V0aWxzL3NlcnZpY2VzLnRz",""
+"siteClient.ts","src/utils/siteClient.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","5","0","FALSE","3141","2939","abc94717fc8e865e951cba910d714dab0da4b911","47af1acac8d25969de32015abea0509310edcc7d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/siteClient.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM","p:c3JjL3V0aWxzL3NpdGVDbGllbnQudHM",""
+"siteContent.ts","src/utils/siteContent.ts","TypeScript",".ts","TRUE","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","[""arena/3af65cc3-vakman""]","Gewijzigd","M","","","a5181109aa46f6c06f1dcd928d19a8b09189fbe3","a5181109aa46","[""0531bbafcfabff9640761953579d852593a7bde3""]","2026-10-29T01:47:19Z","2026-10-29T01:46:46Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen","feat: de beloftes waar maken — eigen prijzen, eigen werkgebied, echte aanvragen
+
+De pakketten beloofde dingen die Klusbaas niet bouwt. Nu staat er op de
+prijzenlijst alleen wat er echt is, en de tools die wel beloofd worden
+werken met de gegevens van de vakman:
+
+- De editor heeft een dienstenlijst: naam, omschrijving, vanaf-prijs en
+  eenheid. De voorbeeldprijzen van het vak staan er niet in; een prijs die
+  de vakman niet typt, komt niet op zijn site.
+- De prijscalculator rekent met zijn eigen diensten en prijzen en stuurt
+  een echte aanvraag (naam, nummer, dienst, indicatie) naar de vakman.
+- De postcodecheck werkt met zijn eigen werkgebied en stuurt de postcode
+  mee, zodat een bezoeker die 'ja' hoort ook gebeld wordt.
+- Zonder eigen prijzen of eigen werkgebied blijven die blokken van de
+  site af, in plaats van de voorbeeldprijzen of het voorbeeldgebied te
+  tonen. De checklijst in de editor zegt wat er nog moet komen.
+- De beloftes die niet gebouwd zijn (Google Bedrijfsprofiel, .nl-domein
+  inbegrepen, reviewsectie met Google-badge, meerdere pagina's, offertes
+  in Google Drive) zijn van de prijzenlijst af.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","47","0","FALSE","13787","12115","fdd95e35d172a1249b3bedd3a15937063b597731","ed8091a6dd20c3a99c4bd5536fd65b441901ca92","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a5181109aa46f6c06f1dcd928d19a8b09189fbe3","https://github.com/dsvleeuw/Vakman/blob/a5181109aa46f6c06f1dcd928d19a8b09189fbe3/src/utils/siteContent.ts","Commit","2026-10-29T01:47:53.601Z","a5181109aa46f6c06f1dcd928d19a8b09189fbe3:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz","p:c3JjL3V0aWxzL3NpdGVDb250ZW50LnRz",""
