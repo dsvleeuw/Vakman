@@ -51,4 +51,9 @@ export function setQuoteStatus(id: string, status: QuoteStatus): Promise<AdminRe
   return post({ action: 'quote-status', id, status });
 }
 
+/** Confirm an e-mail address by hand, when the mail did not arrive. */
+export function verifyAccount(id: string): Promise<AdminResult> {
+  return post({ action: 'verify-account', id });
+}
+
 export type { AdminOverview, AdminQuote, AdminSite, StoredLead };

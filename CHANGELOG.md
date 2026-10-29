@@ -62,6 +62,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`ADMIN_PASSWORD`); zonder dat wachtwoord is het overzicht gesloten en
   is er geen standaardwachtwoord.
 
+- **Een vakman die zijn wachtwoord kwijt is kan zelf een nieuw wachtwoord
+  zetten.** Vroeger moest hij dan naar Klusbaas mailen. Nu vult hij zijn
+  e-mailadres in bij "Wachtwoord vergeten?", krijgt hij een link en kiest
+  hij een nieuw wachtwoord. Het antwoord is altijd hetzelfde, ook als er
+  geen account is met dat adres, zodat niemand kan uitzoeken wie er een
+  account heeft. De link werkt een uur en is daarna waardeloos.
+- **Elk account moet zijn e-mailadres bevestigen.** Bij het aanmaken van een
+  account gaat er een mail met een bevestigingslink. Het adres is pas
+  bevestigd als die link is geklikt; in je account staat het, met de knop om
+  de mail nog eens te sturen. Komt de mail niet aan, dan bevestigt Klusbaas
+  het adres zelf vanuit het overzicht. Publiceren kan ook zonder bevestiging:
+  een klant die vastloopt op zijn mailbox verliest daardoor niet zijn site.
+
 ### Changed
 
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-

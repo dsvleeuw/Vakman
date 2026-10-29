@@ -420,6 +420,16 @@ export interface Account {
   passwordHash: string;
   createdAt: number;
   updatedAt: number;
+  /** When the customer confirmed his e-mail address. */
+  verifiedAt?: number;
+  /** The token to set a new password. Only set while a reset is pending. */
+  resetToken?: string;
+  /** When the reset token expires. */
+  resetExpiresAt?: number;
+  /** The token to confirm the e-mail address. */
+  verifyToken?: string;
+  /** When the verification token expires. */
+  verifyExpiresAt?: number;
 }
 
 /**
@@ -471,6 +481,8 @@ export interface AdminSite {
   updatedAt: number;
   /** True when the site belongs to a customer account. */
   hasAccount: boolean;
+  /** The account that owns the site, empty when it has none. */
+  ownerId: string;
   /**
    * The management link. Klusbaas needs it to help a customer who lost his
    * account; it is never shown to the customer.
@@ -486,11 +498,23 @@ export interface AdminQuote extends AccountQuote {
   city: string;
 }
 
+/** A customer account as the Klusbaas overview shows it. */
+export interface AdminAccount {
+  id: string;
+  email: string;
+  createdAt: number;
+  /** True when the customer confirmed his e-mail address. */
+  verified: boolean;
+  /** The number of sites that belong to this account. */
+  sites: number;
+}
+
 /** Everything the Klusbaas overview shows. */
 export interface AdminOverview {
   sites: AdminSite[];
   leads: StoredLead[];
   quotes: AdminQuote[];
+  accounts: AdminAccount[];
 }
 
 export interface StoredLead {

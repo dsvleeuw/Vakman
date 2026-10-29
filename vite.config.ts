@@ -68,7 +68,7 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         }
         const adminHandler = await server.ssrLoadModule('/src/server/adminHandler.ts');
         const { createFileAdminStorage } = await server.ssrLoadModule('/src/server/adminStorage.ts');
-        const { createFileSiteStorage, createFileStorage } =
+        const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
         const result = await adminHandler.handleAdmin(
           body,
@@ -77,6 +77,7 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             sessions: createFileAdminStorage(path.resolve(__dirname, '.data')),
             sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
             leads: createFileStorage(path.resolve(__dirname, '.data')),
+            accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
           },
           req.headers.cookie ?? null,
           false
@@ -139,7 +140,11 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
         const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
         const payment = paymentDetailsFromEnv(env);
+        const sendMail = createAccountMailer(env, (message: string) =>
+          server.config.logger.info(message)
+        );
         const result = await accountHandler.handleAccount(
           body,
           {
@@ -148,6 +153,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             leads: createFileStorage(path.resolve(__dirname, '.data')),
             // De offertes van de klant staan in dezelfde opslag als de aanvragen.
             quotes: createFileStorage(path.resolve(__dirname, '.data')),
+            sendMail,
+            siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
             ...(payment ? { payment } : {}),
           },
           req.headers.cookie ?? null,

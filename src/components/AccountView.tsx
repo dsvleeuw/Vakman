@@ -13,6 +13,10 @@ import {
   parseManageLink,
   parseQuoteLink,
   registerAccount,
+  requestPasswordReset,
+  resendVerification,
+  resetPassword,
+  verifyEmail,
   type AccountInfo,
 } from '../utils/accountClient';
 import { formatEuroCents, type QuoteStatus } from '../utils/quote';
@@ -222,11 +226,17 @@ const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({
   </li>
 );
 
+/** The token in the url, e.g. /mijn-account?reset=… */
+function tokenFromUrl(key: 'reset' | 'verifieer'): string {
+  if (typeof window === 'undefined') return '';
+  return new URLSearchParams(window.location.search).get(key) ?? '';
+}
+
 export const AccountView: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState<AccountInfo | null>(null);
   const [sites, setSites] = useState<PublicPublishedSite[]>([]);
-  const [mode, setMode] = useState<'login' | 'register'>('login');
+  const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'reset'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
@@ -238,6 +248,8 @@ export const AccountView: React.FC = () => {
   const [leads, setLeads] = useState<StoredLead[]>([]);
   const [quotes, setQuotes] = useState<AccountQuote[]>([]);
   const [payment, setPayment] = useState<PaymentDetails | undefined>();
+  const [resetToken, setResetToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
 
   const loadSites = useCallback(async () => {
     setSites(await fetchAccountSites());
@@ -256,6 +268,23 @@ export const AccountView: React.FC = () => {
   useEffect(() => {
     let active = true;
     (async () => {
+      // Een link uit een mail: ?verifieer=… bevestigt het e-mailadres,
+      // ?reset=… opent het formulier voor een nieuw wachtwoord.
+      const verifyToken = tokenFromUrl('verifieer');
+      if (verifyToken) {
+        const result = await verifyEmail(verifyToken);
+        if (!active) return;
+        if (result.ok) {
+          setNotice('Je e-mailadres is bevestigd. Je account is compleet.');
+        } else {
+          setError(result.error ?? 'Deze link klopt niet meer. Vraag een nieuwe aan in je account.');
+        }
+      }
+      const token = tokenFromUrl('reset');
+      if (token) {
+        setResetToken(token);
+        setMode('reset');
+      }
       const current = await fetchAccount();
       if (!active) return;
       setAccount(current);
@@ -289,6 +318,54 @@ export const AccountView: React.FC = () => {
     await loadLeads();
     await loadQuotes();
     setNotice(mode === 'register' ? 'Je account is klaar.' : 'Je bent ingelogd.');
+  };
+
+  const handleForgot = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setBusy(true);
+    setError(null);
+    const result = await requestPasswordReset(email);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt. Probeer het opnieuw.');
+      return;
+    }
+    setNotice(
+      result.message ??
+        'Als er een account is met dit e-mailadres, dan stuur ik je een link om een nieuw wachtwoord te kiezen.'
+    );
+  };
+
+  const handleReset = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setBusy(true);
+    setError(null);
+    const result = await resetPassword(resetToken, newPassword);
+    setBusy(false);
+    if (!result.ok || !result.account) {
+      setError(result.error ?? 'Dat is niet gelukt. Vraag een nieuwe link aan.');
+      return;
+    }
+    setNewPassword('');
+    setResetToken('');
+    setMode('login');
+    setAccount(result.account);
+    await loadSites();
+    await loadLeads();
+    await loadQuotes();
+    setNotice('Je wachtwoord is gewijzigd. Je bent ingelogd.');
+  };
+
+  const handleResendVerification = async () => {
+    setBusy(true);
+    setError(null);
+    const result = await resendVerification();
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt. Probeer het opnieuw.');
+      return;
+    }
+    setNotice('Ik heb je een nieuwe bevestigingsmail gestuurd.');
   };
 
   const handleLogout = async () => {
@@ -359,6 +436,8 @@ export const AccountView: React.FC = () => {
 
           <div className="rounded-2xl bg-white border border-stone-200 p-6 flex flex-col gap-5">
             <div className="flex gap-2" role="group" aria-label="Inloggen of account maken">
+              {mode !== 'forgot' && mode !== 'reset' && (
+              <>
               <button
                 type="button"
                 onClick={() => {
@@ -389,11 +468,94 @@ export const AccountView: React.FC = () => {
               >
                 Account maken
               </button>
+              </>
+              )}
             </div>
 
             {error && <Message tone="error">{error}</Message>}
+            {notice && <Message tone="notice">{notice}</Message>}
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            {mode === 'reset' ? (
+              <form onSubmit={handleReset} className="flex flex-col gap-4">
+                <div>
+                  <label className={labelClass} htmlFor="account-new-password">
+                    Nieuw wachtwoord
+                  </label>
+                  <input
+                    id="account-new-password"
+                    className={inputClass}
+                    type="password"
+                    name="password"
+                    autoComplete="new-password"
+                    required
+                    minLength={8}
+                    value={newPassword}
+                    onChange={(event) => setNewPassword(event.target.value)}
+                    placeholder="Minimaal 8 tekens"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="h-12 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold inline-flex items-center justify-center gap-2"
+                >
+                  {busy && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
+                  Zet mijn wachtwoord
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode('login');
+                    setError(null);
+                  }}
+                  className="text-sm font-bold text-stone-700 underline underline-offset-2 self-start min-h-11"
+                >
+                  Terug naar inloggen
+                </button>
+              </form>
+            ) : mode === 'forgot' ? (
+              <form onSubmit={handleForgot} className="flex flex-col gap-4">
+                <p className="m-0 text-stone-600 leading-relaxed">
+                  Vul je e-mailadres in. Als er een account is met dat adres, stuur ik je een link
+                  om een nieuw wachtwoord te kiezen.
+                </p>
+                <div>
+                  <label className={labelClass} htmlFor="account-forgot-email">
+                    E-mailadres
+                  </label>
+                  <input
+                    id="account-forgot-email"
+                    className={inputClass}
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="jij@bedrijf.nl"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="h-12 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold inline-flex items-center justify-center gap-2"
+                >
+                  {busy && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
+                  Stuur de link
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode('login');
+                    setError(null);
+                  }}
+                  className="text-sm font-bold text-stone-700 underline underline-offset-2 self-start min-h-11"
+                >
+                  Terug naar inloggen
+                </button>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div>
                 <label className={labelClass} htmlFor="account-email">
                   E-mailadres
@@ -427,15 +589,30 @@ export const AccountView: React.FC = () => {
                   placeholder="Minimaal 8 tekens"
                 />
               </div>
+                <button
+                  type="submit"
+                  disabled={busy}
+                  className="h-12 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold inline-flex items-center justify-center gap-2"
+                >
+                  {busy && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
+                  {mode === 'register' ? 'Maak mijn account' : 'Log in'}
+                </button>
+              </form>
+            )}
+
+            {mode === 'login' && (
               <button
-                type="submit"
-                disabled={busy}
-                className="h-12 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold inline-flex items-center justify-center gap-2"
+                type="button"
+                onClick={() => {
+                  setMode('forgot');
+                  setError(null);
+                  setNotice(null);
+                }}
+                className="text-sm font-bold text-stone-700 underline underline-offset-2 self-start min-h-11"
               >
-                {busy && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
-                {mode === 'register' ? 'Maak mijn account' : 'Log in'}
+                Wachtwoord vergeten?
               </button>
-            </form>
+            )}
 
             <p className="m-0 text-xs text-stone-500 leading-relaxed">
               Je wachtwoord wordt alleen als versleutelde hash bewaard. Niemand bij Klusbaas kan je wachtwoord lezen.
@@ -458,6 +635,24 @@ export const AccountView: React.FC = () => {
 
         {notice && <Message tone="notice">{notice}</Message>}
         {error && <Message tone="error">{error}</Message>}
+
+        {!account.verified && (
+          <section className="rounded-2xl bg-amber-50 border border-amber-200 p-5 flex flex-col gap-3">
+            <h2 className="m-0 text-lg font-black text-stone-900">Bevestig je e-mailadres</h2>
+            <p className="m-0 text-sm text-stone-700 leading-relaxed">
+              Je account werkt, maar je e-mailadres is nog niet bevestigd. Doe dat even: dan weten wij
+              dat we je op dit adres kunnen bereiken en hoort niemand anders op jouw naam in te loggen.
+            </p>
+            <button
+              type="button"
+              onClick={handleResendVerification}
+              disabled={busy}
+              className="h-11 px-4 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white text-sm font-bold inline-flex items-center justify-center self-start"
+            >
+              Stuur de bevestigingsmail nog een keer
+            </button>
+          </section>
+        )}
 
         <section className="flex flex-col gap-4">
           <h2 className="m-0 text-xl font-black tracking-tight">Mijn sites</h2>

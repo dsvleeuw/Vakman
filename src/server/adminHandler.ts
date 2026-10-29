@@ -1,8 +1,8 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
-import type { AdminOverview, AdminQuote } from '../types';
+import type { AdminAccount, AdminOverview, AdminQuote } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
 import { buildQuotePath } from '../utils/quote';
-import type { LeadStorage, SiteStorage } from './storage';
+import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
 
 /**
@@ -16,7 +16,12 @@ import { adminSession, type AdminStorage } from './adminStorage';
 export const ADMIN_COOKIE = 'klusbaas_admin';
 export const ADMIN_SESSION_MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
 
-export type AdminAction = 'login' | 'logout' | 'overview' | 'quote-status';
+export type AdminAction =
+  | 'login'
+  | 'logout'
+  | 'overview'
+  | 'quote-status'
+  | 'verify-account';
 
 export interface AdminRequestBody {
   action?: AdminAction;
@@ -45,6 +50,8 @@ export interface AdminDeps {
   sites: SiteStorage;
   /** Where the requests and the offers live. */
   leads: LeadStorage;
+  /** The customer accounts. Without them the overview has no account list. */
+  accounts?: AccountStorage;
   now?: () => number;
   createSessionId?: () => string;
   /** Rate limiter: returns false when this key is over its limit. */
@@ -54,7 +61,7 @@ export interface AdminDeps {
   log?: (message: string) => void;
 }
 
-export type { AdminOverview, AdminQuote };
+export type { AdminAccount, AdminOverview, AdminQuote };
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -145,7 +152,8 @@ function toAdminQuote(quote: QuoteRecord): AdminQuote {
 
 /** Everything Klusbaas needs to see: the sites, the requests and the offers. */
 export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
-  const sites = (await deps.sites.listSites()).map((site) => ({
+  const records = await deps.sites.listSites();
+  const sites = records.map((site) => ({
     slug: site.slug,
     biz: site.form.biz,
     owner: site.form.owner,
@@ -155,6 +163,7 @@ export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
     sector: site.sector,
     updatedAt: site.updatedAt,
     hasAccount: Boolean(site.ownerId),
+    ownerId: site.ownerId ?? '',
     manageUrl: `/mijn-site/${site.slug}?token=${site.token}`,
   }));
   const leads = [...(await deps.leads.listLeads())].sort((a, b) =>
@@ -163,7 +172,16 @@ export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
   const quotes = (await deps.leads.listQuotes())
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
     .map(toAdminQuote);
-  return { sites, leads, quotes };
+  const accounts: AdminAccount[] = deps.accounts
+    ? (await deps.accounts.listAccounts()).map((account) => ({
+        id: account.id,
+        email: account.email,
+        createdAt: account.createdAt,
+        verified: Boolean(account.verifiedAt),
+        sites: sites.filter((site) => site.ownerId === account.id).length,
+      }))
+    : [];
+  return { sites, leads, quotes, accounts };
 }
 
 /**
@@ -237,6 +255,29 @@ export async function handleAdmin(
       return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
     }
     log(`[admin] offerte ${id} is nu ${status}`);
+    return { status: 200, body: { ok: true } };
+  }
+
+  if (action === 'verify-account') {
+    // De mail van de klant is niet aangekomen: Klusbaas bevestigt het
+    // e-mailadres zelf, zodat de klant verder kan.
+    const id = typeof body.id === 'string' ? body.id : '';
+    if (!id || !deps.accounts) {
+      return { status: 400, body: { ok: false, error: 'Onbekend account.' } };
+    }
+    const account = await deps.accounts.getAccount(id);
+    if (!account) {
+      return { status: 404, body: { ok: false, error: 'Dit account bestaat niet (meer).' } };
+    }
+    const now = deps.now ? deps.now() : Date.now();
+    await deps.accounts.saveAccount({
+      ...account,
+      verifiedAt: account.verifiedAt ?? now,
+      verifyToken: undefined,
+      verifyExpiresAt: undefined,
+      updatedAt: now,
+    });
+    log(`[admin] account ${id} bevestigd`);
     return { status: 200, body: { ok: true } };
   }
 

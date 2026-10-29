@@ -20,6 +20,9 @@ function memoryAccounts(): AccountStorage {
       accounts.set(account.id, account);
       return `memory:${account.id}`;
     },
+    async listAccounts() {
+      return [...accounts.values()];
+    },
     async getAccount(id) {
       return accounts.get(id) ?? null;
     },
@@ -155,16 +158,41 @@ const publishedSite: PublishedSiteRecord = {
   updatedAt: 1,
 };
 
-function deps(overrides: { accounts?: AccountStorage; sites?: SiteStorage } = {}) {
+interface SentMail {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+}
+
+function deps(overrides: {
+  accounts?: AccountStorage;
+  sites?: SiteStorage;
+  mails?: SentMail[];
+  now?: () => number;
+} = {}) {
+  const mails = overrides.mails ?? [];
   return {
     accounts: overrides.accounts ?? memoryAccounts(),
     sites: overrides.sites ?? memorySites(),
-    now: () => 1_700_000_000_000,
+    now: overrides.now ?? (() => 1_700_000_000_000),
     createSessionId: (() => {
       let counter = 0;
       return () => `sessie-${++counter}`;
     })(),
+    sendMail: async (mail: SentMail) => {
+      mails.push(mail);
+      return 'sent';
+    },
+    siteUrl: 'https://klusbaas.test',
+    mails,
   };
+}
+
+/** The token out of the link in a mail. */
+function tokenFromMail(mail: SentMail): string {
+  const match = mail.text.match(/[?&](?:reset|verifieer)=([A-Za-z0-9._-]+)/);
+  return match?.[1] ?? '';
 }
 
 test('registreren maakt een account en een sessie', async () => {
@@ -474,4 +502,121 @@ test('zonder offertes in de opslag ziet de klant geen offertes', async () => {
   assert.equal(result.status, 200);
   assert.deepEqual(result.body.quotes, []);
   assert.equal(result.body.payment, undefined);
+});
+
+test('een wachtwoordreset stuurt een mail en het nieuwe wachtwoord werkt', async () => {
+  const d = deps();
+  await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  const requested = await handleAccount(
+    { action: 'reset-request', email: 'jan@example.nl' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  assert.equal(requested.status, 200);
+  const mail = d.mails.find((m) => m.subject.includes('wachtwoord'));
+  assert.ok(mail, 'er is een resetmail verstuurd');
+  assert.equal(mail?.to, 'jan@example.nl');
+
+  const token = tokenFromMail(mail!);
+  assert.ok(token, 'de mail bevat een link met een token');
+
+  const reset = await handleAccount(
+    { action: 'reset', token, password: 'nieuwewachtwoord' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  assert.equal(reset.status, 200);
+
+  const withOld = await handleAccount(
+    { action: 'login', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts: d.accounts, sites: d.sites }
+  );
+  assert.equal(withOld.status, 401);
+
+  const withNew = await handleAccount(
+    { action: 'login', email: 'jan@example.nl', password: 'nieuwewachtwoord' },
+    { accounts: d.accounts, sites: d.sites }
+  );
+  assert.equal(withNew.status, 200);
+});
+
+test('een resetlink werkt maar een keer', async () => {
+  const d = deps();
+  await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  await handleAccount(
+    { action: 'reset-request', email: 'jan@example.nl' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  const mail = d.mails.find((m) => m.subject.includes('wachtwoord'))!;
+  const token = tokenFromMail(mail);
+  const first = await handleAccount(
+    { action: 'reset', token, password: 'nieuwewachtwoord' },
+    { accounts: d.accounts, sites: d.sites }
+  );
+  assert.equal(first.status, 200);
+  const second = await handleAccount(
+    { action: 'reset', token, password: 'nogmaalsnieuw' },
+    { accounts: d.accounts, sites: d.sites }
+  );
+  assert.equal(second.status, 400);
+});
+
+test('een resetverzoek voor een onbekend adres geeft hetzelfde antwoord', async () => {
+  const d = deps();
+  const result = await handleAccount(
+    { action: 'reset-request', email: 'niemand@example.nl' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  assert.equal(result.status, 200);
+  assert.ok(result.body.message);
+  assert.equal(d.mails.length, 0);
+});
+
+test('het e-mailadres kan bevestigd worden', async () => {
+  const d = deps();
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  assert.equal(registered.body.account?.verified, false);
+
+  const mail = d.mails.find((m) => m.subject.includes('Bevestig'));
+  assert.ok(mail, 'er is een bevestigingsmail verstuurd');
+  const token = tokenFromMail(mail!);
+
+  const verified = await handleAccount(
+    { action: 'verify', token },
+    { accounts: d.accounts, sites: d.sites }
+  );
+  assert.equal(verified.status, 200);
+  assert.equal(verified.body.account?.verified, true);
+
+  const again = await handleAccount({ action: 'verify', token }, { accounts: d.accounts, sites: d.sites });
+  assert.equal(again.status, 400);
+});
+
+test('een verlopen resetlink wordt geweigerd', async () => {
+  const accounts = memoryAccounts();
+  let clock = 1_700_000_000_000;
+  const d = deps({ accounts, now: () => clock });
+  await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl }
+  );
+  await handleAccount(
+    { action: 'reset-request', email: 'jan@example.nl' },
+    { accounts: d.accounts, sites: d.sites, sendMail: d.sendMail, siteUrl: d.siteUrl, now: () => clock }
+  );
+  const mail = d.mails.find((m) => m.subject.includes('wachtwoord'))!;
+  const token = tokenFromMail(mail);
+  clock += 2 * 60 * 60 * 1000;
+  const result = await handleAccount(
+    { action: 'reset', token, password: 'nieuwewachtwoord' },
+    { accounts: d.accounts, sites: d.sites, now: () => clock }
+  );
+  assert.equal(result.status, 400);
 });

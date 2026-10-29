@@ -11,6 +11,8 @@ import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } fr
 export interface AccountInfo {
   id: string;
   email: string;
+  /** True when the customer confirmed his e-mail address. */
+  verified: boolean;
 }
 
 export interface AccountResult {
@@ -26,6 +28,8 @@ export interface AccountResult {
   site?: PublicPublishedSite;
   error?: string;
   field?: string;
+  /** A message for the customer, e.g. after a reset request. */
+  message?: string;
 }
 
 async function post(body: unknown): Promise<AccountResult> {
@@ -96,6 +100,29 @@ export async function fetchAccountQuotes(): Promise<{
     quotes: result.ok && Array.isArray(result.quotes) ? result.quotes : [],
     ...(result.payment ? { payment: result.payment } : {}),
   };
+}
+
+/**
+ * Ask for a link to set a new password. The answer is the same whether or
+ * not the address is known, so nobody can find out who has an account.
+ */
+export function requestPasswordReset(email: string): Promise<AccountResult> {
+  return post({ action: 'reset-request', email });
+}
+
+/** Set a new password with the token from the reset mail. */
+export function resetPassword(token: string, password: string): Promise<AccountResult> {
+  return post({ action: 'reset', token, password });
+}
+
+/** Confirm the e-mail address with the token from the verification mail. */
+export function verifyEmail(token: string): Promise<AccountResult> {
+  return post({ action: 'verify', token });
+}
+
+/** Ask for a new verification mail. */
+export function resendVerification(): Promise<AccountResult> {
+  return post({ action: 'verify-request' });
 }
 
 /**
