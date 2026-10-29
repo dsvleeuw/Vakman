@@ -48,6 +48,7 @@ function dateTime(value: number | string): string {
 
 const STATUS_LABEL: Record<string, string> = {
   open: 'Openstaand',
+  accepted: 'Geaccepteerd',
   paid: 'Betaald',
   cancelled: 'Geannuleerd',
 };
@@ -169,9 +170,11 @@ const QuoteRow: React.FC<{
         className={`text-sm font-bold ${
           quote.status === 'paid'
             ? 'text-emerald-700'
-            : quote.status === 'cancelled'
-              ? 'text-stone-500'
-              : 'text-amber-700'
+            : quote.status === 'accepted'
+              ? 'text-emerald-700'
+              : quote.status === 'cancelled'
+                ? 'text-stone-500'
+                : 'text-amber-700'
         }`}
       >
         {STATUS_LABEL[quote.status] ?? quote.status}
@@ -200,6 +203,11 @@ const QuoteRow: React.FC<{
         >
           Markeer als betaald
         </button>
+      )}
+      {quote.status === 'accepted' && (
+        <span className="text-sm text-stone-600">
+          De klant heeft ja gezegd. Zodra het bedrag binnen is, markeer je hem als betaald.
+        </span>
       )}
       {quote.status === 'paid' && (
         <button

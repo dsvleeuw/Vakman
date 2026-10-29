@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Download, FileText } from 'lucide-react';
+import { CheckCircle2, Download, FileText, Loader2, TriangleAlert } from 'lucide-react';
 import { Logo } from './Logo';
 import { formatDutchDate, formatEuroCents, type PublicQuote } from '../utils/quote';
 
@@ -14,6 +14,12 @@ type LoadState =
   | { status: 'ready'; quote: PublicQuote }
   | { status: 'error'; message: string };
 
+type AcceptState =
+  | { status: 'idle' }
+  | { status: 'sending' }
+  | { status: 'done' }
+  | { status: 'error'; message: string };
+
 /**
  * `/offerte/:id?token=…`: the stored quote as a page, loaded from
  * `GET /api/quote`. The token comes from the e-mail; without it the API
@@ -21,6 +27,8 @@ type LoadState =
  */
 export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => {
   const [state, setState] = useState<LoadState>({ status: 'loading' });
+  const [accept, setAccept] = useState<AcceptState>({ status: 'idle' });
+  const [name, setName] = useState('');
   const query = `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`;
 
   useEffect(() => {
@@ -43,6 +51,34 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
       cancelled = true;
     };
   }, [query]);
+
+  // De klant zegt ja. De offerte krijgt de status "geaccepteerd" en
+  // Klusbaas krijgt een mail; het overmaken doet de klant zelf.
+  const acceptQuote = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setAccept({ status: 'sending' });
+    try {
+      const response = await fetch('/api/quote/accept', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, token, name: name.trim() }),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setAccept({
+          status: 'error',
+          message: body.error ?? 'We konden je akkoord niet opslaan. Mail ons gerust even.',
+        });
+        return;
+      }
+      setAccept({ status: 'done' });
+    } catch {
+      setAccept({
+        status: 'error',
+        message: 'Geen verbinding met de server. Mail ons gerust even.',
+      });
+    }
+  };
 
   return (
     <main id="main-content" className="min-h-screen bg-stone-100 text-stone-900 px-4 py-10 sm:py-16">
@@ -150,6 +186,66 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               </div>
             </dl>
 
+            {state.quote.status === 'open' && (
+              <section className="mx-6 sm:mx-8 mb-6 rounded-2xl border border-stone-200 bg-white p-5">
+                <h2 className="m-0 text-sm font-black text-stone-900">Ja, ik wil deze website</h2>
+                <p className="m-0 mt-2 text-sm text-stone-700">
+                  Vul je naam in en klik op de knop. Klusbaas weet dan dat je akkoord gaat en
+                  neemt contact met je op. Daarna maak je het bedrag over.
+                </p>
+                {accept.status === 'done' ? (
+                  <p className="m-0 mt-3 flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm font-semibold text-emerald-900">
+                    <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+                    Bedankt, we hebben je akkoord ontvangen. Klusbaas neemt contact met je op.
+                  </p>
+                ) : (
+                  <form onSubmit={acceptQuote} className="m-0 mt-3 flex flex-col sm:flex-row gap-3 sm:items-end">
+                    <div className="flex-1">
+                      <label className="block text-sm font-bold text-stone-900 mb-1.5" htmlFor="accept-name">
+                        Je naam
+                      </label>
+                      <input
+                        id="accept-name"
+                        type="text"
+                        required
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        placeholder="Jan Jansen"
+                        className="w-full h-12 px-4 rounded-xl border border-stone-300 bg-white text-base text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-900 focus:ring-2 focus:ring-stone-900/10"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={accept.status === 'sending'}
+                      className="h-12 px-6 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold inline-flex items-center justify-center gap-2"
+                    >
+                      {accept.status === 'sending' && (
+                        <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                      )}
+                      Ja, ik ga akkoord
+                    </button>
+                  </form>
+                )}
+                {accept.status === 'error' && (
+                  <p
+                    role="alert"
+                    className="m-0 mt-3 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-900"
+                  >
+                    <TriangleAlert className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+                    {accept.message}
+                  </p>
+                )}
+              </section>
+            )}
+
+            {state.quote.status === 'accepted' && (
+              <p className="m-0 mx-6 sm:mx-8 mb-6 flex items-start gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">
+                <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+                Je hebt deze offerte geaccepteerd. Klusbaas neemt contact met je op; maak
+                daarna het bedrag over.
+              </p>
+            )}
+
             {state.quote.status === 'open' && state.quote.payment && (
               <section className="mx-6 sm:mx-8 mb-6 rounded-2xl bg-stone-50 border border-stone-200 p-5">
                 <h2 className="m-0 text-sm font-black text-stone-900">Zo betaal je</h2>
@@ -183,6 +279,11 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
                 <span className="font-bold text-emerald-700">
                   Deze offerte is betaald
                   {state.quote.paidAt ? ` op ${formatDutchDate(state.quote.paidAt)}` : ''}. Bedankt!
+                </span>
+              ) : state.quote.status === 'accepted' ? (
+                <span className="font-bold text-emerald-700">
+                  Je hebt deze offerte geaccepteerd. Maak het bedrag over; zodra het binnen is,
+                  staat hier dat de offerte betaald is.
                 </span>
               ) : state.quote.status === 'cancelled' ? (
                 <span className="font-bold text-stone-600">

@@ -143,6 +143,11 @@ result. The Netlify deploy preview is the only external CI check. If
 - An offer can also go to someone who only sent a request: the request
   (`leadReference`) is a customer in the form. A request on a published
   customer site belongs to that craftsman and is not Klusbaas' customer.
+- The customer accepts the offer himself on the offer page
+  (`POST /api/quote/accept` → `server/acceptQuote.ts`). The token from the
+  offer link proves it is his offer; the offer gets the status `accepted`
+  and Klusbaas gets a mail. Accepting is not paying: the money is still
+  transferred by the customer and marked as paid by hand.
 - Klusbaas writes an offer himself in `/klusbaas` (`AdminQuoteForm.tsx` →
   `POST /api/admin` with `action: 'create-quote'` → `server/adminOffer.ts`).
   The offer is a real offer with a number, a PDF and a price, it is linked

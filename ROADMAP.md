@@ -107,10 +107,10 @@ no provider dashboards, no design decision a human has to make first.
 
 ## Phase 7 — Sell without the wizard
 
-Phase 6 made the product honest. Phase 7 closes the two gaps that stood
-between "the customer has a site" and "Klusbaas can invoice him". Both are
-work inside this repository: no provider, no dashboard, no human decision
-needed first.
+Phase 6 made the product honest. Phase 7 closes the gaps that stood between
+"the customer has a site" and "Klusbaas can invoice him". All of it is work
+inside this repository: no provider, no dashboard, no human decision needed
+first.
 
 **Definition of done — Klusbaas can sell to a customer who did not come
 through the wizard when:**
@@ -126,6 +126,8 @@ through the wizard when:**
    itself, so an account is not needed to pay.
 6. A request can become an offer: someone who only sent a request can be
    given an offer, with his details taken from the request.
+7. The customer can accept the offer himself, without writing a mail: one
+   click on the offer page, and Klusbaas hears about it the same day.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -133,6 +135,7 @@ through the wizard when:**
 | 7.2 | ~~Klusbaas can write an offer himself~~ Done: in `/klusbaas` there is a form "Offerte maken": pick the customer (his site fills in the details), pick the package and the extra components, and Klusbaas writes the offer. It becomes a quote record with a PDF, it is linked to the customer's account and mailed to him with the PDF attached | M | The customer sees the offer in `/mijn-account` and can pay it by bank transfer. Without `RESEND_API_KEY` no mail goes out (the offer is still made and the overview says so). Klusbaas still marks the payment by hand; there is no payment provider and no automatic reminder. |
 | 7.3 | ~~The customer can pay the offer~~ Done: the IBAN and the amount stand in the offer PDF and on the offer page (`/offerte/<id>`), so a customer without an account can also transfer the money right away | S | Klusbaas still has to mark the offer as paid by hand: there is no payment provider and no bank check. Without `PAYMENT_IBAN` there are no payment details, and the offer says so instead of showing a broken bank account. |
 | 7.4 | ~~A request can become an offer~~ Done: a customer who only sent a request (`L-XXXXXX`) and never made an account stands in the list of "Offerte maken"; Klusbaas picks him and the offer takes his details from the request | S | The offer of someone without an account does not appear in `/mijn-account`, because he has no account. He gets it by mail and can pay with the IBAN in the offer (7.3). |
+| 7.5 | ~~The customer can accept the offer himself~~ Done: on the offer page there is a button "Ja, ik ga akkoord". The customer types his name, the offer gets the status `accepted` and Klusbaas gets a mail with the details | S | Accepting is not paying: the customer still has to transfer the money, and Klusbaas marks the offer as paid when it arrives. There is no signature and no contract; the mail of the customer is the agreement. |
 
 ## Decision log
 

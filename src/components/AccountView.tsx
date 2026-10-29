@@ -153,6 +153,7 @@ const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => {
 /** The status of an offer, in the words the customer sees. */
 const QUOTE_STATUS: Record<QuoteStatus, string> = {
   open: 'Openstaand',
+  accepted: 'Geaccepteerd',
   paid: 'Betaald',
   cancelled: 'Geannuleerd',
 };

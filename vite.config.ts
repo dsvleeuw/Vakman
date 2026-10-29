@@ -321,6 +321,33 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         res.end(buildPublishedSitesSitemap(await storage.listSites(), siteUrl));
       });
 
+      // De klant zegt ja op de offerte: de status wordt "geaccepteerd" en
+      // Klusbaas krijgt een mail.
+      server.middlewares.use('/api/quote/accept', async (req, res) => {
+        if (req.method !== 'POST') return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const { createAcceptMailer, handleAcceptQuote } = await server.ssrLoadModule(
+          '/src/server/acceptQuote.ts'
+        );
+        const { createFileStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const result = await handleAcceptQuote(body, {
+          storage: createFileStorage(path.resolve(__dirname, '.data')),
+          sendMail: createAcceptMailer(env, (message: string) => server.config.logger.info(message)),
+          notifyEmail: env.QUOTE_NOTIFY_EMAIL,
+          fromEmail: env.QUOTE_FROM_EMAIL,
+          siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+          log: (message: string) => server.config.logger.info(message),
+        });
+        reply(res, result.status, result.body);
+      });
+
       server.middlewares.use('/api/quote', async (req, res) => {
         if (req.method !== 'GET') return reply(res, 405, { ok: false, error: 'Alleen GET is toegestaan.' });
         const { handler, storage } = await load();
