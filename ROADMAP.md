@@ -134,6 +134,8 @@ through the wizard when:**
    reminder, and he sees which offers have expired.
 10. An expired offer does not look like a promise: the customer sees it,
    cannot accept it, and Klusbaas can extend it when the price still holds.
+11. A request and the offer written for it are one thing: Klusbaas sees at
+   the request which offer exists, so he never writes the same one twice.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -145,6 +147,7 @@ through the wizard when:**
 | 7.6 | ~~The customer gets an invoice when he pays~~ Done: when Klusbaas marks an offer as paid, the customer gets an invoice as a PDF (`F-<jaar>-<nr>`, following the offer number) by mail and can download it again from the offer page and from his account | S | The details of Klusbaas on the invoice come from the environment (`INVOICE_NAME`, `INVOICE_ADDRESS`, `INVOICE_KVK`, `INVOICE_VAT`, `INVOICE_EMAIL`); what is not set is not printed. Klusbaas still marks the payment by hand and there is no reminder for an offer that stays open. |
 | 7.7 | ~~Klusbaas can follow up on an open offer~~ Done: an open offer has a button "Stuur een herinnering" in `/klusbaas`; the customer gets a mail with the link to the offer, the amount and the IBAN again | S | The reminder is by hand: nothing goes out on its own. |
 | 7.8 | ~~An expired offer does not look like a promise~~ Done: an offer is valid for thirty days; the offer page says so and hides the accept button when it is expired, the overview marks it as expired, and Klusbaas can extend it with one button when the price has not changed | S | An expired offer is not withdrawn by itself: Klusbaas cancels it by hand when the customer is not coming. The customer cannot accept an expired offer, so a price that is three months old is never agreed to. |
+| 7.9 | ~~A request and its offer are one thing~~ Done: an offer remembers the request it was written for; the overview shows at the request which offer exists, and the "Offerte maken" form says "al een offerte" so Klusbaas does not write the same offer twice | S | A request from a customer site belongs to that craftsman and is not in Klusbaas' overview, so Klusbaas cannot see whether he already answered it. |
 
 ## Decision log
 

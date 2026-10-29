@@ -93,7 +93,8 @@ const SiteRow: React.FC<{ site: AdminSite }> = ({ site }) => (
   </li>
 );
 
-const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => (
+/** The offer that was written for a request, when there is one. */
+const LeadRow: React.FC<{ lead: StoredLead; quote?: AdminQuote }> = ({ lead, quote }) => (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-1">
     <div className="flex flex-wrap items-baseline gap-x-3">
       <span className="font-black text-stone-900">
@@ -120,6 +121,14 @@ const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => (
       {dateTime(lead.createdAt)} · {LEAD_LABEL[lead.type] ?? 'Aanvraag'} · {lead.site?.biz} ·{' '}
       {lead.reference}
     </p>
+    {quote && (
+      <p className="m-0 text-sm font-semibold text-emerald-800">
+        Er staat al een offerte voor: {quote.id} ({STATUS_LABEL[quote.status] ?? quote.status}).
+        <a href={quote.url} className="ml-1 underline underline-offset-2">
+          Bekijk de offerte
+        </a>
+      </p>
+    )}
     {(lead.fields?.message ?? '').trim() && (
       <p className="m-0 text-sm text-stone-700 whitespace-pre-wrap">{lead.fields.message}</p>
     )}
@@ -443,6 +452,7 @@ export const AdminView: React.FC = () => {
                     sites={overview.sites}
                     accounts={overview.accounts}
                     leads={overview.leads}
+                    quotes={overview.quotes}
                     busy={busy}
                     onCreated={handleCreated}
                   />
@@ -461,7 +471,11 @@ export const AdminView: React.FC = () => {
                 ) : (
                   <ul className="m-0 p-0 list-none flex flex-col gap-3">
                     {overview.leads.map((lead) => (
-                      <LeadRow key={lead.reference} lead={lead} />
+                      <LeadRow
+                        key={lead.reference}
+                        lead={lead}
+                        quote={overview.quotes.find((quote) => quote.leadReference === lead.reference)}
+                      />
                     ))}
                   </ul>
                 )}

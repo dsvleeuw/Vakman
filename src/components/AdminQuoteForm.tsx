@@ -3,7 +3,7 @@ import { CheckCircle2, Loader2, TriangleAlert } from 'lucide-react';
 import { ADDONS } from '../data/addons';
 import { PLANS } from '../data/plans';
 import { STYLES } from '../data/tradesData';
-import type { AdminAccount, AdminCreatedQuote, AdminSite, StoredLead } from '../types';
+import type { AdminAccount, AdminCreatedQuote, AdminQuote, AdminSite, StoredLead } from '../types';
 import { createQuote } from '../utils/adminClient';
 import { formatEuroCents } from '../utils/quote';
 
@@ -20,6 +20,14 @@ const inputClass =
   'w-full h-12 px-4 rounded-xl border border-stone-300 bg-white text-base text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-900 focus:ring-2 focus:ring-stone-900/10';
 
 const labelClass = 'block text-sm font-bold text-stone-900 mb-1.5';
+
+/** The status of an offer, in the words of the overview. */
+const STATUS_LABEL: Record<string, string> = {
+  open: 'Openstaand',
+  accepted: 'Geaccepteerd',
+  paid: 'Betaald',
+  cancelled: 'Geannuleerd',
+};
 
 /** A customer Klusbaas can write an offer for: a site, or an account. */
 interface Customer {
@@ -134,6 +142,8 @@ export interface AdminQuoteFormProps {
   accounts: AdminAccount[];
   /** The requests that came in through a form of Klusbaas. */
   leads?: StoredLead[];
+  /** The offers that already exist, so a request is not offered twice. */
+  quotes?: AdminQuote[];
   busy: boolean;
   /** Called after a successful offer, so the overview can be refreshed. */
   onCreated: (quote: AdminCreatedQuote) => void;
@@ -143,6 +153,7 @@ export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
   sites,
   accounts,
   leads = [],
+  quotes = [],
   busy,
   onCreated,
 }) => {
@@ -161,6 +172,11 @@ export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
   const [done, setDone] = useState<AdminCreatedQuote | null>(null);
 
   const customer = customers.find((entry) => entry.key === selected) ?? null;
+  // Een aanvraag die al een offerte heeft: geen tweede keer hetzelfde
+  // werk doen tenzij Klusbaar het weet.
+  const existingQuote = customer?.leadReference
+    ? quotes.find((quote) => quote.leadReference === customer.leadReference)
+    : undefined;
 
   const pick = (key: string) => {
     setSelected(key);
@@ -225,6 +241,10 @@ export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
             {customers.map((entry) => (
               <option key={entry.key} value={entry.key}>
                 {entry.label}
+                {entry.leadReference &&
+                quotes.some((quote) => quote.leadReference === entry.leadReference)
+                  ? ' · al een offerte'
+                  : ''}
               </option>
             ))}
           </select>
@@ -232,6 +252,14 @@ export const AdminQuoteForm: React.FC<AdminQuoteFormProps> = ({
             De gegevens van de klant komen uit zijn site of zijn aanvraag. Zonder
             account of site vul je ze zelf in.
           </p>
+          {existingQuote && (
+            <p className="m-0 mt-1.5 text-xs font-semibold text-amber-800">
+              Voor deze aanvraag staat al offerte {existingQuote.id} (
+              {STATUS_LABEL[existingQuote.status] ?? existingQuote.status}). Wil je een
+              nieuwe prijs maken? Annuleer die eerst, of vul hieronder een andere
+              aanvraag in.
+            </p>
+          )}
         </div>
         <div>
           <label className={labelClass} htmlFor="offer-email">

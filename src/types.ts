@@ -560,6 +560,8 @@ export interface AdminQuote extends AccountQuote {
   city: string;
   /** True when the offer is past its validity date. */
   expired: boolean;
+  /** The request this offer was written for (`L-XXXXXX`), when there was one. */
+  leadReference?: string;
 }
 
 /** A customer account as the Klusbaas overview shows it. */

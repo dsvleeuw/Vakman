@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een aanvraag en de offerte daarvoor zijn nu één ding.** De offerte
+  onthoudt de aanvraag (`L-XXXXXX`) waarvoor hij gemaakt is. In
+  `/klusbaas` staat bij de aanvraag welke offerte er al is, en in het
+  formulier "Offerte maken" staat "al een offerte" — zo schrijft Klusbaas
+  niet twee keer hetzelfde werk voor.
 - **Een verlopen offerte lijkt niet meer op een belofte.** Een offerte is
   dertig dagen geldig. Op de offertepagina staat nu dat de offerte
   verlopen is, de knop "Ja, ik ga akkoord" verdwijnt en de klant wordt
