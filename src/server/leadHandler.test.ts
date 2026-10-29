@@ -4,7 +4,8 @@ import { PDFDocument } from 'pdf-lib';
 import type { QuoteRecord } from '../utils/quote';
 import { handleGetQuote, handleLead, tokensMatch, type LeadDeps } from './leadHandler';
 import { pdfSafe } from './quotePdf';
-import type { LeadStorage } from './storage';
+import type { LeadStorage, SiteStorage } from './storage';
+import type { PublishedSiteRecord } from '../types';
 
 function memoryStorage() {
   const quotes = new Map<string, QuoteRecord>();
@@ -233,4 +234,177 @@ test('MAIL_TEST_RECIPIENT sends the customer mail to the test inbox, marked as t
   assert.match(sent[1].text, /^TESTMAIL: bedoeld voor kees@example\.nl/);
   assert.ok(sent[1].html.includes('TESTMAIL: bedoeld voor kees@example.nl'));
   assert.ok(!sent[0].subject.startsWith('[TEST'));
+});
+
+
+/** A published site with an owner who has an e-mail address. */
+function publishedSite(overrides: Partial<PublishedSiteRecord> = {}): PublishedSiteRecord {
+  return {
+    slug: 'piet-schilderwerken',
+    token: 'x'.repeat(32),
+    sector: 'schilder',
+    styleId: 'modern',
+    form: {
+      biz: 'Piet Schilderwerken',
+      owner: 'Piet Jansen',
+      phone: '0698765432',
+      city: 'Haarlem',
+      email: 'piet@pietschilderwerken.nl',
+    },
+    channel: 'WhatsApp',
+    disabledServices: {},
+    blocks: [],
+    blockContent: {},
+    text: {
+      kicker: 'Schilderen',
+      headline: 'De muur die je blijft bewonderen',
+      intro: 'Sinds 1998',
+      about: 'Ik ben Piet.',
+      cta1: 'Bekijk mijn werk',
+      cta2: 'Vraag een offerte',
+    },
+    timestamp: 1,
+    updatedAt: 1,
+    ...overrides,
+  };
+}
+
+function memorySites(sites: PublishedSiteRecord[] = []): SiteStorage {
+  const map = new Map(sites.map((site) => [site.slug, site]));
+  return {
+    async saveSite(record) {
+      map.set(record.slug, record);
+      return `mem:${record.slug}`;
+    },
+    async getSite(slug) {
+      return map.get(slug) ?? null;
+    },
+    async listSites() {
+      return [...map.values()];
+    },
+  };
+}
+
+/** A mailer that records every mail instead of sending it. */
+function mailRecorder(status = 'sent') {
+  const sent: { to: string; subject: string; text: string }[] = [];
+  const fetchImpl = async (_url: string, init?: RequestInit) => {
+    const body = JSON.parse(String(init?.body ?? '{}')) as {
+      to?: string[];
+      subject?: string;
+      text?: string;
+    };
+    sent.push({
+      to: body.to?.[0] ?? '',
+      subject: body.subject ?? '',
+      text: body.text ?? '',
+    });
+    return new Response(
+      status === 'sent' ? JSON.stringify({ id: 'mail-1' }) : 'kapot',
+      { status: status === 'sent' ? 200 : 500 }
+    );
+  };
+  return { sent, fetchImpl };
+}
+
+const contactLead = {
+  type: 'contact',
+  startedAt: NOW.getTime() - 60_000,
+  site: { biz: 'Piet Schilderwerken', sector: 'schilder', slug: 'piet-schilderwerken' },
+  fields: { name: 'Sanne', phone: '0612345678', message: 'Ik wil drie kozijnen schilderen.' },
+};
+
+test('een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas', async () => {
+  const { deps, mem } = setup();
+  const mail = mailRecorder();
+  const result = await handleLead(contactLead, 'ip', {
+    ...deps,
+    env: { RESEND_API_KEY: 'test' },
+    fetchImpl: mail.fetchImpl,
+    sites: memorySites([publishedSite()]),
+  });
+
+  assert.equal(result.status, 200);
+  assert.equal(result.body.delivery?.owner?.status, 'sent');
+  assert.equal(result.body.delivery?.team.status, 'skipped');
+  // De bezoeker ziet het adres van de vakman nooit.
+  assert.equal(result.body.delivery?.customer.to, '');
+  assert.equal(mail.sent.length, 1);
+  assert.equal(mail.sent[0].to, 'piet@pietschilderwerken.nl');
+  assert.match(mail.sent[0].subject, /Nieuwe aanvraag via je website/);
+  assert.match(mail.sent[0].text, /Sanne/);
+  // Bij de vakman ligt niets: de aanvraag is van hem.
+  assert.equal(mem.leads.size, 0);
+});
+
+test('een aanvraag zonder klantsite komt bij Klusbaas', async () => {
+  const { deps, mem } = setup();
+  const mail = mailRecorder();
+  const result = await handleLead(
+    { ...contactLead, site: { biz: 'Piet Schilderwerken', sector: 'schilder' } },
+    'ip',
+    {
+      ...deps,
+      env: { RESEND_API_KEY: 'test' },
+      fetchImpl: mail.fetchImpl,
+      sites: memorySites([publishedSite()]),
+    }
+  );
+
+  assert.equal(result.status, 200);
+  assert.equal(result.body.delivery?.owner, undefined);
+  assert.equal(result.body.delivery?.team.status, 'sent');
+  assert.equal(mail.sent.length, 1);
+  assert.equal(mail.sent[0].to, 'thomascliphero@gmail.com');
+  assert.equal(mem.leads.size, 1);
+});
+
+test('een onbekend adres of een site zonder e-mailadres gaat naar Klusbaas', async () => {
+  const { deps, mem } = setup();
+  const mail = mailRecorder();
+  const unknown = await handleLead(
+    { ...contactLead, site: { ...contactLead.site, slug: 'bestaat-niet' } },
+    'ip',
+    {
+      ...deps,
+      env: { RESEND_API_KEY: 'test' },
+      fetchImpl: mail.fetchImpl,
+      sites: memorySites([publishedSite()]),
+    }
+  );
+  assert.equal(unknown.body.delivery?.owner, undefined);
+  assert.equal(mail.sent[0].to, 'thomascliphero@gmail.com');
+
+  const withoutMail = await handleLead(contactLead, 'ip', {
+    ...deps,
+    env: { RESEND_API_KEY: 'test' },
+    fetchImpl: mail.fetchImpl,
+    sites: memorySites([
+      publishedSite({
+        form: { biz: 'Piet Schilderwerken', owner: 'Piet', phone: '0698765432', city: 'Haarlem' },
+      }),
+    ]),
+  });
+  assert.equal(withoutMail.body.delivery?.owner, undefined);
+  assert.equal(mem.leads.size, 2);
+});
+
+test('gaat de mail naar de vakman mis, dan blijft de aanvraag bij Klusbaas', async () => {
+  const { deps, mem } = setup();
+  const mail = mailRecorder('failed');
+  const result = await handleLead(contactLead, 'ip', {
+    ...deps,
+    env: { RESEND_API_KEY: 'test' },
+    fetchImpl: mail.fetchImpl,
+    sites: memorySites([publishedSite()]),
+  });
+
+  assert.equal(result.status, 200);
+  assert.equal(result.body.delivery?.owner?.status, 'failed');
+  // Niets mag verloren gaan: Klusbaas bewaart hem en mailt het team.
+  assert.equal(mem.leads.size, 1);
+  // Eerst de vakman, dan Klusbaas als back-up.
+  assert.equal(mail.sent.length, 2);
+  assert.equal(mail.sent[0].to, 'piet@pietschilderwerken.nl');
+  assert.equal(mail.sent[1].to, 'thomascliphero@gmail.com');
 });
