@@ -19,6 +19,12 @@ export interface AdminResult {
   overview?: AdminOverview;
   /** The offer Klusbaas made by hand. */
   quote?: AdminCreatedQuote;
+  /** What happened with the invoice mail when an offer was marked as paid. */
+  mailStatus?: string;
+  /** What happened with the reminder mail. */
+  reminderStatus?: string;
+  /** The new validity date of an extended offer. */
+  validUntil?: string;
   error?: string;
   field?: string;
 }
@@ -58,6 +64,22 @@ export async function fetchAdminOverview(): Promise<AdminOverview | null> {
 /** Mark an offer as paid, cancelled or open again. */
 export function setQuoteStatus(id: string, status: QuoteStatus): Promise<AdminResult> {
   return post({ action: 'quote-status', id, status });
+}
+
+/**
+ * Give an expired offer a new validity date, so the customer can still
+ * accept it.
+ */
+export function extendQuote(id: string): Promise<AdminResult> {
+  return post({ action: 'extend-quote', id });
+}
+
+/**
+ * Chase an offer that nobody accepted: the customer gets a reminder with
+ * the link to the offer.
+ */
+export function remindQuote(id: string): Promise<AdminResult> {
+  return post({ action: 'remind-quote', id });
 }
 
 /** Confirm an e-mail address by hand, when the mail did not arrive. */

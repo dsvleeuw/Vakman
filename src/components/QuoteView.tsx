@@ -117,6 +117,12 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
                 <p className="m-0 mt-1 text-sm text-stone-600">
                   {formatDutchDate(state.quote.createdAt)} · geldig tot {formatDutchDate(state.quote.validUntil)}
                 </p>
+                {state.quote.expired && state.quote.status === 'open' && (
+                  <p className="m-0 mt-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900">
+                    Deze offerte is verlopen. De prijs is geen belofte meer. Neig contact op
+                    met Klusbaas voor een actuele offerte.
+                  </p>
+                )}
               </div>
               <a
                 href={`/api/quote?${query}&format=pdf`}
@@ -186,7 +192,7 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               </div>
             </dl>
 
-            {state.quote.status === 'open' && (
+            {state.quote.status === 'open' && !state.quote.expired && (
               <section className="mx-6 sm:mx-8 mb-6 rounded-2xl border border-stone-200 bg-white p-5">
                 <h2 className="m-0 text-sm font-black text-stone-900">Ja, ik wil deze website</h2>
                 <p className="m-0 mt-2 text-sm text-stone-700">
@@ -265,7 +271,17 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               </p>
             )}
 
-            {state.quote.status === 'open' && state.quote.payment && (
+            {state.quote.status === 'open' && state.quote.expired && (
+              <section className="mx-6 sm:mx-8 mb-6 rounded-2xl bg-stone-50 border border-stone-200 p-5">
+                <h2 className="m-0 text-sm font-black text-stone-900">Wil je toch verder?</h2>
+                <p className="m-0 mt-2 text-sm text-stone-700">
+                  Antwoord op de mail waarin deze offerte staat, of mail ons. We maken
+                  je een nieuwe offerte met de prijs van vandaag.
+                </p>
+              </section>
+            )}
+
+            {state.quote.status === 'open' && !state.quote.expired && state.quote.payment && (
               <section className="mx-6 sm:mx-8 mb-6 rounded-2xl bg-stone-50 border border-stone-200 p-5">
                 <h2 className="m-0 text-sm font-black text-stone-900">Zo betaal je</h2>
                 <p className="m-0 mt-2 text-sm text-stone-700">

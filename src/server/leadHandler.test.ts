@@ -54,6 +54,13 @@ function memoryStorage() {
       quotes.set(id, updated);
       return updated;
     },
+    async extendQuote(id, validUntil) {
+      const record = quotes.get(id);
+      if (!record) return null;
+      const updated = { ...record, validUntil };
+      quotes.set(id, updated);
+      return updated;
+    },
   };
   return { storage, quotes, pdfs, leads };
 }
@@ -245,6 +252,27 @@ test('GET quote: right token returns it, wrong token 403, unknown 404, bad id 40
   assert.equal(unknown.status, 404);
   const bad = await handleGetQuote(new URLSearchParams({ id: '../x', token: TOKEN }), deps.storage);
   assert.equal(bad.status, 400);
+});
+
+test('the offer page says when the offer has expired', async () => {
+  const { deps } = setup();
+  await handleLead(body, 'ip', deps);
+
+  const fresh = await handleGetQuote(
+    new URLSearchParams({ id: 'KB-2026-0001', token: TOKEN }),
+    deps.storage,
+    { now: () => new Date('2026-10-29T10:00:00.000Z') }
+  );
+  assert.ok(fresh.kind === 'json' && 'customer' in fresh.body);
+  assert.equal((fresh.body as PublicQuote).expired, false);
+
+  const later = await handleGetQuote(
+    new URLSearchParams({ id: 'KB-2026-0001', token: TOKEN }),
+    deps.storage,
+    { now: () => new Date('2026-12-01T10:00:00.000Z') }
+  );
+  assert.ok(later.kind === 'json' && 'customer' in later.body);
+  assert.equal((later.body as PublicQuote).expired, true);
 });
 
 test('the offer page carries the payment details, so the customer can pay without an account', async () => {

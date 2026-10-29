@@ -34,6 +34,10 @@ on `main`; the commands to re-measure them are at the bottom.
     knows it the same day (phase 7.5).
 11. The customer gets an invoice when he pays, by mail and as a download
     (phase 7.6).
+12. An offer nobody accepted does not disappear: Klusbaas can send a
+    reminder and sees which offers have expired (phase 7.7).
+13. An expired offer is not a promise: the customer sees it, cannot accept
+    it, and Klusbaas can extend it when the price still holds (phase 7.8).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -64,6 +68,8 @@ there is no payment provider (still open).
 | 15 | A request cannot become an offer | the "Offerte maken" form listed only published sites and accounts | Someone who only sent a request could not be given an offer, so a lead from a form had no path to an order | **fixed (7.4)** |
 | 16 | The customer has to write a mail to accept | the offer page only showed the price and the way to pay | The customer had to write a mail or a WhatsApp message to say yes, and that is where a sale is lost most easily | **fixed (7.5)** |
 | 17 | A paid customer gets nothing | `quote-status` only changed a field in the store | The customer transferred the money and heard nothing: no confirmation and no document for his own administration | **fixed (7.6)** |
+| 18 | An open offer is never followed up | the overview only showed the status of an offer | An offer nobody accepted sat there until it expired; Klusbaas had to remember it himself and write the mail by hand | **fixed (7.7)** |
+| 19 | An expired offer still looks like a promise | the offer page said "geldig tot 28 november" and kept the accept button, whatever the date was | A customer could agree to a price from three months ago, and the page said a date that had passed | **fixed (7.8)** |
 
 The status column says what has been done since the audit was written
 (phases 6.1–6.9 and 7.1–7.4). "Partly fixed" means: an offer can be ordered
@@ -106,18 +112,23 @@ no invoice.
   Klusbaas hears about it the same day (phase 7.5).
 - A paying customer gets an invoice by mail and can download it again
   (phase 7.6).
+- Klusbaas can follow up on an open offer and sees which offers have
+  expired (phase 7.7).
+- An expired offer is not a promise: the customer sees it and cannot accept
+  it (phase 7.8).
 
 ## Definition of done
 
 The eight conditions in ROADMAP phase 6 are the contract: a craftsman can
 be sold a website when he can sign up, publish a site that only says true
 things, see his requests, pay, and find everything back on any device.
-Phase 7 adds six conditions of its own: Klusbaas can write an offer for a
+Phase 7 adds eight conditions of its own: Klusbaas can write an offer for a
 customer who did not come through the wizard (7.2), the photo upload cannot
 be used to fill the store (7.1), the customer can pay the offer without
 making an account first (7.3), a request can become an offer (7.4), the
-customer can accept the offer himself (7.5), and a paying customer gets an
-invoice (7.6).
+customer can accept the offer himself (7.5), a paying customer gets an
+invoice (7.6), an open offer can be followed up (7.7), and an expired offer
+is not a promise (7.8).
 
 ## How to re-measure this
 
@@ -159,6 +170,12 @@ grep -n "quote/accept" src/server/acceptQuote.ts | head -1
 
 # 17: a paid customer gets an invoice
 grep -n "sendPaidNotice" src/server/adminHandler.ts | head -1
+
+# 18: an open offer is followed up
+grep -n "remind-quote" src/server/adminHandler.ts | head -1
+
+# 19: an expired offer is not a promise
+grep -n "isQuoteExpired" src/utils/quote.ts | head -1
 
 # and the checks that must stay green
 bun run check

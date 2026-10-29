@@ -65,6 +65,13 @@ function memoryStorage(leads: StoredLead[] = [], quotes: QuoteRecord[] = []): Le
       quoteMap.set(id, updated);
       return updated;
     },
+    async extendQuote(id, validUntil) {
+      const record = quoteMap.get(id);
+      if (!record) return null;
+      const updated = { ...record, validUntil };
+      quoteMap.set(id, updated);
+      return updated;
+    },
   };
 }
 
@@ -246,6 +253,77 @@ test('een tweede keer als betaald markeren stuurt geen tweede factuur', async ()
   );
   assert.equal(second.status, 200);
   assert.equal(mails.length, 1);
+});
+
+test('Klusbaas stuurt een herinnering over een openstaande offerte', async () => {
+  const mails: { to: string; subject: string; text: string }[] = [];
+  const d = {
+    ...deps(),
+    sendMail: async (mail: { to: string; subject: string; text: string }) => {
+      mails.push(mail);
+      return 'sent';
+    },
+    payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+  };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin(
+    { action: 'remind-quote', id: 'KB-2026-0001' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 200);
+  assert.equal(result.body.reminderStatus, 'sent');
+  assert.equal(mails.length, 1);
+  assert.equal(mails[0].to, 'jan@jansen.nl');
+  assert.match(mails[0].text, /offerte\/KB-2026-0001\?token=quotetoken/);
+});
+
+test('een verlopen offerte is zichtbaar in het overzicht', async () => {
+  const d = deps();
+  // De testklok staat op 1 november 2023; de offerte is geldig tot 28 november 2026.
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  const result = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+  assert.equal(result.body.overview?.quotes[0].expired, false);
+
+  const later = { ...d, now: () => Date.parse('2026-12-01T10:00:00.000Z') };
+  const login2 = await handleAdmin({ action: 'login', password: 'geheim' }, later, null, false);
+  const result2 = await handleAdmin({ action: 'overview' }, later, login2.setCookie, false);
+  assert.equal(result2.body.overview?.quotes[0].expired, true);
+});
+
+test('een verlopen offerte kan worden verlengd', async () => {
+  const d = { ...deps(), now: () => Date.parse('2026-12-01T10:00:00.000Z') };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin(
+    { action: 'extend-quote', id: 'KB-2026-0001' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 200);
+  assert.ok(result.body.validUntil);
+  // Dertig dagen later: 31 december 2026.
+  assert.equal(result.body.validUntil, '2026-12-31T10:00:00.000Z');
+
+  const overview = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+  assert.equal(overview.body.overview?.quotes[0].expired, false);
+});
+
+test('een betaalde offerte kan niet verlengd worden', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  await handleAdmin({ action: 'quote-status', id: 'KB-2026-0001', status: 'paid' }, d, login.setCookie, false);
+
+  const result = await handleAdmin(
+    { action: 'extend-quote', id: 'KB-2026-0001' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 400);
 });
 
 test('een onbekende offerte geeft een duidelijke melding', async () => {

@@ -190,7 +190,15 @@ export interface QuoteRecord extends QuoteTotals {
  * be able to see where he has to transfer the money, without making an
  * account first.
  */
-export type PublicQuote = Omit<QuoteRecord, 'token'> & { payment?: PaymentDetails };
+export type PublicQuote = Omit<QuoteRecord, 'token'> & {
+  payment?: PaymentDetails;
+  /**
+   * True when the offer is past its validity date. The customer sees this:
+   * an offer that says "geldig tot 28 november" must not look like a
+   * promise on 1 december.
+   */
+  expired?: boolean;
+};
 
 export function toPublicQuote(record: QuoteRecord): PublicQuote {
   const { token: _token, ...rest } = record;
@@ -230,6 +238,20 @@ export function buildQuoteRecord(input: {
     ...(input.appointment ? { appointment: input.appointment } : {}),
     ...totals,
   };
+}
+
+/**
+ * True when the offer is past its validity date.
+ *
+ * An offer is valid for thirty days. After that the price is no longer a
+ * promise, so Klusbaas has to write a new one. The customer may still
+ * accept the old one — the price has not changed — but the overview shows
+ * that it is expired.
+ */
+export function isQuoteExpired(record: { validUntil: string }, now: Date = new Date()): boolean {
+  const until = Date.parse(record.validUntil);
+  if (Number.isNaN(until)) return false;
+  return until < now.getTime();
 }
 
 /** Shareable path of a stored quote. */

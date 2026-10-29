@@ -57,6 +57,22 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 6. Met `leadReference` neemt de offerte de klantgegevens uit een aanvraag
    (`L-XXXXXX`), voor iemand die nooit een account maakte
 
+## Een verlopen offerte verlengen
+
+`extend-quote` in `adminHandler.ts`: de offerte krijgt dertig dagen extra,
+zodat de klant hem nog kan accepteren. Een betaalde of geannuleerde
+offerte kan niet verlengd worden. De klant ziet op de offertepagina wanneer
+zijn offerte verlopen is (`isQuoteExpired` in `utils/quote.ts`); een
+verlopen offerte kan niet geaccepteerd worden.
+
+## Een openstaande offerte opvolgen
+
+`remind-quote` in `adminHandler.ts`: de klant van een openstaande offerte
+krijgt een herinnering met de link naar de offerte, het bedrag en de IBAN
+(`server/remindQuote.ts`, `utils/leadEmail.ts` → `buildReminderEmail`).
+De mail gaat alleen naar een klant met een e-mailadres; een betaalde of
+geannuleerde offerte krijgt geen herinnering.
+
 ## Factuur bij een betaalde offerte
 
 Wanneer Klusbaas een offerte op `paid` zet (`adminHandler.ts`, actie

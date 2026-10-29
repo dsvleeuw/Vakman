@@ -70,6 +70,13 @@ function memoryStorage(
       quoteMap.set(id, updated);
       return updated;
     },
+    async extendQuote(id, validUntil) {
+      const record = quoteMap.get(id);
+      if (!record) return null;
+      const updated = { ...record, validUntil };
+      quoteMap.set(id, updated);
+      return updated;
+    },
   };
 }
 

@@ -52,6 +52,13 @@ function memoryStorage(quotes: QuoteRecord[]): LeadStorage {
       map.set(id, updated);
       return updated;
     },
+    async extendQuote(id, validUntil) {
+      const record = map.get(id);
+      if (!record) return null;
+      const updated = { ...record, validUntil };
+      map.set(id, updated);
+      return updated;
+    },
   };
 }
 
@@ -105,6 +112,19 @@ test('de klant kan de offerte accepteren; de status wordt "accepted"', async () 
   assert.equal(mails[0].to, 'team@klusbaas.nl');
   assert.match(mails[0].subject, /KB-2026-0001/);
   assert.match(mails[0].text, /Jan Jansen/);
+});
+
+test('een verlopen offerte kan niet geaccepteerd worden', async () => {
+  const storage = memoryStorage([offer()]);
+  // De offerte is geldig tot 28 november 2026; de klant kijkt in december.
+  const result = await handleAcceptQuote(
+    { id: 'KB-2026-0001', token: TOKEN, name: 'Jan Jansen' },
+    { storage, now: () => new Date('2026-12-01T10:00:00.000Z') }
+  );
+  assert.equal(result.status, 409);
+  assert.match(result.body.error ?? '', /verlopen/);
+  const stored = await storage.getQuote('KB-2026-0001');
+  assert.equal(stored?.status, 'open');
 });
 
 test('zonder naam, zonder token of met een fout token wordt de acceptatie geweigerd', async () => {
