@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Een gepubliceerde klantsite toont alleen wat de vakman zelf heeft
+  geschreven.** De pagina werd getekend uit de voorbeeldtekst van het vak:
+  de drie voorbeeldreviews met een verzonnen cijfer ("4,9 uit 5, 128
+  beoordelingen"), het Google-logo met die cijfers, de foto's van andermans
+  werk, de voorbeeldprijzen en de keurmerken uit het voorbeeld. Op de site
+  van de klant stonden dus dingen die niet van hem waren. Nu blijft daar
+  alleen over wat hij zelf schreef of bevestigde:
+  - tekst die nog op de voorbeeldtekst staat, wordt vervangen door een
+    feitelijke regel uit zijn eigen gegevens ("Jansen Schilderwerken",
+    "Schilder in Haarlem");
+  - voorbeeldprijzen worden "Prijs op aanvraag";
+  - reviews, de Google-badge, het "vakman sinds"-jaar, de keurmerken, de
+    voorbeeld-faq en de voorbeeldfoto's verdwijnen;
+  - een blok dat hij aanzet komt pas op de site als hij het bevestigt of
+    verandert ("Dit is mijn eigen tekst"); de cijfers uit het voorbeeld
+    gaan altijd mee;
+  - de prijscalculator en de m²-calculator blijven weg zolang ze met
+    voorbeeldprijzen werken;
+  - knoppen en menu's wijzen niet langer naar onderdelen die er niet zijn.
+  In de editor staat een checklijst van wat er nog ingevuld moet worden, en
+  de preview laat zien wat een bezoeker straks ziet (met een knop om het
+  volledige voorbeeld te bekijken).
+
 ### Added
 
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-

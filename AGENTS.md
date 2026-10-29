@@ -125,6 +125,11 @@ result. The Netlify deploy preview is the only external CI check. If
 - When smoke-rendering with `renderToStaticMarkup`, assert against
   entity-decoded markup (`&` renders as `&amp;`). Delete any temporary
   render script before committing.
+- A published customer site (`/site/<slug>`) shows only what the craftsman
+  wrote or confirmed (`utils/publishedContent.ts`). The trade preset is demo
+  material: its reviews, rating, Google badge, photos, prices, marks and FAQ
+  never end up on his page. When you add content, check it against the
+  preset: example text stays in the editor, not on the site (principle 2).
 - A lead from a published customer site (`/site/<slug>`) belongs to that
   craftsman: it is mailed to the e-mail address he entered, not to Klusbaas.
   The recipient always comes from the stored site, never from the request,

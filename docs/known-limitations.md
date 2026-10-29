@@ -54,6 +54,23 @@ to [ROADMAP.md](../ROADMAP.md).
   link keeps working: a site published before accounts existed can be linked
   to an account from `/mijn-account` by pasting the management link.
 
+## A published customer site
+
+- **A published site shows only what the craftsman wrote or confirmed.** The
+  trade preset is demo material: its reviews, rating (`4,9 uit 5`), Google
+  badge, project photos, prices, marks and FAQ are left out of the public
+  page (principle 2, principle 6). A block the craftsman switches on only
+  appears when he changed or confirmed it; the editor says which blocks are
+  still on the example text.
+- **He cannot add his own photos yet.** Until that exists (roadmap 6.9) the
+  portfolio section and the hero photo stay empty on a published site: there
+  is no photo of somebody else's work on a customer's page.
+- **He cannot set his own prices or reviews yet** (roadmap 6.1b). Until
+  then a published site shows "Prijs op aanvraag" and no review section.
+- **The example text stays in the editor**, not on the page. That is the
+  point: the editor is where the craftsman writes, the public page is where
+  only his own words are.
+
 ## Privacy and newsletter
 
 - **TODO: KvK-nummer en vestigingsadres ontbreken** in de privacyverklaring

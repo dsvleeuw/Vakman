@@ -1,6 +1,6 @@
 import React from 'react';
-import type { ActiveSiteData, BlockId } from '../types';
-import { defaultBlockContent } from '../data/blocks';
+import type { ActiveSiteData, BlockContentMap, BlockId, ContentBlockId } from '../types';
+import { defaultBlockContent, emptyBlockContent } from '../data/blocks';
 import { blockContentOf } from '../utils/siteContent';
 import { PriceCalculator } from './PriceCalculator';
 import { AreaChecker } from './AreaChecker';
@@ -30,6 +30,17 @@ export interface BlockRendererProps {
  * band, because they are just the component itself.
  */
 export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => {
+  /**
+   * The copy of a content block. On a published site the fallback is empty:
+   * nothing of the example may slip back in (principle 2).
+   */
+  const copy = <K extends ContentBlockId>(id: K): BlockContentMap[K] =>
+    blockContentOf(
+      site.blockContent,
+      id,
+      site.published ? emptyBlockContent(id) : defaultBlockContent(site, id)
+    );
+
   switch (block) {
     case 'price-calculator':
       return <PriceCalculator site={site} />;
@@ -44,11 +55,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <TrustBar
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'trust-bar',
-              defaultBlockContent(site, 'trust-bar')
-            )}
+            content={copy('trust-bar')}
           />
         </Band>
       );
@@ -57,11 +64,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <GuaranteeList
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'guarantees',
-              defaultBlockContent(site, 'guarantees')
-            )}
+            content={copy('guarantees')}
           />
         </Band>
       );
@@ -70,11 +73,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <TestimonialCard
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'testimonial',
-              defaultBlockContent(site, 'testimonial')
-            )}
+            content={copy('testimonial')}
           />
         </Band>
       );
@@ -83,11 +82,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <TeamMemberCard
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'team-member',
-              defaultBlockContent(site, 'team-member')
-            )}
+            content={copy('team-member')}
           />
         </Band>
       );
@@ -96,11 +91,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <ProjectStats
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'project-stats',
-              defaultBlockContent(site, 'project-stats')
-            )}
+            content={copy('project-stats')}
           />
         </Band>
       );
@@ -109,11 +100,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <OpeningHoursCard
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'opening-hours',
-              defaultBlockContent(site, 'opening-hours')
-            )}
+            content={copy('opening-hours')}
           />
         </Band>
       );
@@ -122,11 +109,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <AvailabilityCard
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'availability',
-              defaultBlockContent(site, 'availability')
-            )}
+            content={copy('availability')}
           />
         </Band>
       );
@@ -135,11 +118,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <PromotionBanner
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'promotion',
-              defaultBlockContent(site, 'promotion')
-            )}
+            content={copy('promotion')}
           />
         </Band>
       );
@@ -148,11 +127,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <ServiceAreaChips
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'service-areas',
-              defaultBlockContent(site, 'service-areas')
-            )}
+            content={copy('service-areas')}
           />
         </Band>
       );
@@ -161,11 +136,7 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({ site, block }) => 
         <Band>
           <ContactCtaBanner
             site={site}
-            content={blockContentOf(
-              site.blockContent,
-              'contact-cta',
-              defaultBlockContent(site, 'contact-cta')
-            )}
+            content={copy('contact-cta')}
           />
         </Band>
       );

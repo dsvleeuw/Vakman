@@ -139,6 +139,14 @@ export const SiteView: React.FC<SiteViewProps> = ({
   // nummer te tonen dat niet van de klant is.
   const canCall = Boolean(site.contactPhone) || !site.isCustomerSite;
 
+  // Welke onderdelen echt op de pagina staan. Een gepubliceerde site heeft
+  // geen werk en geen prijscalculator zolang de vakman die niet zelf heeft
+  // ingevuld; een knop die naar zo'n onderdeel wijst, zou dood zijn.
+  const hasWork = site.work.length > 0 || (site.beforeAfter?.length ?? 0) > 0;
+  const hasPrice = site.blocks.includes('price-calculator');
+  const cta1Href = hasPrice ? '#prijs' : '#diensten';
+  const cta2Href = hasWork ? '#werk' : '#contact';
+
   return (
     <div
       className={`flex flex-col min-h-screen ${embedded ? '' : 'pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pb-0'}`}
@@ -368,12 +376,16 @@ export const SiteView: React.FC<SiteViewProps> = ({
             <a href="#diensten" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Diensten
             </a>
-            <a href="#werk" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
-              Eerder werk
-            </a>
-            <a href="#prijs" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
-              Prijs berekenen
-            </a>
+            {hasWork && (
+              <a href="#werk" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
+                Eerder werk
+              </a>
+            )}
+            {hasPrice && (
+              <a href="#prijs" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
+                Prijs berekenen
+              </a>
+            )}
             <a href="#gebied" className="min-h-11 inline-flex items-center hover:opacity-75 transition-opacity whitespace-nowrap">
               Werkgebied
             </a>
@@ -440,22 +452,26 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 >
                   Diensten
                 </a>
-                <a
-                  href="#werk"
-                  onClick={() => setMenuOpen(false)}
-                  className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
-                  style={{ borderColor: site.line }}
-                >
-                  Eerder werk
-                </a>
-                <a
-                  href="#prijs"
-                  onClick={() => setMenuOpen(false)}
-                  className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
-                  style={{ borderColor: site.line }}
-                >
-                  Prijs berekenen
-                </a>
+                {hasWork && (
+                  <a
+                    href="#werk"
+                    onClick={() => setMenuOpen(false)}
+                    className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
+                    style={{ borderColor: site.line }}
+                  >
+                    Eerder werk
+                  </a>
+                )}
+                {hasPrice && (
+                  <a
+                    href="#prijs"
+                    onClick={() => setMenuOpen(false)}
+                    className="h-12 flex items-center border-b hover:opacity-75 transition-opacity"
+                    style={{ borderColor: site.line }}
+                  >
+                    Prijs berekenen
+                  </a>
+                )}
                 <a
                   href="#gebied"
                   onClick={() => setMenuOpen(false)}
@@ -506,7 +522,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
                 <div className="flex gap-2.5 sm:gap-3 flex-wrap pt-1 sm:pt-2">
                   <a
-                    href="#prijs"
+                    href={cta1Href}
                     className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-sm"
                     style={{
                       borderRadius: site.radius,
@@ -517,7 +533,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     {site.cta1} →
                   </a>
                   <a
-                    href="#werk"
+                    href={cta2Href}
                     className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base border-2 transition-colors hover:bg-black/5"
                     style={{
                       borderRadius: site.radius,
@@ -529,17 +545,19 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   </a>
                 </div>
 
-                {/* Rating */}
-                <div
-                  className="flex items-center gap-3 text-sm pt-1 sm:pt-2"
-                  style={{ color: site.muted }}
-                >
-                  <StarRating count={5} />
-                  <span>
-                    <strong style={{ color: site.fg }}>{site.rating}</strong> uit{' '}
-                    {site.reviewCount} beoordelingen
-                  </span>
-                </div>
+                {/* Rating: alleen als de vakman zijn eigen cijfer heeft gezet */}
+                {site.rating && (
+                  <div
+                    className="flex items-center gap-3 text-sm pt-1 sm:pt-2"
+                    style={{ color: site.muted }}
+                  >
+                    <StarRating count={5} />
+                    <span>
+                      <strong style={{ color: site.fg }}>{site.rating}</strong> uit{' '}
+                      {site.reviewCount} beoordelingen
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Split Image with Floating Badge */}
@@ -557,28 +575,30 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div
-                  className="absolute -left-3 bottom-6 sm:-left-6 p-4 border flex flex-col gap-1 shadow-xl"
-                  style={{
-                    borderRadius: site.radiusLg,
-                    background: site.card,
-                    borderColor: site.line,
-                    color: site.fg,
-                  }}
-                >
-                  <span
-                    className="text-3xl font-black leading-none"
+                {site.since && (
+                  <div
+                    className="absolute -left-3 bottom-6 sm:-left-6 p-4 border flex flex-col gap-1 shadow-xl"
                     style={{
-                      fontFamily: site.display,
-                      fontWeight: site.dw,
+                      borderRadius: site.radiusLg,
+                      background: site.card,
+                      borderColor: site.line,
+                      color: site.fg,
                     }}
                   >
-                    {site.since}
-                  </span>
-                  <span className="text-xs font-semibold opacity-75">
-                    vakman sinds
-                  </span>
-                </div>
+                    <span
+                      className="text-3xl font-black leading-none"
+                      style={{
+                        fontFamily: site.display,
+                        fontWeight: site.dw,
+                      }}
+                    >
+                      {site.since}
+                    </span>
+                    <span className="text-xs font-semibold opacity-75">
+                      vakman sinds
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -613,7 +633,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 </p>
                 <div className="flex gap-2.5 sm:gap-3 flex-wrap">
                   <a
-                    href="#prijs"
+                    href={cta1Href}
                     className="h-12 sm:h-14 px-5 sm:px-8 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-md"
                     style={{
                       borderRadius: site.radius,
@@ -624,7 +644,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     {site.cta1} →
                   </a>
                   <a
-                    href="#werk"
+                    href={cta2Href}
                     className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base bg-white/15 backdrop-blur-md border border-white/30 text-white transition-colors hover:bg-white/25"
                     style={{ borderRadius: site.radius }}
                   >
@@ -666,7 +686,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   </p>
                   <div className="flex gap-3 flex-wrap pt-1 sm:pt-2">
                     <a
-                      href="#prijs"
+                      href={cta1Href}
                       className="w-full sm:w-auto justify-center h-13 sm:h-14 px-6 sm:px-8 flex items-center font-black text-base transition-transform hover:-translate-y-0.5 shadow"
                       style={{
                         borderRadius: site.radius,
@@ -760,7 +780,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 </p>
                 <div className="flex gap-2.5 sm:gap-3 flex-wrap">
                   <a
-                    href="#prijs"
+                    href={cta1Href}
                     className="h-12 sm:h-14 px-5 sm:px-8 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-sm"
                     style={{
                       borderRadius: site.radius,
@@ -771,7 +791,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     {site.cta1} →
                   </a>
                   <a
-                    href="#werk"
+                    href={cta2Href}
                     className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base border"
                     style={{
                       borderRadius: site.radius,
@@ -834,7 +854,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
 
               <div className="flex gap-2.5 sm:gap-3 flex-wrap justify-center">
                 <a
-                  href="#prijs"
+                  href={cta1Href}
                   className="h-12 sm:h-14 px-5 sm:px-8 flex items-center font-bold text-sm sm:text-base transition-transform hover:-translate-y-0.5 shadow-sm"
                   style={{
                     borderRadius: site.radius,
@@ -845,7 +865,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
                   {site.cta1} →
                 </a>
                 <a
-                  href="#werk"
+                  href={cta2Href}
                   className="h-12 sm:h-14 px-5 sm:px-7 flex items-center font-bold text-sm sm:text-base border"
                   style={{
                     borderRadius: site.radius,
@@ -898,6 +918,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
         )}
 
         {/* Quality Marks / Certifications Ribbon */}
+        {site.marks.length > 0 && (
         <div
           className="border-y py-5 px-4 sm:px-8 md:px-12"
           style={{ borderColor: site.line }}
@@ -919,6 +940,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
             ))}
           </div>
         </div>
+        )}
 
         {/* Services & Pricing Section */}
         <section
@@ -938,7 +960,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 {site.servicesTitle}
               </h2>
               <span className="text-sm font-medium" style={{ color: site.muted }}>
-                Vaste pakketprijzen, inclusief btw en garantie.
+                {site.services.some((service) => service.p)
+                  ? 'Vaste prijzen, zonder verrassingen.'
+                  : 'Prijs op aanvraag, vrijblijvend advies.'}
               </span>
             </div>
 
@@ -981,7 +1005,9 @@ export const SiteView: React.FC<SiteViewProps> = ({
                     className="flex justify-between items-center pt-3 border-t text-sm font-bold"
                     style={{ borderColor: site.line }}
                   >
-                    <span style={{ color: site.accentText }}>{sv.p}</span>
+                    <span style={{ color: site.accentText }}>
+                      {sv.p || 'Prijs op aanvraag'}
+                    </span>
                     <span>→</span>
                   </div>
                 </div>
@@ -1007,6 +1033,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
         </section>
 
         {/* Portfolio Projects Section */}
+        {hasWork && (
         <section
           id="werk"
           className="pb-10 sm:pb-24 px-4 sm:px-8 md:px-12 scroll-mt-20"
@@ -1096,8 +1123,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
             )}
           </div>
         </section>
+        )}
 
         {/* About Craftsman Profile */}
+        {site.about && (
         <section className="pb-10 sm:pb-24 px-4 sm:px-8 md:px-12">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14 items-center">
             <div
@@ -1134,46 +1163,52 @@ export const SiteView: React.FC<SiteViewProps> = ({
                 className="grid grid-cols-2 gap-6 pt-4 border-t"
                 style={{ borderColor: site.line }}
               >
-                <div>
-                  <span
-                    className="text-3xl sm:text-5xl font-black leading-none block"
-                    style={{
-                      fontFamily: site.display,
-                      fontWeight: site.dw,
-                    }}
-                  >
-                    {site.since}
-                  </span>
-                  <span className="text-xs sm:text-sm font-medium mt-1 block" style={{ color: site.muted }}>
-                    actief als vakman
-                  </span>
-                </div>
-                <div>
-                  <span
-                    className="text-3xl sm:text-5xl font-black leading-none flex items-center gap-2"
-                    style={{
-                      fontFamily: site.display,
-                      fontWeight: site.dw,
-                      color: site.accentText,
-                    }}
-                  >
-                    {site.rating} <StarIcon className="w-8 h-8 fill-current" />
-                  </span>
-                  <span className="text-xs sm:text-sm font-medium mt-1 block" style={{ color: site.muted }}>
-                    uit {site.reviewCount} geverifieerde reviews
-                  </span>
-                </div>
+                {site.since && (
+                  <div>
+                    <span
+                      className="text-3xl sm:text-5xl font-black leading-none block"
+                      style={{
+                        fontFamily: site.display,
+                        fontWeight: site.dw,
+                      }}
+                    >
+                      {site.since}
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium mt-1 block" style={{ color: site.muted }}>
+                      actief als vakman
+                    </span>
+                  </div>
+                )}
+                {site.rating && (
+                  <div>
+                    <span
+                      className="text-3xl sm:text-5xl font-black leading-none flex items-center gap-2"
+                      style={{
+                        fontFamily: site.display,
+                        fontWeight: site.dw,
+                        color: site.accentText,
+                      }}
+                    >
+                      {site.rating} <StarIcon className="w-8 h-8 fill-current" />
+                    </span>
+                    <span className="text-xs sm:text-sm font-medium mt-1 block" style={{ color: site.muted }}>
+                      uit {site.reviewCount} beoordelingen
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </section>
+        )}
 
         {/* Blocks the craftsman can switch on, order and fill in */}
         {site.blocks.map((block) => (
           <BlockRenderer key={block} site={site} block={block} />
         ))}
 
-        {/* Customer Reviews */}
+        {/* Customer Reviews: alleen als de vakman zijn eigen reviews heeft */}
+        {site.reviews.length > 0 && (
         <section className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 border-t border-stone-200/60">
           <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
@@ -1259,9 +1294,10 @@ export const SiteView: React.FC<SiteViewProps> = ({
             )}
           </div>
         </section>
+        )}
 
         {/* FAQ Accordion */}
-        <FaqSection faqs={site.faqs} site={site} />
+        {(site.faqs?.length ?? 0) > 0 && <FaqSection faqs={site.faqs} site={site} />}
 
         {/* WhatsApp-first contact section with form fallback */}
         <ContactSection site={site} />
@@ -1347,7 +1383,7 @@ export const SiteView: React.FC<SiteViewProps> = ({
           </a>
         )}
         <a
-          href="#prijs"
+          href={cta1Href}
           className="h-14 px-6 rounded-full flex items-center gap-2 font-extrabold text-sm sm:text-base shadow-2xl transition-transform hover:scale-105"
           style={{
             background: site.accent,

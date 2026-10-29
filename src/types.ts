@@ -296,6 +296,12 @@ export interface SiteContent {
   blocks: BlockId[];
   /** Editable copy per content block. */
   blockContent: Partial<BlockContentMap>;
+  /**
+   * The blocks the craftsman confirmed as his own text. A block that is
+   * still the example does not go on the public page; a confirmed block
+   * does, even when its text happens to equal the example (principle 2).
+   */
+  confirmed?: ContentBlockId[];
   /** Editable copy of the page itself. */
   text: SiteText;
 }
@@ -331,6 +337,12 @@ export interface ActiveSiteData extends SectorData, Palette {
    * demo number and never shows the demo notice.
    */
   isCustomerSite: boolean;
+  /**
+   * True on the public page of a published site. There the example copy of
+   * the trade preset is left out: the page shows only what the craftsman
+   * wrote or supplied (principle 2, principle 6).
+   */
+  published?: boolean;
   /**
    * The address of the published site this page is (`/site/<slug>`). Set on
    * a customer's own site so a lead from it can be delivered to the owner
@@ -437,6 +449,8 @@ export interface PublishedSiteRecord {
   blocks: BlockId[];
   /** The copy per block. */
   blockContent: Partial<BlockContentMap>;
+  /** The blocks the craftsman confirmed as his own text. */
+  confirmed?: ContentBlockId[];
   /** The copy of the page itself. */
   text: SiteText;
   /** When the site was first published. */
