@@ -211,6 +211,23 @@ to [ROADMAP.md](../ROADMAP.md).
   are public by design and safe to expose when access is restricted via
   Firebase security rules, but those rules are not part of this repo.
 
+## Photos of the customer
+
+- Photos are uploaded from the browser to `POST /api/media` and stored in
+  the Blobs store `media`; they are served from `GET /api/media?key=…`.
+  The browser scales the photo down (1600 px, jpg, quality 0.82) before
+  uploading, so a phone photo of 5 MB becomes a few hundred kilobytes.
+- Only jpg, png and webp are accepted, up to 1,5 MB. There is no SVG (a
+  file with a script in it) and no other format.
+- A photo is kept under a random name. Nothing is deleted: there is no
+  delete button and no limit per customer, so the store grows with every
+  upload. The Blobs store `media` has to be watched.
+- The published page only shows photos of the customer that are served
+  from our own server. A photo address from somewhere else is dropped when
+  the content is read (`sanitizePhoto`).
+- Without photos the page shows a transparent placeholder, not a photo of
+  somebody else's work.
+
 ## Promises and packages
 
 - Every line on the pricing page (`src/data/plans.ts`) is either built or

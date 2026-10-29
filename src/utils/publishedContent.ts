@@ -298,6 +298,11 @@ export function publishedSite(site: ActiveSiteData, content: SiteContent): Activ
   // The work area of the craftsman, not the area of the trade example.
   const near = areaPrefixes(content.workArea ?? []);
 
+  // His own work, with his own photos. The work of the trade preset is demo
+  // material: it shows the work of somebody else.
+  const ownWork = (content.work ?? []).filter((project) => project.t.trim());
+  const heroPhoto = content.heroPhoto ?? '';
+
   return {
     ...site,
     published: true,
@@ -311,7 +316,7 @@ export function publishedSite(site: ActiveSiteData, content: SiteContent): Activ
     reviews: [],
     rating: '',
     reviewCount: 0,
-    work: [],
+    work: ownWork,
     beforeAfter: undefined,
     marks: [],
     since: '',
@@ -328,7 +333,7 @@ export function publishedSite(site: ActiveSiteData, content: SiteContent): Activ
     blocks: publishedBlocks(content),
     blockContent: publishedBlockContent(content),
     img: {
-      hero: NO_PHOTO,
+      hero: heroPhoto || NO_PHOTO,
       a: NO_PHOTO,
       b: NO_PHOTO,
       c: NO_PHOTO,

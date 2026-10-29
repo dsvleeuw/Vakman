@@ -130,6 +130,11 @@ result. The Netlify deploy preview is the only external CI check. If
   material: its reviews, rating, Google badge, photos, prices, marks and FAQ
   never end up on his page. When you add content, check it against the
   preset: example text stays in the editor, not on the site (principle 2).
+- Photos of the customer go to `POST /api/media` and live in the Blobs store
+  `media`; they are served from `GET /api/media?key=…`. The browser scales
+  the photo down first (`utils/mediaClient.ts`). Only jpg, png and webp of
+  at most 1,5 MB are accepted, and only photo addresses from our own
+  server survive in the content (`sanitizePhoto`).
 - The price calculator and the postcode check are tools with numbers, so
   they only go on a published page when the craftsman filled them in:
   `content.services` (his own services with a price, `utils/services.ts`) and

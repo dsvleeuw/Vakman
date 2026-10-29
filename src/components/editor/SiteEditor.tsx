@@ -26,6 +26,7 @@ import { track } from '../../utils/analytics';
 import { RouteLink } from '../RouteLink';
 import { SiteView } from '../SiteView';
 import { BlockForm, type AnyBlockContent } from './BlockForm';
+import { PhotosField } from './PhotosField';
 import { ListField, TextAreaField, TextField } from './Field';
 
 export interface SiteEditorProps {
@@ -37,11 +38,12 @@ export interface SiteEditorProps {
   token?: string;
 }
 
-type PanelTab = 'gegevens' | 'tekst' | 'blokken';
+type PanelTab = 'gegevens' | 'tekst' | 'blokken' | 'fotos';
 
 const TABS: { id: PanelTab; label: string }[] = [
   { id: 'blokken', label: 'Blokken' },
   { id: 'gegevens', label: 'Gegevens' },
+  { id: 'fotos', label: 'Foto’s' },
   { id: 'tekst', label: 'Tekst' },
 ];
 
@@ -268,6 +270,8 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
       blockContent: content.blockContent,
       services: content.services,
       workArea: content.workArea,
+      heroPhoto: content.heroPhoto,
+      work: content.work,
       text: content.text,
     });
     setPublishing(false);
@@ -554,6 +558,20 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                   </div>
                 </fieldset>
               </div>
+            )}
+
+            {tab === 'fotos' && (
+              <PhotosField
+                heroPhoto={content.heroPhoto}
+                work={content.work ?? []}
+                onChange={({ heroPhoto, work }) =>
+                  update({
+                    ...content,
+                    ...(heroPhoto ? { heroPhoto } : { heroPhoto: undefined }),
+                    work,
+                  })
+                }
+              />
             )}
 
             {tab === 'tekst' && (

@@ -128,3 +128,57 @@ test('een document van een andere versie of met onbekende blokken wordt genegeer
 
   assert.deepEqual(restored?.blocks, ['trust-bar']);
 });
+
+test('een foto van iemand anders komt niet in de inhoud', () => {
+  const raw = {
+    version: 1,
+    sector: 'schilder',
+    styleId: 'modern',
+    form: { biz: 'Jansen', owner: 'Jan', phone: '0612345678', city: 'Haarlem' },
+    disabledServices: {},
+    blocks: [],
+    blockContent: {},
+    confirmed: [],
+    text: {
+      kicker: '',
+      headline: '',
+      intro: '',
+      about: '',
+      cta1: '',
+      cta2: '',
+    },
+    heroPhoto: 'https://example.com/foto.jpg',
+    work: [
+      { t: 'Badkamer', c: 'Schilderwerk', y: '2025', img: 'https://example.com/andere.jpg' },
+      { t: 'Keuken', c: 'Schilderwerk', y: '2025', img: '/api/media?key=abcdef1234.jpg' },
+      { t: '', c: '', y: '', img: '/api/media?key=abcdef1234.jpg' },
+    ],
+  };
+
+  const content = sanitizeSiteContent(raw);
+  assert.ok(content);
+  assert.equal(content?.heroPhoto, undefined, 'een foto van buiten onze server hoort er niet bij');
+  const work = content?.work ?? [];
+  assert.equal(work.length, 2);
+  assert.equal(work[0].t, 'Badkamer');
+  assert.equal(work[0].img, undefined, 'een foto van buiten onze server valt weg');
+  assert.equal(work[1].t, 'Keuken');
+  assert.equal(work[1].img, '/api/media?key=abcdef1234.jpg');
+});
+
+test('onze eigen foto blijft in de inhoud', () => {
+  const content = sanitizeSiteContent({
+    version: 1,
+    sector: 'schilder',
+    styleId: 'modern',
+    form: { biz: 'Jansen', owner: 'Jan', phone: '0612345678', city: 'Haarlem' },
+    disabledServices: {},
+    blocks: [],
+    blockContent: {},
+    confirmed: [],
+    text: { kicker: '', headline: '', intro: '', about: '', cta1: '', cta2: '' },
+    heroPhoto: '/api/media?key=abcdef1234.jpg',
+  });
+
+  assert.equal(content?.heroPhoto, '/api/media?key=abcdef1234.jpg');
+});

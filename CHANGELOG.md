@@ -29,6 +29,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   gebeld wordt. De beloftes van het voorbeeld ("25 km om de stad", "geen
   extra voorrijkosten") staan niet meer op een klantsite.
 
+### Added
+
+- **De vakman uploadt zijn eigen foto's.** In de editor staat een tabblad
+  "Foto's": een foto bovenin de site en een lijst met zijn eigen projecten
+  (titel, soort werk, jaar en een foto per project). De foto wordt in de
+  browser kleiner gemaakt voordat hij naar de server gaat, daarna bewaard in
+  de Blobs-store `media` en opgehaald via `/api/media`. De voorbeeldfoto's
+  van het vak horen bij het voorbeeld, niet bij de klant: zonder eigen
+  foto's blijft het transparante placeholder-beeld staan.
+
 ### Changed
 
 - **De pakketten vertellen de waarheid.** De prijzenlijst beloofde dingen

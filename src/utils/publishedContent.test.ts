@@ -236,6 +236,29 @@ test('de postcodecheck komt op de site met het werkgebied van de vakman', () => 
   assert.deepEqual(published.near, ['20']);
 });
 
+test('de site toont de eigen foto’s van de vakman', () => {
+  const base = content();
+  const published = site({
+    ...base,
+    heroPhoto: '/api/media?key=abcdef1234.jpg',
+    work: [
+      { t: 'Badkamer schilderen', c: 'Schilderwerk', y: '2025', img: '/api/media?key=987fed4321.jpg' },
+    ],
+  });
+
+  assert.equal(published.img.hero, '/api/media?key=abcdef1234.jpg');
+  assert.equal(published.work.length, 1);
+  assert.equal(published.work[0].t, 'Badkamer schilderen');
+  assert.equal(published.work[0].img, '/api/media?key=987fed4321.jpg');
+});
+
+test('zonder eigen foto’s blijven de voorbeeldfoto’s van het vak weg', () => {
+  const published = site(content());
+
+  assert.equal(published.img.hero, NO_PHOTO);
+  assert.deepEqual(published.work, []);
+});
+
 test('de postcodecheck blijft weg zonder het werkgebied van de vakman', () => {
   const published = site(content());
   assert.ok(!published.blocks.includes('area-checker'));
