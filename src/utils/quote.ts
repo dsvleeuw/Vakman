@@ -1,6 +1,6 @@
 import { ADDONS, getAddon, isAddonIncluded } from '../data/addons';
 import { getPlan } from '../data/plans';
-import type { PlanId, QuoteChannel } from '../types';
+import type { PaymentDetails, PlanId, QuoteChannel } from '../types';
 
 /**
  * Pure quote maths for the offertebouwer. Amounts are integer euro cents so
@@ -172,8 +172,14 @@ export interface QuoteRecord extends QuoteTotals {
   appointment?: { date: string; slot: string };
 }
 
-/** The record without its secret token: what `GET /api/quote` returns. */
-export type PublicQuote = Omit<QuoteRecord, 'token'>;
+/**
+ * The record without its secret token: what `GET /api/quote` returns.
+ *
+ * The payment details travel with it: a customer who opens the offer has to
+ * be able to see where he has to transfer the money, without making an
+ * account first.
+ */
+export type PublicQuote = Omit<QuoteRecord, 'token'> & { payment?: PaymentDetails };
 
 export function toPublicQuote(record: QuoteRecord): PublicQuote {
   const { token: _token, ...rest } = record;

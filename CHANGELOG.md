@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant kan de offerte meteen betalen.** De IBAN, de naam van de
+  rekeninghouder en het bedrag staan nu in de offerte-PDF en op de
+  offertepagina. Een klant zonder account kon de offerte wel openen, maar
+  wist niet waar hij het bedrag naartoe moest overmaken; nu wel.
 - **Klusbaas schrijft zelf een offerte voor een klant.** In `/klusbaas` staat
   een formulier "Offerte maken": kies de klant (zijn site vult de naam, de
   telefoon, de plaats en het vak in), kies het pakket en de extra

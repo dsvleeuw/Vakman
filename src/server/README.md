@@ -52,6 +52,8 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
    `/mijn-account` ziet
 4. De klant krijgt de mail met de offerte als PDF en de link naar de
    online offerte (`utils/leadEmail.ts`, `buildOfferEmail`)
+5. De betaalgegevens (`server/payment.ts`) komen in de PDF en in
+   `GET /api/quote`, zodat de klant kan betalen zonder account
 
 ## Tests
 

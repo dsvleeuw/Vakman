@@ -129,6 +129,19 @@ to [ROADMAP.md](../ROADMAP.md).
   purpose: Klusbaas needs it when a customer lost his account. It means the
   password is worth protecting like a key to every customer site.
 
+## Paying an offer
+
+- **The payment details are in the offer itself.** The IBAN, the name of the
+  account holder, the amount and the reference stand in the offer PDF and on
+  the offer page, so a customer can transfer the money without making an
+  account first.
+- **Klusbaas marks the payment by hand.** There is no payment provider, no
+  automatic check against the bank statement and no reminder: the offer
+  waits until Klusbaas marks it paid in `/klusbaas`.
+- **Without `PAYMENT_IBAN` there are no payment details.** The offer then
+  says that Klusbaas will send them. That is deliberate: a wrong IBAN is
+  worse than no IBAN.
+
 ## The offer Klusbaas writes himself
 
 - **Klusbaas writes the offer, the customer does not ask for one.** In

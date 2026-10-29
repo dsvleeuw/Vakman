@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import zlib from 'node:zlib';
 import type { Account, PublishedSiteRecord } from '../types';
 import type { QuoteRecord } from '../utils/quote';
 import { createOfferForCustomer } from './adminOffer';
@@ -280,6 +281,59 @@ test('zonder mailer wordt de offerte wel gemaakt, maar niet verstuurd', async ()
   assert.equal(result.quote?.mailed, false);
   assert.equal(result.quote?.mailStatus, 'geen mailer');
   assert.equal((await d.leads.listQuotes()).length, 1);
+});
+
+/**
+ * De tekst uit een PDF van pdf-lib. De letters staan als hex-tekenreeksen in
+ * een gecomprimeerde stream, dus: ontleed de stream en lees de hex.
+ */
+function pdfText(pdf: Uint8Array): string {
+  // De hele PDF als latin-1-tekenreeks: zo zijn de grenzen van de streams
+  // met gewone stringfuncties te vinden.
+  const raw = Buffer.from(pdf).toString('binary');
+  const words: string[] = [];
+  let index = raw.indexOf('stream');
+  while (index !== -1) {
+    const start = index + 'stream'.length;
+    const end = raw.indexOf('endstream', start);
+    if (end === -1) break;
+    const chunk = raw.slice(start, end).replace(/^[\r\n]+/, '');
+    try {
+      const inflated = zlib.inflateSync(Buffer.from(chunk, 'binary')).toString('binary');
+      for (const match of inflated.matchAll(/<([0-9A-Fa-f]+)>\s*Tj/g)) {
+        words.push(Buffer.from(match[1], 'hex').toString('binary'));
+      }
+    } catch {
+      // Geen tekst-stream; de volgende proberen.
+    }
+    index = raw.indexOf('stream', end);
+  }
+  return words.join('\n');
+}
+
+test('de betaalgegevens staan in de PDF van de offerte', async () => {
+  const { deps: d, leads } = deps({
+    payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+  });
+
+  const result = await createOfferForCustomer(
+    {
+      email: 'jan@jansen.nl',
+      accountId: 'account-1',
+      siteSlug: 'jansen-schilderwerken',
+      plan: 'pro',
+    },
+    d
+  );
+
+  assert.equal(result.ok, true);
+  const pdf = leads.pdfs.get(result.quote?.id ?? '');
+  assert.ok(pdf, 'de PDF is opgeslagen');
+  assert.equal(Buffer.from(pdf.slice(0, 4)).toString(), '%PDF');
+  // De klant moet in de offerte zien waar hij het bedrag naartoe overmaakt.
+  const text = pdfText(pdf);
+  assert.match(text, /NL91ABNA0417164300/);
+  assert.match(text, /Klusbaas/);
 });
 
 test('met send=false blijft de offerte onverstuurd', async () => {

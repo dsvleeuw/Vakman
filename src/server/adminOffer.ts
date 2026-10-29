@@ -181,7 +181,10 @@ export async function createOfferForCustomer(
   });
 
   const siteUrl = deps.siteUrl ?? 'https://klusbaas.nl';
-  const pdf = await renderQuotePdf(record, { siteUrl });
+  const pdf = await renderQuotePdf(record, {
+    siteUrl,
+    ...(deps.payment ? { payment: deps.payment } : {}),
+  });
   await deps.leads.saveQuote(record, pdf);
   log(`[admin] offerte ${record.id} aangemaakt voor ${email}`);
 

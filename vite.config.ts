@@ -43,6 +43,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         const account = await accountHandler.accountFromSession(req.headers.cookie ?? null, {
           accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
         });
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const result = await handler.handleLead(body, req.socket.remoteAddress ?? 'dev', {
           env,
           storage,
@@ -51,6 +53,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           // de vakman zelf gaan, in plaats van naar Klusbaas.
           sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
           siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+          // De betaalgegevens staan in de offerte-PDF en op de offertepagina.
+          ...(payment ? { payment } : {}),
         });
         reply(res, result.status, result.body);
       });
@@ -320,8 +324,14 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
       server.middlewares.use('/api/quote', async (req, res) => {
         if (req.method !== 'GET') return reply(res, 405, { ok: false, error: 'Alleen GET is toegestaan.' });
         const { handler, storage } = await load();
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
-        const result = await handler.handleGetQuote(url.searchParams, storage);
+        const result = await handler.handleGetQuote(
+          url.searchParams,
+          storage,
+          payment ? { payment } : {}
+        );
         if (result.kind === 'pdf') {
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/pdf');

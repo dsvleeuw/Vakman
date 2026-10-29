@@ -136,6 +136,10 @@ result. The Netlify deploy preview is the only external CI check. If
   at most 1,5 MB are accepted, and only photo addresses from our own
   server survive in the content (`sanitizePhoto`). The upload has a limit
   of 30 photos per hour per IP (`mediaHandler.ts`); the excess gets a 429.
+- The payment details travel with the offer: `GET /api/quote` returns them
+  and `renderQuotePdf` writes them into the PDF, so a customer without an
+  account can pay too. They come from the environment (`PAYMENT_IBAN`,
+  `PAYMENT_NAME`, `PAYMENT_EMAIL`); without an IBAN there are none.
 - Klusbaas writes an offer himself in `/klusbaas` (`AdminQuoteForm.tsx` →
   `POST /api/admin` with `action: 'create-quote'` → `server/adminOffer.ts`).
   The offer is a real offer with a number, a PDF and a price, it is linked

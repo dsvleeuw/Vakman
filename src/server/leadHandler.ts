@@ -1,4 +1,5 @@
 import { SECTORS, STYLES } from '../data/tradesData';
+import type { PaymentDetails } from '../types';
 import { buildWhatsAppUrl, isValidEmail } from '../utils/contact';
 import { createRateLimiter, parseLead, type QuoteLeadRequest, type SiteLead } from '../utils/lead';
 import { buildQuoteEmail, buildSiteLeadEmail, createLeadReference } from '../utils/leadEmail';
@@ -51,6 +52,11 @@ export interface LeadDeps {
   accountId?: string;
   /** Origin used in links inside e-mails, e.g. https://klusbaas.netlify.app */
   siteUrl: string;
+  /**
+   * How the customer pays. They go into the PDF and into the offer page, so
+   * he can transfer the money without making an account first.
+   */
+  payment?: PaymentDetails;
   fetchImpl?: FetchLike;
   log?: (message: string) => void;
   now?: () => Date;
@@ -155,7 +161,10 @@ async function handleQuote(
     ...(deps.accountId ? { accountId: deps.accountId } : {}),
   });
 
-  const pdf = await renderQuotePdf(record, { siteUrl: deps.siteUrl });
+  const pdf = await renderQuotePdf(record, {
+    siteUrl: deps.siteUrl,
+    ...(deps.payment ? { payment: deps.payment } : {}),
+  });
   const saved = await deps.storage.saveQuote(record, pdf);
   log(`[lead] offerte ${record.id} opgeslagen: ${saved.json} + ${saved.pdf}`);
 
@@ -393,10 +402,16 @@ export type QuoteLookup =
   | { status: 200; kind: 'pdf'; filename: string; pdf: Uint8Array }
   | { status: 400 | 403 | 404; kind: 'json'; body: { ok: false; error: string } };
 
-/** `GET /api/quote?id=KB-2026-0001&token=…[&format=pdf]` */
+/**
+ * `GET /api/quote?id=KB-2026-0001&token=…[&format=pdf]`
+ *
+ * The payment details go with the offer, so the customer can see where he
+ * has to transfer the money on the offer page itself.
+ */
 export async function handleGetQuote(
   params: URLSearchParams,
-  storage: LeadStorage
+  storage: LeadStorage,
+  deps: { payment?: PaymentDetails } = {}
 ): Promise<QuoteLookup> {
   const id = params.get('id') ?? '';
   const token = params.get('token') ?? '';
@@ -412,7 +427,14 @@ export async function handleGetQuote(
     const pdf = (await storage.getQuotePdf(id)) ?? (await renderQuotePdf(record));
     return { status: 200, kind: 'pdf', filename: `Offerte-${id}.pdf`, pdf };
   }
-  return { status: 200, kind: 'json', body: toPublicQuote(record) };
+  return {
+    status: 200,
+    kind: 'json',
+    body: {
+      ...toPublicQuote(record),
+      ...(deps.payment ? { payment: deps.payment } : {}),
+    },
+  };
 }
 
 /** Turn a `handleGetQuote` result into a Fetch API response. */
