@@ -115,11 +115,18 @@ needed first.
 **Definition of done — Klusbaas can sell to a customer who did not come
 through the wizard when:**
 
-1. The photo upload cannot be abused by a third party.
+1. He can write an offer for a customer who has an account and a published
+   site, without the customer asking for one.
+2. That offer is a real order: a number, a PDF, a price, a status and a way
+   to pay, and it stands in the customer's own account.
+3. The customer receives it by mail, with the PDF attached and the link to
+   the online offer.
+4. The photo upload cannot be abused by a third party.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
 | 7.1 | ~~The photo upload is not abuse-proof~~ Done: `POST /api/media` has a rate limit of 30 uploads per hour per IP, and the limit is in front of the upload, not behind it | S | The limit lives per function instance, so it stops one script but not a distributed attack. There is still no delete and no quota per customer: a customer can use up his 30 photos and cannot remove them. |
+| 7.2 | ~~Klusbaas can write an offer himself~~ Done: in `/klusbaas` there is a form "Offerte maken": pick the customer (his site fills in the details), pick the package and the extra components, and Klusbaas writes the offer. It becomes a quote record with a PDF, it is linked to the customer's account and mailed to him with the PDF attached | M | The customer sees the offer in `/mijn-account` and can pay it by bank transfer. Without `RESEND_API_KEY` no mail goes out (the offer is still made and the overview says so). Klusbaas still marks the payment by hand; there is no payment provider and no automatic reminder. |
 
 ## Decision log
 

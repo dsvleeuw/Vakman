@@ -136,6 +136,12 @@ result. The Netlify deploy preview is the only external CI check. If
   at most 1,5 MB are accepted, and only photo addresses from our own
   server survive in the content (`sanitizePhoto`). The upload has a limit
   of 30 photos per hour per IP (`mediaHandler.ts`); the excess gets a 429.
+- Klusbaas writes an offer himself in `/klusbaas` (`AdminQuoteForm.tsx` →
+  `POST /api/admin` with `action: 'create-quote'` → `server/adminOffer.ts`).
+  The offer is a real offer with a number, a PDF and a price, it is linked
+  to the customer's account (so he sees it in `/mijn-account`) and it is
+  mailed with the PDF attached. An offer for a customer who only made an
+  account is the order and the invoice; there is no separate order step.
 - The price calculator and the postcode check are tools with numbers, so
   they only go on a published page when the craftsman filled them in:
   `content.services` (his own services with a price, `utils/services.ts`) and

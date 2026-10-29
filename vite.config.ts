@@ -70,6 +70,9 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         const { createFileAdminStorage } = await server.ssrLoadModule('/src/server/adminStorage.ts');
         const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
+        const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const result = await adminHandler.handleAdmin(
           body,
           {
@@ -78,6 +81,13 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
             leads: createFileStorage(path.resolve(__dirname, '.data')),
             accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
+            // Een offerte die Klusbaas zelf schrijft gaat per mail naar de
+            // klant, met de PDF erbij en de betaalgegevens.
+            sendMail: createAccountMailer(env, (message: string) =>
+              server.config.logger.info(message)
+            ),
+            ...(payment ? { payment } : {}),
+            siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
           },
           req.headers.cookie ?? null,
           false

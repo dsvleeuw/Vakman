@@ -129,6 +129,26 @@ to [ROADMAP.md](../ROADMAP.md).
   purpose: Klusbaas needs it when a customer lost his account. It means the
   password is worth protecting like a key to every customer site.
 
+## The offer Klusbaas writes himself
+
+- **Klusbaas writes the offer, the customer does not ask for one.** In
+  `/klusbaas` there is a form "Offerte maken": pick the customer (his site
+  fills in the details), pick the package and the extra components. The
+  offer becomes a real offer with a number, a PDF and a price, it is linked
+  to the customer's account and mailed to him with the PDF attached.
+- **Without `RESEND_API_KEY` no mail goes out.** The offer is still made and
+  the overview says so ("de mail is niet verstuurd (preview)"); the mail
+  itself is then only in the server log. The same is true for the
+  `MAIL_TEST_RECIPIENT` redirect, which sends every customer mail to one
+  test address.
+- **The customer has to be found first.** The form lists the published sites
+  and the accounts; a customer who has neither does not appear, so Klusbaas
+  has to create the account first.
+- **Klusbaas marks the payment by hand.** The offer gets the status `open`
+  and Klusbaas changes it to `paid` once the money is in. There is no
+  payment provider, no automatic reminder and no separate invoice document:
+  the offer with its PDF is the invoice.
+
 ## Payment
 
 - **The customer pays by bank transfer, not with a payment provider.** That
@@ -138,8 +158,9 @@ to [ROADMAP.md](../ROADMAP.md).
 - **Without `PAYMENT_IBAN` there are no payment details.** The account then
   says that Klusbaas will send them. That is deliberate: a wrong IBAN is
   worse than no IBAN.
-- **The status is set by hand.** There is no admin screen yet to mark an
-  offer as paid (that is phase 6.4); today it is changed in the Blobs store.
+- **The status is set by hand.** `/klusbaas` has a button per offer to mark
+  it as paid, cancelled or open again. There is no automatic check against
+  the bank statement.
 
 ## Privacy and newsletter
 

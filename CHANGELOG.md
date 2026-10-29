@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Klusbaas schrijft zelf een offerte voor een klant.** In `/klusbaas` staat
+  een formulier "Offerte maken": kies de klant (zijn site vult de naam, de
+  telefoon, de plaats en het vak in), kies het pakket en de extra
+  componenten, en de offerte wordt gemaakt. Het is een echte offerte met een
+  nummer, een PDF en een prijs, hij komt in het account van de klant te
+  staan en de klant krijgt hem per mail met de PDF erbij. Zo heeft ook een
+  klant die zelf een account maakte en zijn site publiceerde een offerte,
+  en dus een order en een factuur.
 - **De foto-upload is niet meer misbruikbaar.** `POST /api/media` heeft een
   grens van 30 foto's per uur per IP: een script kan de fotostore niet meer
   vol zetten.

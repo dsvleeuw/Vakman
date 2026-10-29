@@ -7,6 +7,10 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 | Bestand | Doel |
 |---------|------|
 | `leadHandler.ts` | `POST /api/lead` — Ontvangt leads van demo sites & wizard, valideert, stuurt mails, slaat op in Blobs/.data |
+| `adminHandler.ts` | `POST /api/admin` — Het Klusbaas-overzicht: inloggen, aanvragen, offertes, sites, en zelf een offerte maken |
+| `adminOffer.ts` | Een offerte die Klusbaas zelf schrijft: offerte-record met PDF, gekoppeld aan het account van de klant en per mail verstuurd |
+| `accountHandler.ts` | `POST /api/account` — Registreren, inloggen, account, sites, aanvragen, offertes, koppelen |
+| `siteHandler.ts` | `POST /api/site` — Publiceren en lezen van een klantsite |
 | `mediaHandler.ts` | `POST/GET /api/media` — Foto's van de vakman opslaan en serveren (max. 1,5 MB, 30 uploads per uur per IP) |
 | `newsletterHandler.ts` | `POST /api/newsletter` — Nieuwsbrief inschrijvingen |
 | `mailer.ts` | E-mail verzending via Resend (productie) of console log (dev/preview) |
@@ -33,6 +37,21 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 - `RESEND_API_KEY` — ontbreekt = preview mode (mails in console)
 - Zonder key: data in `.data/` (gitignored)
 - Met key: Netlify Blobs stores `quotes` en `leads`
+- `ADMIN_PASSWORD` — toegang tot `/klusbaas`; zonder deze variabele is het
+  overzicht gesloten
+- `PAYMENT_IBAN`, `PAYMENT_NAME`, `PAYMENT_EMAIL` — de betaalgegevens die de
+  klant in zijn account en in de mail ziet
+
+## Offerte die Klusbaas zelf schrijft
+
+1. `POST /api/admin` met `action: 'create-quote'` (achter `ADMIN_PASSWORD`)
+2. `adminOffer.ts` haalt de klantgegevens uit zijn site, bouwt het
+   offerte-record (`utils/quote.ts`), maakt de PDF (`quotePdf.ts`) en slaat
+   beide op in `quotes`
+3. De offerte wordt gekoppeld aan het account van de klant, zodat hij hem in
+   `/mijn-account` ziet
+4. De klant krijgt de mail met de offerte als PDF en de link naar de
+   online offerte (`utils/leadEmail.ts`, `buildOfferEmail`)
 
 ## Tests
 
