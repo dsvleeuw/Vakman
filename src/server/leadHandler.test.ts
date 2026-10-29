@@ -33,6 +33,26 @@ function memoryStorage() {
       leads.set(reference, lead);
       return `mem:${reference}`;
     },
+    async listLeads() {
+      return [...leads.values()] as Awaited<ReturnType<LeadStorage['listLeads']>>;
+    },
+    async listQuotes() {
+      return [...quotes.values()] as Awaited<ReturnType<LeadStorage['listQuotes']>>;
+    },
+    async updateQuoteStatus(id, status) {
+      const record = quotes.get(id);
+      if (!record) return null;
+      const updated = { ...record, status };
+      quotes.set(id, updated);
+      return updated;
+    },
+    async linkQuoteToAccount(id, accountId) {
+      const record = quotes.get(id);
+      if (!record) return null;
+      const updated = { ...record, accountId };
+      quotes.set(id, updated);
+      return updated;
+    },
   };
   return { storage, quotes, pdfs, leads };
 }
@@ -97,6 +117,22 @@ test('quote lead: numbered, stored with PDF, previewed without API key', async (
   const pdf = await PDFDocument.load(mem.pdfs.get('KB-2026-0001')!);
   assert.ok(pdf.getPageCount() >= 1);
   assert.match(pdf.getTitle() ?? '', /KB-2026-0001/);
+});
+
+test('quote lead: een ingelogde klant krijgt zijn offerte in zijn account', async () => {
+  const { deps, mem } = setup({ accountId: 'account-1' });
+  const result = await handleLead(body, 'ip', deps);
+  assert.equal(result.status, 200);
+  const record = mem.quotes.get('KB-2026-0001');
+  assert.equal(record?.accountId, 'account-1');
+  assert.equal(record?.status, 'open');
+});
+
+test('quote lead: zonder account blijft de offerte zonder klant', async () => {
+  const { deps, mem } = setup();
+  await handleLead(body, 'ip', deps);
+  const record = mem.quotes.get('KB-2026-0001');
+  assert.equal(record?.accountId, undefined);
 });
 
 test('quote lead: WhatsApp-only skips the customer mail, team gets a wa.me link', async () => {
@@ -329,12 +365,14 @@ test('een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas', as
   assert.equal(result.body.delivery?.team.status, 'skipped');
   // De bezoeker ziet het adres van de vakman nooit.
   assert.equal(result.body.delivery?.customer.to, '');
-  assert.equal(mail.sent.length, 1);
   assert.equal(mail.sent[0].to, 'piet@pietschilderwerken.nl');
   assert.match(mail.sent[0].subject, /Nieuwe aanvraag via je website/);
   assert.match(mail.sent[0].text, /Sanne/);
-  // Bij de vakman ligt niets: de aanvraag is van hem.
-  assert.equal(mem.leads.size, 0);
+  // De aanvraag wordt bewaard in naam van de vakman, zodat hij hem in zijn
+  // account kan terugzien. Het team mailt hem niet: de vakman is de
+  // ontvanger.
+  assert.equal(mem.leads.size, 1);
+  assert.equal(mail.sent.length, 1);
 });
 
 test('een aanvraag zonder klantsite komt bij Klusbaas', async () => {

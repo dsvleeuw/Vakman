@@ -1,5 +1,6 @@
 import { handleAccount } from '../../src/server/accountHandler';
-import { createBlobAccountStorage, createBlobSiteStorage } from '../../src/server/storage';
+import { paymentDetailsFromEnv } from '../../src/server/payment';
+import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 import { createRateLimiter } from '../../src/utils/lead';
 
 /**
@@ -25,11 +26,17 @@ export default async (req: Request): Promise<Response> => {
 
   const accounts = await createBlobAccountStorage();
   const sites = await createBlobSiteStorage();
+  const leads = await createBlobStorage();
+  const payment = paymentDetailsFromEnv(process.env);
   const result = await handleAccount(
     body,
     {
       accounts,
       sites,
+      leads,
+      // De offertes van de klant staan in dezelfde opslag als de aanvragen.
+      quotes: leads,
+      ...(payment ? { payment } : {}),
       allowRequest: (key, now) =>
         key.startsWith('account-login-')
           ? loginLimiter(key, now)

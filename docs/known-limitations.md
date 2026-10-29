@@ -71,6 +71,28 @@ to [ROADMAP.md](../ROADMAP.md).
   point: the editor is where the craftsman writes, the public page is where
   only his own words are.
 
+## Requests and orders
+
+- **The requests are stored, but nothing deletes them.** A request from a
+  customer site is stored with the site it belongs to, so the craftsman can
+  see it in his account even when the mail did not arrive. The privacy
+  statement promises twelve months, but no job removes them after that; they
+  have to be removed by hand from the Blobs store `leads`.
+- **The craftsman cannot delete or export his requests.** Under the AVG a
+  customer can ask for that; today Klusbaas has to do it by hand.
+
+## Payment
+
+- **The customer pays by bank transfer, not with a payment provider.** That
+  keeps the money between the customer and Klusbaas, but the customer has to
+  transfer it himself and Klusbaas has to mark the offer as paid by hand.
+  There is no iDEAL link, no automatic reminder and no "paid" webhook.
+- **Without `PAYMENT_IBAN` there are no payment details.** The account then
+  says that Klusbaas will send them. That is deliberate: a wrong IBAN is
+  worse than no IBAN.
+- **The status is set by hand.** There is no admin screen yet to mark an
+  offer as paid (that is phase 6.4); today it is changed in the Blobs store.
+
 ## Privacy and newsletter
 
 - **TODO: KvK-nummer en vestigingsadres ontbreken** in de privacyverklaring

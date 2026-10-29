@@ -44,6 +44,9 @@ export async function submitLead(
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+      // De sessioncookie mee, zodat een ingelogde klant zijn offerte in zijn
+      // account terugvindt.
+      credentials: 'same-origin',
       signal: AbortSignal.timeout(LEAD_TIMEOUT_MS),
     });
     let body: Partial<LeadResponse> = {};

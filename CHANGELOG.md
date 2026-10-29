@@ -34,6 +34,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De vakman ziet zijn aanvragen in `/mijn-account`.** Elke aanvraag via
+  een contact-, afspraak-, storings- of offerteformulier op zijn eigen
+  site staat nu in zijn account: naam, telefoonnummer, e-mailadres, zijn
+  bericht, de datum en de referentie. De aanvraag komt daarnaast per mail
+  binnen, maar de mail is niet meer de enige plek waar hij hem kan
+  terugvinden. Klusbaas bewaart de aanvraag in naam van de vakman, zodat
+  er niets verloren gaat als de mail niet aankomt; de privacyverklaring
+  zegt dat precies.
+
+- **De klant ziet zijn offerte in `/mijn-account`.** Een offerte die de klant
+  aanvraagt (in de wizard of in de editor) hoort bij hem: in zijn account
+  staat wat hij kost, wat de status is (openstaand, betaald of geannuleerd)
+  en hoe hij betaalt. Is de klant aangelogd als hij de offerte aanvraagt,
+  dan belandt hij automatisch in zijn account; anders kan hij de offertelink
+  uit zijn mail in zijn account plakken. Er zit geen betaaldienst tussen de
+  klant en zijn geld: hij maakt het bedrag over naar het IBAN van Klusbaas
+  (`PAYMENT_IBAN`) met het offertenummer als omschrijving, en Klusbaas
+  markeert de offerte als betaald.
+
+### Changed
+
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-
   en storingsformulieren van een gepubliceerde site (`/site/<slug>`) sturen de
   aanvraag naar het e-mailadres dat de vakman zelf heeft ingevuld, in plaats
@@ -41,8 +62,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   klantsite "Je bericht gaat direct naar {naam}", op een demosite "Dit is een
   demosite: je bericht komt bij Klusbaas binnen". Het adres van de vakman
   komt uit de opgeslagen site, nooit uit het verzoek, en de bezoeker ziet het
-  nooit. Lukt de mail naar de vakman niet, dan blijft de aanvraag bij
-  Klusbaas liggen: een aanvraag mag nooit stilletjes verdwijnen. De
+  nooit. Lukt de mail naar de vakman niet, dan mailt het team hem en blijft
+  de aanvraag bewaard: een aanvraag mag nooit stilletjes verdwijnen. De
   privacyverklaring is hierop aangepast.
 - **Klantenaccount (`/mijn-account`)**: de klant beheert zijn site via een
   login in plaats van alleen via een beheerlink met token. Een account

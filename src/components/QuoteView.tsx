@@ -152,8 +152,17 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
 
             <footer className="px-6 sm:px-8 pb-8 text-xs text-stone-500 flex items-start gap-2">
               <FileText className="w-4 h-4 shrink-0" aria-hidden="true" />
-              Eenmalige prijs voor ontwerp en bouw; hosting en service spreken we apart af. Akkoord?
-              Antwoord op de offertemail of stuur ons een WhatsApp.
+              {state.quote.status === 'paid' ? (
+                <span className="font-bold text-emerald-700">
+                  Deze offerte is betaald
+                  {state.quote.paidAt ? ` op ${formatDutchDate(state.quote.paidAt)}` : ''}. Bedankt!
+                </span>
+              ) : (
+                <>
+                  Eenmalige prijs voor ontwerp en bouw; hosting en service spreken we apart af. Akkoord?
+                  Antwoord op de offertemail of stuur ons een WhatsApp.
+                </>
+              )}
             </footer>
           </article>
         )}

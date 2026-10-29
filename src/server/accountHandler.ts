@@ -1,8 +1,16 @@
 import { randomBytes } from 'node:crypto';
-import type { Account, AccountSession, PublicPublishedSite } from '../types';
+import type {
+  Account,
+  AccountSession,
+  AccountQuote,
+  PaymentDetails,
+  PublicPublishedSite,
+  StoredLead,
+} from '../types';
 import { isValidEmail } from '../utils/contact';
 import { hashPassword, passwordProblem, verifyPassword } from '../utils/password';
-import { accountId, type AccountStorage, type SiteStorage } from './storage';
+import { accountId, type AccountStorage, type LeadStorage, type SiteStorage } from './storage';
+import { buildQuotePath, isQuoteNumber, type QuoteRecord } from '../utils/quote';
 import { isValidSlug, toPublicSite } from './siteHandler';
 import { tokensMatch } from './tokens';
 
@@ -17,7 +25,16 @@ import { tokensMatch } from './tokens';
 export const SESSION_COOKIE = 'klusbaas_session';
 export const SESSION_MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
 
-export type AccountAction = 'register' | 'login' | 'logout' | 'me' | 'sites' | 'claim';
+export type AccountAction =
+  | 'register'
+  | 'login'
+  | 'logout'
+  | 'me'
+  | 'sites'
+  | 'leads'
+  | 'quotes'
+  | 'claim'
+  | 'claim-quote';
 
 export interface AccountRequestBody {
   action?: AccountAction;
@@ -29,6 +46,14 @@ export interface AccountResponseBody {
   ok: boolean;
   account?: { id: string; email: string };
   sites?: PublicPublishedSite[];
+  /** The requests that came in through the sites of this customer. */
+  leads?: StoredLead[];
+  /** The offers this customer requested. */
+  quotes?: AccountQuote[];
+  /** The offer that was linked to the account. */
+  quote?: AccountQuote;
+  /** How to pay, when Klusbaas filled in the payment details. */
+  payment?: PaymentDetails;
   /** The site that was linked to the account. */
   site?: PublicPublishedSite;
   error?: string;
@@ -47,11 +72,40 @@ export interface AccountHandlerResult {
 export interface AccountDeps {
   accounts: AccountStorage;
   sites: SiteStorage;
+  /** Where the requests are kept. Without it the customer sees no requests. */
+  leads?: LeadStorage;
+  /** Where the offers are kept. Without it the customer sees no offers. */
+  quotes?: LeadStorage;
+  /** How the customer can pay. Without it no payment details are shown. */
+  payment?: PaymentDetails;
   now?: () => number;
   createSessionId?: () => string;
   /** Rate limiter: returns false when this key is over its limit. */
   allowRequest?: (key: string, now: number) => boolean;
   log?: (message: string) => void;
+}
+
+/**
+ * The offer as the customer sees it: without the token, but with the link
+ * that opens the offer.
+ */
+function toAccountQuote(quote: QuoteRecord): AccountQuote {
+  return {
+    id: quote.id,
+    createdAt: quote.createdAt,
+    validUntil: quote.validUntil,
+    status: quote.status,
+    ...(quote.paidAt ? { paidAt: quote.paidAt } : {}),
+    planId: quote.planId,
+    planName: quote.planName,
+    sectorName: quote.sectorName,
+    styleName: quote.styleName,
+    services: quote.services,
+    subtotalCents: quote.subtotalCents,
+    vatCents: quote.vatCents,
+    totalCents: quote.totalCents,
+    url: buildQuotePath(quote.id, quote.token),
+  };
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -260,6 +314,60 @@ export async function handleAccount(
     return {
       status: 200,
       body: { ok: true, account: publicAccount(account), sites: owned.map(toPublicSite) },
+    };
+  }
+
+  if (action === 'leads') {
+    // De aanvragen van de sites van deze klant. Klusbaas bewaart ze in zijn
+    // naam, zodat de vakman ze ook kan terugzien als de mail niet aankwam.
+    const owned = (await deps.sites.listSites()).filter((site) => site.ownerId === account.id);
+    const slugs = new Set(owned.map((site) => site.slug));
+    const all = deps.leads ? await deps.leads.listLeads() : [];
+    const leads = all
+      .filter((lead) => lead.site?.slug && slugs.has(lead.site.slug))
+      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+    return {
+      status: 200,
+      body: { ok: true, account: publicAccount(account), leads },
+    };
+  }
+
+  if (action === 'quotes') {
+    // De offertes van deze klant: alleen de offertes die hij zelf heeft
+    // aangevraagd terwijl hij ingelogd was.
+    const all = deps.quotes ? await deps.quotes.listQuotes() : [];
+    const quotes = all
+      .filter((quote) => quote.accountId === account.id)
+      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+      .map((quote) => toAccountQuote(quote));
+    return {
+      status: 200,
+      body: { ok: true, account: publicAccount(account), quotes, ...(deps.payment ? { payment: deps.payment } : {}) },
+    };
+  }
+
+  if (action === 'claim-quote') {
+    // Een offerte die de klant per mail kreeg koppelen aan zijn account. De
+    // link bewijst dat de offerte van hem is.
+    const id = typeof body.id === 'string' ? body.id : '';
+    const token = typeof body.token === 'string' ? body.token : '';
+    if (!isQuoteNumber(id)) {
+      return { status: 400, body: { ok: false, error: 'Ongeldige offertenummer.', field: 'id' } };
+    }
+    const quote = deps.quotes ? await deps.quotes.getQuote(id) : null;
+    if (!quote) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    if (!tokensMatch(quote.token, token)) {
+      return { status: 403, body: { ok: false, error: 'Deze offertelink klopt niet.' } };
+    }
+    const linked = (await deps.quotes?.linkQuoteToAccount(quote.id, account.id)) ?? {
+      ...quote,
+      accountId: account.id,
+    };
+    return {
+      status: 200,
+      body: { ok: true, account: publicAccount(account), quote: toAccountQuote(linked) },
     };
   }
 

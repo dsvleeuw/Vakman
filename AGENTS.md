@@ -147,6 +147,12 @@ result. The Netlify deploy preview is the only external CI check. If
 - Without `RESEND_API_KEY` the API runs in preview mode (mail printed to the
   log). In dev, quotes/leads land in `.data/` (gitignored); in production in
   Netlify Blobs (stores `quotes` and `leads`). Never commit an API key.
+- A quote is also the order: it has a status (`open`, `paid`, `cancelled`),
+  an `accountId` when the customer was logged in, and lives in the customer's
+  account (`POST /api/account` action `quotes`). The customer pays by bank
+  transfer to `PAYMENT_IBAN` with the quote number as the description; there
+  is no payment provider. The payment details come from the environment
+  (`src/server/payment.ts`), never from the request.
 - Customer accounts live on the server: the password is hashed with scrypt
   (`src/utils/password.ts`, `node:crypto`, no dependency) and the session
   id travels in the cookie `klusbaas_session` (`HttpOnly`, `SameSite=Lax`).

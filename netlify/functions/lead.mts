@@ -1,5 +1,6 @@
+import { accountFromSession } from '../../src/server/accountHandler';
 import { handleLead } from '../../src/server/leadHandler';
-import { createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
+import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 
 /** POST /api/lead: every form (wizard quote, afspraak, contact, storing, m²). */
 export default async (req: Request, context: { ip?: string }): Promise<Response> => {
@@ -12,6 +13,11 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
   } catch {
     return Response.json({ ok: false, error: 'Ongeldige JSON.' }, { status: 400 });
   }
+  // Een ingelogde klant: zijn offerte belandt in zijn account, zodat hij hem
+  // kan zien en betalen.
+  const account = await accountFromSession(req.headers.get('cookie'), {
+    accounts: await createBlobAccountStorage(),
+  });
   const result = await handleLead(body, context.ip ?? req.headers.get('x-nf-client-connection-ip') ?? '', {
     env: {
       RESEND_API_KEY: process.env.RESEND_API_KEY,
@@ -20,6 +26,7 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       MAIL_TEST_RECIPIENT: process.env.MAIL_TEST_RECIPIENT,
     },
     storage: await createBlobStorage(),
+    ...(account ? { accountId: account.id } : {}),
     // Met de sites kan een aanvraag op een gepubliceerde klantsite naar de
     // vakman zelf gaan, in plaats van naar Klusbaas.
     sites: await createBlobSiteStorage(),

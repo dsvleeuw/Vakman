@@ -1,16 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Loader2, LogOut, TriangleAlert } from 'lucide-react';
-import type { PublicPublishedSite } from '../types';
+import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } from '../types';
 import {
+  claimQuote,
   claimSite,
+  fetchAccountLeads,
   fetchAccount,
+  fetchAccountQuotes,
   fetchAccountSites,
   loginAccount,
   logoutAccount,
   parseManageLink,
+  parseQuoteLink,
   registerAccount,
   type AccountInfo,
 } from '../utils/accountClient';
+import { formatEuroCents, type QuoteStatus } from '../utils/quote';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 import { SiteFooter } from './SiteFooter';
@@ -89,6 +94,134 @@ const SiteRow: React.FC<{ site: PublicPublishedSite }> = ({ site }) => (
   </li>
 );
 
+/** Dutch labels for the forms a visitor can fill in. */
+const LEAD_LABELS: Record<string, string> = {
+  contact: 'Contactformulier',
+  appointment: 'Afspraak',
+  fault: 'Storingsmelding',
+  surface: 'Offerteaanvraag',
+};
+
+/** The text a visitor wrote, per kind of form. */
+const LEAD_TEXT_FIELDS = ['message', 'notes', 'details', 'service'];
+
+function leadDate(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso;
+  return date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+/** One request from a visitor, as the craftsman sees it in his account. */
+const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => {
+  const text = LEAD_TEXT_FIELDS.map((key) => lead.fields?.[key]).find((value) => value?.trim());
+  return (
+    <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="font-black text-stone-900">
+          {lead.fields?.name?.trim() || 'Iemand zonder naam'}
+        </span>
+        {lead.fields?.phone?.trim() && (
+          <a
+            href={`tel:${lead.fields.phone.replace(/[^0-9+]/g, '')}`}
+            className="text-sm font-bold text-stone-700 underline underline-offset-2"
+          >
+            {lead.fields.phone}
+          </a>
+        )}
+        {lead.fields?.email?.trim() && (
+          <a
+            href={`mailto:${lead.fields.email}`}
+            className="text-sm font-bold text-stone-700 underline underline-offset-2 break-all"
+          >
+            {lead.fields.email}
+          </a>
+        )}
+      </div>
+      <p className="m-0 text-xs text-stone-500">
+        {leadDate(lead.createdAt)} · {LEAD_LABELS[lead.type] ?? 'Aanvraag'} ·{' '}
+        {lead.site?.biz} · referentie {lead.reference}
+      </p>
+      {text && <p className="m-0 text-sm text-stone-700 whitespace-pre-wrap">{text}</p>}
+    </li>
+  );
+};
+
+/** The status of an offer, in the words the customer sees. */
+const QUOTE_STATUS: Record<QuoteStatus, string> = {
+  open: 'Openstaand',
+  paid: 'Betaald',
+  cancelled: 'Geannuleerd',
+};
+
+/**
+ * One offer: what it costs, what the status is and how to pay. The offer is
+ * the order of the customer, so it lives in the account next to his sites.
+ */
+/** The token out of the offer link, so the customer can open the offer. */
+function quoteToken(url: string): string {
+  try {
+    return new URL(url, 'https://klusbaas.nl').searchParams.get('token') ?? '';
+  } catch {
+    return '';
+  }
+}
+
+const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({ quote, payment }) => (
+  <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-3">
+    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <span className="font-black text-stone-900">Offerte {quote.id}</span>
+      <span
+        className={`text-sm font-bold ${
+          quote.status === 'paid'
+            ? 'text-emerald-700'
+            : quote.status === 'cancelled'
+              ? 'text-stone-500'
+              : 'text-amber-700'
+        }`}
+      >
+        {QUOTE_STATUS[quote.status]}
+      </span>
+    </div>
+    <p className="m-0 text-sm text-stone-600">
+      {quote.planName} · {quote.sectorName} · {quote.styleName} · {leadDate(quote.createdAt)}
+    </p>
+    <p className="m-0 text-sm font-bold text-stone-900">
+      {formatEuroCents(quote.totalCents)} incl. btw
+    </p>
+    {quote.status === 'open' && payment && (
+      <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex flex-col gap-1">
+        <p className="m-0 text-sm font-bold text-stone-900">Zo betaal je</p>
+        <p className="m-0 text-sm text-stone-700">
+          Maak het bedrag over naar <strong className="text-stone-900">{payment.iban}</strong> t.n.v.{' '}
+          {payment.name}, met als omschrijving <strong className="text-stone-900">{quote.id}</strong>.
+        </p>
+        <p className="m-0 text-xs text-stone-600">
+          Zodra het bedrag binnen is, staat hier dat de offerte betaald is. Vragen?{' '}
+          <a href={`mailto:${payment.email}`} className="font-bold underline underline-offset-2">
+            {payment.email}
+          </a>
+        </p>
+      </div>
+    )}
+    {quote.status === 'paid' && quote.paidAt && (
+      <p className="m-0 text-sm text-emerald-800">Betaald op {leadDate(quote.paidAt)}.</p>
+    )}
+    {quote.status === 'open' && !payment && (
+      <p className="m-0 text-sm text-stone-600">
+        Deze offerte staat open. Klusbaas stuurt je de betaalgegevens, of vraag ernaar via je mail.
+      </p>
+    )}
+    <div>
+      <RouteLink
+        route={{ name: 'quote', id: quote.id, token: quoteToken(quote.url) }}
+        className="text-sm font-bold text-stone-900 underline underline-offset-2 inline-flex items-center min-h-11"
+      >
+        Offerte bekijken
+      </RouteLink>
+    </div>
+  </li>
+);
+
 export const AccountView: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState<AccountInfo | null>(null);
@@ -102,8 +235,22 @@ export const AccountView: React.FC = () => {
   const [manageLink, setManageLink] = useState('');
   const [claimError, setClaimError] = useState<string | null>(null);
 
+  const [leads, setLeads] = useState<StoredLead[]>([]);
+  const [quotes, setQuotes] = useState<AccountQuote[]>([]);
+  const [payment, setPayment] = useState<PaymentDetails | undefined>();
+
   const loadSites = useCallback(async () => {
     setSites(await fetchAccountSites());
+  }, []);
+
+  const loadLeads = useCallback(async () => {
+    setLeads(await fetchAccountLeads());
+  }, []);
+
+  const loadQuotes = useCallback(async () => {
+    const result = await fetchAccountQuotes();
+    setQuotes(result.quotes);
+    setPayment(result.payment);
   }, []);
 
   useEffect(() => {
@@ -112,7 +259,11 @@ export const AccountView: React.FC = () => {
       const current = await fetchAccount();
       if (!active) return;
       setAccount(current);
-      if (current) await loadSites();
+      if (current) {
+        await loadSites();
+        await loadLeads();
+        await loadQuotes();
+      }
       setLoading(false);
     })();
     return () => {
@@ -135,6 +286,8 @@ export const AccountView: React.FC = () => {
     setAccount(result.account);
     setPassword('');
     await loadSites();
+    await loadLeads();
+    await loadQuotes();
     setNotice(mode === 'register' ? 'Je account is klaar.' : 'Je bent ingelogd.');
   };
 
@@ -144,6 +297,9 @@ export const AccountView: React.FC = () => {
     setBusy(false);
     setAccount(null);
     setSites([]);
+    setLeads([]);
+    setQuotes([]);
+    setPayment(undefined);
     setNotice('Je bent uitgelogd.');
     setError(null);
   };
@@ -152,21 +308,30 @@ export const AccountView: React.FC = () => {
     event.preventDefault();
     setClaimError(null);
     setNotice(null);
-    const parsed = parseManageLink(manageLink);
-    if (!parsed) {
-      setClaimError('Plak hier je beheerlink, zoals /mijn-site/jansen-schilderwerken?token=…');
+    // Een beheerlink van een site of een offertelink: beide bewijzen dat
+    // het van de klant is.
+    const site = parseManageLink(manageLink);
+    const quote = site ? null : parseQuoteLink(manageLink);
+    if (!site && !quote) {
+      setClaimError(
+        'Plak hier je beheerlink (/mijn-site/jansen-schilderwerken?token=…) of je offertelink (/offerte/KB-2026-0001?token=…).'
+      );
       return;
     }
     setBusy(true);
-    const result = await claimSite(parsed.slug, parsed.token);
+    const result = site
+      ? await claimSite(site.slug, site.token)
+      : await claimQuote(quote!.id, quote!.token);
     setBusy(false);
     if (!result.ok) {
-      setClaimError(result.error ?? 'Die site konden we niet koppelen.');
+      setClaimError(result.error ?? 'Dat konden we niet koppelen.');
       return;
     }
     setManageLink('');
     await loadSites();
-    setNotice('Je site is nu gekoppeld aan je account.');
+    await loadLeads();
+    await loadQuotes();
+    setNotice(site ? 'Je site is nu gekoppeld aan je account.' : 'Je offerte is nu gekoppeld aan je account.');
   };
 
   if (loading) {
@@ -319,10 +484,57 @@ export const AccountView: React.FC = () => {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="m-0 text-xl font-black tracking-tight">Een bestaande site koppelen</h2>
+          <h2 className="m-0 text-xl font-black tracking-tight">
+            Mijn aanvragen
+            {leads.length > 0 && (
+              <span className="text-base font-bold text-stone-500"> ({leads.length})</span>
+            )}
+          </h2>
+          {leads.length === 0 ? (
+            <div className="rounded-2xl bg-white border border-stone-200 p-6">
+              <p className="m-0 text-stone-700">
+                Nog geen aanvragen. Zodra iemand je contactformulier, je afspraak of je
+                storingsmelding invult, staat die hier. Je krijgt ze ook per mail.
+              </p>
+            </div>
+          ) : (
+            <ul className="m-0 p-0 list-none flex flex-col gap-3">
+              {leads.map((lead) => (
+                <LeadRow key={lead.reference} lead={lead} />
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="m-0 text-xl font-black tracking-tight">
+            Mijn offertes
+            {quotes.length > 0 && (
+              <span className="text-base font-bold text-stone-500"> ({quotes.length})</span>
+            )}
+          </h2>
+          {quotes.length === 0 ? (
+            <div className="rounded-2xl bg-white border border-stone-200 p-6">
+              <p className="m-0 text-stone-700">
+                Nog geen offerte. Vraag een offerte aan via de site-editor: je ziet hier dan wat het
+                kost, wat de status is en hoe je betaalt.
+              </p>
+            </div>
+          ) : (
+            <ul className="m-0 p-0 list-none flex flex-col gap-3">
+              {quotes.map((quote) => (
+                <QuoteRow key={quote.id} quote={quote} payment={payment} />
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="m-0 text-xl font-black tracking-tight">Een bestaande site of offerte koppelen</h2>
           <p className="m-0 text-stone-600 leading-relaxed">
-            Heb je eerder een site gepubliceerd met een beheerlink? Plak die link hier en de site komt in je account.
-            De beheerlink blijft werken, maar vanaf nu hoef je alleen maar in te loggen.
+            Heb je eerder een site gepubliceerd met een beheerlink, of een offerte per mail gekregen?
+            Plak die link hier en hij komt in je account. De link blijft werken, maar vanaf nu hoef je
+            alleen maar in te loggen.
           </p>
           {claimError && <Message tone="error">{claimError}</Message>}
           <form onSubmit={handleClaim} className="flex flex-col sm:flex-row gap-3 sm:items-end">

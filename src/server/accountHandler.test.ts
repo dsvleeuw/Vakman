@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import type { Account, AccountSession, PublishedSiteRecord } from '../types';
+import type { Account, AccountSession, PublishedSiteRecord, StoredLead } from '../types';
 import {
   accountFromSession,
   clearSessionCookie,
@@ -8,7 +8,8 @@ import {
   readSessionId,
   sessionCookie,
 } from './accountHandler';
-import type { AccountStorage, SiteStorage } from './storage';
+import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
+import type { QuoteRecord } from '../utils/quote';
 
 /** Accounts and sessions in memory. */
 function memoryAccounts(): AccountStorage {
@@ -35,6 +36,83 @@ function memoryAccounts(): AccountStorage {
     },
     async deleteSession(id) {
       sessions.delete(id);
+    },
+  };
+}
+
+function memoryLeads(leads: StoredLead[] = []): LeadStorage {
+  const map = new Map(leads.map((lead) => [lead.reference, lead]));
+  return {
+    async nextQuoteSequence() {
+      return 1;
+    },
+    async saveQuote() {
+      return { json: 'memory', pdf: 'memory' };
+    },
+    async getQuote() {
+      return null;
+    },
+    async getQuotePdf() {
+      return null;
+    },
+    async saveLead(reference, lead) {
+      map.set(reference, lead as StoredLead);
+      return `memory:${reference}`;
+    },
+    async listLeads() {
+      return [...map.values()];
+    },
+    async listQuotes() {
+      return [];
+    },
+    async updateQuoteStatus() {
+      return null;
+    },
+    async linkQuoteToAccount() {
+      return null;
+    },
+  };
+}
+
+/** Offers in memory, so a customer can see his own. */
+function memoryQuotes(quotes: QuoteRecord[] = []): LeadStorage {
+  const map = new Map(quotes.map((quote) => [quote.id, quote]));
+  return {
+    async nextQuoteSequence() {
+      return map.size + 1;
+    },
+    async saveQuote(record) {
+      map.set(record.id, record);
+      return { json: 'memory', pdf: 'memory' };
+    },
+    async getQuote(id) {
+      return map.get(id) ?? null;
+    },
+    async getQuotePdf() {
+      return null;
+    },
+    async saveLead() {
+      return 'memory';
+    },
+    async listLeads() {
+      return [];
+    },
+    async listQuotes() {
+      return [...map.values()];
+    },
+    async updateQuoteStatus(id, status) {
+      const record = map.get(id);
+      if (!record) return null;
+      const updated = { ...record, status };
+      map.set(id, updated);
+      return updated;
+    },
+    async linkQuoteToAccount(id, accountId) {
+      const record = map.get(id);
+      if (!record) return null;
+      const updated = { ...record, accountId };
+      map.set(id, updated);
+      return updated;
     },
   };
 }
@@ -268,4 +346,132 @@ test('de sessioncookie bevat geen spaties en de lege cookie wist de sessie', () 
   assert.equal(readSessionId(cookie), 'sessie-1');
   assert.ok(!cookie.includes('Secure'));
   assert.match(clearSessionCookie(true), /Secure/);
+});
+
+test('de klant ziet de aanvragen van zijn eigen sites', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const leads = memoryLeads([
+    {
+      reference: 'L-AAAA01',
+      createdAt: '2026-10-29T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+      fields: { name: 'Sanne', phone: '0612345678', message: 'Ik wil drie kozijnen schilderen.' },
+    },
+    {
+      reference: 'L-AAAA02',
+      createdAt: '2026-10-30T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Andere Site', sector: 'schilder', slug: 'andere-site' },
+      fields: { name: 'Piet', phone: '0698765432', message: 'Dit is voor iemand anders.' },
+    },
+  ]);
+
+  await sites.saveSite(publishedSite);
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites, leads }
+  );
+  assert.equal(registered.status, 200);
+  const cookie = registered.setCookie;
+
+  const mine = await handleAccount(
+    { action: 'claim', slug: 'jansen-schilderwerken', token: publishedSite.token },
+    { accounts, sites, leads },
+    cookie
+  );
+  assert.equal(mine.status, 200);
+
+  const result = await handleAccount({ action: 'leads' }, { accounts, sites, leads }, cookie);
+  assert.equal(result.status, 200);
+  assert.equal(result.body.leads?.length, 1);
+  assert.equal(result.body.leads?.[0].reference, 'L-AAAA01');
+  assert.equal(result.body.leads?.[0].fields.name, 'Sanne');
+});
+
+test('zonder aanvragen in de opslag ziet de klant geen aanvragen', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites }
+  );
+  const result = await handleAccount(
+    { action: 'leads' },
+    { accounts, sites },
+    registered.setCookie
+  );
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.body.leads, []);
+});
+
+const quoteOf = (overrides: Partial<QuoteRecord> = {}): QuoteRecord => ({
+  id: 'KB-2026-0001',
+  token: 'quotetoken',
+  createdAt: '2026-10-29T10:00:00.000Z',
+  validUntil: '2026-11-28T10:00:00.000Z',
+  status: 'open',
+  customer: { biz: 'Jansen Schilderwerken', owner: 'Jan Jansen', phone: '0698765432', city: 'Haarlem' },
+  sector: 'schilder',
+  sectorName: 'Schilder',
+  styleName: 'Modern',
+  services: ['Binnenmuur schilderen'],
+  channel: 'WhatsApp',
+  planId: 'pro',
+  planName: 'Pro',
+  lines: [],
+  subtotalCents: 99500,
+  vatCents: 20895,
+  totalCents: 120395,
+  ...overrides,
+});
+
+test('de klant ziet zijn eigen offerte met de status en de betaalgegevens', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const quotes = memoryQuotes();
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites, quotes }
+  );
+  const cookie = registered.setCookie;
+  const accountId = registered.body.account?.id ?? '';
+
+  await quotes.saveQuote(quoteOf({ accountId }), new Uint8Array());
+  await quotes.saveQuote(
+    quoteOf({ id: 'KB-2026-0002', accountId: 'iemand-anders', createdAt: '2026-10-31T10:00:00.000Z' }),
+    new Uint8Array()
+  );
+
+  const result = await handleAccount(
+    { action: 'quotes' },
+    {
+      accounts,
+      sites,
+      quotes,
+      payment: { iban: 'NL12 KLUS 0000 0000 00', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+    },
+    cookie
+  );
+  assert.equal(result.status, 200);
+  assert.equal(result.body.quotes?.length, 1);
+  assert.equal(result.body.quotes?.[0].id, 'KB-2026-0001');
+  assert.equal(result.body.quotes?.[0].status, 'open');
+  assert.equal(result.body.quotes?.[0].totalCents, 120395);
+  assert.match(result.body.quotes?.[0].url ?? '', /^\/offerte\/KB-2026-0001\?token=/);
+  assert.equal(result.body.payment?.iban, 'NL12 KLUS 0000 0000 00');
+});
+
+test('zonder offertes in de opslag ziet de klant geen offertes', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites }
+  );
+  const result = await handleAccount({ action: 'quotes' }, { accounts, sites }, registered.setCookie);
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.body.quotes, []);
+  assert.equal(result.body.payment, undefined);
 });
