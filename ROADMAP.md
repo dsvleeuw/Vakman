@@ -67,6 +67,44 @@ Required before paid customers can rely on the product.
 | 5.4 | ~~CI workflow (lint, test, build) in the repository~~ Done: `.github/workflows/check.yml` runs on push/PR | S | Checks previously came from the external Netlify integration only. |
 | 5.5 | Internationalisation setup if Belgium/Flanders is a target market | L | All copy is hard-coded Dutch; the competitor scan included a Belgian provider. |
 
+## Phase 6 — Sell it: from a site to a customer
+
+The product can build a site. It cannot yet sell one: a craftsman cannot
+see his requests, cannot pay, and a published site still shows example
+copy, example reviews and example photos. Everything in this phase is work
+that can be done end-to-end inside this repository — no external accounts,
+no provider dashboards, no design decision a human has to make first.
+
+**Definition of done — a craftsman can be sold a website when:**
+
+1. He can sign up, verify his e-mail address and reset his password
+   without help from Klusbaas.
+2. He can build, publish and edit his site, and find it back on any device.
+3. His site shows only what he wrote or supplied: no example reviews, no
+   stock photos of other people's work, no "VCA" claim he never made
+   (principle 2, principle 6).
+4. A visitor's request reaches him by mail **and** is visible in his own
+   account, so a lost mail never loses the request (principle 4).
+5. There is an order with a price, a status and a way to pay; Klusbaas can
+   see it and mark it paid.
+6. Klusbaas has one overview of every customer, site, order and request.
+7. Every promise on the pricing page is either built or removed
+   (principle 2, principle 8).
+8. The site's own privacy statement names the craftsman as the party
+   responsible for the data on his own site.
+
+| # | Item | Effort | Notes |
+|---|------|--------|-------|
+| 6.1 | A published site shows only the craftsman's own words, photos and claims | L | The page is drawn from the trade preset, so untouched blocks (reviews, trust marks, project photos) keep the example text. Compare the saved content with the preset and leave the example text out; the editor then says what still needs filling in. |
+| 6.2 | The craftsman sees his requests in `/mijn-account` | M | A request is stored with the site it belongs to, so the mail is a convenience and not the only copy. Klusbaas stores it on behalf of the craftsman; the privacy statement says so. |
+| 6.3 | An order with a price, a status and a payment link | M | The packages exist (€ 595 / € 995 / € 1.795 plus add-ons) but nothing can be ordered or paid. The site stays free to publish (VISION stress test 8): the order follows the site, it does not gate it. |
+| 6.4 | Klusbaas' overview: customers, sites, orders and requests | M | Today the stored requests and quotes are only visible in the mail and in the Blobs store. |
+| 6.5 | Password reset and e-mail verification | M | 3.4: an account without a reset is a support ticket. |
+| 6.6 | A welcome mail after publishing | S | The craftsman gets his address, what works and what to check. |
+| 6.7 | A privacy statement per customer site | M | The note under the form links to Klusbaas' statement; on a customer site the craftsman is the party responsible for the data. |
+| 6.8 | The offer becomes true | M | "Eigen .nl-domein inbegrepen", "offertes in Google Drive" and the Google badge are on the pricing page but not built. Either build them or remove them (principle 2, principle 8). |
+| 6.9 | The craftsman uploads his own photos | L | A site with stock photos of other people's work is the biggest untruth in the product. Storage in the Blobs store `media`, served by a function; no new dependency. |
+
 ## Decision log
 
 - **Contact option D (WhatsApp primary + form fallback)** was chosen because
@@ -75,6 +113,10 @@ Required before paid customers can rely on the product.
 - **No backend in 0.1.0**: forms intentionally submit through WhatsApp deep
   links to keep the prototype dependency-free. This is a deliberate
   trade-off, not the final architecture.
+- **Phase 6 is the selling phase.** The order follows the site, it does not
+  gate it: publishing stays free so the site itself remains the proof that
+  the product works (stress test 8). Payment is what closes the deal, not
+  what unlocks the page.
 - **Price points € 595 / € 995 / € 1.795 + € 25/month** sit mid-market per
   the scan. All source figures were self-reported by the providers and have
   not been independently verified — re-validate before any external use.
