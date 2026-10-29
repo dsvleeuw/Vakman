@@ -65,6 +65,13 @@ function memoryStorage(leads: StoredLead[] = [], quotes: QuoteRecord[] = []): Le
       quoteMap.set(id, updated);
       return updated;
     },
+    async extendQuote(id, validUntil) {
+      const record = quoteMap.get(id);
+      if (!record) return null;
+      const updated = { ...record, validUntil };
+      quoteMap.set(id, updated);
+      return updated;
+    },
   };
 }
 
@@ -284,6 +291,39 @@ test('een verlopen offerte is zichtbaar in het overzicht', async () => {
   const login2 = await handleAdmin({ action: 'login', password: 'geheim' }, later, null, false);
   const result2 = await handleAdmin({ action: 'overview' }, later, login2.setCookie, false);
   assert.equal(result2.body.overview?.quotes[0].expired, true);
+});
+
+test('een verlopen offerte kan worden verlengd', async () => {
+  const d = { ...deps(), now: () => Date.parse('2026-12-01T10:00:00.000Z') };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin(
+    { action: 'extend-quote', id: 'KB-2026-0001' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 200);
+  assert.ok(result.body.validUntil);
+  // Dertig dagen later: 31 december 2026.
+  assert.equal(result.body.validUntil, '2026-12-31T10:00:00.000Z');
+
+  const overview = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+  assert.equal(overview.body.overview?.quotes[0].expired, false);
+});
+
+test('een betaalde offerte kan niet verlengd worden', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  await handleAdmin({ action: 'quote-status', id: 'KB-2026-0001', status: 'paid' }, d, login.setCookie, false);
+
+  const result = await handleAdmin(
+    { action: 'extend-quote', id: 'KB-2026-0001' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 400);
 });
 
 test('een onbekende offerte geeft een duidelijke melding', async () => {

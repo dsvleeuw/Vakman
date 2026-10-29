@@ -132,6 +132,8 @@ through the wizard when:**
    paid sends him an invoice, and he can download it again later.
 9. An offer nobody accepted does not disappear: Klusbaas can send a
    reminder, and he sees which offers have expired.
+10. An expired offer does not look like a promise: the customer sees it,
+   cannot accept it, and Klusbaas can extend it when the price still holds.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -141,7 +143,8 @@ through the wizard when:**
 | 7.4 | ~~A request can become an offer~~ Done: a customer who only sent a request (`L-XXXXXX`) and never made an account stands in the list of "Offerte maken"; Klusbaas picks him and the offer takes his details from the request | S | The offer of someone without an account does not appear in `/mijn-account`, because he has no account. He gets it by mail and can pay with the IBAN in the offer (7.3). |
 | 7.5 | ~~The customer can accept the offer himself~~ Done: on the offer page there is a button "Ja, ik ga akkoord". The customer types his name, the offer gets the status `accepted` and Klusbaas gets a mail with the details | S | Accepting is not paying: the customer still has to transfer the money, and Klusbaas marks the offer as paid when it arrives. There is no signature and no contract; the mail of the customer is the agreement. |
 | 7.6 | ~~The customer gets an invoice when he pays~~ Done: when Klusbaas marks an offer as paid, the customer gets an invoice as a PDF (`F-<jaar>-<nr>`, following the offer number) by mail and can download it again from the offer page and from his account | S | The details of Klusbaas on the invoice come from the environment (`INVOICE_NAME`, `INVOICE_ADDRESS`, `INVOICE_KVK`, `INVOICE_VAT`, `INVOICE_EMAIL`); what is not set is not printed. Klusbaas still marks the payment by hand and there is no reminder for an offer that stays open. |
-| 7.7 | ~~Klusbaas can follow up on an open offer~~ Done: an open offer has a button "Stuur een herinnering" in `/klusbaas`; the customer gets a mail with the link to the offer, the amount and the IBAN again. An expired offer (valid for thirty days) shows up as expired in the overview | S | The reminder is by hand: nothing goes out on its own, and an expired offer is not withdrawn by itself. The customer may still accept an expired offer; Klusbaas writes a new one when the price has changed. |
+| 7.7 | ~~Klusbaas can follow up on an open offer~~ Done: an open offer has a button "Stuur een herinnering" in `/klusbaas`; the customer gets a mail with the link to the offer, the amount and the IBAN again | S | The reminder is by hand: nothing goes out on its own. |
+| 7.8 | ~~An expired offer does not look like a promise~~ Done: an offer is valid for thirty days; the offer page says so and hides the accept button when it is expired, the overview marks it as expired, and Klusbaas can extend it with one button when the price has not changed | S | An expired offer is not withdrawn by itself: Klusbaas cancels it by hand when the customer is not coming. The customer cannot accept an expired offer, so a price that is three months old is never agreed to. |
 
 ## Decision log
 

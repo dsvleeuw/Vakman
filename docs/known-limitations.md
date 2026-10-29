@@ -177,9 +177,10 @@ to [ROADMAP.md](../ROADMAP.md).
   to the offer, the amount and the IBAN again. Nothing goes out on its own,
   and there is no second reminder that says "this is your last chance".
 - **An expired offer is not withdrawn by itself.** An offer is valid for
-  thirty days; the overview shows "Verlopen" so Klusbaas knows the price is
-  no longer a promise. The customer may still accept the old offer, and
-  Klusbaas writes a new one when the price has changed.
+  thirty days. The customer sees that it is expired and cannot accept it;
+  the overview shows "Verlopen" so Klusbaas knows the price is no longer a
+  promise. Klusbaas can extend the offer with one button when the price
+  still holds, or cancel it by hand when the customer is not coming.
 
 ## The offer Klusbaas writes himself
 

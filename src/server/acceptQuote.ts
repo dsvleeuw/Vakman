@@ -1,5 +1,5 @@
 import { buildAcceptEmail } from '../utils/leadEmail';
-import { isQuoteNumber, type QuoteRecord } from '../utils/quote';
+import { isQuoteExpired, isQuoteNumber, type QuoteRecord } from '../utils/quote';
 import {
   redirectForTest,
   sendViaResend,
@@ -99,6 +99,7 @@ export async function handleAcceptQuote(
   const id = typeof raw.id === 'string' ? raw.id.trim() : '';
   const token = typeof raw.token === 'string' ? raw.token : '';
   const name = typeof raw.name === 'string' ? raw.name.trim().slice(0, 120) : '';
+  const now = deps.now ? deps.now() : new Date();
 
   if (!isQuoteNumber(id)) {
     return { status: 400, body: { ok: false, error: 'Ongeldige offertenummer.', field: 'id' } };
@@ -123,8 +124,18 @@ export async function handleAcceptQuote(
   if (record.status === 'cancelled') {
     return { status: 409, body: { ok: false, error: 'Deze offerte is geannuleerd.' } };
   }
+  // Een verlopen offerte is geen belofte meer: de prijs kan veranderd zijn.
+  // Accepteren kan alleen nog als Klusbaas de offerte heeft verlengd.
+  if (isQuoteExpired(record, now)) {
+    return {
+      status: 409,
+      body: {
+        ok: false,
+        error: 'Deze offerte is verlopen. Neig contact op met Klusbaas voor een actuele offerte.',
+      },
+    };
+  }
 
-  const now = deps.now ? deps.now() : new Date();
   const updated = (await deps.storage.updateQuoteStatus(id, 'accepted')) ?? {
     ...record,
     status: 'accepted' as const,

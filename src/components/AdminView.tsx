@@ -3,6 +3,7 @@ import { Loader2, LogOut, TriangleAlert } from 'lucide-react';
 import {
   adminLogin,
   adminLogout,
+  extendQuote,
   fetchAdminOverview,
   remindQuote,
   setQuoteStatus,
@@ -164,7 +165,8 @@ const QuoteRow: React.FC<{
   busy: boolean;
   onStatus: (id: string, status: 'paid' | 'cancelled' | 'open') => void;
   onRemind: (id: string) => void;
-}> = ({ quote, busy, onStatus, onRemind }) => (
+  onExtend: (id: string) => void;
+}> = ({ quote, busy, onStatus, onRemind, onExtend }) => (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
       <span className="font-black text-stone-900">{quote.id}</span>
@@ -195,7 +197,7 @@ const QuoteRow: React.FC<{
     {quote.expired && quote.status !== 'paid' && quote.status !== 'cancelled' && (
       <p className="m-0 text-sm font-semibold text-amber-800">
         Verlopen op {dateTime(quote.validUntil)}. De prijs is geen belofte meer: schrijf een
-        nieuwe offerte.
+        nieuwe offerte, of verleng deze als de prijs nog klopt.
       </p>
     )}
     <div className="flex flex-wrap items-center gap-3">
@@ -225,6 +227,16 @@ const QuoteRow: React.FC<{
           className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60"
         >
           Stuur een herinnering
+        </button>
+      )}
+      {quote.expired && quote.status !== 'paid' && quote.status !== 'cancelled' && (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => onExtend(quote.id)}
+          className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60"
+        >
+          Verleng met 30 dagen
         </button>
       )}
       {quote.status === 'paid' && (
@@ -320,6 +332,20 @@ export const AdminView: React.FC = () => {
         ? `Offerte ${id} is gemarkeerd als betaald. De klant heeft de factuur gekregen.`
         : `Offerte ${id} is nu ${status === 'cancelled' ? 'geannuleerd' : 'openstaand'}.`
     );
+    await load();
+  };
+
+  // Een verlopen offerte verlengen: de prijs klopt nog, dus de klant mag
+  // hem weer accepteren.
+  const handleExtend = async (id: string) => {
+    setBusy(true);
+    const result = await extendQuote(id);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    setNotice(`Offerte ${id} is verlengd tot ${result.validUntil ?? 'vandaag + 30 dagen'}.`);
     await load();
   };
 
@@ -459,6 +485,7 @@ export const AdminView: React.FC = () => {
                       busy={busy}
                       onStatus={handleStatus}
                       onRemind={handleRemind}
+                      onExtend={handleExtend}
                     />
                     ))}
                   </ul>

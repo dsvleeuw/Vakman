@@ -31,6 +31,11 @@ export interface LeadStorage {
    * Returns the new record, or null when the offer does not exist.
    */
   linkQuoteToAccount(id: string, accountId: string): Promise<QuoteRecord | null>;
+  /**
+   * Give an offer a new validity date, so a customer can still accept it.
+   * Returns the new record, or null when the offer does not exist.
+   */
+  extendQuote(id: string, validUntil: string): Promise<QuoteRecord | null>;
 }
 
 const counterKey = (year: number) => `counter-${year}`;
@@ -164,6 +169,14 @@ export function createFileStorage(root: string): LeadStorage {
       const record = await readJson<QuoteRecord>(file);
       if (!record?.id) return null;
       const updated: QuoteRecord = { ...record, accountId };
+      await writeFile(file, JSON.stringify(updated, null, 2));
+      return updated;
+    },
+    async extendQuote(id, validUntil) {
+      const file = path.join(quotesDir, `${safe(id)}.json`);
+      const record = await readJson<QuoteRecord>(file);
+      if (!record?.id) return null;
+      const updated: QuoteRecord = { ...record, validUntil };
       await writeFile(file, JSON.stringify(updated, null, 2));
       return updated;
     },
@@ -388,6 +401,13 @@ export async function createBlobStorage(): Promise<LeadStorage> {
       const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
       if (!record?.id) return null;
       const updated: QuoteRecord = { ...record, accountId };
+      await quotes.setJSON(id, updated);
+      return updated;
+    },
+    async extendQuote(id, validUntil) {
+      const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
+      if (!record?.id) return null;
+      const updated: QuoteRecord = { ...record, validUntil };
       await quotes.setJSON(id, updated);
       return updated;
     },

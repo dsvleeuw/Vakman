@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een verlopen offerte lijkt niet meer op een belofte.** Een offerte is
+  dertig dagen geldig. Op de offertepagina staat nu dat de offerte
+  verlopen is, de knop "Ja, ik ga akkoord" verdwijnt en de klant wordt
+  uitgenodigd contact op te nemen voor een actuele offerte. In
+  `/klusbaas` staat "Verlopen", met een knop om de offerte met dertig
+  dagen te verlengen als de prijs nog klopt.
 - **Klusbaas kan een openstaande offerte opvolgen.** Bij een open
   offerte staat in `/klusbaas` een knop "Stuur een herinnering". De klant
   krijgt een mail met de link naar de offerte, het bedrag en de IBAN weer

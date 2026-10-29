@@ -74,6 +74,9 @@ function memoryLeads(leads: StoredLead[] = []): LeadStorage {
     async linkQuoteToAccount() {
       return null;
     },
+    async extendQuote() {
+      return null;
+    },
   };
 }
 
@@ -114,6 +117,13 @@ function memoryQuotes(quotes: QuoteRecord[] = []): LeadStorage {
       const record = map.get(id);
       if (!record) return null;
       const updated = { ...record, accountId };
+      map.set(id, updated);
+      return updated;
+    },
+    async extendQuote(id, validUntil) {
+      const record = map.get(id);
+      if (!record) return null;
+      const updated = { ...record, validUntil };
       map.set(id, updated);
       return updated;
     },

@@ -190,7 +190,15 @@ export interface QuoteRecord extends QuoteTotals {
  * be able to see where he has to transfer the money, without making an
  * account first.
  */
-export type PublicQuote = Omit<QuoteRecord, 'token'> & { payment?: PaymentDetails };
+export type PublicQuote = Omit<QuoteRecord, 'token'> & {
+  payment?: PaymentDetails;
+  /**
+   * True when the offer is past its validity date. The customer sees this:
+   * an offer that says "geldig tot 28 november" must not look like a
+   * promise on 1 december.
+   */
+  expired?: boolean;
+};
 
 export function toPublicQuote(record: QuoteRecord): PublicQuote {
   const { token: _token, ...rest } = record;

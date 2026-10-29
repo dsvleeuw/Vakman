@@ -23,6 +23,8 @@ export interface AdminResult {
   mailStatus?: string;
   /** What happened with the reminder mail. */
   reminderStatus?: string;
+  /** The new validity date of an extended offer. */
+  validUntil?: string;
   error?: string;
   field?: string;
 }
@@ -62,6 +64,14 @@ export async function fetchAdminOverview(): Promise<AdminOverview | null> {
 /** Mark an offer as paid, cancelled or open again. */
 export function setQuoteStatus(id: string, status: QuoteStatus): Promise<AdminResult> {
   return post({ action: 'quote-status', id, status });
+}
+
+/**
+ * Give an expired offer a new validity date, so the customer can still
+ * accept it.
+ */
+export function extendQuote(id: string): Promise<AdminResult> {
+  return post({ action: 'extend-quote', id });
 }
 
 /**

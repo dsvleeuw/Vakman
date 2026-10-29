@@ -7,6 +7,7 @@ import {
   buildQuotePath,
   buildQuoteRecord,
   formatQuoteNumber,
+  isQuoteExpired,
   isQuoteNumber,
   quoteDelivery,
   toPublicQuote,
@@ -413,7 +414,7 @@ export type QuoteLookup =
 export async function handleGetQuote(
   params: URLSearchParams,
   storage: LeadStorage,
-  deps: { payment?: PaymentDetails; invoice?: InvoiceDetails } = {}
+  deps: { payment?: PaymentDetails; invoice?: InvoiceDetails; now?: () => Date } = {}
 ): Promise<QuoteLookup> {
   const id = params.get('id') ?? '';
   const token = params.get('token') ?? '';
@@ -457,11 +458,13 @@ export async function handleGetQuote(
       pdf,
     };
   }
+  const expired = isQuoteExpired(record, deps.now ? deps.now() : new Date());
   return {
     status: 200,
     kind: 'json',
     body: {
       ...toPublicQuote(record),
+      expired,
       ...(deps.payment ? { payment: deps.payment } : {}),
     },
   };

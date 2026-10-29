@@ -8,7 +8,7 @@ import type {
   PaymentDetails,
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
-import { buildQuotePath, isQuoteExpired } from '../utils/quote';
+import { QUOTE_VALID_DAYS, addDaysIso, buildQuotePath, isQuoteExpired } from '../utils/quote';
 import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
 import { createOfferForCustomer, type OfferRequest } from './adminOffer';
@@ -32,6 +32,7 @@ export type AdminAction =
   | 'logout'
   | 'overview'
   | 'quote-status'
+  | 'extend-quote'
   | 'remind-quote'
   | 'verify-account'
   | 'create-quote';
@@ -52,6 +53,8 @@ export interface AdminResponseBody {
   mailStatus?: string;
   /** What happened with the reminder mail. */
   reminderStatus?: string;
+  /** The new validity date of an extended offer. */
+  validUntil?: string;
   error?: string;
   field?: string;
 }
@@ -306,6 +309,30 @@ export async function handleAdmin(
       }
     }
     return { status: 200, body: { ok: true, ...(mailed ? { mailStatus: mailed } : {}) } };
+  }
+
+  if (action === 'extend-quote') {
+    // Een verlopen offerte verlengen: de prijs is nog dezelfde, dus de
+    // klant mag hem nog accepteren.
+    const id = typeof body.id === 'string' ? body.id : '';
+    if (!id) {
+      return { status: 400, body: { ok: false, error: 'Onbekende offerte.' } };
+    }
+    const record = await deps.leads.getQuote(id);
+    if (!record) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    if (record.status === 'paid' || record.status === 'cancelled') {
+      return { status: 400, body: { ok: false, error: 'Deze offerte is al betaald of geannuleerd.' } };
+    }
+    const now = deps.now ? deps.now() : Date.now();
+    const validUntil = addDaysIso(new Date(now).toISOString(), QUOTE_VALID_DAYS);
+    const updated = await deps.leads.extendQuote(id, validUntil);
+    if (!updated) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    log(`[admin] offerte ${id} is verlengd tot ${validUntil}`);
+    return { status: 200, body: { ok: true, validUntil } };
   }
 
   if (action === 'remind-quote') {
