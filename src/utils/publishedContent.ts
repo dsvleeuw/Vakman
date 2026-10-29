@@ -2,11 +2,15 @@ import type {
   ActiveSiteData,
   BlockContentMap,
   ContentBlockId,
+  QuizQuestion,
+  ServiceOffer,
   SiteContent,
   WizardFormData,
 } from '../types';
 import { SECTORS, buildSiteText } from '../data/tradesData';
 import { defaultBlockContent, isContentBlockId } from '../data/blocks';
+import { formatServicePrice, pricedOffers, serviceItems } from './services';
+import { areaPrefixes } from './postcodes';
 
 /**
  * The public page of a customer site shows only what the craftsman wrote or
@@ -206,15 +210,37 @@ function confirmedBlockContent(
 }
 
 /**
+ * The services the craftsman wrote himself that carry a price. Only these
+ * may be shown on a public page: the prices of the trade preset belong to
+ * nobody.
+ */
+export function ownPricedOffers(content: SiteContent): ServiceOffer[] {
+  return pricedOffers((content.services ?? []).filter((offer) => offer.n.trim()));
+}
+
+/**
  * The blocks that go on the public page: the ones the craftsman switched on
  * and whose copy is his own, plus the tools that do not show a price.
+ *
+ * A calculator shows prices, so it only goes on the page when the
+ * craftsman wrote his own prices. The example prices of the trade belong to
+ * nobody.
  */
 export function publishedBlocks(content: SiteContent): ActiveSiteData['blocks'] {
   const sector = SECTORS[content.sector];
   const published = publishedBlockContent(content);
+  const priced = ownPricedOffers(content);
+  const area = areaPrefixes(content.workArea ?? []);
   return content.blocks.filter((id) => {
-    if (id === 'price-calculator') return false; // shows example prices
-    if (id === 'trade-tool' && sector.tool === 'm2-calculator') return false; // same
+    if (id === 'price-calculator') return priced.length > 0;
+    // The postcode check says whether the craftsman comes: only with his
+    // own work area, never with the area of the trade example.
+    if (id === 'area-checker') return area.length > 0;
+    if (id === 'trade-tool' && sector.tool === 'm2-calculator') {
+      // The m²-calculator works with a price per square metre, so it needs
+      // a service with a price per square metre.
+      return priced.some((offer) => /m²|m2/i.test(offer.unit ?? ''));
+    }
     if (!isContentBlockId(id)) return true; // a tool without prices
     return published[id] !== undefined;
   });
@@ -245,10 +271,32 @@ export function publishedSite(site: ActiveSiteData, content: SiteContent): Activ
 
   // Prices come from the example until the craftsman writes his own.
   const examplePrices = new Set(sector.services.map((service) => service.p));
-  const services = site.services.map((service) => ({
-    ...service,
-    p: examplePrices.has(service.p) ? '' : service.p,
-  }));
+  const ownServices = (content.services ?? []).filter((offer) => offer.n.trim());
+  const services = ownServices.length
+    ? serviceItems(ownServices)
+    : site.services.map((service) => ({
+        ...service,
+        p: examplePrices.has(service.p) ? '' : service.p,
+      }));
+
+  // The calculator on the public page works with the craftsman's own
+  // services and his own prices.
+  const priced = ownPricedOffers(content);
+  const flow: QuizQuestion[] = priced.length
+    ? [
+        {
+          q: 'Welke klus wil je laten doen?',
+          o: priced.map((offer) => ({
+            l: offer.n,
+            h: formatServicePrice(offer),
+            b: offer.amount,
+          })),
+        },
+      ]
+    : site.flow;
+
+  // The work area of the craftsman, not the area of the trade example.
+  const near = areaPrefixes(content.workArea ?? []);
 
   return {
     ...site,
@@ -269,9 +317,13 @@ export function publishedSite(site: ActiveSiteData, content: SiteContent): Activ
     since: '',
     faqs: [],
     services,
+    near: near.length ? near : site.near,
     servicesTitle: 'Mijn diensten',
     workNote: '',
-    estNote: '',
+    estNote: priced.length
+      ? 'Vanaf-prijs per klus. De echte prijs hangt af van jouw situatie, dus vraag een offerte.'
+      : '',
+    flow,
     ownerFirstUpper: owner ? owner.toUpperCase() : '',
     blocks: publishedBlocks(content),
     blockContent: publishedBlockContent(content),
@@ -343,6 +395,26 @@ export function siteChecklist(content: SiteContent): SiteChecklistItem[] {
       id: `block-${id}`,
       label,
       hint: 'Dit blok staat nog op de voorbeeldtekst en komt daarom niet op je site.',
+    });
+  }
+
+  // The calculator without prices of his own would show the prices of the
+  // example, so it stays off the page until he fills them in.
+  if (content.blocks.includes('price-calculator') && ownPricedOffers(content).length === 0) {
+    items.push({
+      id: 'prices',
+      label: 'Je eigen prijzen',
+      hint: 'Zonder je eigen prijzen blijft de prijscalculator van je site af, want hij zou de voorbeeldprijzen tonen.',
+    });
+  }
+
+  // The postcode check answers with the work area of the craftsman, so it
+  // needs one.
+  if (content.blocks.includes('area-checker') && areaPrefixes(content.workArea ?? []).length === 0) {
+    items.push({
+      id: 'work-area',
+      label: 'Je werkgebied',
+      hint: 'Typ de postcodes waar je werkt. Zonder je eigen werkgebied blijft de postcodecheck van je site af.',
     });
   }
 

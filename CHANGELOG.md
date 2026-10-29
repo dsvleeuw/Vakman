@@ -7,7 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **De vakman vult zijn diensten en zijn prijzen zelf in.** In de editor
+  staat nu een lijst met diensten: naam, korte omschrijving, de vanaf-prijs
+  en eventueel de eenheid ("per m²", "per uur"). De voorbeelddiensten van het
+  vak staan er klaar, maar zonder prijs: een prijs die de vakman niet
+  typt, is niet van hem en komt niet op zijn site.
+- **De prijscalculator werkt met de prijzen van de vakman.** Op de
+  gepubliceerde site rekent de calculator met zijn eigen diensten en zijn
+  eigen prijzen ("vanaf € 45 per uur"). Zonder eigen prijzen blijft de
+  calculator van de site af, want hij zou de voorbeeldprijzen tonen. De
+  aanvraag die uit de calculator komt gaat echt naar de vakman: naam,
+  telefoonnummer, de gekozen dienst en de prijsindicatie, opgeslagen bij
+  Klusbaas en gemaild naar de vakman.
+- **De postcodecheck werkt met het werkgebied van de vakman.** De vakman
+  typt de postcodes waar hij werkt; de check zegt daarna of die postcode
+  erbij past. Zonder eigen werkgebied blijft de check van de site af, in
+  plaats van te antwoorden met het gebied van het voorbeeld. De postcode
+  komt mee met de aanvraag, zodat een bezoeker die "ja" hoort ook echt
+  gebeld wordt. De beloftes van het voorbeeld ("25 km om de stad", "geen
+  extra voorrijkosten") staan niet meer op een klantsite.
+
 ### Changed
+
+- **De pakketten vertellen de waarheid.** De prijzenlijst beloofde dingen
+  die Klusbaas niet bouwt: een koppeling met het Google Bedrijfsprofiel,
+  een eigen .nl-domein "inbegrepen", een reviewsectie met Google-badge,
+  meerdere pagina's en een opslag van offertes in Google Drive. Die
+  beloftes zijn weg (of herschreven tot wat er echt is: een eigen
+  .nl-domein op aanvraag, door Klusbaas geregistreerd; offertes in het
+  account van de vakman; een uitgelichte klantreactie met eigen tekst;
+  onbeperkt diensten op één snelle pagina). De klant krijgt nu wat er
+  staat: de prijscalculator met zijn eigen prijzen, de postcodecheck met
+  zijn eigen werkgebied, de klantsite met zijn eigen tekst.
 
 - **Een gepubliceerde klantsite toont alleen wat de vakman zelf heeft
   geschreven.** De pagina werd getekend uit de voorbeeldtekst van het vak:

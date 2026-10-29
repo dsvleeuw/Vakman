@@ -1,16 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import type { ActiveSiteData, QuizOption } from '../types';
 import { calculateEstimate, formatPrice } from '../utils/pricing';
+import { normalizeDutchPhone } from '../utils/contact';
+import { describeDelivery } from '../utils/leadClient';
+import { siteContext } from '../utils/lead';
+import { useLeadForm } from '../hooks/useLeadForm';
+import { HoneypotField, LeadErrorNotice } from './LeadStatus';
 
 interface PriceCalculatorProps {
   site: ActiveSiteData;
 }
 
+/**
+ * The price calculator. The visitor picks what he needs, sees the price the
+ * craftsman asked for it and asks for a quote.
+ *
+ * The request really goes out: it is posted to `/api/lead`, stored at
+ * Klusbaas in the name of the craftsman and mailed to him. A button that
+ * says "aangevraagd" without anything arriving is the one thing a tradesman
+ * cannot have (VISION principle 4).
+ */
 export const PriceCalculator: React.FC<PriceCalculatorProps> = ({ site }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, QuizOption>>({});
   const [sent, setSent] = useState(false);
   const [displayedPrice, setDisplayedPrice] = useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const lead = useLeadForm('price-calculator');
 
   const questions = site.flow;
   const currentQuestion = questions[currentStep] || questions[0];
@@ -69,11 +89,44 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({ site }) => {
     }
   };
 
-  const handleRequestQuote = () => {
-    if (allAnswered) {
-      setSent(true);
-    }
+  /** The services the visitor picked, as one line for the craftsman. */
+  const pickedServices = questions
+    .map((question, index) => {
+      const answer = selectedAnswers[index];
+      return answer ? `${question.q.replace('?', '')}: ${answer.l}` : '';
+    })
+    .filter(Boolean)
+    .join(' | ');
+
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!name.trim()) errs.name = 'Vul je naam in';
+    if (!normalizeDutchPhone(phone)) errs.phone = 'Gebruik een geldig nummer, bijv. 06 12345678';
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
   };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!validate() || lead.status === 'sending') return;
+    const response = await lead.submit({
+      type: 'price',
+      site: siteContext(site),
+      fields: {
+        name,
+        phone,
+        service: pickedServices || site.biz,
+        estimate: formatPrice(targetPrice),
+        message,
+      },
+    });
+    if (response.ok) setSent(true);
+  };
+
+  const inputClass = (hasError?: string) =>
+    `w-full h-12 px-4 rounded-xl border-2 bg-stone-50 text-stone-900 font-semibold text-base focus:outline-none focus:border-stone-900 ${
+      hasError ? 'border-rose-500' : 'border-stone-500'
+    }`;
 
   return (
     <section
@@ -139,9 +192,7 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({ site }) => {
                     {opt.l}
                   </span>
                   {opt.h && (
-                    <span
-                      className="font-mono text-xs sm:text-sm opacity-80 whitespace-nowrap shrink-0"
-                    >
+                    <span className="font-mono text-xs sm:text-sm opacity-80 whitespace-nowrap shrink-0">
                       {opt.h}
                     </span>
                   )}
@@ -212,27 +263,117 @@ export const PriceCalculator: React.FC<PriceCalculatorProps> = ({ site }) => {
             })}
           </div>
 
-          {/* Action CTA */}
-          <button
-            onClick={handleRequestQuote}
-            disabled={!allAnswered}
-            className={`h-14 mt-2 px-6 rounded-full border-0 text-base font-bold cursor-pointer transition-all duration-200 shadow-sm ${
-              allAnswered
-                ? 'hover:-translate-y-0.5 active:translate-y-0 opacity-100'
-                : 'opacity-50 cursor-not-allowed'
-            }`}
-            style={{
-              borderRadius: site.radius,
-              background: allAnswered ? site.accent : site.line,
-              color: allAnswered ? site.onAccent : site.muted,
-            }}
-          >
-            {sent
-              ? `✓ Aangevraagd! ${site.owner.split(' ')[0]} belt je vandaag`
-              : allAnswered
-              ? 'Vraag deze offerte direct aan →'
-              : 'Beantwoord alle vragen voor offerte'}
-          </button>
+          {/* The request: name and phone, so the craftsman can call back. */}
+          {sent ? (
+            <div className="flex flex-col gap-2 pt-2" aria-live="polite">
+              <p className="text-base font-bold m-0" style={{ color: site.fg }}>
+                ✓ Je aanvraag is verstuurd.
+              </p>
+              <p className="text-sm text-stone-600 m-0">
+                {lead.result?.reference ? `Referentie ${lead.result.reference}. ` : ''}
+                {lead.result ? describeDelivery(lead.result) : ''}
+              </p>
+            </div>
+          ) : showForm ? (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 pt-2" noValidate>
+              <HoneypotField value={lead.honeypot} onChange={lead.setHoneypot} />
+              <p className="text-sm font-bold m-0" style={{ color: site.fg }}>
+                Waar wil je de offerte voor?
+              </p>
+              <div>
+                <label htmlFor="price-name" className="block text-xs font-bold mb-1" style={{ color: site.fg }}>
+                  Je naam *
+                </label>
+                <input
+                  id="price-name"
+                  type="text"
+                  autoComplete="name"
+                  aria-required="true"
+                  aria-invalid={!!errors.name}
+                  value={name}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                    setErrors((prev) => ({ ...prev, name: '' }));
+                  }}
+                  placeholder="bijv. Sanne de Jong"
+                  className={inputClass(errors.name)}
+                />
+                {errors.name && (
+                  <span role="alert" className="text-xs text-rose-600 font-bold block mt-1">
+                    {errors.name}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label htmlFor="price-phone" className="block text-xs font-bold mb-1" style={{ color: site.fg }}>
+                  Telefoonnummer *
+                </label>
+                <input
+                  id="price-phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  aria-required="true"
+                  aria-invalid={!!errors.phone}
+                  value={phone}
+                  onChange={(event) => {
+                    setPhone(event.target.value);
+                    setErrors((prev) => ({ ...prev, phone: '' }));
+                  }}
+                  placeholder="06 12 34 56 78"
+                  className={inputClass(errors.phone)}
+                />
+                {errors.phone && (
+                  <span role="alert" className="text-xs text-rose-600 font-bold block mt-1">
+                    {errors.phone}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label htmlFor="price-message" className="block text-xs font-bold mb-1" style={{ color: site.fg }}>
+                  Toelichting (optioneel)
+                </label>
+                <textarea
+                  id="price-message"
+                  rows={3}
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
+                  placeholder="Bijvoorbeeld: drie kozijnen aan de voorzijde."
+                  className={`${inputClass()} h-auto py-3 leading-relaxed resize-y`}
+                />
+              </div>
+              {lead.status === 'error' && <LeadErrorNotice message={lead.result?.error} />}
+              <button
+                type="submit"
+                disabled={lead.status === 'sending'}
+                className="disabled:opacity-60 h-14 px-6 rounded-full border-0 text-base font-bold cursor-pointer transition-all duration-200 shadow-sm disabled:cursor-not-allowed"
+                style={{
+                  borderRadius: site.radius,
+                  background: site.accent,
+                  color: site.onAccent,
+                }}
+              >
+                {lead.status === 'sending' ? 'Versturen…' : 'Verstuur mijn aanvraag'}
+              </button>
+            </form>
+          ) : (
+            <button
+              onClick={() => setShowForm(true)}
+              disabled={!allAnswered}
+              className={`h-14 mt-2 px-6 rounded-full border-0 text-base font-bold cursor-pointer transition-all duration-200 shadow-sm ${
+                allAnswered
+                  ? 'hover:-translate-y-0.5 active:translate-y-0 opacity-100'
+                  : 'opacity-50 cursor-not-allowed'
+              }`}
+              style={{
+                borderRadius: site.radius,
+                background: allAnswered ? site.accent : site.line,
+                color: allAnswered ? site.onAccent : site.muted,
+              }}
+            >
+              {allAnswered ? 'Vraag deze offerte direct aan →' : 'Beantwoord alle vragen voor offerte'}
+            </button>
+          )}
         </div>
       </div>
     </section>

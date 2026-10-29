@@ -111,6 +111,8 @@ export const PublishedSiteView: React.FC<PublishedSiteViewProps> = ({ slug }) =>
       blocks: site.blocks,
       blockContent: site.blockContent,
       confirmed: site.confirmed,
+      services: site.services,
+      workArea: site.workArea,
       text: site.text,
     });
     if (!content) return null;

@@ -40,6 +40,22 @@ export interface ServiceItem {
   nr?: string;
 }
 
+/**
+ * A service in the craftsman's own words, with the price he asks for it.
+ * The price is a number so the calculator can work with it; the unit is
+ * free text ("per m²", "per uur") and may be left empty.
+ */
+export interface ServiceOffer {
+  /** The name of the work. */
+  n: string;
+  /** One line about it. */
+  d: string;
+  /** What he asks for it, in euro. 0 means: no price. */
+  amount: number;
+  /** Optional unit behind the amount, like "per m²" or "per uur". */
+  unit?: string;
+}
+
 export interface WorkProject {
   t: string;
   c: string;
@@ -294,6 +310,18 @@ export interface SiteContent {
   styleId: StyleId;
   form: WizardFormData;
   disabledServices: Record<number, boolean>;
+  /**
+   * The services the craftsman wrote himself, with his own prices. As long
+   * as this is empty, the trade preset is used (and its prices stay out of
+   * the public page, because they belong to nobody).
+   */
+  services?: ServiceOffer[];
+  /**
+   * The postcodes where the craftsman works, like "2011 AB". The postcode
+   * check on his page only goes live with his own area, never with the area
+   * of the trade example.
+   */
+  workArea?: string[];
   /** Enabled blocks, in the order they appear on the page. */
   blocks: BlockId[];
   /** Editable copy per content block. */
@@ -559,6 +587,10 @@ export interface PublishedSiteRecord {
   blockContent: Partial<BlockContentMap>;
   /** The blocks the craftsman confirmed as his own text. */
   confirmed?: ContentBlockId[];
+  /** The services the craftsman wrote himself, with his own prices. */
+  services?: ServiceOffer[];
+  /** The postcodes where the craftsman works. */
+  workArea?: string[];
   /** The copy of the page itself. */
   text: SiteText;
   /** When the site was first published. */

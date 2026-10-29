@@ -14,6 +14,11 @@ export interface PlatformPlan {
  * The three one-off packages Klusbaas sells. Kept in one place so the
  * pricing table, the wizard (`?pakket=pro`) and the confirmation screen can
  * never drift apart.
+ *
+ * Every line here is something the customer really gets. A promise that
+ * Klusbaas does not build is a promise he breaks (VISION principle 2), so
+ * what is not there stays out: no Google Business Profile link, no domain
+ * included, no reviews badge.
  */
 export const PLANS: PlatformPlan[] = [
   {
@@ -24,10 +29,9 @@ export const PLANS: PlatformPlan[] = [
     features: [
       'One-page ontwerp in een van de 5 premium stijlen',
       'Mobiele bel- en WhatsApp-knop, altijd in beeld',
-      'Offerteformulier met WhatsApp-aflevering',
-      'Voor/na-projectgalerij',
-      'Keurmerken- en garantievermelding (VCA e.d.)',
-      'Koppeling met je Google Bedrijfsprofiel',
+      'Offerteformulier: je aanvragen komen in je mailbox',
+      'Voor/na-projectgalerij met je eigen foto’s',
+      'Ruimte voor je eigen keurmerken en garantie',
       'Lokale SEO voor jouw plaats en vak',
       'Oplevering binnen 2 weken',
     ],
@@ -40,11 +44,11 @@ export const PLANS: PlatformPlan[] = [
     blurb: 'Alles van Basis, met interactieve tools die offertes opleveren.',
     features: [
       'Alles uit Basis',
-      'Meerdere pagina’s en onbeperkte diensten',
-      'Interactieve prijscalculator',
+      'Onbeperkt aantal diensten, met je eigen prijzen',
+      'Interactieve prijscalculator met je eigen prijzen',
       'Postcodecheck voor je werkgebied',
-      'Reviewsectie met Google-badge',
-      'Eigen .nl-domein, eerste jaar inbegrepen',
+      'Uitgelichte klantreactie met je eigen tekst',
+      'Eigen .nl-domein op aanvraag, door Klusbaas geregistreerd',
       'Eerste 3 maanden service t.w.v. € 75',
     ],
     popular: true,
@@ -57,8 +61,8 @@ export const PLANS: PlatformPlan[] = [
     features: [
       'Alles uit Pro',
       'Slimme vak-tool: spoedknop, storingsmelding, m²-calculator of projecttijdlijn',
-      'Online boekingskalender met Google Calendar-sync',
-      'Offertes automatisch opgeslagen in Google Drive',
+      'Online boekingskalender, met je eigen Google Calendar',
+      'Offertes opgeslagen in je account, altijd terug te vinden',
       'Persoonlijk kleuren-, foto- en tekstadvies',
       'Voorrang bij support en wijzigingen',
     ],

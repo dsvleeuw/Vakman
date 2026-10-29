@@ -3,6 +3,7 @@ import type {
   ContentBlockId,
   PublicPublishedSite,
   SectorId,
+  SiteContent,
   SiteText,
   StyleId,
   WizardFormData,
@@ -29,6 +30,10 @@ export interface PublishSiteInput {
   blockContent: Partial<BlockContentMap>;
   /** The blocks the craftsman confirmed as his own text. */
   confirmed?: ContentBlockId[];
+  /** The services of the craftsman, with his own prices. */
+  services?: SiteContent['services'];
+  /** The postcodes where the craftsman works. */
+  workArea?: SiteContent['workArea'];
   text: SiteText;
 }
 

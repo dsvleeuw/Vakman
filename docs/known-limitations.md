@@ -211,6 +211,27 @@ to [ROADMAP.md](../ROADMAP.md).
   are public by design and safe to expose when access is restricted via
   Firebase security rules, but those rules are not part of this repo.
 
+## Promises and packages
+
+- Every line on the pricing page (`src/data/plans.ts`) is either built or
+  deliberately removed. What is *not* automatic is still work for Klusbaas
+  by hand: an own `.nl` domain is registered per order (the registrar
+  costs are the customer's), "three months of service worth € 75" is a
+  promise Klusbaas keeps, and "delivery within two weeks" depends on how
+  fast the customer answers.
+- The price calculator on a published site shows the craftsman's own
+  prices as a *starting* price ("vanaf € 45 per uur"). The exact price
+  still depends on the situation, so the page says so and asks for a
+  quote. Only services with a price appear in the calculator.
+- The postcode check compares the first two digits of the visitor's
+  postcode with the postcodes the craftsman typed. It is a rough area, not
+  a route calculation; the craftsman decides whether he comes.
+- A customer site without prices or without a work area has no price
+  calculator and no postcode check. The editor's checklist says so.
+- The Google Calendar/Drive sync in the booking flow still depends on a
+  Firebase login of the visitor; without it the booking works but nothing
+  is synced. A craftsman cannot see the visitor's Google account.
+
 ## Content and design
 
 - All imagery is hot-linked from Unsplash and repeats across presets;

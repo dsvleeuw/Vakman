@@ -9,7 +9,7 @@ import type {
 } from '../types';
 import { isBlockId, isContentBlockId } from '../data/blocks';
 import { isSectorId, isStyleId } from '../utils/router';
-import { sanitizeSiteContent } from '../utils/siteContent';
+import { sanitizeServices, sanitizeSiteContent, sanitizeWorkArea } from '../utils/siteContent';
 import { siteChecklist } from '../utils/publishedContent';
 import { buildPublishMail } from '../utils/accountMail';
 import type { SiteStorage } from './storage';
@@ -48,6 +48,8 @@ export interface PublishSiteBody {
   blocks: BlockId[];
   blockContent: SiteContent['blockContent'];
   confirmed?: ContentBlockId[];
+  services?: SiteContent['services'];
+  workArea?: SiteContent['workArea'];
   text: SiteContent['text'];
 }
 
@@ -163,6 +165,12 @@ export function validatePublishBody(
     }
   }
 
+  // The services with the prices of the craftsman and the postcodes where
+  // he works. Both are optional; without them the page simply has no
+  // prices and no postcode check.
+  const services = sanitizeServices(body.services);
+  const workArea = sanitizeWorkArea(body.workArea);
+
   return {
     ok: true,
     data: {
@@ -182,6 +190,8 @@ export function validatePublishBody(
       blocks,
       blockContent,
       confirmed,
+      ...(services.length ? { services } : {}),
+      ...(workArea.length ? { workArea } : {}),
       text: { ...text },
     },
   };
@@ -253,6 +263,8 @@ export async function handlePublishSite(
     blocks: data.blocks,
     blockContent: data.blockContent,
     confirmed: data.confirmed,
+    ...(data.services?.length ? { services: data.services } : {}),
+    ...(data.workArea?.length ? { workArea: data.workArea } : {}),
     text: data.text,
     timestamp: now,
     updatedAt: now,
@@ -368,6 +380,8 @@ export function contentOfSite(record: PublishedSiteRecord): SiteContent | null {
     blocks: record.blocks,
     blockContent: record.blockContent,
     confirmed: record.confirmed,
+    services: record.services,
+    workArea: record.workArea,
     text: record.text,
   });
   return content;

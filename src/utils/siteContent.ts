@@ -12,6 +12,7 @@ import type {
   PromotionContent,
   SectorId,
   ServiceAreasContent,
+  ServiceOffer,
   SiteContent,
   SiteText,
   StyleId,
@@ -28,6 +29,7 @@ import {
   isContentBlockId,
 } from '../data/blocks';
 import { buildSiteText, SECTORS } from '../data/tradesData';
+import { serviceItems } from './services';
 import { isSectorId, isStyleId } from './router';
 
 /**
@@ -183,6 +185,7 @@ export function applySiteContent(site: ActiveSiteData, content: SiteContent): Ac
   }
 
   const text: SiteText = content.text;
+  const ownServices = (content.services ?? []).filter((offer) => offer.n.trim());
   return {
     ...site,
     kicker: mergeText(text.kicker, site.kicker),
@@ -191,6 +194,8 @@ export function applySiteContent(site: ActiveSiteData, content: SiteContent): Ac
     about: mergeText(text.about, site.about),
     cta1: mergeText(text.cta1, site.cta1),
     cta2: mergeText(text.cta2, site.cta2),
+    // The craftsman's own services take the place of the ones of the trade.
+    ...(ownServices.length ? { services: serviceItems(ownServices) } : {}),
     blocks,
     blockContent,
   };
@@ -246,6 +251,40 @@ function asString(value: unknown): string {
 }
 
 /**
+ * The services the craftsman wrote himself. A row without a name is not a
+ * service; a price that is not a number counts as no price.
+ */
+export function sanitizeServices(raw: unknown): ServiceOffer[] {
+  const services: ServiceOffer[] = [];
+  if (!Array.isArray(raw)) return services;
+  for (const entry of raw) {
+    if (!isRecord(entry)) continue;
+    const name = asString(entry.n).trim();
+    if (!name) continue;
+    const amount = Number(entry.amount);
+    const unit = asString(entry.unit).trim();
+    services.push({
+      n: name,
+      d: asString(entry.d),
+      amount: Number.isFinite(amount) && amount > 0 ? Math.round(amount) : 0,
+      ...(unit ? { unit } : {}),
+    });
+  }
+  return services;
+}
+
+/** The postcodes where the craftsman works. */
+export function sanitizeWorkArea(raw: unknown): string[] {
+  const workArea: string[] = [];
+  if (!Array.isArray(raw)) return workArea;
+  for (const entry of raw) {
+    const postcode = asString(entry).trim().toUpperCase();
+    if (/^\d{4} ?[A-Z]{0,2}$/.test(postcode)) workArea.push(postcode);
+  }
+  return workArea;
+}
+
+/**
  * Read content that came from storage or a URL. Anything unexpected is
  * ignored, so a half-written or outdated document never breaks the site.
  */
@@ -286,6 +325,12 @@ export function sanitizeSiteContent(raw: unknown): SiteContent | null {
     }
   }
 
+  // The postcodes where the craftsman works.
+  const workArea = sanitizeWorkArea(raw.workArea);
+
+  // The services the craftsman wrote himself.
+  const services = sanitizeServices(raw.services);
+
   const confirmed: ContentBlockId[] = Array.isArray(raw.confirmed)
     ? raw.confirmed.filter(isContentBlockId)
     : [];
@@ -309,6 +354,8 @@ export function sanitizeSiteContent(raw: unknown): SiteContent | null {
       : 'klassiek',
     form,
     disabledServices,
+    ...(services.length ? { services } : {}),
+    ...(workArea.length ? { workArea } : {}),
     blocks,
     blockContent,
     confirmed,
