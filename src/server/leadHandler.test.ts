@@ -389,6 +389,28 @@ test('een onbekend adres of een site zonder e-mailadres gaat naar Klusbaas', asy
   assert.equal(mem.leads.size, 2);
 });
 
+test('kan de site niet worden opgezocht, dan gaat de aanvraag naar Klusbaas', async () => {
+  const { deps, mem } = setup();
+  const mail = mailRecorder();
+  const brokenSites: SiteStorage = {
+    ...memorySites([publishedSite()]),
+    async getSite() {
+      throw new Error('blobs liggen plat');
+    },
+  };
+  const result = await handleLead(contactLead, 'ip', {
+    ...deps,
+    env: { RESEND_API_KEY: 'test' },
+    fetchImpl: mail.fetchImpl,
+    sites: brokenSites,
+  });
+
+  assert.equal(result.status, 200);
+  assert.equal(result.body.delivery?.owner, undefined);
+  assert.equal(mail.sent[0].to, 'thomascliphero@gmail.com');
+  assert.equal(mem.leads.size, 1);
+});
+
 test('gaat de mail naar de vakman mis, dan blijft de aanvraag bij Klusbaas', async () => {
   const { deps, mem } = setup();
   const mail = mailRecorder('failed');

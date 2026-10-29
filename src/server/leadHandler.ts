@@ -219,7 +219,17 @@ async function resolveSiteOwner(
 ): Promise<{ email: string; biz: string; ownerFirstName: string } | null> {
   const slug = lead.site.slug;
   if (!slug || !deps.sites) return null;
-  const record = await deps.sites.getSite(slug);
+  let record: Awaited<ReturnType<SiteStorage['getSite']>> = null;
+  try {
+    record = await deps.sites.getSite(slug);
+  } catch (error) {
+    // Lukt het opzoeken niet, dan gaat de aanvraag naar Klusbaas in plaats
+    // van verloren te gaan.
+    deps.log?.(
+      `[lead] site ${slug} niet op te zoeken: ${error instanceof Error ? error.message : String(error)}`
+    );
+    return null;
+  }
   if (!record) return null;
   const email = record.form.email?.trim() ?? '';
   if (!email || !isValidEmail(email)) return null;
