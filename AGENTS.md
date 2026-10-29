@@ -158,6 +158,11 @@ result. The Netlify deploy preview is the only external CI check. If
   transfer to `PAYMENT_IBAN` with the quote number as the description; there
   is no payment provider. The payment details come from the environment
   (`src/server/payment.ts`), never from the request.
+- A published site has its own privacy statement (`/site/<slug>/privacy`),
+  built in `src/utils/sitePrivacy.ts` from what the craftsman filled in. On
+  a customer site the craftsman is the party responsible for the data; the
+  link under the form points to that statement, not to Klusbaas' one. Never
+  put a KvK number or an address in it that the craftsman did not fill in.
 - After the first publish the customer gets a welcome mail (his address,
   what happens with a request and the points of his checklist). It is built
   in `src/utils/accountMail.ts` and sent by `src/server/accountMailer.ts`;

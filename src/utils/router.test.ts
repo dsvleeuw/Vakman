@@ -196,6 +196,18 @@ test('old query-param links redirect to real routes', () => {
   assert.equal(routeFromLegacyQuery(''), null);
 });
 
+test('a published site has its own privacy statement', () => {
+  assert.deepEqual(parseRoute('/site/jansen-schilderwerken/privacy'), {
+    name: 'published-privacy',
+    slug: 'jansen-schilderwerken',
+  });
+  assert.equal(
+    buildPath({ name: 'published-privacy', slug: 'jansen-schilderwerken' }),
+    '/site/jansen-schilderwerken/privacy'
+  );
+  assert.equal(parseRoute('/site/jansen-schilderwerken/privacy/extra').name, 'notFound');
+});
+
 test('every route gets a unique, descriptive document title', () => {
   const routes: Route[] = [
     { name: 'home' },

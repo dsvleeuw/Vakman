@@ -68,6 +68,12 @@ const PublishedSiteView = lazy(() =>
     default: module.PublishedSiteView,
   }))
 );
+const PublishedPrivacyView = lazy(() =>
+  import('./components/PublishedPrivacyView').then((module) => ({
+    default: module.PublishedPrivacyView,
+  }))
+);
+
 const AdminView = lazy(() =>
   import('./components/AdminView').then((module) => ({
     default: module.AdminView,
@@ -501,6 +507,15 @@ export default function App() {
         <div id="main-content">
           <Suspense fallback={<PageFallback label="Je account laden…" />}>
             <AccountView />
+          </Suspense>
+        </div>
+      )}
+
+      {/* 4c2. DE PRIVACYVERKLARING VAN EEN GEPUBLICEERDE SITE */}
+      {route.name === 'published-privacy' && (
+        <div id="main-content">
+          <Suspense fallback={<PageFallback label="Privacyverklaring laden…" />}>
+            <PublishedPrivacyView slug={route.slug} />
           </Suspense>
         </div>
       )}

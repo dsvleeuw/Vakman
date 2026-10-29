@@ -83,6 +83,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   bedrijfsgegevens staat. Publiceren kan ook zonder mail; de mail is een
   extra, geen voorwaarde.
 
+- **Elke klantsite heeft zijn eigen privacyverklaring.** Onder het
+  contactformulayer van een gepubliceerde site stond een link naar de
+  privacyverklaring van Klusbaas. Maar op de site van een vakman is de
+  vakman degene die verantwoordelijk is voor de gegevens die een bezoeker
+  achterlaat. Elke klantsite heeft nu een eigen verklaring
+  (`/site/<adres>/privacy`): wie verantwoordelijk is, welke gegevens worden
+  verzameld, waar ze terecht komen, hoe lang ze worden bewaard en welke
+  rechten de bezoeker heeft. De tekst is opgebouwd uit wat de vakman zelf
+  heeft ingevuld; er staat geen verzonnen KvK-nummer of adres in.
+
 ### Changed
 
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-

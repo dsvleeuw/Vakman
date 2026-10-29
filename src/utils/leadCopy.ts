@@ -31,3 +31,14 @@ export function leadRecipient(site: ActiveSiteData): LeadRecipient {
     privacy: 'Je bericht komt bij Klusbaas binnen.',
   };
 }
+
+/**
+ * Where the privacy link under a form points to.
+ *
+ * On a published site that is the statement of that site: the craftsman is
+ * the party responsible for the data there. On a demo site it is the
+ * statement of Klusbaas.
+ */
+export function privacyHref(site: ActiveSiteData): string {
+  return site.publishedSlug ? `/site/${encodeURIComponent(site.publishedSlug)}/privacy` : '/privacy';
+}

@@ -89,6 +89,19 @@ to [ROADMAP.md](../ROADMAP.md).
 - **Without `RESEND_API_KEY` no mail is sent**, not even this one. The site
   is published all the same; the mail is a bonus, not a condition.
 
+## The privacy statement of a customer site
+
+- **The craftsman cannot edit the text.** Every site gets the same
+  statement, filled in with his name, business, phone number, place and
+  e-mail address. That keeps it true, but it also means he cannot add
+  something about his own processing.
+- **The statement mentions the newsletter only in Klusbaas' own statement.**
+  A published site still has Klusbaas' newsletter in the footer; the
+  newsletter link points to Klusbaas' privacy statement, which is correct,
+  but the statement of the site itself does not mention it.
+- **The twelve months are a promise, not a job.** Nothing removes a request
+  after twelve months; Klusbaas does that by hand.
+
 ## Accounts, passwords and verification
 
 - **The e-mail address is not enforced.** A customer can publish without
