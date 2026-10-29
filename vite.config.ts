@@ -36,9 +36,17 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         }
         const { handler, storage } = await load();
         const { createFileSiteStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        // Een ingelogde klant: zijn offerte belandt in zijn account, zodat hij
+        // hem kan zien en betalen.
+        const accountHandler = await server.ssrLoadModule('/src/server/accountHandler.ts');
+        const { createFileAccountStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const account = await accountHandler.accountFromSession(req.headers.cookie ?? null, {
+          accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
+        });
         const result = await handler.handleLead(body, req.socket.remoteAddress ?? 'dev', {
           env,
           storage,
+          ...(account ? { accountId: account.id } : {}),
           // Met de sites kan een aanvraag op een gepubliceerde klantsite naar
           // de vakman zelf gaan, in plaats van naar Klusbaas.
           sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
@@ -97,12 +105,17 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         const accountHandler = await server.ssrLoadModule('/src/server/accountHandler.ts');
         const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const result = await accountHandler.handleAccount(
           body,
           {
             accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
             sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
             leads: createFileStorage(path.resolve(__dirname, '.data')),
+            // De offertes van de klant staan in dezelfde opslag als de aanvragen.
+            quotes: createFileStorage(path.resolve(__dirname, '.data')),
+            ...(payment ? { payment } : {}),
           },
           req.headers.cookie ?? null,
           false

@@ -146,11 +146,23 @@ export interface QuoteCustomer {
 }
 
 /** Everything stored for one quote (Netlify Blobs / `.data/quotes`). */
+/**
+ * The status of an offer: `open` (the customer has to pay), `paid` or
+ * `cancelled`. An offer is the order of the customer.
+ */
+export type QuoteStatus = 'open' | 'paid' | 'cancelled';
+
 export interface QuoteRecord extends QuoteTotals {
   id: string;
   token: string;
   createdAt: string;
   validUntil: string;
+  /** The status of the order. */
+  status: QuoteStatus;
+  /** When the customer paid. */
+  paidAt?: string;
+  /** The account of the customer, when he was logged in while requesting it. */
+  accountId?: string;
   customer: QuoteCustomer;
   sector: string;
   sectorName: string;
@@ -181,6 +193,8 @@ export function buildQuoteRecord(input: {
   services: string[];
   channel: QuoteChannel;
   appointment?: { date: string; slot: string };
+  /** The account of the customer, when he was logged in. */
+  accountId?: string;
 }): QuoteRecord {
   const totals = calculateQuote(input.planId, input.addons);
   return {
@@ -188,6 +202,8 @@ export function buildQuoteRecord(input: {
     token: input.token,
     createdAt: input.now,
     validUntil: addDaysIso(input.now, QUOTE_VALID_DAYS),
+    status: 'open',
+    ...(input.accountId ? { accountId: input.accountId } : {}),
     customer: input.customer,
     sector: input.sector,
     sectorName: input.sectorName,

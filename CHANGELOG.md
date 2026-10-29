@@ -43,6 +43,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   er niets verloren gaat als de mail niet aankomt; de privacyverklaring
   zegt dat precies.
 
+- **De klant ziet zijn offerte in `/mijn-account`.** Een offerte die de klant
+  aanvraagt (in de wizard of in de editor) hoort bij hem: in zijn account
+  staat wat hij kost, wat de status is (openstaand, betaald of geannuleerd)
+  en hoe hij betaalt. Is de klant aangelogd als hij de offerte aanvraagt,
+  dan belandt hij automatisch in zijn account; anders kan hij de offertelink
+  uit zijn mail in zijn account plakken. Er zit geen betaaldienst tussen de
+  klant en zijn geld: hij maakt het bedrag over naar het IBAN van Klusbaas
+  (`PAYMENT_IBAN`) met het offertenummer als omschrijving, en Klusbaas
+  markeert de offerte als betaald.
+
 ### Changed
 
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-

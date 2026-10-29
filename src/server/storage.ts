@@ -2,7 +2,7 @@ import { mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import type { Account, AccountSession, PublishedSiteRecord, StoredLead } from '../types';
-import type { QuoteRecord } from '../utils/quote';
+import type { QuoteRecord, QuoteStatus } from '../utils/quote';
 
 /**
  * Where quotes and leads are kept. Production uses Netlify Blobs (store
@@ -18,6 +18,18 @@ export interface LeadStorage {
   saveLead(reference: string, lead: unknown): Promise<string>;
   /** Every stored request, newest last. Used to show a craftsman his own. */
   listLeads(): Promise<StoredLead[]>;
+  /** Every stored offer, so a customer can see his own in his account. */
+  listQuotes(): Promise<QuoteRecord[]>;
+  /**
+   * Change the status of an offer ('open' -> 'paid' or 'cancelled'). Returns
+   * the new record, or null when the offer does not exist.
+   */
+  updateQuoteStatus(id: string, status: QuoteStatus): Promise<QuoteRecord | null>;
+  /**
+   * Link an offer to a customer account, so he finds it in his account.
+   * Returns the new record, or null when the offer does not exist.
+   */
+  linkQuoteToAccount(id: string, accountId: string): Promise<QuoteRecord | null>;
 }
 
 const counterKey = (year: number) => `counter-${year}`;
@@ -81,6 +93,43 @@ export function createFileStorage(root: string): LeadStorage {
       } catch {
         return null;
       }
+    },
+    async updateQuoteStatus(id, status) {
+      const file = path.join(quotesDir, `${safe(id)}.json`);
+      const record = await readJson<QuoteRecord>(file);
+      if (!record?.id) return null;
+      const updated: QuoteRecord = {
+        ...record,
+        status,
+        ...(status === 'paid' ? { paidAt: new Date().toISOString() } : {}),
+      };
+      await writeFile(file, JSON.stringify(updated, null, 2));
+      return updated;
+    },
+    async linkQuoteToAccount(id, accountId) {
+      const file = path.join(quotesDir, `${safe(id)}.json`);
+      const record = await readJson<QuoteRecord>(file);
+      if (!record?.id) return null;
+      const updated: QuoteRecord = { ...record, accountId };
+      await writeFile(file, JSON.stringify(updated, null, 2));
+      return updated;
+    },
+    async listQuotes() {
+      const records: QuoteRecord[] = [];
+      let files: string[] = [];
+      try {
+        files = await readdir(quotesDir);
+      } catch {
+        return records;
+      }
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        // De tellers (counter-2026.json) zijn geen offertes.
+        if (file.startsWith('counter-')) continue;
+        const record = await readJson<QuoteRecord>(path.join(quotesDir, file));
+        if (record?.id) records.push(record);
+      }
+      return records;
     },
     async saveLead(reference, lead) {
       await mkdir(leadsDir, { recursive: true });
@@ -250,6 +299,35 @@ export async function createBlobStorage(): Promise<LeadStorage> {
     async getQuotePdf(id) {
       const buffer = await quotes.get(`${id}.pdf`, { type: 'arrayBuffer' });
       return buffer ? new Uint8Array(buffer) : null;
+    },
+    async updateQuoteStatus(id, status) {
+      const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
+      if (!record?.id) return null;
+      const updated: QuoteRecord = {
+        ...record,
+        status,
+        ...(status === 'paid' ? { paidAt: new Date().toISOString() } : {}),
+      };
+      await quotes.setJSON(id, updated);
+      return updated;
+    },
+    async linkQuoteToAccount(id, accountId) {
+      const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
+      if (!record?.id) return null;
+      const updated: QuoteRecord = { ...record, accountId };
+      await quotes.setJSON(id, updated);
+      return updated;
+    },
+    async listQuotes() {
+      const listed = await quotes.list();
+      const records: QuoteRecord[] = [];
+      for (const entry of listed.blobs) {
+        if (!entry.key.endsWith('.json')) continue;
+        if (entry.key.startsWith('counter-')) continue;
+        const record = (await quotes.get(entry.key, { type: 'json' })) as QuoteRecord | null;
+        if (record?.id) records.push(record);
+      }
+      return records;
     },
     async saveLead(reference, lead) {
       await leads.setJSON(reference, lead);

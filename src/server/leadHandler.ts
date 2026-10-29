@@ -44,6 +44,11 @@ export interface LeadDeps {
    * Klusbaas. Without it every lead goes to Klusbaas.
    */
   sites?: SiteStorage;
+  /**
+   * The account of the visitor, when he was logged in. An offer requested
+   * while logged in lands in his account, so he can pay it there.
+   */
+  accountId?: string;
   /** Origin used in links inside e-mails, e.g. https://klusbaas.netlify.app */
   siteUrl: string;
   fetchImpl?: FetchLike;
@@ -147,6 +152,7 @@ async function handleQuote(
     services: request.services,
     channel: request.channel,
     ...(request.appointment ? { appointment: request.appointment } : {}),
+    ...(deps.accountId ? { accountId: deps.accountId } : {}),
   });
 
   const pdf = await renderQuotePdf(record, { siteUrl: deps.siteUrl });

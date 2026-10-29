@@ -1,3 +1,5 @@
+import type { QuoteStatus } from './utils/quote';
+
 export type SectorId =
   | 'timmerman'
   | 'hovenier'
@@ -425,6 +427,38 @@ export interface Account {
  * behalf of the craftsman whose site it is, so he can see it in his account
  * even when the mail did not arrive.
  */
+/**
+ * An offer of a customer, as the customer sees it in his account. The
+ * secret token is not part of it; `url` opens the offer with that token.
+ */
+export interface AccountQuote {
+  id: string;
+  createdAt: string;
+  validUntil: string;
+  status: QuoteStatus;
+  paidAt?: string;
+  planId: string;
+  planName: string;
+  sectorName: string;
+  styleName: string;
+  services: string[];
+  subtotalCents: number;
+  vatCents: number;
+  totalCents: number;
+  /** The link to the offer, with the token. */
+  url: string;
+}
+
+/** How the customer pays. Public data, so it can be shown to the customer. */
+export interface PaymentDetails {
+  /** The IBAN to transfer to, e.g. NL12 KLUS 0000 0000 00. */
+  iban: string;
+  /** The name of the account holder. */
+  name: string;
+  /** The e-mail address for questions about the payment. */
+  email: string;
+}
+
 export interface StoredLead {
   /** The reference the visitor saw: `L-XXXXXX`. */
   reference: string;

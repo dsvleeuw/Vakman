@@ -1,4 +1,4 @@
-import type { PublicPublishedSite, StoredLead } from '../types';
+import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } from '../types';
 
 /**
  * Talking to `/api/account`: register, log in, log out and the sites of
@@ -19,6 +19,10 @@ export interface AccountResult {
   sites?: PublicPublishedSite[];
   /** The requests that came in through the sites of this customer. */
   leads?: StoredLead[];
+  /** The offers this customer requested. */
+  quotes?: AccountQuote[];
+  /** How the customer can pay. */
+  payment?: PaymentDetails;
   site?: PublicPublishedSite;
   error?: string;
   field?: string;
@@ -80,11 +84,34 @@ export async function fetchAccountLeads(): Promise<StoredLead[]> {
 }
 
 /**
+ * The offers of the logged-in customer, newest first, with the way to pay
+ * when Klusbaas filled in the payment details.
+ */
+export async function fetchAccountQuotes(): Promise<{
+  quotes: AccountQuote[];
+  payment?: PaymentDetails;
+}> {
+  const result = await post({ action: 'quotes' });
+  return {
+    quotes: result.ok && Array.isArray(result.quotes) ? result.quotes : [],
+    ...(result.payment ? { payment: result.payment } : {}),
+  };
+}
+
+/**
  * Link a site that was published with a management link to the account, so
  * the customer can manage it from now on without that link.
  */
 export function claimSite(slug: string, token: string): Promise<AccountResult> {
   return post({ action: 'claim', slug, token });
+}
+
+/**
+ * Link an offer the customer received by mail to his account, so he sees the
+ * price and the way to pay there.
+ */
+export function claimQuote(id: string, token: string): Promise<AccountResult> {
+  return post({ action: 'claim-quote', id, token });
 }
 
 /**
@@ -106,4 +133,25 @@ export function parseManageLink(value: string): { slug: string; token: string } 
   const slug = segments[0] === 'mijn-site' ? segments[1] : undefined;
   if (!slug || !token) return null;
   return { slug, token };
+}
+
+/**
+ * Read the number and the token out of an offer link
+ * (`/offerte/KB-2026-0001?token=…`). Returns null when the text is not such
+ * a link.
+ */
+export function parseQuoteLink(value: string): { id: string; token: string } | null {
+  const text = value.trim();
+  if (!text) return null;
+  let url: URL;
+  try {
+    url = new URL(text, 'https://klusbaas.nl');
+  } catch {
+    return null;
+  }
+  const token = url.searchParams.get('token');
+  const segments = url.pathname.split('/').filter(Boolean);
+  const id = segments[0] === 'offerte' ? segments[1] : undefined;
+  if (!id || !token) return null;
+  return { id: decodeURIComponent(id), token };
 }
