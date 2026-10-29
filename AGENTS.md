@@ -147,6 +147,11 @@ result. The Netlify deploy preview is the only external CI check. If
 - Without `RESEND_API_KEY` the API runs in preview mode (mail printed to the
   log). In dev, quotes/leads land in `.data/` (gitignored); in production in
   Netlify Blobs (stores `quotes` and `leads`). Never commit an API key.
+- The Klusbaas overview (`/klusbaas`, `src/server/adminHandler.ts`) is
+  behind `ADMIN_PASSWORD`. There is no default password: without the
+  variable the overview is closed. The session is a cookie
+  (`klusbaas_admin`, `HttpOnly`, `SameSite=Lax`). Never print the password,
+  a session id or a management token in a log line.
 - A quote is also the order: it has a status (`open`, `paid`, `cancelled`),
   an `accountId` when the customer was logged in, and lives in the customer's
   account (`POST /api/account` action `quotes`). The customer pays by bank

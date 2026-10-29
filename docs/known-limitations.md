@@ -81,6 +81,18 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The craftsman cannot delete or export his requests.** Under the AVG a
   customer can ask for that; today Klusbaas has to do it by hand.
 
+## The Klusbaas overview
+
+- **The overview is one password, not accounts.** `ADMIN_PASSWORD` opens
+  `/klusbaas` for anyone who has it. A second person (a colleague, an
+  assistant) cannot be added without handing over the same password.
+- **The overview lists, it does not act.** It shows the requests, the offers
+  and the sites, and Klusbaas can mark an offer as paid. There is no
+  newsletter list, no search, no export and no way to delete a request.
+- **The management link of every site is in the overview.** That is on
+  purpose: Klusbaas needs it when a customer lost his account. It means the
+  password is worth protecting like a key to every customer site.
+
 ## Payment
 
 - **The customer pays by bank transfer, not with a payment provider.** That

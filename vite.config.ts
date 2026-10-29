@@ -55,6 +55,39 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         reply(res, result.status, result.body);
       });
 
+      // Het overzicht van Klusbaas: same handler as netlify/functions/admin.mts.
+      server.middlewares.use('/api/admin', async (req, res) => {
+        if (req.method !== 'POST') return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const adminHandler = await server.ssrLoadModule('/src/server/adminHandler.ts');
+        const { createFileAdminStorage } = await server.ssrLoadModule('/src/server/adminStorage.ts');
+        const { createFileSiteStorage, createFileStorage } =
+          await server.ssrLoadModule('/src/server/storage.ts');
+        const result = await adminHandler.handleAdmin(
+          body,
+          {
+            env: { ADMIN_PASSWORD: env.ADMIN_PASSWORD },
+            sessions: createFileAdminStorage(path.resolve(__dirname, '.data')),
+            sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
+            leads: createFileStorage(path.resolve(__dirname, '.data')),
+          },
+          req.headers.cookie ?? null,
+          false
+        );
+        res.statusCode = result.status;
+        res.setHeader('Content-Type', 'application/json');
+        if (result.setCookie) res.setHeader('Set-Cookie', result.setCookie);
+        if (result.clearCookie) res.setHeader('Set-Cookie', result.clearCookie);
+        res.end(JSON.stringify(result.body));
+      });
+
       // Newsletter (double opt-in): same handlers as netlify/functions/newsletter.mts,
       // subscribers in `.data/newsletter` instead of the Blobs store.
       server.middlewares.use('/api/newsletter', async (req, res) => {

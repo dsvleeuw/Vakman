@@ -53,6 +53,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`PAYMENT_IBAN`) met het offertenummer als omschrijving, en Klusbaas
   markeert de offerte als betaald.
 
+- **Klusbaas heeft nu een eigen overzicht (`/klusbaas`).** Op één plek
+  staan de aanvragen, de offertes met hun status en de gepubliceerde sites.
+  Klusbaas markeert een offerte als betaald zodra het geld binnen is, en
+  zet haar terug op openstaand als dat niet zo is. De beheerlink van elke
+  site staat erbij, voor het geval een klant zijn account kwijt is.
+  Het overzicht zit achter een wachtwoord uit de omgeving
+  (`ADMIN_PASSWORD`); zonder dat wachtwoord is het overzicht gesloten en
+  is er geen standaardwachtwoord.
+
 ### Changed
 
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-

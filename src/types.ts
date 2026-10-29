@@ -459,6 +459,40 @@ export interface PaymentDetails {
   email: string;
 }
 
+/** A published site as the Klusbaas overview shows it. */
+export interface AdminSite {
+  slug: string;
+  biz: string;
+  owner: string;
+  phone: string;
+  city: string;
+  email?: string;
+  sector: string;
+  updatedAt: number;
+  /** True when the site belongs to a customer account. */
+  hasAccount: boolean;
+  /**
+   * The management link. Klusbaas needs it to help a customer who lost his
+   * account; it is never shown to the customer.
+   */
+  manageUrl: string;
+}
+
+/** An offer as the Klusbaas overview shows it. */
+export interface AdminQuote extends AccountQuote {
+  customerName: string;
+  customerEmail?: string;
+  customerPhone: string;
+  city: string;
+}
+
+/** Everything the Klusbaas overview shows. */
+export interface AdminOverview {
+  sites: AdminSite[];
+  leads: StoredLead[];
+  quotes: AdminQuote[];
+}
+
 export interface StoredLead {
   /** The reference the visitor saw: `L-XXXXXX`. */
   reference: string;

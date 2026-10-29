@@ -101,7 +101,7 @@ export function createFileStorage(root: string): LeadStorage {
       const updated: QuoteRecord = {
         ...record,
         status,
-        ...(status === 'paid' ? { paidAt: new Date().toISOString() } : {}),
+        ...(status === 'paid' ? { paidAt: new Date().toISOString() } : { paidAt: undefined }),
       };
       await writeFile(file, JSON.stringify(updated, null, 2));
       return updated;
@@ -306,7 +306,7 @@ export async function createBlobStorage(): Promise<LeadStorage> {
       const updated: QuoteRecord = {
         ...record,
         status,
-        ...(status === 'paid' ? { paidAt: new Date().toISOString() } : {}),
+        ...(status === 'paid' ? { paidAt: new Date().toISOString() } : { paidAt: undefined }),
       };
       await quotes.setJSON(id, updated);
       return updated;

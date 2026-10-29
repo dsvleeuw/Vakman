@@ -68,6 +68,12 @@ const PublishedSiteView = lazy(() =>
     default: module.PublishedSiteView,
   }))
 );
+const AdminView = lazy(() =>
+  import('./components/AdminView').then((module) => ({
+    default: module.AdminView,
+  }))
+);
+
 const AccountView = lazy(() =>
   import('./components/AccountView').then((module) => ({
     default: module.AccountView,
@@ -424,6 +430,13 @@ export default function App() {
             onChooseStyle={handleChooseStyle}
             onViewPublishedSite={handleViewPublishedSite}
           />
+        </Suspense>
+      )}
+
+      {/* 2b. HET OVERZICHT VAN KLUSBAAS (intern, achter een wachtwoord) */}
+      {route.name === 'admin' && (
+        <Suspense fallback={<PageFallback label="Overzicht laden…" />}>
+          <AdminView />
         </Suspense>
       )}
 

@@ -159,6 +159,7 @@ async function main() {
       'Disallow: /start/',
       'Disallow: /offerte/',
       'Disallow: /kaart',
+      'Disallow: /klusbaas',
       '',
       `Sitemap: ${siteUrl}/sitemap.xml`,
       `Sitemap: ${siteUrl}/sitemap-sites.xml`,
