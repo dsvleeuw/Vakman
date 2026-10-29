@@ -9,7 +9,13 @@ import type {
 } from '../types';
 import { isBlockId, isContentBlockId } from '../data/blocks';
 import { isSectorId, isStyleId } from '../utils/router';
-import { sanitizeServices, sanitizeSiteContent, sanitizeWorkArea } from '../utils/siteContent';
+import {
+  sanitizePhoto,
+  sanitizeServices,
+  sanitizeSiteContent,
+  sanitizeWork,
+  sanitizeWorkArea,
+} from '../utils/siteContent';
 import { siteChecklist } from '../utils/publishedContent';
 import { buildPublishMail } from '../utils/accountMail';
 import type { SiteStorage } from './storage';
@@ -50,6 +56,8 @@ export interface PublishSiteBody {
   confirmed?: ContentBlockId[];
   services?: SiteContent['services'];
   workArea?: SiteContent['workArea'];
+  heroPhoto?: SiteContent['heroPhoto'];
+  work?: SiteContent['work'];
   text: SiteContent['text'];
 }
 
@@ -170,6 +178,8 @@ export function validatePublishBody(
   // prices and no postcode check.
   const services = sanitizeServices(body.services);
   const workArea = sanitizeWorkArea(body.workArea);
+  const heroPhoto = sanitizePhoto(body.heroPhoto);
+  const work = sanitizeWork(body.work);
 
   return {
     ok: true,
@@ -192,6 +202,8 @@ export function validatePublishBody(
       confirmed,
       ...(services.length ? { services } : {}),
       ...(workArea.length ? { workArea } : {}),
+      ...(heroPhoto ? { heroPhoto } : {}),
+      ...(work.length ? { work } : {}),
       text: { ...text },
     },
   };
@@ -265,6 +277,8 @@ export async function handlePublishSite(
     confirmed: data.confirmed,
     ...(data.services?.length ? { services: data.services } : {}),
     ...(data.workArea?.length ? { workArea: data.workArea } : {}),
+    ...(data.heroPhoto ? { heroPhoto: data.heroPhoto } : {}),
+    ...(data.work?.length ? { work: data.work } : {}),
     text: data.text,
     timestamp: now,
     updatedAt: now,
@@ -382,6 +396,8 @@ export function contentOfSite(record: PublishedSiteRecord): SiteContent | null {
     confirmed: record.confirmed,
     services: record.services,
     workArea: record.workArea,
+    heroPhoto: record.heroPhoto,
+    work: record.work,
     text: record.text,
   });
   return content;

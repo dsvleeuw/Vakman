@@ -322,6 +322,16 @@ export interface SiteContent {
    * of the trade example.
    */
   workArea?: string[];
+  /**
+   * The photo at the top of his page. It is an address on our own server
+   * (`/api/media?key=…`), never a link to a photo of somebody else.
+   */
+  heroPhoto?: string;
+  /**
+   * His own projects with his own photos. The work of the trade preset is
+   * demo material and never goes on his page.
+   */
+  work?: WorkProject[];
   /** Enabled blocks, in the order they appear on the page. */
   blocks: BlockId[];
   /** Editable copy per content block. */
@@ -591,6 +601,10 @@ export interface PublishedSiteRecord {
   services?: ServiceOffer[];
   /** The postcodes where the craftsman works. */
   workArea?: string[];
+  /** The photo at the top of the page. */
+  heroPhoto?: string;
+  /** The projects of the craftsman, with his own photos. */
+  work?: WorkProject[];
   /** The copy of the page itself. */
   text: SiteText;
   /** When the site was first published. */

@@ -34,6 +34,10 @@ export interface PublishSiteInput {
   services?: SiteContent['services'];
   /** The postcodes where the craftsman works. */
   workArea?: SiteContent['workArea'];
+  /** The photo at the top of the page. */
+  heroPhoto?: SiteContent['heroPhoto'];
+  /** The projects of the craftsman, with his own photos. */
+  work?: SiteContent['work'];
   text: SiteText;
 }
 

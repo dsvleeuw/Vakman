@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import type { Account, AccountSession, PublishedSiteRecord, StoredLead } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
+import { contentTypeFor, type MediaStorage } from './mediaHandler';
 
 /**
  * Where quotes and leads are kept. Production uses Netlify Blobs (store
@@ -45,6 +46,55 @@ export interface SiteStorage {
   getSite(slug: string): Promise<PublishedSiteRecord | null>;
   /** Every published site, for the sitemap. */
   listSites(): Promise<PublishedSiteRecord[]>;
+}
+
+/**
+ * File storage for photos in development: `.data/media`. Production uses the
+ * Blobs store `media` (see `createBlobMediaStorage`).
+ */
+export function createFileMediaStorage(root: string): MediaStorage {
+  const mediaDir = path.join(root, 'media');
+  const safe = (key: string) => key.replace(/[^A-Za-z0-9.-]/g, '');
+
+  return {
+    async saveMedia(key, data) {
+      await mkdir(mediaDir, { recursive: true });
+      const file = path.join(mediaDir, safe(key));
+      await writeFile(file, data);
+      return file;
+    },
+    async getMedia(key) {
+      try {
+        const data = await readFile(path.join(mediaDir, safe(key)));
+        return { data: new Uint8Array(data), contentType: contentTypeFor(key) };
+      } catch {
+        return null;
+      }
+    },
+  };
+}
+
+/** Netlify Blobs storage for photos (store `media`). */
+export async function createBlobMediaStorage(): Promise<MediaStorage> {
+  const { getStore } = await import('@netlify/blobs');
+  const media = getStore({ name: 'media', consistency: 'strong' });
+
+  return {
+    async saveMedia(key, data, contentType) {
+      // Blobs wants a Blob or a string, so the bytes go in a Blob.
+      const blob = new Blob([data as BlobPart], { type: contentType });
+      await media.set(key, blob);
+      return `blobs:media/${key}`;
+    },
+    async getMedia(key) {
+      const blob = await media.get(key, { type: 'blob' });
+      if (!blob) return null;
+      return {
+        data: new Uint8Array(await blob.arrayBuffer()),
+        contentType: blob.type || contentTypeFor(key),
+      };
+    },
+  };
 }
 
 /** File storage for local development: `.data/quotes` and `.data/leads`. */

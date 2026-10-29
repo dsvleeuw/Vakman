@@ -169,6 +169,42 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
 
       // Published sites: publish or read them, with the same handlers the
       // Netlify Function uses. Sites land in `.data/sites` in dev.
+      // Foto's van de vakman: opslaan en weer serveren, net als in productie.
+      server.middlewares.use('/api/media', async (req, res) => {
+        const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
+        const mediaHandler = await server.ssrLoadModule('/src/server/mediaHandler.ts');
+        const { createFileMediaStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const storage = createFileMediaStorage(path.resolve(__dirname, '.data'));
+
+        if (req.method === 'GET') {
+          const result = await mediaHandler.handleGetMedia(url.searchParams, { storage });
+          if (result.status !== 200 || !result.body) {
+            res.statusCode = result.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ ok: false }));
+            return;
+          }
+          res.statusCode = 200;
+          res.setHeader('Content-Type', result.contentType);
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          res.end(Buffer.from(result.body));
+          return;
+        }
+        if (req.method !== 'POST') {
+          return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        }
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const result = await mediaHandler.handleUploadMedia(body, { storage });
+        reply(res, result.status, result.body);
+      });
+
       server.middlewares.use('/api/site', async (req, res) => {
         const url = new URL(req.originalUrl ?? req.url ?? '', 'http://localhost');
         const siteHandler = await server.ssrLoadModule('/src/server/siteHandler.ts');

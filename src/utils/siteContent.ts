@@ -13,6 +13,7 @@ import type {
   SectorId,
   ServiceAreasContent,
   ServiceOffer,
+  WorkProject,
   SiteContent,
   SiteText,
   StyleId,
@@ -273,6 +274,36 @@ export function sanitizeServices(raw: unknown): ServiceOffer[] {
   return services;
 }
 
+/** The photo of the craftsman. Only our own photo address is allowed. */
+export function sanitizePhoto(raw: unknown): string | undefined {
+  if (typeof raw !== 'string') return undefined;
+  const value = raw.trim();
+  if (!/^\/api\/media\?key=[a-z0-9-]{6,64}\.(jpg|png|webp)$/.test(value)) return undefined;
+  return value;
+}
+
+/**
+ * The projects of the craftsman with his own photos. A project without a
+ * title is not a project; a photo is only kept when it is one of ours.
+ */
+export function sanitizeWork(raw: unknown): WorkProject[] {
+  if (!Array.isArray(raw)) return [];
+  const work: WorkProject[] = [];
+  for (const entry of raw) {
+    if (!isRecord(entry)) continue;
+    const title = asString(entry.t).trim();
+    if (!title) continue;
+    const photo = sanitizePhoto(entry.img);
+    work.push({
+      t: title,
+      c: asString(entry.c).trim(),
+      y: asString(entry.y).trim(),
+      ...(photo ? { img: photo } : {}),
+    });
+  }
+  return work;
+}
+
 /** The postcodes where the craftsman works. */
 export function sanitizeWorkArea(raw: unknown): string[] {
   const workArea: string[] = [];
@@ -331,6 +362,10 @@ export function sanitizeSiteContent(raw: unknown): SiteContent | null {
   // The services the craftsman wrote himself.
   const services = sanitizeServices(raw.services);
 
+  // His own photo and his own projects.
+  const heroPhoto = sanitizePhoto(raw.heroPhoto);
+  const work = sanitizeWork(raw.work);
+
   const confirmed: ContentBlockId[] = Array.isArray(raw.confirmed)
     ? raw.confirmed.filter(isContentBlockId)
     : [];
@@ -356,6 +391,8 @@ export function sanitizeSiteContent(raw: unknown): SiteContent | null {
     disabledServices,
     ...(services.length ? { services } : {}),
     ...(workArea.length ? { workArea } : {}),
+    ...(heroPhoto ? { heroPhoto } : {}),
+    ...(work.length ? { work } : {}),
     blocks,
     blockContent,
     confirmed,
