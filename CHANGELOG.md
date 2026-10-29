@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Klusbaas kan een openstaande offerte opvolgen.** Bij een open
+  offerte staat in `/klusbaas` een knop "Stuur een herinnering". De klant
+  krijgt een mail met de link naar de offerte, het bedrag en de IBAN weer
+  bij, zodat hij niets hoeft op te zoeken.
+- **Verlopen offertes zijn zichtbaar.** Een offerte is dertig dagen
+  geldig. In het overzicht staat daarna "Verlopen", zodat Klusbaas weet
+  dat hij een nieuwe offerte moet schrijven in plaats van de oude prijs
+  te beloven.
 - **De klant krijgt een factuur als hij betaalt.** Zodra Klusbaas een
   offerte als "betaald" markeert, krijgt de klant een factuur als PDF
   (`F-2026-0001`, volgend op het offertenummer) in zijn mailbox, met de

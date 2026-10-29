@@ -172,8 +172,14 @@ to [ROADMAP.md](../ROADMAP.md).
   when the money arrives. There is no payment provider and no automatic
   check, so a customer who transfers the money on Friday evening is not
   confirmed until Monday.
-- **There is no reminder.** An offer that stays open gets no chase, and an
-  offer that expires is not withdrawn by itself.
+- **The reminder is by hand.** In `/klusbaas` there is a button "Stuur een
+  herinnering" for every open offer: the customer gets a mail with the link
+  to the offer, the amount and the IBAN again. Nothing goes out on its own,
+  and there is no second reminder that says "this is your last chance".
+- **An expired offer is not withdrawn by itself.** An offer is valid for
+  thirty days; the overview shows "Verlopen" so Klusbaas knows the price is
+  no longer a promise. The customer may still accept the old offer, and
+  Klusbaas writes a new one when the price has changed.
 
 ## The offer Klusbaas writes himself
 

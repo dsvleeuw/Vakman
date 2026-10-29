@@ -232,6 +232,20 @@ export function buildQuoteRecord(input: {
   };
 }
 
+/**
+ * True when the offer is past its validity date.
+ *
+ * An offer is valid for thirty days. After that the price is no longer a
+ * promise, so Klusbaas has to write a new one. The customer may still
+ * accept the old one — the price has not changed — but the overview shows
+ * that it is expired.
+ */
+export function isQuoteExpired(record: { validUntil: string }, now: Date = new Date()): boolean {
+  const until = Date.parse(record.validUntil);
+  if (Number.isNaN(until)) return false;
+  return until < now.getTime();
+}
+
 /** Shareable path of a stored quote. */
 export function buildQuotePath(id: string, token: string): string {
   return `/offerte/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`;

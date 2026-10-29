@@ -558,6 +558,8 @@ export interface AdminQuote extends AccountQuote {
   customerEmail?: string;
   customerPhone: string;
   city: string;
+  /** True when the offer is past its validity date. */
+  expired: boolean;
 }
 
 /** A customer account as the Klusbaas overview shows it. */

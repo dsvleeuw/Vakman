@@ -8,12 +8,13 @@ import type {
   PaymentDetails,
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
-import { buildQuotePath } from '../utils/quote';
+import { buildQuotePath, isQuoteExpired } from '../utils/quote';
 import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
 import { createOfferForCustomer, type OfferRequest } from './adminOffer';
 import type { AccountMail } from './accountMailer';
 import { sendPaidNotice } from './paidNotice';
+import { remindQuote } from './remindQuote';
 
 /**
  * The Klusbaas overview: what Klusbaas needs to see to sell and to serve.
@@ -31,6 +32,7 @@ export type AdminAction =
   | 'logout'
   | 'overview'
   | 'quote-status'
+  | 'remind-quote'
   | 'verify-account'
   | 'create-quote';
 
@@ -48,6 +50,8 @@ export interface AdminResponseBody {
   quote?: AdminCreatedQuote;
   /** What happened with the invoice mail when an offer was marked as paid. */
   mailStatus?: string;
+  /** What happened with the reminder mail. */
+  reminderStatus?: string;
   error?: string;
   field?: string;
 }
@@ -151,7 +155,7 @@ export async function adminFromSession(
   return { id: session.id };
 }
 
-function toAdminQuote(quote: QuoteRecord): AdminQuote {
+function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
   return {
     id: quote.id,
     createdAt: quote.createdAt,
@@ -171,6 +175,7 @@ function toAdminQuote(quote: QuoteRecord): AdminQuote {
     ...(quote.customer.email ? { customerEmail: quote.customer.email } : {}),
     customerPhone: quote.customer.phone,
     city: quote.customer.city,
+    expired: isQuoteExpired(quote, now),
   };
 }
 
@@ -195,9 +200,10 @@ export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
   const leads = [...(await deps.leads.listLeads())].sort((a, b) =>
     a.createdAt < b.createdAt ? 1 : -1
   );
+  const now = new Date(deps.now ? deps.now() : Date.now());
   const quotes = (await deps.leads.listQuotes())
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-    .map(toAdminQuote);
+    .map((quote) => toAdminQuote(quote, now));
   const accounts: AdminAccount[] = deps.accounts
     ? (await deps.accounts.listAccounts()).map((account) => ({
         id: account.id,
@@ -300,6 +306,29 @@ export async function handleAdmin(
       }
     }
     return { status: 200, body: { ok: true, ...(mailed ? { mailStatus: mailed } : {}) } };
+  }
+
+  if (action === 'remind-quote') {
+    // Klusbaas volgt een openstaande offerte op: de klant krijgt een
+    // herinnering met de link naar de offerte.
+    const id = typeof body.id === 'string' ? body.id : '';
+    if (!id) {
+      return { status: 400, body: { ok: false, error: 'Onbekende offerte.' } };
+    }
+    const record = await deps.leads.getQuote(id);
+    if (!record) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    const result = await remindQuote(record, {
+      ...(deps.sendMail ? { sendMail: deps.sendMail } : {}),
+      ...(deps.payment ? { payment: deps.payment } : {}),
+      ...(deps.siteUrl ? { siteUrl: deps.siteUrl } : {}),
+      log,
+    });
+    if (!result.ok) {
+      return { status: 400, body: { ok: false, error: result.error } };
+    }
+    return { status: 200, body: { ok: true, reminderStatus: result.mailStatus } };
   }
 
   if (action === 'verify-account') {
