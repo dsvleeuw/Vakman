@@ -10,6 +10,8 @@ import type {
 import { isBlockId, isContentBlockId } from '../data/blocks';
 import { isSectorId, isStyleId } from '../utils/router';
 import { sanitizeSiteContent } from '../utils/siteContent';
+import { siteChecklist } from '../utils/publishedContent';
+import { buildPublishMail } from '../utils/accountMail';
 import type { SiteStorage } from './storage';
 import { createToken, tokensMatch } from './tokens';
 
@@ -68,6 +70,13 @@ export interface SiteHandlerDeps {
   siteUrl: string;
   /** The logged-in account, if there is one. It owns the sites it publishes. */
   ownerId?: string;
+  /** The e-mail address of the owner, when he is logged in. */
+  ownerEmail?: string;
+  /**
+   * Sends the welcome mail after the first publish. Without it no mail is
+   * sent; the site is published all the same.
+   */
+  sendMail?: (mail: { to: string; subject: string; text: string; html: string }) => Promise<string>;
   now?: () => number;
   createToken?: () => string;
   log?: (message: string) => void;
@@ -251,6 +260,13 @@ export async function handlePublishSite(
 
   await deps.storage.saveSite(record);
 
+  // Na de eerste publicatie krijgt de vakman een mail: zijn adres, wat er
+  // werkt en wat hij nog even moet nakijken. Zonder mailer gaat de site gewoon
+  // live; de mail is een extra, geen voorwaarde.
+  if (created) {
+    await sendWelcomeMail(record, deps);
+  }
+
   return {
     status: 200,
     body: {
@@ -262,6 +278,35 @@ export async function handlePublishSite(
       created,
     },
   };
+}
+
+/** The welcome mail after the first publish. */
+async function sendWelcomeMail(record: PublishedSiteRecord, deps: SiteHandlerDeps): Promise<void> {
+  const to = deps.ownerEmail ?? record.form.email;
+  if (!to || !deps.sendMail) return;
+  const checklist = siteChecklist({
+    version: 1,
+    sector: record.sector,
+    styleId: record.styleId,
+    form: record.form,
+    disabledServices: record.disabledServices,
+    blocks: record.blocks,
+    blockContent: record.blockContent,
+    ...(record.confirmed ? { confirmed: record.confirmed } : {}),
+    text: record.text,
+  });
+  const mail = buildPublishMail({
+    biz: record.form.biz || record.slug,
+    siteUrl: `${deps.siteUrl}/site/${record.slug}`,
+    manageUrl: `${deps.siteUrl}/mijn-site/${record.slug}?token=${record.token}`,
+    checklist: checklist.map((item) => ({ label: item.label, hint: item.hint })),
+  });
+  try {
+    const status = await deps.sendMail({ to, ...mail });
+    deps.log?.(`[site] welkomstmail naar ${to}: ${status}`);
+  } catch (error) {
+    deps.log?.(`[site] welkomstmail mislukt: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 /** The parts of a site any visitor may see. The token never leaves here. */

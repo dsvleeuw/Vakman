@@ -215,3 +215,62 @@ test('het beheertoken komt niet in de publieke versie van een site', () => {
   assert.equal((publicSite as { token?: string }).token, undefined);
   assert.equal((publicSite as { channel?: string }).channel, undefined);
 });
+
+test('na de eerste publicatie gaat er een welkomstmail met het adres', async () => {
+  const storage = memoryStorage();
+  const mails: { to: string; subject: string; text: string; html: string }[] = [];
+  const result = await handlePublishSite(body, {
+    storage,
+    siteUrl: 'https://klusbaas.nl',
+    ownerId: 'account-1',
+    ownerEmail: 'jan@example.nl',
+    sendMail: async (mail) => {
+      mails.push(mail);
+      return 'sent';
+    },
+  });
+  assert.equal(result.status, 200);
+  assert.equal(mails.length, 1);
+  const mail = mails[0];
+  assert.equal(mail.to, 'jan@example.nl');
+  assert.match(mail.text, /klusbaas\.nl\/site\/jansen-schilderwerken/);
+  assert.match(mail.text, /contactformulier/);
+});
+
+test('een tweede publicatie stuurt geen welkomstmail meer', async () => {
+  const storage = memoryStorage();
+  const mails: { to: string; subject: string; text: string; html: string }[] = [];
+  const deps = {
+    storage,
+    siteUrl: 'https://klusbaas.nl',
+    ownerId: 'account-1',
+    ownerEmail: 'jan@example.nl',
+    sendMail: async (mail: { to: string; subject: string; text: string; html: string }) => {
+      mails.push(mail);
+      return 'sent';
+    },
+  };
+  const created = await handlePublishSite(body, deps);
+  assert.equal(created.status, 200);
+  const updated = await handlePublishSite(
+    { ...body, slug: 'jansen-schilderwerken', token: created.body.token },
+    deps
+  );
+  assert.equal(updated.status, 200);
+  assert.equal(mails.length, 1);
+});
+
+test('zonder e-mailadres gaat er geen welkomstmail', async () => {
+  const storage = memoryStorage();
+  const mails: unknown[] = [];
+  const result = await handlePublishSite(body, {
+    storage,
+    siteUrl: 'https://klusbaas.nl',
+    sendMail: async (mail) => {
+      mails.push(mail);
+      return 'sent';
+    },
+  });
+  assert.equal(result.status, 200);
+  assert.equal(mails.length, 0);
+});

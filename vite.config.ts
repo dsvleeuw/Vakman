@@ -202,10 +202,14 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         } catch {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
+        const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
         const result = await siteHandler.handlePublishSite(body, {
           storage,
           siteUrl,
-          ...(account ? { ownerId: account.id } : {}),
+          ...(account ? { ownerId: account.id, ownerEmail: account.email } : {}),
+          // Na de eerste publicatie gaat er een mail met het adres en wat er
+          // nog moet gebeuren.
+          sendMail: createAccountMailer(env, (message: string) => server.config.logger.info(message)),
         });
         reply(res, result.status, result.body);
       });

@@ -158,6 +158,10 @@ result. The Netlify deploy preview is the only external CI check. If
   transfer to `PAYMENT_IBAN` with the quote number as the description; there
   is no payment provider. The payment details come from the environment
   (`src/server/payment.ts`), never from the request.
+- After the first publish the customer gets a welcome mail (his address,
+  what happens with a request and the points of his checklist). It is built
+  in `src/utils/accountMail.ts` and sent by `src/server/accountMailer.ts`;
+  publishing never depends on it.
 - A customer can reset his password himself: `POST /api/account` with the
   actions `reset-request`, `reset`, `verify` and `verify-request`. The reset
   answer is the same for an unknown address, the link works for an hour and
