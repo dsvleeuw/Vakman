@@ -18142,7 +18142,7 @@ Fase 7: Klusbaas kan zelf verkopen","7","1","FALSE","767","603","7b07bf5c5284c2f
 "AdminQuoteForm.test.tsx","src/components/AdminQuoteForm.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Toegevoegd","A","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","86","0","FALSE","2463","","2c82bba551123e3c365f4e40798df4129c1a536c","","100644","","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/components/AdminQuoteForm.test.tsx","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL2NvbXBvbmVudHMvQWRtaW5RdW90ZUZvcm0udGVzdC50c3g","p:c3JjL2NvbXBvbmVudHMvQWRtaW5RdW90ZUZvcm0udGVzdC50c3g",""
-"AdminQuoteForm.tsx","src/components/AdminQuoteForm.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Toegevoegd","A","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
+"AdminQuoteForm.tsx","src/components/AdminQuoteForm.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Toegevoegd","A","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","398","0","FALSE","13938","","d8a95778e2f677ed03be10bba983ea1e32fc111c","","100644","","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/components/AdminQuoteForm.tsx","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL2NvbXBvbmVudHMvQWRtaW5RdW90ZUZvcm0udHN4","p:c3JjL2NvbXBvbmVudHMvQWRtaW5RdW90ZUZvcm0udHN4",""
 "AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
@@ -18166,7 +18166,7 @@ Fase 7: Klusbaas kan zelf verkopen","46","3","FALSE","11499","9882","aa8c62b4e29
 "adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Toegevoegd","A","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","414","0","FALSE","12590","","c95deeae8cd48f0b8f29c41ad034c593b1a407b2","","100644","","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/server/adminOffer.test.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
-"adminOffer.ts","src/server/adminOffer.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Toegevoegd","A","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
+"adminOffer.ts","src/server/adminOffer.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Toegevoegd","A","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","252","0","FALSE","9180","","5e532a0f7ccedff81e86ec4953fba86b19c36723","","100644","","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/server/adminOffer.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRz","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRz",""
 "leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
@@ -19172,7 +19172,7 @@ opnieuw schrijven.
   een nieuwe offerte moet schrijven.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","68","0","FALSE","2376","","16bf51439b0868dd63e65296468966fcdb0b9e0a","","100644","","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/server/remindQuote.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50cw","p:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50cw",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
 
 Een offerte die open blijft staan is een offerte waar niemand ja tegen
 zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
@@ -19228,7 +19228,7 @@ opnieuw schrijven.
   een nieuwe offerte moet schrijven.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","0","FALSE","8579","8050","e17fb2f3f1cc22bb265ad581da804630f0648521","50c22ab7e6b7a425624f21f90edec84db6e1b383","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/utils/quote.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19244,7 +19244,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","1","FALSE","14297","14161","e4afa35ecc67f24e3581d205a6b96a6b01868b42","2777fb369231d79dda30c54a14f166ae653fcb73","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/AGENTS.md","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19260,7 +19260,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","36355","35965","dac14ef1af32a9a3d84c1a549e0fa2839d56327f","63f6787eb5d31cd9b1993f02f843983595aa4b50","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/CHANGELOG.md","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19276,7 +19276,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","1","FALSE","17467","17054","b01830b9175077bf4e102d7d5febc77ffbaa3863","7e6dead3bfe766960d37dba340ce03a84112ffc6","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/ROADMAP.md","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19292,7 +19292,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","3","FALSE","20614","20528","0179f86c0f78d3cfbb9e9a771c19d7566c15e77f","4f96d286a6fb2fe706ea6e3c1bfad379edc50bc5","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/docs/known-limitations.md","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19308,7 +19308,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","11","2","FALSE","12238","11590","4b596ae583190776198cc3df211541e98ae3f9fd","85342db8e3eda977eba2974818de3b84588875cc","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/docs/selling-readiness.md","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
-"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19340,7 +19340,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","18","2","FALSE","16046","15041","a4aec40e528d4012ff48c1da641c47b705cc202e","0bd334788fbd1130b508e7a3305a3a49cc134acb","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/src/components/QuoteView.tsx","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA",""
-"README.md","src/server/README.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"README.md","src/server/README.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19420,7 +19420,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","40","0","FALSE","14844","13447","a8530f82f4195c62749f7d3f59f6c072b421a014","c1f1faf7369e4cf458a72dbbd86e09f34edd890d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/src/server/adminHandler.test.ts","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
-"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19436,7 +19436,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","28","1","FALSE","14993","13765","85731628873f479a8be1a2b168693d803ef7fc9d","929be8142c9f8403564c5d0e87d6eb950f016d15","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/src/server/adminHandler.ts","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
-"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19516,7 +19516,7 @@ en de pagina noemde een datum die al voorbij was.
   dagen te verlengen als de prijs nog klopt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","3447","3163","e016933ce319df76cd2af86c06eeada8d7a0363c","a2fb9b87fcaffe647f116a002b16b7906f08df1f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e2fe535410883e1cbbead4b3ac3242394f4bc9c8","https://github.com/dsvleeuw/Vakman/blob/e2fe535410883e1cbbead4b3ac3242394f4bc9c8/src/utils/adminClient.ts","Commit","2026-10-29T07:57:02.154Z","e2fe535410883e1cbbead4b3ac3242394f4bc9c8:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz","p:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz",""
-"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","e2fe535410883e1cbbead4b3ac3242394f4bc9c8","e2fe53541088","[""750bdf98f06abb8d38b44ff0fbf08d80f2e96bee""]","2026-10-29T07:56:47Z","2026-10-29T07:56:47Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat een verlopen offerte zien dat hij verlopen is","Laat een verlopen offerte zien dat hij verlopen is
 
 Een offerte is dertig dagen geldig, maar de pagina zei altijd ""geldig tot
 28 november"" en hield de knop ""Ja, ik ga akkoord"", hoe oud de offerte ook
@@ -19601,3 +19601,185 @@ Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","65","0","FALSE","22173
 "quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","23","1","FALSE","8789","8050","ef599716ca880638bdb3c11baa8ef5f180abfdda","50c22ab7e6b7a425624f21f90edec84db6e1b383","100644","100644","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/utils/quote.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","14450","14297","969045350528a5ba67cc94444fef1dc46f194dfe","e4afa35ecc67f24e3581d205a6b96a6b01868b42","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/AGENTS.md","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","5","0","FALSE","36676","36355","8c4f6c15e0c50b5c818f0723d724db52e858fe65","dac14ef1af32a9a3d84c1a549e0fa2839d56327f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/CHANGELOG.md","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","18030","17467","c0bf774069c86acb2e3b6cb6aeccd1d51f7feb58","b01830b9175077bf4e102d7d5febc77ffbaa3863","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/ROADMAP.md","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","21092","20614","e47e0ac4829b12a9ba1b9cb37dd9f80e6bf20a85","0179f86c0f78d3cfbb9e9a771c19d7566c15e77f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/docs/known-limitations.md","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","3","FALSE","12836","12238","d21adca15cf4494e6931aa1aff35c7689581e5ca","4b596ae583190776198cc3df211541e98ae3f9fd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/docs/selling-readiness.md","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
+"AdminQuoteForm.tsx","src/components/AdminQuoteForm.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","29","1","FALSE","15121","13938","103f6b5cb4533fdd2b39d3e0352d7cd6d733a4c7","d8a95778e2f677ed03be10bba983ea1e32fc111c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/components/AdminQuoteForm.tsx","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL2NvbXBvbmVudHMvQWRtaW5RdW90ZUZvcm0udHN4","p:c3JjL2NvbXBvbmVudHMvQWRtaW5RdW90ZUZvcm0udHN4",""
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","16","2","FALSE","20529","19903","9c1c8ab286aa0c9d4451861268428be700be739d","b09bd866f95a4d7ca8ef359e1613571aceb1281d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/components/AdminView.tsx","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA",""
+"README.md","src/server/README.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","5231","4979","441ba8ffae29441888629f51f8e8aac4588627f2","22c07c5adc4121f94f14cc5135a63ec2504d3e01","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/server/README.md","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","15069","14993","39cf331d25ce96888ffde1defa1cfa5382b89f0f","85731628873f479a8be1a2b168693d803ef7fc9d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/server/adminHandler.ts","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
+"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","20","0","FALSE","13392","12812","7b497dac27f044bde7330c168cb152c1b23fbb71","4da38e4bd00153ca02d9fdfea1bcff80139d9dea","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/server/adminOffer.test.ts","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
+"adminOffer.ts","src/server/adminOffer.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","9236","9180","0d5dae9e2766db1cec98a1a072b924e2c76e77a6","5e532a0f7ccedff81e86ec4953fba86b19c36723","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/server/adminOffer.ts","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRz","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRz",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","0","FALSE","17835","17727","6a3287f0332a25a41d6ed3ec06e90665aa95930b","5ab8afd02d2fc9bdc5051def801eec7a5df5c824","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/types.ts","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","aa9b0125d6422957eb4d243b284ce07cb387394b","aa9b0125d642","[""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T08:01:15Z","2026-10-29T08:01:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Maak van een aanvraag en haar offerte één ding","Maak van een aanvraag en haar offerte één ding
+
+Het overzicht toonde de aanvragen en de offertes naast elkaar, met niets
+ertussen. Klusbaas kon dus niet zien dat een aanvraag al een offerte had,
+en schreef dezelfde offerte nog een keer.
+
+- De offerte onthoudt de aanvraag waarvoor hij gemaakt is
+  (`leadReference`).
+- Bij de aanvraag in `/klusbaas` staat welke offerte er al is, met een
+  link naar die offerte.
+- In het formulier ""Offerte maken"" staat ""al een offerte"" bij zo'n
+  aanvraag, zodat Klusbaas het ziet voordat hij op ""Offerte maken"" klikt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","9209","8789","1e36aabf5b515afd0ab14a9353527a3f91c428e8","ef599716ca880638bdb3c11baa8ef5f180abfdda","100644","100644","https://github.com/dsvleeuw/Vakman/commit/aa9b0125d6422957eb4d243b284ce07cb387394b","https://github.com/dsvleeuw/Vakman/blob/aa9b0125d6422957eb4d243b284ce07cb387394b/src/utils/quote.ts","Commit","2026-10-29T08:01:31.443Z","aa9b0125d6422957eb4d243b284ce07cb387394b:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
