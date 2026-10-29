@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import type { PublicPublishedSite } from '../types';
 import { SECTORS, buildActiveSite } from '../data/tradesData';
 import { styleIndexFromId } from '../utils/router';
-import { applySiteContent, sanitizeSiteContent } from '../utils/siteContent';
+import { sanitizeSiteContent } from '../utils/siteContent';
+import { publishedSite } from '../utils/publishedContent';
 import { publishedMeta } from '../utils/publishedMeta';
 import { fetchPublishedSite } from '../utils/siteClient';
 import { initialPublishedSite } from '../ssr/publishedSite';
@@ -109,10 +110,11 @@ export const PublishedSiteView: React.FC<PublishedSiteViewProps> = ({ slug }) =>
       disabledServices: site.disabledServices,
       blocks: site.blocks,
       blockContent: site.blockContent,
+      confirmed: site.confirmed,
       text: site.text,
     });
     if (!content) return null;
-    const active = applySiteContent(
+    const active = publishedSite(
       buildActiveSite(
         site.sector,
         styleIndexFromId(site.styleId),

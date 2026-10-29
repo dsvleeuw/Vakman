@@ -1,5 +1,6 @@
 import type {
   BlockId,
+  ContentBlockId,
   PublishedSiteRecord,
   PublicPublishedSite,
   SectorId,
@@ -44,6 +45,7 @@ export interface PublishSiteBody {
   disabledServices: Record<number, boolean>;
   blocks: BlockId[];
   blockContent: SiteContent['blockContent'];
+  confirmed?: ContentBlockId[];
   text: SiteContent['text'];
 }
 
@@ -138,6 +140,10 @@ export function validatePublishBody(
     ? (body.blockContent as SiteContent['blockContent'])
     : {};
 
+  const confirmed = Array.isArray(body.confirmed)
+    ? body.confirmed.filter(isContentBlockId)
+    : [];
+
   const text = (isRecord(body.text) ? body.text : {}) as unknown as SiteContent['text'];
 
   const disabledServices: Record<number, boolean> = {};
@@ -166,6 +172,7 @@ export function validatePublishBody(
       disabledServices,
       blocks,
       blockContent,
+      confirmed,
       text: { ...text },
     },
   };
@@ -236,6 +243,7 @@ export async function handlePublishSite(
     disabledServices: data.disabledServices,
     blocks: data.blocks,
     blockContent: data.blockContent,
+    confirmed: data.confirmed,
     text: data.text,
     timestamp: now,
     updatedAt: now,
@@ -314,6 +322,7 @@ export function contentOfSite(record: PublishedSiteRecord): SiteContent | null {
     disabledServices: record.disabledServices,
     blocks: record.blocks,
     blockContent: record.blockContent,
+    confirmed: record.confirmed,
     text: record.text,
   });
   return content;

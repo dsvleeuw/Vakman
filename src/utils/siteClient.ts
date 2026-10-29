@@ -1,4 +1,12 @@
-import type { BlockContentMap, PublicPublishedSite, SectorId, SiteText, StyleId, WizardFormData } from '../types';
+import type {
+  BlockContentMap,
+  ContentBlockId,
+  PublicPublishedSite,
+  SectorId,
+  SiteText,
+  StyleId,
+  WizardFormData,
+} from '../types';
 
 /**
  * The client's side of publishing a site.
@@ -19,6 +27,8 @@ export interface PublishSiteInput {
   disabledServices: Record<number, boolean>;
   blocks: string[];
   blockContent: Partial<BlockContentMap>;
+  /** The blocks the craftsman confirmed as his own text. */
+  confirmed?: ContentBlockId[];
   text: SiteText;
 }
 

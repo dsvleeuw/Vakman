@@ -9,8 +9,10 @@ import {
   moveBlock,
   moveBlockTo,
   sanitizeSiteContent,
+  setBlockConfirmed,
   setBlockEnabled,
 } from '../../utils/siteContent';
+import { publishedSite, siteChecklist } from '../../utils/publishedContent';
 import { fetchPublishedSite, publishSite } from '../../utils/siteClient';
 import { fetchAccount, type AccountInfo } from '../../utils/accountClient';
 import {
@@ -58,6 +60,9 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
   const [openBlock, setOpenBlock] = useState<ContentBlockId | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [device, setDevice] = useState<'desktop' | 'mobiel'>('desktop');
+  // Standaard zie je wat een bezoeker ziet. Het volledige voorbeeld staat
+  // er ook, want zo zie je wat je site zou kunnen worden.
+  const [previewMode, setPreviewMode] = useState<'live' | 'example'>('live');
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const dragId = useRef<BlockId | null>(null);
 
@@ -97,6 +102,15 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
       ),
     [sector, styleId, content]
   );
+
+  /**
+   * The site as visitors will see it: only what the craftsman wrote or
+   * supplied. The example copy of the trade stays out.
+   */
+  const publicSite = useMemo(() => publishedSite(liveSite, content), [liveSite, content]);
+
+  /** What still has to be filled in before the site is really his. */
+  const checklist = useMemo(() => siteChecklist(content), [content]);
 
   useEffect(() => {
     setSavedAt(Date.now());
@@ -206,6 +220,11 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
     });
   };
 
+  /** The craftsman says: this text is mine, put it on my site. */
+  const setConfirmed = (confirmed: ContentBlockId[]) => {
+    update({ ...content, confirmed });
+  };
+
   // In a published site the trade and style belong to the site itself; in a
   // draft every trade keeps its own version.
   const handleSectorChange = (next: SectorId) => {
@@ -229,6 +248,7 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
       form: content.form,
       disabledServices: content.disabledServices,
       blocks: content.blocks,
+      confirmed: content.confirmed ?? [],
       blockContent: content.blockContent,
       text: content.text,
     });
@@ -358,6 +378,14 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
               >
                 Telefoon
               </button>
+              <button
+                type="button"
+                onClick={() => setPreviewMode(previewMode === 'live' ? 'example' : 'live')}
+                className="h-9 px-3 rounded-full text-sm font-bold border-2 border-stone-300 hover:border-stone-900"
+                aria-pressed={previewMode === 'example'}
+              >
+                {previewMode === 'live' ? 'Volledig voorbeeld' : 'Zo zien bezoekers je site'}
+              </button>
             </div>
 
             <div
@@ -366,7 +394,7 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
               }`}
             >
               <SiteView
-                site={liveSite}
+                site={previewMode === 'live' ? publicSite : liveSite}
                 selectedSector={sector}
                 selectedStyleIndex={styleIndexFromId(styleId)}
                 embedded
@@ -648,6 +676,26 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                               }
                               onChange={(value) => setBlockContent(id, value)}
                             />
+                            <label className="mt-4 flex items-start gap-2 text-sm text-stone-700">
+                              <input
+                                type="checkbox"
+                                checked={(content.confirmed ?? []).includes(id)}
+                                onChange={(event) =>
+                                  setConfirmed(
+                                    setBlockConfirmed(content.confirmed, id, event.target.checked)
+                                  )
+                                }
+                                className="mt-1 h-5 w-5"
+                              />
+                              <span>
+                                <strong className="text-stone-900">
+                                  Dit is mijn eigen tekst.
+                                </strong>{' '}
+                                Laat je het op de voorbeeldtekst staan, dan komt dit
+                                blok niet op je site. Cijfers uit het voorbeeld
+                                (zoals een beoordelingsscore) gaan altijd mee.
+                              </span>
+                            </label>
                           </div>
                         )}
 

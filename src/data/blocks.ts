@@ -100,6 +100,28 @@ export function mergeBlocks(base: BlockId[], picked: string[]): BlockId[] {
  * Default copy per block
  * -------------------------------------------------------------------------- */
 
+/**
+ * Empty copy for every content block: the fallback on a published site,
+ * where nothing of the example may slip back in (principle 2).
+ */
+const EMPTY: Record<ContentBlockId, BlockContentMap[ContentBlockId]> = {
+  'trust-bar': { items: [] },
+  guarantees: { items: [] },
+  testimonial: { quote: '', who: '', rating: 0 },
+  'team-member': { name: '', role: '', text: '', since: '' },
+  'project-stats': { stats: [] },
+  'opening-hours': { hours: [], note: '' },
+  availability: { next: '', promises: [] },
+  promotion: { title: '', description: '', cta: '' },
+  'service-areas': { areas: [] },
+  'contact-cta': { title: '', description: '' },
+};
+
+/** The empty copy of one block, used as fallback on a published site. */
+export function emptyBlockContent<K extends ContentBlockId>(id: K): BlockContentMap[K] {
+  return EMPTY[id] as BlockContentMap[K];
+}
+
 const DEFAULTS: Record<
   ContentBlockId,
   (sector: SectorData) => BlockContentMap[ContentBlockId]

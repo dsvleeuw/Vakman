@@ -58,6 +58,7 @@ export function defaultSiteContent(
     disabledServices: {},
     blocks: [...DEFAULT_BLOCK_ORDER],
     blockContent: defaultBlockContentMap(sector),
+    confirmed: [],
     text: buildSiteText(sector, form),
   };
 }
@@ -285,6 +286,10 @@ export function sanitizeSiteContent(raw: unknown): SiteContent | null {
     }
   }
 
+  const confirmed: ContentBlockId[] = Array.isArray(raw.confirmed)
+    ? raw.confirmed.filter(isContentBlockId)
+    : [];
+
   const text: SiteText = isRecord(raw.text)
     ? {
         kicker: asString(raw.text.kicker),
@@ -306,8 +311,20 @@ export function sanitizeSiteContent(raw: unknown): SiteContent | null {
     disabledServices,
     blocks,
     blockContent,
+    confirmed,
     text,
   };
+}
+
+/** Confirm a block as the craftsman's own text, or take the confirmation back. */
+export function setBlockConfirmed(
+  confirmed: ContentBlockId[] | undefined,
+  id: ContentBlockId,
+  isConfirmed: boolean
+): ContentBlockId[] {
+  const list = confirmed ?? [];
+  if (isConfirmed) return list.includes(id) ? list : [...list, id];
+  return list.filter((entry) => entry !== id);
 }
 
 /**
