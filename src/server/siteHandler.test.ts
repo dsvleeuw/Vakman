@@ -121,6 +121,59 @@ test('een site veranderen kan alleen met het juiste token', async () => {
   assert.equal(stored?.token, token);
 });
 
+test('de eigenaar van een site mag hem wijzigen zonder beheerlink', async () => {
+  const storage = memoryStorage();
+  const created = await handlePublishSite(body, {
+    storage,
+    siteUrl: 'https://klusbaas.nl',
+    ownerId: 'account-1',
+  });
+  const slug = created.body.slug;
+  assert.ok(slug);
+
+  // Met de sessie van de eigenaar is de beheerlink niet meer nodig.
+  const updated = await handlePublishSite(
+    { ...body, slug },
+    { storage, siteUrl: 'https://klusbaas.nl', ownerId: 'account-1' }
+  );
+  assert.equal(updated.status, 200);
+
+  // Een ander account krijgt er niets bij.
+  const stranger = await handlePublishSite(
+    { ...body, slug },
+    { storage, siteUrl: 'https://klusbaas.nl', ownerId: 'account-2' }
+  );
+  assert.equal(stranger.status, 403);
+
+  // En zonder account is de beheerlink wel nodig.
+  const withoutAccount = await handlePublishSite(
+    { ...body, slug },
+    { storage, siteUrl: 'https://klusbaas.nl' }
+  );
+  assert.equal(withoutAccount.status, 403);
+});
+
+test('het beheertoken van een site verandert nooit', async () => {
+  const storage = memoryStorage();
+  const created = await handlePublishSite(body, {
+    storage,
+    siteUrl: 'https://klusbaas.nl',
+    ownerId: 'account-1',
+  });
+  const token = created.body.token;
+  assert.ok(token);
+
+  // Een ander token in de aanvraag is alleen een sleutel op de deur, nooit
+  // een nieuwe sleutel: de beheerlink die werkt blijft werken.
+  const updated = await handlePublishSite(
+    { ...body, slug: created.body.slug, token: 'een-ander-token' },
+    { storage, siteUrl: 'https://klusbaas.nl', ownerId: 'account-1' }
+  );
+  assert.equal(updated.status, 200);
+  assert.equal(updated.body.token, token);
+  assert.equal((await storage.getSite('jansen-schilderwerken'))?.token, token);
+});
+
 test('een bezoeker leest de site zonder het beheertoken te zien', async () => {
   const storage = memoryStorage();
   const created = await handlePublishSite(body, { storage, siteUrl: 'https://klusbaas.nl' });

@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Klantenaccount (`/mijn-account`)**: de klant beheert zijn site via een
+  login in plaats van alleen via een beheerlink met token. Een account
+  bestaat uit een e-mailadres en een wachtwoord; het wachtwoord wordt
+  alleen als scrypt-hash met zout bewaard (`node:crypto`, dus zonder extra
+  dependency) en de sessie zit in een `HttpOnly`-cookie (`SameSite=Lax`,
+  30 dagen). De pagina toont "mijn sites": elke site met een link naar de
+  editor en naar de publieke site, plus de mogelijkheid om een bestaande
+  site (gepubliceerd met een beheerlink) aan het account te koppelen door
+  die link te plakken. Een site die ingelogd gepubliceerd wordt, krijgt een
+  eigenaar en is daarna zonder token te wijzigen. De beheerlink blijft
+  werken: een link die werkt blijft werken.
+- **Beoordeling van de zes Kun-tools** (`docs/kun-tools-review.md`): wat
+  `no-mistakes`, `gh-axi`, `backpass`, `lavish-axi`, `vision` en `treehouse`
+  doen, hoe ze in deze repo zouden passen en of ze de maatstaf "past in een
+  repo zonder runtime-dependencies" halen. `gh-axi`, `lavish-axi` en
+  `vision` zijn bruikbaar, `no-mistakes` niet (CI dekt lint, tests en build
+  al), `backpass` en `treehouse` vooral voor de eigenaar.
+- **`VISION.md`**: het accept-beleid van Klusbaas in tien principes, elk met
+  bewijs uit de eigen PR-historie, plus acht stress-test-hypotheses met
+  een verdict. Het bestand is de maatstaf voor wat wel en niet de moedere
+  op.
 - **Publiceren van een klantsite (`/site/<slug>`)**: een klant kan zijn site
   publiek zetten. De site krijgt een eigen adres (`/site/jansen-schilderwerken`)
   en een privé beheerlink (`/mijn-site/<slug>?token=…`) waarmee hij hem later
@@ -181,6 +202,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (geen preview-besturing, zwevende knoppen of mobiele balk).
 
 ### Fixed
+
+- **Het beheertoken van een gepubliceerde site verandert nooit meer.** Een
+  token dat meegestuurd wordt bij het bijwerken van een site is alleen een
+  sleutel op de deur: het opgeslagen token blijft hetzelfde. Voorheen kon
+  een verkeerd token het token van de site overschrijven, waardoor een
+  werkende beheerlink kapotging.
 
 - **Geen verzonnen KvK-nummer of voorbeeldnummer op een klantsite.** De
   footer noemde `KvK 12345678` en de vakken bevatten een made-up

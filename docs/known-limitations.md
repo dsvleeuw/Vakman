@@ -26,6 +26,30 @@ to [ROADMAP.md](../ROADMAP.md).
   per-site recipient yet, so the customer's own e-mail address is not used.
   The lead does carry the name of the site, so it can be traced back.
 
+## Accounts
+
+- **Accounts exist, but there is no password reset.** A customer makes an
+  account at `/mijn-account` with an e-mail address and a password; the
+  password is stored as a scrypt hash (`src/utils/password.ts`), never as
+  text. If the customer forgets the password there is no reset mail: the
+  account has to be removed by hand (Blobs or `.data/accounts`).
+- **No e-mail verification.** An account works as soon as it is made. The
+  e-mail address is not confirmed, so anyone can make an account with an
+  address that is not theirs.
+- **No rate limit across instances.** Login and registration are limited per
+  function instance (10 logins per 15 minutes, 5 registrations per hour, in
+  memory), so a distributed attack is not stopped.
+- **No "forget my password" and no second factor.** Both are on the wish
+  list, not in the code.
+- **The session lasts 30 days** and is not shortened on suspicious activity.
+  There is no overview of active sessions and no way to sign out everywhere.
+- **Deleting an account is not implemented.** The data is in the Blobs store
+  `accounts` (and the `sessions` in the same store) and has to be removed by
+  hand; the sites keep working, but they lose their `ownerId`.
+- The account replaces the management link as the normal way in, but the
+  link keeps working: a site published before accounts existed can be linked
+  to an account from `/mijn-account` by pasting the management link.
+
 ## Privacy and newsletter
 
 - **TODO: KvK-nummer en vestigingsadres ontbreken** in de privacyverklaring
@@ -71,18 +95,19 @@ to [ROADMAP.md](../ROADMAP.md).
 - Photos, palette, service prices, reviews and portfolio photos are still
   fixed: they come from the trade preset and cannot be edited.
 - The editor publishes the site: it goes to `/site/<slug>` and is stored in
-  Netlify Blobs (in `.data/sites` locally). The site is managed through a
-  private link `/mijn-site/<slug>?token=…`; the token is the only way to
-  change the site.
+  Netlify Blobs (in `.data/sites` locally). A site published while logged in
+  belongs to that account and can be changed from `/mijn-account` without a
+  token; a site published without an account is managed through the private
+  link `/mijn-site/<slug>?token=…` until it is linked to an account.
 - A published site needs a name, an address and a phone number: without
   them the site would show a number that is not the customer's.
 - Published sites live in the Blobs store `sites`. There is no overview of
   all published sites: the list is only in the store itself (and in the
   sitemap `/sitemap-sites.xml`).
-- Customised data is per browser: there are no accounts for craftsmen
-  (Firebase Auth is only used for the Google Calendar/Drive sync). A
-  customer who clears his browser data loses the draft that was never
-  published; a published site keeps working.
+- Customised data is per browser: a customer who clears his browser data
+  loses the draft that was never published. A published site keeps working,
+  because it lives on the server. With an account (`/mijn-account`) the
+  customer finds his published sites back on any device.
 
 ## Integrations
 

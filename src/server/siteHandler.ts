@@ -64,6 +64,8 @@ export interface SiteHandlerDeps {
   storage: SiteStorage;
   /** Origin of the site, used in the links we hand back. */
   siteUrl: string;
+  /** The logged-in account, if there is one. It owns the sites it publishes. */
+  ownerId?: string;
   now?: () => number;
   createToken?: () => string;
   log?: (message: string) => void;
@@ -197,12 +199,19 @@ export async function handlePublishSite(
     if (!existing) {
       return { status: 404, body: { ok: false, error: 'Deze site bestaat niet meer.' } };
     }
-    if (!token || !tokensMatch(existing.token, token)) {
+    // The management link works, and so does the account of the owner: the
+    // token is a fallback for a site that was published before accounts.
+    const ownsSite = Boolean(deps.ownerId) && existing.ownerId === deps.ownerId;
+    if ((!token || !tokensMatch(existing.token, token)) && !ownsSite) {
       return {
         status: 403,
         body: { ok: false, error: 'Je beheerlink klopt niet meer. Neem contact op met Klusbaas.' },
       };
     }
+    // The token that comes in is only a key to the door, never a new key:
+    // the token of the site stays the same, so a link that works keeps
+    // working.
+    token = existing.token;
   } else {
     // A new site gets a free address: jansen-schilderwerken, then -2, -3 …
     const base = slugify(data.form.biz);
@@ -219,6 +228,7 @@ export async function handlePublishSite(
   const record: PublishedSiteRecord = {
     slug,
     token: token as string,
+    ...(deps.ownerId ? { ownerId: deps.ownerId } : {}),
     sector: data.sector,
     styleId: data.styleId,
     form: data.form,
@@ -248,10 +258,12 @@ export async function handlePublishSite(
 
 /** The parts of a site any visitor may see. The token never leaves here. */
 export function toPublicSite(record: PublishedSiteRecord): PublicPublishedSite {
-  const { token, channel, timestamp, ...rest } = record;
+  const { token, channel, timestamp, ownerId, ...rest } = record;
   void token;
   void channel;
   void timestamp;
+  // The owner id stays on the server: a visitor has no use for it.
+  void ownerId;
   return { ...rest, form: { ...rest.form } };
 }
 
@@ -263,7 +275,8 @@ export function toPublicSite(record: PublishedSiteRecord): PublicPublishedSite {
  */
 export async function handleGetSite(
   params: URLSearchParams,
-  storage: SiteStorage
+  storage: SiteStorage,
+  ownerId?: string
 ): Promise<SiteHandlerResult<PublishSiteResponse & { site?: PublicPublishedSite }>> {
   const slug = params.get('slug') ?? '';
   const token = params.get('token') ?? '';
@@ -274,10 +287,15 @@ export async function handleGetSite(
   if (!record) {
     return { status: 404, body: { ok: false, error: 'Deze site bestaat niet (meer).' } };
   }
+  const ownsSite = Boolean(ownerId) && record.ownerId === ownerId;
   if (token) {
     if (!tokensMatch(record.token, token)) {
       return { status: 403, body: { ok: false, error: 'Je beheerlink klopt niet.' } };
     }
+    return { status: 200, body: { ok: true, site: { ...toPublicSite(record), form: record.form } } };
+  }
+  if (ownsSite) {
+    // The owner sees the full record, e-mail address and all.
     return { status: 200, body: { ok: true, site: { ...toPublicSite(record), form: record.form } } };
   }
   return { status: 200, body: { ok: true, site: toPublicSite(record) } };

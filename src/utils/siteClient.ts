@@ -55,6 +55,9 @@ export async function publishSite(input: PublishSiteInput): Promise<PublishSiteR
   try {
     const response = await fetch('/api/site', {
       method: 'POST',
+      // The session cookie travels with the request, so a logged-in
+      // customer owns the site he publishes.
+      credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input),
     });
@@ -73,7 +76,9 @@ export async function fetchPublishedSite(
   try {
     const params = new URLSearchParams({ slug });
     if (token) params.set('token', token);
-    const response = await fetch(`/api/site?${params.toString()}`);
+    const response = await fetch(`/api/site?${params.toString()}`, {
+      credentials: 'same-origin',
+    });
     const data = await readJson(response);
     if (!response.ok) {
       return { ok: false, error: (data.error as string) ?? 'Deze site is niet gevonden.' };
