@@ -35,9 +35,13 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
         const { handler, storage } = await load();
+        const { createFileSiteStorage } = await server.ssrLoadModule('/src/server/storage.ts');
         const result = await handler.handleLead(body, req.socket.remoteAddress ?? 'dev', {
           env,
           storage,
+          // Met de sites kan een aanvraag op een gepubliceerde klantsite naar
+          // de vakman zelf gaan, in plaats van naar Klusbaas.
+          sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
           siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
         });
         reply(res, result.status, result.body);

@@ -12,6 +12,8 @@ import {
 import type { User } from 'firebase/auth';
 import { buildSiteWhatsAppUrl, normalizeDutchPhone } from '../utils/contact';
 import { describeDelivery } from '../utils/leadClient';
+import { siteContext } from '../utils/lead';
+import { leadRecipient } from '../utils/leadCopy';
 import { useLeadForm } from '../hooks/useLeadForm';
 import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
@@ -100,7 +102,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
     // The request itself goes to /api/lead first; Google sync is optional extra.
     const response = await lead.submit({
       type: 'appointment',
-      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      site: siteContext(site),
       fields: {
         name: clientName,
         phone: clientPhone,
@@ -470,7 +472,10 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                     {isSubmitting ? 'Versturen…' : 'Afspraak inplannen'}
                   </button>
                 )}
-                <PrivacyNote className="text-stone-500 text-center" />
+                <PrivacyNote
+                  className="text-stone-500 text-center"
+                  note={leadRecipient(site).privacy}
+                />
               </div>
 
               {authUser && (
@@ -498,7 +503,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 Bedankt <strong>{bookingResult.booking.clientName}</strong>. Jouw afspraak voor{' '}
                 <strong>{bookingResult.booking.serviceName}</strong> staat genoteerd op{' '}
                 <strong>{bookingResult.booking.dateStr}</strong> ({bookingResult.booking.timeSlot}).{' '}
-                {site.owner.split(' ')[0]} bevestigt het moment zo snel mogelijk.
+                {leadRecipient(site).name} bevestigt het moment zo snel mogelijk.
               </p>
               {lead.result && (
                 <p className="text-stone-500 text-sm m-0" aria-live="polite">

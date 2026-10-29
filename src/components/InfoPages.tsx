@@ -76,6 +76,13 @@ const DATA_ROWS: DataRow[] = [
     keep: 'Zolang je bent aangemeld. Onbevestigde aanmeldingen vervallen na 30 dagen. Na afmelden bewaren we alleen dat je bent afgemeld, zodat we je niet opnieuw mailen.',
   },
   {
+    what: 'Aanvragen via een klantsite',
+    data: 'Wat de bezoeker invult: naam, telefoonnummer, e-mailadres, adres of postcode en zijn bericht.',
+    why: 'Je vraag beantwoorden. De aanvraag gaat naar de vakman wiens site het is: hij is de eigenaar van de klantgegevens van zijn eigen site.',
+    basis: 'Gerechtvaardigd belang: de vakman antwoordt op een vraag die op zijn eigen site is gesteld.',
+    keep: 'De aanvraag gaat naar de vakman. Klusbaas bewaart alleen een back-up wanneer de mail naar de vakman niet aankomt, zodat er niets verloren gaat; die back-up wordt binnen 12 maanden verwijderd.',
+  },
+  {
     what: 'Klusbaas-account (mijn-account)',
     data: 'Je e-mailadres, een versleutelde hash van je wachtwoord, wanneer je account is aangemaakt en welke websites je aan je account hebt gekoppeld. Van een lopende sessie bewaren we alleen het sessie-id en de vervaldatum.',
     why: 'Je websites kunnen beheren: inloggen, je eigen sites terugvinden en ze aanpassen zonder beheerlink.',

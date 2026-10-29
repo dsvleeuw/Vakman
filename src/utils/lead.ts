@@ -1,6 +1,6 @@
 import { isPlanId } from '../data/plans';
 import { SECTORS, STYLES } from '../data/tradesData';
-import type { PlanId, QuoteChannel, SectorId } from '../types';
+import type { ActiveSiteData, PlanId, QuoteChannel, SectorId } from '../types';
 import { isValidEmail, normalizeDutchPhone } from './contact';
 import { DEFAULT_PLAN, quoteDelivery, sanitizeAddonIds } from './quote';
 
@@ -83,6 +83,12 @@ export interface SiteContext {
   biz: string;
   sector: SectorId;
   style?: string;
+  /**
+   * The published site the visitor is on (`/site/<slug>`). Only a real
+   * published site has one; the server then delivers the lead to the owner
+   * of that site instead of to Klusbaas.
+   */
+  slug?: string;
 }
 
 export interface SiteLead {
@@ -205,6 +211,29 @@ function parseQuoteLead(raw: Record<string, unknown>): ParsedLead {
 }
 
 /**
+ * The address of a published site: lowercase letters, digits and dashes.
+ * A slug that does not look like one is ignored, so a lead can never point
+ * at something that is not a published site.
+ */
+export function isSiteSlug(value: unknown): value is string {
+  return typeof value === 'string' && /^[a-z0-9-]{2,60}$/.test(value) && !value.startsWith('-');
+}
+
+/**
+ * The site every form on a site sends along with a lead: which business the
+ * visitor is on, and — on a published site — which address it has. The
+ * server uses the address to deliver the lead to the owner of that site.
+ */
+export function siteContext(site: ActiveSiteData): SiteContext {
+  return {
+    biz: site.biz,
+    sector: site.id,
+    ...(site.styleName ? { style: site.styleName } : {}),
+    ...(site.publishedSlug ? { slug: site.publishedSlug } : {}),
+  };
+}
+
+/**
  * Parse an untrusted `POST /api/lead` body. Spam (filled honeypot or a form
  * submitted within `MIN_FILL_MS` of rendering) is reported separately so the
  * server can pretend success without storing or mailing anything.
@@ -231,6 +260,7 @@ export function parseLead(body: unknown, now: number): ParsedLead {
     biz: clip(siteRaw.biz, 120) || SECTORS[siteRaw.sector].biz,
     sector: siteRaw.sector,
     ...(clip(siteRaw.style, 40) ? { style: clip(siteRaw.style, 40) } : {}),
+    ...(isSiteSlug(siteRaw.slug) ? { slug: siteRaw.slug } : {}),
   };
   const fields = validateLeadFields(type as SiteLeadType, raw.fields);
   if (!fields.ok) return { kind: 'invalid', field: fields.field, error: fields.error };

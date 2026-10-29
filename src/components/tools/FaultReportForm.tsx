@@ -10,6 +10,8 @@ import {
   type FaultReportInput,
 } from '../../utils/contact';
 import { describeDelivery } from '../../utils/leadClient';
+import { siteContext } from '../../utils/lead';
+import { leadRecipient } from '../../utils/leadCopy';
 import { useLeadForm } from '../../hooks/useLeadForm';
 import { HoneypotField, LeadErrorNotice } from '../LeadStatus';
 import { PrivacyNote } from '../PrivacyNote';
@@ -82,7 +84,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
     if (!validate() || lead.status === 'sending') return;
     const response = await lead.submit({
       type: 'fault',
-      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      site: siteContext(site),
       fields: { ...form },
     });
     if (response.ok) setWaUrl(fallbackWaUrl);
@@ -178,7 +180,7 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                 Je melding is verstuurd.
               </h3>
               <p className="text-stone-600 text-sm max-w-md m-0" aria-live="polite">
-                {site.owner.split(' ')[0]} heeft je storingsmelding ontvangen
+                {leadRecipient(site).name} heeft je storingsmelding ontvangen
                 {lead.result?.reference ? ` (referentie ${lead.result.reference})` : ''} en
                 neemt zo snel mogelijk contact met je op.{' '}
                 {lead.result ? describeDelivery(lead.result) : ''}
@@ -380,7 +382,10 @@ export const FaultReportForm: React.FC<FaultReportFormProps> = ({ site }) => {
                 <Send className="w-5 h-5" />
                 {lead.status === 'sending' ? 'Versturen…' : 'Verstuur storingsmelding'}
               </button>
-              <PrivacyNote className="text-stone-500 text-center" />
+              <PrivacyNote
+                className="text-stone-500 text-center"
+                note={leadRecipient(site).privacy}
+              />
             </form>
           )}
         </div>

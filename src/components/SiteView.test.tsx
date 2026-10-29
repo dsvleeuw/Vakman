@@ -44,3 +44,38 @@ test('op een klantsite zonder eigen nummer staan geen bel- en WhatsApp-knoppen',
   assert.ok(!markup.includes('wa.me'), 'geen WhatsApp-knop zonder nummer van de klant');
   assert.ok(!markup.includes('02 01 23 45 67'), 'geen demonummer op een klantsite');
 });
+
+
+test('het contactformulier vertelt wie de aanvraag krijgt', () => {
+  const demo = buildActiveSite('schilder', 0, undefined, undefined, null);
+  const demoMarkup = renderToStaticMarkup(
+    <SiteView site={demo} selectedSector="schilder" selectedStyleIndex={0} embedded />
+  );
+  assert.ok(
+    demoMarkup.includes('Dit is een demosite: je bericht komt bij Klusbaas binnen.'),
+    'op een demosite moet de tekst zeggen dat de aanvraag bij Klusbaas komt'
+  );
+
+  const customer = {
+    ...buildActiveSite(
+      'schilder',
+      0,
+      { biz: 'Jansen Schilderwerken', owner: 'Jan Jansen', phone: '0698765432', city: 'Haarlem' },
+      undefined,
+      null,
+      true
+    ),
+    publishedSlug: 'jansen-schilderwerken',
+  };
+  const customerMarkup = renderToStaticMarkup(
+    <SiteView site={customer} selectedSector="schilder" selectedStyleIndex={0} embedded />
+  );
+  assert.ok(
+    customerMarkup.includes('Je bericht gaat direct naar Jansen Schilderwerken.'),
+    'op een klantsite moet de tekst zeggen dat de aanvraag naar de vakman gaat'
+  );
+  assert.ok(
+    !customerMarkup.includes('Dit is een demosite'),
+    'een klantsite is geen demosite'
+  );
+});

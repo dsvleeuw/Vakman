@@ -17,6 +17,11 @@ export interface LeadResponse {
   delivery?: {
     team: { to: string; status: DeliveryStatus };
     customer: { to: string; status: DeliveryStatus };
+    /**
+     * The owner of the published site the lead was sent to. The address is
+     * deliberately absent: the visitor has no use for it.
+     */
+    owner?: { status: DeliveryStatus };
   };
   quote?: PublicQuote & { path: string };
   error?: string;
@@ -62,6 +67,19 @@ export async function submitLead(
 
 /** One-line Dutch summary of who received what, for the success screens. */
 export function describeDelivery(response: LeadResponse): string {
+  const owner = response.delivery?.owner;
+  if (owner) {
+    switch (owner.status) {
+      case 'sent':
+        return 'Je bericht is naar de vakman gestuurd.';
+      case 'preview':
+        return 'Testmodus: er is nog geen mail verstuurd.';
+      case 'failed':
+        return 'Je bericht is bij ons binnen; wij zorgen dat de vakman hem krijgt.';
+      default:
+        return '';
+    }
+  }
   const customer = response.delivery?.customer;
   if (!customer) return 'We hebben je aanvraag ontvangen.';
   switch (customer.status) {

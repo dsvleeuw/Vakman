@@ -20,11 +20,15 @@ to [ROADMAP.md](../ROADMAP.md).
   IP, in memory). It stops a single script, not a distributed attack.
 - **No admin screen.** Stored quotes and leads are only visible in the mails,
   in Netlify Blobs (dashboard/CLI) or in `.data/` locally.
-- Site leads on demo sites go to Klusbaas, not to the tradesperson: there
-  is no per-customer recipient yet.
-- A published site sends its leads to Klusbaas as well: the lead API has no
-  per-site recipient yet, so the customer's own e-mail address is not used.
-  The lead does carry the name of the site, so it can be traced back.
+- Site leads on demo sites go to Klusbaas, not to the tradesperson: a demo
+  site has no owner, so Klusbaas receives the lead. The page says that too.
+- ~~A published site sends its leads to Klusbaas~~ Fixed: a lead from a
+  published site (`/site/<slug>`) now goes to the owner of that site, at the
+  e-mail address he entered in the editor. The page says the same thing, so
+  the text matches reality. Two things remain: the owner has to enter an
+  e-mail address in the editor (without one the lead still comes to Klusbaas),
+  and Klusbaas keeps a back-up copy when the mail to the owner does not
+  arrive, so a request never disappears.
 
 ## Accounts
 

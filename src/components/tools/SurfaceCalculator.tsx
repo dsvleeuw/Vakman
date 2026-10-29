@@ -12,6 +12,8 @@ import {
   normalizeDutchPhone,
 } from '../../utils/contact';
 import { describeDelivery } from '../../utils/leadClient';
+import { siteContext } from '../../utils/lead';
+import { leadRecipient } from '../../utils/leadCopy';
 import { useLeadForm } from '../../hooks/useLeadForm';
 import { HoneypotField, LeadErrorNotice } from '../LeadStatus';
 import { formatPrice } from '../../utils/pricing';
@@ -103,7 +105,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
     if (surfaceM2 <= 0) return;
     await lead.submit({
       type: 'surface',
-      site: { biz: site.biz, sector: site.id, style: site.styleName },
+      site: siteContext(site),
       fields: {
         name,
         phone,
@@ -339,7 +341,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
                 Aanvraag verstuurd{lead.result?.reference ? ` (${lead.result.reference})` : ''}
               </p>
               <p className="m-0 text-sm text-stone-600">
-                {site.owner.split(' ')[0]} bekijkt je maten en stuurt een definitieve offerte.{' '}
+                {leadRecipient(site).name} bekijkt je maten en stuurt een definitieve offerte.{' '}
                 {lead.result ? describeDelivery(lead.result) : ''}
               </p>
               <button

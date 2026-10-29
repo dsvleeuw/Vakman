@@ -331,6 +331,12 @@ export interface ActiveSiteData extends SectorData, Palette {
    * demo number and never shows the demo notice.
    */
   isCustomerSite: boolean;
+  /**
+   * The address of the published site this page is (`/site/<slug>`). Set on
+   * a customer's own site so a lead from it can be delivered to the owner
+   * instead of to Klusbaas.
+   */
+  publishedSlug?: string;
   /** KvK number of the company. Only shown when the owner entered a real one. */
   kvk: string | null;
   ownerFirstUpper: string;

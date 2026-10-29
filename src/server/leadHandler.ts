@@ -1,5 +1,5 @@
 import { SECTORS, STYLES } from '../data/tradesData';
-import { buildWhatsAppUrl } from '../utils/contact';
+import { buildWhatsAppUrl, isValidEmail } from '../utils/contact';
 import { createRateLimiter, parseLead, type QuoteLeadRequest, type SiteLead } from '../utils/lead';
 import { buildQuoteEmail, buildSiteLeadEmail, createLeadReference } from '../utils/leadEmail';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../utils/quote';
 import { redirectForTest, sendViaResend, type DeliveryResult, type FetchLike, type OutgoingMail } from './mailer';
 import { renderQuotePdf } from './quotePdf';
-import type { LeadStorage } from './storage';
+import type { LeadStorage, SiteStorage } from './storage';
 
 /**
  * `POST /api/lead` and `GET /api/quote`, shared by the Netlify Functions
@@ -38,6 +38,12 @@ export const DEFAULT_FROM_EMAIL = 'Klusbaas <onboarding@resend.dev>';
 export interface LeadDeps {
   env: LeadEnv;
   storage: LeadStorage;
+  /**
+   * Where published customer sites live. With it, a lead from a published
+   * site (`/site/<slug>`) goes to the owner of that site instead of to
+   * Klusbaas. Without it every lead goes to Klusbaas.
+   */
+  sites?: SiteStorage;
   /** Origin used in links inside e-mails, e.g. https://klusbaas.netlify.app */
   siteUrl: string;
   fetchImpl?: FetchLike;
@@ -48,13 +54,22 @@ export interface LeadDeps {
 }
 
 type PublicDelivery = Pick<DeliveryResult, 'to' | 'status'>;
+type DeliveryStatus = DeliveryResult['status'];
 
 export interface LeadResponseBody {
   ok: boolean;
   type?: string;
   mode?: 'sent' | 'preview';
   reference?: string;
-  delivery?: { team: PublicDelivery; customer: PublicDelivery };
+  delivery?: {
+    team: PublicDelivery;
+    customer: PublicDelivery;
+    /**
+     * The owner of the published site the lead was sent to. No address: the
+     * visitor has no use for the craftsman's e-mail address.
+     */
+    owner?: { status: DeliveryStatus };
+  };
   quote?: PublicQuote & { path: string };
   error?: string;
   field?: string;
@@ -190,6 +205,42 @@ async function handleQuote(
   return { status: 200, body };
 }
 
+/**
+ * The owner of the published site the visitor is on. A lead from a published
+ * site belongs to that craftsman: it goes to him, not to Klusbaas.
+ *
+ * The slug in the request is never trusted for anything but the lookup: the
+ * address that receives the lead comes from the stored site, never from the
+ * request itself.
+ */
+async function resolveSiteOwner(
+  lead: SiteLead,
+  deps: LeadDeps
+): Promise<{ email: string; biz: string; ownerFirstName: string } | null> {
+  const slug = lead.site.slug;
+  if (!slug || !deps.sites) return null;
+  let record: Awaited<ReturnType<SiteStorage['getSite']>> = null;
+  try {
+    record = await deps.sites.getSite(slug);
+  } catch (error) {
+    // Lukt het opzoeken niet, dan gaat de aanvraag naar Klusbaas in plaats
+    // van verloren te gaan.
+    deps.log?.(
+      `[lead] site ${slug} niet op te zoeken: ${error instanceof Error ? error.message : String(error)}`
+    );
+    return null;
+  }
+  if (!record) return null;
+  const email = record.form.email?.trim() ?? '';
+  if (!email || !isValidEmail(email)) return null;
+  const owner = record.form.owner?.trim() ?? '';
+  return {
+    email,
+    biz: record.form.biz?.trim() || lead.site.biz,
+    ownerFirstName: owner ? (owner.split(' ')[0] ?? '') : '',
+  };
+}
+
 async function handleSiteLead(
   lead: SiteLead,
   deps: LeadDeps,
@@ -199,6 +250,68 @@ async function handleSiteLead(
 ): Promise<HandlerResult<LeadResponseBody>> {
   const reference = createLeadReference();
   const createdAt = (deps.now ?? (() => new Date()))().toISOString();
+  const owner = await resolveSiteOwner(lead, deps);
+
+  // Aanvraag op een gepubliceerde klantsite: de vakman is de ontvanger.
+  if (owner) {
+    const ownerLead: SiteLead = { ...lead, site: { ...lead.site, biz: owner.biz } };
+    const ownerMail = buildSiteLeadEmail(ownerLead, 'owner', reference, deps.siteUrl, {
+      ownerFirstName: owner.ownerFirstName,
+    });
+    const delivered = await deliver(
+      { from, to: owner.email, replyTo: lead.fields.email, ...ownerMail },
+      deps.env,
+      deps.fetchImpl,
+      log,
+      `eigenaar ${reference}`
+    );
+    if (delivered.status === 'sent') {
+      // De vakman heeft de aanvraag: bij Klusbaas komt niets van zijn
+      // klantengegevens te liggen.
+      log(`[lead] ${lead.type} ${reference} naar de eigenaar van ${owner.biz}`);
+      return {
+        status: 200,
+        body: {
+          ok: true,
+          type: lead.type,
+          mode: 'sent',
+          reference,
+          delivery: {
+            team: { to: notify, status: 'skipped' },
+            customer: { to: '', status: 'skipped' },
+            owner: { status: delivered.status },
+          },
+        },
+      };
+    }
+    // De mail naar de vakman lukte niet (of draait in testmodus): de
+    // aanvraag blijft bij Klusbaas liggen, zodat ze niet verloren gaat.
+    const saved = await deps.storage.saveLead(reference, { reference, createdAt, ...lead });
+    log(`[lead] ${lead.type} ${reference} opgeslagen: ${saved}`);
+    const teamMail = buildSiteLeadEmail(lead, 'team', reference, deps.siteUrl);
+    const team = await deliver(
+      { from, to: notify, replyTo: lead.fields.email, ...teamMail },
+      deps.env,
+      deps.fetchImpl,
+      log,
+      `team ${reference}`
+    );
+    return {
+      status: 200,
+      body: {
+        ok: true,
+        type: lead.type,
+        mode: deps.env.RESEND_API_KEY ? 'sent' : 'preview',
+        reference,
+        delivery: {
+          team: publicDelivery(team),
+          customer: { to: '', status: 'skipped' },
+          owner: { status: delivered.status },
+        },
+      },
+    };
+  }
+
   const saved = await deps.storage.saveLead(reference, { reference, createdAt, ...lead });
   log(`[lead] ${lead.type} ${reference} opgeslagen: ${saved}`);
 
