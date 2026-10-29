@@ -138,6 +138,8 @@ export type Route =
     }
   /** A site a customer published: /site/<slug> */
   | { name: 'published'; slug: string }
+  /** The privacy statement of a published site: /site/<slug>/privacy */
+  | { name: 'published-privacy'; slug: string }
   /** The account of the customer: login and his own sites. /mijn-account */
   | { name: 'account' }
   | { name: 'components'; componentId?: string }
@@ -257,7 +259,11 @@ export function parseRoute(pathname: string, search = ''): Route {
   }
 
   if (first === 'site') {
-    // The public address of a site a customer published.
+    // The public address of a site a customer published, and its privacy
+    // statement.
+    if (segments.length === 3 && segments[2] === 'privacy' && second) {
+      return { name: 'published-privacy', slug: second };
+    }
     if (segments.length !== 2 || !second) return { name: 'notFound', path: pathname };
     return { name: 'published', slug: second };
   }
@@ -332,6 +338,8 @@ export function buildPath(route: Route): string {
     }
     case 'published':
       return `/site/${encodeURIComponent(route.slug)}`;
+    case 'published-privacy':
+      return `/site/${encodeURIComponent(route.slug)}/privacy`;
     case 'account':
       return '/mijn-account';
     case 'components':
@@ -445,6 +453,11 @@ export function getRouteMeta(route: Route): RouteMeta {
       return {
         title: 'Vakmanssite · Klusbaas',
         description: 'Een website van een vakman, gemaakt met Klusbaas.',
+      };
+    case 'published-privacy':
+      return {
+        title: 'Privacyverklaring · Klusbaas',
+        description: 'Hoe deze site met je gegevens omgaat.',
       };
     case 'account':
       return {

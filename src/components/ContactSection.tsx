@@ -10,7 +10,7 @@ import {
 import { track } from '../utils/analytics';
 import { describeDelivery } from '../utils/leadClient';
 import { siteContext } from '../utils/lead';
-import { leadRecipient } from '../utils/leadCopy';
+import { leadRecipient, privacyHref } from '../utils/leadCopy';
 import { useLeadForm } from '../hooks/useLeadForm';
 import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
@@ -341,6 +341,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ site }) => {
                   className="text-center"
                   style={{ color: site.muted }}
                   note={recipient.privacy}
+                  href={privacyHref(site)}
                 />
               </form>
             )}

@@ -79,3 +79,27 @@ test('het contactformulier vertelt wie de aanvraag krijgt', () => {
     'een klantsite is geen demosite'
   );
 });
+
+test('op een klantsite wijst de privacylink naar de verklaring van die site', () => {
+  const customer = {
+    ...buildActiveSite(
+      'schilder',
+      0,
+      { biz: 'Jansen Schilderwerken', owner: 'Jan Jansen', phone: '0698765432', city: 'Haarlem' },
+      undefined,
+      null,
+      true
+    ),
+    publishedSlug: 'jansen-schilderwerken',
+  };
+  const markup = renderToStaticMarkup(
+    <SiteView site={customer} selectedSector="schilder" selectedStyleIndex={0} embedded />
+  );
+  assert.ok(
+    markup.includes('/site/jansen-schilderwerken/privacy'),
+    'de privacylink moet naar de verklaring van de klantsite wijzen'
+  );
+  // De nieuwsbrief onderin de voet blijft naar de verklaring van Klusbaas
+  // wijzen: die nieuwsbrief is van Klusbaas, niet van de vakman.
+  assert.ok(markup.includes('href="/privacy"'), 'de nieuwsbrief hoort bij Klusbaas');
+});

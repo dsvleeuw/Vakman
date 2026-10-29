@@ -13,7 +13,7 @@ import type { User } from 'firebase/auth';
 import { buildSiteWhatsAppUrl, normalizeDutchPhone } from '../utils/contact';
 import { describeDelivery } from '../utils/leadClient';
 import { siteContext } from '../utils/lead';
-import { leadRecipient } from '../utils/leadCopy';
+import { leadRecipient, privacyHref } from '../utils/leadCopy';
 import { useLeadForm } from '../hooks/useLeadForm';
 import { PrivacyNote } from './PrivacyNote';
 import { HoneypotField, LeadErrorNotice } from './LeadStatus';
@@ -475,6 +475,7 @@ export const BookingCalendar: React.FC<BookingCalendarProps> = ({ site }) => {
                 <PrivacyNote
                   className="text-stone-500 text-center"
                   note={leadRecipient(site).privacy}
+                  href={privacyHref(site)}
                 />
               </div>
 

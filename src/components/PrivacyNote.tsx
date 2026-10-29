@@ -7,17 +7,27 @@ interface PrivacyNoteProps {
   style?: React.CSSProperties;
   /** Where the data from this form goes, in plain words. */
   note?: string;
+  /**
+   * Where the link points. On a published site this is the privacy
+   * statement of that site, not the one of Klusbaas.
+   */
+  href?: string;
 }
 
 /**
  * One line under every form that links to the privacyverklaring. A plain
  * link in a new tab, so a half-filled form is never lost.
  */
-export const PrivacyNote: React.FC<PrivacyNoteProps> = ({ className = 'text-stone-500', style, note }) => (
+export const PrivacyNote: React.FC<PrivacyNoteProps> = ({
+  className = 'text-stone-500',
+  style,
+  note,
+  href,
+}) => (
   <p className={`text-xs leading-relaxed m-0 ${className}`} style={style}>
     {note ? <>{note} </> : null}
     <a
-      href={buildPath({ name: 'privacy' })}
+      href={href ?? buildPath({ name: 'privacy' })}
       target="_blank"
       rel="noopener"
       className="underline underline-offset-2 hover:no-underline"
