@@ -1,6 +1,6 @@
 import { handleAdmin } from '../../src/server/adminHandler';
 import { createBlobAdminStorage } from '../../src/server/adminStorage';
-import { createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
+import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 import { createRateLimiter } from '../../src/utils/lead';
 
 /**
@@ -33,6 +33,7 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       sessions: await createBlobAdminStorage(),
       sites: await createBlobSiteStorage(),
       leads: await createBlobStorage(),
+      accounts: await createBlobAccountStorage(),
     },
     req.headers.get('cookie'),
     true

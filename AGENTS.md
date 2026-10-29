@@ -158,6 +158,11 @@ result. The Netlify deploy preview is the only external CI check. If
   transfer to `PAYMENT_IBAN` with the quote number as the description; there
   is no payment provider. The payment details come from the environment
   (`src/server/payment.ts`), never from the request.
+- A customer can reset his password himself: `POST /api/account` with the
+  actions `reset-request`, `reset`, `verify` and `verify-request`. The reset
+  answer is the same for an unknown address, the link works for an hour and
+  only once, and the token is compared in constant time. The mails are built
+  in `src/utils/accountMail.ts` and sent by `src/server/accountMailer.ts`.
 - Customer accounts live on the server: the password is hashed with scrypt
   (`src/utils/password.ts`, `node:crypto`, no dependency) and the session
   id travels in the cookie `klusbaas_session` (`HttpOnly`, `SameSite=Lax`).

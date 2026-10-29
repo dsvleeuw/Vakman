@@ -1,4 +1,5 @@
 import { handleAccount } from '../../src/server/accountHandler';
+import { createAccountMailer } from '../../src/server/accountMailer';
 import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
 import { createRateLimiter } from '../../src/utils/lead';
@@ -28,12 +29,15 @@ export default async (req: Request): Promise<Response> => {
   const sites = await createBlobSiteStorage();
   const leads = await createBlobStorage();
   const payment = paymentDetailsFromEnv(process.env);
+  const sendMail = createAccountMailer(process.env);
   const result = await handleAccount(
     body,
     {
       accounts,
       sites,
       leads,
+      sendMail,
+      siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
       // De offertes van de klant staan in dezelfde opslag als de aanvragen.
       quotes: leads,
       ...(payment ? { payment } : {}),

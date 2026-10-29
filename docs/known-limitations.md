@@ -81,6 +81,21 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The craftsman cannot delete or export his requests.** Under the AVG a
   customer can ask for that; today Klusbaas has to do it by hand.
 
+## Accounts, passwords and verification
+
+- **The e-mail address is not enforced.** A customer can publish without
+  confirming his address. That is deliberate: a customer whose mailbox is
+  full would otherwise lose his site. The verification is a signal for
+  Klusbaas (the overview shows it), not a lock.
+- **The reset and the confirmation depend on Resend.** Without
+  `RESEND_API_KEY` no mail is sent at all, so a customer cannot reset his
+  password. Klusbaas sees it: the mails are printed in the log instead.
+- **The reset link works for one hour and only once.** After that the
+  customer has to ask for a new one.
+- **There is no "account vergeten":** a customer cannot delete his account
+  and the data in it. Under the AVG that has to be possible; today Klusbaas
+  removes it by hand from the Blobs store.
+
 ## The Klusbaas overview
 
 - **The overview is one password, not accounts.** `ADMIN_PASSWORD` opens

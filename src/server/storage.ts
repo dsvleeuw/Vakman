@@ -163,6 +163,8 @@ export function createFileStorage(root: string): LeadStorage {
 export interface AccountStorage {
   getAccount(id: string): Promise<Account | null>;
   getAccountByEmail(email: string): Promise<Account | null>;
+  /** Every account, for the Klusbaas overview. */
+  listAccounts(): Promise<Account[]>;
   saveAccount(account: Account): Promise<string>;
   saveSession(session: AccountSession): Promise<string>;
   getSession(id: string): Promise<AccountSession | null>;
@@ -200,6 +202,21 @@ export function createFileAccountStorage(root: string): AccountStorage {
     },
     async getAccountByEmail(email) {
       return readJson<Account>(path.join(accountsDir, `${safe(accountId(email))}.json`));
+    },
+    async listAccounts() {
+      const accounts: Account[] = [];
+      let files: string[] = [];
+      try {
+        files = await readdir(accountsDir);
+      } catch {
+        return accounts;
+      }
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        const record = await readJson<Account>(path.join(accountsDir, file));
+        if (record?.id) accounts.push(record);
+      }
+      return accounts;
     },
     async saveAccount(account) {
       await mkdir(accountsDir, { recursive: true });
@@ -387,6 +404,16 @@ export async function createBlobAccountStorage(): Promise<AccountStorage> {
       return (
         ((await accounts.get(accountId(email), { type: 'json' })) as Account | null) ?? null
       );
+    },
+    async listAccounts() {
+      const listed = await accounts.list();
+      const records: Account[] = [];
+      for (const entry of listed.blobs) {
+        if (entry.key.startsWith('session-')) continue;
+        const record = (await accounts.get(entry.key, { type: 'json' })) as Account | null;
+        if (record?.id) records.push(record);
+      }
+      return records;
     },
     async saveAccount(account) {
       await accounts.setJSON(account.id, account);

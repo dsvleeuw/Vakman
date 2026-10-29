@@ -5,9 +5,10 @@ import {
   adminLogout,
   fetchAdminOverview,
   setQuoteStatus,
+  verifyAccount,
 } from '../utils/adminClient';
 import { formatEuroCents } from '../utils/quote';
-import type { AdminOverview, AdminQuote, AdminSite, StoredLead } from '../types';
+import type { AdminAccount, AdminOverview, AdminQuote, AdminSite, StoredLead } from '../types';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 
@@ -110,6 +111,40 @@ const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => (
     </p>
     {(lead.fields?.message ?? '').trim() && (
       <p className="m-0 text-sm text-stone-700 whitespace-pre-wrap">{lead.fields.message}</p>
+    )}
+  </li>
+);
+
+/** A customer account: has he confirmed his e-mail address? */
+const AccountRow: React.FC<{
+  account: AdminAccount;
+  busy: boolean;
+  onVerify: (id: string) => void;
+}> = ({ account, busy, onVerify }) => (
+  <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
+    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <span className="font-black text-stone-900 break-all">{account.email}</span>
+      <span
+        className={`text-sm font-bold ${
+          account.verified ? 'text-emerald-700' : 'text-amber-700'
+        }`}
+      >
+        {account.verified ? 'Bevestigd' : 'Niet bevestigd'}
+      </span>
+    </div>
+    <p className="m-0 text-xs text-stone-500">
+      Aangemaakt {dateTime(account.createdAt)} · {account.sites} site
+      {account.sites === 1 ? '' : 's'}
+    </p>
+    {!account.verified && (
+      <button
+        type="button"
+        disabled={busy}
+        onClick={() => onVerify(account.id)}
+        className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60 self-start"
+      >
+        Bevestig het e-mailadres zelf
+      </button>
     )}
   </li>
 );
@@ -220,6 +255,17 @@ export const AdminView: React.FC = () => {
     setLoading(false);
   };
 
+  const handleVerify = async (id: string) => {
+    setBusy(true);
+    const result = await verifyAccount(id);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    await load();
+  };
+
   const handleStatus = async (id: string, status: 'paid' | 'cancelled' | 'open') => {
     setBusy(true);
     const result = await setQuoteStatus(id, status);
@@ -319,6 +365,28 @@ export const AdminView: React.FC = () => {
                   <ul className="m-0 p-0 list-none flex flex-col gap-3">
                     {overview.quotes.map((quote) => (
                       <QuoteRow key={quote.id} quote={quote} busy={busy} onStatus={handleStatus} />
+                    ))}
+                  </ul>
+                )}
+              </section>
+
+              <section className="flex flex-col gap-4">
+                <h2 className="m-0 text-xl font-black tracking-tight">
+                  Accounts <span className="text-base font-bold text-stone-500">({overview.accounts.length})</span>
+                </h2>
+                {overview.accounts.length === 0 ? (
+                  <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
+                    Nog geen accounts.
+                  </p>
+                ) : (
+                  <ul className="m-0 p-0 list-none flex flex-col gap-3">
+                    {overview.accounts.map((account) => (
+                      <AccountRow
+                        key={account.id}
+                        account={account}
+                        busy={busy}
+                        onVerify={handleVerify}
+                      />
                     ))}
                   </ul>
                 )}
