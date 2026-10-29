@@ -81,6 +81,14 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The craftsman cannot delete or export his requests.** Under the AVG a
   customer can ask for that; today Klusbaas has to do it by hand.
 
+## The welcome mail after publishing
+
+- **The mail only goes out once**, after the first publish. A change in the
+  site does not send a new mail, so the checklist in the mail is a snapshot
+  of that moment. The checklist in the editor is always current.
+- **Without `RESEND_API_KEY` no mail is sent**, not even this one. The site
+  is published all the same; the mail is a bonus, not a condition.
+
 ## Accounts, passwords and verification
 
 - **The e-mail address is not enforced.** A customer can publish without

@@ -82,3 +82,60 @@ export function buildVerifyMail(input: { name?: string; url: string }): AccountM
     html: layout('Bevestig je e-mailadres', paragraphs, { label: 'Bevestig mijn e-mailadres', url: input.url }),
   };
 }
+
+/**
+ * The mail the craftsman gets after publishing his site for the first time:
+ * his address, what works and what he should still check.
+ */
+export function buildPublishMail(input: {
+  biz: string;
+  siteUrl: string;
+  manageUrl: string;
+  /** What is still missing on the site, in the words of the checklist. */
+  checklist: { label: string; hint: string }[];
+}): AccountMail {
+  const subject = `Je site staat live: ${input.biz}`;
+  const paragraphs = [
+    `Je site staat live en iedereen kan hem vinden op ${input.siteUrl}.`,
+    'Wat er nu gebeurt: iemand vult je contactformulier in, dan komt de aanvraag per mail binnen en staat hij ook in je account. Je site publiceren is gratis en blijft gratis.',
+    'Wat je nog even kunt kijken: de voorbeeldteksten en de voorbeeldfoto’s van Klusbaas staan niet op je site. Alleen wat je zelf hebt geschreven of bevestigd staat er.',
+  ];
+  const checklist =
+    input.checklist.length > 0
+      ? [
+          'Nog even invullen in de editor:',
+          ...input.checklist.map((item) => `• ${item.label} — ${item.hint}`),
+        ]
+      : ['Alles is ingevuld. Je site ziet eruit zoals jij hem hebt gemaakt.'];
+
+  return {
+    subject,
+    text: [
+      subject,
+      '',
+      ...paragraphs,
+      '',
+      ...checklist,
+      '',
+      `Je site: ${input.siteUrl}`,
+      `De editor: ${input.manageUrl}`,
+      '',
+      'Klusbaas · je website, je eigen adres.',
+    ].join('\n'),
+    html: [
+      '<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1c1917">',
+      `<h1 style="font-size:22px;margin:0 0 16px">Je site staat live</h1>`,
+      ...paragraphs.map((text) => `<p>${escape(text)}</p>`),
+      `<p><strong>${escape(checklist[0])}</strong></p>`,
+      ...(checklist.length > 1
+        ? checklist.slice(1).map((line) => `<p style="margin:0 0 6px">${escape(line)}</p>`)
+        : []),
+      `<p><a href="${escape(input.siteUrl)}" style="display:inline-block;background:#1c1917;color:#ffffff;text-decoration:none;font-weight:700;padding:14px 22px;border-radius:999px">Bekijk je site</a></p>`,
+      `<p style="font-size:13px;color:#57534e;word-break:break-all">Of ga naar de editor:<br><a href="${escape(
+        input.manageUrl
+      )}">${escape(input.manageUrl)}</a></p>`,
+      '<p style="font-size:13px;color:#57534e">Klusbaas · je website, je eigen adres.</p>',
+      '</div>',
+    ].join(''),
+  };
+}

@@ -75,6 +75,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   het adres zelf vanuit het overzicht. Publiceren kan ook zonder bevestiging:
   een klant die vastloopt op zijn mailbox verliest daardoor niet zijn site.
 
+- **Na het publiceren krijgt de vakman een mail.** In de mail staat zijn
+  adres, wat er nu gebeurt als iemand zijn contactformulier invult, en wat
+  hij nog even moet nakijken (de punten van de checklijst). Zo weet hij
+  zonder te bellen wat er met zijn site aan de hand is. De mail gaat naar
+  het e-mailadres van het account, of naar het adres dat bij zijn
+  bedrijfsgegevens staat. Publiceren kan ook zonder mail; de mail is een
+  extra, geen voorwaarde.
+
 ### Changed
 
 - **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-

@@ -1,4 +1,5 @@
 import { accountFromSession } from '../../src/server/accountHandler';
+import { createAccountMailer } from '../../src/server/accountMailer';
 import { handleGetSite, handlePublishSite } from '../../src/server/siteHandler';
 import { createBlobAccountStorage, createBlobSiteStorage } from '../../src/server/storage';
 
@@ -37,7 +38,10 @@ export default async (req: Request): Promise<Response> => {
   const result = await handlePublishSite(body, {
     storage,
     siteUrl,
-    ...(account ? { ownerId: account.id } : {}),
+    ...(account ? { ownerId: account.id, ownerEmail: account.email } : {}),
+    // Na de eerste publicatie gaat er een mail met het adres en wat er nog
+    // moet gebeuren.
+    sendMail: createAccountMailer(process.env),
   });
   return Response.json(result.body, { status: result.status });
 };
