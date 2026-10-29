@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een aanvraag op een klantsite gaat naar de vakman.** De contact-, afspraak-
+  en storingsformulieren van een gepubliceerde site (`/site/<slug>`) sturen de
+  aanvraag naar het e-mailadres dat de vakman zelf heeft ingevuld, in plaats
+  van naar Klusbaas. De pagina zegt nu precies dat wat er gebeurt: op een
+  klantsite "Je bericht gaat direct naar {naam}", op een demosite "Dit is een
+  demosite: je bericht komt bij Klusbaas binnen". Het adres van de vakman
+  komt uit de opgeslagen site, nooit uit het verzoek, en de bezoeker ziet het
+  nooit. Lukt de mail naar de vakman niet, dan blijft de aanvraag bij
+  Klusbaas liggen: een aanvraag mag nooit stilletjes verdwijnen. De
+  privacyverklaring is hierop aangepast.
 - **Klantenaccount (`/mijn-account`)**: de klant beheert zijn site via een
   login in plaats van alleen via een beheerlink met token. Een account
   bestaat uit een e-mailadres en een wachtwoord; het wachtwoord wordt

@@ -125,6 +125,12 @@ result. The Netlify deploy preview is the only external CI check. If
 - When smoke-rendering with `renderToStaticMarkup`, assert against
   entity-decoded markup (`&` renders as `&amp;`). Delete any temporary
   render script before committing.
+- A lead from a published customer site (`/site/<slug>`) belongs to that
+  craftsman: it is mailed to the e-mail address he entered, not to Klusbaas.
+  The recipient always comes from the stored site, never from the request,
+  and the page says the same thing as what happens (`utils/leadCopy.ts`). A
+  demo site (and the editor's preview) sends its leads to Klusbaas — say so
+  on the page.
 - Every form posts to `POST /api/lead` (Netlify Function `netlify/functions/lead.mts`,
   same handler as the Vite dev middleware in `vite.config.ts`). Validation lives
   in `utils/lead.ts`, quote maths in `utils/quote.ts` (cents, 21 % btw), mails in

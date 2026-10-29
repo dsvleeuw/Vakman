@@ -41,7 +41,7 @@ Required before paid customers can rely on the product.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 3.1 | Lead API: store contact-form, fault-report and quote submissions server-side | L | Replace the "open WhatsApp" only path with a real submission plus the WhatsApp option. |
+| 3.1 | Lead API: store contact-form, fault-report and quote submissions server-side | L | The API, storage, PDF and mails are in place. A lead from a published customer site now goes to the owner of that site instead of to Klusbaas. Still missing: a way to see the stored leads without opening Netlify Blobs, and a mail that really arrives (the Resend domain is not verified yet). |
 | 3.2 | Transactional e-mail and WhatsApp Business templates | L | Depends on 1.2 and a provider decision. |
 | 3.3 | Craftsman dashboard: ~~edit services, prices, photos, opening hours~~ The editor covers details, copy, services, opening hours and blocks; prices and photos are still fixed | L | Accounts are in place (3.4): a published site is managed from `/mijn-account`; the private link with a token stays as a fallback. What is still missing is an overview of all quotes and leads per customer. |
 | 3.4 | ~~Authentication and multi-site ownership~~ Done: e-mail + password (scrypt), session in an httpOnly cookie, `ownerId` on the published site and a list of his sites at `/mijn-account` | L | Missing: password reset (no mail yet), e-mail verification and a way to delete an account. The password is hashed with `node:crypto`, so no new dependency was needed; Firebase Auth was not used. |
