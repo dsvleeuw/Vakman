@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import type { Account, AccountSession, PublishedSiteRecord } from '../types';
+import type { Account, AccountSession, PublishedSiteRecord, StoredLead } from '../types';
 import {
   accountFromSession,
   clearSessionCookie,
@@ -8,7 +8,7 @@ import {
   readSessionId,
   sessionCookie,
 } from './accountHandler';
-import type { AccountStorage, SiteStorage } from './storage';
+import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 
 /** Accounts and sessions in memory. */
 function memoryAccounts(): AccountStorage {
@@ -35,6 +35,31 @@ function memoryAccounts(): AccountStorage {
     },
     async deleteSession(id) {
       sessions.delete(id);
+    },
+  };
+}
+
+function memoryLeads(leads: StoredLead[] = []): LeadStorage {
+  const map = new Map(leads.map((lead) => [lead.reference, lead]));
+  return {
+    async nextQuoteSequence() {
+      return 1;
+    },
+    async saveQuote() {
+      return { json: 'memory', pdf: 'memory' };
+    },
+    async getQuote() {
+      return null;
+    },
+    async getQuotePdf() {
+      return null;
+    },
+    async saveLead(reference, lead) {
+      map.set(reference, lead as StoredLead);
+      return `memory:${reference}`;
+    },
+    async listLeads() {
+      return [...map.values()];
     },
   };
 }
@@ -268,4 +293,62 @@ test('de sessioncookie bevat geen spaties en de lege cookie wist de sessie', () 
   assert.equal(readSessionId(cookie), 'sessie-1');
   assert.ok(!cookie.includes('Secure'));
   assert.match(clearSessionCookie(true), /Secure/);
+});
+
+test('de klant ziet de aanvragen van zijn eigen sites', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const leads = memoryLeads([
+    {
+      reference: 'L-AAAA01',
+      createdAt: '2026-10-29T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+      fields: { name: 'Sanne', phone: '0612345678', message: 'Ik wil drie kozijnen schilderen.' },
+    },
+    {
+      reference: 'L-AAAA02',
+      createdAt: '2026-10-30T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Andere Site', sector: 'schilder', slug: 'andere-site' },
+      fields: { name: 'Piet', phone: '0698765432', message: 'Dit is voor iemand anders.' },
+    },
+  ]);
+
+  await sites.saveSite(publishedSite);
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites, leads }
+  );
+  assert.equal(registered.status, 200);
+  const cookie = registered.setCookie;
+
+  const mine = await handleAccount(
+    { action: 'claim', slug: 'jansen-schilderwerken', token: publishedSite.token },
+    { accounts, sites, leads },
+    cookie
+  );
+  assert.equal(mine.status, 200);
+
+  const result = await handleAccount({ action: 'leads' }, { accounts, sites, leads }, cookie);
+  assert.equal(result.status, 200);
+  assert.equal(result.body.leads?.length, 1);
+  assert.equal(result.body.leads?.[0].reference, 'L-AAAA01');
+  assert.equal(result.body.leads?.[0].fields.name, 'Sanne');
+});
+
+test('zonder aanvragen in de opslag ziet de klant geen aanvragen', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites }
+  );
+  const result = await handleAccount(
+    { action: 'leads' },
+    { accounts, sites },
+    registered.setCookie
+  );
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.body.leads, []);
 });

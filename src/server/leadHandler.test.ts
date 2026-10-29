@@ -33,6 +33,9 @@ function memoryStorage() {
       leads.set(reference, lead);
       return `mem:${reference}`;
     },
+    async listLeads() {
+      return [...leads.values()] as Awaited<ReturnType<LeadStorage['listLeads']>>;
+    },
   };
   return { storage, quotes, pdfs, leads };
 }
@@ -329,12 +332,14 @@ test('een aanvraag op een klantsite gaat naar de vakman, niet naar Klusbaas', as
   assert.equal(result.body.delivery?.team.status, 'skipped');
   // De bezoeker ziet het adres van de vakman nooit.
   assert.equal(result.body.delivery?.customer.to, '');
-  assert.equal(mail.sent.length, 1);
   assert.equal(mail.sent[0].to, 'piet@pietschilderwerken.nl');
   assert.match(mail.sent[0].subject, /Nieuwe aanvraag via je website/);
   assert.match(mail.sent[0].text, /Sanne/);
-  // Bij de vakman ligt niets: de aanvraag is van hem.
-  assert.equal(mem.leads.size, 0);
+  // De aanvraag wordt bewaard in naam van de vakman, zodat hij hem in zijn
+  // account kan terugzien. Het team mailt hem niet: de vakman is de
+  // ontvanger.
+  assert.equal(mem.leads.size, 1);
+  assert.equal(mail.sent.length, 1);
 });
 
 test('een aanvraag zonder klantsite komt bij Klusbaas', async () => {

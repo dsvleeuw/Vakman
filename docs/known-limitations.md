@@ -71,6 +71,16 @@ to [ROADMAP.md](../ROADMAP.md).
   point: the editor is where the craftsman writes, the public page is where
   only his own words are.
 
+## Requests and orders
+
+- **The requests are stored, but nothing deletes them.** A request from a
+  customer site is stored with the site it belongs to, so the craftsman can
+  see it in his account even when the mail did not arrive. The privacy
+  statement promises twelve months, but no job removes them after that; they
+  have to be removed by hand from the Blobs store `leads`.
+- **The craftsman cannot delete or export his requests.** Under the AVG a
+  customer can ask for that; today Klusbaas has to do it by hand.
+
 ## Privacy and newsletter
 
 - **TODO: KvK-nummer en vestigingsadres ontbreken** in de privacyverklaring

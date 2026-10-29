@@ -95,14 +95,14 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
         const accountHandler = await server.ssrLoadModule('/src/server/accountHandler.ts');
-        const { createFileAccountStorage, createFileSiteStorage } = await server.ssrLoadModule(
-          '/src/server/storage.ts'
-        );
+        const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
+          await server.ssrLoadModule('/src/server/storage.ts');
         const result = await accountHandler.handleAccount(
           body,
           {
             accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
             sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
+            leads: createFileStorage(path.resolve(__dirname, '.data')),
           },
           req.headers.cookie ?? null,
           false

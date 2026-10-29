@@ -1,4 +1,4 @@
-import type { PublicPublishedSite } from '../types';
+import type { PublicPublishedSite, StoredLead } from '../types';
 
 /**
  * Talking to `/api/account`: register, log in, log out and the sites of
@@ -17,6 +17,8 @@ export interface AccountResult {
   ok: boolean;
   account?: AccountInfo;
   sites?: PublicPublishedSite[];
+  /** The requests that came in through the sites of this customer. */
+  leads?: StoredLead[];
   site?: PublicPublishedSite;
   error?: string;
   field?: string;
@@ -65,6 +67,16 @@ export async function fetchAccount(): Promise<AccountInfo | null> {
 export async function fetchAccountSites(): Promise<PublicPublishedSite[]> {
   const result = await post({ action: 'sites' });
   return result.ok && Array.isArray(result.sites) ? result.sites : [];
+}
+
+/**
+ * The requests that came in through the sites of the logged-in customer.
+ * Klusbaas keeps them on his behalf, so he sees them even when the mail
+ * did not arrive.
+ */
+export async function fetchAccountLeads(): Promise<StoredLead[]> {
+  const result = await post({ action: 'leads' });
+  return result.ok && Array.isArray(result.leads) ? result.leads : [];
 }
 
 /**

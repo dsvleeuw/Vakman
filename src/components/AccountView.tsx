@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Loader2, LogOut, TriangleAlert } from 'lucide-react';
-import type { PublicPublishedSite } from '../types';
+import type { PublicPublishedSite, StoredLead } from '../types';
 import {
   claimSite,
+  fetchAccountLeads,
   fetchAccount,
   fetchAccountSites,
   loginAccount,
@@ -89,6 +90,58 @@ const SiteRow: React.FC<{ site: PublicPublishedSite }> = ({ site }) => (
   </li>
 );
 
+/** Dutch labels for the forms a visitor can fill in. */
+const LEAD_LABELS: Record<string, string> = {
+  contact: 'Contactformulier',
+  appointment: 'Afspraak',
+  fault: 'Storingsmelding',
+  surface: 'Offerteaanvraag',
+};
+
+/** The text a visitor wrote, per kind of form. */
+const LEAD_TEXT_FIELDS = ['message', 'notes', 'details', 'service'];
+
+function leadDate(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso;
+  return date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+/** One request from a visitor, as the craftsman sees it in his account. */
+const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => {
+  const text = LEAD_TEXT_FIELDS.map((key) => lead.fields?.[key]).find((value) => value?.trim());
+  return (
+    <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="font-black text-stone-900">
+          {lead.fields?.name?.trim() || 'Iemand zonder naam'}
+        </span>
+        {lead.fields?.phone?.trim() && (
+          <a
+            href={`tel:${lead.fields.phone.replace(/[^0-9+]/g, '')}`}
+            className="text-sm font-bold text-stone-700 underline underline-offset-2"
+          >
+            {lead.fields.phone}
+          </a>
+        )}
+        {lead.fields?.email?.trim() && (
+          <a
+            href={`mailto:${lead.fields.email}`}
+            className="text-sm font-bold text-stone-700 underline underline-offset-2 break-all"
+          >
+            {lead.fields.email}
+          </a>
+        )}
+      </div>
+      <p className="m-0 text-xs text-stone-500">
+        {leadDate(lead.createdAt)} · {LEAD_LABELS[lead.type] ?? 'Aanvraag'} ·{' '}
+        {lead.site?.biz} · referentie {lead.reference}
+      </p>
+      {text && <p className="m-0 text-sm text-stone-700 whitespace-pre-wrap">{text}</p>}
+    </li>
+  );
+};
+
 export const AccountView: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState<AccountInfo | null>(null);
@@ -102,8 +155,14 @@ export const AccountView: React.FC = () => {
   const [manageLink, setManageLink] = useState('');
   const [claimError, setClaimError] = useState<string | null>(null);
 
+  const [leads, setLeads] = useState<StoredLead[]>([]);
+
   const loadSites = useCallback(async () => {
     setSites(await fetchAccountSites());
+  }, []);
+
+  const loadLeads = useCallback(async () => {
+    setLeads(await fetchAccountLeads());
   }, []);
 
   useEffect(() => {
@@ -112,7 +171,10 @@ export const AccountView: React.FC = () => {
       const current = await fetchAccount();
       if (!active) return;
       setAccount(current);
-      if (current) await loadSites();
+      if (current) {
+        await loadSites();
+        await loadLeads();
+      }
       setLoading(false);
     })();
     return () => {
@@ -135,6 +197,7 @@ export const AccountView: React.FC = () => {
     setAccount(result.account);
     setPassword('');
     await loadSites();
+    await loadLeads();
     setNotice(mode === 'register' ? 'Je account is klaar.' : 'Je bent ingelogd.');
   };
 
@@ -144,6 +207,7 @@ export const AccountView: React.FC = () => {
     setBusy(false);
     setAccount(null);
     setSites([]);
+    setLeads([]);
     setNotice('Je bent uitgelogd.');
     setError(null);
   };
@@ -166,6 +230,7 @@ export const AccountView: React.FC = () => {
     }
     setManageLink('');
     await loadSites();
+    await loadLeads();
     setNotice('Je site is nu gekoppeld aan je account.');
   };
 
@@ -313,6 +378,29 @@ export const AccountView: React.FC = () => {
             <ul className="m-0 p-0 list-none flex flex-col gap-3">
               {sites.map((site) => (
                 <SiteRow key={site.slug} site={site} />
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="m-0 text-xl font-black tracking-tight">
+            Mijn aanvragen
+            {leads.length > 0 && (
+              <span className="text-base font-bold text-stone-500"> ({leads.length})</span>
+            )}
+          </h2>
+          {leads.length === 0 ? (
+            <div className="rounded-2xl bg-white border border-stone-200 p-6">
+              <p className="m-0 text-stone-700">
+                Nog geen aanvragen. Zodra iemand je contactformulier, je afspraak of je
+                storingsmelding invult, staat die hier. Je krijgt ze ook per mail.
+              </p>
+            </div>
+          ) : (
+            <ul className="m-0 p-0 list-none flex flex-col gap-3">
+              {leads.map((lead) => (
+                <LeadRow key={lead.reference} lead={lead} />
               ))}
             </ul>
           )}

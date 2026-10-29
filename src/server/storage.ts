@@ -1,7 +1,7 @@
 import { mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import type { Account, AccountSession, PublishedSiteRecord } from '../types';
+import type { Account, AccountSession, PublishedSiteRecord, StoredLead } from '../types';
 import type { QuoteRecord } from '../utils/quote';
 
 /**
@@ -16,6 +16,8 @@ export interface LeadStorage {
   getQuote(id: string): Promise<QuoteRecord | null>;
   getQuotePdf(id: string): Promise<Uint8Array | null>;
   saveLead(reference: string, lead: unknown): Promise<string>;
+  /** Every stored request, newest last. Used to show a craftsman his own. */
+  listLeads(): Promise<StoredLead[]>;
 }
 
 const counterKey = (year: number) => `counter-${year}`;
@@ -85,6 +87,21 @@ export function createFileStorage(root: string): LeadStorage {
       const file = path.join(leadsDir, `${safe(reference)}.json`);
       await writeFile(file, JSON.stringify(lead, null, 2));
       return file;
+    },
+    async listLeads() {
+      const records: StoredLead[] = [];
+      let files: string[] = [];
+      try {
+        files = await readdir(leadsDir);
+      } catch {
+        return records;
+      }
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        const record = await readJson<StoredLead>(path.join(leadsDir, file));
+        if (record?.reference) records.push(record);
+      }
+      return records;
     },
   };
 }
@@ -237,6 +254,15 @@ export async function createBlobStorage(): Promise<LeadStorage> {
     async saveLead(reference, lead) {
       await leads.setJSON(reference, lead);
       return `blobs:leads/${reference}`;
+    },
+    async listLeads() {
+      const listed = await leads.list();
+      const records: StoredLead[] = [];
+      for (const entry of listed.blobs) {
+        const record = (await leads.get(entry.key, { type: 'json' })) as StoredLead | null;
+        if (record?.reference) records.push(record);
+      }
+      return records;
     },
   };
 }

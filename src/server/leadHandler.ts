@@ -265,9 +265,11 @@ async function handleSiteLead(
       log,
       `eigenaar ${reference}`
     );
+    // De aanvraag wordt altijd bewaard, in naam van de vakman: zo kan hij
+    // hem in zijn account terugzien, ook als de mail niet aankomt.
+    const saved = await deps.storage.saveLead(reference, { reference, createdAt, ...lead });
+    log(`[lead] ${lead.type} ${reference} opgeslagen: ${saved}`);
     if (delivered.status === 'sent') {
-      // De vakman heeft de aanvraag: bij Klusbaas komt niets van zijn
-      // klantengegevens te liggen.
       log(`[lead] ${lead.type} ${reference} naar de eigenaar van ${owner.biz}`);
       return {
         status: 200,
@@ -284,10 +286,8 @@ async function handleSiteLead(
         },
       };
     }
-    // De mail naar de vakman lukte niet (of draait in testmodus): de
-    // aanvraag blijft bij Klusbaas liggen, zodat ze niet verloren gaat.
-    const saved = await deps.storage.saveLead(reference, { reference, createdAt, ...lead });
-    log(`[lead] ${lead.type} ${reference} opgeslagen: ${saved}`);
+    // De mail naar de vakman lukte niet (of draait in testmodus): het team
+    // mailt hem, zodat de aanvraag niet verloren gaat.
     const teamMail = buildSiteLeadEmail(lead, 'team', reference, deps.siteUrl);
     const team = await deliver(
       { from, to: notify, replyTo: lead.fields.email, ...teamMail },

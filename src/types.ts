@@ -420,6 +420,22 @@ export interface Account {
   updatedAt: number;
 }
 
+/**
+ * A request a visitor sent through a form on a site. Klusbaas keeps it on
+ * behalf of the craftsman whose site it is, so he can see it in his account
+ * even when the mail did not arrive.
+ */
+export interface StoredLead {
+  /** The reference the visitor saw: `L-XXXXXX`. */
+  reference: string;
+  /** When the request arrived (ISO date). */
+  createdAt: string;
+  /** Which form it came from: contact, appointment, fault or surface. */
+  type: string;
+  site: { biz: string; sector: string; style?: string; slug?: string };
+  fields: Record<string, string>;
+}
+
 /** A logged-in session. The id travels in an httpOnly cookie. */
 export interface AccountSession {
   id: string;

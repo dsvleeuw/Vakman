@@ -1,8 +1,8 @@
 import { randomBytes } from 'node:crypto';
-import type { Account, AccountSession, PublicPublishedSite } from '../types';
+import type { Account, AccountSession, PublicPublishedSite, StoredLead } from '../types';
 import { isValidEmail } from '../utils/contact';
 import { hashPassword, passwordProblem, verifyPassword } from '../utils/password';
-import { accountId, type AccountStorage, type SiteStorage } from './storage';
+import { accountId, type AccountStorage, type LeadStorage, type SiteStorage } from './storage';
 import { isValidSlug, toPublicSite } from './siteHandler';
 import { tokensMatch } from './tokens';
 
@@ -17,7 +17,14 @@ import { tokensMatch } from './tokens';
 export const SESSION_COOKIE = 'klusbaas_session';
 export const SESSION_MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
 
-export type AccountAction = 'register' | 'login' | 'logout' | 'me' | 'sites' | 'claim';
+export type AccountAction =
+  | 'register'
+  | 'login'
+  | 'logout'
+  | 'me'
+  | 'sites'
+  | 'leads'
+  | 'claim';
 
 export interface AccountRequestBody {
   action?: AccountAction;
@@ -29,6 +36,8 @@ export interface AccountResponseBody {
   ok: boolean;
   account?: { id: string; email: string };
   sites?: PublicPublishedSite[];
+  /** The requests that came in through the sites of this customer. */
+  leads?: StoredLead[];
   /** The site that was linked to the account. */
   site?: PublicPublishedSite;
   error?: string;
@@ -47,6 +56,8 @@ export interface AccountHandlerResult {
 export interface AccountDeps {
   accounts: AccountStorage;
   sites: SiteStorage;
+  /** Where the requests are kept. Without it the customer sees no requests. */
+  leads?: LeadStorage;
   now?: () => number;
   createSessionId?: () => string;
   /** Rate limiter: returns false when this key is over its limit. */
@@ -260,6 +271,21 @@ export async function handleAccount(
     return {
       status: 200,
       body: { ok: true, account: publicAccount(account), sites: owned.map(toPublicSite) },
+    };
+  }
+
+  if (action === 'leads') {
+    // De aanvragen van de sites van deze klant. Klusbaas bewaart ze in zijn
+    // naam, zodat de vakman ze ook kan terugzien als de mail niet aankwam.
+    const owned = (await deps.sites.listSites()).filter((site) => site.ownerId === account.id);
+    const slugs = new Set(owned.map((site) => site.slug));
+    const all = deps.leads ? await deps.leads.listLeads() : [];
+    const leads = all
+      .filter((lead) => lead.site?.slug && slugs.has(lead.site.slug))
+      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+    return {
+      status: 200,
+      body: { ok: true, account: publicAccount(account), leads },
     };
   }
 

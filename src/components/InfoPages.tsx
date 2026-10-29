@@ -78,9 +78,9 @@ const DATA_ROWS: DataRow[] = [
   {
     what: 'Aanvragen via een klantsite',
     data: 'Wat de bezoeker invult: naam, telefoonnummer, e-mailadres, adres of postcode en zijn bericht.',
-    why: 'Je vraag beantwoorden. De aanvraag gaat naar de vakman wiens site het is: hij is de eigenaar van de klantgegevens van zijn eigen site.',
+    why: 'Je vraag beantwoorden. De aanvraag gaat naar de vakman wiens site het is: hij is de eigenaar van de klantgegevens van zijn eigen site. Klusbaas bewaart de aanvraag alleen namens hem, zodat hij hem kan terugzien.',
     basis: 'Gerechtvaardigd belang: de vakman antwoordt op een vraag die op zijn eigen site is gesteld.',
-    keep: 'De aanvraag gaat naar de vakman. Klusbaas bewaart alleen een back-up wanneer de mail naar de vakman niet aankomt, zodat er niets verloren gaat; die back-up wordt binnen 12 maanden verwijderd.',
+    keep: 'Klusbaas bewaart de aanvraag twaalf maanden in naam van de vakman, zodat hij hem in zijn account kan terugzien, ook als de mail niet aankwam. Klusbaas gebruikt de aanvraag voor niets anders en verwijdert hem na deze termijn.',
   },
   {
     what: 'Klusbaas-account (mijn-account)',

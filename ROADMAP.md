@@ -96,7 +96,7 @@ no provider dashboards, no design decision a human has to make first.
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
 | 6.1 | ~~A published site shows only the craftsman's own words, photos and claims~~ Done: the published page leaves out the example reviews, rating, Google badge, photos, prices, marks and FAQ; a block only goes on the page when the craftsman wrote or confirmed it; the editor shows a checklist | L | Still missing: his own photos (6.9) and his own prices and reviews (6.1b). |
-| 6.2 | The craftsman sees his requests in `/mijn-account` | M | A request is stored with the site it belongs to, so the mail is a convenience and not the only copy. Klusbaas stores it on behalf of the craftsman; the privacy statement says so. |
+| 6.2 | ~~The craftsman sees his requests in `/mijn-account`~~ Done: every request is stored with its site and listed in the account with name, phone, e-mail, message, date and reference | M | Klusbaas stores it on behalf of the craftsman; the privacy statement says so. Still missing: the craftsman cannot delete or export his requests (AVG), and there is no automatic deletion after twelve months. |
 | 6.3 | An order with a price, a status and a payment link | M | The packages exist (€ 595 / € 995 / € 1.795 plus add-ons) but nothing can be ordered or paid. The site stays free to publish (VISION stress test 8): the order follows the site, it does not gate it. |
 | 6.4 | Klusbaas' overview: customers, sites, orders and requests | M | Today the stored requests and quotes are only visible in the mail and in the Blobs store. |
 | 6.5 | Password reset and e-mail verification | M | 3.4: an account without a reset is a support ticket. |
