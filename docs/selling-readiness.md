@@ -30,6 +30,8 @@ on `main`; the commands to re-measure them are at the bottom.
 9. A request can become an order too: Klusbaas picks the request in the
    "Offerte maken" form and the offer takes the customer's details from it
    (phase 7.4).
+10. The customer says yes himself: one click on the offer page, and Klusbaas
+    knows it the same day (phase 7.5).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -58,6 +60,7 @@ there is no payment provider (still open).
 | 13 | Only the wizard creates an offer | `src/server/adminHandler.ts` knew `login`, `logout`, `overview`, `quote-status` and `verify-account` | A customer who makes his own account and publishes his own site never gets an offer, and therefore no order and no invoice. Klusbaas could not write one either | **fixed (7.2)** |
 | 14 | The offer does not say where to pay | `src/server/quotePdf.ts` had no payment block and `GET /api/quote` returned no payment details | A customer without an account could open the offer but not see where to transfer the money, so the sale stopped at the offer | **fixed (7.3)** |
 | 15 | A request cannot become an offer | the "Offerte maken" form listed only published sites and accounts | Someone who only sent a request could not be given an offer, so a lead from a form had no path to an order | **fixed (7.4)** |
+| 16 | The customer has to write a mail to accept | the offer page only showed the price and the way to pay | The customer had to write a mail or a WhatsApp message to say yes, and that is where a sale is lost most easily | **fixed (7.5)** |
 
 The status column says what has been done since the audit was written
 (phases 6.1–6.9 and 7.1–7.4). "Partly fixed" means: an offer can be ordered
@@ -96,16 +99,19 @@ no invoice.
   the offer page (phase 7.3).
 - A request can become an offer: the request is a customer in the "Offerte
   maken" form (phase 7.4).
+- The customer accepts the offer himself: one click on the offer page, and
+  Klusbaas hears about it the same day (phase 7.5).
 
 ## Definition of done
 
 The eight conditions in ROADMAP phase 6 are the contract: a craftsman can
 be sold a website when he can sign up, publish a site that only says true
 things, see his requests, pay, and find everything back on any device.
-Phase 7 adds four conditions of its own: Klusbaas can write an offer for a
+Phase 7 adds five conditions of its own: Klusbaas can write an offer for a
 customer who did not come through the wizard (7.2), the photo upload cannot
 be used to fill the store (7.1), the customer can pay the offer without
-making an account first (7.3), and a request can become an offer (7.4).
+making an account first (7.3), a request can become an offer (7.4), and the
+customer can accept the offer himself (7.5).
 
 ## How to re-measure this
 
@@ -141,6 +147,9 @@ grep -n "payment" src/server/quotePdf.ts | head -1
 
 # 15: a request can become an offer
 grep -n "leadReference" src/server/adminOffer.ts | head -1
+
+# 16: the customer accepts the offer himself
+grep -n "quote/accept" src/server/acceptQuote.ts | head -1
 
 # and the checks that must stay green
 bun run check

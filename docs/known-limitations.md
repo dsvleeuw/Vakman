@@ -142,6 +142,21 @@ to [ROADMAP.md](../ROADMAP.md).
   says that Klusbaas will send them. That is deliberate: a wrong IBAN is
   worse than no IBAN.
 
+## Accepting an offer
+
+- **The customer accepts on the offer page.** One click and his name: the
+  offer gets the status `accepted` and Klusbaas gets a mail with the
+  details. Before this, the customer had to write a mail or a WhatsApp
+  message to say yes.
+- **Accepting is not paying.** The customer still transfers the money, and
+  Klusbaas marks the offer as paid when it arrives. There is no payment
+  provider and no automatic check.
+- **Accepting is not a contract.** There is no signature and no signed
+  document: the mail of the customer is the agreement. For a bigger order it
+  is wise to make a contract by hand.
+- **A cancelled offer cannot be accepted.** A paid offer stays paid; asking
+  to accept it again changes nothing.
+
 ## The offer Klusbaas writes himself
 
 - **Klusbaas writes the offer, the customer does not ask for one.** In

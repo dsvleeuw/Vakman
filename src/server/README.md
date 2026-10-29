@@ -57,6 +57,15 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 6. Met `leadReference` neemt de offerte de klantgegevens uit een aanvraag
    (`L-XXXXXX`), voor iemand die nooit een account maakte
 
+## Accepteren door de klant
+
+`POST /api/quote/accept` met `{ id, token, name }`: de klant zegt ja op de
+offertepagina. De token uit de offertelink bewijst dat de offerte van hem
+is. De offerte krijgt de status `accepted` (`acceptedAt`) en Klusbaas krijgt
+een mail (`utils/leadEmail.ts`, `buildAcceptEmail`). Accepteren is geen
+betalen: het bedrag wordt overgemaakt en Klusbaas markeert de offerte
+handmatig als betaald.
+
 ## Tests
 
 - Mock `Resend`, `Netlify Blobs`, `crypto.randomUUID`

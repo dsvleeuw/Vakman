@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant kan de offerte zelf accepteren.** Op de offertepagina staat een
+  knop "Ja, ik ga akkoord". De klant vult zijn naam in, de offerte krijgt de
+  status "Geaccepteerd" en Klusbaas krijgt daar een mail van. Voorheen
+  moest de klant zelf een mail of WhatsApp-bericht sturen om akkoord te
+  geven, en dat is de plek waar een verkoop het vaakst stukgaat.
 - **Een aanvraag kan een offerte worden.** Iemand die alleen een aanvraag
   stuurde en nooit een account maakte staat nu in de lijst van "Offerte
   maken" in `/klusbaas`. Klusbaas kiest hem, de offerte neemt zijn naam,

@@ -313,6 +313,57 @@ export function buildOfferEmail(
   return { subject, text, html };
 }
 
+/**
+ * The mail to Klusbaas when a customer accepts an offer on the offer page.
+ *
+ * The customer said yes: that is the moment the sale is real. The mail has
+ * the name he typed, the offer and what he has to transfer.
+ */
+export function buildAcceptEmail(
+  record: QuoteRecord,
+  links: { siteUrl?: string } = {}
+): LeadEmail {
+  const siteUrl = links.siteUrl ?? DEFAULT_SITE_URL;
+  const { customer } = record;
+  const subject = `Offerte ${record.id} is geaccepteerd door ${customer.owner}`;
+  const intro = `${customer.owner} van ${customer.biz} heeft offerte ${record.id} geaccepteerd.`;
+  const details: Row[] = [
+    { label: 'Offerte', value: record.id },
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Contactpersoon', value: customer.owner },
+    { label: 'Telefoon', value: customer.phone },
+    ...(customer.email ? [{ label: 'E-mail', value: customer.email }] : []),
+    { label: 'Plaats', value: customer.city },
+    { label: 'Pakket', value: record.planName },
+    { label: 'Bedrag incl. btw', value: formatEuroCents(record.totalCents) },
+  ];
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    ...textRows(details),
+    '',
+    'De klant heeft nog niet betaald. Zodra het bedrag binnen is, markeer je de',
+    'offerte als betaald in het overzicht.',
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections: section('Gegevens', emailTable(details)),
+    outro:
+      'De klant heeft nog niet betaald. Zodra het bedrag binnen is, markeer je de offerte als betaald in het overzicht.',
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
 /** Mail for a lead from one of the site forms (afspraak, contact, storing, m²). */
 /**
  * The mail for a lead from a site.

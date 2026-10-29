@@ -150,7 +150,16 @@ export interface QuoteCustomer {
  * The status of an offer: `open` (the customer has to pay), `paid` or
  * `cancelled`. An offer is the order of the customer.
  */
-export type QuoteStatus = 'open' | 'paid' | 'cancelled';
+/**
+ * The status of an order.
+ *
+ * - `open`: the offer is there, nobody decided yet.
+ * - `accepted`: the customer said yes on the offer page. Klusbaas knows the
+ *   sale is real, but the money is not in yet.
+ * - `paid`: the money is in.
+ * - `cancelled`: the offer is off.
+ */
+export type QuoteStatus = 'open' | 'accepted' | 'paid' | 'cancelled';
 
 export interface QuoteRecord extends QuoteTotals {
   id: string;
@@ -161,6 +170,8 @@ export interface QuoteRecord extends QuoteTotals {
   status: QuoteStatus;
   /** When the customer paid. */
   paidAt?: string;
+  /** When the customer accepted the offer. */
+  acceptedAt?: string;
   /** The account of the customer, when he was logged in while requesting it. */
   accountId?: string;
   customer: QuoteCustomer;
