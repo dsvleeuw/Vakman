@@ -18187,7 +18187,7 @@ Fase 7: Klusbaas kan zelf verkopen","25","1","FALSE","9089","8248","82d338418d77
 "types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","17","0","FALSE","17040","16428","105ee1cbc1aaf41b72bce5787e2a115cccf56937","360e2ed0dfde0904532f9b503070747edd74753d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/types.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
-"adminClient.ts","src/utils/adminClient.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
+"adminClient.ts","src/utils/adminClient.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","38","2","FALSE","2765","1923","3ef53b33d94f40b506a67a6f6c681ca423c60036","4d5b488161d31ba4ae65b09a35558eef426bda0b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/utils/adminClient.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz","p:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz",""
 "leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
@@ -18325,7 +18325,7 @@ moet zelf het werk doen.
   klant is die ja heeft gezegd.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","30062","30034","2c9bb894b64e5f159648fbde0a7448f311891441","9954b94b4af715c8505ad6aa29d950805033e792","100644","100644","https://github.com/dsvleeuw/Vakman/commit/ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405","https://github.com/dsvleeuw/Vakman/blob/ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405/src/components/AccountView.tsx","Commit","2026-10-29T07:33:35.791Z","ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
-"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405","ec22dbdf3f4c","[""b5a147beac5347fb01ebae4523ba2bcee79a4274""]","2026-10-29T07:33:15Z","2026-10-29T07:33:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant de offerte zelf accepteren","Laat de klant de offerte zelf accepteren
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405","ec22dbdf3f4c","[""b5a147beac5347fb01ebae4523ba2bcee79a4274""]","2026-10-29T07:33:15Z","2026-10-29T07:33:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant de offerte zelf accepteren","Laat de klant de offerte zelf accepteren
 
 Om akkoord te geven moest de klant een mail of een WhatsApp-bericht
 schrijven. Dat is de plek waar een verkoop het vaakst stukgaat: de klant
@@ -18451,7 +18451,7 @@ moet zelf het werk doen.
   klant is die ja heeft gezegd.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","51","0","FALSE","17716","15975","9f3dc3f2c738d281291612f4dc0b640f5b50e800","99178d4fb8a9285058eeec548a429ab324fbb9c4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405","https://github.com/dsvleeuw/Vakman/blob/ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405/src/utils/leadEmail.ts","Commit","2026-10-29T07:33:35.791Z","ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
-"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405","ec22dbdf3f4c","[""b5a147beac5347fb01ebae4523ba2bcee79a4274""]","2026-10-29T07:33:15Z","2026-10-29T07:33:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant de offerte zelf accepteren","Laat de klant de offerte zelf accepteren
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405","ec22dbdf3f4c","[""b5a147beac5347fb01ebae4523ba2bcee79a4274""]","2026-10-29T07:33:15Z","2026-10-29T07:33:15Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant de offerte zelf accepteren","Laat de klant de offerte zelf accepteren
 
 Om akkoord te geven moest de klant een mail of een WhatsApp-bericht
 schrijven. Dat is de plek waar een verkoop het vaakst stukgaat: de klant
@@ -18555,7 +18555,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","0","FALSE","3362","2805","d6d0b943b10aa3f42f15d9fbd76c254d3fbb263f","2dbcd9c2556e361ebae92844520ac81c50ccaa50","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/.env.example","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:LmVudi5leGFtcGxl","p:LmVudi5leGFtcGxl",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18575,7 +18575,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","13947","13687","a91894df62ec42f9c9f3b85c392959bae0620c07","2f33eca5e0bca6632128a8c47185329fc05e753f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/AGENTS.md","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18595,7 +18595,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","35482","34890","caa6d06f1ef4c62188d690384c60480909d50268","da452a49689c9ef1692265347b64be28ea8088d4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/CHANGELOG.md","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18615,7 +18615,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","16435","15751","20397d5a3ad0097cb005f8018d8b92a9a116c21a","13879360e0f928d067e2470019e5f0399f4714b9","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/ROADMAP.md","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18635,7 +18635,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","18","0","FALSE","20076","19146","d0c9240c1f1eeb1166f95bb979459125bc7ae1f4","10873a6e386faf55258c0b6a531d76b6b2a873b3","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/docs/known-limitations.md","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18735,7 +18735,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","19","0","FALSE","15041","14041","0bd334788fbd1130b508e7a3305a3a49cc134acb","fd7a816dbb8aedc50f80e96c2856cae04370bf13","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/src/components/QuoteView.tsx","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA",""
-"README.md","src/server/README.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"README.md","src/server/README.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18755,7 +18755,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","12","0","FALSE","4230","3632","43a9958ec0b3eeb584f7f0f90136f115e7b9efab","6bdbb35483cac45dc3253ab43467e5af21bd1989","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/src/server/README.md","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
-"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18775,7 +18775,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","57","1","FALSE","11811","10005","bcbc13f95f6fa403ccb3e7b942c3652451b3293a","f94230044d372cf48521b7c9af52bf262ecce8fc","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/src/server/adminHandler.test.ts","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
-"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18895,7 +18895,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","81","0","FALSE","2842","","25cb83564182d8cdb085df51e06ac417883cbbe7","","100644","","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/src/server/paidNotice.ts","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:c3JjL3NlcnZlci9wYWlkTm90aWNlLnRz","p:c3JjL3NlcnZlci9wYWlkTm90aWNlLnRz",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -18915,7 +18915,7 @@ administratie.
   als betaald markeren stuurt geen tweede factuur.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","20","0","FALSE","17651","17040","2b093c383c42f5dfcc240479c941a590b790aa5c","105ee1cbc1aaf41b72bce5787e2a115cccf56937","100644","100644","https://github.com/dsvleeuw/Vakman/commit/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","https://github.com/dsvleeuw/Vakman/blob/d0fcdb343bb7d5d816b4583baf78fd63a6ce7449/src/types.ts","Commit","2026-10-29T07:47:38.275Z","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
-"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
+"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""main""]","Gewijzigd","M","","","d0fcdb343bb7d5d816b4583baf78fd63a6ce7449","d0fcdb343bb7","[""ec22dbdf3f4c5c60bcf0a6f4eeb48949e6ea4405""]","2026-10-29T07:47:09Z","2026-10-29T07:47:09Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een factuur zodra hij betaalt","Geef de klant een factuur zodra hij betaalt
 
 Tot nu toe eindigde de verkoop stil: de klant maakte het bedrag over en
 hoorde niets meer. Geen bevestiging, geen document voor zijn eigen
@@ -19018,3 +19018,213 @@ Fase 7.6: de klant krijgt een factuur als hij betaalt","62","0","FALSE","19928",
 "vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","ce75a539d631d4f330ae8b607e66688e18df128a","ce75a539d631","[""926654e03bcf3971aed37ce17263e128c84b46a1"",""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:48:49Z","2026-10-29T07:48:49Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #44 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #44 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.6: de klant krijgt een factuur als hij betaalt","5","1","FALSE","19483","19135","f29358fb411e6309162ac1c09c58598aebadb85f","1d830d50e892de837f0b6c1b458b2619e6552f0e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/ce75a539d631d4f330ae8b607e66688e18df128a","https://github.com/dsvleeuw/Vakman/blob/ce75a539d631d4f330ae8b607e66688e18df128a/vite.config.ts","Commit","2026-10-29T07:49:06.548Z","ce75a539d631d4f330ae8b607e66688e18df128a:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","14161","13947","2777fb369231d79dda30c54a14f166ae653fcb73","a91894df62ec42f9c9f3b85c392959bae0620c07","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/AGENTS.md","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","0","FALSE","35965","35482","63f6787eb5d31cd9b1993f02f843983595aa4b50","caa6d06f1ef4c62188d690384c60480909d50268","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/CHANGELOG.md","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","17054","16435","7e6dead3bfe766960d37dba340ce03a84112ffc6","20397d5a3ad0097cb005f8018d8b92a9a116c21a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/ROADMAP.md","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","2","FALSE","20528","20076","4f96d286a6fb2fe706ea6e3c1bfad379edc50bc5","d0c9240c1f1eeb1166f95bb979459125bc7ae1f4","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/docs/known-limitations.md","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","11","3","FALSE","11590","11000","85342db8e3eda977eba2974818de3b84588875cc","81106ae863082633efa893e4d71defc0d6a34772","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/docs/selling-readiness.md","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","49","2","FALSE","18947","17328","2f72701ce9072c1e3faa8d2b89c13cdbd0c1cc25","a717b9ecba15609cefe61a6848d14d38fb57e3fd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/components/AdminView.tsx","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA",""
+"README.md","src/server/README.md","Markdown-document",".md","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","0","FALSE","4608","4230","cfb227331af820bdc22e228b35f6a29c4ec6c99c","43a9958ec0b3eeb584f7f0f90136f115e7b9efab","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/server/README.md","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
+"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","38","0","FALSE","13447","11811","c1f1faf7369e4cf458a72dbbd86e09f34edd890d","bcbc13f95f6fa403ccb3e7b942c3652451b3293a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/server/adminHandler.test.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","32","3","FALSE","13765","12562","929be8142c9f8403564c5d0e87d6eb950f016d15","a14a35d1373cf84ce2580947034abb3d951ed245","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/server/adminHandler.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
+"remindQuote.test.ts","src/server/remindQuote.test.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Toegevoegd","A","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","73","0","FALSE","2490","","885b20e73c6d0e1c4c62eb42cd2b6f53be419857","","100644","","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/server/remindQuote.test.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50ZXN0LnRz","p:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50ZXN0LnRz",""
+"remindQuote.ts","src/server/remindQuote.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Toegevoegd","A","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","68","0","FALSE","2376","","16bf51439b0868dd63e65296468966fcdb0b9e0a","","100644","","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/server/remindQuote.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50cw","p:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50cw",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","0","FALSE","17727","17651","5ab8afd02d2fc9bdc5051def801eec7a5df5c824","2b093c383c42f5dfcc240479c941a590b790aa5c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/types.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"adminClient.ts","src/utils/adminClient.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","12","0","FALSE","3163","2765","a2fb9b87fcaffe647f116a002b16b7906f08df1f","3ef53b33d94f40b506a67a6f6c681ca423c60036","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/utils/adminClient.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz","p:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz",""
+"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","65","0","FALSE","22173","19928","5bb51917eb79a34d9477a4c57600d9e1a774f10c","8e055e70efed6b42e18d850728e5f5f878f4fd32","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/utils/leadEmail.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","[""arena/a0a41caf-vakman""]","Gewijzigd","M","","","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","750bdf98f06a","[""d0fcdb343bb7d5d816b4583baf78fd63a6ce7449""]","2026-10-29T07:52:55Z","2026-10-29T07:52:55Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat Klusbaas een openstaande offerte opvolgen","Laat Klusbaas een openstaande offerte opvolgen
+
+Een offerte die open blijft staan is een offerte waar niemand ja tegen
+zei. Tot nu toe moest Klusbaas die zelf onthouden en de mail met de hand
+opnieuw schrijven.
+
+- Bij elke openstaande offerte staat in `/klusbaas` een knop ""Stuur een
+  herinnering"". De klant krijgt een mail met de link naar de offerte, het
+  bedrag en de IBAN er weer bij.
+- Een offerte is dertig dagen geldig. In het overzicht staat daarna
+  ""Verlopen"", zodat Klusbaas weet dat de prijs geen belofte meer is en
+  een nieuwe offerte moet schrijven.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","0","FALSE","8579","8050","e17fb2f3f1cc22bb265ad581da804630f0648521","50c22ab7e6b7a425624f21f90edec84db6e1b383","100644","100644","https://github.com/dsvleeuw/Vakman/commit/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee","https://github.com/dsvleeuw/Vakman/blob/750bdf98f06abb8d38b44ff0fbf08d80f2e96bee/src/utils/quote.ts","Commit","2026-10-29T07:53:09.959Z","750bdf98f06abb8d38b44ff0fbf08d80f2e96bee:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
