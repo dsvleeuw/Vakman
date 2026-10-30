@@ -232,7 +232,13 @@ const QuoteRow: React.FC<{
           binnen is, markeer je hem als betaald.
         </span>
       )}
-      {quote.status === 'accepted' && quote.acceptedAt && (
+      {quote.status === 'accepted' && quote.paymentReportedAt && (
+        <p className="m-0 text-sm font-semibold text-emerald-800">
+          De klant meldt dat hij heeft betaald ({dateTime(quote.paymentReportedAt)}). Controleer
+          je bankrekening en markeer de offerte als betaald.
+        </p>
+      )}
+      {quote.status === 'accepted' && quote.acceptedAt && !quote.paymentReportedAt && (
         <>
           <p className="m-0 text-sm font-semibold text-amber-800">
             Wacht al {daysSince(quote.acceptedAt)} dag{daysSince(quote.acceptedAt) === 1 ? '' : 'en'} op

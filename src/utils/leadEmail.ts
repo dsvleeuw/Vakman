@@ -582,6 +582,73 @@ export function buildPaymentReminderEmail(
   return { subject, text, html };
 }
 
+
+/**
+ * The mail to Klusbaas when the customer says he transferred the money.
+ *
+ * The customer cannot mark his own offer as paid: only Klusbaas checks the
+ * bank statement and decides. This mail is the signal that there is money to
+ * check, so an order that looks forgotten stops looking like a sale.
+ */
+export function buildPaymentReportedEmail(
+  record: QuoteRecord,
+  links: { quoteUrl: string; payment?: PaymentDetails }
+): LeadEmail {
+  const siteUrl = new URL(links.quoteUrl).origin;
+  const { customer } = record;
+  const subject = `Klant meldt betaling voor offerte ${record.id}`;
+  const intro = `${customer.owner} van ${customer.biz} zegt dat het bedrag voor offerte ${record.id} is overgemaakt.`;
+
+  const details: Row[] = [
+    { label: 'Offerte', value: record.id },
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Contactpersoon', value: customer.owner },
+    { label: 'Telefoon', value: customer.phone },
+    ...(customer.email ? [{ label: 'E-mail', value: customer.email }] : []),
+    { label: 'Bedrag incl. btw', value: formatEuroCents(record.totalCents) },
+    { label: 'Gemeld op', value: formatDutchDate(record.paymentReportedAt ?? record.createdAt) },
+  ];
+  const payment = links.payment;
+  const paymentRows: Row[] = payment
+    ? [
+        { label: 'Bankrekening (IBAN)', value: payment.iban },
+        { label: 'Ten name van', value: payment.name },
+      ]
+    : [];
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    ...textRows(details),
+    '',
+    ...(paymentRows.length ? ['BETALEN', ...textRows(paymentRows), ''] : []),
+    'Controleer je bankrekening. Pas als het bedrag binnen is, markeer je de offerte',
+    'als betaald in het overzicht; dan gaat er een factuur naar de klant.',
+    '',
+    'Bekijk de offerte online:',
+    links.quoteUrl,
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections:
+      section('Gegevens', emailTable(details)) +
+      (paymentRows.length ? section('Betalen', emailTable(paymentRows)) : ''),
+    outro:
+      'Controleer je bankrekening. Pas als het bedrag binnen is, markeer je de offerte als betaald in het overzicht; dan gaat er een factuur naar de klant.',
+    button: { href: links.quoteUrl, label: 'Bekijk de offerte' },
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
 /**
  * The mail to the customer when Klusbaas marks his offer as paid.
  *

@@ -61,6 +61,13 @@ function memoryStorage() {
       quotes.set(id, updated);
       return updated;
     },
+    async markPaymentReported(id, reportedAt) {
+      const record = quotes.get(id);
+      if (!record) return null;
+      const updated = { ...record, paymentReportedAt: reportedAt };
+      quotes.set(id, updated);
+      return updated;
+    },
   };
   return { storage, quotes, pdfs, leads };
 }

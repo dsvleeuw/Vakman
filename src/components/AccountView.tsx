@@ -20,7 +20,7 @@ import {
   type AccountInfo,
 } from '../utils/accountClient';
 import { formatEuroCents, type QuoteStatus } from '../utils/quote';
-import { acceptQuote } from '../utils/quoteClient';
+import { acceptQuote, reportPayment } from '../utils/quoteClient';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 import { SiteFooter } from './SiteFooter';
@@ -182,6 +182,8 @@ const QuoteRow: React.FC<{
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [name, setName] = useState('');
+  const [payState, setPayState] = useState<'idle' | 'sending' | 'done'>('idle');
+  const [payError, setPayError] = useState<string | null>(null);
 
   const accept = async () => {
     const token = quoteToken(quote.url);
@@ -203,6 +205,25 @@ const QuoteRow: React.FC<{
     }
     setNotice('Je offerte is geaccepteerd. Je krijgt een bevestiging per mail.');
     onAccepted?.();
+  };
+
+  // De klant meldt dat hij het bedrag heeft overgemaakt; Klusbaas controleert
+  // zelf zijn bankrekening.
+  const report = async () => {
+    const token = quoteToken(quote.url);
+    if (!token) {
+      setPayError('Deze offerte heeft geen link meer. Mail ons, dan sturen we hem opnieuw.');
+      return;
+    }
+    setPayState('sending');
+    setPayError(null);
+    const result = await reportPayment(quote.id, token);
+    if (!result.ok) {
+      setPayState('idle');
+      setPayError(result.error ?? 'Dat is niet gelukt. Mail ons gerust.');
+      return;
+    }
+    setPayState('done');
   };
 
   return (
@@ -246,6 +267,27 @@ const QuoteRow: React.FC<{
       <p className="m-0 text-sm text-emerald-800">
         Geaccepteerd op {leadDate(quote.acceptedAt)}. Je bevestiging staat in je mail.
       </p>
+    )}
+    {quote.status === 'accepted' && (
+      <div className="rounded-xl border border-stone-200 p-4 flex flex-col gap-3">
+        <p className="m-0 text-sm font-bold text-stone-900">Heb je het bedrag overgemaakt?</p>
+        {payState === 'done' ? (
+          <p className="m-0 text-sm font-bold text-emerald-800">
+            Bedankt, we hebben je melding ontvangen. Klusbaas controleert het bedrag.
+          </p>
+        ) : (
+          <button
+            type="button"
+            onClick={report}
+            disabled={payState === 'sending'}
+            className="rounded-xl bg-stone-900 text-white px-4 py-3 font-black disabled:opacity-60 inline-flex items-center justify-center gap-2 min-h-11"
+          >
+            {payState === 'sending' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null}
+            Ja, ik heb het bedrag overgemaakt
+          </button>
+        )}
+        {payError && <p className="m-0 text-sm font-bold text-red-700">{payError}</p>}
+      </div>
     )}
     {quote.status === 'paid' && quote.paidAt && (
       <p className="m-0 text-sm text-emerald-800">Betaald op {leadDate(quote.paidAt)}.</p>

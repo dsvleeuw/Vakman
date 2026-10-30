@@ -111,6 +111,7 @@ function toAccountQuote(quote: QuoteRecord): AccountQuote {
     status: quote.status,
     ...(quote.paidAt ? { paidAt: quote.paidAt } : {}),
     ...(quote.acceptedAt ? { acceptedAt: quote.acceptedAt } : {}),
+    ...(quote.paymentReportedAt ? { paymentReportedAt: quote.paymentReportedAt } : {}),
     planId: quote.planId,
     planName: quote.planName,
     sectorName: quote.sectorName,

@@ -119,6 +119,15 @@ Twee knoppen in `/klusbaas`, twee mails:
 Geen van beide verandert de offerte: de klant betaalt of hij betaalt niet,
 en Klusbaas markeert de betaling met de hand.
 
+## De klant meldt zijn betaling
+
+`POST /api/quote/payment` met `{ id, token }`: de klant zegt dat hij het
+bedrag heeft overgemaakt. De offerte houdt de status `accepted` — alleen
+Klusbaas markeert een offerte als betaald, nadat hij zijn bankrekening heeft
+gecontroleerd. De melding staat op de offerte (`paymentReportedAt`) en komt
+als mail binnen (`server/paymentNotice.ts`,
+`buildPaymentReportedEmail`).
+
 ## Tests
 
 - Mock `Resend`, `Netlify Blobs`, `crypto.randomUUID`

@@ -172,6 +172,14 @@ export interface QuoteRecord extends QuoteTotals {
   paidAt?: string;
   /** When the customer accepted the offer. */
   acceptedAt?: string;
+  /**
+   * When the customer said he transferred the money.
+   *
+   * Klusbaas still checks his own bank statement before he marks the offer
+   * as paid: a customer can say anything. This is the signal that he has to
+   * look, not the proof that the money is in.
+   */
+  paymentReportedAt?: string;
   /** The account of the customer, when he was logged in while requesting it. */
   accountId?: string;
   /**

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Download, FileText, Loader2, TriangleAlert } from 'lucide-react';
 import { Logo } from './Logo';
 import { formatDutchDate, formatEuroCents, type PublicQuote } from '../utils/quote';
-import { acceptQuote } from '../utils/quoteClient';
+import { acceptQuote, reportPayment } from '../utils/quoteClient';
 
 interface QuoteViewProps {
   id: string;
@@ -21,6 +21,12 @@ type AcceptState =
   | { status: 'done' }
   | { status: 'error'; message: string };
 
+type PayState =
+  | { status: 'idle' }
+  | { status: 'sending' }
+  | { status: 'done' }
+  | { status: 'error'; message: string };
+
 /**
  * `/offerte/:id?token=…`: the stored quote as a page, loaded from
  * `GET /api/quote`. The token comes from the e-mail; without it the API
@@ -29,6 +35,7 @@ type AcceptState =
 export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => {
   const [state, setState] = useState<LoadState>({ status: 'loading' });
   const [accept, setAccept] = useState<AcceptState>({ status: 'idle' });
+  const [pay, setPay] = useState<PayState>({ status: 'idle' });
   const [name, setName] = useState('');
   const query = `id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`;
 
@@ -68,6 +75,19 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
       return;
     }
     setAccept({ status: 'done' });
+  };
+
+  // De klant meldt dat hij het bedrag heeft overgemaakt. Klusbaas controleert
+  // zelf zijn bankrekening; de offerte wordt pas door hem als betaald
+  // gemarkeerd.
+  const sendPaymentReport = async () => {
+    setPay({ status: 'sending' });
+    const result = await reportPayment(id, token);
+    if (!result.ok) {
+      setPay({ status: 'error', message: result.error ?? 'Dat is niet gelukt. Mail ons gerust.' });
+      return;
+    }
+    setPay({ status: 'done' });
   };
 
   return (
@@ -261,6 +281,43 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
                 Je hebt deze offerte geaccepteerd. Je bevestiging staat in je mail; maak
                 daarna het bedrag over.
               </p>
+            )}
+
+            {state.quote.status === 'accepted' && (
+              <section className="mx-6 sm:mx-8 mb-6 rounded-2xl border border-stone-200 bg-white p-5">
+                <h2 className="m-0 text-sm font-black text-stone-900">Heb je het bedrag overgemaakt?</h2>
+                <p className="m-0 mt-2 text-sm text-stone-700">
+                  Laat het weten, dan kijkt Klusbaas naar zijn bankrekening. Je offerte
+                  wordt pas als betaald gemarkeerd als het geld er echt is.
+                </p>
+                {pay.status === 'done' ? (
+                  <p className="m-0 mt-3 flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm font-semibold text-emerald-900">
+                    <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+                    Bedankt, we hebben je melding ontvangen. Klusbaas controleert het bedrag.
+                  </p>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={sendPaymentReport}
+                    disabled={pay.status === 'sending'}
+                    className="mt-3 h-12 px-6 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold inline-flex items-center justify-center gap-2"
+                  >
+                    {pay.status === 'sending' && (
+                      <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                    )}
+                    Ja, ik heb het bedrag overgemaakt
+                  </button>
+                )}
+                {pay.status === 'error' && (
+                  <p
+                    role="alert"
+                    className="m-0 mt-3 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-900"
+                  >
+                    <TriangleAlert className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
+                    {pay.message}
+                  </p>
+                )}
+              </section>
             )}
 
             {state.quote.status === 'open' && state.quote.expired && (

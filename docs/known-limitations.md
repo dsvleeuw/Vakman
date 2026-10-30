@@ -146,7 +146,10 @@ to [ROADMAP.md](../ROADMAP.md).
   no automatic check against the bank statement: the offer waits until
   Klusbaas marks it paid in `/klusbaas`. He can chase it: an accepted offer
   shows how many days it has been waiting, and one button sends the customer
-  the amount and the IBAN again. Nothing goes out on its own.
+  the amount and the IBAN again. The customer can also say he paid
+  ("Ja, ik heb het bedrag overgemaakt"); Klusbaas then sees it in the
+  overview. The customer cannot mark his own offer as paid. Nothing goes
+  out on its own.
 - **Without `PAYMENT_IBAN` there are no payment details.** The offer then
   says that Klusbaas will send them. That is deliberate: a wrong IBAN is
   worse than no IBAN.
