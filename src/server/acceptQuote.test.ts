@@ -108,10 +108,57 @@ test('de klant kan de offerte accepteren; de status wordt "accepted"', async () 
   assert.equal(stored?.status, 'accepted');
   assert.ok(stored?.acceptedAt, 'het moment van accepteren staat in de offerte');
   // Klusbaas moet het weten.
+  const toTeam = mails.filter((mail) => mail.to === 'team@klusbaas.nl');
+  assert.equal(toTeam.length, 1);
+  assert.match(toTeam[0].subject, /KB-2026-0001/);
+  assert.match(toTeam[0].text, /Jan Jansen/);
+  // En de klant krijgt een bevestiging: zijn "ja" is het duurzaamste bewijs.
+  const toCustomer = mails.filter((mail) => mail.to === 'jan@jansen.nl');
+  assert.equal(toCustomer.length, 1);
+  assert.match(toCustomer[0].subject, /KB-2026-0001/);
+  assert.match(toCustomer[0].text, /offerte\/KB-2026-0001\?token=offertetoken1234567890/);
+  assert.match(toCustomer[0].text, /1\.203,95/);
+});
+
+test('de klant krijgt de betaalgegevens in zijn bevestiging', async () => {
+  const storage = memoryStorage([offer()]);
+  const mails: { to: string; subject: string; text: string }[] = [];
+
+  await handleAcceptQuote(
+    { id: 'KB-2026-0001', token: TOKEN, name: 'Jan Jansen' },
+    {
+      storage,
+      sendMail: async (mail) => {
+        mails.push(mail);
+        return { to: mail.to, status: 'sent' };
+      },
+      payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+    }
+  );
+
+  const toCustomer = mails.find((mail) => mail.to === 'jan@jansen.nl');
+  assert.ok(toCustomer, 'de klant krijgt een bevestiging');
+  assert.match(toCustomer.text, /NL91ABNA0417164300/);
+  assert.match(toCustomer.text, /Omschrijving: KB-2026-0001/);
+});
+
+test('zonder e-mailadres van de klant gaat er geen bevestiging naar hem', async () => {
+  const storage = memoryStorage([{ ...offer(), customer: { ...offer().customer, email: undefined } }]);
+  const mails: { to: string }[] = [];
+
+  await handleAcceptQuote(
+    { id: 'KB-2026-0001', token: TOKEN, name: 'Jan Jansen' },
+    {
+      storage,
+      sendMail: async (mail) => {
+        mails.push(mail);
+        return { to: mail.to, status: 'sent' };
+      },
+    }
+  );
+
   assert.equal(mails.length, 1);
-  assert.equal(mails[0].to, 'team@klusbaas.nl');
-  assert.match(mails[0].subject, /KB-2026-0001/);
-  assert.match(mails[0].text, /Jan Jansen/);
+  assert.equal(mails[0].to, 'thomascliphero@gmail.com');
 });
 
 test('een verlopen offerte kan niet geaccepteerd worden', async () => {

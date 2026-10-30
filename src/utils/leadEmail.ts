@@ -364,6 +364,89 @@ export function buildAcceptEmail(
   return { subject, text, html };
 }
 
+
+/**
+ * The mail to the customer right after he accepts an offer.
+ *
+ * The banner on the offer page disappears when he closes his browser. This
+ * mail is the durable proof of his "ja": what he agreed to, what it costs
+ * and where he has to transfer the money to. It is the same moment the
+ * customer can show to his bookkeeper.
+ */
+export function buildAcceptConfirmationEmail(
+  record: QuoteRecord,
+  links: { quoteUrl: string; payment?: PaymentDetails }
+): LeadEmail {
+  const siteUrl = new URL(links.quoteUrl).origin;
+  const { customer } = record;
+  const firstName = customer.owner.split(' ')[0] || customer.owner;
+  const subject = `Je akkoord voor offerte ${record.id} is binnen`;
+  const intro = `Hoi ${firstName}, bedankt voor je akkoord op offerte ${record.id}. Hieronder staat je aanvraag op een rij.`;
+
+  const details: Row[] = [
+    { label: 'Offerte', value: record.id },
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Pakket', value: record.planName },
+    { label: 'Bedrag incl. btw', value: formatEuroCents(record.totalCents) },
+  ];
+  const services = record.services.length ? record.services : ['Geen diensten gekozen'];
+  const payment = links.payment;
+  const paymentRows: Row[] = payment
+    ? [
+        { label: 'Bankrekening (IBAN)', value: payment.iban },
+        { label: 'Ten name van', value: payment.name },
+        ...(payment.email ? [{ label: 'E-mail', value: payment.email }] : []),
+        { label: 'Omschrijving', value: record.id },
+      ]
+    : [];
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    ...textRows(details),
+    '',
+    'DIENSTEN OP DE WEBSITE',
+    ...services.map((service) => `- ${service}`),
+    '',
+    ...(paymentRows.length
+      ? [
+          'BETALEN',
+          ...textRows(paymentRows),
+          'Je site blijft online, ook als je nog niet betaald hebt.',
+          '',
+        ]
+      : []),
+    'Bekijk je offerte online:',
+    links.quoteUrl,
+    '',
+    'Vragen? Antwoord gewoon op deze mail. We plannen de bouw in en nemen contact',
+    'met je op.',
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections:
+      section('Gegevens', emailTable(details)) +
+      section(
+        'Diensten op de website',
+        `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((service) => `<li>${escapeHtml(service)}</li>`).join('')}</ul>`
+      ) +
+      (paymentRows.length ? section('Betalen', emailTable(paymentRows)) : ''),
+    outro:
+      'Je site blijft online, ook als je nog niet betaald hebt. We plannen de bouw in en nemen contact met je op. Vragen? Antwoord gewoon op deze mail.',
+    button: { href: links.quoteUrl, label: 'Bekijk je offerte' },
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
 /**
  * The mail to the customer when Klusbaas sends a reminder about an offer.
  *

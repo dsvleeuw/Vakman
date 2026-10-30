@@ -20,6 +20,7 @@ import {
   type AccountInfo,
 } from '../utils/accountClient';
 import { formatEuroCents, type QuoteStatus } from '../utils/quote';
+import { acceptQuote } from '../utils/quoteClient';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 import { SiteFooter } from './SiteFooter';
@@ -171,7 +172,40 @@ function quoteToken(url: string): string {
   }
 }
 
-const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({ quote, payment }) => (
+const QuoteRow: React.FC<{
+  quote: AccountQuote;
+  payment?: PaymentDetails;
+  /** Called after an acceptance, so the list can show the new status. */
+  onAccepted?: () => void;
+}> = ({ quote, payment, onAccepted }) => {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [name, setName] = useState('');
+
+  const accept = async () => {
+    const token = quoteToken(quote.url);
+    if (!token) {
+      setError('Deze offerte heeft geen link meer. Mail ons, dan sturen we hem opnieuw.');
+      return;
+    }
+    if (!name.trim()) {
+      setError('Vul eerst je naam in.');
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    const result = await acceptQuote(quote.id, token, name.trim());
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Accepteren lukte niet. Mail ons gerust.');
+      return;
+    }
+    setNotice('Je offerte is geaccepteerd. Je krijgt een bevestiging per mail.');
+    onAccepted?.();
+  };
+
+  return (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-3">
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
       <span className="font-black text-stone-900">Offerte {quote.id}</span>
@@ -208,6 +242,11 @@ const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({
         </p>
       </div>
     )}
+    {quote.status === 'accepted' && quote.acceptedAt && (
+      <p className="m-0 text-sm text-emerald-800">
+        Geaccepteerd op {leadDate(quote.acceptedAt)}. Je bevestiging staat in je mail.
+      </p>
+    )}
     {quote.status === 'paid' && quote.paidAt && (
       <p className="m-0 text-sm text-emerald-800">Betaald op {leadDate(quote.paidAt)}.</p>
     )}
@@ -228,6 +267,32 @@ const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({
         Deze offerte staat open. Klusbaas stuurt je de betaalgegevens, of vraag ernaar via je mail.
       </p>
     )}
+    {quote.status === 'open' && (
+      <div className="rounded-xl border border-stone-200 p-4 flex flex-col gap-3">
+        <p className="m-0 text-sm font-bold text-stone-900">Accepteren</p>
+        <label className="flex flex-col gap-1 text-sm font-bold text-stone-900">
+          Je naam
+          <input
+            type="text"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Voor- en achternaam"
+            className="rounded-xl border border-stone-300 px-3 py-2 font-normal text-stone-900"
+          />
+        </label>
+        <button
+          type="button"
+          onClick={accept}
+          disabled={busy}
+          className="rounded-xl bg-stone-900 text-white px-4 py-3 font-black disabled:opacity-60 inline-flex items-center justify-center gap-2 min-h-11"
+        >
+          {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null}
+          Ja, ik ga akkoord
+        </button>
+      </div>
+    )}
+    {notice && <p className="m-0 text-sm font-bold text-emerald-800">{notice}</p>}
+    {error && <p className="m-0 text-sm font-bold text-red-700">{error}</p>}
     <div>
       <RouteLink
         route={{ name: 'quote', id: quote.id, token: quoteToken(quote.url) }}
@@ -237,7 +302,8 @@ const QuoteRow: React.FC<{ quote: AccountQuote; payment?: PaymentDetails }> = ({
       </RouteLink>
     </div>
   </li>
-);
+  );
+};
 
 /** The token in the url, e.g. /mijn-account?reset=… */
 function tokenFromUrl(key: 'reset' | 'verifieer'): string {
@@ -731,7 +797,12 @@ export const AccountView: React.FC = () => {
           ) : (
             <ul className="m-0 p-0 list-none flex flex-col gap-3">
               {quotes.map((quote) => (
-                <QuoteRow key={quote.id} quote={quote} payment={payment} />
+                <QuoteRow
+                  key={quote.id}
+                  quote={quote}
+                  payment={payment}
+                  onAccepted={loadQuotes}
+                />
               ))}
             </ul>
           )}

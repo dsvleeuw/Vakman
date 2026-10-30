@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant houdt het bewijs van zijn eigen "ja".** Zodra hij de offerte
+  accepteert, krijgt hij een mail met het offertenummer, het bedrag, de
+  diensten en de IBAN. Voorheen was de groene banner in de browser het
+  enige bewijs, en die verdwijnt zodra hij het venster sluit. De klant kan
+  nu ook accepteren vanuit zijn eigen account in `/mijn-account`, en daar
+  staat na het accepteren wanneer hij het deed.
 - **Een aanvraag en de offerte daarvoor zijn nu één ding.** De offerte
   onthoudt de aanvraag (`L-XXXXXX`) waarvoor hij gemaakt is. In
   `/klusbaas` staat bij de aanvraag welke offerte er al is, en in het

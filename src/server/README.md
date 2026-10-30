@@ -94,11 +94,16 @@ format=invoice` geeft hem alleen terug als de offerte betaald is.
 ## Accepteren door de klant
 
 `POST /api/quote/accept` met `{ id, token, name }`: de klant zegt ja op de
-offertepagina. De token uit de offertelink bewijst dat de offerte van hem
-is. De offerte krijgt de status `accepted` (`acceptedAt`) en Klusbaas krijgt
-een mail (`utils/leadEmail.ts`, `buildAcceptEmail`). Accepteren is geen
-betalen: het bedrag wordt overgemaakt en Klusbaas markeert de offerte
-handmatig als betaald.
+offertepagina (of vanuit `/mijn-account`). De token uit de offertelink
+bewijst dat de offerte van hem is. De offerte krijgt de status `accepted`
+(`acceptedAt`) en Klusbaas krijgt een mail (`utils/leadEmail.ts`,
+`buildAcceptEmail`). De klant zelf krijgt daarna een bevestiging
+(`buildAcceptConfirmationEmail`) met het offertenummer, het bedrag, de
+diensten en de IBAN: de banner in de browser verdwijnt zodra hij het venster
+sluit, deze mail niet. De betaalgegevens komen uit `payment` in de deps
+(`PAYMENT_IBAN`, `PAYMENT_NAME`, `PAYMENT_EMAIL`); zonder IBAN staat er in de
+mail alleen geen bankrekening. Accepteren is geen betalen: het bedrag wordt
+overgemaakt en Klusbaas markeert de offerte handmatig als betaald.
 
 ## Tests
 

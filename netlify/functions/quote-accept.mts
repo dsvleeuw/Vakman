@@ -1,4 +1,5 @@
 import { createAcceptMailer, handleAcceptQuote } from '../../src/server/acceptQuote';
+import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobStorage } from '../../src/server/storage';
 
 /**
@@ -19,12 +20,14 @@ export default async (req: Request): Promise<Response> => {
     return Response.json({ ok: false, error: 'Ongeldige JSON.' }, { status: 400 });
   }
   const log = (message: string) => console.log(message);
+  const payment = paymentDetailsFromEnv(process.env);
   const result = await handleAcceptQuote(body, {
     storage: await createBlobStorage(),
     sendMail: createAcceptMailer(process.env, log),
     notifyEmail: process.env.QUOTE_NOTIFY_EMAIL,
     fromEmail: process.env.QUOTE_FROM_EMAIL,
     siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
+    ...(payment ? { payment } : {}),
     log,
   });
   return Response.json(result.body, { status: result.status });

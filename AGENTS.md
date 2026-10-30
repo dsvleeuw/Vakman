@@ -143,11 +143,14 @@ result. The Netlify deploy preview is the only external CI check. If
 - An offer can also go to someone who only sent a request: the request
   (`leadReference`) is a customer in the form. A request on a published
   customer site belongs to that craftsman and is not Klusbaas' customer.
-- The customer accepts the offer himself on the offer page
-  (`POST /api/quote/accept` → `server/acceptQuote.ts`). The token from the
-  offer link proves it is his offer; the offer gets the status `accepted`
-  and Klusbaas gets a mail. Accepting is not paying: the money is still
-  transferred by the customer and marked as paid by hand.
+- The customer accepts the offer himself on the offer page or in his
+  account (`POST /api/quote/accept` → `server/acceptQuote.ts`). The token
+  from the offer link proves it is his offer; the offer gets the status
+  `accepted` and Klusbaas gets a mail. The customer himself gets a
+  confirmation mail (`buildAcceptConfirmationEmail`) with the amount and the
+  IBAN, because the banner in the browser disappears when he closes the
+  window. Accepting is not paying: the money is still transferred by the
+  customer and marked as paid by hand.
 - Klusbaas follows up on an open offer himself: `remind-quote` in
   `server/remindQuote.ts` sends the customer a mail with the link to the
   offer.
