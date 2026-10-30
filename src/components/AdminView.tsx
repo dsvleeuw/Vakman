@@ -17,6 +17,15 @@ import {
 } from '../utils/adminClient';
 import { daysSince, formatEuroCents } from '../utils/quote';
 import { REQUEST_STATUSES, REQUEST_STATUS_LABELS } from '../utils/lead';
+import {
+  filterAccounts,
+  filterLeads,
+  filterQuotes,
+  filterSites,
+  leadsToCsv,
+  quotesToCsv,
+} from '../utils/adminSearch';
+import { csvFileContent, csvFilename } from '../utils/csv';
 import { servicePriceText, serviceStatusLabel } from '../utils/service';
 import type {
   AdminAccount,
@@ -435,15 +444,21 @@ const QuoteRow: React.FC<{
   </li>
 );
 
-export const AdminView: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [overview, setOverview] = useState<AdminOverview | null>(null);
+/**
+ * Het overzicht van Klusbaas. De data komt uit de API; `initial` is er voor
+ * de test, zodat de pagina ook zonder netwerk te zien is.
+ */
+export const AdminView: React.FC<{ initial?: AdminOverview | null }> = ({ initial = null }) => {
+  const [loading, setLoading] = useState(initial === null);
+  const [overview, setOverview] = useState<AdminOverview | null>(initial);
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   // Welke aanvragen hij wil zien: alles, of alleen wat nog openstaat.
   const [leadFilter, setLeadFilter] = useState<'all' | 'open' | RequestStatus>('all');
+  // Zoeken door de aanvragen, de offertes, de sites en de accounts.
+  const [query, setQuery] = useState('');
 
   const load = useCallback(async () => {
     setOverview(await fetchAdminOverview());
@@ -491,6 +506,22 @@ export const AdminView: React.FC = () => {
     // Het overzicht laat de nieuwe offerte meteen zien.
     await load();
     setNotice(`Offerte ${quote.id} staat nu in het overzicht.`);
+  };
+
+  // De lijst naar Excel: zo kan Klusbaas zijn aanvragen of offertes in
+  // zijn eigen administratie zetten.
+  const exportCsv = (base: string, rows: (string | number | undefined)[][]) => {
+    const name = csvFilename(base);
+    const blob = new Blob([csvFileContent(rows)], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setNotice(`${name} staat in je downloads.`);
   };
 
   // Waar een aanvraag staat. Een aanvraag die nergens op volgt, is een
@@ -742,6 +773,24 @@ export const AdminView: React.FC = () => {
             </form>
           ) : (
             <>
+              <section className="flex flex-col gap-3">
+                <label htmlFor="admin-search" className="text-sm font-bold text-stone-900">
+                  Zoeken
+                </label>
+                <input
+                  id="admin-search"
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Naam, telefoon, e-mail, referentie of bedrijfsnaam"
+                  className={`${inputClass} max-w-xl`}
+                />
+                <p className="m-0 text-sm text-stone-600">
+                  Dit zoekt in de aanvragen, de offertes, de sites en de accounts. De export
+                  neemt alleen mee wat je ziet.
+                </p>
+              </section>
+
               <section className="flex flex-col gap-4">
                 <h2 className="m-0 text-xl font-black tracking-tight">Offerte maken</h2>
                 <p className="m-0 text-stone-600 leading-relaxed">
@@ -763,10 +812,23 @@ export const AdminView: React.FC = () => {
               </section>
 
               <section className="flex flex-col gap-4">
-                <h2 className="m-0 text-xl font-black tracking-tight">
-                  Aanvragen{' '}
-                  <span className="text-base font-bold text-stone-500">({overview.leads.length})</span>
-                </h2>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="m-0 text-xl font-black tracking-tight">
+                    Aanvragen{' '}
+                    <span className="text-base font-bold text-stone-500">
+                      ({leadsForFilter(filterLeads(overview.leads, query), leadFilter).length})
+                    </span>
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      exportCsv('aanvragen', leadsToCsv(leadsForFilter(filterLeads(overview.leads, query), leadFilter)))
+                    }
+                    className="h-10 px-4 rounded-full border border-stone-300 hover:bg-stone-100 text-stone-900 font-bold text-sm inline-flex items-center"
+                  >
+                    Exporteer de aanvragen
+                  </button>
+                </div>
                 {overview.leads.length === 0 ? (
                   <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
                     Nog geen aanvragen.
@@ -775,7 +837,7 @@ export const AdminView: React.FC = () => {
                   <>
                     <div className="flex flex-wrap gap-2" role="group" aria-label="Filter op status">
                       {LEAD_FILTERS.map((filter) => {
-                        const count = leadsForFilter(overview.leads, filter.id).length;
+                        const count = leadsForFilter(filterLeads(overview.leads, query), filter.id).length;
                         const active = leadFilter === filter.id;
                         return (
                           <button
@@ -794,13 +856,13 @@ export const AdminView: React.FC = () => {
                         );
                       })}
                     </div>
-                    {leadsForFilter(overview.leads, leadFilter).length === 0 ? (
+                    {leadsForFilter(filterLeads(overview.leads, query), leadFilter).length === 0 ? (
                       <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
                         Geen aanvragen met deze status.
                       </p>
                     ) : (
                     <ul className="m-0 p-0 list-none flex flex-col gap-3">
-                    {leadsForFilter(overview.leads, leadFilter).map((lead) => (
+                    {leadsForFilter(filterLeads(overview.leads, query), leadFilter).map((lead) => (
                       <LeadRow
                         key={lead.reference}
                         lead={lead}
@@ -816,17 +878,28 @@ export const AdminView: React.FC = () => {
               </section>
 
               <section className="flex flex-col gap-4">
-                <h2 className="m-0 text-xl font-black tracking-tight">
-                  Offertes{' '}
-                  <span className="text-base font-bold text-stone-500">({overview.quotes.length})</span>
-                </h2>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="m-0 text-xl font-black tracking-tight">
+                    Offertes{' '}
+                    <span className="text-base font-bold text-stone-500">
+                      ({filterQuotes(overview.quotes, query).length})
+                    </span>
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => exportCsv('offertes', quotesToCsv(filterQuotes(overview.quotes, query)))}
+                    className="h-10 px-4 rounded-full border border-stone-300 hover:bg-stone-100 text-stone-900 font-bold text-sm inline-flex items-center"
+                  >
+                    Exporteer de offertes
+                  </button>
+                </div>
                 {overview.quotes.length === 0 ? (
                   <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
                     Nog geen offertes.
                   </p>
                 ) : (
                   <ul className="m-0 p-0 list-none flex flex-col gap-3">
-                    {overview.quotes.map((quote) => (
+                    {filterQuotes(overview.quotes, query).map((quote) => (
                       <QuoteRow
                       key={quote.id}
                       quote={quote}
@@ -844,7 +917,10 @@ export const AdminView: React.FC = () => {
 
               <section className="flex flex-col gap-4">
                 <h2 className="m-0 text-xl font-black tracking-tight">
-                  Accounts <span className="text-base font-bold text-stone-500">({overview.accounts.length})</span>
+                  Accounts{' '}
+                  <span className="text-base font-bold text-stone-500">
+                    ({filterAccounts(overview.accounts, query).length})
+                  </span>
                 </h2>
                 {overview.accounts.length === 0 ? (
                   <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
@@ -852,7 +928,7 @@ export const AdminView: React.FC = () => {
                   </p>
                 ) : (
                   <ul className="m-0 p-0 list-none flex flex-col gap-3">
-                    {overview.accounts.map((account) => (
+                    {filterAccounts(overview.accounts, query).map((account) => (
                       <AccountRow
                         key={account.id}
                         account={account}
@@ -871,7 +947,9 @@ export const AdminView: React.FC = () => {
               <section className="flex flex-col gap-4">
                 <h2 className="m-0 text-xl font-black tracking-tight">
                   Gepubliceerde sites{' '}
-                  <span className="text-base font-bold text-stone-500">({overview.sites.length})</span>
+                  <span className="text-base font-bold text-stone-500">
+                    ({filterSites(overview.sites, query).length})
+                  </span>
                 </h2>
                 {overview.sites.length === 0 ? (
                   <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
@@ -879,7 +957,7 @@ export const AdminView: React.FC = () => {
                   </p>
                 ) : (
                   <ul className="m-0 p-0 list-none flex flex-col gap-3">
-                    {overview.sites.map((site) => (
+                    {filterSites(overview.sites, query).map((site) => (
                       <SiteRow key={site.slug} site={site} />
                     ))}
                   </ul>

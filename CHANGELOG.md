@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Een offerte voor een klant zonder site komt toch in zijn account.**
+  Waarschijnlijk wil Klusbaas een klant zonder gepubliceerde site een
+  offerte sturen. De offerte hoort dan bij het account van die klant, ook
+  zonder site. Vindt hij het account niet, dan blijft de offerte alleen per
+  mail, zoals het was.
 - **De tekst over het aantal vakken volgt de code.** De homepage, de footer
   en de sitemap noemden een vast aantal vakken en stijlen. Dat aantal komt
   nu uit de code, dus een nieuw vak staat er meteen in, met eigen tekst.
@@ -21,6 +26,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Klusbaas kan zoeken en exporteren in `/klusbaas`.** Eén zoekveld
+  over de aanvragen, de offertes, de sites en de accounts: op naam,
+  telefoonnummer, e-mailadres, referentie of bedrijfsnaam. Daarnaast
+  knoppen "Exporteer de aanvragen" en "Exporteer de offertes": de lijst
+  die hij ziet gaat als CSV-bestand naar zijn downloads, met een puntkomma
+  tussen de kolommen en een BOM, zodat Excel het zonder gedoe opent.
 - **De klant kan zijn account zelf verwijderen.** In `/mijn-account` staat
   een knop "Verwijder mijn account". De klant geeft zijn wachtwoord en
   bevestigt het. Zijn site, zijn foto's, zijn aanvragen en zijn openstaande

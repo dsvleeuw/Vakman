@@ -181,6 +181,8 @@ through the wizard when:**
 26. The customer can delete his own account: his sites, his requests, his
     photos and his unpaid offers disappear, and the offers he paid for stay
     as fiscal records without his personal details.
+27. Klusbaas can find a request or an offer in one search, and put the
+    list in Excel: the overview stays usable when there are dozens of them.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -208,6 +210,7 @@ through the wizard when:**
 | 7.22 | ~~The surface calculator works for more than one trade~~ Done: the plasterer gets the m² calculator on his site, with his own services and prices per m². The icon and the name of the work follow the trade | S | The calculator works with walls and openings; a trade that measures something else (a garden, a roof) needs its own tool (rows 8.9 and 8.10) |
 | 7.25 | ~~The customer can delete his own account~~ Done: in `/mijn-account` there is a button "Verwijder mijn account". The customer gives his password and confirms it. His published sites (and their photos), his requests and his unpaid offers go; the offers he paid for stay as fiscal records (number, amount and date) without his name, phone number and e-mail address | M | The removal cannot be undone: there is no copy of the site. A customer who wants to come back has to publish his site again. The fiscal duty to keep the invoice data for seven years wins over the right to be forgotten, and the privacy statement says so. |
 | 7.24 | ~~A request does not get lost~~ Done: every request has a status: new, called, offer sent, order done or no response. Klusbaas sets it in `/klusbaas` and filters the list on "still open"; the craftsman whose site it came in on sets it himself in his own account | S | The status says what happened, it does not remind anyone: nobody gets a mail when a request stands still for three days. The overview still lists everything by hand (row 8.4). |
+| 7.26 | ~~Search and export in `/klusbaas`~~ Done: one search field over the requests, the offers, the sites and the accounts, on name, phone number, e-mail address, reference or company name. Klusbaas exports the requests or the offers he sees to a CSV file that opens in Excel | S | The search runs in the browser on the data the overview already has. It does not change what is stored, and the export holds the same personal data as the overview. |
 | 7.23 | ~~The roofer gets his own trade and a free roof check~~ Done: the roofer is the eighth trade, with his own services, prices, photos, reviews and offer questions, plus a free roof check on his site. The visitor fills in the type of roof, the complaint and the urgency, and the check comes in as a request like every other form | M | The check is a form and not a booked appointment: nobody promises a date before he has seen the roof. On a customer site the promises of the demo ("gratis", "binnen één werkdag") stay off, because the customer writes his own copy. The photos are stock photos until the roofer brings his own (row 8.12). |
 
 
@@ -223,7 +226,7 @@ what makes the product sturdier as the number of customers grows.
 | 8.1 | ~~The customer can download his own data (AVG art. 15)~~ Done (phase 7.21): the customer downloads it himself in his account, as one file | S | The file is plain JSON, meant to be read by a person. |
 | 8.2 | ~~The customer can delete his own account (AVG art. 17)~~ Done (phase 7.25) | M | The paid offers stay as fiscal records, without the personal details. |
 | 8.3 | A job that removes the requests after twelve months | M | The privacy statement promises twelve months. A scheduled function on Netlify does it without a new dependency. |
-| 8.4 | Search and export in `/klusbaas` | M | The overview lists everything; as the number of requests and offers grows, finding one by hand stops working. |
+| 8.4 | ~~Search and export in `/klusbaas`~~ Done (phase 7.26) | M | The overview lists everything; as the number of requests and offers grows, finding one by hand stops working. |
 | 8.5 | ~~A status per request, so Klusbaas sees what he called~~ Done (phase 7.24) | M | The status says what happened; nothing goes out when a request stands still. |
 | 8.6 | ~~The trade **dakdekker** with a free roof check (row 2.1)~~ Done (phase 7.23) | M | The `FaultReportForm` pattern works for a roof inspection; more trades means more demos and more local search pages. |
 | 8.7 | The trade **aannemer** with an expanded project timeline (row 2.2) | M | The timeline exists for the carpenter; the builder needs his own steps. |

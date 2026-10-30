@@ -620,6 +620,8 @@ export interface AdminSite {
 /** An offer as the Klusbaas overview shows it. */
 export interface AdminQuote extends AccountQuote {
   customerName: string;
+  /** The name of the company of the customer, so Klusbaas can search on it. */
+  customerBiz?: string;
   customerEmail?: string;
   customerPhone: string;
   city: string;

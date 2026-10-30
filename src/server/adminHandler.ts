@@ -211,6 +211,7 @@ function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
     totalCents: quote.totalCents,
     url: buildQuotePath(quote.id, quote.token),
     customerName: quote.customer.owner,
+    ...(quote.customer.biz ? { customerBiz: quote.customer.biz } : {}),
     ...(quote.customer.email ? { customerEmail: quote.customer.email } : {}),
     customerPhone: quote.customer.phone,
     city: quote.customer.city,

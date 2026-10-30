@@ -20,8 +20,8 @@ to [ROADMAP.md](../ROADMAP.md).
   IP, in memory). It stops a single script, not a distributed attack.
 - ~~No admin screen~~ Fixed: `/klusbaas` shows the requests, the offers, the
   accounts and the sites behind one password (`ADMIN_PASSWORD`). What it
-  still cannot do is answer a request in the screen, search, export or
-  delete something.
+  still cannot do is answer a request in the screen or delete something.
+  Searching and exporting are there (phase 7.26).
 - Site leads on demo sites go to Klusbaas, not to the tradesperson: a demo
   site has no owner, so Klusbaas receives the lead. The page says that too.
 - ~~A published site sends its leads to Klusbaas~~ Fixed: a lead from a
@@ -146,7 +146,11 @@ to [ROADMAP.md](../ROADMAP.md).
   assistant) cannot be added without handing over the same password.
 - **The overview lists, it does not act.** It shows the requests, the offers
   and the sites, and Klusbaas can mark an offer as paid. There is no
-  newsletter list, no search, no export and no way to delete a request.
+  newsletter list and no way to delete a request. Searching and exporting
+  are there since phase 7.26: one search field over the requests, the
+  offers, the sites and the accounts, and a CSV export of the requests or
+  the offers that are on screen. The search runs in the browser, so it
+  looks at what the overview already loaded.
 - **A request has a status, but nobody is reminded.** Klusbaas and the
   craftsman can both say what they did with a request ("gebeld", "offerte
   gestuurd"), and the overview can filter on what is still open. Nothing

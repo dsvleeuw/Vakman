@@ -219,6 +219,12 @@ result. The Netlify deploy preview is the only external CI check. If
   `LeadStorage.updateQuoteDelivery`); the customer sees the same list in his
   account and on the offer page (`components/DeliveryList.tsx`). The
   checklist says what happens, the code does not do the work.
+- Klusbaas can search and export in `/klusbaas` (phase 7.26). The search
+  is in the browser over the data the overview already has
+  (`utils/adminSearch.ts`); the CSV helpers are in `utils/csv.ts` (a
+  semicolon between the columns and a BOM, so Excel opens the file
+  without help). The export holds the same personal data as the overview:
+  that is Klusbaas' own administration, not a public file.
 - The customer deletes his own account (phase 7.25). The action is
   `delete-account` in `server/accountHandler.ts`; the plan and the
   execution are in `server/accountDelete.ts`. The customer gives his
