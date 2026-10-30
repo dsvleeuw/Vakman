@@ -46,6 +46,23 @@ code, domain and photos (no vendor lock-in). Ownership is a selling point
 competitors such as Digitaalnu also use, so it is treated as a trust
 baseline rather than a unique claim.
 
+## What a package is (and what the free editor is)
+
+The customer fills in his own site in his own editor, without paying
+anything. A **package is the delivery**: Klusbaas checks the texts, photos
+and colours, checks the findability, registers the `.nl` domain (Pro and
+Premium) and hands the site over within two weeks. That is the list in
+`src/data/plans.ts` (`delivery`) that the customer sees with every offer.
+
+The price list says this out loud (`PACKAGE_DELIVERY_NOTE` in
+`src/data/marketing.ts`, plus the FAQ entry "Kan ik mijn site ook zelf
+maken, zonder pakket?"). The alternative — selling a "website" while the
+customer can build one for free — reads as a bait and switch once he opens
+the editor, and the sale is lost at that moment.
+
+The prices themselves are unchanged; only the explanation is. If the
+packages change, the delivery list changes with them.
+
 ## Differentiators to keep investing in
 
 1. **Proactive outreach with per-trade demos.** Instead of waiting for

@@ -183,6 +183,12 @@ result. The Netlify deploy preview is the only external CI check. If
   are his own. `src/components/claims.test.tsx` keeps the old promises out;
   the copy of the pages lives in `src/data/marketing.ts` so a test can read
   it.
+- A package is the delivery, not the site: the customer fills in his own
+  site in his own editor, a package is that Klusbaas checks the work,
+  registers the domain (Pro and Premium) and delivers within two weeks.
+  The price list and the FAQ say this out loud
+  (`PACKAGE_DELIVERY_NOTE` in `data/marketing.ts`). Keep the delivery list
+  in `data/plans.ts` and the copy in sync.
 - The FAQ is a native accordion (`<details>` in `components/FaqSection.tsx`).
   The answers stand in the HTML of the build, so a visitor without
   JavaScript and a search engine read the same text. Do not go back to a

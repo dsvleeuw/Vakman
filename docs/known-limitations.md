@@ -353,6 +353,14 @@ to [ROADMAP.md](../ROADMAP.md).
 
 ## The delivery of a site
 
+- **A package is the delivery, not the site itself.** The customer fills in
+  his own site in his own editor, without paying. What he buys with a
+  package is the delivery: Klusbaas checks the texts, photos and colours,
+  checks the findability, delivers within two weeks and registers the `.nl`
+  domain in Pro and Premium. The price list and the FAQ say this out loud.
+  The prices are unchanged; if the packages change, the delivery list in
+  `data/plans.ts` changes with them.
+
 - **The checklist is the promise, the work stays manual.** Every offer
   carries the list of what Klusbaas does for the site (from the package in
   `data/plans.ts`). Klusbaas ticks the steps off in `/klusbaas`; the

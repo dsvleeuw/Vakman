@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { HOME_INTRO, WIZARD_TRADE_INTRO } from '../data/marketing';
+import { HOME_INTRO, PACKAGE_DELIVERY_NOTE, WIZARD_TRADE_INTRO } from '../data/marketing';
 import { SERVICE_FEATURES } from '../data/plans';
 import { DEFAULT_FAQS } from './FaqSection';
 import { STEPS } from './HowItWorks';
@@ -41,6 +41,28 @@ test('de marketingpagina\'s beloven geen dingen die niet gebouwd zijn', () => {
   assert.ok(
     !HOME_INTRO.includes('professionele fotografie'),
     'de homepage belooft geen foto\'s van het voorbeeld'
+  );
+});
+
+test('de prijzenpagina zegt wat een pakket is bovenop de gratis editor', () => {
+  // De klant mag weten dat hij de site zelf kan invullen: een pakket is de
+  // aflegging, niet de enige manier om een site te krijgen.
+  assert.ok(
+    faqText.includes('zonder pakket'),
+    'de FAQ beantwoordt de vraag of je de site ook zelf kunt maken'
+  );
+  assert.ok(
+    PACKAGE_DELIVERY_NOTE.includes('in je eigen editor'),
+    'de prijzenpagina zegt dat de klant de site zelf invult'
+  );
+  assert.ok(
+    PACKAGE_DELIVERY_NOTE.includes('twee weken'),
+    'de prijzenpagina zegt wanneer de site opgeleverd wordt'
+  );
+  // Het .nl-domein zit alleen in Pro en Premium, dus de tekst zegt dat ook.
+  assert.ok(
+    PACKAGE_DELIVERY_NOTE.includes('Bij Pro en Premium'),
+    'de prijzenpagina zegt in welke pakketten het domein zit'
   );
 });
 
