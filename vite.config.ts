@@ -340,12 +340,15 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           '/src/server/acceptQuote.ts'
         );
         const { createFileStorage } = await server.ssrLoadModule('/src/server/storage.ts');
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
         const result = await handleAcceptQuote(body, {
           storage: createFileStorage(path.resolve(__dirname, '.data')),
           sendMail: createAcceptMailer(env, (message: string) => server.config.logger.info(message)),
           notifyEmail: env.QUOTE_NOTIFY_EMAIL,
           fromEmail: env.QUOTE_FROM_EMAIL,
           siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+          ...(payment ? { payment } : {}),
           log: (message: string) => server.config.logger.info(message),
         });
         reply(res, result.status, result.body);

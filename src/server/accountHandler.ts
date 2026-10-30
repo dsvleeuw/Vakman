@@ -110,6 +110,7 @@ function toAccountQuote(quote: QuoteRecord): AccountQuote {
     validUntil: quote.validUntil,
     status: quote.status,
     ...(quote.paidAt ? { paidAt: quote.paidAt } : {}),
+    ...(quote.acceptedAt ? { acceptedAt: quote.acceptedAt } : {}),
     planId: quote.planId,
     planName: quote.planName,
     sectorName: quote.sectorName,

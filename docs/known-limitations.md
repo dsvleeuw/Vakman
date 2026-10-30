@@ -18,8 +18,10 @@ to [ROADMAP.md](../ROADMAP.md).
   is no WhatsApp Business API that sends it automatically.
 - **Rate limiting is per function instance** (20 requests per 10 minutes per
   IP, in memory). It stops a single script, not a distributed attack.
-- **No admin screen.** Stored quotes and leads are only visible in the mails,
-  in Netlify Blobs (dashboard/CLI) or in `.data/` locally.
+- ~~No admin screen~~ Fixed: `/klusbaas` shows the requests, the offers, the
+  accounts and the sites behind one password (`ADMIN_PASSWORD`). What it
+  still cannot do is answer a request in the screen, search, export or
+  delete something.
 - Site leads on demo sites go to Klusbaas, not to the tradesperson: a demo
   site has no owner, so Klusbaas receives the lead. The page says that too.
 - ~~A published site sends its leads to Klusbaas~~ Fixed: a lead from a
@@ -32,14 +34,15 @@ to [ROADMAP.md](../ROADMAP.md).
 
 ## Accounts
 
-- **Accounts exist, but there is no password reset.** A customer makes an
-  account at `/mijn-account` with an e-mail address and a password; the
-  password is stored as a scrypt hash (`src/utils/password.ts`), never as
-  text. If the customer forgets the password there is no reset mail: the
-  account has to be removed by hand (Blobs or `.data/accounts`).
-- **No e-mail verification.** An account works as soon as it is made. The
-  e-mail address is not confirmed, so anyone can make an account with an
-  address that is not theirs.
+- **The customer can reset his password.** A customer makes an account at
+  `/mijn-account` with an e-mail address and a password; the password is
+  stored as a scrypt hash (`src/utils/password.ts`), never as text. "Wachtwoord
+  vergeten" sends a reset link that works once and lasts one hour. Without
+  `RESEND_API_KEY` no mail goes out, so the reset has to be done by hand.
+- **The e-mail address is not confirmed before the account works.** A
+  customer can use the account right away and the confirmation mail is a
+  signal for Klusbaas, not a lock. The overview shows whether the address
+  is verified.
 - **No rate limit across instances.** Login and registration are limited per
   function instance (10 logins per 15 minutes, 5 registrations per hour, in
   memory), so a distributed attack is not stopped.
@@ -62,11 +65,15 @@ to [ROADMAP.md](../ROADMAP.md).
   page (principle 2, principle 6). A block the craftsman switches on only
   appears when he changed or confirmed it; the editor says which blocks are
   still on the example text.
-- **He cannot add his own photos yet.** Until that exists (roadmap 6.9) the
-  portfolio section and the hero photo stay empty on a published site: there
-  is no photo of somebody else's work on a customer's page.
-- **He cannot set his own prices or reviews yet** (roadmap 6.1b). Until
-  then a published site shows "Prijs op aanvraag" and no review section.
+- **He adds his own photos, and only his own.** The editor has a tab
+  "Foto's": one photo above the page and a list of his own projects. Without
+  his own photos the page shows a transparent placeholder, never a photo of
+  somebody else's work.
+- **He sets his own prices; the reviews stay example material.** His
+  services with his own price ("vanaf € 45 per uur") and his own work area
+  drive the calculator and the postcode check. Reviews and ratings of the
+  trade example do not end up on his page: they are not his work and he
+  cannot make up his own reviews.
 - **The example text stays in the editor**, not on the page. That is the
   point: the editor is where the craftsman writes, the public page is where
   only his own words are.
@@ -147,7 +154,14 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The customer accepts on the offer page.** One click and his name: the
   offer gets the status `accepted` and Klusbaas gets a mail with the
   details. Before this, the customer had to write a mail or a WhatsApp
-  message to say yes.
+  message to say yes. He can also accept from his own account in
+  `/mijn-account`.
+- **The customer keeps the proof of his "ja".** Right after he accepts, he
+  gets a mail with the offer number, the amount, the services and the IBAN.
+  The banner in the browser used to be the only proof, and that disappears
+  when he closes the window. The confirmation only goes out when the offer
+  has an e-mail address, and without `RESEND_API_KEY` it is printed in the
+  log instead of being sent.
 - **Accepting is not paying.** The customer still transfers the money, and
   Klusbaas marks the offer as paid when it arrives. There is no payment
   provider and no automatic check.
@@ -271,8 +285,8 @@ to [ROADMAP.md](../ROADMAP.md).
   and the copy per block, and choose which blocks are on the page and in
   which order. Everything is stored per browser in localStorage
   (`klusbaas_mijn_sites`, per trade and style).
-- Photos, palette, service prices, reviews and portfolio photos are still
-  fixed: they come from the trade preset and cannot be edited.
+- Palette and reviews are still fixed: they come from the trade preset and
+  cannot be edited. Photos and service prices are his own (see above).
 - The editor publishes the site: it goes to `/site/<slug>` and is stored in
   Netlify Blobs (in `.data/sites` locally). A site published while logged in
   belongs to that account and can be changed from `/mijn-account` without a

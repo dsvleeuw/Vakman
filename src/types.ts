@@ -485,6 +485,8 @@ export interface AccountQuote {
   validUntil: string;
   status: QuoteStatus;
   paidAt?: string;
+  /** When the customer accepted the offer. */
+  acceptedAt?: string;
   planId: string;
   planName: string;
   sectorName: string;

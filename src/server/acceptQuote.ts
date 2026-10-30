@@ -1,5 +1,5 @@
-import { buildAcceptEmail } from '../utils/leadEmail';
-import { isQuoteExpired, isQuoteNumber, type QuoteRecord } from '../utils/quote';
+import { buildAcceptConfirmationEmail, buildAcceptEmail } from '../utils/leadEmail';
+import { buildQuotePath, isQuoteExpired, isQuoteNumber, type QuoteRecord } from '../utils/quote';
 import {
   redirectForTest,
   sendViaResend,
@@ -7,6 +7,7 @@ import {
   type FetchLike,
   type OutgoingMail,
 } from './mailer';
+import type { PaymentDetails } from '../types';
 import type { LeadStorage } from './storage';
 import { tokensMatch } from './tokens';
 
@@ -34,8 +35,10 @@ export interface AcceptQuoteRequest {
 
 export interface AcceptQuoteDeps {
   storage: LeadStorage;
-  /** Sends the mail to Klusbaas. Without it the acceptance is still saved. */
+  /** Sends the mail to Klusbaas and to the customer. Without it the acceptance is still saved. */
   sendMail?: (mail: OutgoingMail) => Promise<DeliveryResult>;
+  /** How the customer pays, mentioned in his confirmation. */
+  payment?: PaymentDetails;
   /** Where Klusbaas gets the notification. */
   notifyEmail?: string;
   /** The address the mail comes from. */
@@ -145,6 +148,7 @@ export async function handleAcceptQuote(
 
   // Klusbaas moet het weten: dit is een klant die ja zegt.
   const siteUrl = deps.siteUrl ?? 'https://klusbaas.nl';
+  const quoteUrl = `${siteUrl.replace(/\/$/, '')}${buildQuotePath(record.id, record.token)}`;
   const notify = deps.notifyEmail?.trim() || DEFAULT_NOTIFY;
   const from = deps.fromEmail?.trim() || DEFAULT_FROM;
   if (deps.sendMail) {
@@ -165,6 +169,30 @@ export async function handleAcceptQuote(
       // Een mislukte mail mag de acceptatie niet ongedaan maken: de klant
       // heeft ja gezegd en dat staat in de offerte.
       log(`[quote] acceptatiemail van ${id} mislukt: ${String(error)}`);
+    }
+  }
+
+  // En de klant zelf krijgt een bevestiging: zijn "ja" is het duurzaamste
+  // bewijs. De banner in de browser verdwijnt zodra hij het venster sluit.
+  if (record.customer.email) {
+    const confirmation = buildAcceptConfirmationEmail(
+      { ...updated, customer: { ...updated.customer, owner: name } },
+      { quoteUrl, ...(deps.payment ? { payment: deps.payment } : {}) }
+    );
+    try {
+      const result = await deps.sendMail?.({
+        from,
+        to: record.customer.email,
+        subject: confirmation.subject,
+        text: confirmation.text,
+        html: confirmation.html,
+      });
+      if (result) {
+        log(`[quote] bevestiging van ${id} verstuurd naar ${record.customer.email} (${result.status})`);
+      }
+    } catch (error) {
+      // Ook een mislukte bevestiging maakt de acceptatie niet ongedaan.
+      log(`[quote] bevestigingsmail van ${id} mislukt: ${String(error)}`);
     }
   }
 

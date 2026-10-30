@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Download, FileText, Loader2, TriangleAlert } from 'lucide-react';
 import { Logo } from './Logo';
 import { formatDutchDate, formatEuroCents, type PublicQuote } from '../utils/quote';
+import { acceptQuote } from '../utils/quoteClient';
 
 interface QuoteViewProps {
   id: string;
@@ -52,32 +53,21 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
     };
   }, [query]);
 
-  // De klant zegt ja. De offerte krijgt de status "geaccepteerd" en
-  // Klusbaas krijgt een mail; het overmaken doet de klant zelf.
-  const acceptQuote = async (event: React.FormEvent<HTMLFormElement>) => {
+  // De klant zegt ja. De offerte krijgt de status "geaccepteerd", de klant
+  // krijgt een bevestiging per mail en Klusbaas krijgt een mail; het
+  // overmaken doet de klant zelf.
+  const sendAccept = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setAccept({ status: 'sending' });
-    try {
-      const response = await fetch('/api/quote/accept', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, token, name: name.trim() }),
-      });
-      const body = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        setAccept({
-          status: 'error',
-          message: body.error ?? 'We konden je akkoord niet opslaan. Mail ons gerust even.',
-        });
-        return;
-      }
-      setAccept({ status: 'done' });
-    } catch {
+    const result = await acceptQuote(id, token, name.trim());
+    if (!result.ok) {
       setAccept({
         status: 'error',
-        message: 'Geen verbinding met de server. Mail ons gerust even.',
+        message: result.error ?? 'We konden je akkoord niet opslaan. Mail ons gerust even.',
       });
+      return;
     }
+    setAccept({ status: 'done' });
   };
 
   return (
@@ -197,15 +187,17 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
                 <h2 className="m-0 text-sm font-black text-stone-900">Ja, ik wil deze website</h2>
                 <p className="m-0 mt-2 text-sm text-stone-700">
                   Vul je naam in en klik op de knop. Klusbaas weet dan dat je akkoord gaat en
-                  neemt contact met je op. Daarna maak je het bedrag over.
+                  neemt contact met je op. Je krijgt een bevestiging per mail met het bedrag en
+                  de betaalgegevens. Daarna maak je het bedrag over.
                 </p>
                 {accept.status === 'done' ? (
                   <p className="m-0 mt-3 flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm font-semibold text-emerald-900">
                     <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
-                    Bedankt, we hebben je akkoord ontvangen. Klusbaas neemt contact met je op.
+                    Bedankt, we hebben je akkoord ontvangen. Je krijgt een bevestiging per mail;
+                    daarin staat het bedrag en hoe je het betaalt.
                   </p>
                 ) : (
-                  <form onSubmit={acceptQuote} className="m-0 mt-3 flex flex-col sm:flex-row gap-3 sm:items-end">
+                  <form onSubmit={sendAccept} className="m-0 mt-3 flex flex-col sm:flex-row gap-3 sm:items-end">
                     <div className="flex-1">
                       <label className="block text-sm font-bold text-stone-900 mb-1.5" htmlFor="accept-name">
                         Je naam
@@ -266,7 +258,7 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
             {state.quote.status === 'accepted' && (
               <p className="m-0 mx-6 sm:mx-8 mb-6 flex items-start gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" aria-hidden="true" />
-                Je hebt deze offerte geaccepteerd. Klusbaas neemt contact met je op; maak
+                Je hebt deze offerte geaccepteerd. Je bevestiging staat in je mail; maak
                 daarna het bedrag over.
               </p>
             )}
