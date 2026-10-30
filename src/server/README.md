@@ -105,6 +105,20 @@ sluit, deze mail niet. De betaalgegevens komen uit `payment` in de deps
 mail alleen geen bankrekening. Accepteren is geen betalen: het bedrag wordt
 overgemaakt en Klusbaas markeert de offerte handmatig als betaald.
 
+## De klant opvolgen
+
+Twee knoppen in `/klusbaas`, twee mails:
+
+- `remind-quote` (`server/remindQuote.ts`) voor een offerte die nog openstaat:
+  de klant krijgt de link naar de offerte en het bedrag weer.
+- `remind-payment` (`server/payReminder.ts`) voor een offerte die geaccepteerd
+  is maar nog niet betaald: de klant krijgt het bedrag, de IBAN en de
+  omschrijving. Het overzicht laat zien hoeveel dagen de offerte al op
+  betaling wacht (`daysSince`).
+
+Geen van beide verandert de offerte: de klant betaalt of hij betaalt niet,
+en Klusbaas markeert de betaling met de hand.
+
 ## Tests
 
 - Mock `Resend`, `Netlify Blobs`, `crypto.randomUUID`

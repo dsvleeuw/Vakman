@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een akkoord zonder betaling blijft niet stil liggen.** In `/klusbaas`
+  staat bij een geaccepteerde offerte hoeveel dagen het wacht op het geld,
+  en Klusbaas kan de klant nog een keer het bedrag en de IBAN sturen. De
+  offertepagina en het account laten de betaalgegevens na het accepteren
+  ook zien: de klant moet het bedrag nog overmaken.
 - **De klant houdt het bewijs van zijn eigen "ja".** Zodra hij de offerte
   accepteert, krijgt hij een mail met het offertenummer, het bedrag, de
   diensten en de IBAN. Voorheen was de groene banner in de browser het

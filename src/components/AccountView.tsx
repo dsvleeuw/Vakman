@@ -227,7 +227,7 @@ const QuoteRow: React.FC<{
     <p className="m-0 text-sm font-bold text-stone-900">
       {formatEuroCents(quote.totalCents)} incl. btw
     </p>
-    {quote.status === 'open' && payment && (
+    {(quote.status === 'open' || quote.status === 'accepted') && payment && (
       <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex flex-col gap-1">
         <p className="m-0 text-sm font-bold text-stone-900">Zo betaal je</p>
         <p className="m-0 text-sm text-stone-700">

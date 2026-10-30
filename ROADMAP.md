@@ -139,6 +139,9 @@ through the wizard when:**
 12. The customer keeps the proof of his own "ja": right after he accepts he
    gets a mail with what he agreed to, what it costs and where he has to
    transfer the money to.
+13. An accepted offer that is not paid does not go quiet: Klusbaas sees how
+   long it has been waiting and can send the customer the amount and the
+   IBAN one more time.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -152,6 +155,7 @@ through the wizard when:**
 | 7.8 | ~~An expired offer does not look like a promise~~ Done: an offer is valid for thirty days; the offer page says so and hides the accept button when it is expired, the overview marks it as expired, and Klusbaas can extend it with one button when the price has not changed | S | An expired offer is not withdrawn by itself: Klusbaas cancels it by hand when the customer is not coming. The customer cannot accept an expired offer, so a price that is three months old is never agreed to. |
 | 7.9 | ~~A request and its offer are one thing~~ Done: an offer remembers the request it was written for; the overview shows at the request which offer exists, and the "Offerte maken" form says "al een offerte" so Klusbaas does not write the same offer twice | S | A request from a customer site belongs to that craftsman and is not in Klusbaas' overview, so Klusbaas cannot see whether he already answered it. |
 | 7.10 | ~~The customer keeps the proof of his own "ja"~~ Done: right after the customer accepts, he gets a mail with the offer number, the amount, the services and the IBAN. The banner in the browser used to be the only proof, and that disappears when he closes the window. He can accept from the offer page and from his own account | S | The mail only goes out when the offer has an e-mail address; without one there is nothing to send to. Without `RESEND_API_KEY` the mail is only printed in the log. The confirmation is not a contract: there is still no signature. |
+| 7.11 | ~~An accepted offer that is not paid does not go quiet~~ Done: in `/klusbaas` an accepted offer shows how many days it has been waiting for the money, and Klusbaas can send the customer one more mail with the amount and the IBAN. The offer page and the account keep showing the bank details after the acceptance, so the customer can always pay | S | The reminder is by hand: nothing goes out on its own, and there is no escalation after a second reminder. Klusbaas still marks the payment as paid by hand. |
 
 ## Decision log
 

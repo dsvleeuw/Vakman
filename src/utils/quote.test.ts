@@ -7,6 +7,7 @@ import {
   buildQuotePath,
   buildQuoteRecord,
   calculateQuote,
+  daysSince,
   formatDutchDate,
   formatEuroCents,
   formatQuoteNumber,
@@ -25,6 +26,17 @@ test('every add-on is a real component from the library', () => {
 test('sanitizeAddonIds drops unknown ids and duplicates, keeps catalogue order', () => {
   assert.deepEqual(sanitizeAddonIds(['guarantees', 'x', 'trust-bar', 'guarantees']), ['trust-bar', 'guarantees']);
   assert.deepEqual(sanitizeAddonIds('trust-bar'), []);
+});
+
+test('daysSince telt hele dagen terug, en nooit negatief', () => {
+  const now = new Date('2026-10-30T12:00:00.000Z');
+  assert.equal(daysSince('2026-10-30T10:00:00.000Z', now), 0);
+  assert.equal(daysSince('2026-10-29T12:00:00.000Z', now), 1);
+  assert.equal(daysSince('2026-10-27T11:59:00.000Z', now), 3);
+  // Een moment in de toekomst is geen negatief aantal dagen.
+  assert.equal(daysSince('2026-11-02T10:00:00.000Z', now), 0);
+  // Een onleesbaar moment telt niet als dagen.
+  assert.equal(daysSince('onzin', now), 0);
 });
 
 test('calculateQuote: plan line, add-ons, 21% btw in cents', () => {

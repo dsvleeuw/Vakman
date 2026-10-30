@@ -153,7 +153,9 @@ result. The Netlify deploy preview is the only external CI check. If
   customer and marked as paid by hand.
 - Klusbaas follows up on an open offer himself: `remind-quote` in
   `server/remindQuote.ts` sends the customer a mail with the link to the
-  offer.
+  offer. An accepted offer that is not paid is chased with `remind-payment`
+  in `server/payReminder.ts`: the customer gets the amount and the IBAN
+  again. Both are by hand; nothing goes out on its own.
 - An offer is valid for thirty days (`isQuoteExpired`). An expired offer is
   marked as such in the overview and on the offer page, cannot be
   accepted, and Klusbaas can extend it with `extend-quote`.

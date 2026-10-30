@@ -142,9 +142,11 @@ to [ROADMAP.md](../ROADMAP.md).
   account holder, the amount and the reference stand in the offer PDF and on
   the offer page, so a customer can transfer the money without making an
   account first.
-- **Klusbaas marks the payment by hand.** There is no payment provider, no
-  automatic check against the bank statement and no reminder: the offer
-  waits until Klusbaas marks it paid in `/klusbaas`.
+- **Klusbaas marks the payment by hand.** There is no payment provider and
+  no automatic check against the bank statement: the offer waits until
+  Klusbaas marks it paid in `/klusbaas`. He can chase it: an accepted offer
+  shows how many days it has been waiting, and one button sends the customer
+  the amount and the IBAN again. Nothing goes out on its own.
 - **Without `PAYMENT_IBAN` there are no payment details.** The offer then
   says that Klusbaas will send them. That is deliberate: a wrong IBAN is
   worse than no IBAN.

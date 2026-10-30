@@ -5,11 +5,12 @@ import {
   adminLogout,
   extendQuote,
   fetchAdminOverview,
+  remindPayment,
   remindQuote,
   setQuoteStatus,
   verifyAccount,
 } from '../utils/adminClient';
-import { formatEuroCents } from '../utils/quote';
+import { daysSince, formatEuroCents } from '../utils/quote';
 import type {
   AdminAccount,
   AdminCreatedQuote,
@@ -174,8 +175,9 @@ const QuoteRow: React.FC<{
   busy: boolean;
   onStatus: (id: string, status: 'paid' | 'cancelled' | 'open') => void;
   onRemind: (id: string) => void;
+  onRemindPayment: (id: string) => void;
   onExtend: (id: string) => void;
-}> = ({ quote, busy, onStatus, onRemind, onExtend }) => (
+}> = ({ quote, busy, onStatus, onRemind, onRemindPayment, onExtend }) => (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
       <span className="font-black text-stone-900">{quote.id}</span>
@@ -225,8 +227,26 @@ const QuoteRow: React.FC<{
       )}
       {quote.status === 'accepted' && (
         <span className="text-sm text-stone-600">
-          De klant heeft ja gezegd. Zodra het bedrag binnen is, markeer je hem als betaald.
+          De klant heeft ja gezegd
+          {quote.acceptedAt ? ` op ${dateTime(quote.acceptedAt)}` : ''}. Zodra het bedrag
+          binnen is, markeer je hem als betaald.
         </span>
+      )}
+      {quote.status === 'accepted' && quote.acceptedAt && (
+        <>
+          <p className="m-0 text-sm font-semibold text-amber-800">
+            Wacht al {daysSince(quote.acceptedAt)} dag{daysSince(quote.acceptedAt) === 1 ? '' : 'en'} op
+            betaling.
+          </p>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => onRemindPayment(quote.id)}
+            className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60"
+          >
+            Stuur een betaalherinnering
+          </button>
+        </>
       )}
       {quote.status === 'open' && (
         <button
@@ -355,6 +375,26 @@ export const AdminView: React.FC = () => {
       return;
     }
     setNotice(`Offerte ${id} is verlengd tot ${result.validUntil ?? 'vandaag + 30 dagen'}.`);
+    await load();
+  };
+
+  // De klant heeft ja gezegd maar nog niet betaald: hij krijgt het bedrag
+  // en de IBAN nog een keer, want daar gaat het geld verloren.
+  const handleRemindPayment = async (id: string) => {
+    setBusy(true);
+    const result = await remindPayment(id);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    setNotice(
+      result.paymentReminderStatus === 'sent'
+        ? `Betaalherinnering voor offerte ${id} is verstuurd.`
+        : `Betaalherinnering voor offerte ${id} is klaargezet (${
+            result.paymentReminderStatus ?? 'onbekend'
+          }).`
+    );
     await load();
   };
 
@@ -499,6 +539,7 @@ export const AdminView: React.FC = () => {
                       busy={busy}
                       onStatus={handleStatus}
                       onRemind={handleRemind}
+                      onRemindPayment={handleRemindPayment}
                       onExtend={handleExtend}
                     />
                     ))}

@@ -42,6 +42,8 @@ on `main`; the commands to re-measure them are at the bottom.
     which offer exists (phase 7.9).
 15. The customer keeps the proof of his own "ja": right after he accepts he
     gets a mail with the amount and the IBAN (phase 7.10).
+16. An accepted offer that is not paid does not go quiet: Klusbaas sees how
+    long it has been waiting and can chase the money (phase 7.11).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -76,9 +78,10 @@ there is no payment provider (still open).
 | 19 | An expired offer still looks like a promise | the offer page said "geldig tot 28 november" and kept the accept button, whatever the date was | A customer could agree to a price from three months ago, and the page said a date that had passed | **fixed (7.8)** |
 | 20 | A request and its offer are two things | the offer did not remember the request it was written for | The overview showed the request and the offer side by side with nothing in between, so Klusbaas could write the same offer twice or forget that he had already answered | **fixed (7.9)** |
 | 21 | The customer's "ja" leaves no trace | accepting only changed the status and showed a banner in the browser | When the customer closed his browser the only proof was gone: he had nothing to show his bookkeeper and nothing to remind himself what he agreed to | **fixed (7.10)** |
+| 22 | An accepted offer that is not paid goes quiet | the overview only showed the status `accepted` | The customer said yes, so the sale was real, but the money never arrived and nobody noticed: the IBAN was in a mail the customer had lost, and the order looked finished in the overview | **fixed (7.11)** |
 
 The status column says what has been done since the audit was written
-(phases 6.1–6.9 and 7.1–7.10). "Partly fixed" means: an offer can be ordered
+(phases 6.1–6.9 and 7.1–7.11). "Partly fixed" means: an offer can be ordered
 and paid for, but there is no payment provider, no automatic reminder and
 no invoice.
 
@@ -126,20 +129,24 @@ no invoice.
 - The customer keeps the proof of his own "ja": right after he accepts he
   gets a mail with the amount and the IBAN, and he can accept from his
   account too (phase 7.10).
+- An accepted offer that is not paid does not go quiet: the overview shows
+  how many days it has been waiting and Klusbaas can send the customer the
+  amount and the IBAN again (phase 7.11).
 
 ## Definition of done
 
 The eight conditions in ROADMAP phase 6 are the contract: a craftsman can
 be sold a website when he can sign up, publish a site that only says true
 things, see his requests, pay, and find everything back on any device.
-Phase 7 adds ten conditions of its own: Klusbaas can write an offer for a
+Phase 7 adds eleven conditions of its own: Klusbaas can write an offer for a
 customer who did not come through the wizard (7.2), the photo upload cannot
 be used to fill the store (7.1), the customer can pay the offer without
 making an account first (7.3), a request can become an offer (7.4), the
 customer can accept the offer himself (7.5), a paying customer gets an
 invoice (7.6), an open offer can be followed up (7.7), an expired offer is
-not a promise (7.8), a request remembers its offer (7.9), and the customer
-keeps the proof of his own "ja" (7.10).
+not a promise (7.8), a request remembers its offer (7.9), the customer keeps
+the proof of his own "ja" (7.10), and an accepted offer that is not paid
+does not go quiet (7.11).
 
 ## How to re-measure this
 
@@ -193,6 +200,9 @@ grep -n "leadReference" src/utils/quote.ts | head -1
 
 # 21: the customer keeps the proof of his "ja"
 grep -n "buildAcceptConfirmationEmail" src/server/acceptQuote.ts | head -1
+
+# 22: een geaccepteerde offerte die niet betaald is, blijft niet stil
+grep -n "remind-payment" src/server/adminHandler.ts | head -1
 
 # and the checks that must stay green
 bun run check

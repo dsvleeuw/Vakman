@@ -263,6 +263,19 @@ export function isQuoteExpired(record: { validUntil: string }, now: Date = new D
   return until < now.getTime();
 }
 
+/**
+ * How many whole days ago a moment was, counted from `now`.
+ *
+ * Klusbaas uses this to see how long an accepted offer has been waiting for
+ * its money: an order accepted three months ago and still unpaid is a
+ * different problem from one accepted yesterday.
+ */
+export function daysSince(iso: string, now: Date = new Date()): number {
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return 0;
+  return Math.max(0, Math.floor((now.getTime() - then) / 86_400_000));
+}
+
 /** Shareable path of a stored quote. */
 export function buildQuotePath(id: string, token: string): string {
   return `/offerte/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`;
