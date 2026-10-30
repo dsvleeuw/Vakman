@@ -37,6 +37,9 @@ function memoryStorage() {
     async listLeads() {
       return [...leads.values()] as Awaited<ReturnType<LeadStorage['listLeads']>>;
     },
+    async updateLeadStatus() {
+      return null;
+    },
     async listQuotes() {
       return [...quotes.values()] as Awaited<ReturnType<LeadStorage['listQuotes']>>;
     },

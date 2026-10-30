@@ -48,6 +48,13 @@ function memoryStorage(leads: StoredLead[] = [], quotes: QuoteRecord[] = []): Le
     async listLeads() {
       return [...leadMap.values()];
     },
+    async updateLeadStatus(reference, status) {
+      const record = leadMap.get(reference);
+      if (!record) return null;
+      const updated = { ...record, status, statusAt: '2026-10-30T10:00:00.000Z' };
+      leadMap.set(reference, updated);
+      return updated;
+    },
     async listQuotes() {
       return [...quoteMap.values()];
     },
@@ -158,6 +165,47 @@ function deps(overrides: { password?: string | undefined } = {}) {
     createSessionId: () => 'adminsessie',
   };
 }
+
+test('Klusbaas zet de status van een aanvraag', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin(
+    { action: 'lead-status', reference: 'L-AAAA01', leadStatus: 'called' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 200);
+  assert.equal(result.body.lead?.status, 'called');
+  assert.equal(result.body.lead?.statusAt, '2026-10-30T10:00:00.000Z');
+
+  // De aanvraag staat in het overzicht met de nieuwe status.
+  const overview = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+  const lead = overview.body.overview?.leads.find((item) => item.reference === 'L-AAAA01');
+  assert.equal(lead?.status, 'called');
+});
+
+test('een onbekende aanvraag of status wordt geweigerd', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const unknown = await handleAdmin(
+    { action: 'lead-status', reference: 'L-XXXXXX', leadStatus: 'called' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(unknown.status, 404);
+
+  const badStatus = await handleAdmin(
+    { action: 'lead-status', reference: 'L-AAAA01', leadStatus: 'vergeten' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(badStatus.status, 400);
+});
 
 test('het overzicht laat zien wat er nog mis is voor de eerste verkoop', async () => {
   const d = deps();

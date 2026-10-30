@@ -144,6 +144,11 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The overview lists, it does not act.** It shows the requests, the offers
   and the sites, and Klusbaas can mark an offer as paid. There is no
   newsletter list, no search, no export and no way to delete a request.
+- **A request has a status, but nobody is reminded.** Klusbaas and the
+  craftsman can both say what they did with a request ("gebeld", "offerte
+  gestuurd"), and the overview can filter on what is still open. Nothing
+  goes out when a request stands still for days: that is still a job for
+  the hand.
 - **The overview says whether the deployment is complete.** It checks the
   IBAN, the invoice details, the mail and the password, so Klusbaas sees
   what is missing before the first order instead of after it. The check

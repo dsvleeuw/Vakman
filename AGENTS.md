@@ -219,6 +219,13 @@ result. The Netlify deploy preview is the only external CI check. If
   `LeadStorage.updateQuoteDelivery`); the customer sees the same list in his
   account and on the offer page (`components/DeliveryList.tsx`). The
   checklist says what happens, the code does not do the work.
+- A request has a status (phase 7.24). `RequestStatus` in `types.ts`, the
+  texts in `utils/lead.ts` (`REQUEST_STATUSES`, `REQUEST_STATUS_LABELS`).
+  Klusbaas sets it in `/klusbaas` (`action: 'lead-status'` → 
+  `LeadStorage.updateLeadStatus`); the craftsman sets it for the requests
+  on his own site in his account (`action: 'lead-status'` →
+  `server/accountHandler.ts`, which checks that the site is his). A request
+  without a status is `new`: nobody looked at it yet.
 - The monthly service is a real order (phase 7.15). The customer switches
   it on in his own account (`POST /api/account` with `action:
   'service-request'`) and stops it himself (`'service-cancel'`); the state

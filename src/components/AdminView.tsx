@@ -10,11 +10,13 @@ import {
   remindQuote,
   sendServiceInvoice,
   setDeliveryStep,
+  setLeadStatus,
   setQuoteStatus,
   stopService,
   verifyAccount,
 } from '../utils/adminClient';
 import { daysSince, formatEuroCents } from '../utils/quote';
+import { REQUEST_STATUSES, REQUEST_STATUS_LABELS } from '../utils/lead';
 import { servicePriceText, serviceStatusLabel } from '../utils/service';
 import type {
   AdminAccount,
@@ -22,6 +24,7 @@ import type {
   AdminOverview,
   AdminQuote,
   AdminSite,
+  RequestStatus,
   StoredLead,
 } from '../types';
 import { AdminQuoteForm } from './AdminQuoteForm';
@@ -101,8 +104,42 @@ const SiteRow: React.FC<{ site: AdminSite }> = ({ site }) => (
   </li>
 );
 
+/** The filters above the list of requests. */
+const LEAD_FILTERS: { id: 'all' | 'open' | RequestStatus; label: string }[] = [
+  { id: 'all', label: 'Alles' },
+  { id: 'open', label: 'Nog open' },
+  { id: 'new', label: 'Nieuw' },
+  { id: 'called', label: 'Gebeld' },
+  { id: 'quoted', label: 'Offerte gestuurd' },
+  { id: 'done', label: 'Opdracht af' },
+  { id: 'dropped', label: 'Geen reactie' },
+];
+
+/**
+ * Which requests the filter shows. "Nog open" means: nobody called yet and
+ * nobody wrote an offer. Those are the ones that get lost.
+ */
+function leadsForFilter(
+  leads: StoredLead[],
+  filter: 'all' | 'open' | RequestStatus
+): StoredLead[] {
+  if (filter === 'all') return leads;
+  if (filter === 'open') {
+    return leads.filter((lead) => {
+      const status = lead.status ?? 'new';
+      return status === 'new' || status === 'called';
+    });
+  }
+  return leads.filter((lead) => (lead.status ?? 'new') === filter);
+}
+
 /** The offer that was written for a request, when there is one. */
-const LeadRow: React.FC<{ lead: StoredLead; quote?: AdminQuote }> = ({ lead, quote }) => (
+const LeadRow: React.FC<{
+  lead: StoredLead;
+  quote?: AdminQuote;
+  busy?: boolean;
+  onStatus: (reference: string, status: RequestStatus) => void;
+}> = ({ lead, quote, busy, onStatus }) => (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-1">
     <div className="flex flex-wrap items-baseline gap-x-3">
       <span className="font-black text-stone-900">
@@ -140,6 +177,24 @@ const LeadRow: React.FC<{ lead: StoredLead; quote?: AdminQuote }> = ({ lead, quo
     {(lead.fields?.message ?? '').trim() && (
       <p className="m-0 text-sm text-stone-700 whitespace-pre-wrap">{lead.fields.message}</p>
     )}
+    <div className="flex flex-wrap items-center gap-2 pt-1">
+      <label htmlFor={`lead-status-${lead.reference}`} className="text-xs font-bold text-stone-600">
+        Status
+      </label>
+      <select
+        id={`lead-status-${lead.reference}`}
+        value={lead.status ?? 'new'}
+        disabled={busy}
+        onChange={(e) => onStatus(lead.reference, e.target.value as RequestStatus)}
+        className="h-10 px-3 rounded-xl border-2 border-stone-300 bg-white text-sm font-bold text-stone-900 focus:outline-none focus:border-stone-900 disabled:opacity-60"
+      >
+        {REQUEST_STATUSES.map((status) => (
+          <option key={status} value={status}>
+            {REQUEST_STATUS_LABELS[status]}
+          </option>
+        ))}
+      </select>
+    </div>
   </li>
 );
 
@@ -387,6 +442,8 @@ export const AdminView: React.FC = () => {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  // Welke aanvragen hij wil zien: alles, of alleen wat nog openstaat.
+  const [leadFilter, setLeadFilter] = useState<'all' | 'open' | RequestStatus>('all');
 
   const load = useCallback(async () => {
     setOverview(await fetchAdminOverview());
@@ -434,6 +491,19 @@ export const AdminView: React.FC = () => {
     // Het overzicht laat de nieuwe offerte meteen zien.
     await load();
     setNotice(`Offerte ${quote.id} staat nu in het overzicht.`);
+  };
+
+  // Waar een aanvraag staat. Een aanvraag die nergens op volgt, is een
+  // verloren order.
+  const handleLeadStatus = async (reference: string, status: RequestStatus) => {
+    setBusy(true);
+    const result = await setLeadStatus(reference, status);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    await load();
   };
 
   // Wat Klusbaas voor de site van de klant heeft gedaan: de klant ziet
@@ -702,15 +772,46 @@ export const AdminView: React.FC = () => {
                     Nog geen aanvragen.
                   </p>
                 ) : (
-                  <ul className="m-0 p-0 list-none flex flex-col gap-3">
-                    {overview.leads.map((lead) => (
+                  <>
+                    <div className="flex flex-wrap gap-2" role="group" aria-label="Filter op status">
+                      {LEAD_FILTERS.map((filter) => {
+                        const count = leadsForFilter(overview.leads, filter.id).length;
+                        const active = leadFilter === filter.id;
+                        return (
+                          <button
+                            key={filter.id}
+                            type="button"
+                            aria-pressed={active}
+                            onClick={() => setLeadFilter(filter.id)}
+                            className={`h-10 px-4 rounded-full border-2 text-sm font-bold cursor-pointer transition-colors ${
+                              active
+                                ? 'bg-stone-900 text-white border-stone-900'
+                                : 'bg-white text-stone-700 border-stone-300 hover:border-stone-700'
+                            }`}
+                          >
+                            {filter.label} ({count})
+                          </button>
+                        );
+                      })}
+                    </div>
+                    {leadsForFilter(overview.leads, leadFilter).length === 0 ? (
+                      <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
+                        Geen aanvragen met deze status.
+                      </p>
+                    ) : (
+                    <ul className="m-0 p-0 list-none flex flex-col gap-3">
+                    {leadsForFilter(overview.leads, leadFilter).map((lead) => (
                       <LeadRow
                         key={lead.reference}
                         lead={lead}
                         quote={overview.quotes.find((quote) => quote.leadReference === lead.reference)}
+                        busy={busy}
+                        onStatus={handleLeadStatus}
                       />
                     ))}
-                  </ul>
+                    </ul>
+                    )}
+                  </>
                 )}
               </section>
 

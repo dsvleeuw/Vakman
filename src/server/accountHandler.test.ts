@@ -65,6 +65,13 @@ function memoryLeads(leads: StoredLead[] = []): LeadStorage {
     async listLeads() {
       return [...map.values()];
     },
+    async updateLeadStatus(reference, status) {
+      const record = map.get(reference);
+      if (!record) return null;
+      const updated = { ...record, status, statusAt: '2026-10-30T10:00:00.000Z' };
+      map.set(reference, updated);
+      return updated;
+    },
     async listQuotes() {
       return [];
     },
@@ -108,6 +115,9 @@ function memoryQuotes(quotes: QuoteRecord[] = []): LeadStorage {
     },
     async listLeads() {
       return [];
+    },
+    async updateLeadStatus() {
+      return null;
     },
     async listQuotes() {
       return [...map.values()];
@@ -198,6 +208,7 @@ interface SentMail {
 function deps(overrides: {
   accounts?: AccountStorage;
   sites?: SiteStorage;
+  leads?: LeadStorage;
   mails?: SentMail[];
   now?: () => number;
 } = {}) {
@@ -205,6 +216,7 @@ function deps(overrides: {
   return {
     accounts: overrides.accounts ?? memoryAccounts(),
     sites: overrides.sites ?? memorySites(),
+    leads: overrides.leads ?? memoryLeads(),
     now: overrides.now ?? (() => 1_700_000_000_000),
     createSessionId: (() => {
       let counter = 0;
@@ -385,6 +397,54 @@ test('de site-lijst toont alleen de eigen sites', async () => {
   assert.equal(list.body.sites?.[0]?.slug, 'jansen-schilderwerken');
   // The token never leaves the server.
   assert.equal((list.body.sites?.[0] as { token?: string } | undefined)?.token, undefined);
+});
+
+test('de vakman zet de status van een aanvraag op zijn eigen site', async () => {
+  const sites = memorySites();
+  await sites.saveSite(publishedSite);
+  const leads = memoryLeads([
+    {
+      reference: 'L-AAAA01',
+      createdAt: '2026-10-29T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+      fields: { name: 'Sanne', phone: '0612345678', message: 'Ik wil drie kozijnen schilderen.' },
+    },
+    {
+      reference: 'L-BBBB02',
+      createdAt: '2026-10-29T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Andere Site', sector: 'schilder', slug: 'andere-site' },
+      fields: { name: 'Piet', phone: '0612345678' },
+    },
+  ]);
+  const d = deps({ sites, leads });
+
+  await handleAccount({ action: 'register', email: 'jan@bedrijf.nl', password: 'moeilijk' }, d);
+  const login = await handleAccount(
+    { action: 'login', email: 'jan@bedrijf.nl', password: 'moeilijk' },
+    d
+  );
+  const cookie = login.setCookie?.split(';')[0] ?? '';
+  await handleAccount({ action: 'claim', slug: 'jansen-schilderwerken', token: 'tokentokentoken' }, d, cookie);
+
+  const result = await handleAccount(
+    { action: 'lead-status', reference: 'L-AAAA01', leadStatus: 'called' },
+    d,
+    cookie
+  );
+  assert.equal(result.status, 200);
+  assert.equal(result.body.lead?.status, 'called');
+
+  // De aanvraag op de site van iemand anders blijft onaangeroerd.
+  const other = await handleAccount(
+    { action: 'lead-status', reference: 'L-BBBB02', leadStatus: 'called' },
+    d,
+    cookie
+  );
+  assert.equal(other.status, 404);
+  const stored = (await leads.listLeads()).find((lead) => lead.reference === 'L-BBBB02');
+  assert.equal(stored?.status, undefined);
 });
 
 test('te veel inlogpogingen worden geweigerd', async () => {
