@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Loader2, LogOut, TriangleAlert, Wrench } from 'lucide-react';
 import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } from '../types';
 import {
+  downloadAccountExport,
+  fetchAccountExport,
   cancelService,
   claimQuote,
   claimSite,
@@ -559,6 +561,23 @@ export const AccountView: React.FC = () => {
     );
   };
 
+  // "Download je gegevens": alles wat Klusbaas over deze klant bewaart, in
+  // één bestand. De AVG (art. 15) geeft de klant dat recht; hij hoeft
+  // er geen mail voor te sturen.
+  const handleExport = async () => {
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    const result = await fetchAccountExport();
+    setBusy(false);
+    if (!result.ok || !result.export) {
+      setError(result.error ?? 'Dat is niet gelukt. Probeer het opnieuw.');
+      return;
+    }
+    downloadAccountExport(result.export);
+    setNotice('Je gegevens zijn gedownload. Het bestand staat in je downloads.');
+  };
+
   const handleServiceCancel = async () => {
     setBusy(true);
     setError(null);
@@ -1010,6 +1029,24 @@ export const AccountView: React.FC = () => {
               Koppelen
             </button>
           </form>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="m-0 text-xl font-black tracking-tight">Je gegevens</h2>
+          <p className="m-0 text-stone-600 leading-relaxed">
+            Alles wat Klusbaas over je bewaart, staat in één bestand: je account, je sites, je
+            aanvragen, je offertes en je service. Je hoeft daarvoor geen mail te sturen — dat is
+            je recht onder de AVG. Wil je liever dat we je gegevens helemaal weghalen? Mail
+            ons, dan doen we dat.
+          </p>
+          <button
+            type="button"
+            onClick={handleExport}
+            disabled={busy}
+            className="h-11 px-4 rounded-full border border-stone-300 hover:bg-stone-100 disabled:opacity-60 text-stone-900 font-bold text-sm inline-flex items-center justify-center self-start"
+          >
+            Download je gegevens
+          </button>
         </section>
 
         <div className="flex flex-wrap items-center gap-3">

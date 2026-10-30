@@ -2,6 +2,7 @@ import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { buildResetMail, buildVerifyMail } from '../utils/accountMail';
 import type {
   Account,
+  AccountExport,
   AccountSession,
   AccountQuote,
   PaymentDetails,
@@ -49,7 +50,8 @@ export type AccountAction =
   | 'verify'
   | 'verify-request'
   | 'service-request'
-  | 'service-cancel';
+  | 'service-cancel'
+  | 'export';
 
 export interface AccountRequestBody {
   action?: AccountAction;
@@ -59,6 +61,8 @@ export interface AccountRequestBody {
 
 export interface AccountResponseBody {
   ok: boolean;
+  /** Everything we hold about this customer, in one file (AVG art. 15). */
+  export?: AccountExport;
   account?: { id: string; email: string; verified: boolean };
   sites?: PublicPublishedSite[];
   /** The requests that came in through the sites of this customer. */
@@ -623,6 +627,62 @@ export async function handleAccount(
       status: 200,
       body: { ok: true, account: publicAccount(account), leads },
     };
+  }
+
+  if (action === 'export') {
+    // "Download je gegevens": alles wat wij over deze klant bewaren, in één
+    // bestand. De klant hoeft daarvoor geen mail te sturen (AVG art. 15).
+    const owned = (await deps.sites.listSites()).filter((site) => site.ownerId === account.id);
+    const slugs = new Set(owned.map((site) => site.slug));
+    const allLeads = deps.leads ? await deps.leads.listLeads() : [];
+    const allQuotes = deps.quotes ? await deps.quotes.listQuotes() : [];
+    const now = deps.now ? deps.now() : Date.now();
+    const data: AccountExport = {
+      exportedAt: new Date(now).toISOString(),
+      account: {
+        email: account.email,
+        createdAt: new Date(account.createdAt).toISOString(),
+        ...(account.verifiedAt ? { verifiedAt: new Date(account.verifiedAt).toISOString() } : {}),
+        ...(account.service ? { service: account.service } : {}),
+      },
+      sites: owned.map((site) => ({
+        slug: site.slug,
+        sector: site.sector,
+        styleId: site.styleId,
+        form: { ...site.form },
+        text: { ...site.text },
+        ...(site.services ? { services: site.services } : {}),
+        ...(site.workArea ? { workArea: site.workArea } : {}),
+        ...(site.heroPhoto ? { heroPhoto: site.heroPhoto } : {}),
+        ...(site.work ? { work: site.work } : {}),
+        updatedAt: site.updatedAt,
+      })),
+      requests: allLeads.filter((lead) => lead.site?.slug && slugs.has(lead.site.slug)),
+      quotes: allQuotes
+        .filter((quote) => quote.accountId === account.id)
+        .map((quote) => ({
+          id: quote.id,
+          createdAt: quote.createdAt,
+          validUntil: quote.validUntil,
+          status: quote.status,
+          customer: quote.customer,
+          sector: quote.sector,
+          sectorName: quote.sectorName,
+          styleName: quote.styleName,
+          services: quote.services,
+          channel: quote.channel,
+          planId: quote.planId,
+          planName: quote.planName,
+          lines: quote.lines,
+          subtotalCents: quote.subtotalCents,
+          vatCents: quote.vatCents,
+          totalCents: quote.totalCents,
+          paidAt: quote.paidAt,
+          acceptedAt: quote.acceptedAt,
+          delivery: quote.delivery,
+        })),
+    };
+    return { status: 200, body: { ok: true, account: publicAccount(account), export: data } };
   }
 
   if (action === 'quotes') {

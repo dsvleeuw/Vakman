@@ -167,6 +167,8 @@ through the wizard when:**
 21. Klusbaas sees whether the site is ready to sell: the overview says
     whether a customer can pay, whether the invoice is complete and whether
     the mail really goes out, instead of leaving him to guess.
+22. The customer can download everything we hold about him: his account,
+    his sites, his requests, his offers and his service, in one file.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -189,6 +191,7 @@ through the wizard when:**
 | 7.17 | ~~The questions and answers stand in the page~~ Done: the FAQ is a native accordion (`<details>`), so every answer is in the HTML that the build writes. A visitor without JavaScript and a search engine read the same text as a visitor with scripts | S | The answers of the questions about Klusbaas are marketing text; the customer keeps his own questions on his own site. The accordion shows one answer at a time, like before. |
 | 7.18 | ~~The price list says what a package is~~ Done: the pricing page and the FAQ say that the customer fills in his own site in his own editor, and that a package is the delivery: Klusbaas checks the texts, photos and colours, checks the findability, delivers within two weeks and registers the `.nl` domain in Pro and Premium | M | The prices themselves are unchanged. The domain is only in Pro and Premium, and the registrar costs stay with the customer. A customer who wants to do everything himself can, and that is said out loud |
 | 7.19 | ~~Klusbaas sees whether the site is ready to sell~~ Done: the overview in `/klusbaas` checks the four things that decide whether an order works without manual work: the IBAN in the offers, the details on the invoice, the mail that really goes out and the password on the overview. Something missing stands at the top of the overview, with the reason | S | The check looks at the environment of the deployment, not at the running site: a value that is set wrong (a wrong IBAN, a wrong sender) is not caught. The check says nothing about the content of a site |
+| 7.21 | ~~The customer can download his own data~~ Done: `/mijn-account` has a button "Download je gegevens". The file holds his account, his sites with their text and photos, his requests, his offers and his service. His password and the management key of a site are not in it: those are keys, not data | S | The file is plain JSON, meant to be read by a person. The removal of the data itself stays manual (row 8.2), and the requests of other customers stay with Klusbaas. |
 
 
 ## Phase 8 — What is left
@@ -200,7 +203,7 @@ what makes the product sturdier as the number of customers grows.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 8.1 | The customer can download his own data (AVG art. 15) | M | Today Klusbaas does this by hand. The account, the sites, the offers and the requests are all in the store, so this is a matter of putting them in one file. |
+| 8.1 | ~~The customer can download his own data (AVG art. 15)~~ Done (phase 7.21): the customer downloads it himself in his account, as one file | S | The file is plain JSON, meant to be read by a person. |
 | 8.2 | The customer can delete his own account (AVG art. 17) | M | Bigger than 8.1: the sites, the offers, the requests and the sessions all have to go, and the published page has to disappear. Irreversible, so it needs a confirmation. |
 | 8.3 | A job that removes the requests after twelve months | M | The privacy statement promises twelve months. A scheduled function on Netlify does it without a new dependency. |
 | 8.4 | Search and export in `/klusbaas` | M | The overview lists everything; as the number of requests and offers grows, finding one by hand stops working. |
