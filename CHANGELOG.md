@@ -26,6 +26,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De twaalf maanden uit de privacyverklaring zijn geen handwerk meer.**
+  Een geplande Netlify-functie verwijdert iedere nacht de aanvragen die
+  ouder zijn dan twaalf maanden. Klusbaas kan het ook zelf doen met de
+  knop "Ruim oude aanvragen op" in `/klusbaas`, voor het geval dat de
+  automatische run een keer niet gelukt is. Een aanvraag zonder datum
+  wordt nooit verwijderd: we weten dan niet hoe oud hij is.
 - **Klusbaas kan zoeken en exporteren in `/klusbaas`.** Eén zoekveld
   over de aanvragen, de offertes, de sites en de accounts: op naam,
   telefoonnummer, e-mailadres, referentie of bedrijfsnaam. Daarnaast

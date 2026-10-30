@@ -4,6 +4,7 @@ import {
   activateService,
   adminLogin,
   adminLogout,
+  cleanUpOldRequests,
   extendQuote,
   fetchAdminOverview,
   remindPayment,
@@ -459,6 +460,8 @@ export const AdminView: React.FC<{ initial?: AdminOverview | null }> = ({ initia
   const [leadFilter, setLeadFilter] = useState<'all' | 'open' | RequestStatus>('all');
   // Zoeken door de aanvragen, de offertes, de sites en de accounts.
   const [query, setQuery] = useState('');
+  // Staat de bevestiging open voor het opruimen van oude aanvragen?
+  const [cleanupOpen, setCleanupOpen] = useState(false);
 
   const load = useCallback(async () => {
     setOverview(await fetchAdminOverview());
@@ -522,6 +525,27 @@ export const AdminView: React.FC<{ initial?: AdminOverview | null }> = ({ initia
     link.remove();
     URL.revokeObjectURL(url);
     setNotice(`${name} staat in je downloads.`);
+  };
+
+  // De aanvragen ouder dan twaalf maanden opruimen, zoals de
+  // privacyverklaring belooft. De server doet dit iedere nacht zelf; dit
+  // is de knop voor het geval dat dat niet gebeurde.
+  const handleRetention = async () => {
+    setBusy(true);
+    const result = await cleanUpOldRequests();
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    const removed = result.retention?.removed ?? 0;
+    const kept = result.retention?.kept ?? 0;
+    setNotice(
+      removed === 0
+        ? `Er stonden geen aanvragen ouder dan twaalf maanden. ${kept} aanvragen blijven.`
+        : `${removed} aanvragen ouder dan twaalf maanden zijn verwijderd. ${kept} aanvragen blijven.`
+    );
+    await load();
   };
 
   // Waar een aanvraag staat. Een aanvraag die nergens op volgt, is een
@@ -828,7 +852,44 @@ export const AdminView: React.FC<{ initial?: AdminOverview | null }> = ({ initia
                   >
                     Exporteer de aanvragen
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => setCleanupOpen((open) => !open)}
+                    aria-expanded={cleanupOpen}
+                    className="h-10 px-4 rounded-full border border-stone-300 hover:bg-stone-100 text-stone-900 font-bold text-sm inline-flex items-center"
+                  >
+                    Ruim oude aanvragen op
+                  </button>
                 </div>
+                {cleanupOpen && (
+                  <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4 flex flex-col gap-3">
+                    <p className="m-0 text-sm text-stone-800">
+                      Dit verwijdert de aanvragen die ouder zijn dan twaalf maanden, zoals de
+                      privacyverklaring belooft. Ze zijn niet terug te halen. De server doet dit
+                      iedere nacht ook zelf.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => {
+                          setCleanupOpen(false);
+                          void handleRetention();
+                        }}
+                        className="h-10 px-4 rounded-full bg-stone-900 text-white font-bold text-sm disabled:opacity-60"
+                      >
+                        Ja, ruim op
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCleanupOpen(false)}
+                        className="h-10 px-4 rounded-full border border-stone-300 bg-white text-stone-900 font-bold text-sm"
+                      >
+                        Annuleren
+                      </button>
+                    </div>
+                  </div>
+                )}
                 {overview.leads.length === 0 ? (
                   <p className="m-0 rounded-2xl bg-white border border-stone-200 p-6 text-stone-700">
                     Nog geen aanvragen.

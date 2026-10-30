@@ -102,8 +102,8 @@ function memoryStorage(leads: StoredLead[] = [], quotes: QuoteRecord[] = []): Le
     async anonymizeQuote() {
       return null;
     },
-    async deleteLead() {
-      return;
+    async deleteLead(reference) {
+      leadMap.delete(reference);
     },
   };
 }
@@ -196,6 +196,42 @@ test('Klusbaas zet de status van een aanvraag', async () => {
   const overview = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
   const lead = overview.body.overview?.leads.find((item) => item.reference === 'L-AAAA01');
   assert.equal(lead?.status, 'called');
+});
+
+test('Klusbaas ruimt de aanvragen ouder dan twaalf maanden op', async () => {
+  const d = deps();
+  d.leads = memoryStorage(
+    [
+      {
+        reference: 'L-OUDE01',
+        createdAt: '2022-01-01T10:00:00.000Z',
+        type: 'contact',
+        site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+        fields: { name: 'Sanne', phone: '0612345678', message: 'Ik wil drie kozijnen schilderen.' },
+      },
+      {
+        reference: 'L-NIEUW01',
+        createdAt: '2026-10-29T10:00:00.000Z',
+        type: 'contact',
+        site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+        fields: { name: 'Jan', phone: '0612345678', message: 'Ik wil een offerte.' },
+      },
+    ],
+    [quote]
+  );
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin({ action: 'retention' }, d, login.setCookie, false);
+  assert.equal(result.status, 200);
+  assert.equal(result.body.retention?.removed, 1);
+  assert.equal(result.body.retention?.kept, 1);
+
+  // De oude aanvraag is weg, de nieuwe staat er nog.
+  const leads = await d.leads.listLeads();
+  assert.deepEqual(
+    leads.map((lead) => lead.reference),
+    ['L-NIEUW01']
+  );
 });
 
 test('een onbekende aanvraag of status wordt geweigerd', async () => {
