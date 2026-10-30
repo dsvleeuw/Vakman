@@ -7301,7 +7301,7 @@ Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2
 - Update docs: pricing location, known-limitations CI status, ROADMAP phase 5.4
 - Add Playwright e2e tests (from vk-ci-e2e-g)
 - All lint/test/build pass","4","3","FALSE","5304","5200","ee01531a7b8e48a89b3ec8d40f2694776b1ea384","ff0739f58f3ec63410bbb15df45073580d83ed25","100644","100644","https://github.com/dsvleeuw/Vakman/commit/9147191aa9bba3e1d9c09d38bbad3b47a48131f8","https://github.com/dsvleeuw/Vakman/blob/9147191aa9bba3e1d9c09d38bbad3b47a48131f8/docs/known-limitations.md","Commit","2026-10-27T13:36:04.578Z","9147191aa9bba3e1d9c09d38bbad3b47a48131f8:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"pricing-and-positioning.md","docs/pricing-and-positioning.md","Markdown-document",".md","TRUE","[""Dev"",""Prod"",""arena/059123f9-vakman"",""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/24fd0401-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3af65cc3-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/6106c702-vakman"",""arena/855aceec-vakman"",""arena/a0a41caf-vakman"",""arena/a0d9de2c-vakman"",""arena/add-readmes-and-docs"",""arena/cc4da6d3-vakman"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/f22da254-vakman"",""arena/session-"",""main""]","[""Dev"",""Prod"",""arena/059123f9-vakman"",""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/24fd0401-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3af65cc3-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/6106c702-vakman"",""arena/855aceec-vakman"",""arena/a0a41caf-vakman"",""arena/a0d9de2c-vakman"",""arena/add-readmes-and-docs"",""arena/cc4da6d3-vakman"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/f22da254-vakman"",""arena/session-"",""main""]","[""Dev"",""Prod"",""arena/059123f9-vakman"",""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/24fd0401-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3af65cc3-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/6106c702-vakman"",""arena/855aceec-vakman"",""arena/a0a41caf-vakman"",""arena/a0d9de2c-vakman"",""arena/add-readmes-and-docs"",""arena/cc4da6d3-vakman"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/f22da254-vakman"",""arena/session-"",""main""]","Gewijzigd","M","","","9147191aa9bba3e1d9c09d38bbad3b47a48131f8","9147191aa9bb","[""1d0fcd99c3b9daca3a74418b7882b59b75cf2dc8""]","2026-10-24T22:50:30Z","2026-10-24T22:50:30Z","upnexxt","vanleeuwen.daniel@upnexxt.nl","upnexxt","vanleeuwen.daniel@upnexxt.nl","fix(wizard): resolve D2 loose ends and add e2e tests","fix(wizard): resolve D2 loose ends and add e2e tests
+"pricing-and-positioning.md","docs/pricing-and-positioning.md","Markdown-document",".md","TRUE","[""Dev"",""Prod"",""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/24fd0401-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3af65cc3-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/6106c702-vakman"",""arena/855aceec-vakman"",""arena/a0a41caf-vakman"",""arena/a0d9de2c-vakman"",""arena/add-readmes-and-docs"",""arena/cc4da6d3-vakman"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/f22da254-vakman"",""arena/session-"",""main""]","[""Dev"",""Prod"",""arena/059123f9-vakman"",""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/24fd0401-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3af65cc3-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/6106c702-vakman"",""arena/855aceec-vakman"",""arena/a0a41caf-vakman"",""arena/a0d9de2c-vakman"",""arena/add-readmes-and-docs"",""arena/cc4da6d3-vakman"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/f22da254-vakman"",""arena/session-"",""main""]","[""Dev"",""Prod"",""arena/059123f9-vakman"",""arena/10ffd29d-vakman"",""arena/179c8db6-vakman"",""arena/24fd0401-vakman"",""arena/2c692f38-vakman"",""arena/2e332817-vakman"",""arena/3af65cc3-vakman"",""arena/3f301fb7-vakman"",""arena/434a6d53-vakman"",""arena/4c8ed79d-vakman"",""arena/6106c702-vakman"",""arena/855aceec-vakman"",""arena/a0a41caf-vakman"",""arena/a0d9de2c-vakman"",""arena/add-readmes-and-docs"",""arena/cc4da6d3-vakman"",""arena/d371cb19-vakman"",""arena/da6e7416-vakman"",""arena/daf6d6fb-vakman"",""arena/f22da254-vakman"",""arena/session-"",""main""]","Gewijzigd","M","","","9147191aa9bba3e1d9c09d38bbad3b47a48131f8","9147191aa9bb","[""1d0fcd99c3b9daca3a74418b7882b59b75cf2dc8""]","2026-10-24T22:50:30Z","2026-10-24T22:50:30Z","upnexxt","vanleeuwen.daniel@upnexxt.nl","upnexxt","vanleeuwen.daniel@upnexxt.nl","fix(wizard): resolve D2 loose ends and add e2e tests","fix(wizard): resolve D2 loose ends and add e2e tests
 
 - Fix buildNextDates test to exercise default parameter and assert exact ISO date
 - Fix googleWorkspace: use ESM import, guard isGoogleConfigured() for empty/fake keys, add unit tests
@@ -21954,7 +21954,7 @@ Fase 7.14: elke belofte op de marketingpagina's is waar","2","2","FALSE","60158"
 "claims.test.tsx","src/components/claims.test.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","c8891c82fedeaedb8307afcf875dc7809a834d48","c8891c82fede","[""8ec88d0ade493fcb90462fea13a7992df9d67674"",""20a9fe93d9e87e7f934a8b6cd2fab3129ffb3787""]","2026-10-30T16:19:19Z","2026-10-30T16:19:19Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman
 
 Fase 7.14: elke belofte op de marketingpagina's is waar","52","0","FALSE","2220","","8d75cc79d7cc681b5c718e82bbb0e5e57a2df0b9","","100644","","https://github.com/dsvleeuw/Vakman/commit/c8891c82fedeaedb8307afcf875dc7809a834d48","https://github.com/dsvleeuw/Vakman/blob/c8891c82fedeaedb8307afcf875dc7809a834d48/src/components/claims.test.tsx","Commit","2026-10-30T16:19:40.865Z","c8891c82fedeaedb8307afcf875dc7809a834d48:c3JjL2NvbXBvbmVudHMvY2xhaW1zLnRlc3QudHN4","p:c3JjL2NvbXBvbmVudHMvY2xhaW1zLnRlc3QudHN4",""
-"marketing.ts","src/data/marketing.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","c8891c82fedeaedb8307afcf875dc7809a834d48","c8891c82fede","[""8ec88d0ade493fcb90462fea13a7992df9d67674"",""20a9fe93d9e87e7f934a8b6cd2fab3129ffb3787""]","2026-10-30T16:19:19Z","2026-10-30T16:19:19Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman
+"marketing.ts","src/data/marketing.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","c8891c82fedeaedb8307afcf875dc7809a834d48","c8891c82fede","[""8ec88d0ade493fcb90462fea13a7992df9d67674"",""20a9fe93d9e87e7f934a8b6cd2fab3129ffb3787""]","2026-10-30T16:19:19Z","2026-10-30T16:19:19Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman
 
 Fase 7.14: elke belofte op de marketingpagina's is waar","20","0","FALSE","925","","6dc8ce4e5d8d94e106e5172a281dd5562d2d5a73","","100644","","https://github.com/dsvleeuw/Vakman/commit/c8891c82fedeaedb8307afcf875dc7809a834d48","https://github.com/dsvleeuw/Vakman/blob/c8891c82fedeaedb8307afcf875dc7809a834d48/src/data/marketing.ts","Commit","2026-10-30T16:19:40.865Z","c8891c82fedeaedb8307afcf875dc7809a834d48:c3JjL2RhdGEvbWFya2V0aW5nLnRz","p:c3JjL2RhdGEvbWFya2V0aW5nLnRz",""
 "AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
@@ -22164,7 +22164,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","1","FALSE","6397","6344","c07aa04885fcd03e434099f3c1e23b4612c023b7","7ccada50f74640792e3de1e2d63a47cfb3769a99","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/components/FaqSection.tsx","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g","p:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g",""
-"PricingSection.tsx","src/components/PricingSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"PricingSection.tsx","src/components/PricingSection.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22187,7 +22187,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","16","17","FALSE","10466","10212","ca32dc4719a93411d3f9595c6cf41d9655fca944","4447fb2df66cc624996e44efabb9a40dc4c3a45a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/components/PricingSection.tsx","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL2NvbXBvbmVudHMvUHJpY2luZ1NlY3Rpb24udHN4","p:c3JjL2NvbXBvbmVudHMvUHJpY2luZ1NlY3Rpb24udHN4",""
-"claims.test.tsx","src/components/claims.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"claims.test.tsx","src/components/claims.test.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -23257,7 +23257,7 @@ Fase 7.16: de klant ziet wat Klusbaas voor zijn site doet","42","0","FALSE","644
 "quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","5b2217aa0aebb5776b4a86d068cb6ab3bbfcf64c","5b2217aa0aeb","[""d79710b43322be27b810286b65fa690c5e67593a"",""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:54:44Z","2026-10-30T16:54:44Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #53 from dsvleeuw/arena/059123f9-vakman","Merge pull request #53 from dsvleeuw/arena/059123f9-vakman
 
 Fase 7.16: de klant ziet wat Klusbaas voor zijn site doet","42","1","FALSE","11398","9995","e5fef519d6d42486576c29cee79ae22f7b3b5502","48be681ab0aad9227fb811a0d3a7cb92ea63ce94","100644","100644","https://github.com/dsvleeuw/Vakman/commit/5b2217aa0aebb5776b4a86d068cb6ab3bbfcf64c","https://github.com/dsvleeuw/Vakman/blob/5b2217aa0aebb5776b4a86d068cb6ab3bbfcf64c/src/utils/quote.ts","Commit","2026-10-30T16:55:02.507Z","5b2217aa0aebb5776b4a86d068cb6ab3bbfcf64c:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
 
 De FAQ tekende het antwoord pas na een klik: de gebouwde homepage bevatte
 de vragen, maar niet de antwoorden. Een bezoeker zonder JavaScript las
@@ -23273,7 +23273,7 @@ Nieuwe test: `src/components/FaqSection.test.tsx` (2 tests) — alle antwoorden
 staan in de markup, en het zijn native details.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","17583","17313","3f1520ee59584be92beb4510b68453ed2f3f89d0","a274e2dd68cfdb37f0f19cc1d74423791877b84e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/96bbdcd6061adba268cbdf3488f8018779c44e2d","https://github.com/dsvleeuw/Vakman/blob/96bbdcd6061adba268cbdf3488f8018779c44e2d/AGENTS.md","Commit","2026-10-30T16:58:49.604Z","96bbdcd6061adba268cbdf3488f8018779c44e2d:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
 
 De FAQ tekende het antwoord pas na een klik: de gebouwde homepage bevatte
 de vragen, maar niet de antwoorden. Een bezoeker zonder JavaScript las
@@ -23289,7 +23289,7 @@ Nieuwe test: `src/components/FaqSection.test.tsx` (2 tests) — alle antwoorden
 staan in de markup, en het zijn native details.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","40461","40192","db31ea58c1d642397c0740460a159cb2de6b0f7b","2273705f751b1400dcaa16dbacaee28979854113","100644","100644","https://github.com/dsvleeuw/Vakman/commit/96bbdcd6061adba268cbdf3488f8018779c44e2d","https://github.com/dsvleeuw/Vakman/blob/96bbdcd6061adba268cbdf3488f8018779c44e2d/CHANGELOG.md","Commit","2026-10-30T16:58:49.604Z","96bbdcd6061adba268cbdf3488f8018779c44e2d:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
 
 De FAQ tekende het antwoord pas na een klik: de gebouwde homepage bevatte
 de vragen, maar niet de antwoorden. Een bezoeker zonder JavaScript las
@@ -23305,7 +23305,7 @@ Nieuwe test: `src/components/FaqSection.test.tsx` (2 tests) — alle antwoorden
 staan in de markup, en het zijn native details.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","24502","23867","3ee09df402e911af25ddc84d6f38b384ccbe0c4d","d2ab4ab9fb1ca209c408b8f104b7b66fdef424ad","100644","100644","https://github.com/dsvleeuw/Vakman/commit/96bbdcd6061adba268cbdf3488f8018779c44e2d","https://github.com/dsvleeuw/Vakman/blob/96bbdcd6061adba268cbdf3488f8018779c44e2d/ROADMAP.md","Commit","2026-10-30T16:58:49.604Z","96bbdcd6061adba268cbdf3488f8018779c44e2d:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
 
 De FAQ tekende het antwoord pas na een klik: de gebouwde homepage bevatte
 de vragen, maar niet de antwoorden. Een bezoeker zonder JavaScript las
@@ -23321,7 +23321,7 @@ Nieuwe test: `src/components/FaqSection.test.tsx` (2 tests) — alle antwoorden
 staan in de markup, en het zijn native details.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","26386","26137","af91530608ebff30cd175156dd11c4562761250e","4fb7e1439d62eb8243a1ea0e33ed0a88c0d00b58","100644","100644","https://github.com/dsvleeuw/Vakman/commit/96bbdcd6061adba268cbdf3488f8018779c44e2d","https://github.com/dsvleeuw/Vakman/blob/96bbdcd6061adba268cbdf3488f8018779c44e2d/docs/known-limitations.md","Commit","2026-10-30T16:58:49.604Z","96bbdcd6061adba268cbdf3488f8018779c44e2d:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
 
 De FAQ tekende het antwoord pas na een klik: de gebouwde homepage bevatte
 de vragen, maar niet de antwoorden. Een bezoeker zonder JavaScript las
@@ -23353,7 +23353,7 @@ Nieuwe test: `src/components/FaqSection.test.tsx` (2 tests) — alle antwoorden
 staan in de markup, en het zijn native details.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","40","0","FALSE","1505","","80491dfe399c539576159c78bfa2d6e0e230b23c","","100644","","https://github.com/dsvleeuw/Vakman/commit/96bbdcd6061adba268cbdf3488f8018779c44e2d","https://github.com/dsvleeuw/Vakman/blob/96bbdcd6061adba268cbdf3488f8018779c44e2d/src/components/FaqSection.test.tsx","Commit","2026-10-30T16:58:49.604Z","96bbdcd6061adba268cbdf3488f8018779c44e2d:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50ZXN0LnRzeA","p:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50ZXN0LnRzeA",""
-"FaqSection.tsx","src/components/FaqSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
+"FaqSection.tsx","src/components/FaqSection.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","96bbdcd6061adba268cbdf3488f8018779c44e2d","96bbdcd6061a","[""44b22e80123be1ed6623c3b0b6564fcfc47e5b18""]","2026-10-30T16:58:30Z","2026-10-30T16:58:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina","feat: fase 7.17 — de antwoorden van de FAQ staan in de pagina
 
 De FAQ tekende het antwoord pas na een klik: de gebouwde homepage bevatte
 de vragen, maar niet de antwoorden. Een bezoeker zonder JavaScript las
@@ -23390,3 +23390,173 @@ Fase 7.17: de antwoorden van de FAQ staan in de pagina","40","0","FALSE","1505",
 "FaqSection.tsx","src/components/FaqSection.tsx","React / TypeScript",".tsx","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","4338de3f6a37a78824a3e7ae6a6d0b0132a1a35e","4338de3f6a37","[""aaf94cab62847486df4503c0e83f55a3ed460f46"",""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T16:59:38Z","2026-10-30T16:59:38Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #54 from dsvleeuw/arena/059123f9-vakman","Merge pull request #54 from dsvleeuw/arena/059123f9-vakman
 
 Fase 7.17: de antwoorden van de FAQ staan in de pagina","13","29","FALSE","6053","6397","d6a81426b38676e1a257744a61a96875ad2f0698","c07aa04885fcd03e434099f3c1e23b4612c023b7","100644","100644","https://github.com/dsvleeuw/Vakman/commit/4338de3f6a37a78824a3e7ae6a6d0b0132a1a35e","https://github.com/dsvleeuw/Vakman/blob/4338de3f6a37a78824a3e7ae6a6d0b0132a1a35e/src/components/FaqSection.tsx","Commit","2026-10-30T16:59:56.992Z","4338de3f6a37a78824a3e7ae6a6d0b0132a1a35e:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g","p:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","17963","17583","e34de7f22e6d58908ec13ac715f03ffb53977677","3f1520ee59584be92beb4510b68453ed2f3f89d0","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/AGENTS.md","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","40840","40461","295e9f7e64b8bed7cb4d2c3e52bf76d7c7ef6efd","db31ea58c1d642397c0740460a159cb2de6b0f7b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/CHANGELOG.md","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","25254","24502","b25f88d067efa28bf76e3892356603ffd8829469","3ee09df402e911af25ddc84d6f38b384ccbe0c4d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/ROADMAP.md","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","0","FALSE","26868","26386","144ffb46cc4b3ab6c24438f7f3f6dab5b7057537","af91530608ebff30cd175156dd11c4562761250e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/docs/known-limitations.md","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"pricing-and-positioning.md","docs/pricing-and-positioning.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","17","0","FALSE","4924","4050","db0d2d80c8da7a635583bb7b39a5a9ac792c8e0e","a82ff81bd633505e7c3de31b1dc7d37884383949","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/docs/pricing-and-positioning.md","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:ZG9jcy9wcmljaW5nLWFuZC1wb3NpdGlvbmluZy5tZA","p:ZG9jcy9wcmljaW5nLWFuZC1wb3NpdGlvbmluZy5tZA",""
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","21866","20825","46a35c998359edb434a61dea16ebc76c403a0709","4677f1fa309edb7d855e9cac88aee2d6a755aeab","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/docs/selling-readiness.md","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
+"FaqSection.tsx","src/components/FaqSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","6590","6053","9ede63b512c5dfb9c224dd87f7e58b9adf17a11c","d6a81426b38676e1a257744a61a96875ad2f0698","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/src/components/FaqSection.tsx","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g","p:c3JjL2NvbXBvbmVudHMvRmFxU2VjdGlvbi50c3g",""
+"PricingSection.tsx","src/components/PricingSection.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","10701","10466","f7bfd7eddde3ffa2395ae1fcd27e8f1fa280a188","ca32dc4719a93411d3f9595c6cf41d9655fca944","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/src/components/PricingSection.tsx","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:c3JjL2NvbXBvbmVudHMvUHJpY2luZ1NlY3Rpb24udHN4","p:c3JjL2NvbXBvbmVudHMvUHJpY2luZ1NlY3Rpb24udHN4",""
+"claims.test.tsx","src/components/claims.test.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","23","1","FALSE","3069","2217","7144e48eeaae818ef5036bb7e69e7b56238cf823","0af6f33ab5e360361b1e46855fbf757465846fab","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/src/components/claims.test.tsx","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:c3JjL2NvbXBvbmVudHMvY2xhaW1zLnRlc3QudHN4","p:c3JjL2NvbXBvbmVudHMvY2xhaW1zLnRlc3QudHN4",""
+"marketing.ts","src/data/marketing.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","333c9eb6c0d7","[""96bbdcd6061adba268cbdf3488f8018779c44e2d""]","2026-10-30T17:02:06Z","2026-10-30T17:02:06Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is","feat: fase 7.18 — de prijzenpagina zegt wat een pakket is
+
+De klant vult zijn site zelf in, in zijn eigen editor, zonder te betalen. De
+prijzenpagina verkocht daarentegen ""een website"", met pakketten van € 595 en
+meer. Wie de editor opent, ontdekt dat hij het ook zelf kon doen, en dan
+lijkt de prijs op loket-werk.
+
+De prijzenpagina en de FAQ zeggen het nu ronduit: je vult je site zelf in,
+in je eigen editor; een pakket is de aflegging — wij nakijken je teksten,
+foto's en kleuren, controleren je vindbaarheid, leveren binnen twee weken
+op en registreren bij Pro en Premium je eigen .nl-domein. De prijzen
+veranderen niet.
+
+Nieuwe tekst staat in `src/data/marketing.ts` (`PACKAGE_DELIVERY_NOTE`), zodat
+een test erop kan waken dat de belofte klopt.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","11","0","FALSE","1586","925","4626c318ebe7a29ed363e872ec9dd492748973cf","6dc8ce4e5d8d94e106e5172a281dd5562d2d5a73","100644","100644","https://github.com/dsvleeuw/Vakman/commit/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2","https://github.com/dsvleeuw/Vakman/blob/333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2/src/data/marketing.ts","Commit","2026-10-30T17:02:26.178Z","333c9eb6c0d7b8a2b981a4b08f07e93d2d7fc4f2:c3JjL2RhdGEvbWFya2V0aW5nLnRz","p:c3JjL2RhdGEvbWFya2V0aW5nLnRz",""
