@@ -18181,7 +18181,7 @@ Fase 7: Klusbaas kan zelf verkopen","12","0","FALSE","4030","3509","0711f76af637
 "mediaHandler.ts","src/server/mediaHandler.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","24","1","FALSE","5490","4642","48eda307af4f69bf13492e55fac0c6467b2c5fe4","fd86458b79f2a72257e80ff0f9777973f95a155f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/server/mediaHandler.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3NlcnZlci9tZWRpYUhhbmRsZXIudHM","p:c3JjL3NlcnZlci9tZWRpYUhhbmRsZXIudHM",""
-"quotePdf.ts","src/server/quotePdf.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
+"quotePdf.ts","src/server/quotePdf.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","25","1","FALSE","9089","8248","82d338418d77d888d1caccc75bf9354df0656355","1b281734a70430af9da77239f817af56730d6938","100644","100644","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/server/quotePdf.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3NlcnZlci9xdW90ZVBkZi50cw","p:c3JjL3NlcnZlci9xdW90ZVBkZi50cw",""
 "types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
@@ -20482,7 +20482,7 @@ Chase een offerte die geaccepteerd is maar nog niet betaald","28","1","FALSE","3
 "leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","e70b8b128904df7299f2b1ba3ade138051dd163f","e70b8b128904","[""7cb4a31db15e5dfab3617bcb3f6b09060ee6d535"",""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:03:02Z","2026-10-30T15:03:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman
 
 Chase een offerte die geaccepteerd is maar nog niet betaald","70","0","FALSE","27679","25073","65f0d1e141217f87059e1d8bb88622f07ee9a312","11ca45b71b3096e05d1aa4e92dd02533f324afa3","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e70b8b128904df7299f2b1ba3ade138051dd163f","https://github.com/dsvleeuw/Vakman/blob/e70b8b128904df7299f2b1ba3ade138051dd163f/src/utils/leadEmail.ts","Commit","2026-10-30T15:03:21.540Z","e70b8b128904df7299f2b1ba3ade138051dd163f:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
-"quote.test.ts","src/utils/quote.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","e70b8b128904df7299f2b1ba3ade138051dd163f","e70b8b128904","[""7cb4a31db15e5dfab3617bcb3f6b09060ee6d535"",""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:03:02Z","2026-10-30T15:03:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman
+"quote.test.ts","src/utils/quote.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","e70b8b128904df7299f2b1ba3ade138051dd163f","e70b8b128904","[""7cb4a31db15e5dfab3617bcb3f6b09060ee6d535"",""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:03:02Z","2026-10-30T15:03:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman
 
 Chase een offerte die geaccepteerd is maar nog niet betaald","12","0","FALSE","4741","4198","30200755d61ab4c91405ec271338a4b2bb7c4022","9638a47141ba557241f34fa90635efb02158888d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e70b8b128904df7299f2b1ba3ade138051dd163f","https://github.com/dsvleeuw/Vakman/blob/e70b8b128904df7299f2b1ba3ade138051dd163f/src/utils/quote.test.ts","Commit","2026-10-30T15:03:21.540Z","e70b8b128904df7299f2b1ba3ade138051dd163f:c3JjL3V0aWxzL3F1b3RlLnRlc3QudHM","p:c3JjL3V0aWxzL3F1b3RlLnRlc3QudHM",""
 "quote.ts","src/utils/quote.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","e70b8b128904df7299f2b1ba3ade138051dd163f","e70b8b128904","[""7cb4a31db15e5dfab3617bcb3f6b09060ee6d535"",""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:03:02Z","2026-10-30T15:03:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman
@@ -20976,16 +20976,16 @@ Laat de klant melden dat hij betaald heeft","43","1","FALSE","34773","33015","68
 "AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","7","1","FALSE","22368","22026","9093e1244c15c44bd5fbfdc8682547fe1308d3ba","486cce2f408a8fc26bedd8e68e12a4d7ee11411d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/components/AdminView.tsx","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA",""
-"QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","58","1","FALSE","18725","15985","d531459f1f70347e9d802dc54a0d474b66e09c13","8d7a356af6635f38576a45da237f147a807ada3a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/components/QuoteView.tsx","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA",""
 "README.md","src/server/README.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","9","0","FALSE","6621","6212","fe21e88a9cd2f3a49f77972ab5d24444a0790d7a","a28469ab31855bd064fe9ac282d079ade469ab0f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/README.md","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
-"acceptQuote.test.ts","src/server/acceptQuote.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"acceptQuote.test.ts","src/server/acceptQuote.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","7","0","FALSE","8542","8303","4a1432fdf4ebefc2a08ac8c58711f5b699c05bb1","0a89fb12b1cc2b7fe49df8f99971a446ef4eb9b1","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/acceptQuote.test.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50ZXN0LnRz",""
-"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","10","0","FALSE","21074","20775","1c8e8f5d47183cda67694960b2780b7193340bcb","955f637131fce46c1a1115b6975fc1c889425c6e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/accountHandler.test.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz",""
 "accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
@@ -20994,28 +20994,28 @@ Laat de klant melden dat hij betaald heeft","1","0","FALSE","22111","22023","eaa
 "accountMailer.ts","src/server/accountMailer.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","3","0","FALSE","1911","1757","16002c895f0a15fba7bbf2e6f1f0b451a1ba967d","db7f0c1f909c913e7f7cca8c09571a7bcadedcbd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/accountMailer.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9hY2NvdW50TWFpbGVyLnRz","p:c3JjL3NlcnZlci9hY2NvdW50TWFpbGVyLnRz",""
-"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","7","0","FALSE","16715","16466","6a89029b5df0320c4def3a07e599c63ee26eac28","db7f77121e62de10c5848d340b11d6a001537f99","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/adminHandler.test.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
 "adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","1","0","FALSE","16309","16221","c5529a9b711558d1168201b5a16b67c38a727f9d","43e9ddc7cacb80fb398046e6901bca5dade8db0e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/adminHandler.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
-"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","7","0","FALSE","13641","13392","26664aa4109625357c42a5bf4c3adc28d7957b75","7b497dac27f044bde7330c168cb152c1b23fbb71","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/adminOffer.test.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
-"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","7","0","FALSE","19577","19332","89ba04bf1de312b57e904c15d51fcd6d855792df","1f23a0ea0ba4cd18b0db7c3b48678a0a5b099f82","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/leadHandler.test.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
 "paymentNotice.ts","src/server/paymentNotice.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Toegevoegd","A","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","85","0","FALSE","3009","","c60cb82a1c1eaed9604fccbc5c37b44ded2ab8ed","","100644","","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/paymentNotice.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9wYXltZW50Tm90aWNlLnRz","p:c3JjL3NlcnZlci9wYXltZW50Tm90aWNlLnRz",""
-"reportPayment.test.ts","src/server/reportPayment.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Toegevoegd","A","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"reportPayment.test.ts","src/server/reportPayment.test.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Toegevoegd","A","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","170","0","FALSE","5352","","e4f94e83ef4e5d382b178f9c59462d04b30a4411","","100644","","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/reportPayment.test.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRlc3QudHM","p:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRlc3QudHM",""
 "reportPayment.ts","src/server/reportPayment.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Toegevoegd","A","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","95","0","FALSE","3072","","e76fe8d007905d07a7cc18c6db9acb5b59ea01c2","","100644","","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/reportPayment.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRz","p:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRz",""
-"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","20","0","FALSE","19579","18655","4d1e507e1c59239ee3aa9851b10243629c16e995","ec2b2b857d88079dcc0dd8e7ee19270966d3404f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/server/storage.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
 "types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
@@ -21027,7 +21027,7 @@ Laat de klant melden dat hij betaald heeft","22","1","FALSE","4250","3467","f5bb
 "leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","67","0","FALSE","30121","27679","50d571874b5c3f4db868f9e2dda4578c7aeb3314","65f0d1e141217f87059e1d8bb88622f07ee9a312","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/utils/leadEmail.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
-"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
 
 Laat de klant melden dat hij betaald heeft","8","0","FALSE","9995","9694","48be681ab0aad9227fb811a0d3a7cb92ea63ce94","508784f57a8b560cfbee468aec914678f871fc30","100644","100644","https://github.com/dsvleeuw/Vakman/commit/a9361ca81818575be971720adb1441f79d0228fd","https://github.com/dsvleeuw/Vakman/blob/a9361ca81818575be971720adb1441f79d0228fd/src/utils/quote.ts","Commit","2026-10-30T15:09:38.938Z","a9361ca81818575be971720adb1441f79d0228fd:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
 "quoteClient.test.ts","src/utils/quoteClient.test.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","[""arena/059123f9-vakman"",""arena/6106c702-vakman"",""main""]","Gewijzigd","M","","","a9361ca81818575be971720adb1441f79d0228fd","a9361ca81818","[""8f6d5304e3f7c17017484e503a72bd3b57347379"",""01dfe613df8f8b06700a9e0b471f7d24de8d1a60""]","2026-10-30T15:09:21Z","2026-10-30T15:09:21Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman","Merge pull request #49 from dsvleeuw/arena/f22da254-vakman
@@ -21612,7 +21612,7 @@ Fase 7.13: de klant vraagt zelf een offerte aan","28","0","FALSE","8277","6621",
 "adminOffer.ts","src/server/adminOffer.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","22f598f84da6e5847f79ea7124a130d10cd2f377","22f598f84da6","[""110d1b5fca734ed911cb9e4c2eba4584c0ed7dc6"",""70cbf22a1c5ff7e91bda6f0addb8c37647a5af85""]","2026-10-30T16:04:59Z","2026-10-30T16:04:59Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman
 
 Fase 7.13: de klant vraagt zelf een offerte aan","8","3","FALSE","9357","9236","8adbac325cf201b5cd471555a2b0d3e5c7072070","0d5dae9e2766db1cec98a1a072b924e2c76e77a6","100644","100644","https://github.com/dsvleeuw/Vakman/commit/22f598f84da6e5847f79ea7124a130d10cd2f377","https://github.com/dsvleeuw/Vakman/blob/22f598f84da6e5847f79ea7124a130d10cd2f377/src/server/adminOffer.ts","Commit","2026-10-30T16:05:22.462Z","22f598f84da6e5847f79ea7124a130d10cd2f377:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRz","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRz",""
-"quoteRequest.test.ts","src/server/quoteRequest.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","22f598f84da6e5847f79ea7124a130d10cd2f377","22f598f84da6","[""110d1b5fca734ed911cb9e4c2eba4584c0ed7dc6"",""70cbf22a1c5ff7e91bda6f0addb8c37647a5af85""]","2026-10-30T16:04:59Z","2026-10-30T16:04:59Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman
+"quoteRequest.test.ts","src/server/quoteRequest.test.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","22f598f84da6e5847f79ea7124a130d10cd2f377","22f598f84da6","[""110d1b5fca734ed911cb9e4c2eba4584c0ed7dc6"",""70cbf22a1c5ff7e91bda6f0addb8c37647a5af85""]","2026-10-30T16:04:59Z","2026-10-30T16:04:59Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman
 
 Fase 7.13: de klant vraagt zelf een offerte aan","321","0","FALSE","9501","","0f9965d896f51b9cedf744987e68e5a2da790a2b","","100644","","https://github.com/dsvleeuw/Vakman/commit/22f598f84da6e5847f79ea7124a130d10cd2f377","https://github.com/dsvleeuw/Vakman/blob/22f598f84da6e5847f79ea7124a130d10cd2f377/src/server/quoteRequest.test.ts","Commit","2026-10-30T16:05:22.462Z","22f598f84da6e5847f79ea7124a130d10cd2f377:c3JjL3NlcnZlci9xdW90ZVJlcXVlc3QudGVzdC50cw","p:c3JjL3NlcnZlci9xdW90ZVJlcXVlc3QudGVzdC50cw",""
 "quoteRequest.ts","src/server/quoteRequest.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","22f598f84da6e5847f79ea7124a130d10cd2f377","22f598f84da6","[""110d1b5fca734ed911cb9e4c2eba4584c0ed7dc6"",""70cbf22a1c5ff7e91bda6f0addb8c37647a5af85""]","2026-10-30T16:04:59Z","2026-10-30T16:04:59Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman","Merge pull request #50 from dsvleeuw/arena/6106c702-vakman
@@ -21957,7 +21957,7 @@ Fase 7.14: elke belofte op de marketingpagina's is waar","52","0","FALSE","2220"
 "marketing.ts","src/data/marketing.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","c8891c82fedeaedb8307afcf875dc7809a834d48","c8891c82fede","[""8ec88d0ade493fcb90462fea13a7992df9d67674"",""20a9fe93d9e87e7f934a8b6cd2fab3129ffb3787""]","2026-10-30T16:19:19Z","2026-10-30T16:19:19Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman","Merge pull request #51 from dsvleeuw/arena/6106c702-vakman
 
 Fase 7.14: elke belofte op de marketingpagina's is waar","20","0","FALSE","925","","6dc8ce4e5d8d94e106e5172a281dd5562d2d5a73","","100644","","https://github.com/dsvleeuw/Vakman/commit/c8891c82fedeaedb8307afcf875dc7809a834d48","https://github.com/dsvleeuw/Vakman/blob/c8891c82fedeaedb8307afcf875dc7809a834d48/src/data/marketing.ts","Commit","2026-10-30T16:19:40.865Z","c8891c82fedeaedb8307afcf875dc7809a834d48:c3JjL2RhdGEvbWFya2V0aW5nLnRz","p:c3JjL2RhdGEvbWFya2V0aW5nLnRz",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -21980,7 +21980,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","16897","16179","bee46c767825e2d25533940b4df574ccf3dda16c","ad84e796ceb906b95883f5055020e042844e8acd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/AGENTS.md","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22003,7 +22003,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","39681","39035","cefda9410e51565fb9cb3de9015a346bc7a7092c","4f3a58eea24f36c83da799606c65a0bfa687d52e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/CHANGELOG.md","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22026,7 +22026,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","23005","21995","682d50ebf76a4ad843865297c81aa665b1674fbf","ba46aafecb9f7a4419300a1adfd51a496fca9c34","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/ROADMAP.md","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22049,7 +22049,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","27","2","FALSE","25090","23597","d323e68348964a33b8d2b9c555657e3e1b7c6732","e038bf350fe4f895425ab0c4a4e6e20780abb025","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/docs/known-limitations.md","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22095,7 +22095,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","0","FALSE","2346","2218","c64193853c1bf13fc3729854b64038146788a790","b711e7fbfc3e550f2e9c0c8257f0face5393e1cf","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/netlify/functions/account.mts","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:bmV0bGlmeS9mdW5jdGlvbnMvYWNjb3VudC5tdHM","p:bmV0bGlmeS9mdW5jdGlvbnMvYWNjb3VudC5tdHM",""
-"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22118,7 +22118,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","118","1","FALSE","40298","35094","4c60476209a9738edae8ca4df282fd96ee2b5561","7573e4097310972a9b7241a0effeea2d1e6b2d57","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/components/AccountView.tsx","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
-"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22210,7 +22210,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","1","FALSE","2217","2220","0af6f33ab5e360361b1e46855fbf757465846fab","8d75cc79d7cc681b5c718e82bbb0e5e57a2df0b9","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/components/claims.test.tsx","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL2NvbXBvbmVudHMvY2xhaW1zLnRlc3QudHN4","p:c3JjL2NvbXBvbmVudHMvY2xhaW1zLnRlc3QudHN4",""
-"plans.ts","src/data/plans.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"plans.ts","src/data/plans.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22233,7 +22233,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","21","0","FALSE","3411","2582","0deba1e91c48b38fa36f71fb03063be5d035eeff","08186c1275f6a7d962a95a50f700deecf80c1702","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/data/plans.ts","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL2RhdGEvcGxhbnMudHM","p:c3JjL2RhdGEvcGxhbnMudHM",""
-"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22256,7 +22256,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","121","2","FALSE","26284","22111","b4a157f1f64af353b291947badbdd22f7cc8f85d","eaaac42145d2349d85e7f913cd63811f7bb33a9b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/server/accountHandler.ts","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw",""
-"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22302,7 +22302,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","183","0","FALSE","6634","","7b5b56ffc748a9d680b695246503036a04a04806","","100644","","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/server/adminService.ts","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL3NlcnZlci9hZG1pblNlcnZpY2UudHM","p:c3JjL3NlcnZlci9hZG1pblNlcnZpY2UudHM",""
-"service.test.ts","src/server/service.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"service.test.ts","src/server/service.test.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Toegevoegd","A","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22325,7 +22325,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","379","0","FALSE","12463","","ba5168998ec4e2062260c31304cf61ed9774d704","","100644","","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/server/service.test.ts","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL3NlcnZlci9zZXJ2aWNlLnRlc3QudHM","p:c3JjL3NlcnZlci9zZXJ2aWNlLnRlc3QudHM",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22371,7 +22371,7 @@ Nu is de service een bestelling:
 Nieuwe tests: `src/server/service.test.ts` (10) en `src/utils/service.test.ts` (5).
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","26","1","FALSE","6615","6010","88b1e4b2adac9ce4d58e3e046c54521ca1495b03","4790efe6fc2743c29f3143b1f4238642f8be8c11","100644","100644","https://github.com/dsvleeuw/Vakman/commit/8bc8e47e50d56f2ab723dc9f77b40322393dd974","https://github.com/dsvleeuw/Vakman/blob/8bc8e47e50d56f2ab723dc9f77b40322393dd974/src/utils/accountClient.ts","Commit","2026-10-30T16:48:56.847Z","8bc8e47e50d56f2ab723dc9f77b40322393dd974:c3JjL3V0aWxzL2FjY291bnRDbGllbnQudHM","p:c3JjL3V0aWxzL2FjY291bnRDbGllbnQudHM",""
-"adminClient.ts","src/utils/adminClient.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
+"adminClient.ts","src/utils/adminClient.ts","TypeScript",".ts","FALSE","[]","[""arena/059123f9-vakman"",""main""]","[""arena/059123f9-vakman"",""main""]","Gewijzigd","M","","","8bc8e47e50d56f2ab723dc9f77b40322393dd974","8bc8e47e50d5","[""93afc8ca86699678d06bfb84345e9930ff487d57""]","2026-10-30T16:48:33Z","2026-10-30T16:48:33Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.15 — de maandelijkse service is een echte bestelling","feat: fase 7.15 — de maandelijkse service is een echte bestelling
 
 De prijzenpagina bood al een service van € 25 per maand aan, maar er was
 geen manier om hem te bestellen: geen knop, geen status, geen factuur. De
@@ -22555,3 +22555,624 @@ Fase 7.15: de maandelijkse service is een echte bestelling","258","0","FALSE","9
 "vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","bdf72c79867e3b75c4f49c8a72b1b8df9cbfe43b","bdf72c79867e","[""e2e975fdd8da8c42bc3b6748d6b45c080bda9661"",""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:49:48Z","2026-10-30T16:49:48Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #52 from dsvleeuw/arena/059123f9-vakman","Merge pull request #52 from dsvleeuw/arena/059123f9-vakman
 
 Fase 7.15: de maandelijkse service is een echte bestelling","2","0","FALSE","23232","23100","8e3fba193b9415f89537375265fd95468064da90","f32bbdbfebb58c9ef99ff6c4eaa78ff81776cc30","100644","100644","https://github.com/dsvleeuw/Vakman/commit/bdf72c79867e3b75c4f49c8a72b1b8df9cbfe43b","https://github.com/dsvleeuw/Vakman/blob/bdf72c79867e3b75c4f49c8a72b1b8df9cbfe43b/vite.config.ts","Commit","2026-10-30T16:50:08.209Z","bdf72c79867e3b75c4f49c8a72b1b8df9cbfe43b:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","17313","16897","a274e2dd68cfdb37f0f19cc1d74423791877b84e","bee46c767825e2d25533940b4df574ccf3dda16c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/AGENTS.md","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","0","FALSE","40192","39681","2273705f751b1400dcaa16dbacaee28979854113","cefda9410e51565fb9cb3de9015a346bc7a7092c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/CHANGELOG.md","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","23867","23005","d2ab4ab9fb1ca209c408b8f104b7b66fdef424ad","682d50ebf76a4ad843865297c81aa665b1674fbf","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/ROADMAP.md","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","19","0","FALSE","26137","25090","4fb7e1439d62eb8243a1ea0e33ed0a88c0d00b58","d323e68348964a33b8d2b9c555657e3e1b7c6732","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/docs/known-limitations.md","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","13","0","FALSE","19931","18814","5906b965a3a5f7867655656811a575edf2e52258","0d9357401768f8c1126bd2dba21ac121045afe41","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/docs/selling-readiness.md","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
+"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","1","FALSE","40705","40298","04deea9176ef8a50ad0c39073371e9429a0b26d6","4c60476209a9738edae8ca4df282fd96ee2b5561","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/components/AccountView.tsx","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","38","1","FALSE","28072","26652","61d64c643360df6fa15e87f69de838046bb702b2","71d99a24033146fa986eab21162fc0fbe983d500","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/components/AdminView.tsx","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA",""
+"DeliveryList.tsx","src/components/DeliveryList.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Toegevoegd","A","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","49","0","FALSE","1754","","5ce48c942b05a42f3dccda3a500243ed57933345","","100644","","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/components/DeliveryList.tsx","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL2NvbXBvbmVudHMvRGVsaXZlcnlMaXN0LnRzeA","p:c3JjL2NvbXBvbmVudHMvRGVsaXZlcnlMaXN0LnRzeA",""
+"QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","12","1","FALSE","19391","18725","8a206bdc4828e793f9866706796a39d13c73a18c","d531459f1f70347e9d802dc54a0d474b66e09c13","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/components/QuoteView.tsx","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA",""
+"plans.ts","src/data/plans.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","29","0","FALSE","4536","3411","e7d1b4f1c04b90238cb6f8f2852f76a33e0e3677","0deba1e91c48b38fa36f71fb03063be5d035eeff","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/data/plans.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL2RhdGEvcGxhbnMudHM","p:c3JjL2RhdGEvcGxhbnMudHM",""
+"acceptQuote.test.ts","src/server/acceptQuote.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","8758","8542","b1fb638899dca9b10fa40a12a2c73c9124360dc9","4a1432fdf4ebefc2a08ac8c58711f5b699c05bb1","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/acceptQuote.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50ZXN0LnRz",""
+"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","21350","21074","d5799e35bef04336b2f37e5eb656379c2c70ebcc","1c8e8f5d47183cda67694960b2780b7193340bcb","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/accountHandler.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz",""
+"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","26345","26284","0f438fba52c1c827b9c3a7e4c75b3b10d4421b1a","b4a157f1f64af353b291947badbdd22f7cc8f85d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/accountHandler.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw",""
+"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","16941","16715","9b38840da8bed012a1971f8b1dd1a23fceb2890d","6a89029b5df0320c4def3a07e599c63ee26eac28","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/adminHandler.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","41","1","FALSE","19686","18140","79f71f9639f9bc5c115fa9f3d671742f3e935118","487113de2fa75f098b2a544cbe837862a1099ff2","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/adminHandler.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
+"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","13867","13641","0f9cd2fcf55c1384d263937938ac7554d623be45","26664aa4109625357c42a5bf4c3adc28d7957b75","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/adminOffer.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
+"delivery.test.ts","src/server/delivery.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Toegevoegd","A","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","287","0","FALSE","8625","","9f168ba07c2985047428fe76360286bfafeeda4e","","100644","","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/delivery.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9kZWxpdmVyeS50ZXN0LnRz","p:c3JjL3NlcnZlci9kZWxpdmVyeS50ZXN0LnRz",""
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","19799","19577","9caaf4d3e37d3b8bbca2d5ef1dec5d9160203747","89ba04bf1de312b57e904c15d51fcd6d855792df","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/leadHandler.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
+"quotePdf.ts","src/server/quotePdf.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","18","0","FALSE","9637","9089","dce4d0a173eacc5716e8b680a3499812a303363d","82d338418d77d888d1caccc75bf9354df0656355","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/quotePdf.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9xdW90ZVBkZi50cw","p:c3JjL3NlcnZlci9xdW90ZVBkZi50cw",""
+"quoteRequest.test.ts","src/server/quoteRequest.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","9561","9501","441f4eecd7e124b524b4d395e0e07b179f0d8d9d","0f9965d896f51b9cedf744987e68e5a2da790a2b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/quoteRequest.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9xdW90ZVJlcXVlc3QudGVzdC50cw","p:c3JjL3NlcnZlci9xdW90ZVJlcXVlc3QudGVzdC50cw",""
+"reportPayment.test.ts","src/server/reportPayment.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","5568","5352","3d87806c3033c1d232e18e22715bcea0a50c5ba7","e4f94e83ef4e5d382b178f9c59462d04b30a4411","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/reportPayment.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRlc3QudHM","p:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRlc3QudHM",""
+"service.test.ts","src/server/service.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","12529","12463","f26f933a8b78e568b4e72ee14bab54dcf52a6676","ba5168998ec4e2062260c31304cf61ed9774d704","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/service.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9zZXJ2aWNlLnRlc3QudHM","p:c3JjL3NlcnZlci9zZXJ2aWNlLnRlc3QudHM",""
+"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","28","1","FALSE","20518","19579","56895d4b04a93ae05a521e48b0a0085a56ff1273","4d1e507e1c59239ee3aa9851b10243629c16e995","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/server/storage.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","23","0","FALSE","20142","19433","2b097c84d71c1f95f464e7195e623fbdeb5fc5ab","e4a695f97e7ded44cbe74abae451bf1519a947be","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/types.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"adminClient.ts","src/utils/adminClient.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","0","FALSE","4876","4587","a5dc1b92bae80ee7226924a07600cb744b8642a2","b3ce33f77de010caf9969c79362940a2e34f9895","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/utils/adminClient.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz","p:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz",""
+"quote.test.ts","src/utils/quote.test.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","42","0","FALSE","6443","4741","4f515c870dd58ed6f030c81306223e185f567c64","30200755d61ab4c91405ec271338a4b2bb7c4022","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/utils/quote.test.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3V0aWxzL3F1b3RlLnRlc3QudHM","p:c3JjL3V0aWxzL3F1b3RlLnRlc3QudHM",""
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","[""arena/059123f9-vakman""]","Gewijzigd","M","","","44b22e80123be1ed6623c3b0b6564fcfc47e5b18","44b22e80123b","[""8bc8e47e50d56f2ab723dc9f77b40322393dd974""]","2026-10-30T16:53:23Z","2026-10-30T16:53:23Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet","feat: fase 7.16 — de klant ziet wat Klusbaas voor zijn site doet
+
+De belofte ""binnen twee weken opgeleverd"" stond als zin op de prijzenpagina
+en nergens anders: na de betaling had de klant geen idee wat er met zijn
+site gebeurde, en Klusbaas had geen lijst van wat er nog moest gebeuren per
+order.
+
+Nu draagt elke offerte de checklist van het pakket:
+
+- De lijst komt uit de catalogus (`data/plans.ts`), dus een offerte belooft
+  nooit meer dan de klant heeft gekocht.
+- Klusbaas vinkt de stappen af in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`).
+- De klant ziet dezelfde lijst in zijn account en op de offertepagina, met
+  de datum waarop iets klaar is en het moment waarop de site live moet
+  staan (twee weken na de betaling: dán begint het werk).
+- De lijd staat ook in de offerte-PDF, want die hoort bij wat de klant
+  koopt.
+
+Nieuwe tests: `src/server/delivery.test.ts` (4) en drie tests in
+`src/utils/quote.test.ts`.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","42","1","FALSE","11398","9995","e5fef519d6d42486576c29cee79ae22f7b3b5502","48be681ab0aad9227fb811a0d3a7cb92ea63ce94","100644","100644","https://github.com/dsvleeuw/Vakman/commit/44b22e80123be1ed6623c3b0b6564fcfc47e5b18","https://github.com/dsvleeuw/Vakman/blob/44b22e80123be1ed6623c3b0b6564fcfc47e5b18/src/utils/quote.ts","Commit","2026-10-30T16:53:51.614Z","44b22e80123be1ed6623c3b0b6564fcfc47e5b18:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
