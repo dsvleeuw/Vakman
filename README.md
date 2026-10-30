@@ -6,6 +6,12 @@ craftsman picks a trade and one of five design styles, fills in their
 business details, and gets a complete demo site with services, pricing
 calculator, portfolio, reviews, booking and contact flows.
 
+Around that demo there is a small business: a craftsman can publish his own
+site, ask for and accept an offer, pay by transfer, see what Klusbaas does
+for his site and keep the site up with an optional monthly service. That
+part lives in `src/server` and runs on Netlify Functions with Blobs as
+storage.
+
 ## Features
 
 - **35 presets** — 7 trades × 5 design styles, each with its own palette,
@@ -24,12 +30,22 @@ calculator, portfolio, reviews, booking and contact flows.
   `wa.me` messages (`ContactSection`, `utils/contact.ts`). A sticky mobile
   bar keeps call and WhatsApp buttons always on screen.
 - **Baseline expectations included everywhere** — sticky mobile call button,
-  quote form, before/after gallery, certification marks, Google
-  Bedrijfsprofiel review badge, local SEO (postcode area checker) and
-  two-week delivery messaging.
+  quote form, before/after gallery, certification marks, local SEO (postcode
+  area checker) and two-week delivery messaging. The Google Bedrijfsprofiel
+  badge is part of the component library, but it does not go on a published
+  site: a craftsman cannot claim reviews he did not collect.
 - **Booking & Google Workspace** — appointment calendar with optional
-  Google Calendar sync and Google Drive quote storage
-  (`BookingCalendar`, `utils/googleWorkspace.ts`).
+  Google Calendar sync (`BookingCalendar`, `utils/googleWorkspace.ts`).
+- **Accounts for the customer** — the craftsman makes an account, publishes
+  his own site and finds his requests, his offers and his service there
+  (`/mijn-account`, `/mijn-site`).
+- **Offers as real orders** — an offer has a number, a PDF, a price, a
+  validity date and a status. The customer accepts it, pays by transfer,
+  receives the invoice, and Klusbaas ticks off what he did for the site
+  (the delivery checklist) in `/klusbaas`.
+- **A monthly service as a real subscription** — the customer switches the
+  € 25 service on and off in his own account; Klusbaas sends the monthly
+  invoice.
 - **Platform pricing** — three one-off packages (€ 595 / € 995 / € 1.795,
   excl. btw) plus an optional € 25/month service, with explicit
   "you own the site and code" messaging (`PricingSection`). A package CTA
@@ -77,8 +93,10 @@ voor Broadcasts. Lokaal staan aanmeldingen in `.data/newsletter/`.
 ## Tech stack
 
 React 19, TypeScript, Vite, Tailwind CSS v4, `lucide-react` icons,
-Firebase Auth for the Google integrations. Package manager is
-[Bun](https://bun.sh) (a `bun.lock` is committed).
+Firebase Auth for the Google integrations. The backend is Netlify
+Functions (TypeScript, no framework) with Netlify Blobs as storage; the
+mail goes through Resend and runs in preview mode without a key. Package
+manager is [Bun](https://bun.sh) (a `bun.lock` is committed).
 
 ## Getting started
 
@@ -87,8 +105,12 @@ bun install
 bun run dev      # start the dev server
 bun run build    # production build + prerender + sitemap to dist/
 bun run lint     # tsc --noEmit type check
-bun test         # unit tests (node:test runner via bun)
+bun run test     # unit tests (node:test runner via bun, `bun test src`)
+bun run check    # lint + tests + inventory + build, all of it
 ```
+
+The Playwright end-to-end tests live in `e2e/` and are not part of
+`bun run test`; they need a browser that is installed separately.
 
 ## Documentation
 
@@ -118,12 +140,13 @@ src/
 ├── data/tradesData.ts       # All sector content, styles, palettes, photos
 ├── data/plans.ts            # The three one-off platform packages
 ├── data/componentCatalog.ts # Searchable component inventory and preview metadata
+├── server/                  # The backend: offers, accounts, mail, PDF, storage
 ├── types.ts                 # Shared domain types
 ├── utils/
 │   ├── pricing.ts           # Estimates, phone/domain/postcode helpers
 │   ├── contact.ts           # wa.me/tel links and message templates
 │   ├── surface.ts           # m² calculation helpers
-│   └── googleWorkspace.ts   # Calendar/Drive API integration
+│   └── googleWorkspace.ts   # Calendar API integration
 └── components/
     ├── SiteView.tsx         # The generated craftsman website
     ├── WizardView.tsx       # Onboarding flow (trade → style → publish)

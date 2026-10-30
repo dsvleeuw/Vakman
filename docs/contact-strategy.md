@@ -5,9 +5,14 @@
 The competitor research concluded that tradespeople use WhatsApp all day,
 while a subset of visitors prefers a traditional form. The chosen strategy
 is therefore **D: WhatsApp as the primary button, a short form as the
-alternative**. This is implemented without a backend: every form composes
-a prefilled `wa.me` message and opens WhatsApp, so the craftsman receives
-all leads in a single inbox and nothing can fail server-side.
+alternative**. The WhatsApp button composes a prefilled `wa.me` message
+and opens WhatsApp, so the craftsman receives those requests in a single
+inbox.
+
+The short form goes to the backend: it is stored with the site it belongs
+to and mailed to Klusbaas (`POST /api/lead`). That way a request never
+gets lost when WhatsApp is not installed or the visitor closes the tab —
+the craftsman sees it in his own account and in Klusbaas' overview.
 
 ## Where contacts can start
 

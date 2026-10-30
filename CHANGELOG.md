@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **De documentatie vertelt de waarheid.** De README, de architectuur, de
+  contactstrategie en de roadmap spraken nog over een product zonder
+  backend, zonder accounts en zonder offertes. Ze beschrijven nu wat het
+  product is: accounts, offertes, de opleverchecklist, de maandelijkse
+  service en de routes die er zijn. De roadmap markeert de punten die klaar
+  zijn en krijgt een fase 8 met wat er nog overblijft.
+
 ### Added
 
 - **Klusbaas ziet of de site klaar is om te verkopen.** Het overzicht in

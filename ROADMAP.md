@@ -16,10 +16,10 @@ Small, high-trust fixes closing gaps between the UI and real behaviour.
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
 | 1.1 | ~~Wire the wizard's `channel` choice (WhatsApp / E-mail / Allebei)~~ Done: it decides quote delivery via `/api/lead` | S | The state exists in `WizardView` but is not persisted or read by `SiteView`. Today every site is WhatsApp-first regardless of the choice. |
-| 1.2 | Implement the e-mail channel (`mailto:` at minimum, transactional mail later) | M | There are currently no `mailto:` links anywhere; the FAQ already implies e-mail support. |
-| 1.3 | Persist appointments and quote requests | M | Booking state is in-memory only and `PublishedSiteRecord` is defined but unused. Start with `localStorage`, move to a backend in phase 3. |
+| 1.2 | ~~Implement the e-mail channel~~ Done: the offers, the acceptations, the invoices and the service mails go per mail to the customer; the site has `mailto:` and WhatsApp buttons everywhere | S | The mail only really goes out with a verified Resend domain; without a key it stays in preview mode. |
+| 1.3 | ~~Persist appointments and quote requests~~ Done: every request (contact, appointment, fault report, m² estimate, offer request) is stored on the server with the site it belongs to, and the customer sees it in his own account | S | The stored requests are removed by hand after twelve months; no job does it yet. |
 | 1.4 | ~~Build (or remove the promise of) the Klusbaas dashboard mentioned in the FAQ~~ Partly done: the FAQ now points to the site editor (`/mijn-site`), where the customer edits his details, copy, services and blocks | L | Prices, photos and portfolio images are still fixed presets and cannot be changed by the customer. |
-| 1.5 | Make the Google Bedrijfsprofiel badge a real integration or label it honestly | S | It currently links to a Maps search; no API connection exists. |
+| 1.5 | ~~Make the Google Bedrijfsprofiel badge honest~~ Done: the badge is not on a published site, so a craftsman cannot claim reviews he did not collect. It stays in the component library | S | A real integration with the Google Bedrijfsprofiel is still possible, but that is a dependency and a decision for Klusbaas (row 4.4). |
 
 ## Phase 2 — More trades and more smart tools
 
@@ -41,28 +41,28 @@ Required before paid customers can rely on the product.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 3.1 | Lead API: store contact-form, fault-report and quote submissions server-side | L | The API, storage, PDF and mails are in place. A lead from a published customer site now goes to the owner of that site instead of to Klusbaas. Still missing: a way to see the stored leads without opening Netlify Blobs, and a mail that really arrives (the Resend domain is not verified yet). |
-| 3.2 | Transactional e-mail and WhatsApp Business templates | L | Depends on 1.2 and a provider decision. |
+| 3.1 | ~~Lead API: store contact-form, fault-report and quote submissions server-side~~ Done: the requests are stored on the server, they go to the owner of the site instead of to Klusbaas, and Klusbaas sees them in his overview without opening Blobs | S | The mail only really arrives with a verified Resend domain. The overview still lists the requests without a search or an export (phase 8). |
+| 3.2 | ~~Transactional e-mail~~ Done: the offer, the acceptance, the reminder, the payment report, the invoice and the five service mails have their own template. The WhatsApp part stays a button with a prefilled message | S | Sending WhatsApp messages from the server needs a provider account and a decision from Klusbaas. |
 | 3.3 | Craftsman dashboard: ~~edit services, prices, photos, opening hours~~ The editor covers details, copy, services, opening hours and blocks; prices and photos are still fixed | L | Accounts are in place (3.4): a published site is managed from `/mijn-account`; the private link with a token stays as a fallback. What is still missing is an overview of all quotes and leads per customer. |
 | 3.4 | ~~Authentication and multi-site ownership~~ Done: e-mail + password (scrypt), session in an httpOnly cookie, `ownerId` on the published site and a list of his sites at `/mijn-account` | L | Missing: password reset (no mail yet), e-mail verification and a way to delete an account. The password is hashed with `node:crypto`, so no new dependency was needed; Firebase Auth was not used. |
-| 3.5 | Conversion analytics per preset (opens, calculator completions, leads) | M | Needed to prove the proactive-demo sales approach works. |
+| 3.5 | ~~Conversion analytics per preset~~ Partly done: the events (step views, plan picks, preset opens, WhatsApp and phone clicks, requests) go into `dataLayer`/`gtag` through a vendor-free helper | S | The events go nowhere until a GTM or GA4 id is set; that is a decision for Klusbaas (phase 8). |
 
 ## Phase 4 — Discoverability and sales
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 4.1 | `LocalBusiness` JSON-LD structured data on every demo site | S | Direct local-SEO ("loodgieter Haarlem") benefit; data is already in `SectorData`. |
-| 4.2 | Real routes per sector/style instead of URL params only | M | Today state is driven by `?sector=&style=&view=`; dedicated routes improve crawlability and sharing. |
-| 4.3 | Sitemap, robots.txt and per-sector landing copy | S | |
+| 4.1 | ~~`LocalBusiness` JSON-LD structured data on every demo site~~ Done: every demo and every published site carries the structured data of the trade and the place | S | The data comes from the sector; the address is the one the customer fills in. |
+| 4.2 | ~~Real routes per sector/style~~ Done: `/voorbeeld/:vak/:stijl`, with the old query links redirected | S | The demo routes are `noindex`; the ones that matter for search are the sector pages. |
+| 4.3 | ~~Sitemap, robots.txt and per-sector landing copy~~ Done: the build writes `sitemap.xml` and `robots.txt`, and every sector/style has its own prerendered page with its own title and description | S | The sitemap holds the demo routes; a customer's own site is added when he publishes. |
 | 4.4 | Google Bedrijfsprofiel API integration (reviews, posting) | L | |
-| 4.5 | Order/checkout flow for the € 595 / € 995 / € 1.795 packages | L | Pricing is currently presentation-only. |
+| 4.5 | ~~Order/checkout flow~~ Done: an offer is an order with a number, a PDF, a price, a validity date, a status and a way to pay; the customer accepts it in his own account, pays by transfer and receives the invoice (phases 6.3 to 7.12) | S | The payment is a transfer, not iDEAL: a provider is a decision for Klusbaas. |
 
 ## Phase 5 — Quality and polish
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 5.1 | Component tests and end-to-end tests (Playwright) | M | Only pure utils are tested today; the SSR smoke approach is documented in [AGENTS.md](./AGENTS.md). Playwright e2e tests exist in `e2e/` and run in GitHub Actions CI. |
-| 5.2 | Accessibility audit (focus states, contrast, screen-reader labels) | M | Forms have basic labels and ARIA attributes but have not been audited. |
+| 5.1 | ~~Component tests and end-to-end tests~~ Done: 380 unit tests via `bun run test`, Playwright specs in `e2e/` and a GitHub Actions workflow that runs lint, tests and build on every push and pull request | S | The Playwright specs need a browser that is installed separately; they do not run in `bun run test`. |
+| 5.2 | ~~Accessibility audit~~ Partly done: the contrast of every palette is tested against WCAG AA, the focus ring was made strong enough to win from `focus:outline-none`, the forms got labels, `aria-describedby` and `aria-invalid`, and the FAQ became a native accordion | M | A real audit with a screen reader and a keyboard walk-through is still missing (phase 8). |
 | 5.3 | Replace Unsplash placeholders with licensed trade photography | M | Stock photos repeat across presets and weaken the "premium design" claim. |
 | 5.4 | ~~CI workflow (lint, test, build) in the repository~~ Done: `.github/workflows/check.yml` runs on push/PR | S | Checks previously came from the external Netlify integration only. |
 | 5.5 | Internationalisation setup if Belgium/Flanders is a target market | L | All copy is hard-coded Dutch; the competitor scan included a Belgian provider. |
@@ -190,6 +190,33 @@ through the wizard when:**
 | 7.18 | ~~The price list says what a package is~~ Done: the pricing page and the FAQ say that the customer fills in his own site in his own editor, and that a package is the delivery: Klusbaas checks the texts, photos and colours, checks the findability, delivers within two weeks and registers the `.nl` domain in Pro and Premium | M | The prices themselves are unchanged. The domain is only in Pro and Premium, and the registrar costs stay with the customer. A customer who wants to do everything himself can, and that is said out loud |
 | 7.19 | ~~Klusbaas sees whether the site is ready to sell~~ Done: the overview in `/klusbaas` checks the four things that decide whether an order works without manual work: the IBAN in the offers, the details on the invoice, the mail that really goes out and the password on the overview. Something missing stands at the top of the overview, with the reason | S | The check looks at the environment of the deployment, not at the running site: a value that is set wrong (a wrong IBAN, a wrong sender) is not caught. The check says nothing about the content of a site |
 
+
+## Phase 8 — What is left
+
+Everything below is real, but none of it stands between Klusbaas and his
+first order: the customer can already find a site, ask for an offer, accept
+it, pay, see what Klusbaas does for him and keep the site up. This phase is
+what makes the product sturdier as the number of customers grows.
+
+| # | Item | Effort | Notes |
+|---|------|--------|-------|
+| 8.1 | The customer can download his own data (AVG art. 15) | M | Today Klusbaas does this by hand. The account, the sites, the offers and the requests are all in the store, so this is a matter of putting them in one file. |
+| 8.2 | The customer can delete his own account (AVG art. 17) | M | Bigger than 8.1: the sites, the offers, the requests and the sessions all have to go, and the published page has to disappear. Irreversible, so it needs a confirmation. |
+| 8.3 | A job that removes the requests after twelve months | M | The privacy statement promises twelve months. A scheduled function on Netlify does it without a new dependency. |
+| 8.4 | Search and export in `/klusbaas` | M | The overview lists everything; as the number of requests and offers grows, finding one by hand stops working. |
+| 8.5 | A status per request, so Klusbaas sees what he called | M | "New", "called", "offer sent": a request that nobody followed up on is a lost order. |
+| 8.6 | The trade **dakdekker** with a free roof check (row 2.1) | M | The `FaultReportForm` pattern works for a roof inspection; more trades means more demos and more local search pages. |
+| 8.7 | The trade **aannemer** with an expanded project timeline (row 2.2) | M | The timeline exists for the carpenter; the builder needs his own steps. |
+| 8.8 | The **stukadoor** gets the surface calculator (row 2.4) | S | The component exists; it only has to be attached to the sector. |
+| 8.9 | A **colour picker** for the painter next to the m² calculator (row 2.5) | M | A RAL swatch picker that adds the colour advice to the price. |
+| 8.10 | A tool for the **hovenier** (row 2.3) | M | A seasonal maintenance planner or a garden-size estimate. |
+| 8.11 | The project timeline gets its steps from the sector (row 2.6) | S | Move the step copy out of the component so every trade can own a timeline. |
+| 8.12 | Real trade photography instead of stock photos (row 5.3) | L | The stock photos weaken the "premium design" claim. The app says honestly that the photos are examples until then. |
+| 8.13 | Analytics that land somewhere (row 3.5) | S | The events are ready; a GTM or GA4 id is a decision for Klusbaas. |
+| 8.14 | A real accessibility audit (row 5.2) | M | With a screen reader and a keyboard walk-through, not only with tests. |
+| 8.15 | Self-hosted fonts | S | The Archivo files come from a CDN; hosting them ourselves removes a third party from the page. |
+| 8.16 | A signed nonce on the forms | M | The rate limiter is per process, so it does not stop a bot that spreads over several instances. |
+| 8.17 | The Google Bedrijfsprofiel integration (row 4.4) | L | A dependency and an API key: a decision for Klusbaas. |
 
 ## Decision log
 
