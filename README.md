@@ -14,7 +14,7 @@ storage.
 
 ## Features
 
-- **35 presets** — 7 trades × 5 design styles, each with its own palette,
+- **40 presets** — 8 trades × 5 design styles, each with its own palette,
   typography, layout and photo set (`src/data/tradesData.ts`).
 - **Interactive price calculator** — a per-trade step quiz that produces a
   live euro estimate (`PriceCalculator`, `utils/pricing.ts`).
@@ -22,9 +22,11 @@ storage.
   - `emergency` — 24/7 spoedknop for the plumber, with problem chips that
     prefill a WhatsApp message
   - `fault-report` — structured storingsmelding for the electrician
-  - `m2-calculator` — surface/price calculator for the painter
+  - `m2-calculator` — surface/price calculator for the painter and the
+    plasterer
   - `timeline` — project timeline making the two-week delivery promise
     concrete for the carpenter
+  - `roof-check` — free roof check for the roofer, with his own details
 - **WhatsApp-first contact** — WhatsApp is the primary channel on every demo
   site, with a short contact form as fallback; both compose prefilled
   `wa.me` messages (`ContactSection`, `utils/contact.ts`). A sticky mobile
@@ -62,7 +64,7 @@ storage.
   opens, WhatsApp/phone clicks and appointment requests are emitted through
   a vendor-free `track()` helper (GTM `dataLayer` / GA4 `gtag`).
 - **Accessible palettes** — every generated colour scheme is checked against
-  WCAG AA (7 trades × 5 styles) by automatic contrast maths and tests.
+  WCAG AA (8 trades × 5 styles) by automatic contrast maths and tests.
 - **Real URLs everywhere** — the marketing page, every generated preset
   (`/voorbeeld/loodgieter/krachtig`), every wizard step
   (`/start/gegevens`), the confirmation screen and each library component

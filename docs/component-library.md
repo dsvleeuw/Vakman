@@ -41,7 +41,7 @@ tokens, so they can be reused across all five preset styles.
 
 These components are **available in the library but are not automatically
 inserted into every generated site**. They can be added selectively to a
-preset or composed into a future page layout without changing all 35 trade
+preset or composed into a future page layout without changing all 40 trade
 and style combinations at once.
 
 ## Catalogue source

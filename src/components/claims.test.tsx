@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { HOME_INTRO, PACKAGE_DELIVERY_NOTE, WIZARD_TRADE_INTRO } from '../data/marketing';
+import { SECTORS, STYLES } from '../data/tradesData';
 import { SERVICE_FEATURES } from '../data/plans';
 import { DEFAULT_FAQS } from './FaqSection';
 import { STEPS } from './HowItWorks';
@@ -42,6 +43,21 @@ test('de marketingpagina\'s beloven geen dingen die niet gebouwd zijn', () => {
     !HOME_INTRO.includes('professionele fotografie'),
     'de homepage belooft geen foto\'s van het voorbeeld'
   );
+});
+
+test('het aantal vakken en stijlen in de tekst klopt met de code', () => {
+  const trades = Object.keys(SECTORS).length;
+  const styles = STYLES.length;
+  // "Zes vakken" terwijl er zeven zijn, is een belofte die niet klopt.
+  assert.ok(
+    stepsText.includes(`${trades} vakken`),
+    `hoe het werkt noemt ${trades} vakken`
+  );
+  assert.ok(
+    stepsText.includes(`${styles} stijlen`),
+    `hoe het werkt noemt ${styles} stijlen`
+  );
+  assert.equal(stepsText.includes('Zes vakken'), false, 'de tekst noemt geen vast aantal vakken meer');
 });
 
 test('de prijzenpagina zegt wat een pakket is bovenop de gratis editor', () => {

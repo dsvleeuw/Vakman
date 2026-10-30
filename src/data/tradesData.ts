@@ -20,6 +20,7 @@ export const ORDER: SectorId[] = [
   'loodgieter',
   'elektricien',
   'stukadoor',
+  'dakdekker',
   'overige',
 ];
 
@@ -790,6 +791,126 @@ export const SECTORS: Record<SectorId, SectorData> = {
       {
         q: 'Zeer betrouwbaar, dacht goed mee over de droogtijd en hield zich keurig aan de planning.',
         who: 'Marloes, Best',
+      },
+    ],
+  },
+  dakdekker: {
+    id: 'dakdekker',
+    name: 'Dakdekker',
+    biz: 'Van den Brink Daken',
+    owner: 'Joost van den Brink',
+    city: 'Almere',
+    phone: '06 78 90 12 34',
+    near: ['13', '14', '15', '36'],
+    pcExample: '1315 AL',
+    hD: 35,
+    hB: 55,
+    cf: 1,
+    since: '1998',
+    rating: '4,8',
+    reviewCount: 96,
+    pool: [
+      '1635424824849-1b09bdcc55b1',
+      '1763665814538-8ba04597286c',
+      '1643225523483-e2c434191bba',
+      '1726589004565-bedfba94d3a2',
+      '1780445392484-5fb7d5610708',
+      '1633759593085-1eaeb724fc88',
+      '1763665814485-a0a1b6f51ed7',
+      '1518736346281-76873166a64a',
+      '1779941373840-a93f6e0d5db0',
+      '1632759145351-1d592919f522',
+      '1763665814965-b5c4b3547908',
+    ],
+    kicker: 'DAKKEN, GOTEN & ISOLATIE',
+    headline: 'Daken die het weer troefst.',
+    intro:
+      'Sinds 1998 leggen wij daken, vervangen wij goten en isoleren wij zolders. Wij werken met materialen die een dakseizoen meegaan en geven op alles garantie.',
+    cta1: 'Bekijk onze dakwerken',
+    cta2: 'Vraag een dakinspectie',
+    about:
+      'Al ruim 25 jaar in Almere en omgeving. Ik werk met mijn eigen team, dus geen onderaannemer die de klus afstoot. Bij stormschade staan wij binnen één werkdag voor de deur.',
+    servicesTitle: 'Dakwerk voor thuis en bedrijf',
+    services: [
+      {
+        n: 'Dakbedekking vervangen',
+        d: 'Nieuwe pannen of bitumen, met warme-isolatie en nette afwerking rond de dakkapellen.',
+        p: '€ 145 per m²',
+      },
+      {
+        n: 'Dakreparatie',
+        d: 'Lege plekken, gebarsten pannen en losse naden: wij lokaliseren de lekkage en maken het waterdicht.',
+        p: 'vanaf € 385',
+      },
+      {
+        n: 'Goten reinigen',
+        d: 'Bladeren en mos weg, afvoer vrij en de dakrand schoongemaakt. Met hoogwerker.',
+        p: 'vanaf € 120',
+      },
+      {
+        n: 'Dakisolatie',
+        d: 'Zolderisolatie met een warmtebon zonder de kosten voor de klant te verhogen.',
+        p: 'vanaf € 2.900',
+      },
+    ],
+    marks: ['NOA-afbouwgarantie', 'VCA gecertificeerd', '10 jaar garantie', 'Attest dakisolatie'],
+    workNote: 'Gefotografeerd na een storm of een complete renovatie',
+    work: [
+      { t: 'Volledig nieuw dak met warme-isolatie', c: 'Almere', y: '2026' },
+      { t: 'Stormschade aan pannen hersteld', c: 'Lelystad', y: '2025' },
+      { t: 'Goten vervangen bij een bedrijfspand', c: 'Zoetermeer', y: '2025' },
+    ],
+    beforeAfter: [
+      {
+        title: 'Verouderd dak vervangen door een nieuwe bedekking',
+        location: 'Almere',
+        beforeImg: getUnsplashUrl('1633759593085-1eaeb724fc88', 1000),
+        afterImg: getUnsplashUrl('1635424824849-1b09bdcc55b1', 1000),
+        description: 'Van versleten pannen met groei naar een strak afgewerkt dak met nieuwe goten.',
+      },
+    ],
+    tool: 'roof-check',
+    flow: [
+      {
+        q: 'Wat moet er aan het dak gebeuren?',
+        o: [
+          { l: 'Compleet nieuw dak', h: 'v.a. € 4.900', b: 4900 },
+          { l: 'Reparatie van een lek', h: 'v.a. € 650', b: 650 },
+          { l: 'Alleen goten en afvoer', h: 'v.a. € 420', b: 420 },
+          { l: 'Zolderisolatie', h: 'v.a. € 2.900', b: 2900 },
+        ],
+      },
+      {
+        q: 'Hoe groot is het dak (ongeveer)?',
+        o: [
+          { l: 'Tot 40 m²', h: '', a: 0 },
+          { l: '40 tot 90 m²', h: '+ € 1.400', a: 1400 },
+          { l: 'Meer dan 90 m²', h: '+ € 3.100', a: 3100 },
+        ],
+      },
+      {
+        q: 'Hoe oud is de huidige bedekking?',
+        o: [
+          { l: 'Minder dan 15 jaar', h: '', a: 0 },
+          { l: '15 tot 30 jaar', h: '+ € 350', a: 350 },
+          { l: 'Ouder dan 30 jaar', h: '+ € 750', a: 750 },
+        ],
+      },
+    ],
+    estNote:
+      'Inclusief btw, afval afvoeren en netjes afwerken. Na inmeten op locatie ontvang je een vaste offerte.',
+    reviews: [
+      {
+        q: 'Na de storm in februari waren wij binnen een week aan de beurt. Het dak is waterdicht en de goten blinken om.',
+        who: 'Familie Hendriks, Almere',
+      },
+      {
+        q: 'Zolderisolatie laten doen en de energierekening is flink gedaald. Heldere uitleg en een strakke planning.',
+        who: 'Peter Smit, Lelystad',
+      },
+      {
+        q: 'Geen ladder van de vorige dakdekker achtergelaten en de oude pannen netjes afgevoerd.',
+        who: 'Vereniging Eigen Erf, Zoetermeer',
       },
     ],
   },

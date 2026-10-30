@@ -15,6 +15,7 @@ import {
   buildContactMessage,
   buildEmergencyMessage,
   buildFaultReportMessage,
+  buildRoofCheckMessage,
   buildSurfaceQuoteMessage,
   canShowContactButtons,
 } from './contact';
@@ -126,6 +127,27 @@ test('buildFaultReportMessage renders every fault field plus optional details', 
   assert.ok(msg.includes('Adres: Kerkstraat 12, Rotterdam'));
   assert.ok(msg.includes('Urgentie: Vandaag nog (spoed)'));
   assert.ok(msg.includes('Aanvulling: Gebeurt vooral als de vaatwasser aan gaat.'));
+});
+
+test('buildRoofCheckMessage renders every roof field plus optional details', () => {
+  const msg = buildRoofCheckMessage('Van den Brink Daken', {
+    name: 'Erik',
+    phone: '06 11 22 33 44',
+    email: 'erik@example.nl',
+    address: 'Kerkstraat 12, Almere',
+    roofType: 'Schuin dak met pannen',
+    complaint: 'Lekkage in huis',
+    urgency: 'Deze week',
+    details: 'Bij flinke regen loopt het langs de dakkapel.',
+  });
+  assert.ok(msg.includes('gratis dakcheck'));
+  assert.ok(msg.includes('Type dak: Schuin dak met pannen'));
+  assert.ok(msg.includes('Klacht: Lekkage in huis'));
+  assert.ok(msg.includes('Urgentie: Deze week'));
+  assert.ok(msg.includes('Adres: Kerkstraat 12, Almere'));
+  assert.ok(msg.includes('Telefoon: 06 11 22 33 44'));
+  assert.ok(msg.includes('E-mail: erik@example.nl'));
+  assert.ok(msg.includes('Aanvulling: Bij flinke regen loopt het langs de dakkapel.'));
 });
 
 test('buildSurfaceQuoteMessage summarises the m² calculation', () => {

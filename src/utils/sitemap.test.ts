@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import type { PublishedSiteRecord } from '../types';
 import { buildPublishedSitesSitemap, marketingSitemapPaths } from './sitemap';
+import { ORDER, STYLES } from '../data/tradesData';
 
 test("de marketingpagina's staan in de sitemap van de build", () => {
   const paths = marketingSitemapPaths();
@@ -9,7 +10,9 @@ test("de marketingpagina's staan in de sitemap van de build", () => {
   assert.ok(paths.includes('/'));
   assert.ok(paths.includes('/privacy'));
   assert.ok(paths.includes('/voorbeeld/schilder/modern'));
-  assert.equal(paths.length, 3 + 7 * 5);
+  // Het aantal volgt het aantal vakken en stijlen, zodat een nieuw vak
+  // meteen in de sitemap staat.
+  assert.equal(paths.length, 3 + ORDER.length * STYLES.length);
 });
 
 test('gepubliceerde sites staan in hun eigen sitemap', () => {

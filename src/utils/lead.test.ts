@@ -145,6 +145,32 @@ test('parseLead validates each site form', () => {
   assert.equal(parseLead({ ...contactBody, site: { sector: 'bakker' } }, NOW).kind, 'invalid');
 });
 
+test('de dakcheck-aanvraag vraagt naam, telefoon en adres', () => {
+  const body = {
+    type: 'roof-check',
+    startedAt: started,
+    site: { sector: 'dakdekker' },
+    fields: {
+      name: 'An',
+      phone: '0612345678',
+      email: 'an@example.nl',
+      address: 'Dorpsstraat 1',
+      roofType: 'Plat dak',
+      complaint: 'Lekkage in huis',
+      urgency: 'Deze week',
+    },
+  };
+  assert.equal(parseLead(body, NOW).kind, 'site');
+
+  const zonderAdres = validateLeadFields('roof-check', { ...body.fields, address: '' });
+  assert.equal(zonderAdres.ok, false);
+  if (!zonderAdres.ok) assert.equal(zonderAdres.field, 'address');
+
+  const zonderTelefoon = validateLeadFields('roof-check', { ...body.fields, phone: '12' });
+  assert.equal(zonderTelefoon.ok, false);
+  if (!zonderTelefoon.ok) assert.equal(zonderTelefoon.field, 'phone');
+});
+
 test('validateLeadFields: optional e-mail checked when present, surface name optional', () => {
   const ok = validateLeadFields('surface', { phone: '0612345678', service: 'Schilderwerk', surfaceM2: 24, estimate: '€ 432' });
   assert.equal(ok.ok, true);

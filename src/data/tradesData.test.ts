@@ -17,6 +17,25 @@ test('de stukadoor krijgt de oppervlaktecalculator', () => {
   assert.equal(SECTORS.schilder.tool, 'm2-calculator');
 });
 
+test('de dakdekker krijgt de gratis dakcheck', () => {
+  assert.equal(SECTORS.dakdekker.tool, 'roof-check');
+  assert.ok(SECTORS.dakdekker.services.length >= 4);
+});
+
+test('elk vak is volledig: diensten met prijs, werk, reviews en een vragenlijst', () => {
+  for (const sector of Object.values(SECTORS)) {
+    assert.ok(sector.services.length >= 4, `${sector.name} heeft te weinig diensten`);
+    for (const service of sector.services) {
+      assert.ok((service.p ?? '').trim().length > 0, `${sector.name}: ${service.n} heeft geen prijs`);
+    }
+    assert.ok(sector.work.length >= 3, `${sector.name} heeft te weinig werkvoorbeelden`);
+    assert.ok(sector.reviews.length >= 3, `${sector.name} heeft te weinig reviews`);
+    assert.ok(sector.flow.length >= 2, `${sector.name} heeft te weinig offertegragen`);
+    assert.ok(sector.marks.length >= 3, `${sector.name} heeft te weinig keurmerken`);
+    assert.ok(sector.pool.length >= 8, `${sector.name} heeft te weinig foto's`);
+  }
+});
+
 test('buildActiveSite falls back to sector defaults when wizard fields are empty or whitespace', () => {
   const base = SECTORS.loodgieter;
   const site = buildActiveSite('loodgieter', 2, {

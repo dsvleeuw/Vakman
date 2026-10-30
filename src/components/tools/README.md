@@ -6,10 +6,11 @@ Interactieve tools die specifiek zijn voor een vak (loodgieter, elektricien, sch
 
 | Bestand | Vak | Beschrijving |
 |---------|-----|--------------|
-| `SurfaceCalculator.tsx` | Schilder, Stukadoor, Vloerlegger, Dakdekker | Bereken oppervlakte & schatting materiaal/kosten. Het icoon en de naam van het werk volgen het vak (`site.id`). |
+| `SurfaceCalculator.tsx` | Schilder, Stukadoor | Bereken oppervlakte & schatting materiaal/kosten. Het icoon en de naam van het werk volgen het vak (`site.id`). |
 | `EmergencyButton.tsx` | Loodgieter, Elektricien | Grote CTA voor spoeddienst (bel/Whatsapp direct) |
 | `FaultReportForm.tsx` | Alle vakken | Gestructureerd storingsformulier met foto upload |
 | `ProjectTimeline.tsx` | Aannemer, Tuinier | Visualisatie projectfasen & planning |
+| `RoofCheckForm.tsx` | Dakdekker | Gratis dakcheck: type dak, klacht en urgentie. De aanvraag komt binnen als aanvraag (`type: 'roof-check'`). |
 
 ## Basis: `TradeTool.tsx`
 
@@ -23,7 +24,7 @@ Abstracte basis component die gemeinsame functionaliteit biedt:
 
 Zie [docs/adding-a-trade-tool.md](../../docs/adding-a-trade-tool.md) voor de volledige procedure:
 1. Extend `TradeTool` of maak nieuwe component
-2. Registreer in `tradesData.ts` onder `sector.tools`
+2. Registreer in `tradesData.ts` onder `sector.tool`
 3. Voeg icons toe uit `lucide-react`
 4. Schrijf tests
 5. Update documentatie

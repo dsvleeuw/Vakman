@@ -28,10 +28,10 @@ two current sectors have no dedicated tool.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
-| 2.1 | Add **dakdekker** sector with a gratis-dakcheck request form | M | Reuse the `FaultReportForm` pattern; add the sector id, content and photos per [docs/adding-a-sector.md](./docs/adding-a-sector.md). |
+| 2.1 | ~~Add **dakdekker** sector with a gratis-dakcheck request form~~ Done (phase 7.23) | M | The roof check reuses the `FaultReportForm` pattern; the sector id, the content and the photos are in `src/data/tradesData.ts` per [docs/adding-a-sector.md](./docs/adding-a-sector.md). |
 | 2.2 | Add **aannemer** sector with an expanded project timeline | M | Extend `ProjectTimeline` to accept configurable steps instead of the current carpenter-specific constants. |
 | 2.3 | Tool for **hovenier** (e.g. seasonal maintenance planner or garden size quote) | M | |
-| 2.4 | Tool for **stukadoor** (e.g. wall-surface calculator reusing `utils/surface.ts`) | S | The surface math is already generic and tested. |
+| 2.4 | ~~Tool for **stukadoor** (e.g. wall-surface calculator reusing `utils/surface.ts`)~~ Done (phase 7.22) | S | The surface math is already generic and tested. |
 | 2.5 | Kleurenkiezer for the **schilder** next to the m² calculator | M | RAL colour swatch picker that adds colour-advice pricing. |
 | 2.6 | Make `ProjectTimeline` data-driven from `SectorData` | S | Move step copy out of the component so any trade can own a timeline. |
 
@@ -172,6 +172,9 @@ through the wizard when:**
 23. The surface calculator works for more than one trade: the painter and
     the plasterer both get a visitor who can measure his walls and get a
     price indication right away.
+24. A second trade gets a trade of his own: the roofer has his services,
+    his prices, his photos and his questions, and a free roof check on his
+    site that comes in as a real request.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -194,8 +197,10 @@ through the wizard when:**
 | 7.17 | ~~The questions and answers stand in the page~~ Done: the FAQ is a native accordion (`<details>`), so every answer is in the HTML that the build writes. A visitor without JavaScript and a search engine read the same text as a visitor with scripts | S | The answers of the questions about Klusbaas are marketing text; the customer keeps his own questions on his own site. The accordion shows one answer at a time, like before. |
 | 7.18 | ~~The price list says what a package is~~ Done: the pricing page and the FAQ say that the customer fills in his own site in his own editor, and that a package is the delivery: Klusbaas checks the texts, photos and colours, checks the findability, delivers within two weeks and registers the `.nl` domain in Pro and Premium | M | The prices themselves are unchanged. The domain is only in Pro and Premium, and the registrar costs stay with the customer. A customer who wants to do everything himself can, and that is said out loud |
 | 7.19 | ~~Klusbaas sees whether the site is ready to sell~~ Done: the overview in `/klusbaas` checks the four things that decide whether an order works without manual work: the IBAN in the offers, the details on the invoice, the mail that really goes out and the password on the overview. Something missing stands at the top of the overview, with the reason | S | The check looks at the environment of the deployment, not at the running site: a value that is set wrong (a wrong IBAN, a wrong sender) is not caught. The check says nothing about the content of a site |
+| 7.20 | ~~The documentation tells the truth~~ Done: the README, the architecture, the contact strategy and the roadmap describe the product as it is: accounts, offers, the delivery checklist, the monthly service and the routes that exist. The roadmap got a phase 8 with everything that is left, so the backlog stands in one place | S | The documentation is only as true as the code it describes; the audits of phase 7.20 and 7.22 came from the code, not from the claims. |
 | 7.21 | ~~The customer can download his own data~~ Done: `/mijn-account` has a button "Download je gegevens". The file holds his account, his sites with their text and photos, his requests, his offers and his service. His password and the management key of a site are not in it: those are keys, not data | S | The file is plain JSON, meant to be read by a person. The removal of the data itself stays manual (row 8.2), and the requests of other customers stay with Klusbaas. |
 | 7.22 | ~~The surface calculator works for more than one trade~~ Done: the plasterer gets the m² calculator on his site, with his own services and prices per m². The icon and the name of the work follow the trade | S | The calculator works with walls and openings; a trade that measures something else (a garden, a roof) needs its own tool (rows 8.9 and 8.10) |
+| 7.23 | ~~The roofer gets his own trade and a free roof check~~ Done: the roofer is the eighth trade, with his own services, prices, photos, reviews and offer questions, plus a free roof check on his site. The visitor fills in the type of roof, the complaint and the urgency, and the check comes in as a request like every other form | M | The check is a form and not a booked appointment: nobody promises a date before he has seen the roof. On a customer site the promises of the demo ("gratis", "binnen één werkdag") stay off, because the customer writes his own copy. The photos are stock photos until the roofer brings his own (row 8.12). |
 
 
 ## Phase 8 — What is left
@@ -212,7 +217,7 @@ what makes the product sturdier as the number of customers grows.
 | 8.3 | A job that removes the requests after twelve months | M | The privacy statement promises twelve months. A scheduled function on Netlify does it without a new dependency. |
 | 8.4 | Search and export in `/klusbaas` | M | The overview lists everything; as the number of requests and offers grows, finding one by hand stops working. |
 | 8.5 | A status per request, so Klusbaas sees what he called | M | "New", "called", "offer sent": a request that nobody followed up on is a lost order. |
-| 8.6 | The trade **dakdekker** with a free roof check (row 2.1) | M | The `FaultReportForm` pattern works for a roof inspection; more trades means more demos and more local search pages. |
+| 8.6 | ~~The trade **dakdekker** with a free roof check (row 2.1)~~ Done (phase 7.23) | M | The `FaultReportForm` pattern works for a roof inspection; more trades means more demos and more local search pages. |
 | 8.7 | The trade **aannemer** with an expanded project timeline (row 2.2) | M | The timeline exists for the carpenter; the builder needs his own steps. |
 | 8.8 | ~~The **stukadoor** gets the surface calculator (row 2.4)~~ Done (phase 7.22) | S | The calculator works with walls and openings. |
 | 8.9 | A **colour picker** for the painter next to the m² calculator (row 2.5) | M | A RAL swatch picker that adds the colour advice to the price. |

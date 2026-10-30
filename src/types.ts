@@ -7,7 +7,8 @@ export type SectorId =
   | 'loodgieter'
   | 'elektricien'
   | 'stukadoor'
-  | 'overige';
+  | 'overige'
+  | 'dakdekker';
 
 /**
  * Smart, trade-specific conversion tool rendered on the demo website.
@@ -17,7 +18,8 @@ export type TradeToolId =
   | 'emergency'
   | 'fault-report'
   | 'm2-calculator'
-  | 'timeline';
+  | 'timeline'
+  | 'roof-check';
 
 export type StyleId = 'klassiek' | 'modern' | 'krachtig' | 'donker' | 'minimaal';
 

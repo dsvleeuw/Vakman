@@ -67,6 +67,7 @@ const LEAD_LABEL: Record<string, string> = {
   fault: 'Storingsmelding',
   surface: 'Offerteaanvraag',
   'offerte-aanvraag': 'Offerte-aanvraag',
+  'roof-check': 'Dakcheck',
 };
 
 const SiteRow: React.FC<{ site: AdminSite }> = ({ site }) => (

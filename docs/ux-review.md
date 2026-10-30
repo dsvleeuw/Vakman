@@ -57,7 +57,7 @@ assistive tech, decorative hero photos marked `aria-hidden`.
 | 10 | Prerender for SEO | ✅ build-time prerender of 39 routes into real HTML + hydration; canonical, OG/Twitter, `og-image.png`, `sitemap.xml`, `robots.txt` |
 | 11 | Funnel analytics | ✅ vendor-free `utils/analytics.ts` with step, preset, plan, WhatsApp, phone, appointment and component events |
 | 12 | Accept international phone formats | ✅ `normalizeDutchPhone()` everywhere (wizard, contact, booking, fault report) with tests |
-| 13 | Accessibility audit / contrast | ✅ WCAG maths in `utils/color.ts`, palette contrast contract for all 7 trades × 5 styles, form borders raised to 3:1 |
+| 13 | Accessibility audit / contrast | ✅ WCAG maths in `utils/color.ts`, palette contrast contract for all 8 trades × 5 styles, form borders raised to 3:1 |
 
 ### Notes on the a11y work
 
@@ -65,7 +65,7 @@ assistive tech, decorative hero photos marked `aria-hidden`.
   nudges OKLCH lightness until body text, muted text, accent text and
   inverted text reach 4.5:1, and picks a readable foreground for filled
   surfaces (accent, highlight). `paletteContrast.test.ts` fails the build if
-  any of the 35 combinations regresses.
+  any of the 40 combinations regresses.
 - Filled surfaces keep their hue: only lightness moves, so a brand accent
   still looks like that brand.
 - Decorative divider colours are deliberately *not* forced to 3:1 — that
