@@ -132,7 +132,13 @@ export async function createOfferForCustomer(
     : undefined;
   // Het account komt van de klant zelf (als die er is) of van de site die
   // hij publishede: die site hoort aan zijn account.
-  const accountId = request.accountId ?? site?.ownerId;
+  // Het account komt uit het verzoek, van de site, of van het e-mailadres
+  // van de klant. Zo staat de offerte ook in `/mijn-account` van een klant
+  // die alleen een account heeft en nog geen site.
+  const accountId =
+    request.accountId ??
+    site?.ownerId ??
+    (deps.accounts ? (await deps.accounts.getAccountByEmail(email))?.id : undefined);
   const account = accountId && deps.accounts
     ? await deps.accounts.getAccount(accountId)
     : undefined;

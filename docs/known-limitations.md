@@ -20,8 +20,8 @@ to [ROADMAP.md](../ROADMAP.md).
   IP, in memory). It stops a single script, not a distributed attack.
 - ~~No admin screen~~ Fixed: `/klusbaas` shows the requests, the offers, the
   accounts and the sites behind one password (`ADMIN_PASSWORD`). What it
-  still cannot do is answer a request in the screen, search, export or
-  delete something.
+  still cannot do is answer a request in the screen or delete something.
+  Searching and exporting are there (phase 7.26).
 - Site leads on demo sites go to Klusbaas, not to the tradesperson: a demo
   site has no owner, so Klusbaas receives the lead. The page says that too.
 - ~~A published site sends its leads to Klusbaas~~ Fixed: a lead from a
@@ -80,11 +80,13 @@ to [ROADMAP.md](../ROADMAP.md).
 
 ## Requests and orders
 
-- **The requests are stored, but nothing deletes them.** A request from a
-  customer site is stored with the site it belongs to, so the craftsman can
-  see it in his account even when the mail did not arrive. The privacy
-  statement promises twelve months, but no job removes them after that; they
-  have to be removed by hand from the Blobs store `leads`.
+- ~~**The requests are stored, but nothing deletes them.**~~ Fixed (phase
+  7.27): a scheduled function removes the requests that are older than
+  twelve months, and Klusbaas can do it by hand from `/klusbaas`. A request
+  from a customer site is still stored with the site it belongs to, so the
+  craftsman can see it in his account even when the mail did not arrive.
+  What the job does not do is remove the request of a customer who is
+  deleted in the meantime: that goes with the account (phase 7.25).
 - **The craftsman cannot delete or export his requests.** Under the AVG a
   customer can ask for that. The customer can now download his own data
   himself (phase 7.21); deleting it is still work by hand (roadmap row 8.2).
@@ -118,8 +120,13 @@ to [ROADMAP.md](../ROADMAP.md).
   A published site still has Klusbaas' newsletter in the footer; the
   newsletter link points to Klusbaas' privacy statement, which is correct,
   but the statement of the site itself does not mention it.
-- **The twelve months are a promise, not a job.** Nothing removes a request
-  after twelve months; Klusbaas does that by hand.
+- ~~**The twelve months are a promise, not a job.**~~ Fixed (phase 7.27): a
+  scheduled Netlify function removes the requests that are older than
+  twelve months, every night at four o'clock (UTC). Klusbaas can also do
+  it by hand with the button "Ruim oude aanvragen op" in `/klusbaas`. Two
+  things remain: the job only runs for a published deploy (not for a
+  preview), and a request without a date is never removed, because we do
+  not know how old it is.
 
 ## Accounts, passwords and verification
 
@@ -146,7 +153,11 @@ to [ROADMAP.md](../ROADMAP.md).
   assistant) cannot be added without handing over the same password.
 - **The overview lists, it does not act.** It shows the requests, the offers
   and the sites, and Klusbaas can mark an offer as paid. There is no
-  newsletter list, no search, no export and no way to delete a request.
+  newsletter list and no way to delete a request. Searching and exporting
+  are there since phase 7.26: one search field over the requests, the
+  offers, the sites and the accounts, and a CSV export of the requests or
+  the offers that are on screen. The search runs in the browser, so it
+  looks at what the overview already loaded.
 - **A request has a status, but nobody is reminded.** Klusbaas and the
   craftsman can both say what they did with a request ("gebeld", "offerte
   gestuurd"), and the overview can filter on what is still open. Nothing
@@ -280,10 +291,14 @@ to [ROADMAP.md](../ROADMAP.md).
   thomascliphero@gmail.com (`PRIVACY_CONTACT_EMAIL`); vervang het door een
   klusbaas.nl-adres zodra dat bestaat. Laat de tekst eenmalig juridisch
   checken.
-- **Bewaartermijnen worden niet automatisch afgedwongen.** Onbevestigde
-  nieuwsbriefaanmeldingen werken na 30 dagen niet meer, maar er is geen
-  geplande taak die oude leads, offertes of aanmeldingen verwijdert; dat is
-  handwerk in Netlify Blobs.
+- ~~**Bewaartermijnen worden niet automatisch afgedwongen.**~~ Half
+  gefixt (phase 7.27): de aanvragen ouder dan twaalf maanden worden
+  iedere nacht verwijderd (geplande functie). Wat nog met de hand gaat:
+  offertes (die hebben een fiscale bewaarplicht van zeven jaar), de
+  onbevestigde nieuwsbriefaanmeldingen (die werken na 30 dagen niet meer,
+  maar het bestand groeit door) en de klantwervingslijst in
+  `public/kaart/leads.json` (een werkbestand op de computer van Klusbaas:
+  wie "nee" zegt, wordt daar met de hand uit gehaald).
 - **Nieuwsbrief versturen is nog handwerk.** Er is alleen aanmelden,
   bevestigen en afmelden. Versturen gebeurt via Resend Broadcasts op de
   Audience (`RESEND_AUDIENCE_ID`); zonder Audience staat de lijst alleen in

@@ -14,6 +14,7 @@ import type {
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
 import { isRequestStatus } from '../utils/lead';
+import { runRetention } from './retention';
 import { QUOTE_VALID_DAYS, addDaysIso, buildQuotePath, isQuoteExpired } from '../utils/quote';
 import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
@@ -49,7 +50,8 @@ export type AdminAction =
   | 'service-stop'
   | 'service-invoice'
   | 'delivery'
-  | 'lead-status';
+  | 'lead-status'
+  | 'retention';
 
 export interface AdminRequestBody extends OfferRequest {
   action?: AdminAction;
@@ -85,6 +87,8 @@ export interface AdminResponseBody {
   serviceMailStatus?: string;
   /** The checklist of the offer, after a change. */
   delivery?: DeliveryItem[];
+  /** How many requests the clean-up removed, and how many stay. */
+  retention?: { removed: number; kept: number };
   /** The new validity date of an extended offer. */
   validUntil?: string;
   error?: string;
@@ -211,6 +215,7 @@ function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
     totalCents: quote.totalCents,
     url: buildQuotePath(quote.id, quote.token),
     customerName: quote.customer.owner,
+    ...(quote.customer.biz ? { customerBiz: quote.customer.biz } : {}),
     ...(quote.customer.email ? { customerEmail: quote.customer.email } : {}),
     customerPhone: quote.customer.phone,
     city: quote.customer.city,
@@ -527,6 +532,18 @@ export async function handleAdmin(
     }
     log(`[admin] aanvraag ${reference} staat nu op ${status}`);
     return { status: 200, body: { ok: true, lead: updated } };
+  }
+
+  if (action === 'retention') {
+    // De bewaartermijn van de aanvragen: alles ouder dan twaalf maanden
+    // gaat weg, zoals de privacyverklaring belooft. De server doet dit
+    // iedere nacht ook zelf; deze knop is de handmatige fallback.
+    const result = await runRetention({ leads: deps.leads }, deps.now ? deps.now() : Date.now());
+    log(`[admin] ${result.removed} aanvragen opgeruimd, ${result.kept} blijven`);
+    return {
+      status: 200,
+      body: { ok: true, retention: { removed: result.removed, kept: result.kept } },
+    };
   }
 
   if (action === 'delivery') {

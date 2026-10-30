@@ -30,6 +30,8 @@ export interface AdminResult {
   serviceMailStatus?: string;
   /** The new validity date of an extended offer. */
   validUntil?: string;
+  /** How many requests the clean-up removed, and how many stay. */
+  retention?: { removed: number; kept: number };
   error?: string;
   field?: string;
 }
@@ -159,6 +161,15 @@ export function setDeliveryStep(id: string, itemId: string, done: boolean): Prom
  */
 export function setLeadStatus(reference: string, status: RequestStatus): Promise<AdminResult> {
   return post({ action: 'lead-status', reference, leadStatus: status });
+}
+
+/**
+ * Remove the requests that are older than twelve months. The server does
+ * this every night by itself; this is the button for the case where that
+ * did not happen.
+ */
+export function cleanUpOldRequests(): Promise<AdminResult> {
+  return post({ action: 'retention' });
 }
 
 export type { AdminCreatedQuote, AdminOverview, AdminQuote, AdminSite, StoredLead };

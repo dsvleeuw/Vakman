@@ -228,6 +228,31 @@ test('Klusbaas maakt een offerte voor een klant met een account en een site', as
   assert.ok(quotes[0].lines.some((line) => line.id === 'trust-bar'));
 });
 
+test('een klant zonder site krijgt de offerte toch in zijn account', async () => {
+  // Klusbaas typt alleen het e-mailadres: de klant heeft een account, maar
+  // nog geen gepubliceerde site. De offerte hoort dan toch bij zijn account.
+  const { deps: d } = deps();
+
+  const result = await createOfferForCustomer(
+    {
+      email: 'jan@jansen.nl',
+      plan: 'pro',
+      biz: 'Jansen Schilderwerken',
+      owner: 'Jan Jansen',
+      phone: '0612345678',
+      city: 'Haarlem',
+      sector: 'schilder',
+      style: 'modern',
+    },
+    d
+  );
+
+  assert.equal(result.ok, true);
+  const quotes = await d.leads.listQuotes();
+  assert.equal(quotes.length, 1);
+  assert.equal(quotes[0].accountId, 'account-1');
+});
+
 test('de klant krijgt de offerte per mail, met de PDF erbij', async () => {
   const { deps: d, mails, leads } = deps();
 
