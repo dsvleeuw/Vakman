@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Klusbaas ziet of de site klaar is om te verkopen.** Het overzicht in
+  `/klusbaas` controleert de vier dingen die bepalen of een bestelling
+  zonder handwerk rondkomt: het IBAN in de offertes, de gegevens op de
+  factuur, de mail die echt de deur uit gaat en het wachtwoord op het
+  overzicht. Wat er nog mis is, staat bovenin, met de reden.
 - **De prijzenpagina zegt wat een pakket is.** De klant vult zijn site
   zelf in, in zijn eigen editor; een pakket is de aflegging: Klusbaas
   nakijkt de teksten, foto's en kleuren, controleert de vindbaarheid,

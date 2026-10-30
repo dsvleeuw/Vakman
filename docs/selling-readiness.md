@@ -71,6 +71,9 @@ on `main`; the commands to re-measure them are at the bottom.
     thing everywhere: he fills in his own site himself, and a package is
     the delivery — Klusbaas checks the work, registers the domain and
     hands the site over within two weeks (phase 7.18).
+24. Before the first order, Klusbaas sees in his overview whether the
+    deployment is complete: the IBAN, the invoice details, the mail and the
+    password (phase 7.19).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -113,6 +116,7 @@ there is no payment provider (still open).
 | 27 | The customer does not see what happens with his site | the offer carried a price and a status, nothing about the work itself; "binnen twee weken opgeleverd" was a sentence on the price list | After he paid, the customer had to ask Klusbaas what the status was, and Klusbaas had no list of what was still to do per order. Every offer now carries the checklist of the package; Klusbaas ticks it off and the customer sees the same list | **fixed (7.16)** |
 | 28 | The answers of the FAQ only appear after a click | the FAQ was a button with `useState`: the answer was painted only after a click, so the prerendered homepage had the questions but not the answers. A visitor without JavaScript never read an answer, and a search engine had to guess | The questions a craftsman asks most (price, ownership, delivery time) were invisible in the page that should answer them | The FAQ is a native `<details>` now: every answer stands in the HTML of the build | **fixed (7.17)** |
 | 29 | The price list does not say what a package is | the customer fills in his own site in his own editor, without paying, but the price list sold "a website". He finds out in the editor that he could have done it himself, and the price of € 595 looks like a bait and switch | The sale is won or lost in that moment: either he buys a delivery he did not know he was buying, or he feels tricked and walks away | The pricing page and the FAQ say what a package is: the delivery (check the texts, photos, colours and findability, deliver within two weeks, register the domain in Pro and Premium) | **fixed (7.18)** |
+| 30 | A missing setting in the deployment is only noticed by a customer | without `PAYMENT_IBAN` the offers have no payment details, without a mail key nobody receives an offer and without the invoice details the invoice is incomplete. Klusbaas is not a developer and does not check the environment of the deployment | The first customer waits for a reply that never comes, because the fault is invisible from the outside | The overview in `/klusbaas` checks the four things that decide whether an order works without manual work | **fixed (7.19)** |
 
 
 The status column says what has been done since the audit was written
@@ -284,6 +288,10 @@ grep -n "<details" src/components/FaqSection.tsx | head -1
 # 29: de prijzenpagina zegt wat een pakket is
 bun test src/components/claims.test.tsx
 grep -n "PACKAGE_DELIVERY_NOTE" src/data/marketing.ts | head -1
+
+# 30: het overzicht laat zien of de site klaar is om te verkopen
+bun test src/server/adminHandler.test.ts
+grep -n "buildConfig" src/server/adminHandler.ts | head -1
 
 # and the checks that must stay green
 bun run check

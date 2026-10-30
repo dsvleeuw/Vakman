@@ -159,6 +159,36 @@ function deps(overrides: { password?: string | undefined } = {}) {
   };
 }
 
+test('het overzicht laat zien wat er nog mis is voor de eerste verkoop', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  const result = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+
+  const config = result.body.overview?.config;
+  assert.ok(config);
+  assert.equal(config.ready, false);
+  const checks = Object.fromEntries(config.checks.map((check) => [check.id, check.ok]));
+  assert.equal(checks.payment, false, 'zonder IBAN kan de klant niet betalen');
+  assert.equal(checks.invoice, false, 'zonder adres is de factuur niet compleet');
+  assert.equal(checks.mail, false, 'zonder sleutel gaat er geen mail uit');
+  assert.equal(checks.password, true, 'het wachtwoord staat er');
+  // De klant hoort niet te horen wat er mis is; Klusbaas wel.
+  assert.ok(config.checks.every((check) => check.detail.length > 10));
+});
+
+test('met IBAN, factuurgegevens en mail is het overzicht klaar voor verkoop', async () => {
+  const d = {
+    ...deps(),
+    mailReady: true,
+    invoice: { name: 'Klusbaas', address: 'Straat 1, Haarlem', email: 'info@klusbaas.nl' },
+    payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+  };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  const result = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+
+  assert.equal(result.body.overview?.config.ready, true);
+});
+
 test('zonder beheerderswachtwoord is het overzicht gesloten', async () => {
   const result = await handleAdmin({ action: 'login', password: 'geheim' }, deps({ password: '' }), null, false);
   assert.equal(result.status, 503);

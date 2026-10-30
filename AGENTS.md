@@ -183,6 +183,11 @@ result. The Netlify deploy preview is the only external CI check. If
   are his own. `src/components/claims.test.tsx` keeps the old promises out;
   the copy of the pages lives in `src/data/marketing.ts` so a test can read
   it.
+- The overview in `/klusbaas` checks whether the deployment is complete
+  (`buildConfig` in `server/adminHandler.ts`): the IBAN, the invoice
+  details, the mail and the password. What is missing stands at the top of
+  the overview. Keep the checks in step with the environment variables in
+  `.env.example`.
 - A package is the delivery, not the site: the customer fills in his own
   site in his own editor, a package is that Klusbaas checks the work,
   registers the domain (Pro and Premium) and delivers within two weeks.

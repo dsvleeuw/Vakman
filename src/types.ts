@@ -663,6 +663,22 @@ export interface AdminOverview {
   leads: StoredLead[];
   quotes: AdminQuote[];
   accounts: AdminAccount[];
+  /** What still stands between the site and the first order. */
+  config: AdminConfig;
+}
+
+/** One thing to check before selling: is it ready, and if not, why not. */
+export interface AdminConfigCheck {
+  id: string;
+  label: string;
+  ok: boolean;
+  detail: string;
+}
+
+export interface AdminConfig {
+  /** True when a customer can order, pay and receive without a manual step. */
+  ready: boolean;
+  checks: AdminConfigCheck[];
 }
 
 export interface StoredLead {
