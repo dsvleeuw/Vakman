@@ -9,6 +9,7 @@ Alle backend logica draait als Netlify Functions (of Vite dev middleware). Geen 
 | `leadHandler.ts` | `POST /api/lead` — Ontvangt leads van demo sites & wizard, valideert, stuurt mails, slaat op in Blobs/.data |
 | `adminHandler.ts` | `POST /api/admin` — Het Klusbaas-overzicht: inloggen, aanvragen, offertes, sites, en zelf een offerte maken |
 | `adminOffer.ts` | Een offerte die Klusbaas zelf schrijft: offerte-record met PDF, gekoppeld aan het account van de klant en per mail verstuurd |
+| `quoteRequest.ts` | `POST /api/quote/request` — De klant vraagt zelf een offerte aan in de site-editor: de aanvraag wordt opgeslagen en hij krijgt een echte offerte in zijn account |
 | `accountHandler.ts` | `POST /api/account` — Registreren, inloggen, account, sites, aanvragen, offertes, koppelen |
 | `siteHandler.ts` | `POST /api/site` — Publiceren en lezen van een klantsite |
 | `mediaHandler.ts` | `POST/GET /api/media` — Foto's van de vakman opslaan en serveren (max. 1,5 MB, 30 uploads per uur per IP) |
@@ -127,6 +128,33 @@ Klusbaas markeert een offerte als betaald, nadat hij zijn bankrekening heeft
 gecontroleerd. De melding staat op de offerte (`paymentReportedAt`) en komt
 als mail binnen (`server/paymentNotice.ts`,
 `buildPaymentReportedEmail`).
+
+## De klant vraagt zelf een offerte aan
+
+`POST /api/quote/request` met `{ plan, addons, message, sector, style,
+services, form, siteSlug }`: de klant vraagt in de site-editor om een
+prijs. De sessiecookie zegt wie er vraagt; de body zegt wat hij wil.
+
+1. `accountFromSession` — zonder account wordt de aanvraag geweigerd (401):
+   een offerte zonder account zou nergens staan.
+2. De aanvraag wordt eerst opgeslagen (`L-XXXXXX`, type `offerte-aanvraag`):
+   een aanvraag mag nooit stil verdwijnen, ook niet als er daarna iets
+   misgaat. Het bericht van de klant gaat mee.
+3. De offerte wordt gebouwd (`utils/quote.ts`), met een nummer (`KB-<jaar>-<nr>`),
+   de prijzen uit de catalogus, de PDF (`quotePdf.ts`) en de koppeling met
+   het account van de klant. De offerte onthoudt de aanvraag
+   (`leadReference`), zodat het overzicht laat zien welke offerte er al is.
+4. Klusbaas krijgt een mail met de aanvraag en de PDF; de klant krijgt een
+   mail met de offerte, de PDF en de link naar zijn account
+   (`utils/leadEmail.ts`, `buildOfferRequestEmail`).
+5. De klant vindt de offerte in `/mijn-account`, met de status en de
+   betaalgegevens. De aanvraag staat in `/klusbaas`, met de woorden van de
+   klant.
+
+De prijs komt uit `data/plans.ts` en `data/addons.ts`: de klant kiest zelf,
+en er wordt niets verzonnen. Klusbaas schrijft een andere prijs door de
+eerste offerte te annuleren en een nieuwe te maken; die nieuwe offerte
+blijft aan dezelfde aanvraag hangen.
 
 ## Tests
 

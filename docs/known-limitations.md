@@ -88,6 +88,17 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The craftsman cannot delete or export his requests.** Under the AVG a
   customer can ask for that; today Klusbaas has to do it by hand.
 
+- **The customer asks for an offer himself, in his own site editor.** The
+  editor has a tab "Offerte": he picks a package and the extra components,
+  sees what it costs and gets a real offer (number, PDF, price, thirty days
+  valid) in his account and by mail. The request is stored as well, so
+  Klusbaas sees what the customer wants and which offer belongs to it.
+  Three things stay as they are: only a logged-in customer can ask (an offer
+  without an account would float), the price comes from the catalogue, so a
+  different price means Klusbaas cancels the first offer and writes a new
+  one, and the limit is five offers per hour per customer (in memory, per
+  function instance).
+
 ## The welcome mail after publishing
 
 - **The mail only goes out once**, after the first publish. A change in the

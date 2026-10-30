@@ -176,6 +176,15 @@ result. The Netlify deploy preview is the only external CI check. If
   to the customer's account (so he sees it in `/mijn-account`) and it is
   mailed with the PDF attached. An offer for a customer who only made an
   account is the order and the invoice; there is no separate order step.
+- The customer asks for an offer himself, in his own site editor
+  (`POST /api/quote/request` → `server/quoteRequest.ts`, tab "Offerte" in
+  `components/editor/OfferteTab.tsx`). He picks the package and the extra
+  components himself and sees the price right away; the prices come from
+  `data/plans.ts` and `data/addons.ts`, never from the server. The request
+  is stored first (so it can never disappear silently) and the offer it
+  produces remembers it (`leadReference`), stands in the customer's account
+  and is mailed with the PDF. Only a logged-in customer can ask: an offer
+  without an account would float.
 - The price calculator and the postcode check are tools with numbers, so
   they only go on a published page when the craftsman filled them in:
   `content.services` (his own services with a price, `utils/services.ts`) and

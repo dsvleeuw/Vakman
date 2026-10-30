@@ -168,6 +168,8 @@ is the only networked write path and requires Firebase OAuth.
 | Customer account (e-mail, password hash) | `accounts` in Netlify Blobs, `.data/accounts` in dev | Until the account is deleted |
 | Session of a logged-in customer | `sessions` in the same store, `.data/sessions` in dev; the id travels in the cookie `klusbaas_session` | 30 days |
 | Published site | `sites` in Netlify Blobs, `.data/sites` in dev | Until the site is replaced |
+| Offer (offerte) | `quotes` in Netlify Blobs, `.data/quotes` in dev | Until it is deleted by hand; the price is only valid for 30 days |
+| Request (aanvraag), including the customer's own offer request | `leads` in Netlify Blobs, `.data/leads` in dev | Until it is deleted by hand |
 
 ## Accounts and sessions
 
@@ -196,6 +198,26 @@ keeps working for sites that were published before accounts existed.
 `src/server/accountHandler.ts` holds the logic, `src/server/storage.ts` the
 two storages (Blobs in production, files in dev), `src/utils/accountClient.ts`
 the client calls.
+
+## Offers and requests
+
+An offer and a request are two different things, stored in two different
+stores, and they are linked to each other.
+
+1. A request (`StoredLead`) is what a visitor or a customer sent: a form on
+   a site, or the customer asking for a price himself
+   (`POST /api/quote/request` → `src/server/quoteRequest.ts`). It carries
+   the reference `L-XXXXXX` and the fields of the form.
+2. An offer (`QuoteRecord`) is the order: a number (`KB-<jaar>-<nr>`), a
+   price with 21 % VAT, a status (`open`, `accepted`, `paid`, `cancelled`),
+   a PDF and the account of the customer. It is built in
+   `src/utils/quote.ts` and written by `LeadStorage`.
+3. The offer remembers the request it was written for (`leadReference`), so
+   the overview can show at a request which offer exists, and Klusbaas does
+   not write the same offer twice.
+4. The customer sees his offers in `/mijn-account` (`POST /api/account`
+   action `quotes`) and on `/offerte/<id>?token=…`. He accepts and reports
+   the payment himself there; Klusbaas marks the payment as paid.
 
 ## Testing
 

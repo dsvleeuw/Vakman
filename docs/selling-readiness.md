@@ -46,6 +46,10 @@ on `main`; the commands to re-measure them are at the bottom.
     long it has been waiting and can chase the money (phase 7.11).
 17. The customer can say he paid, so Klusbaas does not have to guess whether
     money is coming (phase 7.12).
+18. The customer does not have to ask Klusbaas for a price either: in his
+    own site editor there is a tab "Offerte". He picks a package, sees what
+    it costs right away and gets a real offer in his account, while Klusbaas
+    sees the request with the customer's own words (phase 7.13).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -82,9 +86,10 @@ there is no payment provider (still open).
 | 21 | The customer's "ja" leaves no trace | accepting only changed the status and showed a banner in the browser | When the customer closed his browser the only proof was gone: he had nothing to show his bookkeeper and nothing to remind himself what he agreed to | **fixed (7.10)** |
 | 22 | An accepted offer that is not paid goes quiet | the overview only showed the status `accepted` | The customer said yes, so the sale was real, but the money never arrived and nobody noticed: the IBAN was in a mail the customer had lost, and the order looked finished in the overview | **fixed (7.11)** |
 | 23 | The customer cannot say he paid | there was no way to report a transfer | The customer transferred the money and told nobody: Klusbaas only found out when he happened to look at his bank statement, so a paid order looked unpaid for weeks | **fixed (7.12)** |
+| 24 | The customer cannot ask for an offer himself | `/mijn-account` promised "vraag een offerte aan via de site-editor", but the editor had no such button | The customer had to write a mail or a WhatsApp message to get a price, and the promise in his own account was not true. He now asks in the editor and gets a real offer with a number, a price and a way to pay | **fixed (7.13)** |
 
 The status column says what has been done since the audit was written
-(phases 6.1–6.9 and 7.1–7.12). "Partly fixed" means: an offer can be ordered
+(phases 6.1–6.9 and 7.1–7.13). "Partly fixed" means: an offer can be ordered
 and paid for, but there is no payment provider, no automatic reminder and
 no invoice.
 
@@ -137,6 +142,10 @@ no invoice.
   amount and the IBAN again (phase 7.11).
 - The customer can report that he transferred the money; Klusbaas sees it in
   the overview and checks his bank statement himself (phase 7.12).
+- The customer asks for an offer himself, in his own site editor: he chooses
+  the package and the extra components, sees the price and gets a real
+  offer in his account; the request is stored, so Klusbaas sees what he
+  wants (phase 7.13).
 
 ## Definition of done
 
@@ -151,7 +160,8 @@ customer can accept the offer himself (7.5), a paying customer gets an
 invoice (7.6), an open offer can be followed up (7.7), an expired offer is
 not a promise (7.8), a request remembers its offer (7.9), the customer keeps
 the proof of his own "ja" (7.10), an accepted offer that is not paid does
-not go quiet (7.11), and the customer can report that he paid (7.12).
+not go quiet (7.11), the customer can report that he paid (7.12), and the
+customer can ask for an offer himself (7.13).
 
 ## How to re-measure this
 
@@ -211,6 +221,10 @@ grep -n "remind-payment" src/server/adminHandler.ts | head -1
 
 # 23: de klant kan zeggen dat hij betaald heeft
 grep -n "quote/payment" netlify/functions/quote-payment.mts | head -1
+
+# 24: de klant vraagt zelf een offerte aan
+grep -n "quote/request" netlify/functions/quote-request.mts | head -1
+grep -n "Offerte aanvragen" src/components/editor/OfferteTab.tsx | head -1
 
 # and the checks that must stay green
 bun run check

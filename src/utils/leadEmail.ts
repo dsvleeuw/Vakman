@@ -319,6 +319,111 @@ export function buildOfferEmail(
  * The customer said yes: that is the moment the sale is real. The mail has
  * the name he typed, the offer and what he has to transfer.
  */
+/**
+ * The mail of an offer the customer asked for himself, in his own site
+ * editor (phase 7.13).
+ *
+ * The team mail carries the customer's own words: what he wants Klusbaas to
+ * do. The customer mail carries the offer, the price and the way to pay.
+ */
+export function buildOfferRequestEmail(
+  record: QuoteRecord,
+  audience: 'team' | 'customer',
+  links: {
+    quoteUrl: string;
+    accountUrl?: string;
+    /** What the customer wrote: what he wants Klusbaas to do. */
+    message?: string;
+    payment?: PaymentDetails;
+  }
+): LeadEmail {
+  const siteUrl = new URL(links.quoteUrl).origin;
+  const { customer } = record;
+  const firstName = customer.owner.split(' ')[0] || customer.owner;
+  const message = (links.message ?? '').trim();
+  const subject =
+    audience === 'team'
+      ? `Offerte-aanvraag ${record.id}: ${customer.biz} (${record.planName})`
+      : `Je offerte ${record.id} van Klusbaas`;
+  const intro =
+    audience === 'team'
+      ? `${customer.owner} van ${customer.biz} heeft zelf een offerte aangevraagd in zijn site-editor: pakket ${record.planName}, ${formatEuroCents(record.totalCents)} incl. btw.`
+      : `Hoi ${firstName}, je offerte ${record.id} staat klaar. In de bijlage vind je hem als PDF; hieronder staat dezelfde offerte. In je account staat hij ook, met de status en hoe je betaalt.`;
+
+  const details: Row[] = [
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Contactpersoon', value: customer.owner },
+    { label: 'Telefoon', value: customer.phone },
+    ...(customer.email ? [{ label: 'E-mail', value: customer.email }] : []),
+    { label: 'Plaats', value: customer.city },
+    { label: 'Vak', value: record.sectorName },
+    { label: 'Stijl', value: record.styleName },
+    { label: 'Pakket', value: record.planName },
+    { label: 'Geldig tot', value: formatDutchDate(record.validUntil) },
+    ...(message ? [{ label: 'Wat hij wil', value: message }] : []),
+  ];
+  const services = record.services.length ? record.services : ['Geen diensten gekozen'];
+  const payment = links.payment;
+  const paymentRows: Row[] = payment
+    ? [
+        { label: 'Bankrekening (IBAN)', value: payment.iban },
+        { label: 'Ten name van', value: payment.name },
+        ...(payment.email ? [{ label: 'E-mail', value: payment.email }] : []),
+      ]
+    : [];
+  const actions: Row[] = [{ label: 'Offerte online', value: 'Bekijk offerte', href: links.quoteUrl }];
+  if (links.accountUrl) {
+    actions.push({ label: 'Mijn account', value: 'Open je account', href: links.accountUrl });
+  }
+  const outro =
+    audience === 'team'
+      ? 'De klant vraagt deze offerte zelf aan. Hij vindt hem in zijn account en kan hem daar accepteren en betalen.'
+      : payment
+        ? 'Akkoord of iets wijzigen? Antwoord gewoon op deze mail, of neem hem aan in je account. Je betaalt daarna via bankoverschrijving; je site blijft online, ook als je nog niet betaald hebt.'
+        : 'Akkoord of iets wijzigen? Antwoord gewoon op deze mail, of neem hem aan in je account.';
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    'GEGEVENS',
+    ...textRows(details),
+    '',
+    'DIENSTEN OP DE WEBSITE',
+    ...services.map((service) => `- ${service}`),
+    '',
+    'OFFERTE',
+    ...textRows(quotePriceRows(record)),
+    '',
+    ...textRows(quoteTotalRows(record)),
+    '',
+    ...(paymentRows.length ? ['BETALEN', ...textRows(paymentRows), ''] : []),
+    ...textRows(actions),
+    '',
+    outro,
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections:
+      section('Gegevens', table(details)) +
+      section('Diensten op de website', `<ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.6;">${services.map((service) => `<li>${escapeHtml(service)}</li>`).join('')}</ul>`) +
+      section('Offerte', `${table(quotePriceRows(record))}<hr style="border:0;border-top:1px solid #e7e5e4;margin:12px 0;">${table(quoteTotalRows(record), true)}`) +
+      (paymentRows.length ? section('Betalen', table(paymentRows)) : '') +
+      section('Acties', table(actions)),
+    outro,
+    button: { href: links.quoteUrl, label: 'Bekijk offerte online' },
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
 export function buildAcceptEmail(
   record: QuoteRecord,
   links: { siteUrl?: string } = {}
