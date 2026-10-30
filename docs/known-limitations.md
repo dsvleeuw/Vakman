@@ -351,14 +351,39 @@ to [ROADMAP.md](../ROADMAP.md).
 - Without photos the page shows a transparent placeholder, not a photo of
   somebody else's work.
 
+## The monthly service
+
+- **The service is a real order (phase 7.15).** The customer switches it on
+  in his own account (`/mijn-account`, under "Service & hosting"). He sees
+  what it costs (€ 25 per month without VAT), what is in it and that he can
+  stop it every month. Klusbaas sees the request in `/klusbaas`, switches
+  the service on and sends the monthly invoice.
+- **The monthly invoice is sent by hand.** Every month Klusbaas presses
+  "Stuur de maandfactuur" in `/klusbaas`; the customer gets a mail with the
+  amount (€ 30.25 including VAT), the IBAN and the reference
+  (`SERVICE-<slug>`). Nothing goes out on its own and there is no direct
+  debit: the customer transfers the money himself.
+- **The service is per account, so per site in practice.** A customer with
+  two sites has one service; the code does not split it. In practice a
+  craftsman has one site.
+- **The service needs a published site.** Without a site there is nothing to
+  host, so the request is refused with a clear message.
+- **The free months of a package do not stop by themselves.** The Pro
+  package comes with three months of service; Klusbaas switches that on
+  with the button "Zet de gratis maanden aan" and switches the service off
+  again when the months are over.
+- **Klusbaas still has to hand over the site and the code by hand.** When
+  the customer stops the service, the code says so and the site keeps
+  running, but the export itself is manual work.
+
 ## Promises and packages
 
 - Every line on the pricing page (`src/data/plans.ts`) is either built or
   deliberately removed. What is *not* automatic is still work for Klusbaas
   by hand: an own `.nl` domain is registered per order (the registrar
   costs are the customer's), "three months of service worth € 75" is a
-  promise Klusbaas keeps, and "delivery within two weeks" depends on how
-  fast the customer answers.
+  service state that Klusbaas switches on with one button, and "delivery
+  within two weeks" depends on how fast the customer answers.
 - **The FAQ, "hoe het werkt" and the homepage say the same thing as the
   code.** There is no own `.nl` domain at the moment of publishing, the
   offers of a craftsman live in his own account (not in his Google Drive),

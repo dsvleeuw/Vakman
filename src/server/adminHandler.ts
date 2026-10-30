@@ -12,6 +12,7 @@ import { QUOTE_VALID_DAYS, addDaysIso, buildQuotePath, isQuoteExpired } from '..
 import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
 import { createOfferForCustomer, type OfferRequest } from './adminOffer';
+import { activateService, sendServiceInvoice, stopService } from './adminService';
 import type { AccountMail } from './accountMailer';
 import { sendPaidNotice } from './paidNotice';
 import { remindPayment } from './payReminder';
@@ -37,13 +38,18 @@ export type AdminAction =
   | 'remind-quote'
   | 'remind-payment'
   | 'verify-account'
-  | 'create-quote';
+  | 'create-quote'
+  | 'service-activate'
+  | 'service-stop'
+  | 'service-invoice';
 
 export interface AdminRequestBody extends OfferRequest {
   action?: AdminAction;
   password?: string;
   id?: string;
   status?: QuoteStatus;
+  /** What the customer pays per month for the service, in cents. */
+  amountCents?: number;
 }
 
 export interface AdminResponseBody {
@@ -57,6 +63,8 @@ export interface AdminResponseBody {
   reminderStatus?: string;
   /** What happened with the payment reminder mail. */
   paymentReminderStatus?: string;
+  /** What happened with the mail of the monthly service. */
+  serviceMailStatus?: string;
   /** The new validity date of an extended offer. */
   validUntil?: string;
   error?: string;
@@ -221,6 +229,7 @@ export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
         createdAt: account.createdAt,
         verified: Boolean(account.verifiedAt),
         sites: sites.filter((site) => site.ownerId === account.id).length,
+        ...(account.service ? { service: account.service } : {}),
       }))
     : [];
   return { sites, leads, quotes, accounts };
@@ -432,6 +441,40 @@ export async function handleAdmin(
       };
     }
     return { status: 200, body: { ok: true, quote: result.quote } };
+  }
+
+  if (action === 'service-activate' || action === 'service-stop' || action === 'service-invoice') {
+    // De maandelijkse service van een klant: aanzetten, stoppen of de
+    // maandfactuur sturen. De klant vraagt de service zelf aan in zijn
+    // account; Klusbaas zet hem aan en stuurt elke maand de factuur.
+    const id = typeof body.id === 'string' ? body.id : '';
+    if (!id || !deps.accounts) {
+      return { status: 400, body: { ok: false, error: 'Onbekend account.' } };
+    }
+    const amountCents =
+      typeof body.amountCents === 'number' && body.amountCents >= 0 ? body.amountCents : undefined;
+    const serviceDeps = {
+      accounts: deps.accounts,
+      sites: deps.sites,
+      ...(deps.sendMail ? { sendMail: deps.sendMail } : {}),
+      ...(deps.payment ? { payment: deps.payment } : {}),
+      ...(deps.siteUrl ? { siteUrl: deps.siteUrl } : {}),
+      ...(deps.now ? { now: deps.now } : {}),
+      log,
+    };
+    const result =
+      action === 'service-activate'
+        ? await activateService(id, amountCents, serviceDeps)
+        : action === 'service-stop'
+          ? await stopService(id, serviceDeps)
+          : await sendServiceInvoice(id, serviceDeps);
+    if (!result.ok) {
+      return { status: 400, body: { ok: false, error: result.error } };
+    }
+    return {
+      status: 200,
+      body: { ok: true, ...(result.mailStatus ? { serviceMailStatus: result.mailStatus } : {}) },
+    };
   }
 
   if (action === 'overview') {

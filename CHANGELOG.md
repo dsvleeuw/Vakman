@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De maandelijkse service is een echte bestelling.** De klant zet hem
+  zelf aan in zijn eigen account (`/mijn-account`, onder "Service &
+  hosting"): hij ziet wat erin zit, wat het kost en dat hij hem elk moment
+  kan stoppen. Klusbaas ziet de aanvraag in `/klusbaas`, zet de service aan
+  (de maanden die bij het Pro-pakket horen zijn gratis) en stuurt elke
+  maand de factuur met het bedrag, de IBAN en de omschrijving. De prijs
+  staat in de catalogus (`data/plans.ts`), dus de prijzenpagina, het
+  account, de mail en de factuur kunnen niet uit elkaar lopen. De klant
+  stopt de service zelf; Klusbaas levert dan de site en de code terug.
 - **Elke belofte op de marketingpagina's is waar.** De FAQ beloofde dat je
   site "direct bereikbaar" is met een eigen `.nl`-domein en dat je offertes
   "automatisch" in je Google Drive landen. Geen van beide gebeurt: een

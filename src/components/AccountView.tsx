@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { CheckCircle2, Loader2, LogOut, TriangleAlert } from 'lucide-react';
+import { CheckCircle2, Loader2, LogOut, TriangleAlert, Wrench } from 'lucide-react';
 import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } from '../types';
 import {
+  cancelService,
   claimQuote,
   claimSite,
   fetchAccountLeads,
@@ -14,6 +15,7 @@ import {
   parseQuoteLink,
   registerAccount,
   requestPasswordReset,
+  requestService,
   resendVerification,
   resetPassword,
   verifyEmail,
@@ -21,6 +23,8 @@ import {
 } from '../utils/accountClient';
 import { formatEuroCents, type QuoteStatus } from '../utils/quote';
 import { acceptQuote, reportPayment } from '../utils/quoteClient';
+import { SERVICE_FEATURES, SERVICE_LABEL } from '../data/plans';
+import { serviceAmountLabel, servicePriceText, serviceSinceText } from '../utils/service';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 import { SiteFooter } from './SiteFooter';
@@ -532,6 +536,38 @@ export const AccountView: React.FC = () => {
     setNotice(site ? 'Je site is nu gekoppeld aan je account.' : 'Je offerte is nu gekoppeld aan je account.');
   };
 
+  const handleServiceRequest = async () => {
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    const result = await requestService();
+    setBusy(false);
+    if (!result.ok || !result.account) {
+      setError(result.error ?? 'Dat is niet gelukt. Probeer het opnieuw.');
+      return;
+    }
+    setAccount(result.account);
+    setNotice(
+      'Je aanvraag staat bij Klusbaas. Hij zet de service aan en stuurt je de eerste factuur.'
+    );
+  };
+
+  const handleServiceCancel = async () => {
+    setBusy(true);
+    setError(null);
+    setNotice(null);
+    const result = await cancelService();
+    setBusy(false);
+    if (!result.ok || !result.account) {
+      setError(result.error ?? 'Dat is niet gelukt. Probeer het opnieuw.');
+      return;
+    }
+    setAccount(result.account);
+    setNotice(
+      'Je service is gestopt. Klusbaas levert de site en de code aan je terug.'
+    );
+  };
+
   if (loading) {
     return (
       <AccountLayout>
@@ -854,6 +890,87 @@ export const AccountView: React.FC = () => {
               ))}
             </ul>
           )}
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="m-0 text-xl font-black tracking-tight flex items-center gap-2">
+            <Wrench className="w-5 h-5" aria-hidden="true" />
+            {SERVICE_LABEL}
+          </h2>
+          <div className="rounded-2xl bg-white border border-stone-200 p-6 flex flex-col gap-4">
+            {account.service ? (
+              <>
+                {account.service.status === 'active' && (
+                  <p className="m-0 text-stone-700 leading-relaxed">
+                    Je service staat aan {serviceSinceText(account.service)}. Je betaalt{' '}
+                    {serviceAmountLabel(account.service)}. Hosting, SSL, updates, support en één
+                    aanpassing per maand.
+                  </p>
+                )}
+                {account.service.status === 'requested' && (
+                  <p className="m-0 text-stone-700 leading-relaxed">
+                    Je aanvraag staat bij Klusbaas. Hij zet de service aan en stuurt je de eerste
+                    factuur van {servicePriceText()}.
+                  </p>
+                )}
+                {account.service.status === 'stopped' && (
+                  <p className="m-0 text-stone-700 leading-relaxed">
+                    Je service is gestopt. Klusbaas levert de site en de code aan je terug, zodat je
+                    hem altijd mee kunt nemen naar een andere partij.
+                  </p>
+                )}
+                {account.service.status === 'active' ? (
+                  <button
+                    type="button"
+                    onClick={handleServiceCancel}
+                    disabled={busy}
+                    className="h-11 px-4 rounded-full border border-stone-300 hover:bg-stone-100 disabled:opacity-60 text-stone-900 font-bold text-sm inline-flex items-center justify-center self-start"
+                  >
+                    Stop de service
+                  </button>
+                ) : account.service.status === 'stopped' ? (
+                  <button
+                    type="button"
+                    onClick={handleServiceRequest}
+                    disabled={busy}
+                    className="h-11 px-4 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold text-sm inline-flex items-center justify-center self-start"
+                  >
+                    Start de service opnieuw
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              <>
+                <p className="m-0 text-stone-700 leading-relaxed">
+                  {servicePriceText()} voor hosting, SSL, updates, support en één aanpassing per
+                  maand. Je site en de code blijven van jou; stop je met de service, dan levert
+                  Klusbaas de site en de code aan je terug.
+                </p>
+                <ul className="m-0 p-0 list-none grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {SERVICE_FEATURES.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm text-stone-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" aria-hidden="true" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                {sites.length === 0 ? (
+                  <p className="m-0 text-sm text-stone-600">
+                    De service draait om je eigen site. Publiceer eerst je site in de editor, dan komt
+                    de service hier.
+                  </p>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={handleServiceRequest}
+                  disabled={busy || sites.length === 0}
+                  className="h-11 px-4 rounded-full bg-stone-900 hover:bg-stone-800 disabled:opacity-60 text-white font-bold text-sm inline-flex items-center justify-center self-start"
+                >
+                  Activeer de service
+                </button>
+              </>
+            )}
+          </div>
         </section>
 
         <section className="flex flex-col gap-4">

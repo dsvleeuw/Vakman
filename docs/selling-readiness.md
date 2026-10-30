@@ -54,6 +54,11 @@ on `main`; the commands to re-measure them are at the bottom.
     registered per order (not at the click of a button), the offers of a
     craftsman live in his own account (not in his Google Drive), and the
     photos and the prices on a customer site are his own (phase 7.14).
+20. The customer can also keep Klusbaas on the hook afterwards: in his own
+    account he switches the monthly service on (hosting, SSL, updates,
+    support, one change a month) and stops it himself when he wants to.
+    Klusbaas sees who has it, switches it on and sends the monthly invoice
+    with the amount, the IBAN and the reference (phase 7.15).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -92,6 +97,7 @@ there is no payment provider (still open).
 | 23 | The customer cannot say he paid | there was no way to report a transfer | The customer transferred the money and told nobody: Klusbaas only found out when he happened to look at his bank statement, so a paid order looked unpaid for weeks | **fixed (7.12)** |
 | 24 | The customer cannot ask for an offer himself | `/mijn-account` promised "vraag een offerte aan via de site-editor", but the editor had no such button | The customer had to write a mail or a WhatsApp message to get a price, and the promise in his own account was not true. He now asks in the editor and gets a real offer with a number, a price and a way to pay | **fixed (7.13)** |
 | 25 | The marketing pages promise things that are not built | `src/components/FaqSection.tsx` promised an own `.nl` domain at the moment of publishing and automatic offers in Google Drive; `HowItWorks.tsx` promised an own domain; the homepage promised example photos and prices as if they were the customer's | A customer who reads the FAQ before he buys is told something that does not happen. The first impression is where the sale is won or lost | **fixed (7.14)** |
+| 26 | The monthly service cannot be ordered | `src/data/plans.ts` had no service price, the pricing page offered a service of € 25 per month that could only be asked for by mail, and nothing tracked who had it | A customer who wanted hosting, updates and support had no way to buy it, and Klusbaas had no list of the customers who pay monthly. The service is now a real order: the customer switches it on in his account, Klusbaas confirms it and sends the monthly invoice, and the customer stops it himself | **fixed (7.15)** |
 
 
 The status column says what has been done since the audit was written
@@ -155,6 +161,9 @@ no invoice.
 - Every promise on the marketing pages is built: the FAQ, "hoe het werkt"
   and the homepage say what really happens (phase 7.14). A test keeps the
   old promises out.
+- The monthly service is a real order: the customer switches it on in his
+  own account, Klusbaas sees it, switches it on and sends the monthly
+  invoice; the customer stops it himself (phase 7.15).
 
 ## Definition of done
 
@@ -170,8 +179,9 @@ invoice (7.6), an open offer can be followed up (7.7), an expired offer is
 not a promise (7.8), a request remembers its offer (7.9), the customer keeps
 the proof of his own "ja" (7.10), an accepted offer that is not paid does
 not go quiet (7.11), the customer can report that he paid (7.12), and the
-customer can ask for an offer himself (7.13), and every promise on the
-marketing pages is true (7.14).
+customer can ask for an offer himself (7.13), every promise on the
+marketing pages is true (7.14), and the monthly service is a real order
+that the customer can also stop himself (7.15).
 
 ## How to re-measure this
 
@@ -239,6 +249,11 @@ grep -n "Offerte aanvragen" src/components/editor/OfferteTab.tsx | head -1
 # 25: elke belofte op de marketingpagina's is waar
 bun test src/components/claims.test.tsx
 grep -n "per opdracht" src/components/FaqSection.tsx | head -1
+
+# 26: de maandelijkse service is een echte bestelling
+bun test src/server/service.test.ts
+grep -n "service-request" src/server/accountHandler.ts | head -1
+grep -n "SERVICE_PRICE" src/data/plans.ts | head -1
 
 # and the checks that must stay green
 bun run check

@@ -183,6 +183,16 @@ result. The Netlify deploy preview is the only external CI check. If
   are his own. `src/components/claims.test.tsx` keeps the old promises out;
   the copy of the pages lives in `src/data/marketing.ts` so a test can read
   it.
+- The monthly service is a real order (phase 7.15). The customer switches
+  it on in his own account (`POST /api/account` with `action:
+  'service-request'`) and stops it himself (`'service-cancel'`); the state
+  lives on the account (`Account.service`). Klusbaas sees it in `/klusbaas`
+  (`action: 'service-activate'`, `'service-stop'`, `'service-invoice'` →
+  `server/adminService.ts`) and sends the monthly invoice with the amount,
+  the IBAN and the reference `SERVICE-<slug>`. The price comes from
+  `data/plans.ts` (`SERVICE_PRICE`), never from the server, so the pricing
+  page, the account, the mail and the invoice cannot drift apart. The
+  invoice is sent by hand every month; nothing goes out on its own.
 - The customer asks for an offer himself, in his own site editor
   (`POST /api/quote/request` → `server/quoteRequest.ts`, tab "Offerte" in
   `components/editor/OfferteTab.tsx`). He picks the package and the extra

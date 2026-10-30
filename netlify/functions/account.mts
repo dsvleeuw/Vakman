@@ -38,6 +38,8 @@ export default async (req: Request): Promise<Response> => {
       leads,
       sendMail,
       siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
+      // Mails over de maandelijkse service gaan naar de inbox van Klusbaas.
+      notifyEmail: process.env.QUOTE_NOTIFY_EMAIL,
       // De offertes van de klant staan in dezelfde opslag als de aanvragen.
       quotes: leads,
       ...(payment ? { payment } : {}),

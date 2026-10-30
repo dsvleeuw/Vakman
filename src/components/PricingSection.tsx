@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Check, ShieldCheck, ArrowRight, MessageCircle, Wrench } from 'lucide-react';
 import type { PlanId } from '../types';
-import { PLANS } from '../data/plans';
+import { PLANS, SERVICE_FEATURES, SERVICE_LABEL, SERVICE_PRICE } from '../data/plans';
 import { formatPrice } from '../utils/pricing';
 import { track } from '../utils/analytics';
+import { RouteLink } from './RouteLink';
 
 interface PricingSectionProps {
   /** Called with the plan the visitor clicked so it can travel in the URL. */
@@ -13,12 +14,6 @@ interface PricingSectionProps {
 /** Platform pricing for Klusbaas itself (the tradesperson's customer-facing
  *  prices live in the per-sector PriceCalculator). The plans themselves live
  *  in `data/plans.ts` so the wizard can show the chosen package too. */
-export const SERVICE_FEATURES = [
-  'Hosting en SSL inbegrepen',
-  'Doorontwikkeling en beveiligingsupdates',
-  'Eén aanpassing per maand inbegrepen',
-  'Whatsapp-support binnen één werkdag',
-];
 
 export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
   const [expandedPlans, setExpandedPlans] = useState(false);
@@ -38,7 +33,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
           </h2>
           <p className="text-stone-600 text-base sm:text-lg m-0 leading-relaxed">
             Drie complete pakketten, allemaal eenmalig en exclusief btw.
-            Daarna kun je door met de optionele service van € 25 per maand —
+            Daarna kun je door met de optionele service van {formatPrice(SERVICE_PRICE)} per maand —
             maandelijks opzegbaar.
           </p>
         </div>
@@ -171,11 +166,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
               Optioneel
             </span>
             <h3 className="text-2xl font-black text-stone-900 m-0">
-              Service &amp; hosting
+              {SERVICE_LABEL}
             </h3>
             <div className="flex items-baseline gap-1.5">
               <span className="text-3xl font-black text-stone-900 tabular-nums">
-                {formatPrice(25)}
+                {formatPrice(SERVICE_PRICE)}
               </span>
               <span className="text-sm font-semibold text-stone-500">
                 per maand, excl. btw
@@ -190,14 +185,18 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
               </li>
             ))}
           </ul>
-          <div className="lg:col-span-3 flex lg:justify-end">
-            <button
-              onClick={() => onStart()}
-              className="h-12 px-6 rounded-full border-2 border-stone-900 bg-white hover:bg-stone-900 hover:text-white text-stone-900 font-bold text-sm cursor-pointer transition-colors flex items-center gap-2"
+          <div className="lg:col-span-3 flex flex-col gap-2 lg:items-end">
+            <RouteLink
+              route={{ name: 'account' }}
+              className="h-12 px-6 rounded-full border-2 border-stone-900 bg-white hover:bg-stone-900 hover:text-white text-stone-900 font-bold text-sm transition-colors inline-flex items-center justify-center gap-2 no-underline"
             >
               <MessageCircle className="w-4 h-4" />
-              Vraag het aan
-            </button>
+              Activeer in je account
+            </RouteLink>
+            <p className="m-0 text-xs text-stone-500 lg:text-right">
+              Heb je al een site? Dan zet je de service zelf aan in je account. Nog geen site? Kies
+              een pakket hierboven — de eerste maanden service zitten erin.
+            </p>
           </div>
         </div>
 
@@ -220,7 +219,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
 
         <p className="text-xs text-stone-400 m-0 text-center">
           Alle eenmalige bedragen zijn exclusief btw. De maandelijkse service
-          van € 25 is exclusief btw en maandelijks opzegbaar. Je complete
+          van {formatPrice(SERVICE_PRICE)} is exclusief btw en maandelijks opzegbaar. Je complete
           website wordt binnen 2 weken opgeleverd.
         </p>
       </div>

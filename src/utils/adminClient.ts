@@ -25,6 +25,8 @@ export interface AdminResult {
   reminderStatus?: string;
   /** What happened with the payment reminder mail. */
   paymentReminderStatus?: string;
+  /** What happened with the mail of the monthly service. */
+  serviceMailStatus?: string;
   /** The new validity date of an extended offer. */
   validUntil?: string;
   error?: string;
@@ -122,6 +124,24 @@ export interface OfferInput {
 
 export function createQuote(input: OfferInput): Promise<AdminResult> {
   return post({ action: 'create-quote', ...input });
+}
+
+/**
+ * Switch the monthly service on for a customer. The amount is what he pays
+ * per month; `0` is used for the months that come with a package.
+ */
+export function activateService(id: string, amountCents?: number): Promise<AdminResult> {
+  return post({ action: 'service-activate', id, ...(amountCents === undefined ? {} : { amountCents }) });
+}
+
+/** Stop the monthly service of a customer: the site and the code go back to him. */
+export function stopService(id: string): Promise<AdminResult> {
+  return post({ action: 'service-stop', id });
+}
+
+/** Send the monthly invoice of the service to a customer. */
+export function sendServiceInvoice(id: string): Promise<AdminResult> {
+  return post({ action: 'service-invoice', id });
 }
 
 export type { AdminCreatedQuote, AdminOverview, AdminQuote, AdminSite, StoredLead };

@@ -172,6 +172,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             quotes: createFileStorage(path.resolve(__dirname, '.data')),
             sendMail,
             siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+            // Mails over de maandelijkse service gaan naar de inbox van Klusbaas.
+            notifyEmail: env.QUOTE_NOTIFY_EMAIL,
             ...(payment ? { payment } : {}),
           },
           req.headers.cookie ?? null,

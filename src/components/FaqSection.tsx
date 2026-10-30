@@ -41,7 +41,7 @@ export const DEFAULT_FAQS: FaqItem[] = [
   },
   {
     q: 'Kan ik de maandelijkse service opzeggen?',
-    a: 'Ja, de service van € 25 per maand is maandelijks opzegbaar. Je website blijft daarna van jou; we leveren desnoods de complete code en je domeinnaam op, zonder opzegboete.',
+    a: 'Ja, de service van € 25 per maand is maandelijks opzegbaar. Je zet hem zelf uit in je account, onder "Service & hosting". Je website blijft daarna van jou; we leveren de complete code en je domeinnaam op, zonder opzegboete.',
   },
 ];
 
