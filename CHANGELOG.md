@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De prijzenpagina zegt wat een pakket is.** De klant vult zijn site
+  zelf in, in zijn eigen editor; een pakket is de aflegging: Klusbaas
+  nakijkt de teksten, foto's en kleuren, controleert de vindbaarheid,
+  levert binnen twee weken op en registreert bij Pro en Premium het
+  `.nl`-domein. De prijzen zelf veranderen niet. Zo staat op de
+  prijzenpagina wat de klant koopt.
 - **De vragen en antwoorden staan in de pagina.** De FAQ is een native
   accordeon (`<details>`) geworden: elk antwoord staat in de HTML die de
   build schrijft. Een bezoeker zonder JavaScript en een zoekmachine lezen

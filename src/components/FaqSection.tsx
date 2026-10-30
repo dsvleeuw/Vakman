@@ -40,6 +40,10 @@ export const DEFAULT_FAQS: FaqItem[] = [
     a: 'In je eigen account. Onder "Mijn offertes" staat elke offerte met het pakket, de prijs, de status en de betaalwijze, en je kunt de offerte als PDF downloaden. Je hoeft dus geen mail te bewaren om te weten wat het kost.',
   },
   {
+    q: 'Kan ik mijn site ook zelf maken, zonder pakket?',
+    a: 'Ja. In je eigen site-editor vul je je gegevens, teksten, prijzen en foto’s in, en je site staat meteen online op een eigen adres. Een pakket is wat wij daar bovenop doen: wij nakijken je teksten, foto’s en kleuren, controleren je vindbaarheid en leveren je site binnen twee weken op; bij Pro en Premium registreren wij ook je eigen .nl-domein (de kosten van de registrar komen er los bij). Dat kost éénmalig € 595, € 995 of € 1.795, exclusief btw.',
+  },
+  {
     q: 'Kan ik de maandelijkse service opzeggen?',
     a: 'Ja, de service van € 25 per maand is maandelijks opzegbaar. Je zet hem zelf uit in je account, onder "Service & hosting". Je website blijft daarna van jou; we leveren de complete code en je domeinnaam op, zonder opzegboete.',
   },

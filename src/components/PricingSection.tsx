@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check, ShieldCheck, ArrowRight, MessageCircle, Wrench } from 'lucide-react';
 import type { PlanId } from '../types';
+import { PACKAGE_DELIVERY_NOTE } from '../data/marketing';
 import { PLANS, SERVICE_FEATURES, SERVICE_LABEL, SERVICE_PRICE } from '../data/plans';
 import { formatPrice } from '../utils/pricing';
 import { track } from '../utils/analytics';
@@ -35,6 +36,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onStart }) => {
             Drie complete pakketten, allemaal eenmalig en exclusief btw.
             Daarna kun je door met de optionele service van {formatPrice(SERVICE_PRICE)} per maand —
             maandelijks opzegbaar.
+          </p>
+          <p className="text-stone-700 text-base sm:text-lg m-0 leading-relaxed max-w-3xl border-l-4 border-stone-900 pl-4">
+            {PACKAGE_DELIVERY_NOTE}
           </p>
         </div>
 
