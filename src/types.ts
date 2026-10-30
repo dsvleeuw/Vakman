@@ -487,6 +487,8 @@ export interface AccountQuote {
   paidAt?: string;
   /** When the customer accepted the offer. */
   acceptedAt?: string;
+  /** When the customer said he transferred the money. */
+  paymentReportedAt?: string;
   planId: string;
   planName: string;
   sectorName: string;

@@ -162,6 +162,10 @@ result. The Netlify deploy preview is the only external CI check. If
 - An offer remembers the request it was written for (`leadReference` on
   the quote record), so the overview can show at a request which offer
   exists.
+- The customer can report that he transferred the money
+  (`POST /api/quote/payment` → `server/reportPayment.ts`). That sets
+  `paymentReportedAt` on the offer and mails Klusbaas; only Klusbaas marks
+  an offer as paid, after checking his own bank statement.
 - Marking an offer as paid sends the customer an invoice
   (`server/paidNotice.ts` → `server/invoicePdf.ts`). The invoice details of
   Klusbaas come from the environment (`server/invoice.ts`); nothing is

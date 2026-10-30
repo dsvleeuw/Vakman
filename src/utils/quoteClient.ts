@@ -16,6 +16,41 @@ export interface AcceptQuoteResponse {
 
 export type FetchLike = (url: string, init?: RequestInit) => Promise<Response>;
 
+export interface ReportPaymentResponse {
+  ok: boolean;
+  quote?: { id: string; status: string; paymentReportedAt?: string };
+  error?: string;
+  field?: string;
+}
+
+/**
+ * The customer says he transferred the money. Klusbaas checks his bank
+ * statement; only he marks the offer as paid.
+ */
+export async function reportPayment(
+  id: string,
+  token: string,
+  fetchImpl: FetchLike = fetch
+): Promise<ReportPaymentResponse> {
+  try {
+    const response = await fetchImpl('/api/quote/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, token }),
+    });
+    const body = (await response.json().catch(() => ({}))) as ReportPaymentResponse;
+    if (typeof body?.ok !== 'boolean') {
+      return { ok: false, error: 'De server gaf een onverwacht antwoord.' };
+    }
+    return body;
+  } catch {
+    return {
+      ok: false,
+      error: 'Geen verbinding met de server. Mail ons gerust even.',
+    };
+  }
+}
+
 export async function acceptQuote(
   id: string,
   token: string,

@@ -36,6 +36,11 @@ export interface LeadStorage {
    * Returns the new record, or null when the offer does not exist.
    */
   extendQuote(id: string, validUntil: string): Promise<QuoteRecord | null>;
+  /**
+   * Note that the customer said he transferred the money. Klusbaas checks
+   * his bank statement before he marks the offer as paid.
+   */
+  markPaymentReported(id: string, reportedAt: string): Promise<QuoteRecord | null>;
 }
 
 const counterKey = (year: number) => `counter-${year}`;
@@ -177,6 +182,14 @@ export function createFileStorage(root: string): LeadStorage {
       const record = await readJson<QuoteRecord>(file);
       if (!record?.id) return null;
       const updated: QuoteRecord = { ...record, validUntil };
+      await writeFile(file, JSON.stringify(updated, null, 2));
+      return updated;
+    },
+    async markPaymentReported(id, reportedAt) {
+      const file = path.join(quotesDir, `${safe(id)}.json`);
+      const record = await readJson<QuoteRecord>(file);
+      if (!record?.id) return null;
+      const updated: QuoteRecord = { ...record, paymentReportedAt: reportedAt };
       await writeFile(file, JSON.stringify(updated, null, 2));
       return updated;
     },
@@ -408,6 +421,13 @@ export async function createBlobStorage(): Promise<LeadStorage> {
       const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
       if (!record?.id) return null;
       const updated: QuoteRecord = { ...record, validUntil };
+      await quotes.setJSON(id, updated);
+      return updated;
+    },
+    async markPaymentReported(id, reportedAt) {
+      const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
+      if (!record?.id) return null;
+      const updated: QuoteRecord = { ...record, paymentReportedAt: reportedAt };
       await quotes.setJSON(id, updated);
       return updated;
     },

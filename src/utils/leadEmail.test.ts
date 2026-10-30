@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildAcceptConfirmationEmail, buildPaymentReminderEmail } from './leadEmail';
+import {
+  buildAcceptConfirmationEmail,
+  buildPaymentReminderEmail,
+  buildPaymentReportedEmail,
+} from './leadEmail';
 import { buildQuoteRecord, type QuoteRecord } from './quote';
 
 const TOKEN = 'offertetoken1234567890';
@@ -48,6 +52,23 @@ test('zonder betaalgegevens staat er geen bankrekening in de mail', () => {
 
   assert.doesNotMatch(mail.text, /IBAN/);
   assert.doesNotMatch(mail.text, /BETALEN/);
+});
+
+test('de melding van de klant vertelt Klusbaas dat hij moet controleren', () => {
+  const mail = buildPaymentReportedEmail(
+    { ...offer(), status: 'accepted', paymentReportedAt: '2026-10-30T09:00:00.000Z' },
+    {
+      quoteUrl: `https://klusbaas.nl/offerte/KB-2026-0001?token=${TOKEN}`,
+      payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+    }
+  );
+
+  assert.match(mail.subject, /Klant meldt betaling voor offerte KB-2026-0001/);
+  assert.match(mail.text, /Jan Jansen/);
+  assert.match(mail.text, /1\.203,95/);
+  assert.match(mail.text, /NL91ABNA0417164300/);
+  // Klusbaas controleert zelf; de klant markeert zijn offerte niet als betaald.
+  assert.match(mail.text, /Controleer je bankrekening/);
 });
 
 test('de betaalherinnering vraagt om het bedrag, met de IBAN en de omschrijving', () => {

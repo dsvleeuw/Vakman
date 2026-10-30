@@ -59,6 +59,13 @@ function memoryStorage(quotes: QuoteRecord[]): LeadStorage {
       map.set(id, updated);
       return updated;
     },
+    async markPaymentReported(id, reportedAt) {
+      const record = map.get(id);
+      if (!record) return null;
+      const updated = { ...record, paymentReportedAt: reportedAt };
+      map.set(id, updated);
+      return updated;
+    },
   };
 }
 

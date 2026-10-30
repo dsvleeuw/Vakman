@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant kan zeggen dat hij betaald heeft.** Op de offertepagina en in
+  zijn account staat de knop "Ja, ik heb het bedrag overgemaakt". Klusbaas
+  krijgt daarvan een mail en in het overzicht staat "De klant meldt dat hij
+  heeft betaald". De klant kan zijn eigen offerte niet als betaald
+  markeren: dat doet Klusbaas, nadat hij zijn bankrekening heeft
+  gecontroleerd.
 - **Een akkoord zonder betaling blijft niet stil liggen.** In `/klusbaas`
   staat bij een geaccepteerde offerte hoeveel dagen het wacht op het geld,
   en Klusbaas kan de klant nog een keer het bedrag en de IBAN sturen. De

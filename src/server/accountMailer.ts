@@ -21,6 +21,8 @@ export interface AccountMail {
   html: string;
   /** Files that go with the mail, e.g. the PDF of an offer. */
   attachments?: MailAttachment[];
+  /** The address Klusbaas replies to, when it is not the recipient. */
+  replyTo?: string;
 }
 
 export const DEFAULT_FROM = 'Klusbaas <onboarding@resend.dev>';
@@ -46,6 +48,7 @@ export function createAccountMailer(
         {
           from,
           to: mail.to,
+          ...(mail.replyTo ? { replyTo: mail.replyTo } : {}),
           subject: mail.subject,
           text: mail.text,
           html: mail.html,
