@@ -151,6 +151,8 @@ no invoice.
 - The customer can reset his password and confirm his e-mail address
   himself (phase 6.5), and gets a mail when his site goes live (phase 6.6).
 - Every promise on the price list is either built or removed (phase 6.8).
+- The surface calculator is not only for the painter: the plasterer has it
+  too, with his own services and prices per m² (phase 7.22).
 - The customer site has its own privacy statement that names the craftsman
   as the responsible party (phase 6.7).
 - Klusbaas can write an offer for a customer who did not ask for one; it

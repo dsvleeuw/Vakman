@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De stukadoor krijgt de oppervlaktecalculator.** Net als de schilder
+  heeft hij nu een m²-calculator op zijn site: de bezoeker meet zijn muren,
+  kiest een dienst met een prijs per m² en stuurt de schatting door. Het
+  icoon en de naam van het werk volgen het vak.
 - **De klant kan zijn eigen gegevens downloaden.** In `/mijn-account` staat
   een knop "Download je gegevens": één bestand met zijn account, zijn sites
   (met tekst, prijzen en foto's), zijn aanvragen, zijn offertes en zijn

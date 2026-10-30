@@ -2,6 +2,21 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { SECTORS, buildActiveSite } from './tradesData';
 
+test('elk vak met een m2-calculator heeft diensten met een prijs per m2', () => {
+  // De calculator leest de prijs uit "€ 18 per m2"; zonder zo'n dienst valt
+  // hij terug op een naam die niet bij het vak hoort.
+  for (const sector of Object.values(SECTORS)) {
+    if (sector.tool !== 'm2-calculator') continue;
+    const withPrice = sector.services.filter((service) => /€\s*\d+\s*per m²/.test(service.p ?? ''));
+    assert.ok(withPrice.length > 0, `${sector.name} heeft geen dienst met een prijs per m²`);
+  }
+});
+
+test('de stukadoor krijgt de oppervlaktecalculator', () => {
+  assert.equal(SECTORS.stukadoor.tool, 'm2-calculator');
+  assert.equal(SECTORS.schilder.tool, 'm2-calculator');
+});
+
 test('buildActiveSite falls back to sector defaults when wizard fields are empty or whitespace', () => {
   const base = SECTORS.loodgieter;
   const site = buildActiveSite('loodgieter', 2, {
