@@ -86,7 +86,8 @@ to [ROADMAP.md](../ROADMAP.md).
   statement promises twelve months, but no job removes them after that; they
   have to be removed by hand from the Blobs store `leads`.
 - **The craftsman cannot delete or export his requests.** Under the AVG a
-  customer can ask for that; today Klusbaas has to do it by hand.
+  customer can ask for that. The customer can now download his own data
+  himself (phase 7.21); deleting it is still work by hand (roadmap row 8.2).
 
 - **The customer asks for an offer himself, in his own site editor.** The
   editor has a tab "Offerte": he picks a package and the extra components,

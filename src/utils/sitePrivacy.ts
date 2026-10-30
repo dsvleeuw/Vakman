@@ -88,6 +88,7 @@ export function buildSitePrivacy(site: PublicPublishedSite): SitePrivacyStatemen
         title: 'Jouw rechten',
         items: [
           `Je mag vragen welke gegevens ${biz} van je heeft, ze laten corrigeren of laten verwijderen. Stuur daarvoor een mail naar ${biz}.`,
+          `In je eigen account vind je een knop "Download je gegevens": daarmee krijg je alles wat Klusbaas over je bewaart in één bestand.`,
           `Klusbaas helpt ${biz} hierbij. Je kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens.`,
         ],
       },

@@ -448,6 +448,50 @@ test('de klant ziet de aanvragen van zijn eigen sites', async () => {
   assert.equal(result.body.leads?.[0].fields.name, 'Sanne');
 });
 
+test('de klant kan zijn eigen gegevens downloaden', async () => {
+  const accounts = memoryAccounts();
+  const sites = memorySites();
+  const leads = memoryLeads([
+    {
+      reference: 'L-AAAA01',
+      createdAt: '2026-10-29T10:00:00.000Z',
+      type: 'contact',
+      site: { biz: 'Jansen Schilderwerken', sector: 'schilder', slug: 'jansen-schilderwerken' },
+      fields: { name: 'Sanne', phone: '0612345678', message: 'Ik wil drie kozijnen schilderen.' },
+    },
+  ]);
+
+  await sites.saveSite(publishedSite);
+  const registered = await handleAccount(
+    { action: 'register', email: 'jan@example.nl', password: 'achtienletters' },
+    { accounts, sites, leads }
+  );
+  const cookie = registered.setCookie;
+  await handleAccount(
+    { action: 'claim', slug: 'jansen-schilderwerken', token: publishedSite.token },
+    { accounts, sites, leads },
+    cookie
+  );
+
+  const result = await handleAccount({ action: 'export' }, { accounts, sites, leads }, cookie);
+  assert.equal(result.status, 200);
+  const data = result.body.export;
+  assert.ok(data);
+  assert.equal(data.account.email, 'jan@example.nl');
+  assert.equal(data.sites.length, 1);
+  assert.equal(data.sites[0].slug, 'jansen-schilderwerken');
+  assert.equal(data.sites[0].form.biz, 'Jansen Schilderwerken');
+  assert.equal(data.requests.length, 1);
+  assert.equal(data.requests[0].reference, 'L-AAAA01');
+  assert.ok(data.exportedAt);
+  assert.ok(Array.isArray(data.quotes));
+
+  // Keys are not data: no password hash and no management token in the file.
+  const text = JSON.stringify(data);
+  assert.equal(text.includes('tokentokentoken'), false, 'de beheertoken staat niet in het bestand');
+  assert.equal(text.includes('passwordHash'), false, 'het wachtwoord staat niet in het bestand');
+});
+
 test('zonder aanvragen in de opslag ziet de klant geen aanvragen', async () => {
   const accounts = memoryAccounts();
   const sites = memorySites();

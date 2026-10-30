@@ -1,4 +1,5 @@
 import type {
+  AccountExport,
   AccountQuote,
   PaymentDetails,
   PublicPublishedSite,
@@ -33,6 +34,8 @@ export interface AccountResult {
   quotes?: AccountQuote[];
   /** How the customer can pay. */
   payment?: PaymentDetails;
+  /** Everything we hold about this customer, in one file. */
+  export?: AccountExport;
   site?: PublicPublishedSite;
   error?: string;
   field?: string;
@@ -108,6 +111,34 @@ export async function fetchAccountQuotes(): Promise<{
     quotes: result.ok && Array.isArray(result.quotes) ? result.quotes : [],
     ...(result.payment ? { payment: result.payment } : {}),
   };
+}
+
+/**
+ * Everything we hold about the logged-in customer: his account, his sites,
+ * his requests, his offers and his service.
+ *
+ * The AVG (art. 15) says he may ask for this. Today he does it himself,
+ * without a mail to Klusbaas.
+ */
+export function fetchAccountExport(): Promise<AccountResult> {
+  return post({ action: 'export' });
+}
+
+/**
+ * Save the export as a file the customer can keep. Returns the file name.
+ */
+export function downloadAccountExport(data: AccountExport): string {
+  const name = `klusbaas-gegevens-${data.exportedAt.slice(0, 10)}.json`;
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = name;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  return name;
 }
 
 /**

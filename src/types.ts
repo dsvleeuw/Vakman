@@ -681,6 +681,39 @@ export interface AdminConfig {
   checks: AdminConfigCheck[];
 }
 
+/**
+ * Everything we hold about one customer: his account, his sites, his
+ * requests, his offers and his service.
+ *
+ * The customer can download this himself (AVG art. 15). The password hash
+ * and the management token of a site are not part of it: those are keys,
+ * not data.
+ */
+export interface AccountExport {
+  /** The moment the file was made, so the customer knows what it is. */
+  exportedAt: string;
+  account: {
+    email: string;
+    createdAt: string;
+    verifiedAt?: string;
+    service?: ServiceState;
+  };
+  sites: {
+    slug: string;
+    sector: string;
+    styleId: string;
+    form: Record<string, string | undefined>;
+    text: Record<string, string>;
+    services?: unknown[];
+    workArea?: string[];
+    heroPhoto?: string;
+    work?: unknown[];
+    updatedAt: number;
+  }[];
+  requests: StoredLead[];
+  quotes: unknown[];
+}
+
 export interface StoredLead {
   /** The reference the visitor saw: `L-XXXXXX`. */
   reference: string;

@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant kan zijn eigen gegevens downloaden.** In `/mijn-account` staat
+  een knop "Download je gegevens": één bestand met zijn account, zijn sites
+  (met tekst, prijzen en foto's), zijn aanvragen, zijn offertes en zijn
+  service. Onder de AVG (art. 15) mag hij daarom vragen; hij hoeft er
+  geen mail meer voor te sturen. Zijn wachtwoord en de beheersleutel van
+  een site staan er niet in: dat zijn sleutels, geen gegevens.
 - **Klusbaas ziet of de site klaar is om te verkopen.** Het overzicht in
   `/klusbaas` controleert de vier dingen die bepalen of een bestelling
   zonder handwerk rondkomt: het IBAN in de offertes, de gegevens op de
