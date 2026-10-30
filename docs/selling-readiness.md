@@ -59,6 +59,11 @@ on `main`; the commands to re-measure them are at the bottom.
     support, one change a month) and stops it himself when he wants to.
     Klusbaas sees who has it, switches it on and sends the monthly invoice
     with the amount, the IBAN and the reference (phase 7.15).
+21. After he pays, the customer sees what happens with his site: every
+    offer carries the checklist of the package, Klusbaas ticks the steps off
+    and the customer sees the same list in his account and on the offer
+    page, with the date it is done and the moment the site has to be live
+    (phase 7.16).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -98,6 +103,7 @@ there is no payment provider (still open).
 | 24 | The customer cannot ask for an offer himself | `/mijn-account` promised "vraag een offerte aan via de site-editor", but the editor had no such button | The customer had to write a mail or a WhatsApp message to get a price, and the promise in his own account was not true. He now asks in the editor and gets a real offer with a number, a price and a way to pay | **fixed (7.13)** |
 | 25 | The marketing pages promise things that are not built | `src/components/FaqSection.tsx` promised an own `.nl` domain at the moment of publishing and automatic offers in Google Drive; `HowItWorks.tsx` promised an own domain; the homepage promised example photos and prices as if they were the customer's | A customer who reads the FAQ before he buys is told something that does not happen. The first impression is where the sale is won or lost | **fixed (7.14)** |
 | 26 | The monthly service cannot be ordered | `src/data/plans.ts` had no service price, the pricing page offered a service of € 25 per month that could only be asked for by mail, and nothing tracked who had it | A customer who wanted hosting, updates and support had no way to buy it, and Klusbaas had no list of the customers who pay monthly. The service is now a real order: the customer switches it on in his account, Klusbaas confirms it and sends the monthly invoice, and the customer stops it himself | **fixed (7.15)** |
+| 27 | The customer does not see what happens with his site | the offer carried a price and a status, nothing about the work itself; "binnen twee weken opgeleverd" was a sentence on the price list | After he paid, the customer had to ask Klusbaas what the status was, and Klusbaas had no list of what was still to do per order. Every offer now carries the checklist of the package; Klusbaas ticks it off and the customer sees the same list | **fixed (7.16)** |
 
 
 The status column says what has been done since the audit was written
@@ -164,6 +170,9 @@ no invoice.
 - The monthly service is a real order: the customer switches it on in his
   own account, Klusbaas sees it, switches it on and sends the monthly
   invoice; the customer stops it himself (phase 7.15).
+- The customer sees what Klusbaas does for his site: the checklist of the
+  package comes with the offer, Klusbaas ticks it off and the customer sees
+  the same list in his account (phase 7.16).
 
 ## Definition of done
 
@@ -254,6 +263,10 @@ grep -n "per opdracht" src/components/FaqSection.tsx | head -1
 bun test src/server/service.test.ts
 grep -n "service-request" src/server/accountHandler.ts | head -1
 grep -n "SERVICE_PRICE" src/data/plans.ts | head -1
+
+# 27: de klant ziet wat Klusbaas voor zijn site doet
+bun test src/server/delivery.test.ts
+grep -n "buildDeliveryItems" src/utils/quote.ts | head -1
 
 # and the checks that must stay green
 bun run check

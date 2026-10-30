@@ -79,6 +79,13 @@ function memoryStorage(leads: StoredLead[] = [], quotes: QuoteRecord[] = []): Le
       quoteMap.set(id, updated);
       return updated;
     },
+    async updateQuoteDelivery(id, delivery) {
+      const record = quoteMap.get(id);
+      if (!record) return null;
+      const updated = { ...record, delivery };
+      quoteMap.set(id, updated);
+      return updated;
+    },
   };
 }
 

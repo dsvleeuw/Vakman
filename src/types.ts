@@ -535,6 +535,29 @@ export interface AccountQuote {
   totalCents: number;
   /** The link to the offer, with the token. */
   url: string;
+  /**
+   * What Klusbaas still has to do for the site of this customer, and what
+   * is done. The customer sees it; it is the promise "binnen twee weken
+   * opgeleverd" in a list.
+   */
+  delivery?: DeliveryItem[];
+}
+
+/**
+ * One thing Klusbaas does for the site of a customer.
+ *
+ * The list comes from the package the customer bought. Klusbaas ticks the
+ * items off in `/klusbaas`; the customer sees the same list in his
+ * account, so nobody has to ask what the status is.
+ */
+export interface DeliveryItem {
+  id: string;
+  /** What Klusbaas does, in the words of the customer. */
+  label: string;
+  /** True when it is done. */
+  done: boolean;
+  /** When it was done (ISO date). */
+  doneAt?: string;
 }
 
 /** How the customer pays. Public data, so it can be shown to the customer. */

@@ -362,6 +362,9 @@ async function adminDeps(d: ReturnType<typeof deps>, mails: SentMail[]) {
       async markPaymentReported() {
         return null;
       },
+      async updateQuoteDelivery() {
+        return null;
+      },
     },
     accounts: d.accounts,
     sendMail: async (mail: SentMail) => {

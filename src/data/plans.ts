@@ -8,6 +8,15 @@ export interface PlatformPlan {
   blurb: string;
   features: string[];
   popular: boolean;
+  /**
+   * What Klusbaas does for the site of the customer, in the order he does
+   * it. This is the checklist that comes with the offer: the customer sees
+   * it, Klusbaas ticks it off in `/klusbaas`.
+   *
+   * Everything here is work that Klusbaas does by hand. The site itself the
+   * customer fills in himself, in his own editor.
+   */
+  delivery: string[];
 }
 
 /**
@@ -36,6 +45,11 @@ export const PLANS: PlatformPlan[] = [
       'Oplevering binnen 2 weken',
     ],
     popular: false,
+    delivery: [
+      'Je teksten, foto’s en kleuren nagekeken',
+      'Je site staat live op je eigen adres',
+      'Je site staat binnen twee weken opgeleverd',
+    ],
   },
   {
     id: 'pro',
@@ -52,6 +66,13 @@ export const PLANS: PlatformPlan[] = [
       'Eerste 3 maanden service t.w.v. € 75',
     ],
     popular: true,
+    delivery: [
+      'Je teksten, foto’s en kleuren nagekeken',
+      'Je site staat live op je eigen adres',
+      'Je site staat binnen twee weken opgeleverd',
+      'Eigen .nl-domein geregistreerd door Klusbaas',
+      'Eerste 3 maanden service gestart',
+    ],
   },
   {
     id: 'premium',
@@ -67,6 +88,14 @@ export const PLANS: PlatformPlan[] = [
       'Voorrang bij support en wijzigingen',
     ],
     popular: false,
+    delivery: [
+      'Je teksten, foto’s en kleuren nagekeken',
+      'Je site staat live op je eigen adres',
+      'Je site staat binnen twee weken opgeleverd',
+      'Eigen .nl-domein geregistreerd door Klusbaas',
+      'Eerste 3 maanden service gestart',
+      'Persoonlijk kleuren-, foto- en tekstadvies',
+    ],
   },
 ];
 

@@ -4,6 +4,7 @@ import type {
   AdminCreatedQuote,
   AdminOverview,
   AdminQuote,
+  DeliveryItem,
   InvoiceDetails,
   PaymentDetails,
 } from '../types';
@@ -41,7 +42,8 @@ export type AdminAction =
   | 'create-quote'
   | 'service-activate'
   | 'service-stop'
-  | 'service-invoice';
+  | 'service-invoice'
+  | 'delivery';
 
 export interface AdminRequestBody extends OfferRequest {
   action?: AdminAction;
@@ -50,6 +52,10 @@ export interface AdminRequestBody extends OfferRequest {
   status?: QuoteStatus;
   /** What the customer pays per month for the service, in cents. */
   amountCents?: number;
+  /** The step on the delivery checklist of the offer. */
+  itemId?: string;
+  /** True when the step is done. */
+  done?: boolean;
 }
 
 export interface AdminResponseBody {
@@ -65,6 +71,8 @@ export interface AdminResponseBody {
   paymentReminderStatus?: string;
   /** What happened with the mail of the monthly service. */
   serviceMailStatus?: string;
+  /** The checklist of the offer, after a change. */
+  delivery?: DeliveryItem[];
   /** The new validity date of an extended offer. */
   validUntil?: string;
   error?: string;
@@ -194,6 +202,7 @@ function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
     city: quote.customer.city,
     expired: isQuoteExpired(quote, now),
     ...(quote.leadReference ? { leadReference: quote.leadReference } : {}),
+    ...(quote.delivery ? { delivery: quote.delivery } : {}),
   };
 }
 
@@ -441,6 +450,37 @@ export async function handleAdmin(
       };
     }
     return { status: 200, body: { ok: true, quote: result.quote } };
+  }
+
+  if (action === 'delivery') {
+    // Klusbaas vinkt af wat hij voor de site van de klant heeft gedaan. De
+    // klant ziet dezelfde lijst in zijn account.
+    const id = typeof body.id === 'string' ? body.id : '';
+    const itemId = typeof body.itemId === 'string' ? body.itemId : '';
+    if (!id || !itemId) {
+      return { status: 400, body: { ok: false, error: 'Onbekende offerte of stap.' } };
+    }
+    const record = await deps.leads.getQuote(id);
+    if (!record) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    const done = body.done === true;
+    const now = deps.now ? deps.now() : Date.now();
+    const delivery = (record.delivery ?? []).map((item) =>
+      item.id === itemId
+        ? {
+            ...item,
+            done,
+            ...(done ? { doneAt: new Date(now).toISOString() } : { doneAt: undefined }),
+          }
+        : item
+    );
+    const updated = await deps.leads.updateQuoteDelivery(id, delivery);
+    if (!updated) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    log(`[admin] oplevering van offerte ${id} bijgewerkt`);
+    return { status: 200, body: { ok: true, delivery } };
   }
 
   if (action === 'service-activate' || action === 'service-stop' || action === 'service-invoice') {

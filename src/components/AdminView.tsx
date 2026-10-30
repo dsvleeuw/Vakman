@@ -9,6 +9,7 @@ import {
   remindPayment,
   remindQuote,
   sendServiceInvoice,
+  setDeliveryStep,
   setQuoteStatus,
   stopService,
   verifyAccount,
@@ -235,7 +236,8 @@ const QuoteRow: React.FC<{
   onRemind: (id: string) => void;
   onRemindPayment: (id: string) => void;
   onExtend: (id: string) => void;
-}> = ({ quote, busy, onStatus, onRemind, onRemindPayment, onExtend }) => (
+  onDelivery: (id: string, itemId: string, done: boolean) => void;
+}> = ({ quote, busy, onStatus, onRemind, onRemindPayment, onExtend, onDelivery }) => (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
       <span className="font-black text-stone-900">{quote.id}</span>
@@ -257,6 +259,27 @@ const QuoteRow: React.FC<{
       {quote.customerName} · {quote.customerPhone} · {quote.city}
       {quote.customerEmail ? ` · ${quote.customerEmail}` : ''}
     </p>
+    {quote.delivery && quote.delivery.length > 0 && (
+      <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex flex-col gap-2">
+        <p className="m-0 text-sm font-bold text-stone-900">Oplevering</p>
+        <ul className="m-0 p-0 list-none flex flex-col gap-1">
+          {quote.delivery.map((item) => (
+            <li key={item.id}>
+              <label className="flex items-start gap-2 text-sm text-stone-700 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={item.done}
+                  disabled={busy}
+                  onChange={() => onDelivery(quote.id, item.id, !item.done)}
+                  className="mt-1 w-4 h-4 shrink-0"
+                />
+                <span>{item.label}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
     <p className="m-0 text-sm text-stone-600">
       {quote.planName} · {quote.sectorName} · {dateTime(quote.createdAt)}
     </p>
@@ -410,6 +433,19 @@ export const AdminView: React.FC = () => {
     // Het overzicht laat de nieuwe offerte meteen zien.
     await load();
     setNotice(`Offerte ${quote.id} staat nu in het overzicht.`);
+  };
+
+  // Wat Klusbaas voor de site van de klant heeft gedaan: de klant ziet
+  // dezelfde lijst in zijn account.
+  const handleDelivery = async (id: string, itemId: string, done: boolean) => {
+    setBusy(true);
+    const result = await setDeliveryStep(id, itemId, done);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    await load();
   };
 
   // De maandelijkse service aanzetten: de klant heeft erom gevraagd in
@@ -666,6 +702,7 @@ export const AdminView: React.FC = () => {
                       onRemind={handleRemind}
                       onRemindPayment={handleRemindPayment}
                       onExtend={handleExtend}
+                      onDelivery={handleDelivery}
                     />
                     ))}
                   </ul>

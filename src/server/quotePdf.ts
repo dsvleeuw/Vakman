@@ -191,6 +191,24 @@ export async function renderQuotePdf(
   }
   y -= 16;
 
+  // Wat Klusbaas doet voor de site: dat hoort bij wat de klant koopt, dus
+  // het staat in de offerte. De stand van zaken staat in het account.
+  if (record.delivery?.length) {
+    ensure(60);
+    text('WAT WIJ DOEN', MARGIN, 8, bold, MUTED);
+    y -= 14;
+    for (const item of record.delivery) {
+      const lines = wrap(`- ${item.label}`, regular, 9.5, contentWidth - 10);
+      ensure(lines.length * 12 + 4);
+      for (const line of lines) {
+        text(line, MARGIN + 6, 9.5);
+        y -= 12;
+      }
+      y -= 2;
+    }
+    y -= 8;
+  }
+
   // Betalen: de klant moet het bedrag kunnen overmaken vanaf de offerte
   // zelf, zonder eerst een account te maken.
   if (options.payment) {

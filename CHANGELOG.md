@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant ziet wat Klusbaas voor zijn site doet.** Elke offerte
+  krijgt een checklist van het pakket: wat Klusbaas doet voor de site, in
+  de volgorde waarin hij het doet. Klusbaas vinkt de stappen af in
+  `/klusbaas`; de klant ziet dezelfde lijst in zijn account en op de
+  offertepagina, met de datum waarop iets klaar is en het moment waarop
+  de site live moet staan. Zo hoeft niemand meer te vragen wat de status
+  is, en de belofte "binnen twee weken opgeleverd" is een lijst in plaats
+  van een zin.
 - **De maandelijkse service is een echte bestelling.** De klant zet hem
   zelf aan in zijn eigen account (`/mijn-account`, onder "Service &
   hosting"): hij ziet wat erin zit, wat het kost en dat hij hem elk moment

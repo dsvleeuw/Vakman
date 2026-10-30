@@ -138,6 +138,7 @@ function toAccountQuote(quote: QuoteRecord): AccountQuote {
     vatCents: quote.vatCents,
     totalCents: quote.totalCents,
     url: buildQuotePath(quote.id, quote.token),
+    ...(quote.delivery ? { delivery: quote.delivery } : {}),
   };
 }
 
