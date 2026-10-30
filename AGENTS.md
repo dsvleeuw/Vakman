@@ -188,6 +188,11 @@ result. The Netlify deploy preview is the only external CI check. If
   built. The numbers in `README.md`, `docs/architecture.md` and
   `ROADMAP.md` (presets, routes, tests, trades) come from the code; check
   them before you write them down.
+- A smart tool can serve more than one trade. The surface calculator runs
+  for the painter and the plasterer (`tool: 'm2-calculator'` in
+  `data/tradesData.ts`); the copy that names the work follows the trade
+  (`site.id`). A sector with that tool needs at least one service with a
+  price per m², or the calculator falls back to a name that does not fit.
 - The customer can download everything we hold about him (AVG art. 15):
   `action: 'export'` in `server/accountHandler.ts`, the button in
   `components/AccountView.tsx`. The export holds his account, his sites,

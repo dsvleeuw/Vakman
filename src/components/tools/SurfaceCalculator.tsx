@@ -1,5 +1,14 @@
 import React, { useId, useMemo, useState } from 'react';
-import { Ruler, Plus, Trash2, MessageCircle, PaintRoller, Send, CheckCircle2 } from 'lucide-react';
+import {
+  Ruler,
+  Plus,
+  Trash2,
+  MessageCircle,
+  PaintBucket,
+  PaintRoller,
+  Send,
+  CheckCircle2,
+} from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
 import {
   parsePricePerM2,
@@ -23,6 +32,12 @@ interface SurfaceCalculatorProps {
   site: ActiveSiteData;
 }
 
+/** The icon of the tool follows the trade: a roller for the painter. */
+function ToolIcon({ sector }: { sector: ActiveSiteData['id'] }) {
+  const Icon = sector === 'stukadoor' ? PaintBucket : PaintRoller;
+  return <Icon className="w-4 h-4" aria-hidden="true" />;
+}
+
 interface WallRow {
   length: string;
   height: string;
@@ -44,7 +59,12 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
     [site.services]
   );
 
-  const fallbackService = { name: 'Schilwerk', price: 18 };
+  // De rekenmachine is generiek; alleen de naam van het werk en het icoon
+  // verschillen per vak.
+  const fallbackService =
+    site.id === 'stukadoor'
+      ? { name: 'Stucwerk', price: 18 }
+      : { name: 'Schilwerk', price: 18 };
   const services = m2Services.length > 0 ? m2Services : [fallbackService];
 
   const [serviceName, setServiceName] = useState(services[0].name);
@@ -291,7 +311,7 @@ export const SurfaceCalculator: React.FC<SurfaceCalculatorProps> = ({ site }) =>
           }}
         >
           <span className="font-mono text-xs font-bold text-stone-500 uppercase tracking-widest flex items-center gap-2">
-            <PaintRoller className="w-4 h-4" />
+            <ToolIcon sector={site.id} />
             Jouw richtprijs
           </span>
 

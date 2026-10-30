@@ -6,7 +6,7 @@ Interactieve tools die specifiek zijn voor een vak (loodgieter, elektricien, sch
 
 | Bestand | Vak | Beschrijving |
 |---------|-----|--------------|
-| `SurfaceCalculator.tsx` | Schilder, Vloerlegger, Dakdekker | Bereken oppervlakte & schatting materiaal/kosten |
+| `SurfaceCalculator.tsx` | Schilder, Stukadoor, Vloerlegger, Dakdekker | Bereken oppervlakte & schatting materiaal/kosten. Het icoon en de naam van het werk volgen het vak (`site.id`). |
 | `EmergencyButton.tsx` | Loodgieter, Elektricien | Grote CTA voor spoeddienst (bel/Whatsapp direct) |
 | `FaultReportForm.tsx` | Alle vakken | Gestructureerd storingsformulier met foto upload |
 | `ProjectTimeline.tsx` | Aannemer, Tuinier | Visualisatie projectfasen & planning |

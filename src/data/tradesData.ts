@@ -748,6 +748,7 @@ export const SECTORS: Record<SectorId, SectorData> = {
         description: 'Van oneffen gipsplaten met naden naar een spiegelglad, saus klaar oppervlak met strakke hoekprofielen.',
       },
     ],
+    tool: 'm2-calculator',
     flow: [
       {
         q: 'Welke stucafwerking zoek je?',

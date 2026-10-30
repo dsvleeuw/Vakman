@@ -169,6 +169,9 @@ through the wizard when:**
     the mail really goes out, instead of leaving him to guess.
 22. The customer can download everything we hold about him: his account,
     his sites, his requests, his offers and his service, in one file.
+23. The surface calculator works for more than one trade: the painter and
+    the plasterer both get a visitor who can measure his walls and get a
+    price indication right away.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -192,6 +195,7 @@ through the wizard when:**
 | 7.18 | ~~The price list says what a package is~~ Done: the pricing page and the FAQ say that the customer fills in his own site in his own editor, and that a package is the delivery: Klusbaas checks the texts, photos and colours, checks the findability, delivers within two weeks and registers the `.nl` domain in Pro and Premium | M | The prices themselves are unchanged. The domain is only in Pro and Premium, and the registrar costs stay with the customer. A customer who wants to do everything himself can, and that is said out loud |
 | 7.19 | ~~Klusbaas sees whether the site is ready to sell~~ Done: the overview in `/klusbaas` checks the four things that decide whether an order works without manual work: the IBAN in the offers, the details on the invoice, the mail that really goes out and the password on the overview. Something missing stands at the top of the overview, with the reason | S | The check looks at the environment of the deployment, not at the running site: a value that is set wrong (a wrong IBAN, a wrong sender) is not caught. The check says nothing about the content of a site |
 | 7.21 | ~~The customer can download his own data~~ Done: `/mijn-account` has a button "Download je gegevens". The file holds his account, his sites with their text and photos, his requests, his offers and his service. His password and the management key of a site are not in it: those are keys, not data | S | The file is plain JSON, meant to be read by a person. The removal of the data itself stays manual (row 8.2), and the requests of other customers stay with Klusbaas. |
+| 7.22 | ~~The surface calculator works for more than one trade~~ Done: the plasterer gets the m² calculator on his site, with his own services and prices per m². The icon and the name of the work follow the trade | S | The calculator works with walls and openings; a trade that measures something else (a garden, a roof) needs its own tool (rows 8.9 and 8.10) |
 
 
 ## Phase 8 — What is left
@@ -210,7 +214,7 @@ what makes the product sturdier as the number of customers grows.
 | 8.5 | A status per request, so Klusbaas sees what he called | M | "New", "called", "offer sent": a request that nobody followed up on is a lost order. |
 | 8.6 | The trade **dakdekker** with a free roof check (row 2.1) | M | The `FaultReportForm` pattern works for a roof inspection; more trades means more demos and more local search pages. |
 | 8.7 | The trade **aannemer** with an expanded project timeline (row 2.2) | M | The timeline exists for the carpenter; the builder needs his own steps. |
-| 8.8 | The **stukadoor** gets the surface calculator (row 2.4) | S | The component exists; it only has to be attached to the sector. |
+| 8.8 | ~~The **stukadoor** gets the surface calculator (row 2.4)~~ Done (phase 7.22) | S | The calculator works with walls and openings. |
 | 8.9 | A **colour picker** for the painter next to the m² calculator (row 2.5) | M | A RAL swatch picker that adds the colour advice to the price. |
 | 8.10 | A tool for the **hovenier** (row 2.3) | M | A seasonal maintenance planner or a garden-size estimate. |
 | 8.11 | The project timeline gets its steps from the sector (row 2.6) | S | Move the step copy out of the component so every trade can own a timeline. |
