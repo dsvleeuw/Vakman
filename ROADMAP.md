@@ -158,6 +158,9 @@ through the wizard when:**
 18. The customer can see what Klusbaas does for his site: every offer
     carries the checklist of the package, Klusbaas ticks the steps off and
     the customer sees the same list in his account and in the offer.
+19. The questions on the marketing pages stand in the page itself: the
+    answers are in the HTML that the build writes, so a search engine and a
+    visitor without JavaScript read the same text.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -177,6 +180,7 @@ through the wizard when:**
 | 7.14 | ~~Every promise on the marketing pages is true~~ Done: the FAQ no longer promises an own `.nl` domain at the moment of publishing nor offers that end up in Google Drive; it says where the offers really are (in the customer's own account) and how a domain works (registered per order). "Hoe het werkt" and the homepage no longer promise example photos or example prices as if they were the customer's, and the monthly service no longer contains a domain that was never registered | S | The domain itself stays manual work: Klusbaas registers it per order and the registrar costs are the customer's. Handing over a site when a customer leaves is manual too; there is no export button. A test (`components/claims.test.tsx`) keeps the old promises out. |
 | 7.15 | ~~The monthly service is a real order~~ Done: the customer switches the service on in his own account (`/mijn-account`, under "Service & hosting") and sees what it costs, what is in it and that he can stop it. Klusbaas sees the request in `/klusbaas`, switches the service on (the months that come with the Pro package are free) and sends the monthly invoice with the amount, the IBAN and the reference. The customer can stop the service himself; Klusbaas then hands over the site and the code | M | The monthly invoice is sent by hand every month: nothing goes out on its own and there is no automatic debit. The service is per account, so a customer with two sites has one service. The free months of a package do not stop by themselves; Klusbaas switches the service off after them. |
 | 7.16 | ~~The customer sees what Klusbaas does for his site~~ Done: every offer carries the checklist of the package (what Klusbaas does for the site, in the order he does it). Klusbaas ticks the steps off in `/klusbaas` and the customer sees the same list in his account and on the offer page, with the date it is done and the moment the site has to be live | M | The delivery itself stays manual work: the checklist says what happens, the code does not build the site for the customer. The deadline of two weeks counts from the payment, because that is when the work starts. An offer from before this phase has no checklist and shows nothing. |
+| 7.17 | ~~The questions and answers stand in the page~~ Done: the FAQ is a native accordion (`<details>`), so every answer is in the HTML that the build writes. A visitor without JavaScript and a search engine read the same text as a visitor with scripts | S | The answers of the questions about Klusbaas are marketing text; the customer keeps his own questions on his own site. The accordion shows one answer at a time, like before. |
 
 
 ## Decision log
