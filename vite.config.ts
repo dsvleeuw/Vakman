@@ -382,6 +382,41 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         reply(res, result.status, result.body);
       });
 
+      // De klant vraagt zelf een offerte aan in de site-editor: dezelfde
+      // handler als netlify/functions/quote-request.mts.
+      server.middlewares.use('/api/quote/request', async (req, res) => {
+        if (req.method !== 'POST') return reply(res, 405, { ok: false, error: 'Alleen POST is toegestaan.' });
+        let raw = '';
+        for await (const chunk of req) raw += chunk;
+        let body: unknown;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
+        }
+        const { handleQuoteRequest } = await server.ssrLoadModule('/src/server/quoteRequest.ts');
+        const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
+          await server.ssrLoadModule('/src/server/storage.ts');
+        const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
+        const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
+        const payment = paymentDetailsFromEnv(env);
+        const result = await handleQuoteRequest(
+          body,
+          {
+            accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
+            leads: createFileStorage(path.resolve(__dirname, '.data')),
+            sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
+            sendMail: createAccountMailer(env, (message: string) => server.config.logger.info(message)),
+            notifyEmail: env.QUOTE_NOTIFY_EMAIL,
+            siteUrl: env.PUBLIC_SITE_URL || `http://${req.headers.host ?? 'localhost:3000'}`,
+            ...(payment ? { payment } : {}),
+            log: (message: string) => server.config.logger.info(message),
+          },
+          req.headers.cookie ?? null
+        );
+        reply(res, result.status, result.body);
+      });
+
       server.middlewares.use('/api/quote', async (req, res) => {
         if (req.method !== 'GET') return reply(res, 405, { ok: false, error: 'Alleen GET is toegestaan.' });
         const { handler, storage } = await load();

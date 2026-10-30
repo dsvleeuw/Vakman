@@ -154,9 +154,14 @@ export async function createOfferForCustomer(
   const owner =
     clip(request.owner) || clip(site?.form.owner) || clip(leadFields.name, 120);
   // Bij een aanvraag is `site.biz` de site waar de aanvraag binnenkwam
-  // (bv. Klusbaas zelf), niet de naam van het bedrijf van de klant. Zonder
-  // bedrijfsnaam nemen we de naam van de klant.
-  const leadBiz = lead && !lead.site?.slug ? '' : clip(lead?.site?.biz);
+  // (bv. Klusbaas zelf), niet de naam van het bedrijf van de klant. Een
+  // offerte-aanvraag van de klant zelf heeft zijn bedrijfsnaam meegegeven.
+  // Zonder bedrijfsnaam nemen we de naam van de klant.
+  const leadBiz = lead
+    ? lead.site?.slug
+      ? clip(lead.site.biz)
+      : clip(lead.fields?.biz)
+    : '';
   const biz = clip(request.biz) || clip(site?.form.biz) || leadBiz || owner;
   const phone = clip(request.phone, 40) || clip(site?.form.phone, 40) || clip(leadFields.phone, 40);
   const city = clip(request.city, 80) || clip(site?.form.city, 80) || clip(leadFields.city, 80);

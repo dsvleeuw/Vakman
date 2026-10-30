@@ -144,6 +144,10 @@ through the wizard when:**
    IBAN one more time.
 14. The customer can say he paid: Klusbaas then sees that there is money to
    check, without the customer being able to mark his own order as paid.
+15. The customer can ask for an offer himself: in his own site editor he
+   picks a package, sees the price right away and gets a real offer in his
+   account, while Klusbaas sees the request and the offer next to each
+   other.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -159,6 +163,7 @@ through the wizard when:**
 | 7.10 | ~~The customer keeps the proof of his own "ja"~~ Done: right after the customer accepts, he gets a mail with the offer number, the amount, the services and the IBAN. The banner in the browser used to be the only proof, and that disappears when he closes the window. He can accept from the offer page and from his own account | S | The mail only goes out when the offer has an e-mail address; without one there is nothing to send to. Without `RESEND_API_KEY` the mail is only printed in the log. The confirmation is not a contract: there is still no signature. |
 | 7.11 | ~~An accepted offer that is not paid does not go quiet~~ Done: in `/klusbaas` an accepted offer shows how many days it has been waiting for the money, and Klusbaas can send the customer one more mail with the amount and the IBAN. The offer page and the account keep showing the bank details after the acceptance, so the customer can always pay | S | The reminder is by hand: nothing goes out on its own, and there is no escalation after a second reminder. Klusbaas still marks the payment as paid by hand. |
 | 7.12 | ~~The customer can say he paid~~ Done: on the offer page and in his account the customer can press "Ja, ik heb het bedrag overgemaakt". Klusbaas gets a mail and the overview says "De klant meldt dat hij heeft betaald" | S | The customer does not mark his own offer as paid: Klusbaas checks his bank statement and marks it as paid himself. There is still no automatic bank connection. |
+| 7.13 | ~~The customer can ask for an offer himself~~ Done: the site editor has a tab "Offerte". The customer picks his package and his extra components, sees what it costs right away and presses "Vraag je offerte aan". He gets a real offer (number, PDF, price, 30 days valid) in his account and by mail; Klusbaas sees the request with the customer's own words in `/klusbaas`, with the offer next to it | M | Only a logged-in customer can ask (an offer without an account would float). The price comes from the catalogue: the customer cannot ask for a price that is not on the pricing page, and Klusbaas writes a different price by cancelling the first offer and writing a new one. The limit is five offers per hour per customer, per process. |
 
 ## Decision log
 

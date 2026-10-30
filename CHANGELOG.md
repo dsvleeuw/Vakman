@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant vraagt zelf een offerte aan.** In de site-editor staat een
+  tab "Offerte". De klant kiest zijn pakket en de extra componenten die hij
+  wil, ziet meteen wat het kost en drukt op "Vraag je offerte aan". Hij
+  krijgt een echte offerte met nummer, PDF, prijs en betaalwijze in zijn
+  eigen account (`/mijn-account`) en per mail. De aanvraag zelf wordt
+  opgeslagen, zodat Klusbaas in `/klusbaas` ziet wat de klant wil en welke
+  offerte er al bij hoort. De prijzen komen uit dezelfde catalogus als de
+  prijzenpagina: er wordt niets verzonnen.
 - **De klant kan zeggen dat hij betaald heeft.** Op de offertepagina en in
   zijn account staat de knop "Ja, ik heb het bedrag overgemaakt". Klusbaas
   krijgt daarvan een mail en in het overzicht staat "De klant meldt dat hij

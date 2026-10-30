@@ -61,6 +61,7 @@ const LEAD_LABEL: Record<string, string> = {
   appointment: 'Afspraak',
   fault: 'Storingsmelding',
   surface: 'Offerteaanvraag',
+  'offerte-aanvraag': 'Offerte-aanvraag',
 };
 
 const SiteRow: React.FC<{ site: AdminSite }> = ({ site }) => (

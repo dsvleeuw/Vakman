@@ -45,6 +45,8 @@ interface Customer {
   services: string[];
   /** The request the customer sent, when he only sent one. */
   leadReference?: string;
+  /** True when the request is an offer request of the customer himself. */
+  offerRequest?: boolean;
 }
 
 /**
@@ -71,8 +73,12 @@ function leadsAsCustomers(leads: StoredLead[]): Customer[] {
         label: `${fields.name?.trim() || fields.email?.trim() || 'Aanvraag'} · ${lead.site?.biz ?? 'onbekend'} (${lead.reference})`,
         email: fields.email?.trim() ?? '',
         // De bedrijfsnaam van de site waar de aanvraag binnenkwam is niet de
-        // naam van het bedrijf van de klant; die vullen we zelf in.
-        biz: lead.site?.slug ? (lead.site?.biz ?? '') : (fields.name?.trim() ?? ''),
+        // naam van het bedrijf van de klant; die vullen we zelf in. Een
+        // offerte-aanvraag van de klant zelf heeft zijn bedrijfsnaam wel
+        // meegegeven.
+        biz: lead.site?.slug
+          ? (lead.site?.biz ?? '')
+          : (fields.biz?.trim() || fields.name?.trim() || ''),
         owner: fields.name?.trim() ?? '',
         phone: fields.phone?.trim() ?? '',
         city: fields.city?.trim() ?? '',
@@ -80,6 +86,9 @@ function leadsAsCustomers(leads: StoredLead[]): Customer[] {
         ...(styleIdOf(lead.site?.style) ? { style: styleIdOf(lead.site?.style) } : {}),
         services: [],
         leadReference: lead.reference,
+        // Een offerte-aanvraag is een klant die zelf om een prijs vraagt:
+        // die aanvraag hoort bij de offerte die Klusbaas voor hem maakt.
+        offerRequest: lead.type === 'offerte-aanvraag',
       };
     });
 }
@@ -130,8 +139,22 @@ function customersFrom(
   // Iemand die alleen een aanvraag stuurde is ook een klant: Klusbaas kan
   // hem een offerte schrijven, ook zonder account.
   for (const lead of leadsAsCustomers(leads)) {
-    if (customers.some((customer) => customer.email === lead.email && lead.email)) continue;
-    customers.push(lead);
+    const known = customers.find((customer) => customer.email === lead.email && lead.email);
+    if (!known) {
+      customers.push(lead);
+      continue;
+    }
+    // De klant is al bekend (met een site of een account). Een
+    // offerte-aanvraag van hemzelf hoort bij die klant: de gegevens en de
+    // aanvraag gaan mee, zodat een nieuwe offerte bij die aanvraag past.
+    if (!lead.offerRequest) continue;
+    known.leadReference = known.leadReference ?? lead.leadReference;
+    known.biz = known.biz || lead.biz;
+    known.owner = known.owner || lead.owner;
+    known.phone = known.phone || lead.phone;
+    known.city = known.city || lead.city;
+    known.sector = known.sector ?? lead.sector;
+    known.style = known.style ?? lead.style;
   }
 
   return customers;

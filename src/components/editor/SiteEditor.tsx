@@ -26,6 +26,7 @@ import { track } from '../../utils/analytics';
 import { RouteLink } from '../RouteLink';
 import { SiteView } from '../SiteView';
 import { BlockForm, type AnyBlockContent } from './BlockForm';
+import { OfferteTab } from './OfferteTab';
 import { PhotosField } from './PhotosField';
 import { ListField, TextAreaField, TextField } from './Field';
 
@@ -38,13 +39,14 @@ export interface SiteEditorProps {
   token?: string;
 }
 
-type PanelTab = 'gegevens' | 'tekst' | 'blokken' | 'fotos';
+type PanelTab = 'gegevens' | 'tekst' | 'blokken' | 'fotos' | 'offerte';
 
 const TABS: { id: PanelTab; label: string }[] = [
   { id: 'blokken', label: 'Blokken' },
   { id: 'gegevens', label: 'Gegevens' },
   { id: 'fotos', label: 'Foto’s' },
   { id: 'tekst', label: 'Tekst' },
+  { id: 'offerte', label: 'Offerte' },
 ];
 
 /**
@@ -571,6 +573,17 @@ export const SiteEditor: React.FC<SiteEditorProps> = ({
                     work,
                   })
                 }
+              />
+            )}
+
+            {tab === 'offerte' && (
+              <OfferteTab
+                account={account}
+                content={content}
+                sector={sector}
+                styleId={styleId}
+                {...(published?.slug ? { siteSlug: published.slug } : {})}
+                onOpenDetails={() => setTab('gegevens')}
               />
             )}
 
