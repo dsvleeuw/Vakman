@@ -1,6 +1,6 @@
 import { ADDONS, getAddon, isAddonIncluded } from '../data/addons';
 import { getPlan } from '../data/plans';
-import type { PaymentDetails, PlanId, QuoteChannel } from '../types';
+import type { DeliveryItem, PaymentDetails, PlanId, QuoteChannel } from '../types';
 
 /**
  * Pure quote maths for the offertebouwer. Amounts are integer euro cents so
@@ -80,6 +80,41 @@ export function calculateQuote(planId: PlanId | string | undefined, addonIds: un
     vatCents,
     totalCents: subtotalCents + vatCents,
   };
+}
+
+/**
+ * The checklist that comes with the offer: what Klusbaas does for the site
+ * of the customer, in the order he does it.
+ *
+ * The list comes from the package, so it can never promise more than the
+ * customer bought. Nothing is done yet: Klusbaas ticks the items off in
+ * `/klusbaas` and the customer sees the same list in his account.
+ */
+export function buildDeliveryItems(planId: PlanId | string | undefined): DeliveryItem[] {
+  const plan = getPlan(planId) ?? getPlan(DEFAULT_PLAN)!;
+  return plan.delivery.map((label, index) => ({
+    id: `${plan.id}-${index + 1}`,
+    label,
+    done: false,
+  }));
+}
+
+/**
+ * When the site has to be delivered: two weeks after the customer said yes
+ * and paid.
+ *
+ * The deadline moves with the order: an offer that is paid three weeks
+ * later gets three weeks later, because that is when the work starts.
+ */
+export function deliveryDeadline(record: {
+  paidAt?: string;
+  acceptedAt?: string;
+  createdAt: string;
+}): string {
+  const start = record.paidAt ?? record.acceptedAt ?? record.createdAt;
+  const time = Date.parse(start);
+  if (Number.isNaN(time)) return '';
+  return addDaysIso(new Date(time).toISOString(), 14);
 }
 
 /** Dutch euro notation with cents: `€ 1.250,00`, `-€ 5,00`. */
@@ -195,6 +230,11 @@ export interface QuoteRecord extends QuoteTotals {
   services: string[];
   channel: QuoteChannel;
   appointment?: { date: string; slot: string };
+  /**
+   * What Klusbaas still has to do for the site of this customer. Older
+   * offers have no list yet; those show nothing.
+   */
+  delivery?: DeliveryItem[];
 }
 
 /**
@@ -253,6 +293,7 @@ export function buildQuoteRecord(input: {
     services: input.services,
     channel: input.channel,
     ...(input.appointment ? { appointment: input.appointment } : {}),
+    delivery: buildDeliveryItems(input.planId),
     ...totals,
   };
 }

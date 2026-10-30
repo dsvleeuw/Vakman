@@ -4,10 +4,12 @@ import { ADDONS } from '../data/addons';
 import { COMPONENT_ENTRIES } from '../data/componentCatalog';
 import {
   addDaysIso,
+  buildDeliveryItems,
   buildQuotePath,
   buildQuoteRecord,
   calculateQuote,
   daysSince,
+  deliveryDeadline,
   formatDutchDate,
   formatEuroCents,
   formatQuoteNumber,
@@ -115,4 +117,44 @@ test('buildQuoteRecord stores totals, validity and hides the token publicly', ()
   const pub = toPublicQuote(record);
   assert.equal('token' in pub, false);
   assert.equal(buildQuotePath(record.id, 'a+b'), '/offerte/KB-2026-0007?token=a%2Bb');
+});
+
+test('de opleverchecklist komt uit het pakket en begint leeg', () => {
+  const items = buildDeliveryItems('pro');
+  assert.ok(items.length >= 3);
+  assert.ok(items.every((item) => item.done === false && !item.doneAt));
+  assert.ok(items.some((item) => item.label.includes('.nl-domein')));
+  // Het duurste pakket belooft meer dan het goedkoopste.
+  assert.ok(buildDeliveryItems('premium').length > buildDeliveryItems('basis').length);
+  // Een onbekend pakket valt terug op Pro, zoals de prijs ook doet.
+  assert.equal(buildDeliveryItems('goud').length, buildDeliveryItems('pro').length);
+});
+
+test('de opleverchecklist staat op de offerte', () => {
+  const record = buildQuoteRecord({
+    id: 'KB-2026-0007',
+    token: 'geheim',
+    now: '2026-10-24T10:00:00.000Z',
+    planId: 'pro',
+    addons: [],
+    customer: { biz: 'Lekvrij', owner: 'Sanne', phone: '0612345678', city: 'Hoofddorp' },
+    sector: 'loodgieter',
+    sectorName: 'Loodgieter',
+    styleName: 'Signaal',
+    services: ['Lekkage'],
+    channel: 'E-mail',
+  });
+  assert.equal(record.delivery?.length, buildDeliveryItems('pro').length);
+  assert.equal(record.delivery?.every((item) => !item.done), true);
+});
+
+test('de oplevertermijn is twee weken na de betaling', () => {
+  const base = { createdAt: '2026-10-01T10:00:00.000Z' };
+  // Zonder betaling telt de termijn vanaf de offerte.
+  assert.equal(deliveryDeadline(base), '2026-10-15T10:00:00.000Z');
+  // Na de betaling telt hij vanaf de betaling: dan begint het werk.
+  assert.equal(
+    deliveryDeadline({ ...base, acceptedAt: '2026-10-20T10:00:00.000Z', paidAt: '2026-10-22T10:00:00.000Z' }),
+    '2026-11-05T10:00:00.000Z'
+  );
 });

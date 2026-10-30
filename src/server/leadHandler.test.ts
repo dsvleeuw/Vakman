@@ -68,6 +68,13 @@ function memoryStorage() {
       quotes.set(id, updated);
       return updated;
     },
+    async updateQuoteDelivery(id, delivery) {
+      const record = quotes.get(id);
+      if (!record) return null;
+      const updated = { ...record, delivery };
+      quotes.set(id, updated);
+      return updated;
+    },
   };
   return { storage, quotes, pdfs, leads };
 }

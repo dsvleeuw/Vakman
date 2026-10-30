@@ -21,10 +21,11 @@ import {
   verifyEmail,
   type AccountInfo,
 } from '../utils/accountClient';
-import { formatEuroCents, type QuoteStatus } from '../utils/quote';
+import { deliveryDeadline, formatEuroCents, type QuoteStatus } from '../utils/quote';
 import { acceptQuote, reportPayment } from '../utils/quoteClient';
 import { SERVICE_FEATURES, SERVICE_LABEL } from '../data/plans';
 import { serviceAmountLabel, servicePriceText, serviceSinceText } from '../utils/service';
+import { DeliveryList } from './DeliveryList';
 import { Logo } from './Logo';
 import { RouteLink } from './RouteLink';
 import { SiteFooter } from './SiteFooter';
@@ -252,6 +253,12 @@ const QuoteRow: React.FC<{
     <p className="m-0 text-sm font-bold text-stone-900">
       {formatEuroCents(quote.totalCents)} incl. btw
     </p>
+    {quote.delivery && quote.delivery.length > 0 && (
+      <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex flex-col gap-2">
+        <p className="m-0 text-sm font-bold text-stone-900">Wat wij voor je site doen</p>
+        <DeliveryList items={quote.delivery} deadline={deliveryDeadline(quote)} />
+      </div>
+    )}
     {(quote.status === 'open' || quote.status === 'accepted') && payment && (
       <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 flex flex-col gap-1">
         <p className="m-0 text-sm font-bold text-stone-900">Zo betaal je</p>

@@ -183,6 +183,12 @@ result. The Netlify deploy preview is the only external CI check. If
   are his own. `src/components/claims.test.tsx` keeps the old promises out;
   the copy of the pages lives in `src/data/marketing.ts` so a test can read
   it.
+- Every offer carries the delivery checklist of the package
+  (`buildDeliveryItems` in `utils/quote.ts`, the lists in `data/plans.ts`).
+  Klusbaas ticks the steps off in `/klusbaas` (`action: 'delivery'` →
+  `LeadStorage.updateQuoteDelivery`); the customer sees the same list in his
+  account and on the offer page (`components/DeliveryList.tsx`). The
+  checklist says what happens, the code does not do the work.
 - The monthly service is a real order (phase 7.15). The customer switches
   it on in his own account (`POST /api/account` with `action:
   'service-request'`) and stops it himself (`'service-cancel'`); the state

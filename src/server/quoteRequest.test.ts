@@ -113,6 +113,9 @@ function memoryStorage(): MemoryStorage {
     async markPaymentReported() {
       return null;
     },
+    async updateQuoteDelivery() {
+      return null;
+    },
   };
 }
 

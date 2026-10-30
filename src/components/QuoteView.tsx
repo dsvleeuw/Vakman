@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Download, FileText, Loader2, TriangleAlert } from 'lucide-react';
+import { DeliveryList } from './DeliveryList';
 import { Logo } from './Logo';
-import { formatDutchDate, formatEuroCents, type PublicQuote } from '../utils/quote';
+import { deliveryDeadline, formatDutchDate, formatEuroCents, type PublicQuote } from '../utils/quote';
 import { acceptQuote, reportPayment } from '../utils/quoteClient';
 
 interface QuoteViewProps {
@@ -201,6 +202,16 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
                 <dd className="m-0">{formatEuroCents(state.quote.totalCents)}</dd>
               </div>
             </dl>
+
+            {state.quote.delivery && state.quote.delivery.length > 0 && (
+              <section className="mx-6 sm:mx-8 mb-6 rounded-2xl border border-stone-200 bg-white p-5">
+                <h2 className="m-0 text-sm font-black text-stone-900">Wat wij voor je site doen</h2>
+                <p className="m-0 mt-2 mb-3 text-sm text-stone-700">
+                  Dit hoort bij je pakket. Zodra iets klaar is, staat het in je account.
+                </p>
+                <DeliveryList items={state.quote.delivery} deadline={deliveryDeadline(state.quote)} />
+              </section>
+            )}
 
             {state.quote.status === 'open' && !state.quote.expired && (
               <section className="mx-6 sm:mx-8 mb-6 rounded-2xl border border-stone-200 bg-white p-5">

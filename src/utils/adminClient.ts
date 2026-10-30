@@ -144,4 +144,12 @@ export function sendServiceInvoice(id: string): Promise<AdminResult> {
   return post({ action: 'service-invoice', id });
 }
 
+/**
+ * Tick a step of the delivery checklist of an offer off (or back on). The
+ * customer sees the same list in his account.
+ */
+export function setDeliveryStep(id: string, itemId: string, done: boolean): Promise<AdminResult> {
+  return post({ action: 'delivery', id, itemId, done });
+}
+
 export type { AdminCreatedQuote, AdminOverview, AdminQuote, AdminSite, StoredLead };

@@ -351,6 +351,25 @@ to [ROADMAP.md](../ROADMAP.md).
 - Without photos the page shows a transparent placeholder, not a photo of
   somebody else's work.
 
+## The delivery of a site
+
+- **The checklist is the promise, the work stays manual.** Every offer
+  carries the list of what Klusbaas does for the site (from the package in
+  `data/plans.ts`). Klusbaas ticks the steps off in `/klusbaas`; the
+  customer sees the same list in his account and on the offer page. The
+  code does not build the site for the customer: the customer fills in his
+  own site in the editor, and Klusbaas checks it, registers the domain and
+  delivers it.
+- **The deadline of two weeks counts from the payment.** The promise "binnen
+  twee weken opgeleverd" starts when the money is in, because that is when
+  the work starts. A customer who pays three weeks after the offer gets
+  three weeks later.
+- **An offer from before this phase has no checklist.** Older quotes in the
+  store have no list; they show nothing instead of an empty list.
+- **The hand-over of the site and the code is still manual.** When the
+  customer stops the service, the code says so, but the export of the site
+  and the domain is work by hand.
+
 ## The monthly service
 
 - **The service is a real order (phase 7.15).** The customer switches it on
