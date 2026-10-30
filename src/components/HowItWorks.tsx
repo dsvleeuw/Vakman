@@ -4,25 +4,32 @@ interface HowItWorksProps {
   onStart: () => void;
 }
 
-export const HowItWorks: React.FC<HowItWorksProps> = ({ onStart }) => {
-  const steps = [
-    {
-      n: '01',
-      t: 'Kies je vak en stijl',
-      d: 'Zes vakken, elk met vijf stijlen. Diensten, prijzen en foto’s staan meteen klaar.',
-    },
-    {
-      n: '02',
-      t: 'Vul je gegevens in',
-      d: 'Je bedrijfsnaam, telefoonnummer en werkgebied. Dat doe je gewoon op je smartphone in 2 minuten.',
-    },
-    {
-      n: '03',
-      t: 'Direct online',
-      d: 'Je eigen .nl domeinnaam. Offerteaanvragen komen automatisch binnen via WhatsApp of e-mail.',
-    },
-  ];
+/**
+ * The three steps on the page: what the customer does, in plain words.
+ *
+ * These are promises. The site goes live right away, on its own address;
+ * an own `.nl` domain is registered per order, not at the click of a
+ * button.
+ */
+export const STEPS = [
+  {
+    n: '01',
+    t: 'Kies je vak en stijl',
+    d: 'Zes vakken, elk met vijf stijlen. Diensten, prijzen en foto’s staan meteen klaar.',
+  },
+  {
+    n: '02',
+    t: 'Vul je gegevens in',
+    d: 'Je bedrijfsnaam, telefoonnummer en werkgebied. Dat doe je gewoon op je smartphone in 2 minuten.',
+  },
+  {
+    n: '03',
+    t: 'Direct online',
+    d: 'Je site staat meteen online, op een eigen adres en met je eigen telefoonnummer. Aanvragen komen binnen per mail of via WhatsApp.',
+  },
+];
 
+export const HowItWorks: React.FC<HowItWorksProps> = ({ onStart }) => {
   return (
     <section
       id="hoe-het-werkt"
@@ -39,7 +46,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onStart }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {steps.map((st) => (
+          {STEPS.map((st) => (
             <div
               key={st.n}
               className="border border-stone-700/80 rounded-2xl p-7 flex flex-col gap-3 bg-stone-800/40 hover:bg-stone-800/80 transition-all duration-300 hover:-translate-y-1"

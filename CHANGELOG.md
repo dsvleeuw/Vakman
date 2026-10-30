@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Elke belofte op de marketingpagina's is waar.** De FAQ beloofde dat je
+  site "direct bereikbaar" is met een eigen `.nl`-domein en dat je offertes
+  "automatisch" in je Google Drive landen. Geen van beide gebeurt: een
+  domein wordt per opdracht geregistreerd (de kosten van de registrar komen
+  er los bij) en je offertes staan in je eigen account, met prijs, status en
+  betaalwijze. Ook "hoe het werkt" en de homepage beloven geen foto's of
+  prijzen van het voorbeeld meer: op een klantsite staan je eigen foto's en
+  je eigen prijzen. De maandelijkse service bevat geen domein dat nooit is
+  geregistreerd. Een test houdt de oude beloften buiten de pagina's.
 - **De klant vraagt zelf een offerte aan.** In de site-editor staat een
   tab "Offerte". De klant kiest zijn pakket en de extra componenten die hij
   wil, ziet meteen wat het kost en drukt op "Vraag je offerte aan". Hij

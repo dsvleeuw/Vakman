@@ -50,6 +50,10 @@ on `main`; the commands to re-measure them are at the bottom.
     own site editor there is a tab "Offerte". He picks a package, sees what
     it costs right away and gets a real offer in his account, while Klusbaas
     sees the request with the customer's own words (phase 7.13).
+19. Everything the marketing pages promise is true: an own `.nl` domain is
+    registered per order (not at the click of a button), the offers of a
+    craftsman live in his own account (not in his Google Drive), and the
+    photos and the prices on a customer site are his own (phase 7.14).
 
 The craftsman's side is complete in phase 6: he can reset his password, he
 gets a mail when his site goes live, and every promise on the price list is
@@ -87,6 +91,8 @@ there is no payment provider (still open).
 | 22 | An accepted offer that is not paid goes quiet | the overview only showed the status `accepted` | The customer said yes, so the sale was real, but the money never arrived and nobody noticed: the IBAN was in a mail the customer had lost, and the order looked finished in the overview | **fixed (7.11)** |
 | 23 | The customer cannot say he paid | there was no way to report a transfer | The customer transferred the money and told nobody: Klusbaas only found out when he happened to look at his bank statement, so a paid order looked unpaid for weeks | **fixed (7.12)** |
 | 24 | The customer cannot ask for an offer himself | `/mijn-account` promised "vraag een offerte aan via de site-editor", but the editor had no such button | The customer had to write a mail or a WhatsApp message to get a price, and the promise in his own account was not true. He now asks in the editor and gets a real offer with a number, a price and a way to pay | **fixed (7.13)** |
+| 25 | The marketing pages promise things that are not built | `src/components/FaqSection.tsx` promised an own `.nl` domain at the moment of publishing and automatic offers in Google Drive; `HowItWorks.tsx` promised an own domain; the homepage promised example photos and prices as if they were the customer's | A customer who reads the FAQ before he buys is told something that does not happen. The first impression is where the sale is won or lost | **fixed (7.14)** |
+
 
 The status column says what has been done since the audit was written
 (phases 6.1–6.9 and 7.1–7.13). "Partly fixed" means: an offer can be ordered
@@ -146,6 +152,9 @@ no invoice.
   the package and the extra components, sees the price and gets a real
   offer in his account; the request is stored, so Klusbaas sees what he
   wants (phase 7.13).
+- Every promise on the marketing pages is built: the FAQ, "hoe het werkt"
+  and the homepage say what really happens (phase 7.14). A test keeps the
+  old promises out.
 
 ## Definition of done
 
@@ -161,7 +170,8 @@ invoice (7.6), an open offer can be followed up (7.7), an expired offer is
 not a promise (7.8), a request remembers its offer (7.9), the customer keeps
 the proof of his own "ja" (7.10), an accepted offer that is not paid does
 not go quiet (7.11), the customer can report that he paid (7.12), and the
-customer can ask for an offer himself (7.13).
+customer can ask for an offer himself (7.13), and every promise on the
+marketing pages is true (7.14).
 
 ## How to re-measure this
 
@@ -225,6 +235,10 @@ grep -n "quote/payment" netlify/functions/quote-payment.mts | head -1
 # 24: de klant vraagt zelf een offerte aan
 grep -n "quote/request" netlify/functions/quote-request.mts | head -1
 grep -n "Offerte aanvragen" src/components/editor/OfferteTab.tsx | head -1
+
+# 25: elke belofte op de marketingpagina's is waar
+bun test src/components/claims.test.tsx
+grep -n "per opdracht" src/components/FaqSection.tsx | head -1
 
 # and the checks that must stay green
 bun run check
