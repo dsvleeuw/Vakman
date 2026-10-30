@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildAcceptConfirmationEmail } from './leadEmail';
+import { buildAcceptConfirmationEmail, buildPaymentReminderEmail } from './leadEmail';
 import { buildQuoteRecord, type QuoteRecord } from './quote';
 
 const TOKEN = 'offertetoken1234567890';
@@ -48,6 +48,33 @@ test('zonder betaalgegevens staat er geen bankrekening in de mail', () => {
 
   assert.doesNotMatch(mail.text, /IBAN/);
   assert.doesNotMatch(mail.text, /BETALEN/);
+});
+
+test('de betaalherinnering vraagt om het bedrag, met de IBAN en de omschrijving', () => {
+  const mail = buildPaymentReminderEmail(
+    { ...offer(), status: 'accepted', acceptedAt: '2026-10-29T11:00:00.000Z' },
+    {
+      quoteUrl: `https://klusbaas.nl/offerte/KB-2026-0001?token=${TOKEN}`,
+      payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+    }
+  );
+
+  assert.match(mail.subject, /Je betaling voor offerte KB-2026-0001 is nog niet binnen/);
+  assert.match(mail.text, /1\.203,95/);
+  assert.match(mail.text, /NL91ABNA0417164300/);
+  assert.match(mail.text, /Omschrijving: KB-2026-0001/);
+  // Een nudge, geen dreigement: de site blijft live.
+  assert.match(mail.text, /Je site blijft online/);
+});
+
+test('de betaalherinnering zegt wat er gebeurt als er geen betaalgegevens zijn', () => {
+  const mail = buildPaymentReminderEmail(
+    { ...offer(), status: 'accepted' },
+    { quoteUrl: `https://klusbaas.nl/offerte/KB-2026-0001?token=${TOKEN}` }
+  );
+
+  assert.doesNotMatch(mail.text, /IBAN/);
+  assert.match(mail.text, /Klusbaas stuurt je de betaalgegevens apart/);
 });
 
 test('met betaalgegevens staat de IBAN erin, met de omschrijving', () => {

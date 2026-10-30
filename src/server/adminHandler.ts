@@ -14,6 +14,7 @@ import { adminSession, type AdminStorage } from './adminStorage';
 import { createOfferForCustomer, type OfferRequest } from './adminOffer';
 import type { AccountMail } from './accountMailer';
 import { sendPaidNotice } from './paidNotice';
+import { remindPayment } from './payReminder';
 import { remindQuote } from './remindQuote';
 
 /**
@@ -34,6 +35,7 @@ export type AdminAction =
   | 'quote-status'
   | 'extend-quote'
   | 'remind-quote'
+  | 'remind-payment'
   | 'verify-account'
   | 'create-quote';
 
@@ -53,6 +55,8 @@ export interface AdminResponseBody {
   mailStatus?: string;
   /** What happened with the reminder mail. */
   reminderStatus?: string;
+  /** What happened with the payment reminder mail. */
+  paymentReminderStatus?: string;
   /** The new validity date of an extended offer. */
   validUntil?: string;
   error?: string;
@@ -165,6 +169,7 @@ function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
     validUntil: quote.validUntil,
     status: quote.status,
     ...(quote.paidAt ? { paidAt: quote.paidAt } : {}),
+    ...(quote.acceptedAt ? { acceptedAt: quote.acceptedAt } : {}),
     planId: quote.planId,
     planName: quote.planName,
     sectorName: quote.sectorName,
@@ -357,6 +362,29 @@ export async function handleAdmin(
       return { status: 400, body: { ok: false, error: result.error } };
     }
     return { status: 200, body: { ok: true, reminderStatus: result.mailStatus } };
+  }
+
+  if (action === 'remind-payment') {
+    // De klant heeft ja gezegd maar nog niet betaald: de klant krijgt een
+    // herinnering met het bedrag en de IBAN.
+    const id = typeof body.id === 'string' ? body.id : '';
+    if (!id) {
+      return { status: 400, body: { ok: false, error: 'Onbekende offerte.' } };
+    }
+    const record = await deps.leads.getQuote(id);
+    if (!record) {
+      return { status: 404, body: { ok: false, error: 'Deze offerte bestaat niet (meer).' } };
+    }
+    const result = await remindPayment(record, {
+      ...(deps.sendMail ? { sendMail: deps.sendMail } : {}),
+      ...(deps.payment ? { payment: deps.payment } : {}),
+      ...(deps.siteUrl ? { siteUrl: deps.siteUrl } : {}),
+      log,
+    });
+    if (!result.ok) {
+      return { status: 400, body: { ok: false, error: result.error } };
+    }
+    return { status: 200, body: { ok: true, paymentReminderStatus: result.mailStatus } };
   }
 
   if (action === 'verify-account') {

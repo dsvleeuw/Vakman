@@ -23,6 +23,8 @@ export interface AdminResult {
   mailStatus?: string;
   /** What happened with the reminder mail. */
   reminderStatus?: string;
+  /** What happened with the payment reminder mail. */
+  paymentReminderStatus?: string;
   /** The new validity date of an extended offer. */
   validUntil?: string;
   error?: string;
@@ -80,6 +82,14 @@ export function extendQuote(id: string): Promise<AdminResult> {
  */
 export function remindQuote(id: string): Promise<AdminResult> {
   return post({ action: 'remind-quote', id });
+}
+
+/**
+ * Chase an offer the customer accepted but did not pay: he gets the amount
+ * and the IBAN again.
+ */
+export function remindPayment(id: string): Promise<AdminResult> {
+  return post({ action: 'remind-payment', id });
 }
 
 /** Confirm an e-mail address by hand, when the mail did not arrive. */

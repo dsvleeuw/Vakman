@@ -280,6 +280,49 @@ test('Klusbaas stuurt een herinnering over een openstaande offerte', async () =>
   assert.match(mails[0].text, /offerte\/KB-2026-0001\?token=quotetoken/);
 });
 
+test('Klusbaas stuurt een betaalherinnering voor een geaccepteerde offerte', async () => {
+  const mails: { to: string; subject: string; text: string }[] = [];
+  const accepted = { ...quote, status: 'accepted' as const, acceptedAt: '2026-10-29T11:00:00.000Z' };
+  const d = {
+    ...deps(),
+    leads: memoryStorage([], [accepted]),
+    sendMail: async (mail: { to: string; subject: string; text: string }) => {
+      mails.push(mail);
+      return 'sent';
+    },
+    payment: { iban: 'NL91ABNA0417164300', name: 'Klusbaas', email: 'info@klusbaas.nl' },
+  };
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+
+  const result = await handleAdmin(
+    { action: 'remind-payment', id: 'KB-2026-0001' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 200);
+  assert.equal(result.body.paymentReminderStatus, 'sent');
+  assert.equal(mails.length, 1);
+  assert.equal(mails[0].to, 'jan@jansen.nl');
+  assert.match(mails[0].text, /NL91ABNA0417164300/);
+
+  // Het overzicht laat zien wanneer de klant ja zei.
+  const overview = await handleAdmin({ action: 'overview' }, d, login.setCookie, false);
+  assert.equal(overview.body.overview?.quotes[0].acceptedAt, '2026-10-29T11:00:00.000Z');
+});
+
+test('een betaalherinnering voor een onbekende offerte geeft een 404', async () => {
+  const d = deps();
+  const login = await handleAdmin({ action: 'login', password: 'geheim' }, d, null, false);
+  const result = await handleAdmin(
+    { action: 'remind-payment', id: 'KB-2026-9999' },
+    d,
+    login.setCookie,
+    false
+  );
+  assert.equal(result.status, 404);
+});
+
 test('een verlopen offerte is zichtbaar in het overzicht', async () => {
   const d = deps();
   // De testklok staat op 1 november 2023; de offerte is geldig tot 28 november 2026.

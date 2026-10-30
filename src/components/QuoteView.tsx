@@ -273,7 +273,9 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               </section>
             )}
 
-            {state.quote.status === 'open' && !state.quote.expired && state.quote.payment && (
+            {(state.quote.status === 'open' || state.quote.status === 'accepted') &&
+              !state.quote.expired &&
+              state.quote.payment && (
               <section className="mx-6 sm:mx-8 mb-6 rounded-2xl bg-stone-50 border border-stone-200 p-5">
                 <h2 className="m-0 text-sm font-black text-stone-900">Zo betaal je</h2>
                 <p className="m-0 mt-2 text-sm text-stone-700">

@@ -512,6 +512,76 @@ export function buildReminderEmail(
   return { subject, text, html };
 }
 
+
+/**
+ * The mail to the customer who said yes but has not paid yet.
+ *
+ * The customer accepted the offer, so the sale is real; the money is not in
+ * yet. This mail reminds him of the amount and the IBAN, so he does not have
+ * to dig for the first mail. It is a nudge, never a scolding: the site stays
+ * online whether he pays today or next week.
+ */
+export function buildPaymentReminderEmail(
+  record: QuoteRecord,
+  links: { quoteUrl: string; payment?: PaymentDetails }
+): LeadEmail {
+  const siteUrl = new URL(links.quoteUrl).origin;
+  const { customer } = record;
+  const firstName = customer.owner.split(' ')[0] || customer.owner;
+  const subject = `Je betaling voor offerte ${record.id} is nog niet binnen`;
+  const intro = `Hoi ${firstName}, je hebt offerte ${record.id} geaccepteerd, maar het bedrag is nog niet binnen. Hieronder staat hoe je het overmaakt.`;
+
+  const details: Row[] = [
+    { label: 'Offerte', value: record.id },
+    { label: 'Bedrijf', value: customer.biz },
+    { label: 'Pakket', value: record.planName },
+    { label: 'Bedrag incl. btw', value: formatEuroCents(record.totalCents) },
+  ];
+  const payment = links.payment;
+  const paymentRows: Row[] = payment
+    ? [
+        { label: 'Bankrekening (IBAN)', value: payment.iban },
+        { label: 'Ten name van', value: payment.name },
+        ...(payment.email ? [{ label: 'E-mail', value: payment.email }] : []),
+        { label: 'Omschrijving', value: record.id },
+      ]
+    : [];
+
+  const text = [
+    intro,
+    '',
+    `Referentie: ${record.id}`,
+    '',
+    ...textRows(details),
+    '',
+    ...(paymentRows.length
+      ? ['BETALEN', ...textRows(paymentRows), 'Je site blijft online, ook als je nog niet betaald hebt.', '']
+      : ['Klusbaas stuurt je de betaalgegevens apart.', '']),
+    'Bekijk je offerte online:',
+    links.quoteUrl,
+    '',
+    'Al betaald? Dan klopt het bedrag misschien nog niet helemaal. Laat het weten,',
+    'dan kijken we ernaar. Vragen? Antwoord gewoon op deze mail.',
+    '',
+    emailTextFooter(siteUrl, TRANSACTIONAL_NOTE),
+  ].join('\n');
+
+  const html = renderEmailLayout({
+    intro,
+    reference: record.id,
+    sections:
+      section('Gegevens', emailTable(details)) +
+      (paymentRows.length ? section('Betalen', emailTable(paymentRows)) : ''),
+    outro:
+      'Je site blijft online, ook als je nog niet betaald hebt. Al betaald? Laat het weten, dan kijken we ernaar. Vragen? Antwoord gewoon op deze mail.',
+    button: { href: links.quoteUrl, label: 'Bekijk je offerte' },
+    siteUrl,
+    footerNote: TRANSACTIONAL_NOTE,
+  });
+
+  return { subject, text, html };
+}
+
 /**
  * The mail to the customer when Klusbaas marks his offer as paid.
  *
