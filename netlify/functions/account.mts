@@ -2,6 +2,7 @@ import { handleAccount } from '../../src/server/accountHandler';
 import { createAccountMailer } from '../../src/server/accountMailer';
 import { paymentDetailsFromEnv } from '../../src/server/payment';
 import { createBlobAccountStorage, createBlobSiteStorage, createBlobStorage } from '../../src/server/storage';
+import { createBlobMediaStorage } from '../../src/server/storage';
 import { createRateLimiter } from '../../src/utils/lead';
 
 /**
@@ -28,6 +29,7 @@ export default async (req: Request): Promise<Response> => {
   const accounts = await createBlobAccountStorage();
   const sites = await createBlobSiteStorage();
   const leads = await createBlobStorage();
+  const media = await createBlobMediaStorage();
   const payment = paymentDetailsFromEnv(process.env);
   const sendMail = createAccountMailer(process.env);
   const result = await handleAccount(
@@ -36,6 +38,8 @@ export default async (req: Request): Promise<Response> => {
       accounts,
       sites,
       leads,
+      // De foto's van de site gaan mee als de klant zijn account verwijdert.
+      media,
       sendMail,
       siteUrl: process.env.PUBLIC_SITE_URL || process.env.URL || new URL(req.url).origin,
       // Mails over de maandelijkse service gaan naar de inbox van Klusbaas.

@@ -23,6 +23,9 @@ function memoryStorage(): MediaStorage & { photos: Map<string, { data: Uint8Arra
     async getMedia(key) {
       return photos.get(key) ?? null;
     },
+    async deleteMedia(key: string) {
+      photos.delete(key);
+    },
   };
 }
 

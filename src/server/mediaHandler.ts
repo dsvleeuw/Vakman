@@ -26,6 +26,8 @@ export interface MediaStorage {
   saveMedia(key: string, data: Uint8Array, contentType: string): Promise<string>;
   /** Read a photo back, with the type it was stored with. */
   getMedia(key: string): Promise<{ data: Uint8Array; contentType: string } | null>;
+  /** Remove a photo. Used when a customer deletes his account. */
+  deleteMedia(key: string): Promise<void>;
 }
 
 /** The content type of a stored photo, from its extension. */

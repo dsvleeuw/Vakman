@@ -235,6 +235,12 @@ export interface QuoteRecord extends QuoteTotals {
    * offers have no list yet; those show nothing.
    */
   delivery?: DeliveryItem[];
+  /**
+   * When the personal data of this offer was removed because the customer
+   * deleted his account (AVG art. 17). The number, the amount and the dates
+   * stay: the tax office can ask for those for seven years.
+   */
+  anonymizedAt?: string;
 }
 
 /**

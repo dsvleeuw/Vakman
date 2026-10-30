@@ -21,6 +21,9 @@ function memorySites(sites: PublishedSiteRecord[] = []): SiteStorage {
     async listSites() {
       return [...map.values()];
     },
+    async deleteSite(slug: string) {
+      map.delete(slug);
+    },
   };
 }
 
@@ -94,6 +97,15 @@ function memoryStorage(
       quoteMap.set(id, updated);
       return updated;
     },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
+    },
   };
 }
 
@@ -120,6 +132,10 @@ function memoryAccounts(accounts: Account[] = []): AccountStorage {
       return null;
     },
     async deleteSession() {},
+    async deleteAccount() {},
+    async listSessionsOf() {
+      return [];
+    },
   };
 }
 

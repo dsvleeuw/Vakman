@@ -24,6 +24,9 @@ function memoryStorage(): SiteStorage {
     async listSites() {
       return [...sites.values()];
     },
+    async deleteSite(slug: string) {
+      sites.delete(slug);
+    },
   };
 }
 

@@ -31,6 +31,8 @@ export interface LeadStorage {
    * new record, or null when the request does not exist.
    */
   updateLeadStatus(reference: string, status: RequestStatus): Promise<StoredLead | null>;
+  /** Remove a stored request. */
+  deleteLead(reference: string): Promise<void>;
   /** Every stored offer, so a customer can see his own in his account. */
   listQuotes(): Promise<QuoteRecord[]>;
   /**
@@ -59,6 +61,14 @@ export interface LeadStorage {
    * does not exist.
    */
   updateQuoteDelivery(id: string, delivery: DeliveryItem[]): Promise<QuoteRecord | null>;
+  /** Remove an offer and its PDF. */
+  deleteQuote(id: string): Promise<void>;
+  /**
+   * Remove the personal data of a paid offer, keeping the number, the
+   * amount and the dates: the tax office can ask for those for seven years.
+   * Returns the new record, or null when the offer does not exist.
+   */
+  anonymizeQuote(id: string, at: string): Promise<QuoteRecord | null>;
 }
 
 const counterKey = (year: number) => `counter-${year}`;
@@ -74,6 +84,8 @@ export interface SiteStorage {
   getSite(slug: string): Promise<PublishedSiteRecord | null>;
   /** Every published site, for the sitemap. */
   listSites(): Promise<PublishedSiteRecord[]>;
+  /** Remove a published site. The public page disappears with it. */
+  deleteSite(slug: string): Promise<void>;
 }
 
 /**
@@ -99,6 +111,13 @@ export function createFileMediaStorage(root: string): MediaStorage {
         return null;
       }
     },
+    async deleteMedia(key) {
+      try {
+        await unlink(path.join(mediaDir, safe(key)));
+      } catch {
+        // Already gone.
+      }
+    },
   };
 }
 
@@ -121,6 +140,9 @@ export async function createBlobMediaStorage(): Promise<MediaStorage> {
         data: new Uint8Array(await blob.arrayBuffer()),
         contentType: blob.type || contentTypeFor(key),
       };
+    },
+    async deleteMedia(key) {
+      await media.delete(key);
     },
   };
 }
@@ -219,6 +241,36 @@ export function createFileStorage(root: string): LeadStorage {
       await writeFile(file, JSON.stringify(updated, null, 2));
       return updated;
     },
+    async deleteQuote(id) {
+      try {
+        await unlink(path.join(quotesDir, `${safe(id)}.json`));
+      } catch {
+        // Already gone.
+      }
+      try {
+        await unlink(path.join(quotesDir, `${safe(id)}.pdf`));
+      } catch {
+        // No PDF: nothing to remove.
+      }
+    },
+    async anonymizeQuote(id, at) {
+      const file = path.join(quotesDir, `${safe(id)}.json`);
+      const record = await readJson<QuoteRecord>(file);
+      if (!record?.id) return null;
+      const updated: QuoteRecord = {
+        ...record,
+        customer: { biz: record.customer.biz, owner: '', phone: '', city: record.customer.city },
+        anonymizedAt: at,
+      };
+      await writeFile(file, JSON.stringify(updated, null, 2));
+      // The PDF holds the details of the customer: it goes with them.
+      try {
+        await unlink(path.join(quotesDir, `${safe(id)}.pdf`));
+      } catch {
+        // No PDF: nothing to remove.
+      }
+      return updated;
+    },
     async listQuotes() {
       const records: QuoteRecord[] = [];
       let files: string[] = [];
@@ -265,6 +317,13 @@ export function createFileStorage(root: string): LeadStorage {
       await writeFile(file, JSON.stringify(updated, null, 2));
       return updated;
     },
+    async deleteLead(reference) {
+      try {
+        await unlink(path.join(leadsDir, `${safe(reference)}.json`));
+      } catch {
+        // Already gone.
+      }
+    },
   };
 }
 
@@ -281,7 +340,14 @@ export interface AccountStorage {
   saveAccount(account: Account): Promise<string>;
   saveSession(session: AccountSession): Promise<string>;
   getSession(id: string): Promise<AccountSession | null>;
+  /** Every session of one account, so they can all be closed at once. */
+  listSessionsOf(accountId: string): Promise<AccountSession[]>;
   deleteSession(id: string): Promise<void>;
+  /**
+   * Remove the account itself. Under the AVG (art. 17) the customer can ask
+   * for this; the offers he paid for stay as a fiscal record.
+   */
+  deleteAccount(id: string): Promise<void>;
 }
 
 /**
@@ -346,11 +412,33 @@ export function createFileAccountStorage(root: string): AccountStorage {
     async getSession(id) {
       return readJson<AccountSession>(path.join(sessionsDir, `${safe(id)}.json`));
     },
+    async listSessionsOf(accountId) {
+      const sessions: AccountSession[] = [];
+      let files: string[] = [];
+      try {
+        files = await readdir(sessionsDir);
+      } catch {
+        return sessions;
+      }
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        const record = await readJson<AccountSession>(path.join(sessionsDir, file));
+        if (record?.id && record.accountId === accountId) sessions.push(record);
+      }
+      return sessions;
+    },
     async deleteSession(id) {
       try {
         await unlink(path.join(sessionsDir, `${safe(id)}.json`));
       } catch {
         // Already gone: logging out twice is not an error.
+      }
+    },
+    async deleteAccount(id) {
+      try {
+        await unlink(path.join(accountsDir, `${safe(id)}.json`));
+      } catch {
+        // Already gone.
       }
     },
   };
@@ -394,6 +482,13 @@ export function createFileSiteStorage(root: string): SiteStorage {
         return records;
       } catch {
         return [];
+      }
+    },
+    async deleteSite(slug) {
+      try {
+        await unlink(path.join(sitesDir, `${safe(slug)}.json`));
+      } catch {
+        // Already gone.
       }
     },
   };
@@ -472,6 +567,23 @@ export async function createBlobStorage(): Promise<LeadStorage> {
       await quotes.setJSON(id, updated);
       return updated;
     },
+    async deleteQuote(id) {
+      await quotes.delete(id);
+      await quotes.delete(`${id}.pdf`);
+    },
+    async anonymizeQuote(id, at) {
+      const record = (await quotes.get(id, { type: 'json' })) as QuoteRecord | null;
+      if (!record?.id) return null;
+      const updated: QuoteRecord = {
+        ...record,
+        customer: { biz: record.customer.biz, owner: '', phone: '', city: record.customer.city },
+        anonymizedAt: at,
+      };
+      await quotes.setJSON(id, updated);
+      // The PDF holds the details of the customer: it goes with them.
+      await quotes.delete(`${id}.pdf`);
+      return updated;
+    },
     async listQuotes() {
       const listed = await quotes.list();
       const records: QuoteRecord[] = [];
@@ -503,6 +615,9 @@ export async function createBlobStorage(): Promise<LeadStorage> {
       await leads.setJSON(reference, updated);
       return updated;
     },
+    async deleteLead(reference) {
+      await leads.delete(reference);
+    },
   };
 }
 
@@ -529,6 +644,9 @@ export async function createBlobSiteStorage(): Promise<SiteStorage> {
         if (record?.slug) records.push(record);
       }
       return records;
+    },
+    async deleteSite(slug) {
+      await sites.delete(slug);
     },
   };
 }
@@ -572,8 +690,21 @@ export async function createBlobAccountStorage(): Promise<AccountStorage> {
         ((await accounts.get(`session-${id}`, { type: 'json' })) as AccountSession | null) ?? null
       );
     },
+    async listSessionsOf(accountId) {
+      const listed = await accounts.list();
+      const sessions: AccountSession[] = [];
+      for (const entry of listed.blobs) {
+        if (!entry.key.startsWith('session-')) continue;
+        const record = (await accounts.get(entry.key, { type: 'json' })) as AccountSession | null;
+        if (record?.id && record.accountId === accountId) sessions.push(record);
+      }
+      return sessions;
+    },
     async deleteSession(id) {
       await accounts.delete(`session-${id}`);
+    },
+    async deleteAccount(id) {
+      await accounts.delete(id);
     },
   };
 }

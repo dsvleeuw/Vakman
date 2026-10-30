@@ -181,6 +181,12 @@ export const PrivacyView: React.FC = () => (
           <li>je toestemming in te trekken, bijvoorbeeld voor de nieuwsbrief.</li>
         </ul>
         <p>
+          Heb je een account bij Klusbaas? Dan hoef je geen mail te sturen: in je eigen account staat
+          een knop om je account en je site te verwijderen. Betaalde offertes blijven dan alleen als
+          fiscale gegevens bestaan (nummer, bedrag en datum), zonder je naam, je telefoonnummer en je
+          e-mailadres.
+        </p>
+        <p>
           Mail daarvoor naar{' '}
           <a className="font-semibold text-stone-900 underline underline-offset-2" href={`mailto:${PRIVACY_CONTACT_EMAIL}`}>
             {PRIVACY_CONTACT_EMAIL}

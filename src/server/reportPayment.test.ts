@@ -69,6 +69,15 @@ function memoryStorage(quotes: QuoteRecord[]): LeadStorage {
       map.set(id, updated);
       return updated;
     },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
+    },
   };
 }
 

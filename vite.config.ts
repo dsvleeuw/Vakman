@@ -72,7 +72,7 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
         }
         const adminHandler = await server.ssrLoadModule('/src/server/adminHandler.ts');
         const { createFileAdminStorage } = await server.ssrLoadModule('/src/server/adminStorage.ts');
-        const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
+        const { createFileAccountStorage, createFileSiteStorage, createFileStorage, createFileMediaStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
         const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
         const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
@@ -156,7 +156,7 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
           return reply(res, 400, { ok: false, error: 'Ongeldige JSON.' });
         }
         const accountHandler = await server.ssrLoadModule('/src/server/accountHandler.ts');
-        const { createFileAccountStorage, createFileSiteStorage, createFileStorage } =
+        const { createFileAccountStorage, createFileSiteStorage, createFileStorage, createFileMediaStorage } =
           await server.ssrLoadModule('/src/server/storage.ts');
         const { paymentDetailsFromEnv } = await server.ssrLoadModule('/src/server/payment.ts');
         const { createAccountMailer } = await server.ssrLoadModule('/src/server/accountMailer.ts');
@@ -170,6 +170,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             accounts: createFileAccountStorage(path.resolve(__dirname, '.data')),
             sites: createFileSiteStorage(path.resolve(__dirname, '.data')),
             leads: createFileStorage(path.resolve(__dirname, '.data')),
+            // De foto's van de site gaan mee als de klant zijn account verwijdert.
+            media: createFileMediaStorage(path.resolve(__dirname, '.data')),
             // De offertes van de klant staan in dezelfde opslag als de aanvragen.
             quotes: createFileStorage(path.resolve(__dirname, '.data')),
             sendMail,

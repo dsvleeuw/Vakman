@@ -62,6 +62,12 @@ function memoryAccounts(): AccountStorage {
     async deleteSession(id) {
       sessions.delete(id);
     },
+    async listSessionsOf() {
+      return [];
+    },
+    async deleteAccount(id: string) {
+      accounts.delete(id);
+    },
   };
 }
 
@@ -119,6 +125,15 @@ function memoryStorage(): MemoryStorage {
     async updateQuoteDelivery() {
       return null;
     },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
+    },
   };
 }
 
@@ -133,6 +148,9 @@ function memorySites(site: PublishedSiteRecord | null): SiteStorage {
     },
     async listSites() {
       return site ? [site] : [];
+    },
+    async deleteSite() {
+      site = null;
     },
   };
 }

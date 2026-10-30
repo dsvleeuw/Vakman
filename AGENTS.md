@@ -219,6 +219,14 @@ result. The Netlify deploy preview is the only external CI check. If
   `LeadStorage.updateQuoteDelivery`); the customer sees the same list in his
   account and on the offer page (`components/DeliveryList.tsx`). The
   checklist says what happens, the code does not do the work.
+- The customer deletes his own account (phase 7.25). The action is
+  `delete-account` in `server/accountHandler.ts`; the plan and the
+  execution are in `server/accountDelete.ts`. The customer gives his
+  password and confirms it. His sites (with their photos), his requests and
+  his unpaid offers go; the offers he paid for stay as fiscal records and
+  lose their personal details (`LeadStorage.anonymizeQuote`). The privacy
+  statement on `/privacy` says exactly that. Never delete a paid offer
+  wholesale: the tax office can ask for it for seven years.
 - A request has a status (phase 7.24). `RequestStatus` in `types.ts`, the
   texts in `utils/lead.ts` (`REQUEST_STATUSES`, `REQUEST_STATUS_LABELS`).
   Klusbaas sets it in `/klusbaas` (`action: 'lead-status'` → 

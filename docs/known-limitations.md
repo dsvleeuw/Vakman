@@ -132,9 +132,12 @@ to [ROADMAP.md](../ROADMAP.md).
   password. Klusbaas sees it: the mails are printed in the log instead.
 - **The reset link works for one hour and only once.** After that the
   customer has to ask for a new one.
-- **There is no "account vergeten":** a customer cannot delete his account
-  and the data in it. Under the AVG that has to be possible; today Klusbaas
-  removes it by hand from the Blobs store.
+- ~~**There is no "account vergeten":** a customer cannot delete his account
+  and the data in it.~~ Fixed: the customer deletes his own account in
+  `/mijn-account`, with his password and a confirmation. His sites, his
+  requests, his photos and his unpaid offers go. The offers he paid for stay
+  as fiscal records (number, amount and date); his name, phone number and
+  e-mail address are removed from them.
 
 ## The Klusbaas overview
 
@@ -348,9 +351,10 @@ to [ROADMAP.md](../ROADMAP.md).
   uploading, so a phone photo of 5 MB becomes a few hundred kilobytes.
 - Only jpg, png and webp are accepted, up to 1,5 MB. There is no SVG (a
   file with a script in it) and no other format.
-- A photo is kept under a random name. Nothing is deleted: there is no
-  delete button and no limit per customer, so the store grows with every
-  upload. The Blobs store `media` has to be watched.
+- A photo is kept under a random name. A customer cannot delete one photo
+  himself and there is no limit per customer, so the store grows with every
+  upload. When the customer deletes his account, his photos go with it. The
+  Blobs store `media` has to be watched.
 - **The upload is open for everyone, so it has a limit.** `POST /api/media`
   accepts 30 uploads per hour per IP address. The limit lives in the memory
   of one function instance, so it stops a single script but not a
