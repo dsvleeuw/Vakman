@@ -6,12 +6,20 @@ import type {
   AccountQuote,
   PaymentDetails,
   PublicPublishedSite,
+  ServiceState,
   StoredLead,
 } from '../types';
 import { isValidEmail } from '../utils/contact';
+import { PLATFORM_CONTACT } from '../data/platform';
 import { hashPassword, passwordProblem, verifyPassword } from '../utils/password';
 import { accountId, type AccountStorage, type LeadStorage, type SiteStorage } from './storage';
 import { buildQuotePath, isQuoteNumber, type QuoteRecord } from '../utils/quote';
+import { SERVICE_AMOUNT_CENTS } from '../utils/service';
+import {
+  buildServiceCancelNoticeEmail,
+  buildServiceRequestedEmail,
+  type ServiceSubject,
+} from '../utils/serviceMail';
 import { isValidSlug, toPublicSite } from './siteHandler';
 import { tokensMatch } from './tokens';
 
@@ -39,7 +47,9 @@ export type AccountAction =
   | 'reset-request'
   | 'reset'
   | 'verify'
-  | 'verify-request';
+  | 'verify-request'
+  | 'service-request'
+  | 'service-cancel';
 
 export interface AccountRequestBody {
   action?: AccountAction;
@@ -61,6 +71,8 @@ export interface AccountResponseBody {
   payment?: PaymentDetails;
   /** The site that was linked to the account. */
   site?: PublicPublishedSite;
+  /** The monthly service of this customer, when he asked for it. */
+  service?: ServiceState;
   error?: string;
   field?: string;
   /** A message for the customer, e.g. after a reset request. */
@@ -86,6 +98,11 @@ export interface AccountDeps {
   sendMail?: (mail: { to: string; subject: string; text: string; html: string }) => Promise<string>;
   /** The origin for the links in the mails, e.g. https://klusbaas.nl */
   siteUrl?: string;
+  /**
+   * Where the mails about the service go: the inbox of Klusbaas himself
+   * (`QUOTE_NOTIFY_EMAIL`). Without it the public contact address is used.
+   */
+  notifyEmail?: string;
   /** Where the requests are kept. Without it the customer sees no requests. */
   leads?: LeadStorage;
   /** Where the offers are kept. Without it the customer sees no offers. */
@@ -167,7 +184,40 @@ export function clearSessionCookie(secure: boolean): string {
 }
 
 function publicAccount(account: Account) {
-  return { id: account.id, email: account.email, verified: Boolean(account.verifiedAt) };
+  return {
+    id: account.id,
+    email: account.email,
+    verified: Boolean(account.verifiedAt),
+    ...(account.service ? { service: account.service } : {}),
+  };
+}
+
+/**
+ * Where the mails about the service go: the inbox of Klusbaas, or the
+ * public contact address when no inbox is configured.
+ */
+function notifyAddress(deps: AccountDeps): string {
+  return deps.notifyEmail?.trim() || PLATFORM_CONTACT.email;
+}
+
+/**
+ * Who the service is about: the customer and his site.
+ *
+ * The name of the business comes from the site, because that is what the
+ * customer wrote there; the account address is the fallback.
+ */
+function serviceSubject(
+  account: Account,
+  site: { slug: string; form: { biz: string; owner: string; city: string } } | undefined
+): ServiceSubject {
+  const owner = site?.form.owner?.trim() ?? '';
+  const biz = site?.form.biz?.trim() ?? '';
+  return {
+    name: owner || account.email,
+    biz: biz || owner || account.email,
+    city: site?.form.city ?? '',
+    siteSlug: site?.slug ?? '',
+  };
 }
 
 /** How long a reset link works: one hour. */
@@ -585,6 +635,75 @@ export async function handleAccount(
     return {
       status: 200,
       body: { ok: true, account: publicAccount(account), quotes, ...(deps.payment ? { payment: deps.payment } : {}) },
+    };
+  }
+
+  if (action === 'service-request') {
+    // De klant vraagt de maandelijkse service aan. De service draait om
+    // zijn eigen site: zonder site is er niets om te hosten.
+    const owned = (await deps.sites.listSites()).filter((site) => site.ownerId === account.id);
+    if (owned.length === 0) {
+      return {
+        status: 400,
+        body: {
+          ok: false,
+          error:
+            'De service draait om je eigen site. Publiceer eerst je site in de editor, dan komt de service hier.',
+        },
+      };
+    }
+    if (account.service && account.service.status !== 'stopped') {
+      return {
+        status: 409,
+        body: { ok: false, error: 'Je service staat al aan.' },
+      };
+    }
+    const now = deps.now ? deps.now() : Date.now();
+    const service: ServiceState = {
+      status: 'requested',
+      requestedAt: new Date(now).toISOString(),
+      amountCents: SERVICE_AMOUNT_CENTS,
+      siteSlug: owned[0].slug,
+    };
+    const updated: Account = { ...account, service, updatedAt: now };
+    await deps.accounts.saveAccount(updated);
+    // Klusbaas moet het weten: de service loopt pas als hij hem aanzet.
+    const mail = buildServiceRequestedEmail(serviceSubject(updated, owned[0]));
+    const mailStatus = await sendAccountMail(deps, notifyAddress(deps), mail);
+    deps.log?.(
+      `[account] service aangevraagd door ${maskEmail(account.email)}: ${mailStatus}`
+    );
+    return {
+      status: 200,
+      body: { ok: true, account: publicAccount(updated), service },
+    };
+  }
+
+  if (action === 'service-cancel') {
+    // De klant stopt de service. De site blijft online; Klusbaas levert de
+    // site en de code aan hem terug.
+    const service = account.service;
+    if (!service || service.status === 'stopped') {
+      return {
+        status: 400,
+        body: { ok: false, error: 'Je hebt geen lopende service.' },
+      };
+    }
+    const now = deps.now ? deps.now() : Date.now();
+    const stopped: ServiceState = {
+      ...service,
+      status: 'stopped',
+      stoppedAt: new Date(now).toISOString(),
+    };
+    const updated: Account = { ...account, service: stopped, updatedAt: now };
+    await deps.accounts.saveAccount(updated);
+    const site = (await deps.sites.listSites()).find((record) => record.slug === service.siteSlug);
+    const mail = buildServiceCancelNoticeEmail(serviceSubject(updated, site));
+    const mailStatus = await sendAccountMail(deps, notifyAddress(deps), mail);
+    deps.log?.(`[account] service gestopt door ${maskEmail(account.email)}: ${mailStatus}`);
+    return {
+      status: 200,
+      body: { ok: true, account: publicAccount(updated), service: stopped },
     };
   }
 

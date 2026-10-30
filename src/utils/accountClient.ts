@@ -1,4 +1,10 @@
-import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } from '../types';
+import type {
+  AccountQuote,
+  PaymentDetails,
+  PublicPublishedSite,
+  ServiceState,
+  StoredLead,
+} from '../types';
 
 /**
  * Talking to `/api/account`: register, log in, log out and the sites of
@@ -13,6 +19,8 @@ export interface AccountInfo {
   email: string;
   /** True when the customer confirmed his e-mail address. */
   verified: boolean;
+  /** The monthly service, when the customer asked for it. */
+  service?: ServiceState;
 }
 
 export interface AccountResult {
@@ -131,6 +139,23 @@ export function resendVerification(): Promise<AccountResult> {
  */
 export function claimSite(slug: string, token: string): Promise<AccountResult> {
   return post({ action: 'claim', slug, token });
+}
+
+/**
+ * Ask for the monthly service: hosting, SSL, updates, support and one
+ * change a month. Klusbaas sees the request in his overview and switches
+ * the service on.
+ */
+export function requestService(): Promise<AccountResult> {
+  return post({ action: 'service-request' });
+}
+
+/**
+ * Stop the monthly service. The site stays online; Klusbaas hands over the
+ * site and the code.
+ */
+export function cancelService(): Promise<AccountResult> {
+  return post({ action: 'service-cancel' });
 }
 
 /**

@@ -70,6 +70,27 @@ export const PLANS: PlatformPlan[] = [
   },
 ];
 
+/**
+ * The optional monthly service: hosting, SSL, updates, support and one
+ * change a month.
+ *
+ * The service is a real product, not a line of copy: the customer switches
+ * it on in his own account (phase 7.15), Klusbaas confirms it and sends a
+ * monthly invoice. What is *not* in it is a domain: that is registered per
+ * order and the registrar costs are the customer's.
+ */
+export const SERVICE_PRICE = 25;
+/** The name the customer sees on his invoice. */
+export const SERVICE_LABEL = 'Service & hosting';
+export const SERVICE_FEATURES = [
+  'Hosting en SSL inbegrepen',
+  'Doorontwikkeling en beveiligingsupdates',
+  'Eén aanpassing per maand inbegrepen',
+  'Whatsapp-support binnen één werkdag',
+];
+/** The Pro package comes with three months of service, worth € 75. */
+export const SERVICE_INCLUDED_MONTHS = 3;
+
 export function isPlanId(value: string | null | undefined): value is PlanId {
   return value === 'basis' || value === 'pro' || value === 'premium';
 }

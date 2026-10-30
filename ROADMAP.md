@@ -152,6 +152,9 @@ through the wizard when:**
    registered per order and not at the click of a button, the offers of a
    craftsman live in his own account, and the photos and the prices on a
    customer site are his own.
+17. The monthly service is a real order: the customer switches it on in
+   his own account, Klusbaas confirms it, sends a monthly invoice and can
+   see who has it; the customer stops it himself when he wants to.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -169,6 +172,7 @@ through the wizard when:**
 | 7.12 | ~~The customer can say he paid~~ Done: on the offer page and in his account the customer can press "Ja, ik heb het bedrag overgemaakt". Klusbaas gets a mail and the overview says "De klant meldt dat hij heeft betaald" | S | The customer does not mark his own offer as paid: Klusbaas checks his bank statement and marks it as paid himself. There is still no automatic bank connection. |
 | 7.13 | ~~The customer can ask for an offer himself~~ Done: the site editor has a tab "Offerte". The customer picks his package and his extra components, sees what it costs right away and presses "Vraag je offerte aan". He gets a real offer (number, PDF, price, 30 days valid) in his account and by mail; Klusbaas sees the request with the customer's own words in `/klusbaas`, with the offer next to it | M | Only a logged-in customer can ask (an offer without an account would float). The price comes from the catalogue: the customer cannot ask for a price that is not on the pricing page, and Klusbaas writes a different price by cancelling the first offer and writing a new one. The limit is five offers per hour per customer, per process. |
 | 7.14 | ~~Every promise on the marketing pages is true~~ Done: the FAQ no longer promises an own `.nl` domain at the moment of publishing nor offers that end up in Google Drive; it says where the offers really are (in the customer's own account) and how a domain works (registered per order). "Hoe het werkt" and the homepage no longer promise example photos or example prices as if they were the customer's, and the monthly service no longer contains a domain that was never registered | S | The domain itself stays manual work: Klusbaas registers it per order and the registrar costs are the customer's. Handing over a site when a customer leaves is manual too; there is no export button. A test (`components/claims.test.tsx`) keeps the old promises out. |
+| 7.15 | ~~The monthly service is a real order~~ Done: the customer switches the service on in his own account (`/mijn-account`, under "Service & hosting") and sees what it costs, what is in it and that he can stop it. Klusbaas sees the request in `/klusbaas`, switches the service on (the months that come with the Pro package are free) and sends the monthly invoice with the amount, the IBAN and the reference. The customer can stop the service himself; Klusbaas then hands over the site and the code | M | The monthly invoice is sent by hand every month: nothing goes out on its own and there is no automatic debit. The service is per account, so a customer with two sites has one service. The free months of a package do not stop by themselves; Klusbaas switches the service off after them. |
 
 
 ## Decision log

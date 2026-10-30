@@ -1,16 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Loader2, LogOut, TriangleAlert } from 'lucide-react';
 import {
+  activateService,
   adminLogin,
   adminLogout,
   extendQuote,
   fetchAdminOverview,
   remindPayment,
   remindQuote,
+  sendServiceInvoice,
   setQuoteStatus,
+  stopService,
   verifyAccount,
 } from '../utils/adminClient';
 import { daysSince, formatEuroCents } from '../utils/quote';
+import { servicePriceText, serviceStatusLabel } from '../utils/service';
 import type {
   AdminAccount,
   AdminCreatedQuote,
@@ -142,7 +146,11 @@ const AccountRow: React.FC<{
   account: AdminAccount;
   busy: boolean;
   onVerify: (id: string) => void;
-}> = ({ account, busy, onVerify }) => (
+  onService: (id: string) => void;
+  onServiceFree: (id: string) => void;
+  onServiceStop: (id: string) => void;
+  onServiceInvoice: (id: string) => void;
+}> = ({ account, busy, onVerify, onService, onServiceFree, onServiceStop, onServiceInvoice }) => (
   <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
       <span className="font-black text-stone-900 break-all">{account.email}</span>
@@ -158,6 +166,14 @@ const AccountRow: React.FC<{
       Aangemaakt {dateTime(account.createdAt)} · {account.sites} site
       {account.sites === 1 ? '' : 's'}
     </p>
+    {account.service && (
+      <p className="m-0 text-sm text-stone-700">
+        Service: {serviceStatusLabel(account.service.status)}
+        {account.service.status === 'active' &&
+          ` · ${servicePriceText(account.service.amountCents)}`}
+        {account.service.siteSlug && ` · /site/${account.service.siteSlug}`}
+      </p>
+    )}
     {!account.verified && (
       <button
         type="button"
@@ -168,6 +184,47 @@ const AccountRow: React.FC<{
         Bevestig het e-mailadres zelf
       </button>
     )}
+    <div className="flex flex-wrap gap-3">
+      {account.service?.status === 'active' ? (
+        <>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => onServiceInvoice(account.id)}
+            className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60 self-start"
+          >
+            Stuur de maandfactuur
+          </button>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => onServiceStop(account.id)}
+            className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60 self-start"
+          >
+            Stop de service
+          </button>
+        </>
+      ) : (
+        <>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => onService(account.id)}
+            className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60 self-start"
+          >
+            Zet de service aan
+          </button>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => onServiceFree(account.id)}
+            className="text-sm font-bold text-stone-900 underline underline-offset-2 disabled:opacity-60 self-start"
+          >
+            Zet de gratis maanden aan (bij Pro)
+          </button>
+        </>
+      )}
+    </div>
   </li>
 );
 
@@ -353,6 +410,67 @@ export const AdminView: React.FC = () => {
     // Het overzicht laat de nieuwe offerte meteen zien.
     await load();
     setNotice(`Offerte ${quote.id} staat nu in het overzicht.`);
+  };
+
+  // De maandelijkse service aanzetten: de klant heeft erom gevraagd in
+  // zijn account, of de maanden die bij een pakket horen worden gratis
+  // gestart.
+  const handleService = async (id: string) => {
+    setBusy(true);
+    const result = await activateService(id);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    setNotice(
+      result.serviceMailStatus === 'sent'
+        ? 'De service staat aan. De klant heeft de mail met het bedrag en de IBAN gekregen.'
+        : `De service staat aan (mail: ${result.serviceMailStatus ?? 'onbekend'}).`
+    );
+    await load();
+  };
+
+  // De gratis maanden die bij het Pro-pakket horen: de service staat aan,
+  // maar de klant betaalt nog niets.
+  const handleServiceFree = async (id: string) => {
+    setBusy(true);
+    const result = await activateService(id, 0);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    setNotice('De service staat aan. De maanden die bij het pakket horen zijn gratis.');
+    await load();
+  };
+
+  const handleServiceStop = async (id: string) => {
+    setBusy(true);
+    const result = await stopService(id);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    setNotice('De service is gestopt. Lever de site en de code aan de klant terug.');
+    await load();
+  };
+
+  const handleServiceInvoice = async (id: string) => {
+    setBusy(true);
+    const result = await sendServiceInvoice(id);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    setNotice(
+      result.serviceMailStatus === 'sent'
+        ? 'De maandfactuur is verstuurd.'
+        : `De maandfactuur is klaargezet (${result.serviceMailStatus ?? 'onbekend'}).`
+    );
+    await load();
   };
 
   const handleStatus = async (id: string, status: 'paid' | 'cancelled' | 'open') => {
@@ -570,6 +688,10 @@ export const AdminView: React.FC = () => {
                         account={account}
                         busy={busy}
                         onVerify={handleVerify}
+                        onService={handleService}
+                        onServiceFree={handleServiceFree}
+                        onServiceStop={handleServiceStop}
+                        onServiceInvoice={handleServiceInvoice}
                       />
                     ))}
                   </ul>

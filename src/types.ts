@@ -468,6 +468,42 @@ export interface Account {
   verifyToken?: string;
   /** When the verification token expires. */
   verifyExpiresAt?: number;
+  /**
+   * The monthly service of this customer, when he asked for it.
+   *
+   * The service is the thing that keeps Klusbaas in touch with the
+   * customer after the site is delivered: hosting, SSL, updates, support
+   * and one change a month. It is opt-in and cancellable per month.
+   */
+  service?: ServiceState;
+}
+
+/**
+ * The status of the monthly service of a customer.
+ *
+ * - `requested`: the customer asked for it; Klusbaas has to switch it on.
+ * - `active`: the service runs and Klusbaas sends a monthly invoice.
+ * - `stopped`: the customer stopped it; Klusbaas hands over the site and
+ *   the code.
+ */
+export type ServiceStatus = 'requested' | 'active' | 'stopped';
+
+/** The monthly service of one customer. */
+export interface ServiceState {
+  status: ServiceStatus;
+  /** When the customer asked for the service (ISO date). */
+  requestedAt: string;
+  /** When Klusbaas switched the service on (ISO date). */
+  activeSince?: string;
+  /** When the service was stopped (ISO date). */
+  stoppedAt?: string;
+  /**
+   * What the customer pays per month, in cents. Zero while the months that
+   * come with the package run.
+   */
+  amountCents: number;
+  /** The site the service belongs to. */
+  siteSlug?: string;
 }
 
 /**
@@ -577,6 +613,12 @@ export interface AdminAccount {
   verified: boolean;
   /** The number of sites that belong to this account. */
   sites: number;
+  /**
+   * The monthly service of this customer, when he asked for it. Klusbaas
+   * sees here who has the service, what it costs and whether the customer
+   * asked to stop it.
+   */
+  service?: ServiceState;
 }
 
 /** The offer Klusbaas made by hand, as the overview shows it. */

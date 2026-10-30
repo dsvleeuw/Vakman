@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { HOME_INTRO, WIZARD_TRADE_INTRO } from '../data/marketing';
+import { SERVICE_FEATURES } from '../data/plans';
 import { DEFAULT_FAQS } from './FaqSection';
 import { STEPS } from './HowItWorks';
-import { SERVICE_FEATURES } from './PricingSection';
 
 /**
  * The marketing pages are promises to a customer who has not paid yet.
