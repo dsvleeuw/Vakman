@@ -18154,7 +18154,7 @@ Fase 7: Klusbaas kan zelf verkopen","31","0","FALSE","9079","7571","0bac666c6ad9
 "README.md","src/server/README.md","Markdown-document",".md","FALSE","[]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","24","0","FALSE","3211","1604","32681bca95793741486e47d5f8d5ecfbe5c27124","8baf220f25c58b0e0ec31281b1f4126b5a83063e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/server/README.md","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
-"accountMailer.ts","src/server/accountMailer.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
+"accountMailer.ts","src/server/accountMailer.ts","TypeScript",".ts","TRUE","[""arena/a0a41caf-vakman"",""main""]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
 
 Fase 7: Klusbaas kan zelf verkopen","11","2","FALSE","1757","1497","db7f0c1f909c913e7f7cca8c09571a7bcadedcbd","c04907bcd27612e84dd440d35182b13e6b1159af","100644","100644","https://github.com/dsvleeuw/Vakman/commit/55433dd2cac5fb47f254632c9b06ab3fad2d6802","https://github.com/dsvleeuw/Vakman/blob/55433dd2cac5fb47f254632c9b06ab3fad2d6802/src/server/accountMailer.ts","Commit","2026-10-29T03:49:47.137Z","55433dd2cac5fb47f254632c9b06ab3fad2d6802:c3JjL3NlcnZlci9hY2NvdW50TWFpbGVyLnRz","p:c3JjL3NlcnZlci9hY2NvdW50TWFpbGVyLnRz",""
 "adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","FALSE","[]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","[""arena/a0a41caf-vakman"",""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","55433dd2cac5fb47f254632c9b06ab3fad2d6802","55433dd2cac5","[""e9c8b96282e47a36e197b07d13b1d073cbacd288"",""d81d166f23a635f991331f7cee7478bc0f8340f3""]","2026-10-29T03:49:34Z","2026-10-29T03:49:34Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman","Merge pull request #42 from dsvleeuw/arena/cc4da6d3-vakman
@@ -19562,7 +19562,7 @@ Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","20","0","FALSE","6550"
 "acceptQuote.ts","src/server/acceptQuote.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","13","2","FALSE","6271","5886","034d664351909b6ed8774a2a67c13073d2398870","28ef38c2ce591648701d21a84148bb9421a599f7","100644","100644","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/server/acceptQuote.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50cw","p:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50cw",""
-"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
+"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","10","0","FALSE","20775","20511","955f637131fce46c1a1115b6975fc1c889425c6e","1b9d4eda017430ef4ff0edbda084d19ba87d5532","100644","100644","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/server/accountHandler.test.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz",""
 "adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
@@ -19574,7 +19574,7 @@ Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","59","3","FALSE","14993
 "adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","7","0","FALSE","12812","12590","4da38e4bd00153ca02d9fdfea1bcff80139d9dea","c95deeae8cd48f0b8f29c41ad034c593b1a407b2","100644","100644","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/server/adminOffer.test.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
-"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","28","0","FALSE","19332","18365","1f23a0ea0ba4cd18b0db7c3b48678a0a5b099f82","23564ca69bd71c3c8cfc72af328be72c801cf7c0","100644","100644","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/server/leadHandler.test.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
 "leadHandler.ts","src/server/leadHandler.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
@@ -19586,7 +19586,7 @@ Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","73","0","FALSE","2490"
 "remindQuote.ts","src/server/remindQuote.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Toegevoegd","A","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","68","0","FALSE","2376","","16bf51439b0868dd63e65296468966fcdb0b9e0a","","100644","","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/server/remindQuote.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50cw","p:c3JjL3NlcnZlci9yZW1pbmRRdW90ZS50cw",""
-"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
+"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.7: Klusbaas kan een openstaande offerte opvolgen","20","0","FALSE","18655","17784","ec2b2b857d88079dcc0dd8e7ee19270966d3404f","27b60127147c67d8802301cc177eaf7cf9c8fd6e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/739385ecad246e6efdc5717b9d7ef2dc75281127","https://github.com/dsvleeuw/Vakman/blob/739385ecad246e6efdc5717b9d7ef2dc75281127/src/server/storage.ts","Commit","2026-10-29T07:59:21.078Z","739385ecad246e6efdc5717b9d7ef2dc75281127:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
 "types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","739385ecad246e6efdc5717b9d7ef2dc75281127","739385ecad24","[""e6d90555052b644130beb68de195091358419366"",""e2fe535410883e1cbbead4b3ac3242394f4bc9c8""]","2026-10-29T07:59:02Z","2026-10-29T07:59:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #45 from dsvleeuw/arena/a0a41caf-vakman
@@ -19810,7 +19810,7 @@ Fase 7.9: een aanvraag en haar offerte zijn één ding","6","0","FALSE","5231","
 "adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","7f6501fc2eb8b0010b106cc37339c31cd346681d","7f6501fc2eb8","[""aee74a0b70a48c6de635b4abfb36fd0c3bbf3214"",""aa9b0125d6422957eb4d243b284ce07cb387394b""]","2026-10-29T08:02:44Z","2026-10-29T08:02:44Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.9: een aanvraag en haar offerte zijn één ding","1","0","FALSE","15069","14993","39cf331d25ce96888ffde1defa1cfa5382b89f0f","85731628873f479a8be1a2b168693d803ef7fc9d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/7f6501fc2eb8b0010b106cc37339c31cd346681d","https://github.com/dsvleeuw/Vakman/blob/7f6501fc2eb8b0010b106cc37339c31cd346681d/src/server/adminHandler.ts","Commit","2026-10-29T08:02:59.604Z","7f6501fc2eb8b0010b106cc37339c31cd346681d:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
-"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","7f6501fc2eb8b0010b106cc37339c31cd346681d","7f6501fc2eb8","[""aee74a0b70a48c6de635b4abfb36fd0c3bbf3214"",""aa9b0125d6422957eb4d243b284ce07cb387394b""]","2026-10-29T08:02:44Z","2026-10-29T08:02:44Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman
+"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","7f6501fc2eb8b0010b106cc37339c31cd346681d","7f6501fc2eb8","[""aee74a0b70a48c6de635b4abfb36fd0c3bbf3214"",""aa9b0125d6422957eb4d243b284ce07cb387394b""]","2026-10-29T08:02:44Z","2026-10-29T08:02:44Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman
 
 Fase 7.9: een aanvraag en haar offerte zijn één ding","20","0","FALSE","13392","12812","7b497dac27f044bde7330c168cb152c1b23fbb71","4da38e4bd00153ca02d9fdfea1bcff80139d9dea","100644","100644","https://github.com/dsvleeuw/Vakman/commit/7f6501fc2eb8b0010b106cc37339c31cd346681d","https://github.com/dsvleeuw/Vakman/blob/7f6501fc2eb8b0010b106cc37339c31cd346681d/src/server/adminOffer.test.ts","Commit","2026-10-29T08:02:59.604Z","7f6501fc2eb8b0010b106cc37339c31cd346681d:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
 "adminOffer.ts","src/server/adminOffer.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","7f6501fc2eb8b0010b106cc37339c31cd346681d","7f6501fc2eb8","[""aee74a0b70a48c6de635b4abfb36fd0c3bbf3214"",""aa9b0125d6422957eb4d243b284ce07cb387394b""]","2026-10-29T08:02:44Z","2026-10-29T08:02:44Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman","Merge pull request #46 from dsvleeuw/arena/a0a41caf-vakman
@@ -19975,7 +19975,7 @@ mail alleen geen bankrekening.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","5","FALSE","5632","5231","0ee89e0edc27ed68783c8ec72cab968c4fad39a7","441ba8ffae29441888629f51f8e8aac4588627f2","100644","100644","https://github.com/dsvleeuw/Vakman/commit/f237071955fd45fe05d38177203a38d0eaadd9ab","https://github.com/dsvleeuw/Vakman/blob/f237071955fd45fe05d38177203a38d0eaadd9ab/src/server/README.md","Commit","2026-10-30T14:55:50.269Z","f237071955fd45fe05d38177203a38d0eaadd9ab:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
-"acceptQuote.test.ts","src/server/acceptQuote.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
+"acceptQuote.test.ts","src/server/acceptQuote.test.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
 
 Zodra de klant de offerte accepteert, kreeg hij alleen een banner in de
 browser: die verdwijnt zodra hij het venster sluit. Nu krijgt hij een mail
@@ -20009,7 +20009,7 @@ mail alleen geen bankrekening.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","31","3","FALSE","7488","6271","3e3464f43ef082964926cd1046336c45138fb16c","034d664351909b6ed8774a2a67c13073d2398870","100644","100644","https://github.com/dsvleeuw/Vakman/commit/f237071955fd45fe05d38177203a38d0eaadd9ab","https://github.com/dsvleeuw/Vakman/blob/f237071955fd45fe05d38177203a38d0eaadd9ab/src/server/acceptQuote.ts","Commit","2026-10-30T14:55:50.269Z","f237071955fd45fe05d38177203a38d0eaadd9ab:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50cw","p:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50cw",""
-"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
+"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
 
 Zodra de klant de offerte accepteert, kreeg hij alleen een banner in de
 browser: die verdwijnt zodra hij het venster sluit. Nu krijgt hij een mail
@@ -20026,7 +20026,7 @@ mail alleen geen bankrekening.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","22023","21956","af42cf3294e36b5e1bb27408ff3d7c16519806e7","13030f0ed819276aac922f439c75df32af067546","100644","100644","https://github.com/dsvleeuw/Vakman/commit/f237071955fd45fe05d38177203a38d0eaadd9ab","https://github.com/dsvleeuw/Vakman/blob/f237071955fd45fe05d38177203a38d0eaadd9ab/src/server/accountHandler.ts","Commit","2026-10-30T14:55:50.269Z","f237071955fd45fe05d38177203a38d0eaadd9ab:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw",""
-"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
+"types.ts","src/types.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
 
 Zodra de klant de offerte accepteert, kreeg hij alleen een banner in de
 browser: die verdwijnt zodra hij het venster sluit. Nu krijgt hij een mail
@@ -20077,7 +20077,7 @@ mail alleen geen bankrekening.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","83","0","FALSE","25073","22173","11ca45b71b3096e05d1aa4e92dd02533f324afa3","5bb51917eb79a34d9477a4c57600d9e1a774f10c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/f237071955fd45fe05d38177203a38d0eaadd9ab","https://github.com/dsvleeuw/Vakman/blob/f237071955fd45fe05d38177203a38d0eaadd9ab/src/utils/leadEmail.ts","Commit","2026-10-30T14:55:50.269Z","f237071955fd45fe05d38177203a38d0eaadd9ab:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
-"quoteClient.test.ts","src/utils/quoteClient.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Toegevoegd","A","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
+"quoteClient.test.ts","src/utils/quoteClient.test.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Toegevoegd","A","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
 
 Zodra de klant de offerte accepteert, kreeg hij alleen een banner in de
 browser: die verdwijnt zodra hij het venster sluit. Nu krijgt hij een mail
@@ -20094,7 +20094,7 @@ mail alleen geen bankrekening.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","36","0","FALSE","1394","","2ae3c044d7ec175473519dec636b883d51542b07","","100644","","https://github.com/dsvleeuw/Vakman/commit/f237071955fd45fe05d38177203a38d0eaadd9ab","https://github.com/dsvleeuw/Vakman/blob/f237071955fd45fe05d38177203a38d0eaadd9ab/src/utils/quoteClient.test.ts","Commit","2026-10-30T14:55:50.269Z","f237071955fd45fe05d38177203a38d0eaadd9ab:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRlc3QudHM","p:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRlc3QudHM",""
-"quoteClient.ts","src/utils/quoteClient.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Toegevoegd","A","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
+"quoteClient.ts","src/utils/quoteClient.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Toegevoegd","A","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
 
 Zodra de klant de offerte accepteert, kreeg hij alleen een banner in de
 browser: die verdwijnt zodra hij het venster sluit. Nu krijgt hij een mail
@@ -20111,7 +20111,7 @@ mail alleen geen bankrekening.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","42","0","FALSE","1285","","f2f24dbeadda2b45ba2dc158dd7ed3c8482e71a9","","100644","","https://github.com/dsvleeuw/Vakman/commit/f237071955fd45fe05d38177203a38d0eaadd9ab","https://github.com/dsvleeuw/Vakman/blob/f237071955fd45fe05d38177203a38d0eaadd9ab/src/utils/quoteClient.ts","Commit","2026-10-30T14:55:50.269Z","f237071955fd45fe05d38177203a38d0eaadd9ab:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRz","p:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRz",""
-"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
+"vite.config.ts","vite.config.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","f237071955fd45fe05d38177203a38d0eaadd9ab","f237071955fd","[""f5622ea7e7c00c7d0eebceb631f2164b3814654d""]","2026-10-30T14:55:30Z","2026-10-30T14:55:30Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Geef de klant een mailbewijs van zijn akkoord","Geef de klant een mailbewijs van zijn akkoord
 
 Zodra de klant de offerte accepteert, kreeg hij alleen een banner in de
 browser: die verdwijnt zodra hij het venster sluit. Nu krijgt hij een mail
@@ -20182,7 +20182,7 @@ Geef de klant een mailbewijs van zijn akkoord","42","0","FALSE","1285","","f2f24
 "vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","b4cd131db97ff02f4afe7109b59d27d8248e88ec","b4cd131db97f","[""42b1259c251281b4d790abf10ea0513fc7f981d4"",""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T14:57:44Z","2026-10-30T14:57:44Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #47 from dsvleeuw/arena/f22da254-vakman","Merge pull request #47 from dsvleeuw/arena/f22da254-vakman
 
 Geef de klant een mailbewijs van zijn akkoord","3","0","FALSE","19674","19483","e1dbdd78c00681a95d4f9e5b4bbaf4c7aa7f1c50","f29358fb411e6309162ac1c09c58598aebadb85f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/b4cd131db97ff02f4afe7109b59d27d8248e88ec","https://github.com/dsvleeuw/Vakman/blob/b4cd131db97ff02f4afe7109b59d27d8248e88ec/vite.config.ts","Commit","2026-10-30T14:58:01.165Z","b4cd131db97ff02f4afe7109b59d27d8248e88ec:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
-"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"AGENTS.md","AGENTS.md","Markdown-document",".md","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20196,7 +20196,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","1","FALSE","14850","14655","d64d0caa39065366e261a51a77c823da3a578a96","56ff68d77ef8e4b2e2ba0f0c214590e814037374","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/AGENTS.md","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
-"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20210,7 +20210,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","5","0","FALSE","37437","37090","81383a9791b4ea0d25376e3c3ff4bd89301da9a5","ce2ae2b02c1aa2ec0f9dd8d6ec2d3c9944495d63","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/CHANGELOG.md","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
-"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20224,7 +20224,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","19465","18776","c125e12e14a1e076c61330f138fbfd4c7f6df515","ba270643788428786a186c0cc9f52b26fad3eef6","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/ROADMAP.md","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
-"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20238,7 +20238,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","5","3","FALSE","22120","21959","1c8f333ecae2f32a1550a9a989067f4bc4087360","e418f1426917d6c09a04e803d8e83b48ffb3deb1","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/docs/known-limitations.md","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
-"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20252,7 +20252,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","4","FALSE","14447","13605","e1309fa1f4fc481e5362cd181c7c3b599a501521","28afaa5e1f8856dc0b4a440d1fdce93777f8b102","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/docs/selling-readiness.md","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
-"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20266,7 +20266,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","1","FALSE","33015","32982","9f4aaaaca15ba5b88d90de04ad7a47d484eefdec","39d238d553e44366166592ffedb639070959c07b","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/components/AccountView.tsx","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
-"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20280,7 +20280,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","44","3","FALSE","22026","20529","486cce2f408a8fc26bedd8e68e12a4d7ee11411d","9c1c8ab286aa0c9d4451861268428be700be739d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/components/AdminView.tsx","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA",""
-"QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20294,7 +20294,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","1","FALSE","15985","15918","8d7a356af6635f38576a45da237f147a807ada3a","35a81f573409c02253ab124f40bfb54abd3f995a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/components/QuoteView.tsx","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA",""
-"README.md","src/server/README.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"README.md","src/server/README.md","Markdown-document",".md","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20308,7 +20308,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","14","0","FALSE","6212","5632","a28469ab31855bd064fe9ac282d079ade469ab0f","0ee89e0edc27ed68783c8ec72cab968c4fad39a7","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/server/README.md","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
-"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20322,7 +20322,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","43","0","FALSE","16466","14844","db7f77121e62de10c5848d340b11d6a001537f99","a8530f82f4195c62749f7d3f59f6c072b421a014","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/server/adminHandler.test.ts","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
-"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20378,7 +20378,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","3761","3447","2aa98a79b73e1b538ac845ebc9aaef005d050845","e016933ce319df76cd2af86c06eeada8d7a0363c","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/utils/adminClient.ts","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz","p:c3JjL3V0aWxzL2FkbWluQ2xpZW50LnRz",""
-"leadEmail.test.ts","src/utils/leadEmail.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"leadEmail.test.ts","src/utils/leadEmail.test.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20392,7 +20392,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","28","1","FALSE","3467","2323","60d74de039cd4ea1a28d46dd9969520e422255e0","8a6ccd4883d48f1ef504d753df5c8ef9dc8a9076","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/utils/leadEmail.test.ts","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL3V0aWxzL2xlYWRFbWFpbC50ZXN0LnRz","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50ZXN0LnRz",""
-"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20420,7 +20420,7 @@ staan: de klant moet het bedrag nog overmaken.
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","12","0","FALSE","4741","4198","30200755d61ab4c91405ec271338a4b2bb7c4022","9638a47141ba557241f34fa90635efb02158888d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2f140c934488e0d237827606bc177d050fdf9d45","https://github.com/dsvleeuw/Vakman/blob/2f140c934488e0d237827606bc177d050fdf9d45/src/utils/quote.test.ts","Commit","2026-10-30T15:01:30.524Z","2f140c934488e0d237827606bc177d050fdf9d45:c3JjL3V0aWxzL3F1b3RlLnRlc3QudHM","p:c3JjL3V0aWxzL3F1b3RlLnRlc3QudHM",""
-"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","FALSE","[]","[""arena/f22da254-vakman"",""main""]","[""arena/f22da254-vakman"",""main""]","Gewijzigd","M","","","2f140c934488e0d237827606bc177d050fdf9d45","2f140c934488","[""f237071955fd45fe05d38177203a38d0eaadd9ab""]","2026-10-30T15:01:05Z","2026-10-30T15:01:05Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Chase een offerte die geaccepteerd is maar nog niet betaald","Chase een offerte die geaccepteerd is maar nog niet betaald
 
 De klant zegt ja, de verkoop is dan echt — maar het geld komt niet binnen
 en niemand merkt het. In /klusbaas staat nu bij een geaccepteerde offerte
@@ -20488,3 +20488,467 @@ Chase een offerte die geaccepteerd is maar nog niet betaald","12","0","FALSE","4
 "quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""main""]","[""main""]","[""main""]","Gewijzigd","M","","","e70b8b128904df7299f2b1ba3ade138051dd163f","e70b8b128904","[""7cb4a31db15e5dfab3617bcb3f6b09060ee6d535"",""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:03:02Z","2026-10-30T15:03:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","GitHub","noreply@github.com","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman","Merge pull request #48 from dsvleeuw/arena/f22da254-vakman
 
 Chase een offerte die geaccepteerd is maar nog niet betaald","13","0","FALSE","9694","9209","508784f57a8b560cfbee468aec914678f871fc30","1e36aabf5b515afd0ab14a9353527a3f91c428e8","100644","100644","https://github.com/dsvleeuw/Vakman/commit/e70b8b128904df7299f2b1ba3ade138051dd163f","https://github.com/dsvleeuw/Vakman/blob/e70b8b128904df7299f2b1ba3ade138051dd163f/src/utils/quote.ts","Commit","2026-10-30T15:03:21.540Z","e70b8b128904df7299f2b1ba3ade138051dd163f:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
+"AGENTS.md","AGENTS.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","0","FALSE","15111","14850","26996b0e57333e97110dd8346ab6c84bce4011d7","d64d0caa39065366e261a51a77c823da3a578a96","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/AGENTS.md","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:QUdFTlRTLm1k","p:QUdFTlRTLm1k",""
+"CHANGELOG.md","CHANGELOG.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","6","0","FALSE","37812","37437","4dbbcf95f2e94d05f131661c46a0204d9aa8281e","81383a9791b4ea0d25376e3c3ff4bd89301da9a5","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/CHANGELOG.md","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:Q0hBTkdFTE9HLm1k","p:Q0hBTkdFTE9HLm1k",""
+"ROADMAP.md","ROADMAP.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","20009","19465","2a8ecd6f78776b8c116aca7fef4558c8dccd4004","c125e12e14a1e076c61330f138fbfd4c7f6df515","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/ROADMAP.md","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:Uk9BRE1BUC5tZA","p:Uk9BRE1BUC5tZA",""
+"known-limitations.md","docs/known-limitations.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4","1","FALSE","22286","22120","7934612129deeca609062a6d51d2c64e2b8f56d7","1c8f333ecae2f32a1550a9a989067f4bc4087360","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/docs/known-limitations.md","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA","p:ZG9jcy9rbm93bi1saW1pdGF0aW9ucy5tZA",""
+"selling-readiness.md","docs/selling-readiness.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","12","4","FALSE","15132","14447","863ec605978e20f007ddba536a86ddab2576e515","e1309fa1f4fc481e5362cd181c7c3b599a501521","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/docs/selling-readiness.md","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA","p:ZG9jcy9zZWxsaW5nLXJlYWRpbmVzcy5tZA",""
+"quote-payment.mts","netlify/functions/quote-payment.mts","TypeScript-module",".mts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Toegevoegd","A","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","36","0","FALSE","1460","","5cb8f1ce3edcd6a24ff50823c6bf075cb8809245","","100644","","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/netlify/functions/quote-payment.mts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:bmV0bGlmeS9mdW5jdGlvbnMvcXVvdGUtcGF5bWVudC5tdHM","p:bmV0bGlmeS9mdW5jdGlvbnMvcXVvdGUtcGF5bWVudC5tdHM",""
+"AccountView.tsx","src/components/AccountView.tsx","React / TypeScript",".tsx","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","43","1","FALSE","34773","33015","6821b32349aca56532f4e4165e7386844f81bac9","9f4aaaaca15ba5b88d90de04ad7a47d484eefdec","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/components/AccountView.tsx","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4","p:c3JjL2NvbXBvbmVudHMvQWNjb3VudFZpZXcudHN4",""
+"AdminView.tsx","src/components/AdminView.tsx","React / TypeScript",".tsx","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","1","FALSE","22368","22026","9093e1244c15c44bd5fbfdc8682547fe1308d3ba","486cce2f408a8fc26bedd8e68e12a4d7ee11411d","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/components/AdminView.tsx","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvQWRtaW5WaWV3LnRzeA",""
+"QuoteView.tsx","src/components/QuoteView.tsx","React / TypeScript",".tsx","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","58","1","FALSE","18725","15985","d531459f1f70347e9d802dc54a0d474b66e09c13","8d7a356af6635f38576a45da237f147a807ada3a","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/components/QuoteView.tsx","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA","p:c3JjL2NvbXBvbmVudHMvUXVvdGVWaWV3LnRzeA",""
+"README.md","src/server/README.md","Markdown-document",".md","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","9","0","FALSE","6621","6212","fe21e88a9cd2f3a49f77972ab5d24444a0790d7a","a28469ab31855bd064fe9ac282d079ade469ab0f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/README.md","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9SRUFETUUubWQ","p:c3JjL3NlcnZlci9SRUFETUUubWQ",""
+"acceptQuote.test.ts","src/server/acceptQuote.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","8542","8303","4a1432fdf4ebefc2a08ac8c58711f5b699c05bb1","0a89fb12b1cc2b7fe49df8f99971a446ef4eb9b1","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/acceptQuote.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NlcHRRdW90ZS50ZXN0LnRz",""
+"accountHandler.test.ts","src/server/accountHandler.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","10","0","FALSE","21074","20775","1c8e8f5d47183cda67694960b2780b7193340bcb","955f637131fce46c1a1115b6975fc1c889425c6e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/accountHandler.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50ZXN0LnRz",""
+"accountHandler.ts","src/server/accountHandler.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","22111","22023","eaaac42145d2349d85e7f913cd63811f7bb33a9b","af42cf3294e36b5e1bb27408ff3d7c16519806e7","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/accountHandler.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw","p:c3JjL3NlcnZlci9hY2NvdW50SGFuZGxlci50cw",""
+"accountMailer.ts","src/server/accountMailer.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","3","0","FALSE","1911","1757","16002c895f0a15fba7bbf2e6f1f0b451a1ba967d","db7f0c1f909c913e7f7cca8c09571a7bcadedcbd","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/accountMailer.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hY2NvdW50TWFpbGVyLnRz","p:c3JjL3NlcnZlci9hY2NvdW50TWFpbGVyLnRz",""
+"adminHandler.test.ts","src/server/adminHandler.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","16715","16466","6a89029b5df0320c4def3a07e599c63ee26eac28","db7f77121e62de10c5848d340b11d6a001537f99","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/adminHandler.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudGVzdC50cw",""
+"adminHandler.ts","src/server/adminHandler.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","1","0","FALSE","16309","16221","c5529a9b711558d1168201b5a16b67c38a727f9d","43e9ddc7cacb80fb398046e6901bca5dade8db0e","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/adminHandler.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM","p:c3JjL3NlcnZlci9hZG1pbkhhbmRsZXIudHM",""
+"adminOffer.test.ts","src/server/adminOffer.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","13641","13392","26664aa4109625357c42a5bf4c3adc28d7957b75","7b497dac27f044bde7330c168cb152c1b23fbb71","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/adminOffer.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM","p:c3JjL3NlcnZlci9hZG1pbk9mZmVyLnRlc3QudHM",""
+"leadHandler.test.ts","src/server/leadHandler.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","7","0","FALSE","19577","19332","89ba04bf1de312b57e904c15d51fcd6d855792df","1f23a0ea0ba4cd18b0db7c3b48678a0a5b099f82","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/leadHandler.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz","p:c3JjL3NlcnZlci9sZWFkSGFuZGxlci50ZXN0LnRz",""
+"paymentNotice.ts","src/server/paymentNotice.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Toegevoegd","A","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","85","0","FALSE","3009","","c60cb82a1c1eaed9604fccbc5c37b44ded2ab8ed","","100644","","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/paymentNotice.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9wYXltZW50Tm90aWNlLnRz","p:c3JjL3NlcnZlci9wYXltZW50Tm90aWNlLnRz",""
+"reportPayment.test.ts","src/server/reportPayment.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Toegevoegd","A","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","170","0","FALSE","5352","","e4f94e83ef4e5d382b178f9c59462d04b30a4411","","100644","","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/reportPayment.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRlc3QudHM","p:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRlc3QudHM",""
+"reportPayment.ts","src/server/reportPayment.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Toegevoegd","A","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","95","0","FALSE","3072","","e76fe8d007905d07a7cc18c6db9acb5b59ea01c2","","100644","","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/reportPayment.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRz","p:c3JjL3NlcnZlci9yZXBvcnRQYXltZW50LnRz",""
+"storage.ts","src/server/storage.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","20","0","FALSE","19579","18655","4d1e507e1c59239ee3aa9851b10243629c16e995","ec2b2b857d88079dcc0dd8e7ee19270966d3404f","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/server/storage.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3NlcnZlci9zdG9yYWdlLnRz","p:c3JjL3NlcnZlci9zdG9yYWdlLnRz",""
+"types.ts","src/types.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","2","0","FALSE","17993","17905","f315021f3f17c9102d6dbef4804f5650dd1f0060","4b030a2aff8bbd33f8e19112bbd6e536e2476786","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/types.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3R5cGVzLnRz","p:c3JjL3R5cGVzLnRz",""
+"leadEmail.test.ts","src/utils/leadEmail.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","22","1","FALSE","4250","3467","f5bb74381949c96f30410bff37d117d9b771f7c4","60d74de039cd4ea1a28d46dd9969520e422255e0","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/utils/leadEmail.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3V0aWxzL2xlYWRFbWFpbC50ZXN0LnRz","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50ZXN0LnRz",""
+"leadEmail.ts","src/utils/leadEmail.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","67","0","FALSE","30121","27679","50d571874b5c3f4db868f9e2dda4578c7aeb3314","65f0d1e141217f87059e1d8bb88622f07ee9a312","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/utils/leadEmail.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw","p:c3JjL3V0aWxzL2xlYWRFbWFpbC50cw",""
+"quote.ts","src/utils/quote.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","8","0","FALSE","9995","9694","48be681ab0aad9227fb811a0d3a7cb92ea63ce94","508784f57a8b560cfbee468aec914678f871fc30","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/utils/quote.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3V0aWxzL3F1b3RlLnRz","p:c3JjL3V0aWxzL3F1b3RlLnRz",""
+"quoteClient.test.ts","src/utils/quoteClient.test.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","23","1","FALSE","2259","1394","4b6cb6b978b14b42baa2b63ce5b1d743438d4c2b","2ae3c044d7ec175473519dec636b883d51542b07","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/utils/quoteClient.test.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRlc3QudHM","p:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRlc3QudHM",""
+"quoteClient.ts","src/utils/quoteClient.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","35","0","FALSE","2260","1285","377f558db3f337e74f8a2a4a92b8ee1991a1f346","f2f24dbeadda2b45ba2dc158dd7ed3c8482e71a9","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/src/utils/quoteClient.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRz","p:c3JjL3V0aWxzL3F1b3RlQ2xpZW50LnRz",""
+"vite.config.ts","vite.config.ts","TypeScript",".ts","TRUE","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","[""arena/f22da254-vakman""]","Gewijzigd","M","","","01dfe613df8f8b06700a9e0b471f7d24de8d1a60","01dfe613df8f","[""2f140c934488e0d237827606bc177d050fdf9d45""]","2026-10-30T15:07:12Z","2026-10-30T15:07:12Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Laat de klant melden dat hij betaald heeft","Laat de klant melden dat hij betaald heeft
+
+De klant makakte het bedrag over en kon het niemand vertellen: de offerte
+bleef stil op ""geaccepteerd"" staan totdat Klusbaas toevallig zijn
+bankrekening opende. Een betaalde order leek daardoor onbetaald.
+
+Nu kan de klant op de offertepagina en in zijn account zeggen dat hij het
+bedrag heeft overgemaakt. Klusbaas krijgt daarvan een mail en ziet in het
+overzicht staan dat de klant heeft gemeld dat hij betaald heeft.
+
+De klant markeert zijn eigen offerte niet als betaald: dat blijft
+Klusbaas' beslissing, nadat hij zijn bankrekening heeft gecontroleerd.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","28","0","FALSE","21240","19674","49fc469b7ed98988b047060ce098a5643522f174","e1dbdd78c00681a95d4f9e5b4bbaf4c7aa7f1c50","100644","100644","https://github.com/dsvleeuw/Vakman/commit/01dfe613df8f8b06700a9e0b471f7d24de8d1a60","https://github.com/dsvleeuw/Vakman/blob/01dfe613df8f8b06700a9e0b471f7d24de8d1a60/vite.config.ts","Commit","2026-10-30T15:07:42.242Z","01dfe613df8f8b06700a9e0b471f7d24de8d1a60:dml0ZS5jb25maWcudHM","p:dml0ZS5jb25maWcudHM",""
