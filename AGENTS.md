@@ -176,6 +176,13 @@ result. The Netlify deploy preview is the only external CI check. If
   to the customer's account (so he sees it in `/mijn-account`) and it is
   mailed with the PDF attached. An offer for a customer who only made an
   account is the order and the invoice; there is no separate order step.
+- The marketing pages are promises: the FAQ, "hoe het werkt" and the
+  homepage may only say what the code really does. An own `.nl` domain is
+  registered per order, the offers of a craftsman live in his own account
+  (not in his Google Drive), and the photos and prices on a customer site
+  are his own. `src/components/claims.test.tsx` keeps the old promises out;
+  the copy of the pages lives in `src/data/marketing.ts` so a test can read
+  it.
 - The customer asks for an offer himself, in his own site editor
   (`POST /api/quote/request` → `server/quoteRequest.ts`, tab "Offerte" in
   `components/editor/OfferteTab.tsx`). He picks the package and the extra

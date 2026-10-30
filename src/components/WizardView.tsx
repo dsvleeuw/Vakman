@@ -18,6 +18,7 @@ import {
   getUnsplashUrl,
   buildActiveSite,
 } from '../data/tradesData';
+import { WIZARD_TRADE_INTRO } from '../data/marketing';
 import { validateWizardForm } from '../utils/pricing';
 import { PLANS, getPlan } from '../data/plans';
 import { ADDONS, ADDON_GROUPS, isAddonIncluded } from '../data/addons';
@@ -546,8 +547,7 @@ export const WizardView: React.FC<WizardViewProps> = ({
                 Wat is jouw vak?
               </h1>
               <p className="text-stone-600 text-sm sm:text-base m-0">
-                Kies je vakgebied. Wij laden meteen geschikte diensten, tarieven en
-                fotografie in.
+                {WIZARD_TRADE_INTRO}
               </p>
 
               {errors.vak && (

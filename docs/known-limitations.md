@@ -359,6 +359,15 @@ to [ROADMAP.md](../ROADMAP.md).
   costs are the customer's), "three months of service worth € 75" is a
   promise Klusbaas keeps, and "delivery within two weeks" depends on how
   fast the customer answers.
+- **The FAQ, "hoe het werkt" and the homepage say the same thing as the
+  code.** There is no own `.nl` domain at the moment of publishing, the
+  offers of a craftsman live in his own account (not in his Google Drive),
+  and the photos and prices on a customer site are his own. A test
+  (`src/components/claims.test.tsx`) keeps the old promises out.
+- **Handing over a site when a customer leaves is manual.** The promise is
+  that Klusbaas delivers the site and the code, so the customer can take it
+  to another party; there is no export button. The content has to be
+  exported from the Blobs store `sites` by hand.
 - The price calculator on a published site shows the craftsman's own
   prices as a *starting* price ("vanaf € 45 per uur"). The exact price
   still depends on the situation, so the page says so and asks for a

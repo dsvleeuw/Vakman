@@ -13,8 +13,8 @@ interface PricingSectionProps {
 /** Platform pricing for Klusbaas itself (the tradesperson's customer-facing
  *  prices live in the per-sector PriceCalculator). The plans themselves live
  *  in `data/plans.ts` so the wizard can show the chosen package too. */
-const SERVICE_FEATURES = [
-  'Hosting, SSL en je .nl-domein',
+export const SERVICE_FEATURES = [
+  'Hosting en SSL inbegrepen',
   'Doorontwikkeling en beveiligingsupdates',
   'Eén aanpassing per maand inbegrepen',
   'Whatsapp-support binnen één werkdag',

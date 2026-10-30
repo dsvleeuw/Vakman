@@ -148,6 +148,10 @@ through the wizard when:**
    picks a package, sees the price right away and gets a real offer in his
    account, while Klusbaas sees the request and the offer next to each
    other.
+16. Every promise on the marketing pages is true: an own `.nl` domain is
+   registered per order and not at the click of a button, the offers of a
+   craftsman live in his own account, and the photos and the prices on a
+   customer site are his own.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -164,6 +168,8 @@ through the wizard when:**
 | 7.11 | ~~An accepted offer that is not paid does not go quiet~~ Done: in `/klusbaas` an accepted offer shows how many days it has been waiting for the money, and Klusbaas can send the customer one more mail with the amount and the IBAN. The offer page and the account keep showing the bank details after the acceptance, so the customer can always pay | S | The reminder is by hand: nothing goes out on its own, and there is no escalation after a second reminder. Klusbaas still marks the payment as paid by hand. |
 | 7.12 | ~~The customer can say he paid~~ Done: on the offer page and in his account the customer can press "Ja, ik heb het bedrag overgemaakt". Klusbaas gets a mail and the overview says "De klant meldt dat hij heeft betaald" | S | The customer does not mark his own offer as paid: Klusbaas checks his bank statement and marks it as paid himself. There is still no automatic bank connection. |
 | 7.13 | ~~The customer can ask for an offer himself~~ Done: the site editor has a tab "Offerte". The customer picks his package and his extra components, sees what it costs right away and presses "Vraag je offerte aan". He gets a real offer (number, PDF, price, 30 days valid) in his account and by mail; Klusbaas sees the request with the customer's own words in `/klusbaas`, with the offer next to it | M | Only a logged-in customer can ask (an offer without an account would float). The price comes from the catalogue: the customer cannot ask for a price that is not on the pricing page, and Klusbaas writes a different price by cancelling the first offer and writing a new one. The limit is five offers per hour per customer, per process. |
+| 7.14 | ~~Every promise on the marketing pages is true~~ Done: the FAQ no longer promises an own `.nl` domain at the moment of publishing nor offers that end up in Google Drive; it says where the offers really are (in the customer's own account) and how a domain works (registered per order). "Hoe het werkt" and the homepage no longer promise example photos or example prices as if they were the customer's, and the monthly service no longer contains a domain that was never registered | S | The domain itself stays manual work: Klusbaas registers it per order and the registrar costs are the customer's. Handing over a site when a customer leaves is manual too; there is no export button. A test (`components/claims.test.tsx`) keeps the old promises out. |
+
 
 ## Decision log
 

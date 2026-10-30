@@ -10,10 +10,10 @@ interface FaqSectionProps {
   site?: ActiveSiteData;
 }
 
-const DEFAULT_FAQS: FaqItem[] = [
+export const DEFAULT_FAQS: FaqItem[] = [
   {
     q: 'Hoe snel staat mijn website online?',
-    a: 'Je concept staat binnen 15 minuten online: je kiest je vak, vult je bedrijfsnaam, telefoonnummer en werkgebied in en je site is direct bereikbaar met een eigen .nl-domeinnaam. De complete oplevering, inclusief controle van teksten, foto’s en vindbaarheid, volgt binnen 2 werkweken.',
+    a: 'Meteen. Je kiest je vak, vult je bedrijfsnaam, telefoonnummer en werkgebied in, en je site staat op een eigen adres, bijvoorbeeld /site/jansen-schilderwerken. Een eigen .nl-domein regelen wij per opdracht; de kosten van de registrar komen er los bij. De oplevering, met controle van teksten, foto’s en vindbaarheid, volgt binnen twee weken.',
   },
   {
     q: 'Wat kost een website bij Klusbaas?',
@@ -21,11 +21,11 @@ const DEFAULT_FAQS: FaqItem[] = [
   },
   {
     q: 'Ben ik eigenaar van mijn website?',
-    a: 'Ja, volledig. Jij blijft eigenaar van de website, de code, je domeinnaam en je foto’s. Er is geen vendor lock-in: stop je met de service, dan leveren we de complete site op zodat je hem kunt meenemen naar een andere partij.',
+    a: 'Ja. Je tekst, je foto’s, je diensten en je aanvragen zijn van jou, en je site staat op je eigen adres. Klusbaas beheert de site en de hosting; zeg je de service op, dan leveren we de site en de code mee, zodat je hem naar een andere partij kunt meenemen.',
   },
   {
     q: 'Hoe komen offerteaanvragen en afspraken binnen?',
-    a: 'WhatsApp is het belangrijkste kanaal: aanvragen komen met een vooringevuld bericht rechtstreeks op je mobiel binnen, en er is altijd een kort contactformulier als alternatief. Afspraken kun je bovendien direct laten synchroniseren met je Google Calendar.',
+    a: 'Per e-mail en via WhatsApp. Het contactformulier op je site komt binnen in je mailbox, en de WhatsApp-knop opent een bericht dat de klant met één tik kan versturen. Afspraken via het afspraakformulier staan ook in je account, onder "Mijn aanvragen". De bezoeker kan de afspraak in zijn eigen Google Agenda zetten.',
   },
   {
     q: 'Kan ik de prijzen en diensten later aanpassen?',
@@ -36,8 +36,8 @@ const DEFAULT_FAQS: FaqItem[] = [
     a: 'Nee, je kunt alvast starten en je concept-website inrichten. Zodra je officieel start vul je je KvK-nummer in voor de vermelding in de footer.',
   },
   {
-    q: 'Kan ik offertes automatisch opslaan in Google Drive?',
-    a: 'Ja! Als je inlogt met je Google-account worden alle berekende offerteoverzichten automatisch als tekst/PDF opgeslagen in jouw Google Drive.',
+    q: 'Waar blijven mijn offertes?',
+    a: 'In je eigen account. Onder "Mijn offertes" staat elke offerte met het pakket, de prijs, de status en de betaalwijze, en je kunt de offerte als PDF downloaden. Je hoeft dus geen mail te bewaren om te weten wat het kost.',
   },
   {
     q: 'Kan ik de maandelijkse service opzeggen?',

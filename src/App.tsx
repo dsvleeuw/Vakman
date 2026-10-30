@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
 import type { CustomSite, PlanId, SectorId, WizardDraft, WizardFormData } from './types';
 import { SECTORS, STYLES, buildActiveSite } from './data/tradesData';
+import { HOME_INTRO } from './data/marketing';
 import {
   DEFAULT_SECTOR,
   buildPath,
@@ -364,10 +365,7 @@ export default function App() {
 
               <div className="lg:col-span-4 flex flex-col gap-5 pb-2">
                 <p className="text-base sm:text-lg text-stone-600 leading-relaxed m-0 text-pretty">
-                  Kies je vak en een van de vijf doordachte stijlen. Diensten,
-                  prijzen, professionele fotografie en een interactieve
-                  prijscalculator staan direct klaar. Jij vult alleen je naam en
-                  telefoonnummer in.
+                  {HOME_INTRO}
                 </p>
                 <div className="flex gap-3 flex-wrap">
                   <RouteLink
