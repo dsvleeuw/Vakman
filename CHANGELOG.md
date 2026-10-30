@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De vragen en antwoorden staan in de pagina.** De FAQ is een native
+  accordeon (`<details>`) geworden: elk antwoord staat in de HTML die de
+  build schrijft. Een bezoeker zonder JavaScript en een zoekmachine lezen
+  daardoor hetzelfde als een bezoeker met scripts.
 - **De klant ziet wat Klusbaas voor zijn site doet.** Elke offerte
   krijgt een checklist van het pakket: wat Klusbaas doet voor de site, in
   de volgorde waarin hij het doet. Klusbaas vinkt de stappen af in

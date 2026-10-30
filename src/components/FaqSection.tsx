@@ -51,12 +51,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
   subtitle = 'Alles wat je wilt weten over Klusbaas websites en afspraken.',
   site,
 }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // The questions are native <details>: the answer stands in the page even
+  // without JavaScript, so search engines and visitors without scripting
+  // read the same text.
   const [showAll, setShowAll] = useState(false);
-
-  const toggle = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
 
   return (
     <section id="faq" className="py-10 sm:py-24 px-4 sm:px-8 md:px-12 scroll-mt-20">
@@ -86,43 +84,29 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
 
         <div className="flex flex-col gap-3">
           {faqs.map((faq, idx) => {
-            const isOpen = openIndex === idx;
             const hiddenOnMobile = idx >= 3 && !showAll;
 
             return (
-              <div
+              <details
                 key={idx}
                 className={`${
                   hiddenOnMobile ? 'hidden sm:block' : 'block'
-                } border border-stone-200 rounded-2xl bg-white overflow-hidden transition-all duration-200`}
+                } group border border-stone-200 rounded-2xl bg-white overflow-hidden transition-all duration-200`}
               >
-                <button
-                  onClick={() => toggle(idx)}
-                  className="w-full p-5 sm:p-6 text-left border-0 bg-transparent cursor-pointer flex justify-between items-center gap-4 font-bold text-base sm:text-lg text-stone-900"
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${idx}`}
-                  id={`faq-question-${idx}`}
-                >
+                <summary className="w-full p-5 sm:p-6 text-left border-0 bg-transparent cursor-pointer list-none flex justify-between items-center gap-4 font-bold text-base sm:text-lg text-stone-900 hover:bg-stone-50">
                   <span>{faq.q}</span>
                   <span
                     className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600 shrink-0 font-mono text-sm"
                     aria-hidden="true"
                   >
-                    {isOpen ? '−' : '+'}
+                    <span className="hidden group-open:inline">−</span>
+                    <span className="group-open:hidden">+</span>
                   </span>
-                </button>
-
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${idx}`}
-                    role="region"
-                    aria-labelledby={`faq-question-${idx}`}
-                    className="px-5 sm:px-6 pb-5 sm:pb-6 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-4"
-                  >
-                    {faq.a}
-                  </div>
-                )}
-              </div>
+                </summary>
+                <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-stone-600 text-base leading-relaxed border-t border-stone-100 pt-4">
+                  {faq.a}
+                </div>
+              </details>
             );
           })}
         </div>

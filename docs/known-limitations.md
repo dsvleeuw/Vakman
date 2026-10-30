@@ -453,6 +453,10 @@ to [ROADMAP.md](../ROADMAP.md).
 - Quote numbers (`KB-2026-0001`) come from a counter in the `quotes` blob
   store with optimistic concurrency; the dev counter in `.data/quotes` is
   per process only.
+- The answers of the FAQ stand in the page (native `<details>`), so they are
+  in the prerendered HTML and readable without JavaScript. The questions
+  about Klusbaas himself are marketing text; a customer keeps his own
+  questions on his own site.
 - The wizard draft lives in sessionStorage, so a prerendered deep link such
   as `/start/afspraak` opened in a fresh tab starts with an empty form.
 - Accessibility has been handled pragmatically (labels, aria attributes,

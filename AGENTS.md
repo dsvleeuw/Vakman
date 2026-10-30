@@ -183,6 +183,10 @@ result. The Netlify deploy preview is the only external CI check. If
   are his own. `src/components/claims.test.tsx` keeps the old promises out;
   the copy of the pages lives in `src/data/marketing.ts` so a test can read
   it.
+- The FAQ is a native accordion (`<details>` in `components/FaqSection.tsx`).
+  The answers stand in the HTML of the build, so a visitor without
+  JavaScript and a search engine read the same text. Do not go back to a
+  button that only paints the answer after a click.
 - Every offer carries the delivery checklist of the package
   (`buildDeliveryItems` in `utils/quote.ts`, the lists in `data/plans.ts`).
   Klusbaas ticks the steps off in `/klusbaas` (`action: 'delivery'` →
