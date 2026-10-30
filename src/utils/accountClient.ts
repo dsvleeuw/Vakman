@@ -42,6 +42,14 @@ export interface AccountResult {
   field?: string;
   /** A message for the customer, e.g. after a reset request. */
   message?: string;
+  /** What was removed when the customer deleted his account. */
+  deleted?: {
+    sites: number;
+    leads: number;
+    quotes: number;
+    keptQuotes: number;
+    media: number;
+  };
 }
 
 async function post(body: unknown): Promise<AccountResult> {
@@ -209,6 +217,14 @@ export function claimQuote(id: string, token: string): Promise<AccountResult> {
  */
 export function setLeadStatus(reference: string, status: RequestStatus): Promise<AccountResult> {
   return post({ action: 'lead-status', reference, leadStatus: status });
+}
+
+/**
+ * Remove the account of the customer: his sites, his requests and his
+ * offers go. The customer has to give his password and confirm it.
+ */
+export function deleteAccount(password: string): Promise<AccountResult> {
+  return post({ action: 'delete-account', password, confirm: true });
 }
 
 export function parseManageLink(value: string): { slug: string; token: string } | null {

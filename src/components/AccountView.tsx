@@ -17,6 +17,7 @@ import {
   parseQuoteLink,
   registerAccount,
   requestPasswordReset,
+  deleteAccount,
   requestService,
   resendVerification,
   resetPassword,
@@ -409,6 +410,18 @@ export const AccountView: React.FC = () => {
   const [payment, setPayment] = useState<PaymentDetails | undefined>();
   const [resetToken, setResetToken] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  // Het verwijderen van het account: een tweede stap, een wachtwoord en een
+  // getikvakje. Dit is niet terug te draaien.
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+  const [deleted, setDeleted] = useState<{
+    sites: number;
+    leads: number;
+    quotes: number;
+    keptQuotes: number;
+    media: number;
+  } | null>(null);
 
   const loadSites = useCallback(async () => {
     setSites(await fetchAccountSites());
@@ -615,6 +628,29 @@ export const AccountView: React.FC = () => {
     setNotice('Je gegevens zijn gedownload. Het bestand staat in je downloads.');
   };
 
+  // De klant verwijdert zijn eigen account (AVG art. 17). Zijn sites, zijn
+  // aanvragen en zijn offertes gaan; de betaalde offertes blijven als
+  // fiscale gegevens, zonder zijn persoonsgegevens.
+  const handleDeleteAccount = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!deleteConfirmed || busy) return;
+    setBusy(true);
+    setError(null);
+    const result = await deleteAccount(deletePassword);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt. Probeer het opnieuw.');
+      return;
+    }
+    setDeleted(result.deleted ?? null);
+    setAccount(null);
+    setSites([]);
+    setLeads([]);
+    setQuotes([]);
+    setDeleteOpen(false);
+    setDeletePassword('');
+  };
+
   const handleServiceCancel = async () => {
     setBusy(true);
     setError(null);
@@ -646,6 +682,33 @@ export const AccountView: React.FC = () => {
     return (
       <AccountLayout>
         <div className="max-w-xl mx-auto flex flex-col gap-6">
+          {deleted && (
+            <div className="rounded-2xl bg-emerald-50 border border-emerald-200 p-6 flex flex-col gap-3">
+              <h1 className="m-0 text-2xl font-black tracking-tight text-emerald-900">
+                Je account is verwijderd.
+              </h1>
+              <p className="m-0 text-emerald-900 leading-relaxed">
+                Je site{deleted.sites === 1 ? '' : 's'}, je aanvragen en je openstaande offertes
+                zijn weg. Er is {deleted.sites} site verwijderd
+                {deleted.sites === 1 ? '' : 'n'}, {deleted.leads}{' '}
+                {deleted.leads === 1 ? 'aanvraag' : 'aanvragen'} en {deleted.quotes}{' '}
+                {deleted.quotes === 1 ? 'offerte' : 'offertes'}.
+                {deleted.keptQuotes > 0 && (
+                  <>
+                    {' '}
+                    {deleted.keptQuotes === 1
+                      ? 'Eén betaalde offerte blijft bestaan'
+                      : `${deleted.keptQuotes} betaalde offertes blijven bestaan`}{' '}
+                    als fiscale gegevens (nummer, bedrag en datum), zonder je naam, je telefoonnummer
+                    en je e-mailadres.
+                  </>
+                )}
+              </p>
+              <p className="m-0 text-sm text-emerald-900">
+                Wil je een nieuwe site maken? Je kunt gewoon opnieuw een account maken.
+              </p>
+            </div>
+          )}
           <header className="flex flex-col gap-3">
             <h1 className="m-0 text-3xl sm:text-4xl font-black tracking-tight leading-tight">Mijn account</h1>
             <p className="m-0 text-stone-600 leading-relaxed">
@@ -1073,8 +1136,8 @@ export const AccountView: React.FC = () => {
           <p className="m-0 text-stone-600 leading-relaxed">
             Alles wat Klusbaas over je bewaart, staat in één bestand: je account, je sites, je
             aanvragen, je offertes en je service. Je hoeft daarvoor geen mail te sturen — dat is
-            je recht onder de AVG. Wil je liever dat we je gegevens helemaal weghalen? Mail
-            ons, dan doen we dat.
+            je recht onder de AVG. Wil je liever dat we je gegevens helemaal weghalen? Dan
+            verwijder je je account hieronder zelf.
           </p>
           <button
             type="button"
@@ -1084,6 +1147,72 @@ export const AccountView: React.FC = () => {
           >
             Download je gegevens
           </button>
+        </section>
+
+        <section className="flex flex-col gap-3 rounded-2xl border border-rose-200 bg-white p-5">
+          <h2 className="m-0 text-xl font-black tracking-tight">Je account verwijderen</h2>
+          <p className="m-0 text-stone-600 leading-relaxed">
+            Dit is je recht onder de AVG (artikel 17). Je site{' '}
+            {sites.length === 1 ? 'verdwijnt' : 'verdwijnen'}, je aanvragen en je offertes gaan
+            mee. Betaalde offertes blijven als fiscale gegevens bestaan, maar zonder je naam, je
+            telefoonnummer en je e-mailadres. Dit kun je niet terugdraaien.
+          </p>
+          {!deleteOpen ? (
+            <button
+              type="button"
+              onClick={() => setDeleteOpen(true)}
+              className="h-11 px-4 rounded-full border-2 border-rose-600 text-rose-700 hover:bg-rose-50 font-bold text-sm inline-flex items-center justify-center self-start"
+            >
+              Verwijder mijn account
+            </button>
+          ) : (
+            <form onSubmit={handleDeleteAccount} className="flex flex-col gap-4" noValidate>
+              <div className="max-w-sm">
+                <label htmlFor="delete-password" className={labelClass}>
+                  Je wachtwoord
+                </label>
+                <input
+                  id="delete-password"
+                  type="password"
+                  autoComplete="current-password"
+                  value={deletePassword}
+                  onChange={(e) => setDeletePassword(e.target.value)}
+                  className={inputClass}
+                />
+              </div>
+              <label className="flex items-start gap-3 text-sm text-stone-700">
+                <input
+                  type="checkbox"
+                  checked={deleteConfirmed}
+                  onChange={(e) => setDeleteConfirmed(e.target.checked)}
+                  className="mt-1 h-5 w-5 shrink-0 accent-rose-600"
+                />
+                <span>
+                  Ik weet dat mijn site verdwijnt en dat ik dit niet terug kan draaien.
+                </span>
+              </label>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="submit"
+                  disabled={busy || !deleteConfirmed || deletePassword.length === 0}
+                  className="h-11 px-5 rounded-full bg-rose-700 hover:bg-rose-800 disabled:opacity-60 text-white font-bold text-sm inline-flex items-center justify-center"
+                >
+                  {busy ? 'Bezig…' : 'Ja, verwijder mijn account'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDeleteOpen(false);
+                    setDeleteConfirmed(false);
+                    setDeletePassword('');
+                  }}
+                  className="h-11 px-5 rounded-full border border-stone-300 hover:bg-stone-100 text-stone-900 font-bold text-sm inline-flex items-center justify-center"
+                >
+                  Annuleren
+                </button>
+              </div>
+            </form>
+          )}
         </section>
 
         <div className="flex flex-wrap items-center gap-3">

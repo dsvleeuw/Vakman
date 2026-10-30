@@ -150,7 +150,9 @@ export const QuoteView: React.FC<QuoteViewProps> = ({ id, token, onGoHome }) => 
               <div>
                 <h2 className="text-xs font-bold uppercase tracking-wider text-stone-500 m-0 mb-2">Voor</h2>
                 <p className="m-0 font-bold">{state.quote.customer.biz}</p>
-                <p className="m-0 text-stone-600">t.a.v. {state.quote.customer.owner}</p>
+                {state.quote.customer.owner && (
+                  <p className="m-0 text-stone-600">t.a.v. {state.quote.customer.owner}</p>
+                )}
                 <p className="m-0 text-stone-600">{state.quote.customer.city}</p>
               </div>
               <div>

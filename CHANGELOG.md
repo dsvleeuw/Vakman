@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De klant kan zijn account zelf verwijderen.** In `/mijn-account` staat
+  een knop "Verwijder mijn account". De klant geeft zijn wachtwoord en
+  bevestigt het. Zijn site, zijn foto's, zijn aanvragen en zijn openstaande
+  offertes verdwijnen. Betaalde offertes blijven als fiscale gegevens
+  bestaan (nummer, bedrag en datum), zonder zijn naam, telefoonnummer en
+  e-mailadres. Dat is zijn recht onder de AVG (artikel 17).
 - **Een aanvraag blijft niet liggen.** Elke aanvraag heeft een status:
   nieuw, gebeld, offerte gestuurd, opdracht af of geen reactie. Klusbaas
   zet hem in `/klusbaas` en kan de lijst filteren op "nog open"; de vakman

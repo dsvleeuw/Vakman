@@ -1,6 +1,8 @@
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { buildResetMail, buildVerifyMail } from '../utils/accountMail';
 import { isRequestStatus } from '../utils/lead';
+import { deleteAccountData, planAccountDeletion } from './accountDelete';
+import type { MediaStorage } from './mediaHandler';
 import type {
   Account,
   AccountExport,
@@ -54,6 +56,7 @@ export type AccountAction =
   | 'service-request'
   | 'service-cancel'
   | 'lead-status'
+  | 'delete-account'
   | 'export';
 
 export interface AccountRequestBody {
@@ -64,6 +67,8 @@ export interface AccountRequestBody {
   reference?: string;
   /** Where the request stands. */
   leadStatus?: RequestStatus;
+  /** The customer has to confirm the removal of his account. */
+  confirm?: boolean;
 }
 
 export interface AccountResponseBody {
@@ -76,6 +81,8 @@ export interface AccountResponseBody {
   leads?: StoredLead[];
   /** One request with its new status. */
   lead?: StoredLead;
+  /** What was removed when the customer deleted his account. */
+  deleted?: { sites: number; leads: number; quotes: number; keptQuotes: number; media: number };
   /** The offers this customer requested. */
   quotes?: AccountQuote[];
   /** The offer that was linked to the account. */
@@ -120,6 +127,8 @@ export interface AccountDeps {
   leads?: LeadStorage;
   /** Where the offers are kept. Without it the customer sees no offers. */
   quotes?: LeadStorage;
+  /** Where the photos are kept. Without it the photos of the site stay. */
+  media?: MediaStorage;
   /** How the customer can pay. Without it no payment details are shown. */
   payment?: PaymentDetails;
   now?: () => number;
@@ -662,6 +671,43 @@ export async function handleAccount(
       return { status: 404, body: { ok: false, error: 'Deze aanvraag bestaat niet (meer).' } };
     }
     return { status: 200, body: { ok: true, lead: updated } };
+  }
+
+  if (action === 'delete-account') {
+    // De klant verwijdert zijn eigen account (AVG art. 17). Hij moet zijn
+    // wachtwoord geven en het bevestigen: dit is niet terug te draaien.
+    const password = typeof body.password === 'string' ? body.password : '';
+    if (!password) {
+      return { status: 400, body: { ok: false, error: 'Vul je wachtwoord in.', field: 'password' } };
+    }
+    if (!(await verifyPassword(password, account.passwordHash))) {
+      return {
+        status: 401,
+        body: { ok: false, error: 'Dat wachtwoord is niet juist.', field: 'password' },
+      };
+    }
+    if (body.confirm !== true) {
+      return { status: 400, body: { ok: false, error: 'Bevestig het verwijderen.' } };
+    }
+    if (!deps.leads) {
+      return { status: 400, body: { ok: false, error: 'De opslag is niet beschikbaar.' } };
+    }
+    const owned = (await deps.sites.listSites()).filter((site) => site.ownerId === account.id);
+    const allLeads = await deps.leads.listLeads();
+    const allQuotes = deps.quotes ? await deps.quotes.listQuotes() : [];
+    const plan = planAccountDeletion({
+      sites: owned,
+      leads: allLeads,
+      quotes: allQuotes.filter((quote) => quote.accountId === account.id),
+    });
+    const deleted = await deleteAccountData(account.id, plan, {
+      accounts: deps.accounts,
+      sites: deps.sites,
+      leads: deps.leads,
+      ...(deps.media ? { media: deps.media } : {}),
+      log: deps.log ?? (() => {}),
+    });
+    return { status: 200, body: { ok: true, deleted } };
   }
 
   if (action === 'export') {

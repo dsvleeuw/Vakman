@@ -78,6 +78,15 @@ function memoryStorage() {
       quotes.set(id, updated);
       return updated;
     },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
+    },
   };
   return { storage, quotes, pdfs, leads };
 }
@@ -384,6 +393,9 @@ function memorySites(sites: PublishedSiteRecord[] = []): SiteStorage {
     },
     async listSites() {
       return [...map.values()];
+    },
+    async deleteSite(slug: string) {
+      map.delete(slug);
     },
   };
 }

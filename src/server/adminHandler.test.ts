@@ -20,6 +20,9 @@ function memorySites(sites: PublishedSiteRecord[] = []): SiteStorage {
     async listSites() {
       return [...map.values()];
     },
+    async deleteSite(slug: string) {
+      map.delete(slug);
+    },
   };
 }
 
@@ -92,6 +95,15 @@ function memoryStorage(leads: StoredLead[] = [], quotes: QuoteRecord[] = []): Le
       const updated = { ...record, delivery };
       quoteMap.set(id, updated);
       return updated;
+    },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
     },
   };
 }

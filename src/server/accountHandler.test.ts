@@ -40,6 +40,12 @@ function memoryAccounts(): AccountStorage {
     async deleteSession(id) {
       sessions.delete(id);
     },
+    async listSessionsOf() {
+      return [];
+    },
+    async deleteAccount(id: string) {
+      accounts.delete(id);
+    },
   };
 }
 
@@ -89,6 +95,15 @@ function memoryLeads(leads: StoredLead[] = []): LeadStorage {
     },
     async updateQuoteDelivery() {
       return null;
+    },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
     },
   };
 }
@@ -157,6 +172,15 @@ function memoryQuotes(quotes: QuoteRecord[] = []): LeadStorage {
       map.set(id, updated);
       return updated;
     },
+    async deleteQuote() {
+      return;
+    },
+    async anonymizeQuote() {
+      return null;
+    },
+    async deleteLead() {
+      return;
+    },
   };
 }
 
@@ -172,6 +196,9 @@ function memorySites(): SiteStorage {
     },
     async listSites() {
       return [...sites.values()];
+    },
+    async deleteSite(slug: string) {
+      sites.delete(slug);
     },
   };
 }
