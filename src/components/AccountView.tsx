@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Loader2, LogOut, TriangleAlert, Wrench } from 'lucide-react';
-import type { AccountQuote, PaymentDetails, PublicPublishedSite, StoredLead } from '../types';
+import type { AccountQuote, PaymentDetails, PublicPublishedSite, RequestStatus, StoredLead } from '../types';
 import {
   downloadAccountExport,
   fetchAccountExport,
@@ -20,10 +20,12 @@ import {
   requestService,
   resendVerification,
   resetPassword,
+  setLeadStatus,
   verifyEmail,
   type AccountInfo,
 } from '../utils/accountClient';
 import { deliveryDeadline, formatEuroCents, type QuoteStatus } from '../utils/quote';
+import { REQUEST_STATUSES, REQUEST_STATUS_LABELS } from '../utils/lead';
 import { acceptQuote, reportPayment } from '../utils/quoteClient';
 import { SERVICE_FEATURES, SERVICE_LABEL } from '../data/plans';
 import { serviceAmountLabel, servicePriceText, serviceSinceText } from '../utils/service';
@@ -125,7 +127,11 @@ function leadDate(iso: string): string {
 }
 
 /** One request from a visitor, as the craftsman sees it in his account. */
-const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => {
+const LeadRow: React.FC<{
+  lead: StoredLead;
+  busy?: boolean;
+  onStatus: (reference: string, status: RequestStatus) => void;
+}> = ({ lead, busy, onStatus }) => {
   const text = LEAD_TEXT_FIELDS.map((key) => lead.fields?.[key]).find((value) => value?.trim());
   return (
     <li className="rounded-2xl bg-white border border-stone-200 p-5 flex flex-col gap-2">
@@ -155,6 +161,24 @@ const LeadRow: React.FC<{ lead: StoredLead }> = ({ lead }) => {
         {lead.site?.biz} · referentie {lead.reference}
       </p>
       {text && <p className="m-0 text-sm text-stone-700 whitespace-pre-wrap">{text}</p>}
+      <div className="flex flex-wrap items-center gap-2">
+        <label htmlFor={`lead-status-${lead.reference}`} className="text-xs font-bold text-stone-600">
+          Status
+        </label>
+        <select
+          id={`lead-status-${lead.reference}`}
+          value={lead.status ?? 'new'}
+          disabled={busy}
+          onChange={(e) => onStatus(lead.reference, e.target.value as RequestStatus)}
+          className="h-10 px-3 rounded-xl border-2 border-stone-300 bg-white text-sm font-bold text-stone-900 focus:outline-none focus:border-stone-900 disabled:opacity-60"
+        >
+          {REQUEST_STATUSES.map((status) => (
+            <option key={status} value={status}>
+              {REQUEST_STATUS_LABELS[status]}
+            </option>
+          ))}
+        </select>
+      </div>
     </li>
   );
 };
@@ -393,6 +417,18 @@ export const AccountView: React.FC = () => {
   const loadLeads = useCallback(async () => {
     setLeads(await fetchAccountLeads());
   }, []);
+
+  // De vakman zegt wat hij met een aanvraag op zijn eigen site heeft gedaan.
+  const handleLeadStatus = async (reference: string, status: RequestStatus) => {
+    setBusy(true);
+    const result = await setLeadStatus(reference, status);
+    setBusy(false);
+    if (!result.ok) {
+      setError(result.error ?? 'Dat is niet gelukt.');
+      return;
+    }
+    await loadLeads();
+  };
 
   const loadQuotes = useCallback(async () => {
     const result = await fetchAccountQuotes();
@@ -879,7 +915,7 @@ export const AccountView: React.FC = () => {
           ) : (
             <ul className="m-0 p-0 list-none flex flex-col gap-3">
               {leads.map((lead) => (
-                <LeadRow key={lead.reference} lead={lead} />
+                <LeadRow key={lead.reference} lead={lead} busy={busy} onStatus={handleLeadStatus} />
               ))}
             </ul>
           )}

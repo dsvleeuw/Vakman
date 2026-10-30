@@ -1,6 +1,6 @@
 import { isPlanId } from '../data/plans';
 import { SECTORS, STYLES } from '../data/tradesData';
-import type { ActiveSiteData, PlanId, QuoteChannel, SectorId } from '../types';
+import type { ActiveSiteData, PlanId, QuoteChannel, RequestStatus, SectorId } from '../types';
 import { isValidEmail, normalizeDutchPhone } from './contact';
 import { DEFAULT_PLAN, quoteDelivery, sanitizeAddonIds } from './quote';
 
@@ -24,6 +24,27 @@ export type SiteLeadType = Exclude<LeadType, 'quote'>;
 
 /** Forms filled in faster than this are treated as bots. */
 export const MIN_FILL_MS = 800;
+
+/**
+ * Where a request stands. A request nobody follows up on is a lost order,
+ * so Klusbaas and the craftsman whose site it came in on can both say what
+ * they did with it.
+ */
+export const REQUEST_STATUSES = ['new', 'called', 'quoted', 'done', 'dropped'] as const;
+
+/** True when the value is one of the request statuses. */
+export function isRequestStatus(value: string | null | undefined): value is RequestStatus {
+  return typeof value === 'string' && (REQUEST_STATUSES as readonly string[]).includes(value);
+}
+
+/** The same text in the overview and in the account of the craftsman. */
+export const REQUEST_STATUS_LABELS: Record<RequestStatus, string> = {
+  new: 'Nieuw',
+  called: 'Gebeld',
+  quoted: 'Offerte gestuurd',
+  done: 'Opdracht af',
+  dropped: 'Geen reactie',
+};
 
 export const LEAD_TYPE_LABELS: Record<LeadType, string> = {
   quote: 'Offerte-aanvraag website',

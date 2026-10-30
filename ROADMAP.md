@@ -175,6 +175,9 @@ through the wizard when:**
 24. A second trade gets a trade of his own: the roofer has his services,
     his prices, his photos and his questions, and a free roof check on his
     site that comes in as a real request.
+25. A request does not get lost: Klusbaas and the craftsman whose site it
+    came in on both see where it stands, so nobody has to remember who he
+    still has to call.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -200,6 +203,7 @@ through the wizard when:**
 | 7.20 | ~~The documentation tells the truth~~ Done: the README, the architecture, the contact strategy and the roadmap describe the product as it is: accounts, offers, the delivery checklist, the monthly service and the routes that exist. The roadmap got a phase 8 with everything that is left, so the backlog stands in one place | S | The documentation is only as true as the code it describes; the audits of phase 7.20 and 7.22 came from the code, not from the claims. |
 | 7.21 | ~~The customer can download his own data~~ Done: `/mijn-account` has a button "Download je gegevens". The file holds his account, his sites with their text and photos, his requests, his offers and his service. His password and the management key of a site are not in it: those are keys, not data | S | The file is plain JSON, meant to be read by a person. The removal of the data itself stays manual (row 8.2), and the requests of other customers stay with Klusbaas. |
 | 7.22 | ~~The surface calculator works for more than one trade~~ Done: the plasterer gets the m² calculator on his site, with his own services and prices per m². The icon and the name of the work follow the trade | S | The calculator works with walls and openings; a trade that measures something else (a garden, a roof) needs its own tool (rows 8.9 and 8.10) |
+| 7.24 | ~~A request does not get lost~~ Done: every request has a status: new, called, offer sent, order done or no response. Klusbaas sets it in `/klusbaas` and filters the list on "still open"; the craftsman whose site it came in on sets it himself in his own account | S | The status says what happened, it does not remind anyone: nobody gets a mail when a request stands still for three days. The overview still lists everything by hand (row 8.4). |
 | 7.23 | ~~The roofer gets his own trade and a free roof check~~ Done: the roofer is the eighth trade, with his own services, prices, photos, reviews and offer questions, plus a free roof check on his site. The visitor fills in the type of roof, the complaint and the urgency, and the check comes in as a request like every other form | M | The check is a form and not a booked appointment: nobody promises a date before he has seen the roof. On a customer site the promises of the demo ("gratis", "binnen één werkdag") stay off, because the customer writes his own copy. The photos are stock photos until the roofer brings his own (row 8.12). |
 
 
@@ -216,7 +220,7 @@ what makes the product sturdier as the number of customers grows.
 | 8.2 | The customer can delete his own account (AVG art. 17) | M | Bigger than 8.1: the sites, the offers, the requests and the sessions all have to go, and the published page has to disappear. Irreversible, so it needs a confirmation. |
 | 8.3 | A job that removes the requests after twelve months | M | The privacy statement promises twelve months. A scheduled function on Netlify does it without a new dependency. |
 | 8.4 | Search and export in `/klusbaas` | M | The overview lists everything; as the number of requests and offers grows, finding one by hand stops working. |
-| 8.5 | A status per request, so Klusbaas sees what he called | M | "New", "called", "offer sent": a request that nobody followed up on is a lost order. |
+| 8.5 | ~~A status per request, so Klusbaas sees what he called~~ Done (phase 7.24) | M | The status says what happened; nothing goes out when a request stands still. |
 | 8.6 | ~~The trade **dakdekker** with a free roof check (row 2.1)~~ Done (phase 7.23) | M | The `FaultReportForm` pattern works for a roof inspection; more trades means more demos and more local search pages. |
 | 8.7 | The trade **aannemer** with an expanded project timeline (row 2.2) | M | The timeline exists for the carpenter; the builder needs his own steps. |
 | 8.8 | ~~The **stukadoor** gets the surface calculator (row 2.4)~~ Done (phase 7.22) | S | The calculator works with walls and openings. |

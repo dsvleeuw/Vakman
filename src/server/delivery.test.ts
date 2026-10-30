@@ -82,6 +82,9 @@ function memoryQuotes(quotes: QuoteRecord[] = []): LeadStorage {
     async listLeads() {
       return [] as StoredLead[];
     },
+    async updateLeadStatus() {
+      return null;
+    },
     async listQuotes() {
       return [...map.values()];
     },

@@ -6,6 +6,7 @@ import type {
   AccountSession,
   DeliveryItem,
   PublishedSiteRecord,
+  RequestStatus,
   StoredLead,
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
@@ -25,6 +26,11 @@ export interface LeadStorage {
   saveLead(reference: string, lead: unknown): Promise<string>;
   /** Every stored request, newest last. Used to show a craftsman his own. */
   listLeads(): Promise<StoredLead[]>;
+  /**
+   * Note where a request stands ('new' -> 'called' -> 'quoted'). Returns the
+   * new record, or null when the request does not exist.
+   */
+  updateLeadStatus(reference: string, status: RequestStatus): Promise<StoredLead | null>;
   /** Every stored offer, so a customer can see his own in his account. */
   listQuotes(): Promise<QuoteRecord[]>;
   /**
@@ -250,6 +256,14 @@ export function createFileStorage(root: string): LeadStorage {
         if (record?.reference) records.push(record);
       }
       return records;
+    },
+    async updateLeadStatus(reference, status) {
+      const file = path.join(leadsDir, `${safe(reference)}.json`);
+      const record = await readJson<StoredLead>(file);
+      if (!record?.reference) return null;
+      const updated: StoredLead = { ...record, status, statusAt: new Date().toISOString() };
+      await writeFile(file, JSON.stringify(updated, null, 2));
+      return updated;
     },
   };
 }
@@ -481,6 +495,13 @@ export async function createBlobStorage(): Promise<LeadStorage> {
         if (record?.reference) records.push(record);
       }
       return records;
+    },
+    async updateLeadStatus(reference, status) {
+      const record = (await leads.get(reference, { type: 'json' })) as StoredLead | null;
+      if (!record?.reference) return null;
+      const updated: StoredLead = { ...record, status, statusAt: new Date().toISOString() };
+      await leads.setJSON(reference, updated);
+      return updated;
     },
   };
 }

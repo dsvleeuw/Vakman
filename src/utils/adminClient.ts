@@ -3,6 +3,7 @@ import type {
   AdminOverview,
   AdminQuote,
   AdminSite,
+  RequestStatus,
   StoredLead,
 } from '../types';
 import type { QuoteStatus } from './quote';
@@ -150,6 +151,14 @@ export function sendServiceInvoice(id: string): Promise<AdminResult> {
  */
 export function setDeliveryStep(id: string, itemId: string, done: boolean): Promise<AdminResult> {
   return post({ action: 'delivery', id, itemId, done });
+}
+
+/**
+ * Say where a request stands: called, quote sent, done or no response. A
+ * request nobody follows up on is a lost order.
+ */
+export function setLeadStatus(reference: string, status: RequestStatus): Promise<AdminResult> {
+  return post({ action: 'lead-status', reference, leadStatus: status });
 }
 
 export type { AdminCreatedQuote, AdminOverview, AdminQuote, AdminSite, StoredLead };

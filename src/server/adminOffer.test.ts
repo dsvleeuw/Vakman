@@ -53,6 +53,9 @@ function memoryStorage(
     async listLeads() {
       return storedLeads;
     },
+    async updateLeadStatus() {
+      return null;
+    },
     async listQuotes() {
       return [...quoteMap.values()];
     },

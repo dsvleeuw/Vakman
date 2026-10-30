@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Een aanvraag blijft niet liggen.** Elke aanvraag heeft een status:
+  nieuw, gebeld, offerte gestuurd, opdracht af of geen reactie. Klusbaas
+  zet hem in `/klusbaas` en kan de lijst filteren op "nog open"; de vakman
+  zet hem zelf voor de aanvragen op zijn eigen site.
 - **De dakdekker is er, met een gratis dakcheck.** Het achtste vak: daken,
   goten en isolatie, met zijn eigen diensten, prijzen, foto's, reviews en
   offertegragen. Op zijn site staat een gratis dakcheck: de bezoeker geeft

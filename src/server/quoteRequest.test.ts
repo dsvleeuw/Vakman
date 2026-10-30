@@ -98,6 +98,9 @@ function memoryStorage(): MemoryStorage {
     async listLeads() {
       return [...leads.values()];
     },
+    async updateLeadStatus() {
+      return null;
+    },
     async listQuotes() {
       return [...quotes.values()];
     },

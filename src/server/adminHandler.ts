@@ -9,8 +9,11 @@ import type {
   PaymentDetails,
   AdminConfig,
   AdminConfigCheck,
+  RequestStatus,
+  StoredLead,
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
+import { isRequestStatus } from '../utils/lead';
 import { QUOTE_VALID_DAYS, addDaysIso, buildQuotePath, isQuoteExpired } from '../utils/quote';
 import type { AccountStorage, LeadStorage, SiteStorage } from './storage';
 import { adminSession, type AdminStorage } from './adminStorage';
@@ -45,7 +48,8 @@ export type AdminAction =
   | 'service-activate'
   | 'service-stop'
   | 'service-invoice'
-  | 'delivery';
+  | 'delivery'
+  | 'lead-status';
 
 export interface AdminRequestBody extends OfferRequest {
   action?: AdminAction;
@@ -58,6 +62,10 @@ export interface AdminRequestBody extends OfferRequest {
   itemId?: string;
   /** True when the step is done. */
   done?: boolean;
+  /** The request the status belongs to: `L-XXXXXX`. */
+  reference?: string;
+  /** Where the request stands. */
+  leadStatus?: RequestStatus;
 }
 
 export interface AdminResponseBody {
@@ -67,6 +75,8 @@ export interface AdminResponseBody {
   quote?: AdminCreatedQuote;
   /** What happened with the invoice mail when an offer was marked as paid. */
   mailStatus?: string;
+  /** The request with its new status. */
+  lead?: StoredLead;
   /** What happened with the reminder mail. */
   reminderStatus?: string;
   /** What happened with the payment reminder mail. */
@@ -501,6 +511,22 @@ export async function handleAdmin(
       };
     }
     return { status: 200, body: { ok: true, quote: result.quote } };
+  }
+
+  if (action === 'lead-status') {
+    // Waar een aanvraag staat: gebeld, offerte gestuurd, af of geen
+    // reactie. Zo ziet Klusbaas welke aanvraag hij nog moet oppakken.
+    const reference = typeof body.reference === 'string' ? body.reference : '';
+    const status = body.leadStatus;
+    if (!reference || !isRequestStatus(status)) {
+      return { status: 400, body: { ok: false, error: 'Onbekende aanvraag of status.' } };
+    }
+    const updated = await deps.leads.updateLeadStatus(reference, status);
+    if (!updated) {
+      return { status: 404, body: { ok: false, error: 'Deze aanvraag bestaat niet (meer).' } };
+    }
+    log(`[admin] aanvraag ${reference} staat nu op ${status}`);
+    return { status: 200, body: { ok: true, lead: updated } };
   }
 
   if (action === 'delivery') {

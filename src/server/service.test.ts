@@ -347,6 +347,9 @@ async function adminDeps(d: ReturnType<typeof deps>, mails: SentMail[]) {
       async listLeads() {
         return [];
       },
+      async updateLeadStatus() {
+        return null;
+      },
       async listQuotes() {
         return [];
       },

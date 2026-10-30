@@ -3,6 +3,7 @@ import type {
   AccountQuote,
   PaymentDetails,
   PublicPublishedSite,
+  RequestStatus,
   ServiceState,
   StoredLead,
 } from '../types';
@@ -202,6 +203,14 @@ export function claimQuote(id: string, token: string): Promise<AccountResult> {
  * (`/mijn-site/<slug>?token=…`). Returns null when the text is not such a
  * link, so the customer gets a clear message instead of a silent failure.
  */
+/**
+ * Say where a request on the craftsman's own site stands. Only the requests
+ * of his own sites can be changed.
+ */
+export function setLeadStatus(reference: string, status: RequestStatus): Promise<AccountResult> {
+  return post({ action: 'lead-status', reference, leadStatus: status });
+}
+
 export function parseManageLink(value: string): { slug: string; token: string } | null {
   const text = value.trim();
   if (!text) return null;

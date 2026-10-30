@@ -30,6 +30,9 @@ function memoryStorage(quotes: QuoteRecord[]): LeadStorage {
     async listLeads() {
       return [];
     },
+    async updateLeadStatus() {
+      return null;
+    },
     async listQuotes() {
       return [...map.values()];
     },

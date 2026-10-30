@@ -716,6 +716,13 @@ export interface AccountExport {
   quotes: unknown[];
 }
 
+/**
+ * Where a request stands. A request nobody follows up on is a lost order,
+ * so both Klusbaas and the craftsman whose site it came in on can say what
+ * they did with it.
+ */
+export type RequestStatus = 'new' | 'called' | 'quoted' | 'done' | 'dropped';
+
 export interface StoredLead {
   /** The reference the visitor saw: `L-XXXXXX`. */
   reference: string;
@@ -725,6 +732,13 @@ export interface StoredLead {
   type: string;
   site: { biz: string; sector: string; style?: string; slug?: string };
   fields: Record<string, string>;
+  /**
+   * Where the request stands. Older requests have no status: that is
+   * 'new', a request nobody looked at yet.
+   */
+  status?: RequestStatus;
+  /** When the status last changed (ISO date). */
+  statusAt?: string;
 }
 
 /** A logged-in session. The id travels in an httpOnly cookie. */

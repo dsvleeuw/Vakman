@@ -1,5 +1,6 @@
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { buildResetMail, buildVerifyMail } from '../utils/accountMail';
+import { isRequestStatus } from '../utils/lead';
 import type {
   Account,
   AccountExport,
@@ -9,6 +10,7 @@ import type {
   PublicPublishedSite,
   ServiceState,
   StoredLead,
+  RequestStatus,
 } from '../types';
 import { isValidEmail } from '../utils/contact';
 import { PLATFORM_CONTACT } from '../data/platform';
@@ -51,12 +53,17 @@ export type AccountAction =
   | 'verify-request'
   | 'service-request'
   | 'service-cancel'
+  | 'lead-status'
   | 'export';
 
 export interface AccountRequestBody {
   action?: AccountAction;
   email?: string;
   password?: string;
+  /** The request the status belongs to: `L-XXXXXX`. */
+  reference?: string;
+  /** Where the request stands. */
+  leadStatus?: RequestStatus;
 }
 
 export interface AccountResponseBody {
@@ -67,6 +74,8 @@ export interface AccountResponseBody {
   sites?: PublicPublishedSite[];
   /** The requests that came in through the sites of this customer. */
   leads?: StoredLead[];
+  /** One request with its new status. */
+  lead?: StoredLead;
   /** The offers this customer requested. */
   quotes?: AccountQuote[];
   /** The offer that was linked to the account. */
@@ -627,6 +636,32 @@ export async function handleAccount(
       status: 200,
       body: { ok: true, account: publicAccount(account), leads },
     };
+  }
+
+  if (action === 'lead-status') {
+    // De vakman zegt wat hij met een aanvraag op zijn eigen site heeft gedaan.
+    // Alleen de aanvragen van zijn eigen sites mogen aangepast worden.
+    const reference = typeof body.reference === 'string' ? body.reference : '';
+    const status = typeof body.leadStatus === 'string' ? body.leadStatus : undefined;
+    if (!reference || !isRequestStatus(status)) {
+      return { status: 400, body: { ok: false, error: 'Onbekende aanvraag of status.' } };
+    }
+    if (!deps.leads) {
+      return { status: 400, body: { ok: false, error: 'Aanvragen zijn niet beschikbaar.' } };
+    }
+    const owned = (await deps.sites.listSites()).filter((site) => site.ownerId === account.id);
+    const slugs = new Set(owned.map((site) => site.slug));
+    const lead = (await deps.leads.listLeads()).find(
+      (record) => record.reference === reference && record.site?.slug && slugs.has(record.site.slug)
+    );
+    if (!lead) {
+      return { status: 404, body: { ok: false, error: 'Deze aanvraag bestaat niet (meer).' } };
+    }
+    const updated = await deps.leads.updateLeadStatus(reference, status);
+    if (!updated) {
+      return { status: 404, body: { ok: false, error: 'Deze aanvraag bestaat niet (meer).' } };
+    }
+    return { status: 200, body: { ok: true, lead: updated } };
   }
 
   if (action === 'export') {
