@@ -42,6 +42,8 @@ export default async (req: Request, context: { ip?: string }): Promise<Response>
       // Een offerte die Klusbaas zelf schrijft gaat per mail naar de klant,
       // met de PDF erbij en de betaalgegevens.
       sendMail: createAccountMailer(process.env),
+      // Zonder sleutel blijft de mail in de preview: de klant krijgt niets.
+      mailReady: Boolean(process.env.RESEND_API_KEY),
       ...(payment ? { payment } : {}),
       // Klusbaas' eigen gegevens, voor op de factuur.
       invoice,

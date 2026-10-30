@@ -143,6 +143,11 @@ to [ROADMAP.md](../ROADMAP.md).
 - **The overview lists, it does not act.** It shows the requests, the offers
   and the sites, and Klusbaas can mark an offer as paid. There is no
   newsletter list, no search, no export and no way to delete a request.
+- **The overview says whether the deployment is complete.** It checks the
+  IBAN, the invoice details, the mail and the password, so Klusbaas sees
+  what is missing before the first order instead of after it. The check
+  looks at the environment, not at the running site: a value that is set
+  but wrong (a wrong IBAN, a wrong sender) is not caught.
 - **The management link of every site is in the overview.** That is on
   purpose: Klusbaas needs it when a customer lost his account. It means the
   password is worth protecting like a key to every customer site.

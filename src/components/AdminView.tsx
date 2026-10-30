@@ -609,6 +609,37 @@ export const AdminView: React.FC = () => {
             </p>
           )}
 
+          {overview?.config && !overview.config.ready && (
+            <section className="rounded-2xl bg-white border border-amber-300 p-5 flex flex-col gap-3">
+              <h2 className="m-0 text-lg font-black text-stone-900">Voor de eerste verkoop</h2>
+              <p className="m-0 text-sm text-stone-700">
+                Dit staat nog open. Tot het rond is, moet Klusbaas het zelf doen.
+              </p>
+              <ul className="m-0 p-0 list-none flex flex-col gap-2">
+                {overview.config.checks
+                  .filter((check) => !check.ok)
+                  .map((check) => (
+                    <li key={check.id} className="flex items-start gap-2 text-sm">
+                      <TriangleAlert
+                        className="w-4 h-4 mt-0.5 shrink-0 text-amber-700"
+                        aria-hidden="true"
+                      />
+                      <span>
+                        <strong className="text-stone-900">{check.label}.</strong>{' '}
+                        <span className="text-stone-700">{check.detail}</span>
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          )}
+
+          {overview?.config?.ready && (
+            <p className="m-0 rounded-xl px-4 py-3 text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200">
+              Klaar voor de eerste verkoop: betalen, factureren en mailen werken.
+            </p>
+          )}
+
           {loading ? (
             <p className="flex items-center gap-3 text-stone-600" role="status">
               <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Even laden…

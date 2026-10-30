@@ -91,6 +91,8 @@ function leadApiDevServer(env: Record<string, string>): Plugin {
             sendMail: createAccountMailer(env, (message: string) =>
               server.config.logger.info(message)
             ),
+            // Lokaal gaat er geen mail uit: alles blijft in het log.
+            mailReady: Boolean(env.RESEND_API_KEY),
             ...(payment ? { payment } : {}),
             // Klusbaas' eigen gegevens, voor op de factuur.
             invoice: invoiceDetailsFromEnv(env),

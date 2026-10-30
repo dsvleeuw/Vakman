@@ -7,6 +7,8 @@ import type {
   DeliveryItem,
   InvoiceDetails,
   PaymentDetails,
+  AdminConfig,
+  AdminConfigCheck,
 } from '../types';
 import type { QuoteRecord, QuoteStatus } from '../utils/quote';
 import { QUOTE_VALID_DAYS, addDaysIso, buildQuotePath, isQuoteExpired } from '../utils/quote';
@@ -97,6 +99,8 @@ export interface AdminDeps {
   accounts?: AccountStorage;
   /** Sends the offer to the customer. Without it the offer is still made. */
   sendMail?: (mail: AccountMail) => Promise<string>;
+  /** True when the mail really goes out; without a key it is preview mode. */
+  mailReady?: boolean;
   /** How the customer pays, shown in the mail. */
   payment?: PaymentDetails;
   /** Klusbaas' own details, printed on the invoice the customer gets. */
@@ -206,6 +210,53 @@ function toAdminQuote(quote: QuoteRecord, now: Date): AdminQuote {
   };
 }
 
+/**
+ * What stands between the site and the first order.
+ *
+ * Klusbaas is not a developer: he should not have to guess whether the
+ * deployment is complete. These are the four things that decide whether a
+ * customer can order, pay and receive without Klusbaas doing something by
+ * hand.
+ */
+export function buildConfig(deps: AdminDeps): AdminConfig {
+  const checks: AdminConfigCheck[] = [
+    {
+      id: 'payment',
+      label: 'De klant kan betalen',
+      ok: Boolean(deps.payment?.iban),
+      detail: deps.payment?.iban
+        ? 'Het IBAN staat in de offertes en in de mail.'
+        : 'Zonder IBAN hebben de offertes geen betaalgegevens: Klusbaas moet ze zelf mailen.',
+    },
+    {
+      id: 'invoice',
+      label: 'De factuur is compleet',
+      ok: Boolean(deps.invoice?.address && deps.invoice?.email),
+      detail:
+        deps.invoice?.address && deps.invoice?.email
+          ? 'Naam, adres en e-mailadres staan op de factuur.'
+          : 'Zonder adres en e-mailadres is de factuur niet compleet.',
+    },
+    {
+      id: 'mail',
+      label: 'De mail gaat de deur uit',
+      ok: Boolean(deps.mailReady),
+      detail: deps.mailReady
+        ? 'Offertes en bevestigingen gaan per mail naar de klant.'
+        : 'Er is geen mail sleutel: alles blijft in het log staan en de klant krijgt niets.',
+    },
+    {
+      id: 'password',
+      label: 'Het beheerderswachtwoord staat er',
+      ok: Boolean(deps.env.ADMIN_PASSWORD),
+      detail: deps.env.ADMIN_PASSWORD
+        ? 'Alleen iemand met dit wachtwoord komt in /klusbaas.'
+        : 'Zonder wachtwoord staat /klusbaas open voor iedereen.',
+    },
+  ];
+  return { ready: checks.every((check) => check.ok), checks };
+}
+
 /** Everything Klusbaas needs to see: the sites, the requests and the offers. */
 export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
   const records = await deps.sites.listSites();
@@ -241,7 +292,7 @@ export async function buildOverview(deps: AdminDeps): Promise<AdminOverview> {
         ...(account.service ? { service: account.service } : {}),
       }))
     : [];
-  return { sites, leads, quotes, accounts };
+  return { sites, leads, quotes, accounts, config: buildConfig(deps) };
 }
 
 /**

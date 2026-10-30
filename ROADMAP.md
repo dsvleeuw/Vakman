@@ -164,6 +164,9 @@ through the wizard when:**
 20. The price list says what a package is: the customer fills in his own
     site in his own editor, and a package is the delivery — Klusbaas checks
     the work, registers the domain and hands the site over.
+21. Klusbaas sees whether the site is ready to sell: the overview says
+    whether a customer can pay, whether the invoice is complete and whether
+    the mail really goes out, instead of leaving him to guess.
 
 | # | Item | Effort | Notes |
 |---|------|--------|-------|
@@ -185,6 +188,7 @@ through the wizard when:**
 | 7.16 | ~~The customer sees what Klusbaas does for his site~~ Done: every offer carries the checklist of the package (what Klusbaas does for the site, in the order he does it). Klusbaas ticks the steps off in `/klusbaas` and the customer sees the same list in his account and on the offer page, with the date it is done and the moment the site has to be live | M | The delivery itself stays manual work: the checklist says what happens, the code does not build the site for the customer. The deadline of two weeks counts from the payment, because that is when the work starts. An offer from before this phase has no checklist and shows nothing. |
 | 7.17 | ~~The questions and answers stand in the page~~ Done: the FAQ is a native accordion (`<details>`), so every answer is in the HTML that the build writes. A visitor without JavaScript and a search engine read the same text as a visitor with scripts | S | The answers of the questions about Klusbaas are marketing text; the customer keeps his own questions on his own site. The accordion shows one answer at a time, like before. |
 | 7.18 | ~~The price list says what a package is~~ Done: the pricing page and the FAQ say that the customer fills in his own site in his own editor, and that a package is the delivery: Klusbaas checks the texts, photos and colours, checks the findability, delivers within two weeks and registers the `.nl` domain in Pro and Premium | M | The prices themselves are unchanged. The domain is only in Pro and Premium, and the registrar costs stay with the customer. A customer who wants to do everything himself can, and that is said out loud |
+| 7.19 | ~~Klusbaas sees whether the site is ready to sell~~ Done: the overview in `/klusbaas` checks the four things that decide whether an order works without manual work: the IBAN in the offers, the details on the invoice, the mail that really goes out and the password on the overview. Something missing stands at the top of the overview, with the reason | S | The check looks at the environment of the deployment, not at the running site: a value that is set wrong (a wrong IBAN, a wrong sender) is not caught. The check says nothing about the content of a site |
 
 
 ## Decision log
