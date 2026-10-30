@@ -11,12 +11,16 @@ back/forward buttons.
 
 | Route | Component | Purpose |
 |-------|-----------|---------|
-| `/` (+ `?vak=`) | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 30 presets and platform pricing |
+| `/` (+ `?vak=`) | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 35 presets and platform pricing |
 | `/voorbeeld/:sector/:stijl` | `SiteView` | The generated craftsman website (the product demo) |
 | `/start/vak` … `/start/afspraak` | `WizardView` | Five-step onboarding; every step has its own URL |
 | `/start/klaar` | `WizardView` | Confirmation screen after requesting an appointment |
 | `/mijn-site` (+ `/:slug?token=…`) | `SiteEditor` | The editor where the customer fills in his own site: details, copy and blocks, with a live preview |
-| `/site/:slug` | `PublishedSiteView` | A site the customer published: rendered on the server, so search engines and link previews see it |
+| `/mijn-account` | `AccountView` | The customer's own account: his sites, his requests, his offers and his service |
+| `/site/:slug` (+ `/privacy`) | `PublishedSiteView` | A site the customer published: rendered on the server, so search engines and link previews see it, with the craftsman's own privacy statement |
+| `/offerte/:id?token=…` | `QuoteView` | The offer: the price, the delivery checklist, the way to pay and the acceptance |
+| `/klusbaas` | `AdminView` | Klusbaas' own overview: the requests, the offers, the sites and the accounts, behind a password |
+| `/kaart` | `ProspectMapView` | The work map with the prospects Klusbaas can approach |
 | `/componenten` (+ `/:id`) | `ComponentGallery` | Searchable live catalogue of every component module and ten reusable additions |
 | anything else | `NotFoundView` | Branded 404 with links back into the product |
 
@@ -150,11 +154,17 @@ All content is TypeScript data, there is no CMS or database.
 
 ## Contact and messaging
 
-There is no backend for leads. All "send" actions open WhatsApp or the
+A request that a visitor sends from a site goes to the backend: it is
+stored with the site it belongs to and mailed to Klusbaas
+(`src/server/leadHandler.ts`, `POST /api/lead`). Nothing is lost when the
+mail does not arrive — the request stands in the craftsman's account and
+in Klusbaas' overview.
+
+The "call" and "WhatsApp" buttons themselves still open WhatsApp or the
 phone app through deep links built by the pure helpers in
 `src/utils/contact.ts` (see [contact-strategy.md](./contact-strategy.md)).
-The Google Calendar/Drive integration in `src/utils/googleWorkspace.ts`
-is the only networked write path and requires Firebase OAuth.
+The Google Calendar integration in `src/utils/googleWorkspace.ts` needs
+Firebase OAuth.
 
 ## State and persistence
 
@@ -163,7 +173,7 @@ is the only networked write path and requires Firebase OAuth.
 | Current route (view, sector, style, wizard step, component, package) | The URL (`history.state` keeps the scroll offset) | Bookmarkable |
 | Wizard draft (form, services, sector, style) | React state in `App` + `sessionStorage` (`klusbaas_wizard_draft`) | Session |
 | Custom business data per sector | `localStorage` key `klusbaas_custom_sites` | Persistent |
-| Booking, contact, fault-report and calculator submissions | React state only | Lost on refresh |
+| Booking, contact, fault-report and calculator submissions | `leads` in Netlify Blobs, `.data/leads` in dev | Twelve months promised; removed by hand for now |
 | Google OAuth token | Module-level cache in `googleWorkspace.ts` | Session |
 | Customer account (e-mail, password hash) | `accounts` in Netlify Blobs, `.data/accounts` in dev | Until the account is deleted |
 | Session of a logged-in customer | `sessions` in the same store, `.data/sessions` in dev; the id travels in the cookie `klusbaas_session` | 30 days |

@@ -183,6 +183,11 @@ result. The Netlify deploy preview is the only external CI check. If
   are his own. `src/components/claims.test.tsx` keeps the old promises out;
   the copy of the pages lives in `src/data/marketing.ts` so a test can read
   it.
+- The documentation describes the product as it is now, not as it was:
+  accounts, offers, the delivery checklist and the monthly service are
+  built. The numbers in `README.md`, `docs/architecture.md` and
+  `ROADMAP.md` (presets, routes, tests, trades) come from the code; check
+  them before you write them down.
 - The overview in `/klusbaas` checks whether the deployment is complete
   (`buildConfig` in `server/adminHandler.ts`): the IBAN, the invoice
   details, the mail and the password. What is missing stands at the top of

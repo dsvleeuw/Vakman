@@ -54,7 +54,7 @@ assistive tech, decorative hero photos marked `aria-hidden`.
 | 7 | Explain the shortcut into step 3 | ✅ context chips "Vak: … wijzig", "Stijl: … wijzig", "Pakket: Pro" |
 | 8 | Empty/loading states | ✅ images reserve space and pulse until loaded; route chunks show a labelled spinner |
 | 9 | Route-level code splitting | ✅ initial JS 498 kB → ~304 kB (147 → ~98 kB gzip) |
-| 10 | Prerender for SEO | ✅ build-time prerender of 36 routes into real HTML + hydration; canonical, OG/Twitter, `og-image.png`, `sitemap.xml`, `robots.txt` |
+| 10 | Prerender for SEO | ✅ build-time prerender of 39 routes into real HTML + hydration; canonical, OG/Twitter, `og-image.png`, `sitemap.xml`, `robots.txt` |
 | 11 | Funnel analytics | ✅ vendor-free `utils/analytics.ts` with step, preset, plan, WhatsApp, phone, appointment and component events |
 | 12 | Accept international phone formats | ✅ `normalizeDutchPhone()` everywhere (wizard, contact, booking, fault report) with tests |
 | 13 | Accessibility audit / contrast | ✅ WCAG maths in `utils/color.ts`, palette contrast contract for all 7 trades × 5 styles, form borders raised to 3:1 |
@@ -94,8 +94,12 @@ Nothing from the earlier list is left; these are genuinely new and smaller:
 
 ## How this was verified
 
-- `npx tsc --noEmit`, `node --test` (**65 tests**) and `npm run build`
-  (Vite + prerender of 36 routes + sitemap/robots) are green.
+- `npx tsc --noEmit`, `bun run test` (**380 tests**) and `npm run build`
+  (Vite + prerender of 39 routes + sitemap/robots) are green.
+
+> The review below is a snapshot from October 2026. The numbers in it are
+> the numbers of that moment; the product has grown since (accounts,
+> offers, the delivery checklist and the monthly service).
 - Hydration script: prerendered HTML for `/`, `/voorbeeld/loodgieter/krachtig`
   and `/voorbeeld/hovenier/donker` hydrates with **zero** React mismatch
   errors and keeps its content.
