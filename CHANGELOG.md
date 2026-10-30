@@ -26,6 +26,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De hovenier krijgt een tuinplan.** Op zijn site staat een formulier
+  waarmee de bezoeker kiest wat hij wil laten doen, hoe groot de tuin is en
+  wanneer hij het gedaan wil hebben. Voor werk met een prijs per m² staat
+  er meteen een indicatie; voor de rest zegt de pagina eerlijk dat de
+  hovenier de prijs maakt na een kijkje in de tuin. De aanvraag komt binnen
+  als "Tuinplan".
 - **De twaalf maanden uit de privacyverklaring zijn geen handwerk meer.**
   Een geplande Netlify-functie verwijdert iedere nacht de aanvragen die
   ouder zijn dan twaalf maanden. Klusbaas kan het ook zelf doen met de

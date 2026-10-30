@@ -18,6 +18,7 @@ export const LEAD_TYPES = [
   'price',
   'area',
   'roof-check',
+  'garden-plan',
 ] as const;
 export type LeadType = (typeof LEAD_TYPES)[number];
 export type SiteLeadType = Exclude<LeadType, 'quote'>;
@@ -55,6 +56,7 @@ export const LEAD_TYPE_LABELS: Record<LeadType, string> = {
   price: 'Prijsindicatie-aanvraag',
   area: 'Werkgebied-check',
   'roof-check': 'Dakcheck',
+  'garden-plan': 'Tuinplan',
 };
 
 interface FieldSpec {
@@ -131,6 +133,16 @@ export const LEAD_FIELDS: Record<SiteLeadType, FieldSpec[]> = {
     { key: 'roofType', label: 'Type dak', required: true, max: 120 },
     { key: 'complaint', label: 'Klacht', required: true, max: 120 },
     { key: 'urgency', label: 'Urgentie', required: true, max: 120 },
+    { key: 'details', label: 'Toelichting', max: 1000 },
+  ],
+  'garden-plan': [
+    name,
+    phone,
+    email,
+    { key: 'address', label: 'Adres van de tuin', required: true, max: 200 },
+    { key: 'service', label: 'Werk', required: true, max: 120 },
+    { key: 'gardenSize', label: 'Oppervlakte (m²)', required: true, max: 20 },
+    { key: 'moment', label: 'Moment', required: true, max: 120 },
     { key: 'details', label: 'Toelichting', max: 1000 },
   ],
 };

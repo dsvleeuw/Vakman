@@ -11,6 +11,7 @@ Interactieve tools die specifiek zijn voor een vak (loodgieter, elektricien, sch
 | `FaultReportForm.tsx` | Alle vakken | Gestructureerd storingsformulier met foto upload |
 | `ProjectTimeline.tsx` | Aannemer, Tuinier | Visualisatie projectfasen & planning |
 | `RoofCheckForm.tsx` | Dakdekker | Gratis dakcheck: type dak, klacht en urgentie. De aanvraag komt binnen als aanvraag (`type: 'roof-check'`). |
+| `GardenPlanForm.tsx` | Hovenier | Tuinplan: werk, grootte van de tuin en moment. Indicatie bij een prijs per m², anders eerlijk "op aanvraag". De aanvraag komt binnen als `type: 'garden-plan'`. |
 
 ## Basis: `TradeTool.tsx`
 
