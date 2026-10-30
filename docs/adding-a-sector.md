@@ -1,6 +1,6 @@
 # Adding a new sector (trade)
 
-This guide walks through adding a seventh trade, e.g. **dakdekker**.
+This guide walks through adding a new trade, e.g. **aannemer**.
 
 ## 1. Register the id
 
@@ -9,7 +9,8 @@ In `src/types.ts`, add the id to the `SectorId` union:
 ```ts
 export type SectorId =
   | 'timmerman' | 'hovenier' | 'schilder'
-  | 'loodgieter' | 'elektricien' | 'stukadoor' | 'dakdekker';
+  | 'loodgieter' | 'elektricien' | 'stukadoor'
+  | 'dakdekker' | 'overige';
 ```
 
 Add it to `ORDER` in `src/data/tradesData.ts` to control its tab position:
@@ -18,6 +19,7 @@ Add it to `ORDER` in `src/data/tradesData.ts` to control its tab position:
 export const ORDER: SectorId[] = [
   'timmerman', 'hovenier', 'schilder',
   'loodgieter', 'elektricien', 'stukadoor', 'dakdekker',
+  'overige',
 ];
 ```
 
@@ -44,7 +46,7 @@ and replace every field. Required groups:
   `calculateEstimate`.
 - **Trust**: `estNote` and three `reviews`.
 - **Optional tool**: set `tool: 'emergency' | 'fault-report' |
-  'm2-calculator' | 'timeline'` (see
+  'm2-calculator' | 'timeline' | 'roof-check'` (see
   [adding-a-trade-tool.md](./adding-a-trade-tool.md)).
 
 ### Photo pools

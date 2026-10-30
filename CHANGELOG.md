@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **De tekst over het aantal vakken volgt de code.** De homepage, de footer
+  en de sitemap noemden een vast aantal vakken en stijlen. Dat aantal komt
+  nu uit de code, dus een nieuw vak staat er meteen in, met eigen tekst.
 - **De documentatie vertelt de waarheid.** De README, de architectuur, de
   contactstrategie en de roadmap spraken nog over een product zonder
   backend, zonder accounts en zonder offertes. Ze beschrijven nu wat het
@@ -18,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De dakdekker is er, met een gratis dakcheck.** Het achtste vak: daken,
+  goten en isolatie, met zijn eigen diensten, prijzen, foto's, reviews en
+  offertegragen. Op zijn site staat een gratis dakcheck: de bezoeker geeft
+  het type dak, de klacht en de urgentie door, en de check komt binnen als
+  een aanvraag, net als de andere formulieren. Op een klantsite verdwijnen
+  de beloften van de demosite ("gratis", "binnen één werkdag"), want daar
+  schrijft de vakman zelf zijn tekst.
 - **De stukadoor krijgt de oppervlaktecalculator.** Net als de schilder
   heeft hij nu een m²-calculator op zijn site: de bezoeker meet zijn muren,
   kiest een dienst met een prijs per m² en stuurt de schatting door. Het

@@ -112,6 +112,7 @@ const LEAD_LABELS: Record<string, string> = {
   appointment: 'Afspraak',
   fault: 'Storingsmelding',
   surface: 'Offerteaanvraag',
+  'roof-check': 'Dakcheck',
 };
 
 /** The text a visitor wrote, per kind of form. */

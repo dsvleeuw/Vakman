@@ -1,4 +1,5 @@
 import React from 'react';
+import { ORDER, SECTORS } from '../data/tradesData';
 import { Logo } from './Logo';
 import { NewsletterSignup } from './NewsletterSignup';
 import { RouteLink } from './RouteLink';
@@ -18,6 +19,13 @@ interface SiteFooterProps {
   showSignup?: boolean;
 }
 
+/** De vakken op een rij, uit de code gehaald zodat de tekst nooit achterloopt. */
+function vakkenInZin(): string {
+  const namen = ORDER.filter((id) => id !== 'overige').map((id) => SECTORS[id].name.toLowerCase());
+  const laatste = namen.pop();
+  return `${namen.join(', ')} en ${laatste}`;
+}
+
 /** Footer for the Klusbaas marketing pages: logo, links and newsletter signup. */
 export const SiteFooter: React.FC<SiteFooterProps> = ({ showSignup = true }) => (
   <footer className="bg-stone-900 text-stone-300 px-4 sm:px-8 md:px-12 pt-12 pb-[calc(2rem+env(safe-area-inset-bottom))]">
@@ -25,8 +33,7 @@ export const SiteFooter: React.FC<SiteFooterProps> = ({ showSignup = true }) => 
       <div className="lg:col-span-5 flex flex-col gap-4">
         <Logo tone="light" className="h-8 self-start" />
         <p className="m-0 text-sm leading-relaxed max-w-sm text-pretty">
-          Websites voor timmermannen, hoveniers, schilders, loodgieters, elektriciens en stukadoors in de
-          Haarlemmermeer en omstreken.
+          Websites voor {vakkenInZin()} in de Haarlemmermeer en omstreken.
         </p>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold">
           {LINKS.map((link) => (

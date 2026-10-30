@@ -11,7 +11,7 @@ back/forward buttons.
 
 | Route | Component | Purpose |
 |-------|-----------|---------|
-| `/` (+ `?vak=`) | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 35 presets and platform pricing |
+| `/` (+ `?vak=`) | `App` inline + `Header`, `HeroStrip`, `PresetsSection`, `HowItWorks`, `PricingSection`, `FaqSection` | Klusbaas' own marketing page with the 40 presets and platform pricing |
 | `/voorbeeld/:sector/:stijl` | `SiteView` | The generated craftsman website (the product demo) |
 | `/start/vak` … `/start/afspraak` | `WizardView` | Five-step onboarding; every step has its own URL |
 | `/start/klaar` | `WizardView` | Confirmation screen after requesting an appointment |
@@ -56,7 +56,7 @@ links work in production too; the Vite dev server does this by default.
 
 1. Vite emits the client bundle and an `index.html` shell.
 2. `scripts/prerender.ts` imports `src/entry-server.tsx`, which renders the
-   real app for every indexable route (home + 35 presets) with
+   real app for every indexable route (home + 40 presets) with
    `renderToPipeableStream` and waits for `onAllReady()` so the lazy route
    chunks are included.
 3. Each route gets its own `dist/**/index.html` with the rendered markup in
@@ -93,7 +93,7 @@ colour's lightness until it passes. `withAccessibleContrast()` in
 `data/tradesData.ts` wraps every `computePalette` result so `fg`, `muted`,
 `accentText`, `invFg`, `invMuted` reach 4.5:1 on their surfaces and `onAccent`
 / `onHi` stay readable on filled surfaces. `data/paletteContrast.test.ts`
-checks all 7 trades × 5 styles, so a new hue or accent cannot silently break
+checks all 8 trades × 5 styles, so a new hue or accent cannot silently break
 readability.
 
 ## Data model

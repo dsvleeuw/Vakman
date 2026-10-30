@@ -6,7 +6,7 @@ workflow and gotchas so work stays consistent across sessions.
 ## What this product is
 
 Klusbaas generates demo marketing websites for Dutch tradespeople
-(7 trades × 5 styles = 35 presets). It is a React 19 + TypeScript +
+(8 trades × 5 styles = 40 presets). It is a React 19 + TypeScript +
 Vite + Tailwind v4 single-page app with a small server side: Netlify
 Functions for leads, quotes, published customer sites and customer
 accounts (see [docs/architecture.md](./docs/architecture.md)). The forms

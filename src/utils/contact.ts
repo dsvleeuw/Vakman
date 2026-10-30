@@ -23,6 +23,17 @@ export interface FaultReportInput {
   details?: string;
 }
 
+export interface RoofCheckInput {
+  name: string;
+  phone: string;
+  email?: string;
+  address: string;
+  roofType: string;
+  complaint: string;
+  urgency: string;
+  details?: string;
+}
+
 export interface SurfaceQuoteInput {
   serviceName: string;
   pricePerM2: number;
@@ -193,6 +204,29 @@ export function buildFaultReportMessage(bizName: string, input: FaultReportInput
     `Naam: ${input.name.trim()}`,
     `Telefoon: ${input.phone.trim()}`,
   ];
+  if (input.details?.trim()) {
+    lines.push('', `Aanvulling: ${input.details.trim()}`);
+  }
+  return lines.join('\n');
+}
+
+/**
+ * Message template for the roofer's free roof check.
+ */
+export function buildRoofCheckMessage(bizName: string, input: RoofCheckInput): string {
+  const lines = [
+    `Hallo ${bizName}, ik wil graag een gratis dakcheck.`,
+    '',
+    `Type dak: ${input.roofType}`,
+    `Klacht: ${input.complaint}`,
+    `Urgentie: ${input.urgency}`,
+    `Adres: ${input.address.trim()}`,
+    `Naam: ${input.name.trim()}`,
+    `Telefoon: ${input.phone.trim()}`,
+  ];
+  if (input.email?.trim()) {
+    lines.push(`E-mail: ${input.email.trim()}`);
+  }
   if (input.details?.trim()) {
     lines.push('', `Aanvulling: ${input.details.trim()}`);
   }

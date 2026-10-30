@@ -1,4 +1,5 @@
 import React from 'react';
+import { SECTORS, STYLES } from '../data/tradesData';
 
 interface HowItWorksProps {
   onStart: () => void;
@@ -15,7 +16,7 @@ export const STEPS = [
   {
     n: '01',
     t: 'Kies je vak en stijl',
-    d: 'Zes vakken, elk met vijf stijlen. Diensten, prijzen en foto’s staan meteen klaar.',
+    d: `${Object.keys(SECTORS).length} vakken, elk met ${STYLES.length} stijlen. Diensten, prijzen en foto’s staan meteen klaar.`,
   },
   {
     n: '02',

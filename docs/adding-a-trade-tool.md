@@ -1,8 +1,9 @@
 # Adding a trade-specific tool
 
 Smart tools are the product's main differentiator: each preset can own one
-purpose-built conversion component. Today four exist (`emergency`,
-`fault-report`, `m2-calculator`, `timeline`); this guide adds a fifth.
+purpose-built conversion component. Today five exist (`emergency`,
+`fault-report`, `m2-calculator`, `timeline`, `roof-check`); this guide adds a
+sixth.
 
 ## 1. Declare the tool id
 
@@ -11,15 +12,15 @@ In `src/types.ts`, extend the union:
 ```ts
 export type TradeToolId =
   | 'emergency' | 'fault-report' | 'm2-calculator'
-  | 'timeline' | 'dakcheck';
+  | 'timeline' | 'roof-check';
 ```
 
 Optionally set it on a sector in `src/data/tradesData.ts`:
 
 ```ts
-dakdekker: {
+aannemer: {
   // ...
-  tool: 'dakcheck',
+  tool: 'timeline',
 },
 ```
 
