@@ -298,6 +298,7 @@ export const SECTORS: Record<SectorId, SectorData> = {
     ],
     estNote:
       'Inclusief btw. Na een vrijblijvend bezoek aan je tuin ontvang je een gespecificeerde offerte.',
+    tool: 'garden-plan',
     reviews: [
       {
         q: 'Onze verwilderde tuin is omgetoverd tot een oase van rust. Heerlijk om naar buiten te kijken.',

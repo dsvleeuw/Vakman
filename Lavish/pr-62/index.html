@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR #62 — De klant kan zijn account zelf verwijderen · Klusbaas Lavish</title>
+    <meta
+      name="description"
+      content="In /mijn-account staat een knop waarmee de klant zijn account, zijn sites, zijn aanvragen en zijn openstaande offertes laat verwijderen. Betaalde offertes blijven anoniem als fiscal record."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <style>
+      .mock-danger { border: 2px solid var(--rose-600); border-radius: var(--radius); padding: 1.1rem; background: #fff; }
+      .mock-danger h4 { font-size: 1rem; color: var(--rose-700); margin-bottom: 0.5rem; }
+      .mock-field { border: 2px solid var(--stone-300); border-radius: 12px; padding: 0.6rem 0.9rem; color: var(--stone-500); font-size: 0.9rem; background: #fff; }
+      .mock-check { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.9rem; color: var(--stone-700); }
+      .mock-box { width: 20px; height: 20px; border: 2px solid var(--stone-400); border-radius: 6px; flex: 0 0 auto; }
+      .mock-box--on { background: var(--rose-600); border-color: var(--rose-600); position: relative; }
+      .mock-box--on::after { content: '✓'; color: #fff; font-size: 13px; font-weight: 900; position: absolute; inset: -2px 0 0 4px; }
+      .mock-ok { border: 1px solid var(--emerald-100); background: var(--emerald-50); border-radius: var(--radius); padding: 1.1rem; }
+      .mock-ok h4 { font-size: 1rem; color: var(--emerald-700); margin-bottom: 0.4rem; }
+      .mock-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.9rem; }
+      .mock-btn2 { border-radius: 999px; padding: 0.5rem 1.1rem; font-size: 0.85rem; font-weight: 800; border: 1px solid var(--stone-300); background: #fff; color: var(--stone-700); }
+      .mock-btn2--danger { background: var(--rose-600); border-color: var(--rose-600); color: #fff; }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#wat">Wat</a>
+          <a href="#hoe">Hoe het eruitziet</a>
+          <a href="#bestanden">Bestanden</a>
+          <a href="#proeven">Proeven</a>
+          <a href="#eerlijk">Eerlijk</a>
+          <a href="../index.html">Alle PR's</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">
+          <span class="tag tag--amber">PR #62</span>
+          &nbsp;Fase 7.25 · 30 oktober 2026
+        </span>
+        <h1>De klant kan zijn account zelf verwijderen.</h1>
+        <p class="hero__lead">
+          In de privacyverklaring stond dat de klant een verzoek kon sturen om zijn gegevens te
+          laten verwijderen. Nu staat er een knop: in zijn eigen account, met zijn wachtwoord
+          en een bevestiging. Wat er precies weg gaat en wat blijft, staat op de pagina zelf.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>27</b><span>bestanden</span></div>
+          <div class="stat"><b>+1.022</b><span>regels erbij</span></div>
+          <div class="stat"><b>−12</b><span>regels weg</span></div>
+          <div class="stat"><b>5</b><span>nieuwe proeven</span></div>
+          <div class="stat"><b>AVG</b><span>artikel 17</span></div>
+        </div>
+      </section>
+
+      <section id="wat">
+        <div class="section__head">
+          <p class="kicker">Wat er verandert</p>
+          <h2>Een knop, twee bevestigingen, een duidelijke uitkomst</h2>
+          <p>
+            "Verwijder mijn account" staat onderaan <code>/mijn-account</code>. De klant geeft
+            zijn wachtwoord, vinkt aan dat hij het begrijpt, en de server doet de rest.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M6 6l1 14h10l1-14" /><path d="M10 11v6M14 11v6" />
+              </svg>
+            </div>
+            <h3>Wachtwoord en bevestiging</h3>
+            <p>
+              Zonder het juiste wachtwoord gebeurt er niets, en ook niet als de klactor de
+              vakken vergeet aan te vinken. Er kan geen account verdwijnen door één klik.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7h16" /><path d="M9 7V5h6v2" /><path d="M6 7l1 13h10l1-13" />
+              </svg>
+            </div>
+            <h3>Wat er weg gaat</h3>
+            <p>
+              Zijn account en zijn sessies, zijn gepubliceerde sites met hun foto's, de
+              aanvragen op die sites, en de offertes die hij niet betaald heeft (met het
+              PDF-bestand).
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" />
+              </svg>
+            </div>
+            <h3>Wat blijft: het fiscal record</h3>
+            <p>
+              Betaalde offertes blijven, want de belastingdienst kan ze zeven jaar later
+              opvragen. Zonder naam, telefoonnummer en e-mailadres: alleen het
+              offertenummer, de datum, het bedrag, de bedrijfsnaam en de plaats.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+            </div>
+            <h3>De bevestiging</h3>
+            <p>
+              Na het verwijderen verschijnt een groene kaart met de aantallen: hoeveel sites,
+              hoeveel aanvragen en offertes weggingen, en hoeveel offertes anoniem zijn
+              blijven staan.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h5" />
+              </svg>
+            </div>
+            <h3>De privacyverklaring klopt</h3>
+            <p>
+              Op <code>/privacy</code> staat nu dat de klant zijn account zelf kan verwijderen,
+              en waarom een betaalde offerte anoniem blijft. De pagina en de code zeggen
+              hetzelfde.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18" /><path d="M5 8l7-5 7 5" /><path d="M5 16l7 5 7-5" />
+              </svg>
+            </div>
+            <h3>De fotos gaan mee</h3>
+            <p>
+              De foto's van een verwijderd account worden gewist, ook die in de offertes van
+              klanten die hun eigen site later opnieuw publiceren. Een foto die in een
+              betaalde offerte staat, is al weg: die stond alleen als verwijzing.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het eruitziet</p>
+          <h2>De verwijdersectie en de bevestiging</h2>
+        </div>
+        <div class="mockup">
+          <div class="mockup__bar">
+            <span class="mockup__dot"></span><span class="mockup__dot"></span><span class="mockup__dot"></span>
+            <span class="mockup__url">/mijn-account</span>
+          </div>
+          <div class="mockup__body">
+            <div class="mock-danger">
+              <h4>Je account verwijderen</h4>
+              <div class="mock-field">Wachtwoord</div>
+              <div class="mock-check" style="margin-top: 0.8rem">
+                <span class="mock-box mock-box--on"></span>
+                <span>Ik begrijp dat mijn site, mijn aanvragen en mijn openstaande offertes verdwijnen en dat dit niet terug te halen is.</span>
+              </div>
+              <div class="mock-actions">
+                <span class="mock-btn2 mock-btn2--danger">Ja, verwijder mijn account</span>
+                <span class="mock-btn2">Annuleren</span>
+              </div>
+            </div>
+            <div class="mock-ok">
+              <h4>Je account is verwijderd</h4>
+              <p style="color: var(--stone-600); font-size: 0.92rem">
+                2 sites, 3 aanvragen en 1 openstaande offerte zijn gewist. 1 betaalde offerte is
+                anoniem blijven staan, omdat de belastingdienst die zeven jaar later kan
+                opvragen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bestanden">
+        <div class="section__head">
+          <p class="kicker">De bestanden</p>
+          <h2>De kern van de PR</h2>
+        </div>
+        <table class="files">
+          <thead>
+            <tr><th>Bestand</th><th>Wat er verandert</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>src/server/accountDelete.ts</td><td>Nieuw. De planning (wat gaat er weg) en de uitvoering (het weghalen).</td></tr>
+            <tr><td>src/server/accountDelete.test.ts</td><td>Nieuw. Vijf proeven: de planning, de uitvoering, het wachtwoord, de bevestiging, de sessie.</td></tr>
+            <tr><td>src/server/storage.ts</td><td>Accounts, sessies, sites, media, aanvragen en offertes kunnen nu verwijderd of geanonimiseerd worden.</td></tr>
+            <tr><td>src/server/accountHandler.ts</td><td>De actie <code>delete-account</code>: wachtwoord controleren, bevestiging eisen, de gegevens opruimen, de aantallen teruggeven.</td></tr>
+            <tr><td>src/components/AccountView.tsx</td><td>De roodomlijnde verwijdersectie, het wachtwoordveld, het getikvakje en de groene bevestigingskaart.</td></tr>
+            <tr><td>src/components/InfoPages.tsx</td><td>De privacyverklaring vertelt nu wat er gebeurt als de klant zijn account verwijdert.</td></tr>
+            <tr><td>src/components/QuoteView.tsx</td><td>Een lege klantnaam wordt niet meer getoond als "Naam: ".</td></tr>
+            <tr><td>src/utils/quote.ts</td><td>De offerte houdt bij dat hij geanonimiseerd is.</td></tr>
+            <tr><td>netlify/functions/account.mts</td><td>De opslag voor foto's wordt meegegeven, zodat die ook weg kunnen.</td></tr>
+            <tr><td>ROADMAP.md</td><td>Rij 7.25 af, rij 8.2 af, DoD 26 erbij.</td></tr>
+            <tr><td>docs/known-limitations.md</td><td>Wat er nu automatisch gebeurt bij een verzoek om te vergeten.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="proeven">
+        <div class="section__head">
+          <p class="kicker">De proeven</p>
+          <h2>Vijf proeven over het verwijderen</h2>
+        </div>
+        <div class="tests">
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De planning weet wat er weg gaat en wat blijft</b><br /><code>src/server/accountDelete.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Zonder wachtwoord of bevestiging gebeurt er niets</b><br /><code>src/server/accountDelete.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De betaalde offerte blijft anoniem als fiscal record</b><br /><code>src/server/accountDelete.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De sessie van de klant is meteen gesloten</b><br /><code>src/server/accountDelete.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>E2E: account, site en aanvraag weg, de API geeft 404, de sitemap is schoon</b><br /><code>/tmp/e2e_725.py</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eerlijk">
+        <div class="section__head">
+          <p class="kicker">Eerlijk</p>
+          <h2>Wat dit niet doet</h2>
+        </div>
+        <div class="notes">
+          <div class="note note--rose">
+            <h3>Het verwijderen kan niet terug</h3>
+            <p>
+              Er is geen kopie. Een klant die toch terug wil, moet zijn site opnieuw
+              publiceren. De pagina waarschuwt daarvoor, met een getikvakje.
+            </p>
+          </div>
+          <div class="note note--amber">
+            <h3>De fiscale bewaarplicht wint van het recht op vergeten</h3>
+            <p>
+              Zeven jaar is langer dan de wettelijke termijn van de AVG. Daarom blijft de
+              betaalde offerte staan, zonder persoonsgegevens. Dat staat zo op
+              <code>/privacy</code>, en de klant ziet het voordat hij bevestigt.
+            </p>
+          </div>
+          <div class="note">
+            <h3>Een aanvraag van iemand zonder account valt buiten deze knop</h3>
+            <p>
+              De verwijdering gaat via het account van de klant. Een losse aanvraag van een
+              bezoeker die nooit een account maakte, wordt verwijderd door de twaalf
+              maanden-job of door Klusbaas zelf.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · PR #62 · fase 7.25 · gemergd op 30 oktober 2026</span>
+          <span><a href="../index.html">Terug naar alle PR's</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

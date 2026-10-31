@@ -34,6 +34,17 @@ export interface RoofCheckInput {
   details?: string;
 }
 
+export interface GardenPlanInput {
+  name: string;
+  phone: string;
+  email?: string;
+  address: string;
+  service: string;
+  gardenSize: string;
+  moment: string;
+  details?: string;
+}
+
 export interface SurfaceQuoteInput {
   serviceName: string;
   pricePerM2: number;
@@ -204,6 +215,29 @@ export function buildFaultReportMessage(bizName: string, input: FaultReportInput
     `Naam: ${input.name.trim()}`,
     `Telefoon: ${input.phone.trim()}`,
   ];
+  if (input.details?.trim()) {
+    lines.push('', `Aanvulling: ${input.details.trim()}`);
+  }
+  return lines.join('\n');
+}
+
+/**
+ * Message template for the gardener's garden plan.
+ */
+export function buildGardenPlanMessage(bizName: string, input: GardenPlanInput): string {
+  const lines = [
+    `Hallo ${bizName}, ik wil graag een tuinplan.`,
+    '',
+    `Werk: ${input.service.trim()}`,
+    `Grootte tuin: ${input.gardenSize.trim()} m²`,
+    `Moment: ${input.moment.trim()}`,
+    `Adres: ${input.address.trim()}`,
+    `Naam: ${input.name.trim()}`,
+    `Telefoon: ${input.phone.trim()}`,
+  ];
+  if (input.email?.trim()) {
+    lines.push(`E-mail: ${input.email.trim()}`);
+  }
   if (input.details?.trim()) {
     lines.push('', `Aanvulling: ${input.details.trim()}`);
   }

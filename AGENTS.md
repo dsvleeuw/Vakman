@@ -219,6 +219,12 @@ result. The Netlify deploy preview is the only external CI check. If
   `LeadStorage.updateQuoteDelivery`); the customer sees the same list in his
   account and on the offer page (`components/DeliveryList.tsx`). The
   checklist says what happens, the code does not do the work.
+- Every trade has a tool of its own (`src/components/tools/`). The gardener
+  got the garden plan (phase 7.28): the lead type is `garden-plan`, the
+  price indication is in `utils/garden.ts` and uses the gardener's own
+  price per m² (`parsePricePerM2` on his services). A tool never invents a
+  price: without a price per m² the page says that the tradesman prices it
+  after a look.
 - The twelve months in the privacy statement are a job, not a promise
   (phase 7.27). The rule lives in `server/retention.ts`
   (`RETENTION_MONTHS`, `planRetention`, `runRetention`); the scheduled

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klusbaas · Lavish — het overzicht van de PR's</title>
+    <meta
+      name="description"
+      content="Per pull request een pagina met de veranderingen, de bestanden, de proeven en wat het niet doet."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <style>
+      .hero__lead strong { color: var(--stone-800); }
+      .pr-list { display: grid; gap: 1rem; }
+      .pr {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 1.2rem;
+        align-items: center;
+        background: #fff;
+        border: 1px solid var(--stone-200);
+        border-radius: var(--radius-lg);
+        padding: 1.2rem 1.4rem;
+        text-decoration: none;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+      .pr:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--stone-300); }
+      .pr__nr { text-align: center; }
+      .pr__nr b { display: block; font-size: 1.6rem; font-weight: 900; color: var(--stone-900); letter-spacing: -0.03em; }
+      .pr__nr span { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone-500); }
+      .pr h3 { font-size: 1.14rem; }
+      .pr p { margin-top: 0.35rem; color: var(--stone-600); font-size: 0.95rem; }
+      .pr__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+      @media (max-width: 560px) {
+        .pr { grid-template-columns: 1fr; }
+        .pr__nr { text-align: left; }
+        .pr__nr b { display: inline; font-size: 1.2rem; }
+        .pr__nr span { margin-left: 0.4rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#prs" aria-current="page">De PR's</a>
+          <a href="#hoe">Hoe het werkt</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">Klusbaas · Vakman-websites</span>
+        <h1>Elke PR, op een pagina.</h1>
+        <p class="hero__lead">
+          Per pull request staat hier wat er verandert, in welke bestanden, welke proeven het
+          bewaken en <strong>wat het níet doet</strong>. Geen marketingverhaal: wat er in de
+          code gebeurt, en waarom.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>3</b><span>pagina's</span></div>
+          <div class="stat"><b>59</b><span>bestanden geraakt</span></div>
+          <div class="stat"><b>30</b><span>nieuwe proeven</span></div>
+          <div class="stat"><b>431</b><span>proeven groen</span></div>
+          <div class="stat"><b>8</b><span>vakken</span></div>
+        </div>
+      </section>
+
+      <section id="prs">
+        <div class="section__head">
+          <p class="kicker">De PR's</p>
+          <h2>Van het account verwijderen tot de tuin van de hovenier</h2>
+        </div>
+        <div class="pr-list">
+          <a class="pr" href="pr-64/index.html">
+            <div class="pr__nr"><b>#64</b><span>Open</span></div>
+            <div>
+              <h3>De hovenier krijgt een tuinplan met prijsindicatie</h3>
+              <p>
+                De achtste tool, bij het zevende vak: de bezoeker kiest het werk, de grootte
+                van de tuin en het moment, en krijgt meteen een indicatie uit de eigen prijzen
+                van de hovenier.
+              </p>
+              <div class="pr__tags">
+                <span class="tag tag--amber">fase 7.28</span>
+                <span class="tag tag--stone">13 bestanden</span>
+                <span class="tag tag--stone">9 proeven</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="pr" href="pr-63/index.html">
+            <div class="pr__nr"><b>#63</b><span>Gemergd</span></div>
+            <div>
+              <h3>Zoeken en exporteren in /klusbaas, en de bewaartermijn automatisch</h3>
+              <p>
+                Eén zoekveld over de aanvragen, de offertes, de sites en de accounts, een
+                export naar Excel, en een geplande functie die de aanvragen ouder dan twaalf
+                maanden opruimt — precies zoals de privacyverklaring belooft.
+              </p>
+              <div class="pr__tags">
+                <span class="tag tag--amber">fase 7.26 en 7.27</span>
+                <span class="tag tag--stone">19 bestanden</span>
+                <span class="tag tag--stone">16 proeven</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="pr" href="pr-62/index.html">
+            <div class="pr__nr"><b>#62</b><span>Gemergd</span></div>
+            <div>
+              <h3>De klant kan zijn account zelf verwijderen</h3>
+              <p>
+                Een knop in <code>/mijn-account</code> met wachtwoord en bevestiging. Sites,
+                foto's, aanvragen en onbetaalde offertes gaan; betaalde offertes blijven
+                anoniem als fiscal record.
+              </p>
+              <div class="pr__tags">
+                <span class="tag tag--amber">fase 7.25</span>
+                <span class="tag tag--stone">27 bestanden</span>
+                <span class="tag tag--stone">5 proeven</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het werkt</p>
+          <h2>De regels van deze pagina's</h2>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" /></svg>
+            </div>
+            <h3>Waar het staat</h3>
+            <p>
+              In de map <code>Lavish/</code> in de repository. Per PR een map met een
+              <code>index.html</code>, plus <code>assets/style.css</code> en
+              <code>assets/app.js</code> die alle pagina's delen.
+            </p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7" /></svg>
+            </div>
+            <h3>De vaste rubrieken</h3>
+            <p>
+              Wat er verandert, hoe het eruitziet, de bestanden, de proeven en "eerlijk": wat
+              deze PR níet doet. Die laatste rubriek is de belangrijkste.
+            </p>
+          </article>
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h5" /></svg>
+            </div>
+            <h3>Waar het vandaan komt</h3>
+            <p>
+              Uit de PR zelf: het diff-bestand, de proeven die erbij kwamen en de tekst uit
+              de roadmap. Niets wat er niet staat.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · Lavish · het overzicht van de pull requests</span>
+          <span><a href="../index.html">Terug naar de website</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>

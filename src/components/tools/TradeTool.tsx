@@ -5,6 +5,7 @@ import { FaultReportForm } from './FaultReportForm';
 import { SurfaceCalculator } from './SurfaceCalculator';
 import { ProjectTimeline } from './ProjectTimeline';
 import { RoofCheckForm } from './RoofCheckForm';
+import { GardenPlanForm } from './GardenPlanForm';
 
 interface TradeToolProps {
   site: ActiveSiteData;
@@ -27,6 +28,8 @@ export const TradeTool: React.FC<TradeToolProps> = ({ site }) => {
       return <ProjectTimeline site={site} />;
     case 'roof-check':
       return <RoofCheckForm site={site} />;
+    case 'garden-plan':
+      return <GardenPlanForm site={site} />;
     default:
       return null;
   }

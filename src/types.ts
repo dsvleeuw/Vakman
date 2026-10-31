@@ -19,7 +19,8 @@ export type TradeToolId =
   | 'fault-report'
   | 'm2-calculator'
   | 'timeline'
-  | 'roof-check';
+  | 'roof-check'
+  | 'garden-plan';
 
 export type StyleId = 'klassiek' | 'modern' | 'krachtig' | 'donker' | 'minimaal';
 

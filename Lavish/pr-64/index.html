@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR #64 — De hovenier krijgt een tuinplan · Klusbaas Lavish</title>
+    <meta
+      name="description"
+      content="Op de site van de hovenier staat een tuinplan: de bezoeker kiest het werk, de grootte van de tuin en het moment, en krijgt meteen een indicatie."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <style>
+      .mock-estimate { border: 1px solid var(--emerald-100); background: var(--emerald-50); border-radius: 12px; padding: 0.8rem 0.95rem; font-size: 0.92rem; font-weight: 700; color: var(--emerald-700); }
+      .mock-estimate--plain { border-color: var(--stone-200); background: var(--stone-100); color: var(--stone-700); font-weight: 500; }
+      .mock-label { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone-500); margin-bottom: 0.3rem; }
+      .mock-select { border: 2px solid var(--stone-300); border-radius: 12px; padding: 0.6rem 0.9rem; font-size: 0.92rem; color: var(--stone-800); background: #fff; display: flex; justify-content: space-between; }
+      .mock-select span { color: var(--stone-400); }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#wat">Wat</a>
+          <a href="#hoe">Hoe het eruitziet</a>
+          <a href="#bestanden">Bestanden</a>
+          <a href="#proeven">Proeven</a>
+          <a href="#eerlijk">Eerlijk</a>
+          <a href="../index.html">Alle PR's</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">
+          <span class="tag tag--amber">PR #64</span>
+          &nbsp;Fase 7.28 · 31 oktober 2026
+        </span>
+        <h1>De hovenier krijgt een tuinplan met prijsindicatie.</h1>
+        <p class="hero__lead">
+          Elk vak heeft een eigen tool: de dakdekker zijn dakcheck, de elektricien zijn
+          storingsmelding, de schilder zijn m²-calculator. De hovenier had er nog geen. Nu
+          krijgt hij een tuinplan, met een prijsindicatie die uit zijn eigen prijzen komt.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>13</b><span>bestanden</span></div>
+          <div class="stat"><b>+618</b><span>regels erbij</span></div>
+          <div class="stat"><b>9</b><span>nieuwe proeven</span></div>
+          <div class="stat"><b>garden-plan</b><span>het nieuwe type</span></div>
+          <div class="stat"><b>8</b><span>vakken met een tool</span></div>
+        </div>
+      </section>
+
+      <section id="wat">
+        <div class="section__head">
+          <p class="kicker">Wat er verandert</p>
+          <h2>Een formulier dat met de bezoeker meedenkt</h2>
+          <p>
+            De bezoeker kiest wat hij wil laten doen, hoe groot de tuin is en wanneer hij het
+            gedaan wil hebben. De prijsindicatie komt uit de eigen diensten van de hovenier.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21c5-3 8-7 8-11a5 5 0 0 0-10 0c0 2 1 3 1 5a3 3 0 0 0 4 2c0-2 1-3 1-5a5 5 0 0 0-4 9z" />
+              </svg>
+            </div>
+            <h3>Het werk van de hovenier zelf</h3>
+            <p>
+              De lijst komt uit zijn eigen diensten: tuinonderhoud, sierbestrating,
+              beplantingsplan, tuinontwerp. Geen verzonnen vakken, geen generieke
+              keuzemenu's.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20V10M10 20V4M16 20v-8M22 20H2" />
+              </svg>
+            </div>
+            <h3>De indicatie</h3>
+            <p>
+              Voor het werk met een prijs per m² (sierbestrating, € 58 per m²) komt er een
+              indicatie: 120 m² is € 6.960. De berekening staat in
+              <code>src/utils/garden.ts</code> en gebruikt de prijs uit de gegevens van de
+              hovenier.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" /><path d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <h3>Eerlijk waar het niet kan</h3>
+            <p>
+              Tuinonderhoud en tuinontwerp hebben geen prijs per m². Daar zegt de pagina dat
+              de hovenier de prijs maakt na een kijkje in de tuin, in plaats van een bedrag te
+              tonen dat niemand kan waarmaken.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="16" rx="2" /><path d="M8 3v4M16 3v4M3 11h18" />
+              </svg>
+            </div>
+            <h3>Het moment</h3>
+            <p>
+              Zo snel mogelijk, binnen een maand, in het voorjaar, in het najaar of geen
+              haast. Seizoenswerk vraagt om een seizoen; dat vraag je nu in één veld.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16v16H4z" /><path d="M4 9h16M9 9v11" />
+              </svg>
+            </div>
+            <h3>Een aanvraag, geen dode hoek</h3>
+            <p>
+              Het tuinplan komt binnen als <code>garden-plan</code>, met het werk, de grootte en
+              het moment erbij. Klusbaas ziet "Tuinplan" in zijn overzicht; de vakman ziet hem
+              in zijn eigen account.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="4" /><path d="M8 12l3 3 5-6" />
+              </svg>
+            </div>
+            <h3>Toegankelijk, zoals het hoort</h3>
+            <p>
+              Elk veld heeft een label, de verplichte velden staan in de tekst, fouten staan
+              bij het veld zelf en de schermlezers krijgen de melding. De knoppen zijn groot
+              genoeg om mee te tikken.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het eruitziet</p>
+          <h2>Het tuinplan, met de indicatie</h2>
+        </div>
+        <div class="mockup">
+          <div class="mockup__bar">
+            <span class="mockup__dot"></span><span class="mockup__dot"></span><span class="mockup__dot"></span>
+            <span class="mockup__url">/voorbeeld/hovenier/klassiek</span>
+          </div>
+          <div class="mockup__body">
+            <div>
+              <div class="mock-label">Wat wil je laten doen?</div>
+              <div class="mock-select">Sierbestrating <span>▾</span></div>
+            </div>
+            <div class="mock-row">
+              <div>
+                <div class="mock-row__name">Grootte van de tuin (m²)</div>
+                <div class="mock-row__meta">120</div>
+              </div>
+              <span class="mock-btn">Wanneer wil je het gedaan hebben?</span>
+            </div>
+            <div class="mock-estimate">
+              Indicatie: € 6.960 voor sierbestrating. De definitieve prijs hangt af van de
+              staat van de tuin.
+            </div>
+            <div class="mock-estimate mock-estimate--plain">
+              Voor tuinonderhoud maakt Lotte de prijs na een kijkje in de tuin. Dat is eerlijker
+              dan een bedrag dat uit de lucht komt.
+            </div>
+            <div class="mock-actions" style="display: flex; gap: 0.6rem">
+              <span class="mock-btn mock-btn--dark">Vraag een tuinplan</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bestanden">
+        <div class="section__head">
+          <p class="kicker">De bestanden</p>
+          <h2>Zeven nieuwe bestanden, de rest aangesloten</h2>
+        </div>
+        <table class="files">
+          <thead>
+            <tr><th>Bestand</th><th>Wat er verandert</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>src/components/tools/GardenPlanForm.tsx</td><td>Nieuw. Het formulier: werk, grootte, moment, adres, naam, telefoon en toelichting.</td></tr>
+            <tr><td>src/utils/garden.ts</td><td>Nieuw. De grootte van de tuin lezen, de indicatie rekenen en het bedrag tonen.</td></tr>
+            <tr><td>src/utils/garden.test.ts</td><td>Nieuw. Vijf proeven op de rekenregels.</td></tr>
+            <tr><td>src/components/tools/GardenPlanForm.test.tsx</td><td>Nieuw. Vier proeven op het formulier.</td></tr>
+            <tr><td>src/utils/lead.ts</td><td>Het aanvraagtype <code>garden-plan</code> met zijn eigen velden en het label "Tuinplan".</td></tr>
+            <tr><td>src/utils/contact.ts</td><td>De WhatsApp-boodschap van het tuinplan, met alle gegevens erin.</td></tr>
+            <tr><td>src/components/tools/TradeTool.tsx</td><td>De nieuwe tool wordt gekoppeld aan het vak.</td></tr>
+            <tr><td>src/data/tradesData.ts</td><td>De hovenier krijgt <code>tool: 'garden-plan'</code>.</td></tr>
+            <tr><td>src/types.ts</td><td>Het nieuwe gereedschap in de lijst van de tools.</td></tr>
+            <tr><td>ROADMAP.md</td><td>Rij 7.28 af, rij 8.10 af, DoD 29 erbij.</td></tr>
+            <tr><td>CHANGELOG.md</td><td>Wat er veranderd is.</td></tr>
+            <tr><td>AGENTS.md</td><td>De regel: een tool verzint nooit een prijs.</td></tr>
+            <tr><td>src/components/tools/README.md</td><td>De tabel van de tools per vak.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="proeven">
+        <div class="section__head">
+          <p class="kicker">De proeven</p>
+          <h2>Negen proeven over het tuinplan</h2>
+        </div>
+        <div class="tests">
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De grootte van de tuin wordt gelezen</b><br /><code>src/utils/garden.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De indicatie is de grootte maal de prijs per m²</b><br /><code>src/utils/garden.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Zonder prijs per m² is er geen indicatie</b><br /><code>src/utils/garden.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Het tuinplan vraagt om naam, telefoon, adres en de grootte van de tuin</b><br /><code>src/components/tools/GardenPlanForm.test.tsx</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Zonder grootte is er geen bedrag, maar wel een eerlijke uitleg</b><br /><code>src/components/tools/GardenPlanForm.test.tsx</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>E2E: het formulier staat op de demosite en de aanvraag komt binnen</b><br /><code>/tmp/e2e_728.py</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eerlijk">
+        <div class="section__head">
+          <p class="kicker">Eerlijk</p>
+          <h2>Wat dit niet doet</h2>
+        </div>
+        <div class="notes">
+          <div class="note note--amber">
+            <h3>De indicatie is een indicatie</h3>
+            <p>
+              De definitieve prijs hangt af van de staat van de tuin, van de grond en van wat
+              er weg moet. Dat staat letterlijk zo op de pagina. Er komt geen garantie die de
+              hovenier niet kan waarmaken.
+            </p>
+          </div>
+          <div class="note note--amber">
+            <h3>Niet elk werk heeft een prijs per m²</h3>
+            <p>
+              Tuinonderhoud gaat per uur en tuinontwerp per opdracht. Daar rekent de hovenier
+              zelf mee. De tool rekent geen bedrag uit dat hij niet heeft staan.
+            </p>
+          </div>
+          <div class="note">
+            <h3>De hovenier heeft nog geen eigen projecttijdlijn</h3>
+            <p>
+              De timmerman heeft die wel. De stappen van de tijdlijn staan nu nog in de
+              component in plaats van in de gegevens van het vak — dat is de volgende stap
+              (rij 8.11 van de roadmap).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · PR #64 · fase 7.28 · 31 oktober 2026</span>
+          <span><a href="../index.html">Terug naar alle PR's</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>
