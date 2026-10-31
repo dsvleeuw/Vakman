@@ -23,7 +23,8 @@ export type VakId =
   | 'hovenier'
   | 'timmerman'
   | 'stukadoor'
-  | 'dakdekker';
+  | 'dakdekker'
+  | 'aannemer';
 
 export interface LighthouseScores {
   performance?: number | null;
@@ -84,6 +85,7 @@ export const VAKKEN: Record<VakId, VakMeta> = {
   timmerman: { label: 'Timmerman', meervoud: 'timmerlieden', kleur: '#0f766e', demoStijl: 'modern' },
   stukadoor: { label: 'Stukadoor', meervoud: 'stukadoors', kleur: '#be123c', demoStijl: 'minimaal' },
   dakdekker: { label: 'Dakdekker', meervoud: 'dakdekkers', kleur: '#9a3412', demoStijl: 'donker' },
+  aannemer: { label: 'Aannemer', meervoud: 'aannemers', kleur: '#0f766e', demoStijl: 'donker' },
 };
 
 export const VAK_ORDER: VakId[] = [
@@ -94,6 +96,7 @@ export const VAK_ORDER: VakId[] = [
   'timmerman',
   'stukadoor',
   'dakdekker',
+  'aannemer',
 ];
 
 const WERKBESTAND = '/kaart/leads.json';

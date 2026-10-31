@@ -219,11 +219,17 @@ result. The Netlify deploy preview is the only external CI check. If
   `LeadStorage.updateQuoteDelivery`); the customer sees the same list in his
   account and on the offer page (`components/DeliveryList.tsx`). The
   checklist says what happens, the code does not do the work.
-- The project timeline comes from the trade data (phase 7.29). The steps
-  stand in `src/data/timeline.ts` (`TIMELINES`, `timelineSteps`), never in
-  the component. A trade whose tool is the timeline shows its own steps; a
-  trade without steps gets the generic route. The steps are promises, so
-  they must stay true for that trade.
+- The project timeline comes from the trade data (phase 7.29). The steps,
+  the title and the line above them stand in `src/data/timeline.ts`
+  (`TIMELINES`, `timelineFor`), never in the component. A trade whose tool
+  is the timeline shows its own steps; a trade without steps gets the
+  generic route. The steps are promises, so they must stay true for that
+  trade.
+- A trade is more than a few fields (phase 7.30). The builder is the ninth
+  trade: `src/data/tradesData.ts` has his services, prices, photos, reviews
+  and offer questions, and `src/data/timeline.ts` has his own five steps.
+  A new trade gets its own timeline, its own photos and its own text; the
+  generic route is a fallback, not a copy of another trade.
 - Every trade has a tool of its own (`src/components/tools/`). The gardener
   got the garden plan (phase 7.28): the lead type is `garden-plan`, the
   price indication is in `utils/garden.ts` and uses the gardener's own

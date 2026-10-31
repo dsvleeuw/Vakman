@@ -4,6 +4,7 @@ const ROUTES = [
   { path: '/', label: 'homepage' },
   { path: '/voorbeeld/loodgieter/krachtig', label: 'loodgieter-voorbeeld' },
   { path: '/voorbeeld/hovenier/donker', label: 'hovenier-voorbeeld' },
+  { path: '/voorbeeld/aannemer/klassiek', label: 'aannemer-voorbeeld' },
   { path: '/start/vak', label: 'wizard' },
   { path: '/privacy', label: 'privacyverklaring' },
   { path: '/nieuwsbrief', label: 'nieuwsbrief' },
@@ -114,6 +115,27 @@ test('de site-editor opent met de site en de blokken', async ({ page }) => {
 test('het hovenier-voorbeeld toont geen voorbeeldtelefoonnummers', async ({ page }) => {
   await visit(page, '/voorbeeld/hovenier/donker');
   await expectNoDemoPhoneNumbers(page);
+});
+
+test('het aannemer-voorbeeld toont zijn eigen projecttijdlijn', async ({ page }) => {
+  await visit(page, '/voorbeeld/aannemer/klassiek');
+
+  await expect(
+    page.getByRole('heading', { name: 'Van de eerste scheppen spade tot de sleutel.' })
+  ).toBeVisible();
+
+  // Op een smalle telefoon staan de derde stap en verder achter een knop.
+  const more = page.getByRole('button', { name: /Toon alle \d+ stappen/ });
+  if (await more.isVisible()) await more.click();
+
+  await expect(
+    page.getByRole('heading', { name: 'Casco: fundering, muren en dak' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Oplevering & opleverdocument' })
+  ).toBeVisible();
+  // De belofte van de timmerman hoort niet op de site van de aannemer.
+  await expect(page.getByText('in 2 weken')).toHaveCount(0);
 });
 
 test('het loodgieter-voorbeeld toont geen voorbeeldtelefoonnummers', async ({ page }) => {

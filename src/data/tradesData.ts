@@ -15,6 +15,7 @@ import { AA_TEXT, bestOnColor, ensureContrast, ensureSurfaceContrast } from '../
 
 export const ORDER: SectorId[] = [
   'timmerman',
+  'aannemer',
   'hovenier',
   'schilder',
   'loodgieter',
@@ -912,6 +913,133 @@ export const SECTORS: Record<SectorId, SectorData> = {
       {
         q: 'Geen ladder van de vorige dakdekker achtergelaten en de oude pannen netjes afgevoerd.',
         who: 'Vereniging Eigen Erf, Zoetermeer',
+      },
+    ],
+  },
+  aannemer: {
+    id: 'aannemer',
+    name: 'Aannemer',
+    biz: 'Bouwbedrijf De Wit',
+    owner: 'Ruben de Wit',
+    city: 'Rotterdam',
+    phone: '06 21 43 65 87',
+    near: ['30', '31', '29', '32'],
+    pcExample: '3011 AB',
+    hD: 195,
+    hB: 175,
+    cf: 1,
+    since: '2011',
+    rating: '4,7',
+    reviewCount: 74,
+    pool: [
+      '1772442198624-4fc4d7281e89',
+      '1674649207083-281c2517ab49',
+      '1783587354630-3300699c053c',
+      '1634586648651-f1fb9ec10d90',
+      '1618832515490-e181c4794a45',
+      '1517581177682-a085bb7ffb15',
+      '1505798577917-a65157d3320a',
+      '1593786267440-550458cc882a',
+      '1593623671658-6b842c7f9697',
+      '1625337902947-dc6f0eef6a4f',
+      '1691762523478-88af52155f5a',
+      '1709496709586-ad1467b5d738',
+    ],
+    kicker: 'BOUW EN RENOVATIE',
+    headline: 'Van de eerste scheppen spade tot de laatste kwast verf.',
+    intro:
+      'Eén aannemer voor de hele verbouwing: één planning, één prijs per werkzaamheid en elke week een foto van het werk. Geen verrassingen tussendoor.',
+    cta1: 'Bereken je bouwkost',
+    cta2: 'Bekijk onze projecten',
+    about:
+      'Sinds 2011 bouwt en verbouwt Ruben met een vaste ploeg van zes man. Van een badkamer tot een complete woning: hij coördineert de ruwbouw, de installaties en de afwerking, en houdt jou op de hoogte met foto’s en een planning.',
+    servicesTitle: 'Waar wij voor bouwen',
+    services: [
+      {
+        n: 'Renovatie & verbouw',
+        d: 'Van sloop tot afwerking, met één aannemer en één planning.',
+        p: 'v.a. € 85 per m²',
+      },
+      {
+        n: 'Nieuwbouw & uitbreiding',
+        d: 'Van fundering tot dak: wij coördineren de hele bouw.',
+        p: 'vanaf € 1.950 per m²',
+      },
+      {
+        n: 'Badkamer & keuken',
+        d: 'Tegelwerk, sanitair en keuken, strak opgeleverd en schoon achtergelaten.',
+        p: 'v.a. € 12.500',
+      },
+      {
+        n: 'Zolder, kantoor of garage',
+        d: 'Een ruimte erbij of eronder: constructie, isolatie en afwerking.',
+        p: 'v.a. € 24.000',
+      },
+      {
+        n: 'Bouwkundige inspectie',
+        d: 'Eerlijk rapport met foto’s en een prioriteitenlijst, zonder verplichtingen.',
+        p: '€ 495',
+      },
+    ],
+    marks: ['BAM-erkend aannemingsbedrijf', 'VCA* gecertificeerd', 'NEN-EN 1090', 'Constructiegarantie'],
+    workNote: 'Gerealiseerd in de regio Rotterdam en omgeving',
+    work: [
+      { t: 'Tussenwoning met uitbreiding', c: 'Rotterdam-Zuid', y: '2026' },
+      { t: 'Badkamer en keuken op de beganegrond', c: 'Krimpen aan den IJssel', y: '2025' },
+      { t: 'Zolder omgebouwd tot werkkamer', c: 'Barendrecht', y: '2025' },
+    ],
+    beforeAfter: [
+      {
+        title: 'Achterkamer naar open keuken',
+        location: 'Rotterdam-Zuid',
+        beforeImg: getUnsplashUrl('1634586648651-f1fb9ec10d90', 1000),
+        afterImg: getUnsplashUrl('1502005097973-6a7082348e28', 1000),
+        description:
+          'De achterkamer werd een open keuken: de muur tussen keuken en tuin ging eruit, de vloer werd doorgelegd en de keuken kwam op de tuinzijde.',
+      },
+    ],
+    tool: 'timeline',
+    flow: [
+      {
+        q: 'Wat ga je bouwen of verbouwen?',
+        o: [
+          { l: 'Badkamer en keuken', h: 'v.a. € 12.500', b: 12500 },
+          { l: 'Zolder of kantoor', h: 'v.a. € 24.000', b: 24000 },
+          { l: 'Uitbreiding of garage', h: 'v.a. € 38.000', b: 38000 },
+          { l: 'Volledige renovatie', h: 'v.a. € 85/m²', b: 8500 },
+        ],
+      },
+      {
+        q: 'Hoe groot is de klus?',
+        o: [
+          { l: 'Tot 25 m²', h: '', a: 0 },
+          { l: '25 tot 75 m²', h: '+ € 9.500', a: 9500 },
+          { l: '75 m² of groter', h: '+ € 22.000', a: 22000 },
+        ],
+      },
+      {
+        q: 'Wanneer wil je beginnen?',
+        o: [
+          { l: 'Zo snel mogelijk', h: '', a: 0 },
+          { l: 'Binnen drie maanden', h: '', a: 0 },
+          { l: 'Ik oriënteer me nog', h: '', a: 0 },
+        ],
+      },
+    ],
+    estNote:
+      'Inclusief btw. Na een kosteloze opname volgt een offerte per werkzaamheid, met een vaste prijs per onderdeel.',
+    reviews: [
+      {
+        q: 'Onze achterkamer is een open keuken geworden. Heldere prijs en elke week een foto van het werk.',
+        who: 'Astrid & Peter, Rotterdam-Zuid',
+      },
+      {
+        q: 'Ze dachten mee in plaats van alleen te bouwen. De verbouwing bleef binnen de afgesproken prijs.',
+        who: 'Fatima, Capelle aan den IJssel',
+      },
+      {
+        q: 'Alles netjes opgeruimd achtergelaten en duidelijk uitgelegd wat er is gedaan.',
+        who: 'Willem, Barendrecht',
       },
     ],
   },

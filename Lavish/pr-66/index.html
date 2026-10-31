@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR #66 — De aannemer is het negende vak · Klusbaas Lavish</title>
+    <meta
+      name="description"
+      content="Een aannemingsbedrijf met eigen diensten, prijzen, foto's, reviews en een eigen projecttijdlijn van vijf stappen."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <style>
+      .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+      .step {
+        display: grid;
+        grid-template-columns: 2.4rem 1fr;
+        gap: 0.85rem;
+        align-items: start;
+        border: 1px solid var(--stone-200);
+        border-radius: 12px;
+        padding: 0.75rem 0.9rem;
+        background: #fff;
+      }
+      .step__nr {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--stone-500);
+        background: var(--stone-100);
+        border-radius: 999px;
+        text-align: center;
+        padding: 0.3rem 0;
+      }
+      .step__day { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.74rem; font-weight: 700; color: var(--amber-600); }
+      .step__title { font-weight: 800; color: var(--stone-900); margin-top: 0.15rem; }
+      .step__text { color: var(--stone-600); font-size: 0.92rem; margin-top: 0.2rem; }
+      .mock-hero {
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        background: linear-gradient(135deg, #0f3b3f, #14524f 60%, #1b6b63);
+        color: #f2f7f5;
+      }
+      .mock-hero small { display: block; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
+      .mock-hero b { display: block; font-size: 1.15rem; margin-top: 0.35rem; line-height: 1.25; }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#wat">Wat</a>
+          <a href="#hoe">Hoe het eruitziet</a>
+          <a href="#bestanden">Bestanden</a>
+          <a href="#proeven">Proeven</a>
+          <a href="#eerlijk">Eerlijk</a>
+          <a href="../index.html">Alle PR's</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">
+          <span class="tag tag--amber">PR #66</span>
+          &nbsp;Fase 7.30 · 31 oktober 2026
+        </span>
+        <h1>De aannemer is het negende vak, met zijn eigen projecttijdlijn.</h1>
+        <p class="hero__lead">
+          Een aannemer verkoopt geen kozijnen maar een bouw. Hij heeft andere diensten,
+          andere prijzen, andere foto's en vooral een ander verhaal: van de opname en de
+          vergunningen, via het casco, tot de oplevering met de documenten. Vanaf nu staat
+          dat verhaal in de gegevens van het vak, niet meer in het component.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>12</b><span>bestanden</span></div>
+          <div class="stat"><b>+329</b><span>regels erbij</span></div>
+          <div class="stat"><b>7</b><span>nieuwe proeven</span></div>
+          <div class="stat"><b>9 × 5</b><span>vakken × stijlen</span></div>
+          <div class="stat"><b>49</b><span>gebouwde routes</span></div>
+        </div>
+      </section>
+
+      <section id="wat">
+        <div class="section__head">
+          <p class="kicker">Wat er verandert</p>
+          <h2>Een vak dat zichzelf vertelt</h2>
+          <p>
+            De aannemer is geen kopie van de timmerman met andere woorden. Hij heeft zijn
+            eigen diensten en prijzen, zijn eigen foto's, zijn eigen reviews, zijn eigen
+            offertegragen — en zijn eigen vijf stappen in de projecttijdlijn.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18M5 21V8l7-5 7 5v13" /><path d="M9 21v-6h6v6" />
+              </svg>
+            </div>
+            <h3>Een bedrijf van zijn eigen</h3>
+            <p>
+              Bouwbedrijf De Wit in Rotterdam: renovatie vanaf € 85 per m², een badkamer vanaf
+              € 12.500, een bouwkundige inspectie van € 495. Eigen werkvoorbeelden, eigen
+              keurmerken, eigen vragen bij de offerte.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19h16M4 19V7l8-4 8 4v12" /><path d="M9 19v-5h6v5" /><path d="M8 10h8" />
+              </svg>
+            </div>
+            <h3>Vijf stappen in plaats van vier</h3>
+            <p>
+              Opname en beoordeling, ontwerp en vergunningen, het casco, de installaties en
+              de afwerking, en dan de oplevering met het opleverdocument. Woorden die bij
+              een timmerman niet bestaan.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21c5-3 8-7 8-11a5 5 0 0 0-10 0c0 2 1 3 1 5a3 3 0 0 0 4 2c0-2 1-3 1-5a5 5 0 0 0-4 9z" />
+              </svg>
+            </div>
+            <h3>De titel hoort bij het vak</h3>
+            <p>
+              Ook de kop boven de tijdlijn staat nu per vak. De timmerman belooft nog
+              "van aanvraag tot oplevering in 2 weken"; de aannemer belooft "van de eerste
+              scheppen spade tot de sleutel". De belofte van het ene vak lekt niet naar het
+              andere.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18M3 12h18" /><circle cx="12" cy="12" r="9" />
+              </svg>
+            </div>
+            <h3>De terugval blijft</h3>
+            <p>
+              Een vak zonder eigen stappen krijgt de algemene route: kennen, vaste offerte,
+              uitvoeren, opleveren. Een site kan nooit breken omdat er een stap ontbreekt.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18v12H3z" /><path d="M3 10h18M7 14h6" />
+              </svg>
+            </div>
+            <h3>In de verkoopkaart</h3>
+            <p>
+              De werkkaart kent nu ook de aannemers. Je kunt de werkkaart op aannemers
+              filteren en hun persoonlijke demo-link gebruiken, net als bij de andere
+              vakken.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16v16H4z" /><path d="M4 9h16M9 9v11" />
+              </svg>
+            </div>
+            <h3>Alles gebouwd</h3>
+            <p>
+              Negen vakken × vijf stijlen = 45 presets. De build schrijft 49 routes naar
+              echte HTML en de sitemap telt 48 adressen mee. De bezoeker ziet dezelfde
+              site op zijn telefoon zonder JavaScript.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het eruitziet</p>
+          <h2>De tijdlijn van de aannemer</h2>
+        </div>
+        <div class="mockup">
+          <div class="mockup__bar">
+            <span class="mockup__dot"></span><span class="mockup__dot"></span><span class="mockup__dot"></span>
+            <span class="mockup__url">/voorbeeld/aannemer/klassiek</span>
+          </div>
+          <div class="mockup__body">
+            <div class="mock-hero">
+              <small>Bouw en renovatie</small>
+              <b>Van de eerste scheppen spade tot de sleutel.</b>
+            </div>
+            <p class="mock-label" style="margin-top: 1rem">De stappen van dit vak</p>
+            <ol class="steps">
+              <li class="step">
+                <span class="step__nr">1</span>
+                <div>
+                  <div class="step__day">Week 1</div>
+                  <div class="step__title">Opname &amp; bouwkundig beoordelen</div>
+                  <div class="step__text">We lopen de woning door en bespreken wat je wilt. Kosteloos en vrijblijvend.</div>
+                </div>
+              </li>
+              <li class="step">
+                <span class="step__nr">2</span>
+                <div>
+                  <div class="step__day">Week 2</div>
+                  <div class="step__title">Ontwerp, vergunningen &amp; vaste prijs</div>
+                  <div class="step__text">Tekening, vergunningen en een prijs per werkzaamheid. Pas als dat klopt, gaan we bouwen.</div>
+                </div>
+              </li>
+              <li class="step">
+                <span class="step__nr">3</span>
+                <div>
+                  <div class="step__day">Week 3 – 4</div>
+                  <div class="step__title">Casco: fundering, muren en dak</div>
+                  <div class="step__text">De ruwe bouw. De woning staat er.</div>
+                </div>
+              </li>
+              <li class="step">
+                <span class="step__nr">4</span>
+                <div>
+                  <div class="step__day">Week 5 – 7</div>
+                  <div class="step__title">Installaties &amp; afwerking</div>
+                  <div class="step__text">Elektra, water en verwarming, daarna stucwerk, vloeren en schilderwerk.</div>
+                </div>
+              </li>
+              <li class="step">
+                <span class="step__nr">5</span>
+                <div>
+                  <div class="step__day">Week 8 – 10</div>
+                  <div class="step__title">Oplevering &amp; opleverdocument</div>
+                  <div class="step__text">Alles wordt doorgenomen en opgeleverd met de documenten en de garantiemeldingen.</div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="bestanden">
+        <div class="section__head">
+          <p class="kicker">De bestanden</p>
+          <h2>Twaalf bestanden, één vak erbij</h2>
+        </div>
+        <table class="files">
+          <thead>
+            <tr><th>Bestand</th><th>Wat er verandert</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>src/data/tradesData.ts</td><td>Het negende vak: diensten, prijzen, foto's, reviews, offertegragen en de eigen tijdlijn.</td></tr>
+            <tr><td>src/data/timeline.ts</td><td>De titel en de toelichting per vak, plus de vijf stappen van de aannemer.</td></tr>
+            <tr><td>src/components/tools/ProjectTimeline.tsx</td><td>De kop en de toelichting komen uit de gegevens in plaats van uit het component.</td></tr>
+            <tr><td>src/data/timeline.test.ts</td><td>Zes proeven: compleetheid, terugval, de stappen van de timmerman en de route van de aannemer.</td></tr>
+            <tr><td>src/data/tradesData.test.ts</td><td>Een proef dat de aannemer een volwaardig vak is — en geen kopie van de timmerman.</td></tr>
+            <tr><td>src/types.ts</td><td><code>aannemer</code> in de lijst van vakken.</td></tr>
+            <tr><td>src/data/prospects.ts</td><td>De aannemer in de werkkaart, met zijn eigen kleur en demonstratiestijl.</td></tr>
+            <tr><td>e2e/routes.spec.ts</td><td>Een proef die de aannemerpagina langsloopt en zijn tijdlijn controleert.</td></tr>
+            <tr><td>ROADMAP.md</td><td>Rij 7.30 af, rij 8.7 af.</td></tr>
+            <tr><td>CHANGELOG.md</td><td>Wat er veranderd is.</td></tr>
+            <tr><td>AGENTS.md</td><td>De regel: een vak is meer dan een paar velden.</td></tr>
+            <tr><td>docs/adding-a-sector.md</td><td>De handleiding: het id, de volgorde, de eigen tijdlijn en de fotopool.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="proeven">
+        <div class="section__head">
+          <p class="kicker">De proeven</p>
+          <h2>Zeven proeven en een volledige check</h2>
+        </div>
+        <div class="tests">
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Elk vak krijgt stappen, ook zonder eigen tijdlijn</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De aannemer heeft zijn eigen, langere route</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De belofte van de timmerman blijft bij de timmerman</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Een vak zonder eigen stappen valt terug op de algemene route</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De aannemer is een volwaardig vak, geen kopie</b><br /><code>src/data/tradesData.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De aannemerpagina toont zijn eigen tijdlijn</b><br /><code>e2e/routes.spec.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>E2E: de aanvraag van de aannemer komt binnen en blijft zichtbaar</b><br /><code>/tmp/e2e_730.py</code> · 25 checks</div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>438 proeven groen, plus lint, inventory en de build</b><br /><code>bun run check</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eerlijk">
+        <div class="section__head">
+          <p class="kicker">Eerlijk</p>
+          <h2>Wat dit niet doet</h2>
+        </div>
+        <div class="notes">
+          <div class="note note--amber">
+            <h3>De prijzen zijn richtprijzen</h3>
+            <p>
+              Een renovatie hangt af van de staat van het huis, van de constructie en van wat
+              er onder het tapijt vandaan komt. De prijzen op de site zijn daarom een start
+              punt; de vaste prijs komt na de opname.
+            </p>
+          </div>
+          <div class="note note--amber">
+            <h3>De weken zijn een planning</h3>
+            <p>
+              "Week 3 – 4: het casco" is hoe de aannemer zijn werk plant, geen garantie
+              die een rechter kan afdwingen. De bezoeker leest hem als een belofte; hij
+              hoort hem zo te lezen.
+            </p>
+          </div>
+          <div class="note">
+            <h3>De foto's zijn nog voorraadfoto's</h3>
+            <p>
+              De foto's van de aannemer komen uit Unsplash, net als bij alle andere vakken.
+              Echt werk van dit bedrijf komt er zodra de aannemer zijn eigen foto's
+              aanlevert (rij 8.12 van de roadmap).
+            </p>
+          </div>
+          <div class="note">
+            <h3>De aannemer heeft nog geen eigen tool</h3>
+            <p>
+              De dakdekker heeft zijn dakcheck, de schilder zijn m²-calculator, de hovenier
+              zijn tuinplan. De aannemer heeft de projecttijdlijn; zijn aanvragen komen
+              binnen via de gewone offerte. Een eigen tool voor de aannemer staat niet
+              op de roadmap.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · PR #66 · fase 7.30 · 31 oktober 2026</span>
+          <span><a href="../index.html">Terug naar alle PR's</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

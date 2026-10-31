@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CalendarDays, Hammer, ClipboardCheck, Truck, PaintRoller, Leaf } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
-import { timelineSteps, type TimelineIcon } from '../../data/timeline';
+import { timelineFor, type TimelineIcon } from '../../data/timeline';
 
 interface ProjectTimelineProps {
   site: ActiveSiteData;
@@ -26,8 +26,10 @@ const ICONS: Record<TimelineIcon, React.ComponentType<{ className?: string }>> =
  */
 export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
   const [showAll, setShowAll] = useState(false);
-  // De stappen komen uit de gegevens van het vak, niet uit dit component.
-  const steps = timelineSteps(site.id);
+  // De titel, de toelichting en de stappen komen uit de gegevens van het
+  // vak, niet uit dit component.
+  const timeline = timelineFor(site.id);
+  const steps = timeline.steps;
 
   return (
     <section
@@ -48,13 +50,10 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
                 letterSpacing: site.ls,
               }}
             >
-              Van aanvraag tot oplevering in 2 weken.
+              {timeline.title}
             </h2>
           </div>
-          <span className="text-sm font-medium text-stone-500 max-w-xs">
-            {site.owner.split(' ')[0]} houdt je tijdens elke stap op de hoogte —
-            geen verrassingen, geen stilte.
-          </span>
+          <span className="text-sm font-medium text-stone-500 max-w-xs">{timeline.lead}</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

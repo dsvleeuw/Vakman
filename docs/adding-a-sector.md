@@ -1,6 +1,6 @@
 # Adding a new sector (trade)
 
-This guide walks through adding a new trade, e.g. **aannemer**.
+This guide walks through adding a new trade, e.g. **fysiotherapeut**.
 
 ## 1. Register the id
 
@@ -8,7 +8,7 @@ In `src/types.ts`, add the id to the `SectorId` union:
 
 ```ts
 export type SectorId =
-  | 'timmerman' | 'hovenier' | 'schilder'
+  | 'timmerman' | 'aannemer' | 'hovenier' | 'schilder'
   | 'loodgieter' | 'elektricien' | 'stukadoor'
   | 'dakdekker' | 'overige';
 ```
@@ -17,7 +17,7 @@ Add it to `ORDER` in `src/data/tradesData.ts` to control its tab position:
 
 ```ts
 export const ORDER: SectorId[] = [
-  'timmerman', 'hovenier', 'schilder',
+  'timmerman', 'aannemer', 'hovenier', 'schilder',
   'loodgieter', 'elektricien', 'stukadoor', 'dakdekker',
   'overige',
 ];
@@ -46,8 +46,11 @@ and replace every field. Required groups:
   `calculateEstimate`.
 - **Trust**: `estNote` and three `reviews`.
 - **Optional tool**: set `tool: 'emergency' | 'fault-report' |
-  'm2-calculator' | 'timeline' | 'roof-check'` (see
+  'm2-calculator' | 'timeline' | 'roof-check' | 'garden-plan'` (see
   [adding-a-trade-tool.md](./adding-a-trade-tool.md)).
+- **Own timeline**: a trade whose tool is `timeline` gets its own steps in
+  `src/data/timeline.ts` (`TIMELINES`), with a title and a line above them.
+  A trade without steps gets the generic route (`DEFAULT_TIMELINE`).
 
 ### Photo pools
 
