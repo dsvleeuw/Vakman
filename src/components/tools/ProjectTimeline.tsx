@@ -1,41 +1,24 @@
 import React, { useState } from 'react';
-import { CalendarDays, Hammer, ClipboardCheck, Truck } from 'lucide-react';
+import { CalendarDays, Hammer, ClipboardCheck, Truck, PaintRoller, Leaf } from 'lucide-react';
 import type { ActiveSiteData } from '../../types';
+import { timelineSteps, type TimelineIcon } from '../../data/timeline';
 
 interface ProjectTimelineProps {
   site: ActiveSiteData;
 }
 
-const TIMELINE_STEPS = [
-  {
-    icon: CalendarDays,
-    day: 'Dag 1 – 2',
-    title: 'Intake & inmeten',
-    description:
-      'Gratis bezoek op locatie. We nemen de wensen door en meten alles tot op de millimeter in.',
-  },
-  {
-    icon: ClipboardCheck,
-    day: 'Dag 3 – 5',
-    title: 'Vaste offerte & bestelling',
-    description:
-      'Je ontvangt een heldere offerte met vaste prijs. Na akkoord bestellen we het hout en beslag.',
-  },
-  {
-    icon: Hammer,
-    day: 'Dag 6 – 9',
-    title: 'Productie & montage',
-    description:
-      'Het maatwerk wordt in de werkplaats gemaakt en vervolgens bij jou thuis gemonteerd.',
-  },
-  {
-    icon: Truck,
-    day: 'Dag 10 – 14',
-    title: 'Oplevering & controle',
-    description:
-      'Samen lopen we alles na. Pas als jij tevreden bent, gelden we de klus als opgeleverd.',
-  },
-];
+/**
+ * The icon of a step. The name of the icon stands in the data, the drawing
+ * itself stays here.
+ */
+const ICONS: Record<TimelineIcon, React.ComponentType<{ className?: string }>> = {
+  calendar: CalendarDays,
+  check: ClipboardCheck,
+  hammer: Hammer,
+  truck: Truck,
+  paint: PaintRoller,
+  leaf: Leaf,
+};
 
 /**
  * Timmerman: projecttijdlijn. Makes the two-week delivery promise
@@ -43,6 +26,8 @@ const TIMELINE_STEPS = [
  */
 export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
   const [showAll, setShowAll] = useState(false);
+  // De stappen komen uit de gegevens van het vak, niet uit dit component.
+  const steps = timelineSteps(site.id);
 
   return (
     <section
@@ -73,8 +58,8 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {TIMELINE_STEPS.map((step, idx) => {
-            const Icon = step.icon;
+          {steps.map((step, idx) => {
+            const Icon = ICONS[step.icon] ?? CalendarDays;
             return (
               <div
                 key={step.day}
@@ -142,7 +127,7 @@ export const ProjectTimeline: React.FC<ProjectTimelineProps> = ({ site }) => {
               borderRadius: site.radius,
             }}
           >
-            Toon alle {TIMELINE_STEPS.length} stappen →
+            Toon alle {steps.length} stappen →
           </button>
         )}
       </div>
