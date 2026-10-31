@@ -30,6 +30,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De aannemer is het negende vak.** Een aannemingsbedrijf in Rotterdam met
+  zijn eigen diensten, prijzen, foto's, reviews en offertegragen. Op zijn
+  site staat de projecttijdlijn met vijf stappen in plaats van vier: van de
+  opname en de vergunningen, via het casco en de installaties, tot de
+  oplevering met de documenten. De titel en de toelichting boven de
+  tijdlijn staan nu ook per vak, dus de belofte "binnen twee weken" blijft
+  bij de timmerman waar hij hoort.
 - **De hovenier krijgt een tuinplan.** Op zijn site staat een formulier
   waarmee de bezoeker kiest wat hij wil laten doen, hoe groot de tuin is en
   wanneer hij het gedaan wil hebben. Voor werk met een prijs per m² staat

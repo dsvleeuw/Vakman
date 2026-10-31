@@ -8,7 +8,8 @@ export type SectorId =
   | 'elektricien'
   | 'stukadoor'
   | 'overige'
-  | 'dakdekker';
+  | 'dakdekker'
+  | 'aannemer';
 
 /**
  * Smart, trade-specific conversion tool rendered on the demo website.

@@ -22,6 +22,16 @@ test('de dakdekker krijgt de gratis dakcheck', () => {
   assert.ok(SECTORS.dakdekker.services.length >= 4);
 });
 
+test('de aannemer is een volwaardig vak met de projecttijdlijn', () => {
+  assert.equal(SECTORS.aannemer.tool, 'timeline');
+  assert.ok(SECTORS.aannemer.services.length >= 4);
+  assert.ok(SECTORS.aannemer.pool.length >= 8);
+  assert.ok(SECTORS.aannemer.flow.length >= 2);
+  // De aannemer is geen kopie van de timmerman.
+  assert.notEqual(SECTORS.aannemer.biz, SECTORS.timmerman.biz);
+  assert.notEqual(SECTORS.aannemer.city, SECTORS.timmerman.city);
+});
+
 test('elk vak is volledig: diensten met prijs, werk, reviews en een vragenlijst', () => {
   for (const sector of Object.values(SECTORS)) {
     assert.ok(sector.services.length >= 4, `${sector.name} heeft te weinig diensten`);
