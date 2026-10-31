@@ -25996,3 +25996,59 @@ Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","4
 - ROADMAP (rij 7.28, rij 8.10 af, DoD 29), CHANGELOG, AGENTS en de tools-README bijgewerkt.
 
 Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","12","0","FALSE","13669","13221","f3c3992d5392b70a8baff1819d23a6830fb88efb","a187e7adc54d2c86249213f12c748d243845d910","100644","100644","https://github.com/dsvleeuw/Vakman/commit/2b75f82f1e0b363fdf5ae23c41f120c2802d90bb","https://github.com/dsvleeuw/Vakman/blob/2b75f82f1e0b363fdf5ae23c41f120c2802d90bb/src/utils/lead.ts","Commit","2026-10-31T01:03:22.568Z","2b75f82f1e0b363fdf5ae23c41f120c2802d90bb:c3JjL3V0aWxzL2xlYWQudHM","p:c3JjL3V0aWxzL2xlYWQudHM",""
+"README.md","Lavish/README.md","Markdown-document",".md","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","43","0","FALSE","1622","","9b5ab1c362f7efa4e98fa6e54a9bc77b2bbc7cf3","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/README.md","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL1JFQURNRS5tZA","p:TGF2aXNoL1JFQURNRS5tZA",""
+"app.js","Lavish/assets/app.js","JavaScript",".js","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","42","0","FALSE","1423","","13cc67bc2870f53bcc98ad1b61ec939c2cac428b","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/assets/app.js","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL2Fzc2V0cy9hcHAuanM","p:TGF2aXNoL2Fzc2V0cy9hcHAuanM",""
+"style.css","Lavish/assets/style.css","CSS",".css","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","475","0","FALSE","12008","","ce0f1db41d10bdfb5e1a3e8cfc25df794e57d055","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/assets/style.css","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL2Fzc2V0cy9zdHlsZS5jc3M","p:TGF2aXNoL2Fzc2V0cy9zdHlsZS5jc3M",""
+"index.html","Lavish/index.html","HTML",".html","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","199","0","FALSE","8822","","eb9fa01a60663fc476ccead9569bccbcc4951ee6","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/index.html","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL2luZGV4Lmh0bWw","p:TGF2aXNoL2luZGV4Lmh0bWw",""
+"index.html","Lavish/pr-62/index.html","HTML",".html","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","307","0","FALSE","16133","","3b6a625cabf0fee10bd914b5ef84278a601e41f1","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/pr-62/index.html","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL3ByLTYyL2luZGV4Lmh0bWw","p:TGF2aXNoL3ByLTYyL2luZGV4Lmh0bWw",""
+"index.html","Lavish/pr-63/index.html","HTML",".html","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","404","0","FALSE","20335","","419b20b3d29fce99457ccb0d8c16b835606a7650","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/pr-63/index.html","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL3ByLTYzL2luZGV4Lmh0bWw","p:TGF2aXNoL3ByLTYzL2luZGV4Lmh0bWw",""
+"index.html","Lavish/pr-64/index.html","HTML",".html","TRUE","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","[""arena/3fc7427e-vakman""]","Toegevoegd","A","","","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","1c94bda2d7d7","[""2b75f82f1e0b363fdf5ae23c41f120c2802d90bb""]","2026-10-31T01:05:02Z","2026-10-31T01:05:02Z","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","dsvleeuw","62930538+dsvleeuw@users.noreply.github.com","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet","Lavish: een pagina per pull request met de veranderingen, de proeven en wat het niet doet
+
+- Lavish/index.html: het overzicht van alle PR's.
+- Lavish/pr-62, pr-63 en pr-64: per PR de veranderingen, een mockup, de bestanden, de proeven en de rubriek 'Eerlijk' met wat de PR niet doet.
+- Lavish/assets/style.css en app.js: de stijl en de kleine interacties, gedeeld door alle pagina's.
+- Lavish/README.md: hoe je een pagina toevoegt en welke regels gelden.
+
+Co-authored-by: arena-agent <297053741+arena-agent@users.noreply.github.com>","309","0","FALSE","15748","","4369e0d13b8526892466a89acdc9627bb8a988db","","100644","","https://github.com/dsvleeuw/Vakman/commit/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0","https://github.com/dsvleeuw/Vakman/blob/1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0/Lavish/pr-64/index.html","Commit","2026-10-31T01:05:21.184Z","1c94bda2d7d70e7cb19b7dbc9d0b845f8c8009b0:TGF2aXNoL3ByLTY0L2luZGV4Lmh0bWw","p:TGF2aXNoL3ByLTY0L2luZGV4Lmh0bWw",""
