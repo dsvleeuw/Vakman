@@ -123,7 +123,17 @@ test('het aannemer-voorbeeld toont zijn eigen projecttijdlijn', async ({ page })
   await expect(
     page.getByRole('heading', { name: 'Van de eerste scheppen spade tot de sleutel.' })
   ).toBeVisible();
-  await expect(page.getByText('Casco: fundering, muren en dak')).toBeVisible();
+
+  // Op een smalle telefoon staan de derde stap en verder achter een knop.
+  const more = page.getByRole('button', { name: /Toon alle \d+ stappen/ });
+  if (await more.isVisible()) await more.click();
+
+  await expect(
+    page.getByRole('heading', { name: 'Casco: fundering, muren en dak' })
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Oplevering & opleverdocument' })
+  ).toBeVisible();
   // De belofte van de timmerman hoort niet op de site van de aannemer.
   await expect(page.getByText('in 2 weken')).toHaveCount(0);
 });
