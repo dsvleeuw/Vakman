@@ -1,8 +1,9 @@
-// Runs lint, tests and build at the same time and fails if any of them fails.
+// Runs lint, tests, the showcase check and the build at the same time and
+// fails if any of them fails.
 // Output is buffered per step so the logs stay readable.
 import { spawn } from 'node:child_process';
 
-const steps = ['lint', 'test', 'inventory:test', 'build'];
+const steps = ['lint', 'test', 'inventory:test', 'lavish', 'build'];
 
 const run = (name) =>
   new Promise((resolve) => {

@@ -30,6 +30,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **De showcase toont de echte site.** Elke PR-pagina in `Lavish/` kreeg een
+  rubriek "De site in beeld" met een schermafbeelding van de gebouwde site,
+  in een frame met de adresbalk erboven. Klikken vergroot de foto in een
+  lichtkast; de pijltjestoets wisselt, Escape sluit. Het overzicht kreeg een
+  galerij, de pagina's een lichte en donkere modus en een voortgangsbalk. Een
+  proef (`scripts/check-lavish.mjs`) faalt zodra een pagina naar een
+  afbeelding verwijst die er niet is, of een PR-map uit het overzicht
+  verdwijnt.
 - **De aannemer is het negende vak.** Een aannemingsbedrijf in Rotterdam met
   zijn eigen diensten, prijzen, foto's, reviews en offertegragen. Op zijn
   site staat de projecttijdlijn met vijf stappen in plaats van vier: van de
