@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR #63 — Zoeken, exporteren en de bewaartermijn · Klusbaas Lavish</title>
+    <meta
+      name="description"
+      content="Klusbaas kan nu zoeken en exporteren in /klusbaas, en de twaalf maanden uit de privacyverklaring worden automatisch uitgevoerd."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#wat">Wat</a>
+          <a href="#hoe">Hoe het eruitziet</a>
+          <a href="#bestanden">Bestanden</a>
+          <a href="#proeven">Proeven</a>
+          <a href="#eerlijk">Eerlijk</a>
+          <a href="../index.html">Alle PR's</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">
+          <span class="tag tag--amber">PR #63</span>
+          &nbsp;Fase 7.26 en 7.27 · 30 oktober 2026
+        </span>
+        <h1>Zoeken en exporteren in&nbsp;/klusbaas, en de bewaartermijn die zichzelf nakomt.</h1>
+        <p class="hero__lead">
+          Twee dingen die Klusbaas elke week deed met de hand: een klant terugvinden in een
+          lijst die steeds langer wordt, en de aanvragen opruimen die ouder zijn dan de twaalf
+          maanden uit de privacyverklaring. Beide gebeuren nu door de server zelf.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>19</b><span>bestanden</span></div>
+          <div class="stat"><b>+876</b><span>regels erbij</span></div>
+          <div class="stat"><b>−39</b><span>regels weg</span></div>
+          <div class="stat"><b>16</b><span>nieuwe proeven</span></div>
+          <div class="stat"><b>0 4 * * *</b><span>de planning</span></div>
+        </div>
+      </section>
+
+      <section id="wat">
+        <div class="section__head">
+          <p class="kicker">Wat er verandert</p>
+          <h2>Zes stukken die het overzicht bruikbaarder maken</h2>
+          <p>
+            Het overzicht in <code>/klusbaas</code> groeit mee met het aantal klanten. Deze
+            PR maakt het zoeken sneller, het overzicht overzichtelijk en de belofte in de
+            privacyverklaring waar.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
+              </svg>
+            </div>
+            <h3>Eén zoekveld</h3>
+            <p>
+              Boven het overzicht staat één veld. Het zoekt tegelijk in de aanvragen, de
+              offertes, de sites en de accounts — op naam, telefoonnummer, e-mailadres,
+              referentie of bedrijfsnaam. Wat niet past, valt weg uit alle vier de lijsten.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v12" /><path d="M7 10l5 5 5-5" /><path d="M4 20h16" />
+              </svg>
+            </div>
+            <h3>Exporteren naar Excel</h3>
+            <p>
+              Twee knoppen zetten de lijst die je ziet als CSV-bestand in je downloads.
+              Puntkomma tussen de kolommen, een BOM aan het begin: Nederlands Excel opent het
+              zonder dat er letters of komma's verschuiven.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21V9l9-6 9 6v12" /><path d="M9 21v-7h6v7" />
+              </svg>
+            </div>
+            <h3>De bedrijfsnaam bij de offerte</h3>
+            <p>
+              Bij elke offerte in het overzicht staat nu de naam van het bedrijf, niet alleen
+              de naam van de persoon. Daarmee is een klant ook terug te vinden op
+              "Jansen Schilderwerken" in plaats van op "Jan Jansen".
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
+              </svg>
+            </div>
+            <h3>De twaalf maanden draaien zelf</h3>
+            <p>
+              Een geplande Netlify-functie verwijdert iedere nacht om vier uur de aanvragen
+              die ouder zijn dan twaalf maanden. De grens is een echte kalendermaand, geen
+              jaar van dagen.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7h16" /><path d="M9 7V5h6v2" /><path d="M6 7l1 13h10l1-13" />
+              </svg>
+            </div>
+            <h3>En toch een knop</h3>
+            <p>
+              "Ruim oude aanvragen op" staat in <code>/klusbaas</code>, met een bevestiging
+              erbij. Voor het geval dat de automatische run een keer niet gelukt is. De
+              pagina zegt hoeveel aanvragen er weg gingen en hoeveel bleven.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+            </div>
+            <h3>Een gat dat meteen dicht ging</h3>
+            <p>
+              Een offerte die Klusbaas met alleen een e-mailadres maakte, belandde niet in het
+              account van die klant. Nu wordt het account op e-mailadres opgezocht, zodat de
+              offerte wél in <code>/mijn-account</code> staat.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het eruitziet</p>
+          <h2>Het overzicht, met het zoekveld erboven</h2>
+          <p>
+            De mockup hieronder laat het overzicht zien zoals Klusbaas het nu ziet: één
+            zoekveld bovenop, de aantallen per lijst, en een exportknop per lijst.
+          </p>
+        </div>
+        <div class="mockup">
+          <div class="mockup__bar">
+            <span class="mockup__dot"></span><span class="mockup__dot"></span><span class="mockup__dot"></span>
+            <span class="mockup__url">/klusbaas</span>
+          </div>
+          <div class="mockup__body">
+            <div class="mock-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
+              </svg>
+              <span>Zoeken — naam, telefoon, e-mailadres, referentie of bedrijfsnaam</span>
+            </div>
+            <div class="mock-row">
+              <div>
+                <div class="mock-row__name">Aanvragen (3)</div>
+                <div class="mock-row__meta">L-AAAA01 · Erik Zoeker · 06-98765432</div>
+              </div>
+              <span class="mock-btn">Exporteer de aanvragen</span>
+            </div>
+            <div class="mock-row">
+              <div>
+                <div class="mock-row__name">Offertes (2)</div>
+                <div class="mock-row__meta">KB-2026-0001 · Zoekbedrijf Schilderwerken</div>
+              </div>
+              <span class="mock-btn">Exporteer de offertes</span>
+            </div>
+            <div class="mock-row">
+              <div>
+                <div class="mock-row__name">Accounts (1)</div>
+                <div class="mock-row__meta">zoek@bedrijf.nl</div>
+              </div>
+              <span class="mock-btn mock-btn--dark">Bevestigd</span>
+            </div>
+            <div class="mock-row">
+              <div>
+                <div class="mock-row__name">Gepubliceerde sites (1)</div>
+                <div class="mock-row__meta">zoekbedrijf-schilderwerken</div>
+              </div>
+              <span class="mock-btn mock-btn--dark">Bekijk</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="stap">
+        <div class="section__head">
+          <p class="kicker">Het werk</p>
+          <h2>Hoe het in elkaar stond</h2>
+        </div>
+        <div class="timeline">
+          <div class="step">
+            <div class="step__num">1</div>
+            <div>
+              <h3>De zoekregel apart</h3>
+              <p>
+                <code>src/utils/adminSearch.ts</code> doet het zoeken en het vullen van de
+                kolommen voor het CSV-bestand. Pure functies, dus meteen te testen zonder
+                browser.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__num">2</div>
+            <div>
+              <h3>Het CSV-formaat</h3>
+              <p>
+                <code>src/utils/csv.ts</code> zet komma's en puntkomma's tussen aanhalingstekens
+                en zet een BOM voor het bestand. Zonder die BOM gaat "Lotte Visser" als
+                "Lotte Visser" binnen.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__num">3</div>
+            <div>
+              <h3>De bewaartermijn</h3>
+              <p>
+                <code>src/server/retention.ts</code> bepaalt wat te oud is en ruimt het op. Een
+                aanvraag die niet weg gaat, houdt de andere niet tegen: één kapotte aanvraag
+                mag de rest niet blokkeren.
+              </p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__num">4</div>
+            <div>
+              <h3>De knop in het overzicht</h3>
+              <p>
+                De admin-actie <code>retention</code> doet precies hetzelfde als de geplande
+                functie. Zo is er altijd een handmatige route, ook als de server het
+                overzicht niet meer kan bereiken.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bestanden">
+        <div class="section__head">
+          <p class="kicker">De bestanden</p>
+          <h2>Negentien bestanden, drie ervan nieuw</h2>
+        </div>
+        <table class="files">
+          <thead>
+            <tr><th>Bestand</th><th>Wat er verandert</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>src/utils/csv.ts</td><td>Nieuw. Het CSV-formaat: puntkomma, aanhalingstekens, BOM, bestandsnaam met datum.</td></tr>
+            <tr><td>src/utils/adminSearch.ts</td><td>Nieuw. Zoeken in aanvragen, offertes, sites en accounts; de rijen voor de export.</td></tr>
+            <tr><td>src/server/retention.ts</td><td>Nieuw. De twaalf maanden: de grens, de planning en de opruiming.</td></tr>
+            <tr><td>netlify/functions/retention.mts</td><td>Nieuw. De geplande functie, elke nacht om vier uur (UTC).</td></tr>
+            <tr><td>src/components/AdminView.tsx</td><td>Het zoekveld, de exportknoppen en de opruimknop met bevestiging.</td></tr>
+            <tr><td>src/server/adminHandler.ts</td><td>De actie <code>retention</code> en de bedrijfsnaam bij elke offerte.</td></tr>
+            <tr><td>src/server/adminOffer.ts</td><td>Het account wordt nu ook op e-mailadres gevonden, zodat de offerte in <code>/mijn-account</code> staat.</td></tr>
+            <tr><td>src/utils/adminClient.ts</td><td>De aanroep van de opruiming vanuit de browser.</td></tr>
+            <tr><td>src/types.ts</td><td>De bedrijfsnaam van de klant bij een offerte.</td></tr>
+            <tr><td>src/utils/adminSearch.test.ts</td><td>Nieuw. Zes proeven op zoeken en exporteren.</td></tr>
+            <tr><td>src/utils/csv.test.ts</td><td>Nieuw. Vier proeven op het CSV-formaat.</td></tr>
+            <tr><td>src/components/AdminView.test.tsx</td><td>Nieuw. Drie proeven op het zoekveld en de knoppen.</td></tr>
+            <tr><td>src/server/retention.test.ts</td><td>Nieuw. Zeven proeven op de bewaartermijn.</td></tr>
+            <tr><td>src/server/adminHandler.test.ts</td><td>De opruiming via de admin-API, plus de opslag die nu echt verwijdert.</td></tr>
+            <tr><td>src/server/adminOffer.test.ts</td><td>De offerte voor een klant zonder site komt in zijn account.</td></tr>
+            <tr><td>ROADMAP.md</td><td>Rij 7.26 en 7.27 af, rijen 8.3 en 8.4 af, twee DoD-punten erbij.</td></tr>
+            <tr><td>CHANGELOG.md</td><td>Wat er veranderd is en wat er opgelost is.</td></tr>
+            <tr><td>AGENTS.md</td><td>De regels voor de volgende die aan deze code werkt.</td></tr>
+            <tr><td>docs/known-limitations.md</td><td>Wat er nu wél automatisch gaat en wat nog met de hand moet.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="proeven">
+        <div class="section__head">
+          <p class="kicker">De proeven</p>
+          <h2>Zestien nieuwe proeven, allemaal groen</h2>
+          <p>
+            <code>bun run check</code> draait groen: 431 proeven, de lint, het
+            bestandenoverzicht en de build met 44 routes.
+          </p>
+        </div>
+        <div class="tests">
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Een veld met een komma of puntkomma gaat tussen aanhalingstekens</b><br /><code>src/utils/csv.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Het bestand heeft een BOM, zodat Excel de letters leest</b><br /><code>src/utils/csv.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De aanvragen worden gevonden op naam, telefoon, e-mail en referentie</b><br /><code>src/utils/adminSearch.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De export van de aanvragen heeft een kop en de gegevens</b><br /><code>src/utils/adminSearch.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Het overzicht heeft een zoekveld en een exportknop</b><br /><code>src/components/AdminView.test.tsx</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De termijn is twaalf maanden, en de grens is een kalendermaand</b><br /><code>src/server/retention.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Een aanvraag zonder datum blijft: weggooien zonder te weten is niet netjes</b><br /><code>src/server/retention.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Klusbaas ruimt de aanvragen ouder dan twaalf maanden op</b><br /><code>src/server/adminHandler.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Een klant zonder site krijgt de offerte toch in zijn account</b><br /><code>src/server/adminOffer.test.ts</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eerlijk">
+        <div class="section__head">
+          <p class="kicker">Eerlijk</p>
+          <h2>Wat dit niet doet</h2>
+        </div>
+        <div class="notes">
+          <div class="note note--amber">
+            <h3>Het zoeken loopt in de browser</h3>
+            <p>
+              De zoekopdracht werkt op de data die het overzicht al heeft binnen. Bij
+              duizenden aanvragen wordt een echte zoekopdracht op de server nodig — dan kan
+              ook de export groter dan een browservenster worden.
+            </p>
+          </div>
+          <div class="note note--amber">
+            <h3>Het CSV-bestand bevat persoonsgegevens</h3>
+            <p>
+              Net als het overzicht bevat de export namen, telefoonnummers en e-mailadressen.
+              Het is Klusbaas' eigen administratie en hij zet het bestand op zijn eigen
+              computer. De privacyverklaring van de klant gaat over de website, niet over
+              dit bestand.
+            </p>
+          </div>
+          <div class="note note--rose">
+            <h3>De job draait alleen voor een gepubliceerde versie</h3>
+            <p>
+              Een preview van een wijziging voert de geplande functie niet uit. En de
+              plannen van Netlify kennen een eigen limiet. Daarom blijft de knop in
+              <code>/klusbaas</code> bestaan.
+            </p>
+          </div>
+          <div class="note">
+            <h3>Offertes blijven staan</h3>
+            <p>
+              Een betaalde offerte is een fiscal record: die moet zeven jaar bewaard blijven.
+              De opruiming raakt alleen aanvragen aan. Ook de klantwervingslijst en de
+              nieuwsbriefaanmeldingen gaan nog met de hand.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · PR #63 · fase 7.26 en 7.27 · gemergd op 30 oktober 2026</span>
+          <span><a href="../index.html">Terug naar alle PR's</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>
