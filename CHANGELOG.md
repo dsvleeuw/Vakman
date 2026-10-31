@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **De projecttijdlijn komt uit de vakgegevens.** De stappen stonden in het
+  component, waardoor alleen de timmerman een tijdlijn had. Ze staan nu in
+  `src/data/timeline.ts`, per vak, met het icoon als naam. De bezoeker ziet
+  hetzelfde; het vak kan nu zijn eigen stappen krijgen.
 - **Een offerte voor een klant zonder site komt toch in zijn account.**
   Waarschijnlijk wil Klusbaas een klant zonder gepubliceerde site een
   offerte sturen. De offerte hoort dan bij het account van die klant, ook

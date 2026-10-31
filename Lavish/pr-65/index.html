@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR #65 — De projecttijdlijn komt uit de vakgegevens · Klusbaas Lavish</title>
+    <meta
+      name="description"
+      content="De stappen van de projecttijdlijn stonden in het component. Nu staan ze in de gegevens, per vak."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+    <style>
+      .steps { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .stepcard { border: 1px solid var(--stone-200); border-radius: var(--radius); background: #fff; padding: 1.1rem; box-shadow: var(--shadow-sm); }
+      .stepcard__icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-700); margin-bottom: 0.8rem; }
+      .stepcard__icon svg { width: 19px; height: 19px; }
+      .stepcard__day { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-700); }
+      .stepcard h3 { font-size: 1rem; margin-top: 0.35rem; }
+      .stepcard p { font-size: 0.9rem; color: var(--stone-600); margin-top: 0.3rem; }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#wat">Wat</a>
+          <a href="#hoe">Hoe het eruitziet</a>
+          <a href="#bestanden">Bestanden</a>
+          <a href="#proeven">Proeven</a>
+          <a href="#eerlijk">Eerlijk</a>
+          <a href="../index.html">Alle PR's</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">
+          <span class="tag tag--amber">PR #65</span>
+          &nbsp;Fase 7.29 · 31 oktober 2026
+        </span>
+        <h1>De projecttijdlijn komt uit de vakgegevens.</h1>
+        <p class="hero__lead">
+          De vier stappen van "van aanvraag tot oplevering" stonden in het component. Daardoor
+          kon alleen de timmerman een tijdlijn hebben. De stappen staan nu in de gegevens, per
+          vak, in de woorden van dat vak.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>4</b><span>bestanden</span></div>
+          <div class="stat"><b>4</b><span>nieuwe proeven</span></div>
+          <div class="stat"><b>0</b><span>wat de bezoeker merkt</span></div>
+          <div class="stat"><b>435</b><span>proeven groen</span></div>
+        </div>
+      </section>
+
+      <section id="wat">
+        <div class="section__head">
+          <p class="kicker">Wat er verandert</p>
+          <h2>Een voorbouw, zonder dat er iets beweegt</h2>
+          <p>
+            Deze PR verandert niets voor de bezoeker. Hij legt de basis voor de volgende: de
+            aannemer krijgt een eigen tijdlijn, met eigen stappen, en dat kan alleen als de
+            tekst niet meer in het component zit.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10" /></svg>
+            </div>
+            <h3>De stappen in de gegevens</h3>
+            <p>
+              <code>src/data/timeline.ts</code> bevat per vak de stappen: het icoon, de dag, de
+              titel en de toelichting. Het component tekent ze alleen nog maar.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H4z" /><path d="M8 20h8M12 16v4" /></svg>
+            </div>
+            <h3>Het icoon is een naam</h3>
+            <p>
+              In de gegevens staat <code>'hammer'</code> in plaats van een React-component. Zo
+              blijven de gegevens data — en niet een tweede versie van de interface.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7l8-4z" /></svg>
+            </div>
+            <h3>Nooit een lege tijdlijn</h3>
+            <p>
+              Een vak zonder eigen stappen krijgt de algemene route: kennen, vaste offerte,
+              uitvoeren, opleveren. Een site kan nooit breken omdat er een stap ontbreekt.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            </div>
+            <h3>De belofte blijft waar</h3>
+            <p>
+              De dagen lopen van "Dag 1 – 2" tot "Dag 10 – 14". Dat is precies de belofte uit de
+              pakketten: binnen twee weken opgeleverd. Er staat een proef op die dagen.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het eruitziet</p>
+          <h2>De stappen, zoals ze nu in de gegevens staan</h2>
+          <p>
+            Dit zijn de stappen van de timmerman. De aannemer krijgt straks zijn eigen, met
+            woorden als "casco en fundering" in plaats van "productie en montage".
+          </p>
+        </div>
+        <div class="steps">
+          <div class="stepcard">
+            <div class="stepcard__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M8 3v4M16 3v4M3 11h18" /></svg>
+            </div>
+            <div class="stepcard__day">Dag 1 – 2</div>
+            <h3>Intake &amp; inmeten</h3>
+            <p>Gratis bezoek op locatie. We nemen de wensen door en meten alles tot op de millimeter in.</p>
+          </div>
+          <div class="stepcard">
+            <div class="stepcard__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8" /><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9" /></svg>
+            </div>
+            <div class="stepcard__day">Dag 3 – 5</div>
+            <h3>Vaste offerte &amp; bestelling</h3>
+            <p>Je ontvangt een heldere offerte met vaste prijs. Na akkoord bestellen we het hout en beslag.</p>
+          </div>
+          <div class="stepcard">
+            <div class="stepcard__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l7 7-9 9H5v-7l9-9z" /></svg>
+            </div>
+            <div class="stepcard__day">Dag 6 – 9</div>
+            <h3>Productie &amp; montage</h3>
+            <p>Het maatwerk wordt in de werkplaats gemaakt en vervolgens bij jou thuis gemonteerd.</p>
+          </div>
+          <div class="stepcard">
+            <div class="stepcard__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z" /><path d="M14 10h4l3 3v3h-7z" /><circle cx="7" cy="18" r="2" /><circle cx="18" cy="18" r="2" /></svg>
+            </div>
+            <div class="stepcard__day">Dag 10 – 14</div>
+            <h3>Oplevering &amp; controle</h3>
+            <p>Samen lopen we alles na. Pas als jij tevreden bent, gelden we de klus als opgeleverd.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="bestanden">
+        <div class="section__head">
+          <p class="kicker">De bestanden</p>
+          <h2>Vier bestanden</h2>
+        </div>
+        <table class="files">
+          <thead>
+            <tr><th>Bestand</th><th>Wat er verandert</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>src/data/timeline.ts</td><td>Nieuw. De stappen per vak, het icoon als naam, en de algemene route als terugval.</td></tr>
+            <tr><td>src/data/timeline.test.ts</td><td>Nieuw. Vier proeven: elke stap is compleet, elk vak krijgt stappen, de stappen komen uit de gegevens, de dagen lopen op volgorde.</td></tr>
+            <tr><td>src/components/tools/ProjectTimeline.tsx</td><td>Leest de stappen uit de gegevens en tekent de iconen.</td></tr>
+            <tr><td>ROADMAP.md</td><td>Rij 7.29 af en rij 8.11 af.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="proeven">
+        <div class="section__head">
+          <p class="kicker">De proeven</p>
+          <h2>Vier proeven over de stappen</h2>
+        </div>
+        <div class="tests">
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Elke stap heeft een icoon, een dag, een titel en een toelichting</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Elk vak krijgt stappen, ook zonder eigen tijdlijn</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De stappen van het vak komen uit de gegevens</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De dagen lopen van vroeg naar laat</b><br /><code>src/data/timeline.test.ts</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eerlijk">
+        <div class="section__head">
+          <p class="kicker">Eerlijk</p>
+          <h2>Wat dit niet doet</h2>
+        </div>
+        <div class="notes">
+          <div class="note note--amber">
+            <h3>De bezoeker merkt niets</h3>
+            <p>
+              De timmerman ziet precies dezelfde vier stappen als voorheen. Deze PR is een
+              voorbouw: hij maakt de aannemer mogelijk, hij verandert de site niet.
+            </p>
+          </div>
+          <div class="note">
+            <h3>De andere vakken hebben nog geen eigen stappen</h3>
+            <p>
+              Alleen de timmerman heeft nu een eigen tijdlijn, want alleen hij heeft de
+              tijdlijn als gereedschap. De andere vakken hebben hun eigen tool: de dakcheck,
+              de m²-calculator, de storingsmelding. De generieke route staat klaar voor het
+              vak dat hem nodig heeft.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · PR #65 · fase 7.29 · 31 oktober 2026</span>
+          <span><a href="../index.html">Terug naar alle PR's</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>
