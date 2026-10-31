@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR #67 — De showcase krijgt echte screenshots · Klusbaas Lavish</title>
+    <meta
+      name="description"
+      content="Elke PR-pagina laat nu zien wat de bezoeker te zien krijgt: een schermafbeelding van de gebouwde site, klikbaar voor een grote weergave. Plus een donkere modus."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="../index.html">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3l7 7-9 9H5v-7l9-9z" />
+              <path d="M13 4l7 7" />
+            </svg>
+          </span>
+          Klusbaas <span style="color: var(--stone-400)">/</span> Lavish
+        </a>
+        <nav class="nav" aria-label="Secties">
+          <a href="#wat">Wat</a>
+          <a href="#hoe">Hoe het eruitziet</a>
+          <a href="#bestanden">Bestanden</a>
+          <a href="#proeven">Proeven</a>
+          <a href="#eerlijk">Eerlijk</a>
+          <a href="../index.html">Alle PR's</a>
+        </nav>
+        <button class="theme-toggle" data-theme-toggle type="button" aria-pressed="false">
+          <svg class="theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+          <span data-theme-label>Donker</span>
+        </button>
+        <span class="progress" aria-hidden="true"><span class="progress__bar" data-progress></span></span>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="eyebrow">
+          <span class="tag tag--amber">PR #67</span>
+          &nbsp;Fase 7.31 · 31 oktober 2026
+        </span>
+        <h1>Een PR-pagina zonder foto is een verhaal zonder bewijs.</h1>
+        <p class="hero__lead">
+          De showcase van Klusbaas vertelde tot nu toe wat er in de code gebeurde. Dat is
+          goed en nodig — maar het is niet wat een klant wil zien. Deze PR zet de
+          gebouwde site op de pagina: een schermafbeelding per onderdeel, in een frame,
+          klikbaar voor een grote weergave. En de pagina's krijgen een donkere modus,
+          want een nachtelijke schermafbeelding leest prettiger.
+        </p>
+        <div class="stats">
+          <div class="stat"><b>24</b><span>bestanden</span></div>
+          <div class="stat"><b>9</b><span>schermafbeeldingen</span></div>
+          <div class="stat"><b>6</b><span>pagina's</span></div>
+          <div class="stat"><b>1</b><span>nieuwe proef</span></div>
+          <div class="stat"><b>1,1 MB</b><span>afbeeldingen</span></div>
+        </div>
+      </section>
+
+      <section id="wat">
+        <div class="section__head">
+          <p class="kicker">Wat er verandert</p>
+          <h2>Van tekst naar beeld</h2>
+          <p>
+            De pagina's per PR kregen allemaal een rubriek "De site in beeld" met een
+            echte screenshot van de gebouwde site. Het overzicht kreeg een galerij.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="14" rx="2" /><path d="M3 9h18" /><path d="M7 6h.01M10 6h.01" />
+              </svg>
+            </div>
+            <h3>Een frame, geen plaatje</h3>
+            <p>
+              De foto's hangen in een browservenster met de adresbalk erboven. Zo is
+              meteen duidelijk waar de bezoeker naar kijkt: het adres staat erboven, de
+              opmaak is echt.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3l6 6-9 9H6v-6l9-9z" /><path d="M14 4l6 6" />
+              </svg>
+            </div>
+            <h3>Klikken vergroot</h3>
+            <p>
+              Een klik op een foto opent de lichtkast: de foto op volle grootte, met de
+              uitleg erbij. Met de pijltjestoets wissel je, met Escape sluit je.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+              </svg>
+            </div>
+            <h3>Licht en donker</h3>
+            <p>
+              Een knop rechtsboven zet de pagina in de donkere modus. Je voorkeur
+              blijft bewaard, en wie liever donker heeft, krijgt hem vanzelf.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" />
+              </svg>
+            </div>
+            <h3>De telefoon hoort erbij</h3>
+            <p>
+              Een schermafbeelding van een telefoon staat in een telefoonframe. Zo zie je
+              meteen of iets op 390 pixels breed nog leesbaar is.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20V10M18 20V4M6 20v-4" />
+              </svg>
+            </div>
+            <h3>De voortgangsbalk</h3>
+            <p>
+              Een dunne balk bovenin laat zien hoe ver je bent. Klein, maar je weet
+              waar je bent in een lange pagina.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 12l2 2 4-4" /><circle cx="12" cy="12" r="9" />
+              </svg>
+            </div>
+            <h3>Geen kapotte plaatjes meer</h3>
+            <p>
+              Een proef controleert elke verwijzing in de showcase. Verwijst een pagina
+              naar een foto die er niet is, dan faalt <code>bun run check</code> in plaats
+              van de lezer.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hoe">
+        <div class="section__head">
+          <p class="kicker">Hoe het eruitziet</p>
+          <h2>De galerij op het overzicht</h2>
+          <p>
+            Dit is de galerij bovenaan <code>Lavish/index.html</code>: vier momenten uit
+            de site. Klik er een aan en de lichtkast gaat open.
+          </p>
+        </div>
+        <figure class="shot shot--wide" data-shot>
+          <div class="shot__frame">
+            <div class="shot__bar">
+              <span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span>
+              <span class="shot__url">Lavish/index.html</span>
+            </div>
+            <img
+              class="shot__img"
+              src="../assets/shots/home-desktop.jpg"
+              alt="De homepage van Klusbaas: de kop Jouw vak, jouw website, binnen een kwartier, met daaronder een rij foto's van het werk van de vakken."
+              width="1400"
+              height="875"
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="shot__cap">
+            <b>De homepage van Klusbaas.</b> Dezelfde opmaak als de foto's in de galerij:
+            een frame, een adresbalk en een uitleg eronder.
+          </figcaption>
+        </figure>
+        <div class="shots" style="margin-top: 1.2rem">
+          <figure class="shot" data-shot>
+            <div class="shot__frame">
+              <div class="shot__bar">
+                <span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span>
+                <span class="shot__url">/voorbeeld/aannemer/klassiek</span>
+              </div>
+              <img
+                class="shot__img"
+                src="../assets/shots/aannemer-desktop.jpg"
+                alt="De homepage van Bouwbedrijf De Wit, de aannemer die in PR 66 is toegevoegd."
+                width="1400"
+                height="875"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="shot__cap"><b>De aannemer.</b> De PR die hieronder staat.</figcaption>
+          </figure>
+
+          <figure class="shot shot--phone" data-shot>
+            <div class="shot__phone">
+              <img
+                src="../assets/shots/aannemer-mobiel.jpg"
+                alt="De aannemerpagina op een telefoon."
+                width="780"
+                height="1560"
+                loading="lazy"
+              />
+            </div>
+            <figcaption class="shot__cap"><b>Op een telefoon.</b> In een telefoonframe.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="bestanden">
+        <div class="section__head">
+          <p class="kicker">De bestanden</p>
+          <h2>Vierentwintig bestanden, negen foto's</h2>
+        </div>
+        <table class="files">
+          <thead>
+            <tr><th>Bestand</th><th>Wat er verandert</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Lavish/assets/shots/*.jpg</td><td>Negen schermafbeeldingen van de gebouwde site: de homepage, de aannemer, de tijdlijn van de aannemer en de timmerman, het tuinplan, de dakcheck, het overzicht van Klusbaas en het account van de klant.</td></tr>
+            <tr><td>Lavish/assets/style.css</td><td>De stijl voor de frames, de telefoon, de lichtkast, de galerij, de donkere modus en de voortgangsbalk.</td></tr>
+            <tr><td>Lavish/assets/app.js</td><td>De thema-knop, de voortgangsbalk en de lichtkast met toetsenbordbediening.</td></tr>
+            <tr><td>Lavish/index.html</td><td>De galerij bovenaan, de thema-knop en de verwijzing naar PR #67.</td></tr>
+            <tr><td>Lavish/pr-62 t/m pr-66</td><td>Per pagina een rubriek "De site in beeld" met de bijbehorende schermafbeelding.</td></tr>
+            <tr><td>Lavish/pr-67/index.html</td><td>Deze pagina.</td></tr>
+            <tr><td>scripts/check-lavish.mjs</td><td>De proef die elke verwijzing in de showcase controleert.</td></tr>
+            <tr><td>scripts/check.mjs</td><td>De proef komt als stap in <code>bun run check</code>.</td></tr>
+            <tr><td>Lavish/README.md</td><td>De regels: schermafbeeldingen mogen, en hoe ze gemaakt worden.</td></tr>
+            <tr><td>CHANGELOG.md</td><td>Wat er veranderd is.</td></tr>
+            <tr><td>ROADMAP.md</td><td>Rij 7.31 af: de showcase laat de echte site zien.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="proeven">
+        <div class="section__head">
+          <p class="kicker">De proeven</p>
+          <h2>Een proef die de showcase in de gaten houdt</h2>
+        </div>
+        <div class="tests">
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Elke verwijzing in Lavish/ bestaat echt</b><br /><code>scripts/check-lavish.mjs</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Elke PR-pagina heeft minstens één schermafbeelding</b><br /><code>scripts/check-lavish.mjs</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Elke PR-map staat in het overzicht</b><br /><code>scripts/check-lavish.mjs</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>De proef draait mee in <code>bun run check</code></b><br /><code>scripts/check.mjs</code></div>
+          </div>
+          <div class="test">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+            <div><b>Alle 438 proeven van de app blijven groen</b><br /><code>bun run test</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eerlijk">
+        <div class="section__head">
+          <p class="kicker">Eerlijk</p>
+          <h2>Wat dit niet doet</h2>
+        </div>
+        <div class="notes">
+          <div class="note note--amber">
+            <h3>De foto's zijn geen echte foto's van de site</h3>
+            <p>
+              In de sandbox is Unsplash niet bereikbaar. De foto's in de schermafbeeldingen
+              zijn daarom lokale plaatshouders: de opmaak, de teksten en de opbouw zijn echt,
+              de foto's niet. In de echte site laden ze wél.
+            </p>
+          </div>
+          <div class="note note--amber">
+            <h3>De schermafbeeldingen verouderen</h3>
+            <p>
+              Ze zijn gemaakt op 31 oktober 2026. Verandert de site, dan klopt de foto niet
+              meer. Er staat geen automatische controle op; er staat alleen een controle op
+              kapotte verwijzingen.
+            </p>
+          </div>
+          <div class="note">
+            <h3>Geen film, geen interactie</h3>
+            <p>
+              Dit zijn stilstaande beelden. Wat een bezoeker écht doet — een formulier
+              invullen, een offerte aanvragen — is niet te zien in een foto. Daarvoor is
+              de site zelf de plek.
+            </p>
+          </div>
+          <div class="note">
+            <h3>De showcase staat buiten de website</h3>
+            <p>
+              De map <code>Lavish/</code> is documentatie voor het team, geen onderdeel van
+              de site die een klant ziet. Er komt geen link naar in de navigatie en geen
+              route naar in de build.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <span>Klusbaas · PR #67 · fase 7.31 · 31 oktober 2026</span>
+          <span><a href="../index.html">Terug naar alle PR's</a></span>
+        </div>
+      </footer>
+    </main>
+
+    <button class="totop" data-totop type="button" aria-label="Terug naar boven">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="M5 12l7-7 7 7" /></svg>
+    </button>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>
